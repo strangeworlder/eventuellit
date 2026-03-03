@@ -1,0 +1,32 @@
+{
+  "name": "eventuellit-workspace",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "check-types": "turbo run check-types",
+    "storybook": "turbo run storybook"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@vitest/ui": "^4.0.18",
+    "jsdom": "^28.1.0",
+    "turbo": "^2.8.12",
+    "typescript": "5.9.2",
+    "vitest": "^4.0.18"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@9.6.4",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
