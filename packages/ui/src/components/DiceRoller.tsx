@@ -2,18 +2,18 @@ import React from "react";
 import { cn } from "./Button";
 
 export interface DiceRollerProps extends React.HTMLAttributes<HTMLDivElement> {
-  diceType?: "d6" | "d10" | "d20";
+  diceType?: "n6" | "n10" | "n20";
   count?: number;
   label?: string;
   onRoll?: (result: number[]) => void;
 }
 
 export const DiceRoller = React.forwardRef<HTMLDivElement, DiceRollerProps>(
-  ({ className, diceType = "d10", count = 1, label, onRoll, ...props }, ref) => {
+  ({ className, diceType = "n10", count = 1, label, onRoll, ...props }, ref) => {
     const handleRoll = () => {
       if (onRoll) {
         // TTRPG mock logic for random generation bounds
-        const max = parseInt(diceType.replace("d", ""), 10) || 10;
+        const max = parseInt(diceType.replace("n", ""), 10) || 10;
         const results = Array.from({ length: count }, () => Math.floor(Math.random() * max) + 1);
         onRoll(results);
       }

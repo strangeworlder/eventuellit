@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "./Button";
-import { Heading } from "./Heading";
+import { Heading, HeadingLevelProvider } from "./Heading";
 
 export type Theme = "base" | "inverted" | "primary-light" | "primary-dark" | "secondary-light" | "secondary-dark" | "accent-light" | "accent-dark";
 
@@ -10,14 +10,14 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = "default", theme, ...props }, ref) => (
+  ({ className, variant = "default", theme, children, ...props }, ref) => (
     <div
       ref={ref}
       data-theme={theme}
       className={cn(
-        "rounded-none text-[var(--theme-text)] overflow-visible relative group",
+        "rounded-sm text-[var(--theme-text)] overflow-visible relative group",
         {
-          "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] shadow-[2px_2px_0px_var(--theme-primary)]": variant === "default",
+          "border-2 border-[var(--theme-primary)] bg-[var(--theme-bg)]": variant === "default",
           "border-2 border-[var(--theme-secondary)]/50 bg-[var(--theme-secondary)]/5 shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)]": variant === "success",
           "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] shadow-md": variant === "subtle",
           "bg-[var(--theme-secondary)]/10 border-l-8 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow": variant === "rule"
@@ -25,7 +25,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         className,
       )}
       {...props}
-    />
+    >
+      <HeadingLevelProvider>
+        {children}
+      </HeadingLevelProvider>
+    </div>
   ),
 );
 Card.displayName = "Card";
@@ -47,7 +51,6 @@ export const CardTitle = React.forwardRef<
   React.HTMLAttributes<HTMLHeadingElement> & { variant?: "primary" | "secondary" | "accent" | "default" | "rule"; theme?: Theme }
 >(({ className, variant = "primary", theme, ...props }, ref) => (
   <Heading
-    as="h3"
     ref={ref}
     data-theme={theme}
     {...props}

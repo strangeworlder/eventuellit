@@ -8,7 +8,7 @@ export interface CreateCharacterDto {
     keho: number;
     mieli: number;
     tera: number;
-    sisuDie: "d6" | "d8";
+    sisuDie: "n6" | "n8";
     sisuCount: number;
     skills: string[];
 }

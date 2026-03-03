@@ -2,7 +2,7 @@
 
 1. Always check `docs/prd.md` before implementing new features to ensure alignment with requirements.
 2. Follow architectural guidelines in `docs/architecture.md`.
-3. Check `docs/rules.md` for specific formatting, naming, and structural conventions.
+3. Check `docs/rules.md` and `docs/learnings.md` for specific formatting, naming conventions, and to avoid repeating historic project bugs.
 4. Reference `.agents/workflows/` for standard operational tasks.
 5. **AGENT DIRECTIVE:** When a technical or functional decision is made with the user, YOU MUST update the relevant documentation (`docs/architecture.md`, `docs/prd.md`, `docs/rules.md`, or `docs/learnings.md`) instantly.
 6. **PROACTIVE CONTINUOUS LEARNING:** Do NOT wait for the user to prompt you. After every complex debugging session or configuration milestone, you MUST proactively summarize the nuances, bugs, and specific fixes in `docs/learnings.md` so that future agents do not repeat the mistakes.

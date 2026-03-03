@@ -1,6 +1,5 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
 
 @theme {
     --color-primary: #da4b4b;
@@ -66,7 +65,9 @@
         --theme-primary: var(--color-primary-500);
         --theme-primary-foreground: var(--color-background);
         --theme-secondary: var(--color-secondary-500);
+        --theme-secondary-foreground: var(--color-background);
         --theme-accent: var(--color-accent-500);
+        --theme-accent-foreground: var(--color-background);
     }
 
     [data-theme="inverted"] {
@@ -76,7 +77,9 @@
         --theme-primary-foreground: var(--color-text);
         /* white text on red-700 */
         --theme-secondary: var(--color-secondary-700);
+        --theme-secondary-foreground: var(--color-text);
         --theme-accent: var(--color-accent-800);
+        --theme-accent-foreground: var(--color-text);
     }
 
     [data-theme="primary-light"] {
@@ -86,7 +89,9 @@
         --theme-primary-foreground: var(--color-text);
         /* white text on teal-700 */
         --theme-secondary: var(--color-primary-800);
+        --theme-secondary-foreground: var(--color-text);
         --theme-accent: var(--color-accent-900);
+        --theme-accent-foreground: var(--color-text);
     }
 
     [data-theme="primary-dark"] {
@@ -96,7 +101,9 @@
         --theme-primary-foreground: var(--color-background);
         /* #0f0f13 on teal-200 */
         --theme-secondary: var(--color-primary-100);
+        --theme-secondary-foreground: var(--color-background);
         --theme-accent: var(--color-accent-200);
+        --theme-accent-foreground: var(--color-background);
     }
 
     [data-theme="secondary-light"] {
@@ -106,7 +113,9 @@
         --theme-primary-foreground: var(--color-text);
         /* white on red-800 */
         --theme-secondary: var(--color-secondary-800);
+        --theme-secondary-foreground: var(--color-text);
         --theme-accent: var(--color-accent-900);
+        --theme-accent-foreground: var(--color-text);
     }
 
     [data-theme="secondary-dark"] {
@@ -116,7 +125,9 @@
         --theme-primary-foreground: var(--color-background);
         /* #0f0f13 on red-300 */
         --theme-secondary: var(--color-secondary-200);
+        --theme-secondary-foreground: var(--color-background);
         --theme-accent: var(--color-accent-300);
+        --theme-accent-foreground: var(--color-background);
     }
 
     [data-theme="accent-light"] {
@@ -126,7 +137,9 @@
         --theme-primary-foreground: var(--color-text);
         /* white on red-900 */
         --theme-secondary: var(--color-secondary-800);
+        --theme-secondary-foreground: var(--color-text);
         --theme-accent: var(--color-accent-900);
+        --theme-accent-foreground: var(--color-text);
     }
 
     [data-theme="accent-dark"] {
@@ -136,7 +149,9 @@
         --theme-primary-foreground: var(--color-background);
         /* #0f0f13 on red-200 */
         --theme-secondary: var(--color-secondary-200);
+        --theme-secondary-foreground: var(--color-background);
         --theme-accent: var(--color-accent-300);
+        --theme-accent-foreground: var(--color-background);
     }
 
     body {

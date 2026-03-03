@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Page } from "@repo/ui/components/Page";
 import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui/components/Card";
 import { Button } from "@repo/ui/components/Button";
 import { Input } from "@repo/ui/components/Input";
 import { StatBlock } from "@repo/ui/components/StatBlock";
 import { DiceRoller } from "@repo/ui/components/DiceRoller";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@repo/ui/components/Tabs";
 import { useCreateCharacter } from "./api/characters";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Heading } from "@repo/ui/components/Heading";
@@ -50,7 +52,7 @@ function GeneratorForm() {
       mieli: mieliScore,
       tera: teraScore,
       sisuCount: 3,
-      sisuDie: archetype === "soldier" ? "d8" : "d6",
+      sisuDie: archetype === "soldier" ? "n8" : "n6",
       skills: [], // We'll add dynamic episode skills later
     });
   };
@@ -87,27 +89,27 @@ function GeneratorForm() {
 
           <div className="space-y-6">
             <div className="border-b-2 border-primary/20 pb-2">
-              <Heading variant="h2">Arkkityyppi</Heading>
+              <Heading variant="h3">Arkkityyppi</Heading>
             </div>
             <div className="flex gap-4">
               <Button
                 variant={archetype === "soldier" ? "primary" : "secondary"}
                 onClick={() => setArchetype("soldier")}
               >
-                Sotilas (Sisu: 3d8, Taidot: 2)
+                Sotilas (Sisu: 3n8, Taidot: 2)
               </Button>
               <Button
                 variant={archetype === "expert" ? "primary" : "secondary"}
                 onClick={() => setArchetype("expert")}
               >
-                Ekspertti (Sisu: 3d6, Taidot: 3)
+                Ekspertti (Sisu: 3n6, Taidot: 3)
               </Button>
             </div>
           </div>
 
           <div className="space-y-4">
             <div className="flex justify-between items-center mb-2">
-              <Heading variant="h4">Ominaisuudet (Kestot)</Heading>
+              <Heading variant="h3">Ominaisuudet (Kestot)</Heading>
               <span className="text-slate-400 font-mono">Noppia jäljellä: {diceRemaining}x 1d4</span>
             </div>
 
@@ -205,71 +207,63 @@ function InnerApp() {
   });
 
   return (
-    <div className="space-y-6">
-      {/* Navigation / Header */}
-      <div className="flex gap-4 border-b-2 border-primary/30 pb-4">
-        <Button
-          variant={view === "list" ? "primary" : "ghost"}
-          onClick={() => setView("list")}
-        >
-          Hahmoluettelo
-        </Button>
-        <Button
-          variant={view === "generator" ? "primary" : "ghost"}
-          onClick={() => setView("generator")}
-        >
-          Uusi Hahmo
-        </Button>
-      </div>
+    <Page>
+      <Tabs value={view} onValueChange={(v) => setView(v as typeof view)}>
+        {/* Navigation / Header */}
+        <TabsList>
+          <TabsTrigger value="list">Hahmoluettelo</TabsTrigger>
+          <TabsTrigger value="generator">Uusi Hahmo</TabsTrigger>
+          {view === "sheet" && <TabsTrigger value="sheet">Hahmolomake</TabsTrigger>}
+        </TabsList>
 
-      {/* Views */}
-      {view === "generator" && <GeneratorForm />}
+        {/* Views */}
+        <TabsContent value="generator">
+          <GeneratorForm />
+        </TabsContent>
 
-      {view === "sheet" && selectedCharacterId && (
-        <CharacterSheet characterId={selectedCharacterId} onBack={() => setView("list")} />
-      )}
-
-      {view === "list" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
-          {isLoading && <p className="text-primary animate-pulse uppercase tracking-widest font-bold">Ladataan hahmoja...</p>}
-
-          {!isLoading && characters?.length === 0 && (
-            <div className="col-span-full text-center py-12 text-text/60">
-              <p className="text-xl">Ei hahmoja vielä.</p>
-              <Button className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md" onClick={() => setView("generator")}>Luo ensimmäinen hahmosi</Button>
-            </div>
+        <TabsContent value="sheet">
+          {selectedCharacterId && (
+            <CharacterSheet characterId={selectedCharacterId} onBack={() => setView("list")} />
           )}
+        </TabsContent>
 
-          {!isLoading && characters?.map((char: any) => (
-            <Card key={char.id} className="hover:bg-secondary/5 cursor-pointer hover:shadow-[4px_4px_0px_rgba(201,42,42,1)] transition-all transform hover:-translate-y-1" onClick={() => { setSelectedCharacterId(char.id); setView("sheet"); }}>
-              <CardHeader>
-                <CardTitle>{char.name}</CardTitle>
-              </CardHeader>
-              <CardContent variant="dense">
-                <p className="text-secondary font-bold uppercase tracking-widest text-sm border-b border-secondary/20 pb-2">{char.archetype}</p>
-                <div className="flex justify-between items-center bg-background rounded-none p-3 border border-primary/10 shadow-inner">
-                  <span className="text-primary font-black uppercase tracking-wider text-xs">Vaurio: {char.vaurio}</span>
-                  <span className="text-text font-bold uppercase tracking-wider text-xs">Sisu: {char.currentSisuCount}x{char.sisuDie}</span>
-                </div>
-                <Button className="w-full mt-4" variant="secondary">Avaa Pelinäkymä</Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
-    </div>
+        <TabsContent value="list">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
+            {isLoading && <p className="text-primary animate-pulse uppercase tracking-widest font-bold">Ladataan hahmoja...</p>}
+
+            {!isLoading && characters?.length === 0 && (
+              <div className="col-span-full text-center py-12 text-text/60">
+                <p className="text-xl">Ei hahmoja vielä.</p>
+                <Button className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md" onClick={() => setView("generator")}>Luo ensimmäinen hahmosi</Button>
+              </div>
+            )}
+
+            {!isLoading && characters?.map((char: any) => (
+              <Card key={char.id} className="hover:bg-secondary/5 cursor-pointer hover:shadow-[4px_4px_0px_rgba(201,42,42,1)] transition-all transform hover:-translate-y-1" onClick={() => { setSelectedCharacterId(char.id); setView("sheet"); }}>
+                <CardHeader>
+                  <CardTitle>{char.name}</CardTitle>
+                </CardHeader>
+                <CardContent variant="dense">
+                  <div className="grid grid-cols-2 gap-2">
+                    <p className="font-bold text-[var(--theme-accent)] uppercase col-span-2">{char.archetype}</p>
+                    <p className="text-left">Vaurio: {char.vaurio}</p>
+                    <p className="text-right">Sisu: {char.currentSisuCount}x{char.sisuDie}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+      </Tabs>
+    </Page>
   );
 }
 
 // This replaces the old App function
 export default function App() {
   return (
-    <div className="min-h-screen bg-background text-text p-4 md:p-8">
-      <QueryClientProvider client={queryClient}>
-        <div className="max-w-5xl mx-auto space-y-8">
-          <InnerApp />
-        </div>
-      </QueryClientProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <InnerApp />
+    </QueryClientProvider>
   );
 }

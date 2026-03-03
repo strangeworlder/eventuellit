@@ -6,13 +6,13 @@ export interface DicePoolAllocatorProps extends React.HTMLAttributes<HTMLDivElem
     availableDiceLabel?: string;
     onAllocationChange?: (allocation: Record<string, number>) => void;
     axes: string[];      // e.g. ["Nopea", "Äänetön", "Tarkka"]
-    attributeDie?: "d4" | "d6" | "d8" | "d10" | "d12" | null; // e.g. +1d6 from Attributes
+    attributeDie?: "n4" | "n6" | "n8" | "n10" | "n12" | null; // e.g. +1n6 from Attributes
 }
 
 export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAllocatorProps>(
     ({ className, maxDice, axes, attributeDie, onAllocationChange, availableDiceLabel = "Käytettävissä olevat nopat", ...props }, ref) => {
 
-        // Track how many d20s are allocated per axis
+        // Track how many n20s are allocated per axis
         const [allocation, setAllocation] = useState<Record<string, number>>(() => {
             const initial: Record<string, number> = {};
             axes.forEach(axis => initial[axis] = 0);
@@ -69,7 +69,7 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
                             <div className="flex items-center gap-4 w-full sm:w-auto">
                                 <span className="text-xl font-black text-secondary uppercase tracking-widest w-32">{axis}</span>
 
-                                {/* Render allocated d20 tokens visually */}
+                                {/* Render allocated n20 tokens visually */}
                                 <div className="flex gap-2 h-10 items-center min-w-[120px]">
                                     {Array.from({ length: allocation[axis] || 0 }).map((_, i) => (
                                         <div key={i} className="w-8 h-8 rounded-sm bg-primary flex items-center justify-center text-sm font-black text-background shadow-[2px_2px_0px_rgba(201,42,42,0.4)] transform -rotate-3 transition-transform hover:rotate-0">

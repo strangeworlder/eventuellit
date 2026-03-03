@@ -20,7 +20,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         data-theme={theme}
         className={cn(
-          "inline-flex items-center justify-center rounded-sm font-bold uppercase tracking-widest transition-all focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none shadow-sm hover:shadow-md hover:-translate-y-0.5",
+          "inline-flex cursor-pointer items-center justify-center rounded-sm font-bold uppercase tracking-widest transition-all focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none shadow-sm hover:shadow-md hover:-translate-y-0.5",
           {
             "h-12 px-6 py-2": size === "default",
             "h-9 px-3": size === "sm",
@@ -28,10 +28,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             "h-10 w-10 min-w-[2.5rem] px-0 py-0 text-xl font-black": size === "icon",
           },
           {
-            "bg-[var(--theme-primary)] text-[var(--theme-bg)] hover:bg-[var(--theme-primary)]/90 shadow-[0_4px_14px_0_color-mix(in_srgb,var(--theme-primary)_39%,transparent)] border-2 border-transparent": variant === "primary",
+            "bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] hover:bg-[var(--theme-primary)]/90 border-2 border-transparent": variant === "primary",
             "bg-transparent border-2 border-[var(--theme-secondary)] text-[var(--theme-secondary)] hover:bg-[var(--theme-secondary)]/10 hover:text-[var(--theme-secondary)]/90": variant === "secondary",
-            "bg-[var(--theme-accent)] text-[var(--theme-bg)] hover:bg-[var(--theme-accent)]/90": variant === "danger",
-            "hover:bg-[var(--theme-accent)] hover:text-[var(--theme-bg)]": variant === "ghost",
+            "bg-[var(--theme-accent)] text-[var(--theme-accent-foreground)] hover:bg-[var(--theme-accent)]/90": variant === "danger",
+            "hover:bg-[var(--theme-accent)] hover:text-[var(--theme-accent-foreground)]": variant === "ghost",
           },
           className,
         )}

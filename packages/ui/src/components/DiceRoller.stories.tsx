@@ -20,7 +20,7 @@ export const DefaultAction: Story = {
   args: {
     label: "Toimintotesti",
     count: 2,
-    diceType: "d10",
+    diceType: "n10",
   },
 };
 
@@ -28,6 +28,6 @@ export const HighStakes: Story = {
   args: {
     label: "Epätoivoinen yritys",
     count: 1,
-    diceType: "d20",
+    diceType: "n20",
   },
 };

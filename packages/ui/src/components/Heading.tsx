@@ -12,8 +12,22 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
     variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
+export const HeadingLevelContext = React.createContext<number>(2);
+
+export const HeadingLevelProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const level = React.useContext(HeadingLevelContext);
+    const nextLevel = Math.min(level + 1, 6);
+    return (
+        <HeadingLevelContext.Provider value={nextLevel}>
+            {children}
+        </HeadingLevelContext.Provider>
+    );
+};
+
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-    ({ className, as: Component = "h2", variant, ...props }, ref) => {
+    ({ className, as, variant, ...props }, ref) => {
+        const level = React.useContext(HeadingLevelContext);
+        const Component = as || (`h${Math.min(Math.max(1, level), 6)}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6");
         const activeVariant = variant || Component;
 
         return (
@@ -22,11 +36,11 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
                 className={cn(
                     "font-bold tracking-tight",
                     {
-                        "font-heading text-5xl uppercase text-[var(--theme-text)]": activeVariant === "h1",
-                        "font-heading text-4xl text-[var(--theme-primary)]": activeVariant === "h2",
-                        "font-heading text-3xl text-[var(--theme-text)]": activeVariant === "h3",
-                        "font-sans text-2xl text-[var(--theme-secondary)]": activeVariant === "h4",
-                        "font-sans text-xl text-[var(--theme-text)]": activeVariant === "h5",
+                        "font-heading text-5xl uppercase text-[var(--theme-primary)]": activeVariant === "h1",
+                        "font-heading text-4xl text-[var(--theme-text)]": activeVariant === "h2",
+                        "font-heading text-3xl text-[var(--theme-primary)]": activeVariant === "h3",
+                        "font-sans text-2xl text-[var(--theme-text)]": activeVariant === "h4",
+                        "font-sans text-xl text-[var(--theme-secondary)]": activeVariant === "h5",
                         "font-sans text-lg text-[var(--theme-text)]": activeVariant === "h6",
                     },
                     className
