@@ -2,13 +2,22 @@ import React from "react";
 import { cn } from "./Button";
 import { Heading, HeadingLevelProvider } from "./Heading";
 
+/**
+ * Defines the available theme options for theming the Card and its children.
+ */
 export type Theme = "base" | "inverted" | "primary-light" | "primary-dark" | "secondary-light" | "secondary-dark" | "accent-light" | "accent-dark";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** The visual style variant of the card. */
   variant?: "default" | "success" | "subtle" | "rule";
+  /** The theme context to apply, which modifies the component's CSS variables. */
   theme?: Theme;
 }
 
+/**
+ * The core container block for the Card subcomponent architecture. 
+ * Groups related concepts, providing thematic backgrounds, borders, and shadows.
+ */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = "default", theme, children, ...props }, ref) => (
     <div
@@ -34,6 +43,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 );
 Card.displayName = "Card";
 
+/**
+ * Provides a standardized visual header for the Card, including padding and a subtle bottom border.
+ */
 export const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { theme?: Theme }>(
   ({ className, theme, ...props }, ref) => (
     <div
@@ -46,6 +58,10 @@ export const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
 );
 CardHeader.displayName = "CardHeader";
 
+/**
+ * The title block of the Card. Automatically uses the global `Heading` component 
+ * to ensure that heading hierarchy and typography stay consistent.
+ */
 export const CardTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement> & { variant?: "primary" | "secondary" | "accent" | "default" | "rule"; theme?: Theme }
@@ -58,6 +74,9 @@ export const CardTitle = React.forwardRef<
 ));
 CardTitle.displayName = "CardTitle";
 
+/**
+ * A bold uppercase text label, typically placed below the `CardTitle` to offer extra context.
+ */
 export const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement> & { theme?: Theme }
@@ -66,6 +85,10 @@ export const CardDescription = React.forwardRef<
 ));
 CardDescription.displayName = "CardDescription";
 
+/**
+ * The main container for the body of the Card. 
+ * Use the `variant` prop to adjust padding density.
+ */
 export const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { variant?: "default" | "dense" | "rule"; theme?: Theme }
@@ -83,6 +106,9 @@ export const CardContent = React.forwardRef<
 );
 CardContent.displayName = "CardContent";
 
+/**
+ * The bottom area of the Card, normally used for rendering action buttons.
+ */
 export const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { theme?: Theme }>(
   ({ className, theme, ...props }, ref) => (
     <div ref={ref} data-theme={theme} className={cn("flex items-center p-6 pt-0", className)} {...props} />
