@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CharactersService } from './characters.service';
-import { DATABASE_CONNECTION } from '../db/db.module';
+import { Test, type TestingModule } from "@nestjs/testing";
+import { DATABASE_CONNECTION } from "../db/db.module";
+import { CharactersService } from "./characters.service";
 
-describe('CharactersService', () => {
+describe("CharactersService", () => {
   let service: CharactersService;
   let mockDb: any;
 
@@ -37,12 +37,12 @@ describe('CharactersService', () => {
     service = module.get<CharactersService>(CharactersService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 
-  it('should create a character', async () => {
-    const characterData = { name: 'Test Character', userId: 1, tropes: [] };
+  it("should create a character", async () => {
+    const characterData = { name: "Test Character", userId: 1, tropes: [] };
     mockDb.returning.mockResolvedValueOnce([characterData]);
 
     const result = await service.create(characterData as any);
@@ -50,7 +50,7 @@ describe('CharactersService', () => {
     expect(result).toEqual(characterData);
   });
 
-  it('should find all characters', async () => {
+  it("should find all characters", async () => {
     mockDb.query.characters.findMany.mockResolvedValueOnce([]);
     const result = await service.findAll();
     expect(mockDb.query.characters.findMany).toHaveBeenCalled();

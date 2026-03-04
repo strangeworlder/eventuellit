@@ -31,3 +31,7 @@ When tasked with building components, prototypes, or styling the app, strictly f
 ## Storybook Vite 6 Nuances
 - **Rule:** Storybook must be run on Node v22+ and use Storybook v10.2+ to support Vite 6 native dev servers without `Connect` middleware crashes (`res.status is not a function`).
 - **Docs Addon:** Do not use the deprecated `/blocks` subpath for the docs addon inside `main.ts`. Import `@storybook/addon-docs` directly.
+
+## Design Tokens and Layout
+- **Rule:** Do not use default Tailwind breakpoints (`sm`, `md`, `lg`) or arbitrary values (`w-[300px]`, `p-[18px]`).
+- **Implementation:** Always use our custom semantic breakpoints (`mobile`, `tablet`, `desktop`, `x-wide`) for responsive utilities (e.g., `tablet:w-1/2`, `max-desktop:hidden`). Stick strictly to the spacing and border-radius scales documented in `Tokens.stories.tsx` in Storybook.

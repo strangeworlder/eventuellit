@@ -21,7 +21,11 @@ export const DiceRoller = React.forwardRef<HTMLDivElement, DiceRollerProps>(
 
     return (
       <div ref={ref} className={cn("flex flex-col gap-3 mt-4", className)} {...props}>
-        {label && <label className="text-sm font-black text-secondary uppercase tracking-widest">{label}</label>}
+        {label && (
+          <label className="text-sm font-black text-secondary uppercase tracking-widest">
+            {label}
+          </label>
+        )}
         <button
           onClick={handleRoll}
           className="flex h-20 w-full items-center justify-center rounded-none border-4 border-dashed border-primary/40 bg-background hover:bg-primary/10 hover:border-primary transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 group hover:scale-[1.02] shadow-[0_0_15px_rgba(201,42,42,0.1)] hover:shadow-[0_0_25px_rgba(201,42,42,0.3)]"

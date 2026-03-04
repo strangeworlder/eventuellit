@@ -34,3 +34,29 @@ export const Danger: Story = {
     children: "Tuhoa",
   },
 };
+
+export const GhostSecondary: Story = {
+  args: {
+    variant: "ghost-secondary",
+    children: "Peruuta",
+  },
+};
+
+export const NavButton: Story = {
+  args: {
+    variant: "ghost-secondary",
+    size: "nav",
+    justify: "start",
+    children: "Sääntökirja",
+  },
+  parameters: {
+    layout: "padded",
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-64 bg-background border border-border p-2 rounded-md">
+        <Story />
+      </div>
+    ),
+  ],
+};

@@ -7,7 +7,15 @@ export interface StatBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   value: number;
   maxValue?: number;
   icon?: React.ReactNode;
-  theme?: "base" | "inverted" | "primary-light" | "primary-dark" | "secondary-light" | "secondary-dark" | "accent-light" | "accent-dark";
+  theme?:
+    | "base"
+    | "inverted"
+    | "primary-light"
+    | "primary-dark"
+    | "secondary-light"
+    | "secondary-dark"
+    | "accent-light"
+    | "accent-dark";
 }
 
 export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
@@ -27,14 +35,16 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
 
         <div className="flex items-center gap-3 relative z-10">
           {icon && <div className="text-[var(--theme-primary)] shrink-0">{icon}</div>}
-          <Heading>
-            {label}
-          </Heading>
+          <Heading>{label}</Heading>
         </div>
         <div className="flex items-baseline gap-1 relative z-10">
-          <span className="text-3xl font-heading font-black text-[var(--theme-text)] leading-none">{value}</span>
+          <span className="text-3xl font-heading font-black text-[var(--theme-text)] leading-none">
+            {value}
+          </span>
           {maxValue !== undefined && (
-            <span className="text-lg font-bold text-[var(--theme-text)]/50 leading-none">/ {maxValue}</span>
+            <span className="text-lg font-bold text-[var(--theme-text)]/50 leading-none">
+              / {maxValue}
+            </span>
           )}
         </div>
       </div>

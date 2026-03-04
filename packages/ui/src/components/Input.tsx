@@ -4,14 +4,26 @@ import { cn } from "./Button"; // Reusing the utility
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
-  theme?: "base" | "inverted" | "primary-light" | "primary-dark" | "secondary-light" | "secondary-dark" | "accent-light" | "accent-dark";
+  theme?:
+    | "base"
+    | "inverted"
+    | "primary-light"
+    | "primary-dark"
+    | "secondary-light"
+    | "secondary-dark"
+    | "accent-light"
+    | "accent-dark";
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, error, theme, ...props }, ref) => {
     return (
       <div className="flex flex-col w-full gap-2 mt-2" data-theme={theme}>
-        {label && <label className="text-sm font-black uppercase tracking-widest text-[var(--theme-secondary)]">{label}</label>}
+        {label && (
+          <label className="text-sm font-black uppercase tracking-widest text-[var(--theme-secondary)]">
+            {label}
+          </label>
+        )}
         <input
           ref={ref}
           className={cn(
@@ -21,7 +33,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           )}
           {...props}
         />
-        {error && <span className="text-sm font-bold uppercase tracking-widest text-[var(--theme-accent)]">{error}</span>}
+        {error && (
+          <span className="text-sm font-bold uppercase tracking-widest text-[var(--theme-accent)]">
+            {error}
+          </span>
+        )}
       </div>
     );
   },

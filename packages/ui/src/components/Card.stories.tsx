@@ -1,13 +1,13 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./Card";
+import React from "react";
 import { Button } from "./Button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./Card";
 
 /**
  * The `Card` component is a flexible container for grouping related content and actions.
- * It is built with a subcomponent architecture (`CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, and `CardFooter`) 
+ * It is built with a subcomponent architecture (`CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, and `CardFooter`)
  * to provide maximum flexibility while maintaining consistent spacing and styling.
- * 
+ *
  * Supports different visual variants and integrates perfectly with the design system's CSS variable-based theming.
  */
 const meta = {
@@ -25,7 +25,17 @@ const meta = {
     },
     theme: {
       control: "select",
-      options: [undefined, "base", "inverted", "primary-light", "primary-dark", "secondary-light", "secondary-dark", "accent-light", "accent-dark"],
+      options: [
+        undefined,
+        "base",
+        "inverted",
+        "primary-light",
+        "primary-dark",
+        "secondary-light",
+        "secondary-dark",
+        "accent-light",
+        "accent-dark",
+      ],
       description: "Theme context to apply to the card and all nested subcomponents.",
     },
   },
@@ -71,7 +81,7 @@ export const Default: Story = {
 };
 
 /**
- * Different visual variants for the Card container. 
+ * Different visual variants for the Card container.
  * - `default`: Standard bordered look.
  * - `success`: Glowing highlight for positive outcomes.
  * - `subtle`: Lighter borders, softer shadow.
@@ -105,7 +115,9 @@ export const ContentDensity: Story = {
           <CardTitle>Default Padding</CardTitle>
         </CardHeader>
         <CardContent variant="default">
-          <div className="bg-[var(--theme-primary)]/10 h-16 w-full rounded flex items-center justify-center">Default</div>
+          <div className="bg-[var(--theme-primary)]/10 h-16 w-full rounded flex items-center justify-center">
+            Default
+          </div>
         </CardContent>
       </Card>
 
@@ -114,7 +126,9 @@ export const ContentDensity: Story = {
           <CardTitle>Dense Padding</CardTitle>
         </CardHeader>
         <CardContent variant="dense">
-          <div className="bg-[var(--theme-primary)]/10 h-16 w-full rounded flex items-center justify-center">Dense</div>
+          <div className="bg-[var(--theme-primary)]/10 h-16 w-full rounded flex items-center justify-center">
+            Dense
+          </div>
         </CardContent>
       </Card>
     </div>
@@ -132,8 +146,11 @@ export const RuleBlock: Story = {
         <CardTitle variant="rule">Critical Hits</CardTitle>
       </CardHeader>
       <CardContent variant="rule">
-        When you score a critical hit, you get to roll extra dice for the attack's damage against the target. Roll all of the attack's damage dice twice and add them together. Then add any relevant modifiers as normal.
-        <br /><br />
+        When you score a critical hit, you get to roll extra dice for the attack's damage against
+        the target. Roll all of the attack's damage dice twice and add them together. Then add any
+        relevant modifiers as normal.
+        <br />
+        <br />
         To score a critical hit, you must roll a natural 20 on your attack roll.
       </CardContent>
     </Card>
@@ -141,7 +158,7 @@ export const RuleBlock: Story = {
 };
 
 /**
- * Cards can be themed via `data-theme` using the `theme` prop. 
+ * Cards can be themed via `data-theme` using the `theme` prop.
  * This changes the CSS variables used within the Card, automatically recoloring text, borders, backgrounds, and shadows.
  */
 export const Themes: Story = {
@@ -150,7 +167,18 @@ export const Themes: Story = {
   },
   render: () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-      {(["base", "inverted", "primary-light", "primary-dark", "secondary-light", "secondary-dark", "accent-light", "accent-dark"] as const).map(theme => (
+      {(
+        [
+          "base",
+          "inverted",
+          "primary-light",
+          "primary-dark",
+          "secondary-light",
+          "secondary-dark",
+          "accent-light",
+          "accent-dark",
+        ] as const
+      ).map((theme) => (
         <Card key={theme} theme={theme}>
           <CardHeader>
             <CardTitle>{theme}</CardTitle>

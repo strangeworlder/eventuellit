@@ -1,7 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap");
 @import "tailwindcss";
 
 @theme {
+    /* Breakpoints */
+    --breakpoint-mobile: 640px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1024px;
+    --breakpoint-x-wide: 1280px;
+
     --color-primary: #da4b4b;
     --color-primary-foreground: #0f0f13;
     --color-primary-50: #fdf4f4;
@@ -57,119 +63,118 @@
 }
 
 @layer base {
+  :root,
+  [data-theme="base"] {
+    --theme-bg: var(--color-background);
+    --theme-text: var(--color-text);
+    --theme-primary: var(--color-primary-500);
+    --theme-primary-foreground: var(--color-background);
+    --theme-secondary: var(--color-secondary-500);
+    --theme-secondary-foreground: var(--color-background);
+    --theme-accent: var(--color-accent-500);
+    --theme-accent-foreground: var(--color-background);
+  }
 
-    :root,
-    [data-theme="base"] {
-        --theme-bg: var(--color-background);
-        --theme-text: var(--color-text);
-        --theme-primary: var(--color-primary-500);
-        --theme-primary-foreground: var(--color-background);
-        --theme-secondary: var(--color-secondary-500);
-        --theme-secondary-foreground: var(--color-background);
-        --theme-accent: var(--color-accent-500);
-        --theme-accent-foreground: var(--color-background);
-    }
+  [data-theme="inverted"] {
+    --theme-bg: var(--color-text);
+    --theme-text: var(--color-background);
+    --theme-primary: var(--color-primary-700);
+    --theme-primary-foreground: var(--color-text);
+    /* white text on red-700 */
+    --theme-secondary: var(--color-secondary-700);
+    --theme-secondary-foreground: var(--color-text);
+    --theme-accent: var(--color-accent-800);
+    --theme-accent-foreground: var(--color-text);
+  }
 
-    [data-theme="inverted"] {
-        --theme-bg: var(--color-text);
-        --theme-text: var(--color-background);
-        --theme-primary: var(--color-primary-700);
-        --theme-primary-foreground: var(--color-text);
-        /* white text on red-700 */
-        --theme-secondary: var(--color-secondary-700);
-        --theme-secondary-foreground: var(--color-text);
-        --theme-accent: var(--color-accent-800);
-        --theme-accent-foreground: var(--color-text);
-    }
+  [data-theme="primary-light"] {
+    --theme-bg: var(--color-primary-100);
+    --theme-text: var(--color-background);
+    --theme-primary: var(--color-secondary-700);
+    --theme-primary-foreground: var(--color-text);
+    /* white text on teal-700 */
+    --theme-secondary: var(--color-primary-800);
+    --theme-secondary-foreground: var(--color-text);
+    --theme-accent: var(--color-accent-900);
+    --theme-accent-foreground: var(--color-text);
+  }
 
-    [data-theme="primary-light"] {
-        --theme-bg: var(--color-primary-100);
-        --theme-text: var(--color-background);
-        --theme-primary: var(--color-secondary-700);
-        --theme-primary-foreground: var(--color-text);
-        /* white text on teal-700 */
-        --theme-secondary: var(--color-primary-800);
-        --theme-secondary-foreground: var(--color-text);
-        --theme-accent: var(--color-accent-900);
-        --theme-accent-foreground: var(--color-text);
-    }
+  [data-theme="primary-dark"] {
+    --theme-bg: var(--color-primary-900);
+    --theme-text: var(--color-text);
+    --theme-primary: var(--color-secondary-200);
+    --theme-primary-foreground: var(--color-background);
+    /* #0f0f13 on teal-200 */
+    --theme-secondary: var(--color-primary-100);
+    --theme-secondary-foreground: var(--color-background);
+    --theme-accent: var(--color-accent-200);
+    --theme-accent-foreground: var(--color-background);
+  }
 
-    [data-theme="primary-dark"] {
-        --theme-bg: var(--color-primary-900);
-        --theme-text: var(--color-text);
-        --theme-primary: var(--color-secondary-200);
-        --theme-primary-foreground: var(--color-background);
-        /* #0f0f13 on teal-200 */
-        --theme-secondary: var(--color-primary-100);
-        --theme-secondary-foreground: var(--color-background);
-        --theme-accent: var(--color-accent-200);
-        --theme-accent-foreground: var(--color-background);
-    }
+  [data-theme="secondary-light"] {
+    --theme-bg: var(--color-secondary-100);
+    --theme-text: var(--color-background);
+    --theme-primary: var(--color-primary-800);
+    --theme-primary-foreground: var(--color-text);
+    /* white on red-800 */
+    --theme-secondary: var(--color-secondary-800);
+    --theme-secondary-foreground: var(--color-text);
+    --theme-accent: var(--color-accent-900);
+    --theme-accent-foreground: var(--color-text);
+  }
 
-    [data-theme="secondary-light"] {
-        --theme-bg: var(--color-secondary-100);
-        --theme-text: var(--color-background);
-        --theme-primary: var(--color-primary-800);
-        --theme-primary-foreground: var(--color-text);
-        /* white on red-800 */
-        --theme-secondary: var(--color-secondary-800);
-        --theme-secondary-foreground: var(--color-text);
-        --theme-accent: var(--color-accent-900);
-        --theme-accent-foreground: var(--color-text);
-    }
+  [data-theme="secondary-dark"] {
+    --theme-bg: var(--color-secondary-800);
+    --theme-text: var(--color-primary-50);
+    --theme-primary: var(--color-primary-300);
+    --theme-primary-foreground: var(--color-background);
+    /* #0f0f13 on red-300 */
+    --theme-secondary: var(--color-secondary-200);
+    --theme-secondary-foreground: var(--color-background);
+    --theme-accent: var(--color-accent-300);
+    --theme-accent-foreground: var(--color-background);
+  }
 
-    [data-theme="secondary-dark"] {
-        --theme-bg: var(--color-secondary-800);
-        --theme-text: var(--color-primary-50);
-        --theme-primary: var(--color-primary-300);
-        --theme-primary-foreground: var(--color-background);
-        /* #0f0f13 on red-300 */
-        --theme-secondary: var(--color-secondary-200);
-        --theme-secondary-foreground: var(--color-background);
-        --theme-accent: var(--color-accent-300);
-        --theme-accent-foreground: var(--color-background);
-    }
+  [data-theme="accent-light"] {
+    --theme-bg: var(--color-accent-300);
+    --theme-text: var(--color-background);
+    --theme-primary: var(--color-primary-900);
+    --theme-primary-foreground: var(--color-text);
+    /* white on red-900 */
+    --theme-secondary: var(--color-secondary-800);
+    --theme-secondary-foreground: var(--color-text);
+    --theme-accent: var(--color-accent-900);
+    --theme-accent-foreground: var(--color-text);
+  }
 
-    [data-theme="accent-light"] {
-        --theme-bg: var(--color-accent-300);
-        --theme-text: var(--color-background);
-        --theme-primary: var(--color-primary-900);
-        --theme-primary-foreground: var(--color-text);
-        /* white on red-900 */
-        --theme-secondary: var(--color-secondary-800);
-        --theme-secondary-foreground: var(--color-text);
-        --theme-accent: var(--color-accent-900);
-        --theme-accent-foreground: var(--color-text);
-    }
+  [data-theme="accent-dark"] {
+    --theme-bg: var(--color-accent-900);
+    --theme-text: var(--color-accent-100);
+    --theme-primary: var(--color-primary-200);
+    --theme-primary-foreground: var(--color-background);
+    /* #0f0f13 on red-200 */
+    --theme-secondary: var(--color-secondary-200);
+    --theme-secondary-foreground: var(--color-background);
+    --theme-accent: var(--color-accent-300);
+    --theme-accent-foreground: var(--color-background);
+  }
 
-    [data-theme="accent-dark"] {
-        --theme-bg: var(--color-accent-900);
-        --theme-text: var(--color-accent-100);
-        --theme-primary: var(--color-primary-200);
-        --theme-primary-foreground: var(--color-background);
-        /* #0f0f13 on red-200 */
-        --theme-secondary: var(--color-secondary-200);
-        --theme-secondary-foreground: var(--color-background);
-        --theme-accent: var(--color-accent-300);
-        --theme-accent-foreground: var(--color-background);
-    }
+  body {
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-    body {
-        background-color: var(--theme-bg);
-        color: var(--theme-text);
-        font-family: var(--font-sans);
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-family: var(--font-heading);
-        letter-spacing: -0.025em;
-        font-weight: 700;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
 }

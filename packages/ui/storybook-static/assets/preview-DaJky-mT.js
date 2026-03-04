@@ -1,1 +1,160 @@
-let d;const A=new Uint8Array(16);function I(){if(!d&&(d=typeof crypto<"u"&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto),!d))throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");return d(A)}const o=[];for(let t=0;t<256;++t)o.push((t+256).toString(16).slice(1));function w(t,e=0){return o[t[e+0]]+o[t[e+1]]+o[t[e+2]]+o[t[e+3]]+"-"+o[t[e+4]]+o[t[e+5]]+"-"+o[t[e+6]]+o[t[e+7]]+"-"+o[t[e+8]]+o[t[e+9]]+"-"+o[t[e+10]]+o[t[e+11]]+o[t[e+12]]+o[t[e+13]]+o[t[e+14]]+o[t[e+15]]}const D=typeof crypto<"u"&&crypto.randomUUID&&crypto.randomUUID.bind(crypto),_={randomUUID:D};function f(t,e,i){if(_.randomUUID&&!t)return _.randomUUID();t=t||{};const n=t.random||(t.rng||I)();return n[6]=n[6]&15|64,n[8]=n[8]&63|128,w(n)}const{addons:S}=__STORYBOOK_MODULE_PREVIEW_API__,{global:O}=__STORYBOOK_MODULE_GLOBAL__,{ImplicitActionsDuringRendering:T}=__STORYBOOK_MODULE_CORE_EVENTS_PREVIEW_ERRORS__;var v="storybook/actions",U=`${v}/action-event`,j={depth:10,clearOnStoryChange:!0,limit:50},R=(t,e)=>{let i=Object.getPrototypeOf(t);return!i||e(i)?i:R(i,e)},x=t=>!!(typeof t=="object"&&t&&R(t,e=>/^Synthetic(?:Base)?Event$/.test(e.constructor.name))&&typeof t.persist=="function"),V=t=>{if(x(t)){let e=Object.create(t.constructor.prototype,Object.getOwnPropertyDescriptors(t));e.persist();let i=Object.getOwnPropertyDescriptor(e,"view"),n=i?.value;return typeof n=="object"&&n?.constructor.name==="Window"&&Object.defineProperty(e,"view",{...i,value:Object.create(n.constructor.prototype)}),e}return t},P=()=>typeof crypto=="object"&&typeof crypto.getRandomValues=="function"?f():Date.now().toString(36)+Math.random().toString(36).substring(2);function u(t,e={}){let i={...j,...e},n=function(...r){if(e.implicit){let y=("__STORYBOOK_PREVIEW__"in O?O.__STORYBOOK_PREVIEW__:void 0)?.storyRenders.find(p=>p.phase==="playing"||p.phase==="rendering");if(y){let p=!window?.FEATURES?.disallowImplicitActionsInRenderV8,g=new T({phase:y.phase,name:t,deprecated:p});if(p)console.warn(g);else throw g}}let c=S.getChannel(),s=P(),a=5,l=r.map(V),E=r.length>1?l:l[0],b={id:s,count:0,data:{name:t,args:E},options:{...i,maxDepth:a+(i.depth||3),allowFunction:i.allowFunction||!1}};c.emit(U,b)};return n.isAction=!0,n.implicit=e.implicit,n}var h=(t,e)=>typeof e[t]>"u"&&!(t in e),F=t=>{let{initialArgs:e,argTypes:i,id:n,parameters:{actions:r}}=t;if(!r||r.disable||!r.argTypesRegex||!i)return{};let c=new RegExp(r.argTypesRegex);return Object.entries(i).filter(([s])=>!!c.test(s)).reduce((s,[a,l])=>(h(a,e)&&(s[a]=u(a,{implicit:!0,id:n})),s),{})},M=t=>{let{initialArgs:e,argTypes:i,parameters:{actions:n}}=t;return n?.disable||!i?{}:Object.entries(i).filter(([r,c])=>!!c.action).reduce((r,[c,s])=>(h(c,e)&&(r[c]=u(typeof s.action=="string"?s.action:c)),r),{})},k=[M,F],m=Symbol.for("tinyspy:spy"),B=t=>{let{args:e,parameters:{actions:i}}=t;i?.disable||Object.entries(e).filter(([,n])=>typeof n=="function"&&"_isMockFunction"in n&&n._isMockFunction).forEach(([n,r])=>{let c=r.getMockImplementation()??(m in r?r[m]?.getOriginal():void 0);if(c?._actionAttached!==!0&&c?.isAction!==!0){let s=(...a)=>(u(n)(...a),c?.(...a));s._actionAttached=!0,r.mockImplementation(s)}})},K=[B];export{k as argsEnhancers,K as loaders,m as tinySpyInternalState};
+let d;
+const A = new Uint8Array(16);
+function I() {
+  if (
+    !d &&
+    ((d = typeof crypto < "u" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto)), !d)
+  )
+    throw new Error(
+      "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported",
+    );
+  return d(A);
+}
+const o = [];
+for (let t = 0; t < 256; ++t) o.push((t + 256).toString(16).slice(1));
+function w(t, e = 0) {
+  return (
+    o[t[e + 0]] +
+    o[t[e + 1]] +
+    o[t[e + 2]] +
+    o[t[e + 3]] +
+    "-" +
+    o[t[e + 4]] +
+    o[t[e + 5]] +
+    "-" +
+    o[t[e + 6]] +
+    o[t[e + 7]] +
+    "-" +
+    o[t[e + 8]] +
+    o[t[e + 9]] +
+    "-" +
+    o[t[e + 10]] +
+    o[t[e + 11]] +
+    o[t[e + 12]] +
+    o[t[e + 13]] +
+    o[t[e + 14]] +
+    o[t[e + 15]]
+  );
+}
+const D = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto),
+  _ = { randomUUID: D };
+function f(t, e, i) {
+  if (_.randomUUID && !t) return _.randomUUID();
+  t = t || {};
+  const n = t.random || (t.rng || I)();
+  return (n[6] = (n[6] & 15) | 64), (n[8] = (n[8] & 63) | 128), w(n);
+}
+const { addons: S } = __STORYBOOK_MODULE_PREVIEW_API__,
+  { global: O } = __STORYBOOK_MODULE_GLOBAL__,
+  { ImplicitActionsDuringRendering: T } = __STORYBOOK_MODULE_CORE_EVENTS_PREVIEW_ERRORS__;
+var v = "storybook/actions",
+  U = `${v}/action-event`,
+  j = { depth: 10, clearOnStoryChange: !0, limit: 50 },
+  R = (t, e) => {
+    const i = Object.getPrototypeOf(t);
+    return !i || e(i) ? i : R(i, e);
+  },
+  x = (t) =>
+    !!(
+      typeof t == "object" &&
+      t &&
+      R(t, (e) => /^Synthetic(?:Base)?Event$/.test(e.constructor.name)) &&
+      typeof t.persist == "function"
+    ),
+  V = (t) => {
+    if (x(t)) {
+      const e = Object.create(t.constructor.prototype, Object.getOwnPropertyDescriptors(t));
+      e.persist();
+      const i = Object.getOwnPropertyDescriptor(e, "view"),
+        n = i?.value;
+      return (
+        typeof n == "object" &&
+          n?.constructor.name === "Window" &&
+          Object.defineProperty(e, "view", { ...i, value: Object.create(n.constructor.prototype) }),
+        e
+      );
+    }
+    return t;
+  },
+  P = () =>
+    typeof crypto == "object" && typeof crypto.getRandomValues == "function"
+      ? f()
+      : Date.now().toString(36) + Math.random().toString(36).substring(2);
+function u(t, e = {}) {
+  const i = { ...j, ...e },
+    n = (...r) => {
+      if (e.implicit) {
+        const y = (
+          "__STORYBOOK_PREVIEW__" in O ? O.__STORYBOOK_PREVIEW__ : void 0
+        )?.storyRenders.find((p) => p.phase === "playing" || p.phase === "rendering");
+        if (y) {
+          const p = !window?.FEATURES?.disallowImplicitActionsInRenderV8,
+            g = new T({ phase: y.phase, name: t, deprecated: p });
+          if (p) console.warn(g);
+          else throw g;
+        }
+      }
+      const c = S.getChannel(),
+        s = P(),
+        a = 5,
+        l = r.map(V),
+        E = r.length > 1 ? l : l[0],
+        b = {
+          id: s,
+          count: 0,
+          data: { name: t, args: E },
+          options: { ...i, maxDepth: a + (i.depth || 3), allowFunction: i.allowFunction || !1 },
+        };
+      c.emit(U, b);
+    };
+  return (n.isAction = !0), (n.implicit = e.implicit), n;
+}
+var h = (t, e) => typeof e[t] > "u" && !(t in e),
+  F = (t) => {
+    const {
+      initialArgs: e,
+      argTypes: i,
+      id: n,
+      parameters: { actions: r },
+    } = t;
+    if (!r || r.disable || !r.argTypesRegex || !i) return {};
+    const c = new RegExp(r.argTypesRegex);
+    return Object.entries(i)
+      .filter(([s]) => !!c.test(s))
+      .reduce((s, [a, l]) => (h(a, e) && (s[a] = u(a, { implicit: !0, id: n })), s), {});
+  },
+  M = (t) => {
+    const {
+      initialArgs: e,
+      argTypes: i,
+      parameters: { actions: n },
+    } = t;
+    return n?.disable || !i
+      ? {}
+      : Object.entries(i)
+          .filter(([r, c]) => !!c.action)
+          .reduce(
+            (r, [c, s]) => (h(c, e) && (r[c] = u(typeof s.action == "string" ? s.action : c)), r),
+            {},
+          );
+  },
+  k = [M, F],
+  m = Symbol.for("tinyspy:spy"),
+  B = (t) => {
+    const {
+      args: e,
+      parameters: { actions: i },
+    } = t;
+    i?.disable ||
+      Object.entries(e)
+        .filter(([, n]) => typeof n == "function" && "_isMockFunction" in n && n._isMockFunction)
+        .forEach(([n, r]) => {
+          const c = r.getMockImplementation() ?? (m in r ? r[m]?.getOriginal() : void 0);
+          if (c?._actionAttached !== !0 && c?.isAction !== !0) {
+            const s = (...a) => (u(n)(...a), c?.(...a));
+            (s._actionAttached = !0), r.mockImplementation(s);
+          }
+        });
+  },
+  K = [B];
+export { k as argsEnhancers, K as loaders, m as tinySpyInternalState };

@@ -91,3 +91,23 @@ Before implementing complex features or debugging, review this file to ensure yo
 **Issue:** Hardcoding the `as="h5"` and `variant="h5"` properties on the `<Heading>` component within reusable UI elements (like `StatBlock` or `CardTitle`) breaks the component's ability to scale based on its DOM position.
 **Nuance/Resolution:** The `<Heading>` component leverages `HeadingLevelProvider` to automatically infer its correct semantic level (e.g. `n + 1`) based on where it is placed in the tree. Hardcoding the props forces the heading to ignore this dynamic context, leading to incorrect semantic document outlines and inflexible styling.
 **Action:** Always omit the `as` and `variant` props on `<Heading>` when integrating it into lower-level, highly reusable layout components. Let the typography dynamically scale by wrapping parent sections with a `<HeadingLevelProvider>` rather than forcing a specific tag.
+
+#### 15. Secondary Component Theming Semantics (March 2026)
+**Issue:** Secondary components like the Sidebar were forcefully setting `<aside theme="secondary-dark">` to get a specific look, which bypassed the active global theme set by the user and disrupted the unified aesthetic.
+**Nuance/Resolution:** According to the Design System (`Themes.stories.tsx`), secondary supporting components should *inherit* the theme gracefully. Instead of hardcoding a theme, they should use `transparent` backgrounds, and swap primary colors for `border-[var(--theme-secondary)]` and `text-[var(--theme-secondary)]`.
+**Action:** Never hardcode `theme="..."` on secondary layout components. Always let the theme fall through from the root context and use secondary scoped variables (`var(--theme-secondary)`) to avoid overpowering the primary content surface.
+
+#### 16. Mobile Overlay Z-Index Stacking Context (March 2026)
+**Issue:** A mobile backdrop overlay (`z-40`) rendered on top of the Sidebar menu because the App layout container applied a generic `z-20` class to the Sidebar component via props causing a conflict.
+**Nuance/Resolution:** Tailwind's `cn` merge function resolves conflicts by prioritizing the last class evaluated. Thus, `className="... z-20"` from a parent overriding a child's internal `className="... z-50"` will win. However, if the child uses a responsive prefix like `max-desktop:z-50`, Tailwind correctly preserves it over un-prefixed base classes.
+**Action:** When building off-canvas or overlay components (like modals or drawers), explicitly declare their required z-index using the precise responsive breakpoint prefix (e.g., `max-desktop:z-50`) to guarantee their stacking context is isolated and cannot be accidentally overridden by a parent container using base modifier classes.
+
+#### 17. Extending Core Components over HTML Elements (March 2026)
+**Issue:** We used raw `<button>` elements in the `Sidebar` to achieve custom "nav" sizes and transparent behavior instead of utilizing the `packages/ui` `<Button>` component.
+**Nuance/Resolution:** Using raw HTML fragments prevents global typography and transition rules from applying consistently. The solution is to extend the `<Button>` component's Props to support new variants (e.g., `variant="ghost-secondary"`, `size="nav"`, `justify="start"`) rather than abandoning it.
+**Action:** Do not write raw semantic HTML elements (`<button>`, `<a>`) for interactive elements in consumers. If the Design System lacks a specific layout permutation, extend the `packages/ui` core component's configuration to support it globally.
+
+#### 18. Structural Design Tokens (Breakpoints, Spacing, Radius) (March 2026)
+**Issue:** Consumer applications were using generic Tailwind breakpoints (`md:`, `lg:`) and arbitrary spacing/radius values which led to inconsistent responsive behaviors and layouts.
+**Nuance/Resolution:** We migrated to a unified set of Design Tokens documented in Storybook (`Tokens.stories.tsx`). This includes custom semantic breakpoints (`mobile`, `tablet`, `desktop`, `x-wide`) registered in Tailwind v4's `@theme` directive, as well as standardized spacing and border-radius scales.
+**Action:** Always use the custom semantic breakpoints (`tablet:flex`, `max-desktop:hidden`) instead of default Tailwind breakpoints. Avoid using arbitrary values in classes (like `w-[320px]` or `p-[18px]`); stick strictly to the documented spacing and layout scales.
