@@ -21,16 +21,16 @@ export const Default: Story = {
         Header Navigation Simulation
       </div>
       <Page>
-        <Card>
-          <CardHeader>
-            <CardTitle>Welcome to the Page Component</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="flex flex-col space-y-4">
+          <div className="border-b border-primary/20 pb-2">
+            <h2 className="text-2xl font-bold font-sans">Welcome to the Page Component</h2>
+          </div>
+          <p className="text-text/90 leading-relaxed max-w-3xl">
             This component enforces a minimum width of 95vw, maximum width of 1280px, and 100%
             relative width with consistent padding. It's designed to live snugly within TabsContent
             containers across the different microfrontends.
-          </CardContent>
-        </Card>
+          </p>
+        </div>
       </Page>
     </div>
   ),

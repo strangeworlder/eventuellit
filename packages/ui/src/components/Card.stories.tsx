@@ -9,6 +9,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
  * to provide maximum flexibility while maintaining consistent spacing and styling.
  *
  * Supports different visual variants and integrates perfectly with the design system's CSS variable-based theming.
+ *
+ * > **Note:** `Card` is intended for bounded areas of related content (like character stats, rule blocks, or interactive widgets).
+ * > It should **not** be used as a primary page or tab layout wrapper. For main layouts, use semantic HTML tags (`<div>`, `<main>`) with a `<HeadingLevelProvider>`.
  */
 const meta = {
   title: "Components/Card",

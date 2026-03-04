@@ -2,6 +2,7 @@ import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { DiceRoller } from "@repo/ui/components/DiceRoller";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
+import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { Page } from "@repo/ui/components/Page";
 import { StatBlock } from "@repo/ui/components/StatBlock";
@@ -68,7 +69,9 @@ function GeneratorForm() {
       <div className="space-y-8 animate-in fade-in duration-500">
         <div className="border-2 border-[var(--theme-secondary)]/50 bg-[var(--theme-secondary)]/5 shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)] p-8 rounded-sm text-[var(--theme-text)]">
           <HeadingLevelProvider>
-            <Heading data-theme="secondary" className="mb-4">Hahmo Luotu Onnistuneesti!</Heading>
+            <Heading data-theme="secondary" className="mb-4">
+              Hahmo Luotu Onnistuneesti!
+            </Heading>
             <p className="text-text/80 text-lg">Hahmosi tallennettiin tietokantaan.</p>
             <Button className="mt-6" onClick={() => window.location.reload()}>
               Tee uusi hahmo
@@ -82,192 +85,192 @@ function GeneratorForm() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <HeadingLevelProvider>
-        <div className="border-b-2 border-primary/20 pb-4 mb-6">
-          <Heading>Uusi Hahmo</Heading>
-        </div>
+        <Hero title="Uusi Hahmo" />
 
-        <div className="flex flex-col gap-8">
-          <Input
-            label="Hahmon Nimi"
-            placeholder="Syötä nimi..."
-            value={characterName}
-            onChange={(e) => setCharacterName(e.target.value)}
-          />
+        <HeadingLevelProvider>
+          <div className="flex flex-col gap-8">
+            <Input
+              label="Hahmon Nimi"
+              placeholder="Syötä nimi..."
+              value={characterName}
+              onChange={(e) => setCharacterName(e.target.value)}
+            />
 
-          <div className="space-y-6">
-            <div className="border-b-2 border-primary/20 pb-2">
-              <Heading>Arkkityyppi</Heading>
+            <div className="space-y-6">
+              <div className="border-b-2 border-primary/20 pb-2">
+                <Heading>Arkkityyppi</Heading>
+              </div>
+              <div className="flex gap-4">
+                <Button
+                  variant={archetype === "soldier" ? "primary" : "secondary"}
+                  onClick={() => setArchetype("soldier")}
+                >
+                  Sotilas (Sisu: 3n8, Taidot: 2)
+                </Button>
+                <Button
+                  variant={archetype === "expert" ? "primary" : "secondary"}
+                  onClick={() => setArchetype("expert")}
+                >
+                  Ekspertti (Sisu: 3n6, Taidot: 3)
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-4">
-              <Button
-                variant={archetype === "soldier" ? "primary" : "secondary"}
-                onClick={() => setArchetype("soldier")}
-              >
-                Sotilas (Sisu: 3n8, Taidot: 2)
-              </Button>
-              <Button
-                variant={archetype === "expert" ? "primary" : "secondary"}
-                onClick={() => setArchetype("expert")}
-              >
-                Ekspertti (Sisu: 3n6, Taidot: 3)
-              </Button>
+
+            <div className="space-y-4">
+              <div className="flex justify-between items-center mb-2">
+                <Heading>Ominaisuudet (Kestot)</Heading>
+                <span className="text-slate-400 font-mono">
+                  Noppia jäljellä: {diceRemaining}x 1d4
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Card variant="subtle">
+                  <CardContent variant="dense">
+                    <StatBlock theme="inverted" label="Keho (Kesto)" value={kehoScore} />
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Fysiikka (d4: {fysiikka})</span>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="primary"
+                          size="icon"
+                          onClick={() => handleRemoveDie(setFysiikka, fysiikka)}
+                        >
+                          -
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          onClick={() => handleAssignDie(setFysiikka, fysiikka)}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Nopeus (d4: {nopeus})</span>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="primary"
+                          size="icon"
+                          onClick={() => handleRemoveDie(setNopeus, nopeus)}
+                        >
+                          -
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          onClick={() => handleAssignDie(setNopeus, nopeus)}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card variant="subtle">
+                  <CardContent variant="dense">
+                    <StatBlock theme="secondary-light" label="Mieli (Kesto)" value={mieliScore} />
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Ymmärrys (d4: {ymmarrys})</span>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="primary"
+                          size="icon"
+                          onClick={() => handleRemoveDie(setYmmarrys, ymmarrys)}
+                        >
+                          -
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          onClick={() => handleAssignDie(setYmmarrys, ymmarrys)}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Persoona (d4: {persoona})</span>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="primary"
+                          size="icon"
+                          onClick={() => handleRemoveDie(setPersoona, persoona)}
+                        >
+                          -
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          onClick={() => handleAssignDie(setPersoona, persoona)}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card variant="subtle">
+                  <CardContent variant="dense">
+                    <StatBlock theme="secondary-light" label="Terä (Kesto)" value={teraScore} />
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Näkemys (d4: {nakemys})</span>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="primary"
+                          size="icon"
+                          onClick={() => handleRemoveDie(setNakemys, nakemys)}
+                        >
+                          -
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          onClick={() => handleAssignDie(setNakemys, nakemys)}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Näppäryys (d4: {napparyys})</span>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="primary"
+                          size="icon"
+                          onClick={() => handleRemoveDie(setNapparyys, napparyys)}
+                        >
+                          -
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          onClick={() => handleAssignDie(setNapparyys, napparyys)}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
+
+            <DiceRoller />
+
+            <Button
+              size="lg"
+              className="mt-8 self-start"
+              onClick={handleSave}
+              disabled={isPending || characterName.trim() === "" || diceRemaining > 0}
+            >
+              {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
+            </Button>
           </div>
-
-          <div className="space-y-4">
-            <div className="flex justify-between items-center mb-2">
-              <Heading>Ominaisuudet (Kestot)</Heading>
-              <span className="text-slate-400 font-mono">
-                Noppia jäljellä: {diceRemaining}x 1d4
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card variant="subtle">
-                <CardContent variant="dense">
-                  <StatBlock theme="inverted" label="Keho (Kesto)" value={kehoScore} />
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Fysiikka (d4: {fysiikka})</span>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="primary"
-                        size="icon"
-                        onClick={() => handleRemoveDie(setFysiikka, fysiikka)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        onClick={() => handleAssignDie(setFysiikka, fysiikka)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Nopeus (d4: {nopeus})</span>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="primary"
-                        size="icon"
-                        onClick={() => handleRemoveDie(setNopeus, nopeus)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        onClick={() => handleAssignDie(setNopeus, nopeus)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card variant="subtle">
-                <CardContent variant="dense">
-                  <StatBlock theme="secondary-light" label="Mieli (Kesto)" value={mieliScore} />
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Ymmärrys (d4: {ymmarrys})</span>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="primary"
-                        size="icon"
-                        onClick={() => handleRemoveDie(setYmmarrys, ymmarrys)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        onClick={() => handleAssignDie(setYmmarrys, ymmarrys)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Persoona (d4: {persoona})</span>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="primary"
-                        size="icon"
-                        onClick={() => handleRemoveDie(setPersoona, persoona)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        onClick={() => handleAssignDie(setPersoona, persoona)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card variant="subtle">
-                <CardContent variant="dense">
-                  <StatBlock theme="secondary-light" label="Terä (Kesto)" value={teraScore} />
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Näkemys (d4: {nakemys})</span>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="primary"
-                        size="icon"
-                        onClick={() => handleRemoveDie(setNakemys, nakemys)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        onClick={() => handleAssignDie(setNakemys, nakemys)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Näppäryys (d4: {napparyys})</span>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="primary"
-                        size="icon"
-                        onClick={() => handleRemoveDie(setNapparyys, napparyys)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        onClick={() => handleAssignDie(setNapparyys, napparyys)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          <DiceRoller />
-
-          <Button
-            size="lg"
-            className="mt-8 self-start"
-            onClick={handleSave}
-            disabled={isPending || characterName.trim() === "" || diceRemaining > 0}
-          >
-            {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
-          </Button>
-        </div>
+        </HeadingLevelProvider>
       </HeadingLevelProvider>
     </div>
   );

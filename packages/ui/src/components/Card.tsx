@@ -63,7 +63,7 @@ export const CardHeader = React.forwardRef<
     ref={ref}
     data-theme={theme}
     className={cn(
-      "flex flex-col space-y-1.5 p-6 border-b-2 border-[var(--theme-primary)]/20",
+      "flex flex-col space-y-1.5 p-4 tablet:p-6 border-b-2 border-[var(--theme-primary)]/20",
       className,
     )}
     {...props}
@@ -116,9 +116,9 @@ export const CardContent = React.forwardRef<
     className={cn(
       "flex flex-col",
       {
-        "gap-6 p-6 pt-6": variant === "default",
-        "gap-4 p-4": variant === "dense",
-        "gap-4 p-6 text-[var(--theme-text)]/90 leading-relaxed font-light": variant === "rule",
+        "gap-6 p-4 pt-4 tablet:p-6 tablet:pt-6": variant === "default",
+        "gap-4 p-3 tablet:p-4": variant === "dense",
+        "gap-4 p-4 tablet:p-6 text-[var(--theme-text)]/90 leading-relaxed font-light": variant === "rule",
       },
       className,
     )}
@@ -137,7 +137,7 @@ export const CardFooter = React.forwardRef<
   <div
     ref={ref}
     data-theme={theme}
-    className={cn("flex items-center p-6 pt-0", className)}
+    className={cn("flex items-center p-4 pt-0 tablet:p-6 tablet:pt-0", className)}
     {...props}
   />
 ));

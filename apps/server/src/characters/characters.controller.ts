@@ -1,15 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import type { characters } from "../db/schema";
-import type { CharactersService } from "./characters.service";
+import { CharactersService } from "./characters.service";
 
 @Controller("characters")
 export class CharactersController {
-  constructor(private readonly charactersService: CharactersService) {}
+  constructor(private readonly charactersService: CharactersService) { }
 
   @Post()
-    create(@Body() createCharacterDto: typeof characters.$inferInsert) {
-        return this.charactersService.create(createCharacterDto);
-    }
+  create(@Body() createCharacterDto: typeof characters.$inferInsert) {
+    return this.charactersService.create(createCharacterDto);
+  }
 
   @Get()
   findAll() {
@@ -17,9 +17,9 @@ export class CharactersController {
   }
 
   @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.charactersService.findOne(+id);
-    }
+  findOne(@Param('id') id: string) {
+    return this.charactersService.findOne(+id);
+  }
 
   @Patch(":id")
   update(
@@ -30,7 +30,7 @@ export class CharactersController {
   }
 
   @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.charactersService.remove(+id);
-    }
+  remove(@Param('id') id: string) {
+    return this.charactersService.remove(+id);
+  }
 }

@@ -39,6 +39,7 @@ export const Active: Story = {
 };
 
 export const Sizes: Story = {
+  args: { faces: 20 },
   render: () => (
     <div className="flex items-center gap-4">
       <DiceIcon faces={20} size="sm" />
@@ -49,6 +50,7 @@ export const Sizes: Story = {
 };
 
 export const Shapes: Story = {
+  args: { faces: 20 },
   render: () => (
     <div className="flex items-center gap-4">
       <DiceIcon faces={4} />

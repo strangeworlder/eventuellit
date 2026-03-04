@@ -78,7 +78,7 @@ function App() {
             )}
           </header>
 
-          <div className="p-8 pl-16 desktop:pl-24 md:p-12 md:pl-32 max-w-7xl mx-auto w-full">
+          <div className="pl-16 desktop:pl-24 md:pl-32 max-w-7xl mx-auto w-full">
             <Suspense
               fallback={
                 <div className="text-primary animate-pulse uppercase tracking-widest font-black text-2xl mt-6">

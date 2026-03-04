@@ -51,6 +51,7 @@ export const CustomTheme: Story = {
 };
 
 export const ThemeShowcase: Story = {
+  args: { maxDice: 3, axes: [] },
   render: () => {
     const themes = [
       "base",
@@ -71,7 +72,7 @@ export const ThemeShowcase: Story = {
             <DicePoolAllocator
               theme={theme as any}
               maxDice={3}
-              axes={["Voima", "Ketteruus"]}
+              axes={["Voima", "Ketteryys"]}
               attributeDie="n4"
             />
           </div>
