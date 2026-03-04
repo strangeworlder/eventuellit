@@ -73,12 +73,10 @@ export function CharacterSheet({ characterId, onBack }: { characterId: number, o
             <div className="space-y-8 animate-in fade-in duration-500">
                 <div className="flex justify-between items-center border-b-4 border-primary pb-6 bg-secondary/10 p-6 shadow-[inset_0_0_20px_rgba(201,42,42,0.1)]">
                     <div>
-                        <Button variant="secondary" onClick={onBack} className="mb-4 flex items-center gap-2 w-fit">
-                            <span className="text-xl">◀</span> Paluu listaan
+                        <Button variant="ghost" onClick={onBack}>
+                            ◀ Paluu listaan
                         </Button>
-                        <div className="drop-shadow-md pb-2">
-                            <Heading>{character.name}</Heading>
-                        </div>
+                        <Heading>{character.name}</Heading>
                         <p className="text-text/90 text-xl uppercase tracking-widest font-bold mt-2">
                             {character.archetype === "soldier" ? "Sotilas" : "Ekspertti"}
                         </p>
@@ -88,36 +86,34 @@ export function CharacterSheet({ characterId, onBack }: { characterId: number, o
                 <HeadingLevelProvider>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                         <div className="space-y-6">
-                            <div className="border-b-2 border-secondary/30 pb-3">
-                                <Heading>Resurssit</Heading>
-                            </div>
+                            <Heading>Resurssit</Heading>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-4 mt-4 mb-8">
                                 {/* Sisu (Grit) takes hits before Kesto/Vaurio */}
                                 <ActiveStatBlock
-                                    label={`Sisu (${character.sisuCount}x${character.sisuDie})`}
+                                    theme="secondary-light"
+                                    label={`Sisu (${character.sisuCount} x ${character.sisuDie})`}
                                     value={character.currentSisuCount}
                                     maxValue={character.sisuCount}
                                     onIncrement={() => updateCharacter({ currentSisuCount: character.currentSisuCount + 1 })}
                                     onDecrement={() => updateCharacter({ currentSisuCount: character.currentSisuCount - 1 })}
-                                    className="col-span-2 border-secondary border-2 rounded-none bg-secondary/10"
+                                    className="col-span-2"
                                 />
 
                                 {/* Vaurio permanently reduces dice pool */}
                                 <ActiveStatBlock
+                                    theme="primary-light"
                                     label="Vaurio"
                                     value={character.vaurio}
                                     maxAllowed={5}
                                     onIncrement={() => updateCharacter({ vaurio: character.vaurio + 1 })}
                                     onDecrement={() => updateCharacter({ vaurio: character.vaurio - 1 })}
-                                    className="col-span-2 border-primary border-2 rounded-none bg-primary/20 text-primary"
+                                    className="col-span-2"
                                 />
                             </div>
 
-                            <div className="border-b-2 border-secondary/30 pb-3 mt-10">
-                                <Heading>Kestot (Durations)</Heading>
-                            </div>
-                            <div className="grid grid-cols-1 gap-4">
+                            <Heading>Kestot (Durations)</Heading>
+                            <div className="grid grid-cols-1 gap-4 mt-4">
                                 <ActiveStatBlock
                                     label="Keho"
                                     value={character.currentKeho}
@@ -144,15 +140,14 @@ export function CharacterSheet({ characterId, onBack }: { characterId: number, o
 
                         {/* Right Column: Dice Play Area */}
                         <div className="space-y-6">
-                            <div className="border-b-2 border-accent/30 pb-3">
-                                <Heading>Nopat & Toiminta</Heading>
-                            </div>
-                            <p className="text-text/80 text-lg leading-relaxed bg-accent/10 p-4 border-l-4 border-accent">
+                            <Heading>Nopat & Toiminta</Heading>
+                            <p className="text-text/80 text-lg leading-relaxed bg-accent/10 p-4 border-l-4 border-accent mt-4">
                                 Sinulla on <strong className="text-accent font-black text-xl">{baseDice}n20</strong> oletuksena. <br />
                                 Olet ottanut <strong className="text-primary font-bold">{character.vaurio} Vauriota</strong>, joten noppapoolisi koko on <strong className="text-primary font-black text-2xl">{maxDice}</strong>.
                             </p>
 
                             <DicePoolAllocator
+                                theme="inverted"
                                 maxDice={maxDice}
                                 axes={["Nopea", "Äänetön", "Tarkka"]}
                                 attributeDie="n4" // For now hardcoded to demonstrate UI functionality

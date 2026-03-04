@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "./Button";
+import { Button, cn } from "./Button";
 
 export interface ActiveStatBlockProps extends React.HTMLAttributes<HTMLDivElement> {
     label: string;
@@ -10,52 +10,59 @@ export interface ActiveStatBlockProps extends React.HTMLAttributes<HTMLDivElemen
     onDecrement?: () => void;
     minAllowed?: number;
     maxAllowed?: number;
+    theme?: "base" | "inverted" | "primary-light" | "primary-dark" | "secondary-light" | "secondary-dark" | "accent-light" | "accent-dark";
 }
 
 export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockProps>(
-    ({ className, label, value, maxValue, icon, onIncrement, onDecrement, minAllowed = 0, maxAllowed = Infinity, ...props }, ref) => {
+    ({ className, label, value, maxValue, icon, onIncrement, onDecrement, minAllowed = 0, maxAllowed = Infinity, theme, ...props }, ref) => {
         return (
             <div
                 ref={ref}
+                data-theme={theme}
                 className={cn(
-                    "flex flex-col p-4 rounded-none border-2 border-secondary/30 bg-background gap-3 shadow-[inset_0_0_10px_rgba(11,122,117,0.1)]",
+                    "flex flex-col p-4 rounded-sm border-2 border-[var(--theme-secondary)]/30 bg-[var(--theme-bg)] gap-3 shadow-inner",
                     className,
                 )}
                 {...props}
             >
-                <div className="flex items-center gap-3 border-b-2 border-secondary/20 pb-2">
-                    {icon && <div className="text-primary">{icon}</div>}
-                    <span className="font-black text-secondary uppercase tracking-widest text-sm drop-shadow-sm">
+                <div className="flex items-center gap-3 border-b-2 border-[var(--theme-secondary)]/20 pb-2">
+                    {icon && <div className="text-[var(--theme-primary)]">{icon}</div>}
+                    <span className="font-heading font-black text-[var(--theme-secondary)] uppercase tracking-widest text-sm drop-shadow-sm">
                         {label}
                     </span>
                 </div>
 
                 <div className="flex items-center justify-between mt-2">
-                    <button
+                    <Button
+                        variant="secondary"
+                        size="icon"
                         onClick={onDecrement}
                         disabled={value <= minAllowed}
-                        className="w-10 h-10 flex items-center justify-center rounded-none bg-secondary/10 text-secondary border-2 border-secondary/50 hover:bg-primary hover:text-background hover:border-primary disabled:opacity-30 disabled:hover:bg-secondary/10 disabled:hover:text-secondary disabled:hover:border-secondary/50 transition-all font-black text-xl shadow-sm"
+                        className="rounded-sm bg-[var(--theme-secondary)]/10 border-[var(--theme-secondary)]/50 hover:bg-[var(--theme-primary)] hover:text-[var(--theme-primary-foreground)] hover:border-[var(--theme-primary)] shadow-none"
                     >
                         -
-                    </button>
+                    </Button>
 
                     <div className="flex items-baseline gap-1 mx-4">
-                        <span className="text-4xl font-black text-text leading-none">{value}</span>
+                        <span className="text-4xl font-heading font-black text-[var(--theme-text)] leading-none">{value}</span>
                         {maxValue !== undefined && (
-                            <span className="text-lg font-bold text-text/50 leading-none">/ {maxValue}</span>
+                            <span className="text-lg font-bold text-[var(--theme-text)]/50 leading-none">/ {maxValue}</span>
                         )}
                     </div>
 
-                    <button
+                    <Button
+                        variant="secondary"
+                        size="icon"
                         onClick={onIncrement}
                         disabled={value >= (maxValue ?? maxAllowed)}
-                        className="w-10 h-10 flex items-center justify-center rounded-none bg-secondary/10 text-secondary border-2 border-secondary/50 hover:bg-primary hover:text-background hover:border-primary disabled:opacity-30 disabled:hover:bg-secondary/10 disabled:hover:text-secondary disabled:hover:border-secondary/50 transition-all font-black text-xl shadow-sm"
+                        className="rounded-sm bg-[var(--theme-secondary)]/10 border-[var(--theme-secondary)]/50 hover:bg-[var(--theme-primary)] hover:text-[var(--theme-primary-foreground)] hover:border-[var(--theme-primary)] shadow-none"
                     >
                         +
-                    </button>
+                    </Button>
                 </div>
             </div>
         );
     },
 );
 ActiveStatBlock.displayName = "ActiveStatBlock";
+

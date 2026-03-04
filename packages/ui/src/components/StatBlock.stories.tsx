@@ -1,48 +1,90 @@
-import React from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import { StatBlock } from "./StatBlock";
 
 const meta = {
-  title: "TTRPG/StatBlock",
+  title: "Components/StatBlock",
   component: StatBlock,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {
+    theme: {
+      control: "select",
+      options: [
+        "base",
+        "inverted",
+        "primary-light",
+        "primary-dark",
+        "secondary-light",
+        "secondary-dark",
+        "accent-light",
+        "accent-dark",
+      ],
+    },
+    value: { control: "number" },
+    maxValue: { control: "number" },
+  },
 } satisfies Meta<typeof StatBlock>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Heart Icon Mock
-const HeartIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-  </svg>
-);
-
-export const Health: Story = {
+export const Default: Story = {
   args: {
-    label: "Kesto",
-    value: 4,
-    maxValue: 5,
-    icon: <HeartIcon />,
+    label: "Health",
+    value: 10,
+    maxValue: 20,
+    icon: <span>❤️</span>,
   },
 };
 
-export const AbilityScore: Story = {
+export const LargeNumbers: Story = {
   args: {
-    label: "Sisu",
-    value: 12,
+    label: "Credits",
+    value: 15420,
+    icon: <span>💎</span>,
+  },
+};
+
+export const WithoutMax: Story = {
+  args: {
+    label: "Level",
+    value: 5,
+    icon: <span>⭐</span>,
+  },
+};
+
+export const ThemeShowcase: Story = {
+  args: {
+    label: "Theme",
+    value: 0,
+  },
+  render: () => {
+    const themes = [
+      "base",
+      "inverted",
+      "primary-light",
+      "primary-dark",
+      "secondary-light",
+      "secondary-dark",
+      "accent-light",
+      "accent-dark",
+    ];
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 min-w-[300px] sm:min-w-[600px] lg:min-w-[1000px]">
+        {themes.map((theme) => (
+          <StatBlock
+            key={theme}
+            theme={theme as any}
+            label={theme}
+            value={Math.floor(Math.random() * 50) + 10}
+            maxValue={100}
+            icon={<span>🔰</span>}
+          />
+        ))}
+      </div>
+    );
   },
 };

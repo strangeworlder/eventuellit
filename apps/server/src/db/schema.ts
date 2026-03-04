@@ -20,7 +20,7 @@ export const characters = pgTable("characters", {
     currentMieli: integer("current_mieli").default(8).notNull(),
     tera: integer("tera").default(8).notNull(),
     currentTera: integer("current_tera").default(8).notNull(),
-    sisuDie: text("sisu_die").notNull().default("d6"),
+    sisuDie: text("sisu_die").notNull().default("n6"),
     sisuCount: integer("sisu_count").notNull().default(3),
     currentSisuCount: integer("current_sisu_count").notNull().default(3),
     vaurio: integer("vaurio").notNull().default(0),

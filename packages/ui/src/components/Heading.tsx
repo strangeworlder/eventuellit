@@ -37,11 +37,11 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
                     "font-bold tracking-tight",
                     {
                         "font-heading text-5xl uppercase text-[var(--theme-primary)]": activeVariant === "h1",
-                        "font-heading text-4xl text-[var(--theme-text)]": activeVariant === "h2",
-                        "font-heading text-3xl text-[var(--theme-primary)]": activeVariant === "h3",
-                        "font-sans text-2xl text-[var(--theme-text)]": activeVariant === "h4",
-                        "font-sans text-xl text-[var(--theme-secondary)]": activeVariant === "h5",
-                        "font-sans text-lg text-[var(--theme-text)]": activeVariant === "h6",
+                        "font-heading text-4xl uppercase text-[var(--theme-text)]": activeVariant === "h2",
+                        "font-heading text-3xl uppercase text-[var(--theme-primary)]": activeVariant === "h3",
+                        "font-sans text-2xl border-l-4 pl-4 border-[var(--theme-primary)] uppercase text-[var(--theme-text)]": activeVariant === "h4",
+                        "font-sans text-xl uppercase text-[var(--theme-secondary)]": activeVariant === "h5",
+                        "border-b-2 border-[var(--theme-primary)] font-sans text-lg uppercase text-[var(--theme-text)]": activeVariant === "h6",
                     },
                     className
                 )}

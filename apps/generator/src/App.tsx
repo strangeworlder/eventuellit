@@ -8,7 +8,7 @@ import { DiceRoller } from "@repo/ui/components/DiceRoller";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@repo/ui/components/Tabs";
 import { useCreateCharacter } from "./api/characters";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
-import { Heading } from "@repo/ui/components/Heading";
+import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { CharacterSheet } from "./CharacterSheet";
 
 const queryClient = new QueryClient();
@@ -80,112 +80,114 @@ function GeneratorForm() {
           <CardTitle>Uusi Hahmo</CardTitle>
         </CardHeader>
         <CardContent variant="default">
-          <Input
-            label="Hahmon Nimi"
-            placeholder="Syötä nimi..."
-            value={characterName}
-            onChange={(e) => setCharacterName(e.target.value)}
-          />
+          <HeadingLevelProvider>
+            <Input
+              label="Hahmon Nimi"
+              placeholder="Syötä nimi..."
+              value={characterName}
+              onChange={(e) => setCharacterName(e.target.value)}
+            />
 
-          <div className="space-y-6">
-            <div className="border-b-2 border-primary/20 pb-2">
-              <Heading variant="h3">Arkkityyppi</Heading>
-            </div>
-            <div className="flex gap-4">
-              <Button
-                variant={archetype === "soldier" ? "primary" : "secondary"}
-                onClick={() => setArchetype("soldier")}
-              >
-                Sotilas (Sisu: 3n8, Taidot: 2)
-              </Button>
-              <Button
-                variant={archetype === "expert" ? "primary" : "secondary"}
-                onClick={() => setArchetype("expert")}
-              >
-                Ekspertti (Sisu: 3n6, Taidot: 3)
-              </Button>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="flex justify-between items-center mb-2">
-              <Heading variant="h3">Ominaisuudet (Kestot)</Heading>
-              <span className="text-slate-400 font-mono">Noppia jäljellä: {diceRemaining}x 1d4</span>
+            <div className="space-y-6">
+              <div className="border-b-2 border-primary/20 pb-2">
+                <Heading>Arkkityyppi</Heading>
+              </div>
+              <div className="flex gap-4">
+                <Button
+                  variant={archetype === "soldier" ? "primary" : "secondary"}
+                  onClick={() => setArchetype("soldier")}
+                >
+                  Sotilas (Sisu: 3n8, Taidot: 2)
+                </Button>
+                <Button
+                  variant={archetype === "expert" ? "primary" : "secondary"}
+                  onClick={() => setArchetype("expert")}
+                >
+                  Ekspertti (Sisu: 3n6, Taidot: 3)
+                </Button>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card variant="subtle">
-                <CardContent variant="dense">
-                  <StatBlock label="Keho (Kesto)" value={kehoScore} className="bg-secondary/10 border-secondary/30" />
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Fysiikka (d4: {fysiikka})</span>
-                    <div className="flex gap-2">
-                      <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setFysiikka, fysiikka)}>-</Button>
-                      <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setFysiikka, fysiikka)}>+</Button>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Nopeus (d4: {nopeus})</span>
-                    <div className="flex gap-2">
-                      <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setNopeus, nopeus)}>-</Button>
-                      <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setNopeus, nopeus)}>+</Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center mb-2">
+                <Heading>Ominaisuudet (Kestot)</Heading>
+                <span className="text-slate-400 font-mono">Noppia jäljellä: {diceRemaining}x 1d4</span>
+              </div>
 
-              <Card variant="subtle">
-                <CardContent variant="dense">
-                  <StatBlock label="Mieli (Kesto)" value={mieliScore} className="bg-secondary/10 border-secondary/30" />
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Ymmärrys (d4: {ymmarrys})</span>
-                    <div className="flex gap-2">
-                      <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setYmmarrys, ymmarrys)}>-</Button>
-                      <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setYmmarrys, ymmarrys)}>+</Button>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Card variant="subtle">
+                  <CardContent variant="dense">
+                    <StatBlock theme="inverted" label="Keho (Kesto)" value={kehoScore} />
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Fysiikka (d4: {fysiikka})</span>
+                      <div className="flex gap-2">
+                        <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setFysiikka, fysiikka)}>-</Button>
+                        <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setFysiikka, fysiikka)}>+</Button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Persoona (d4: {persoona})</span>
-                    <div className="flex gap-2">
-                      <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setPersoona, persoona)}>-</Button>
-                      <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setPersoona, persoona)}>+</Button>
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Nopeus (d4: {nopeus})</span>
+                      <div className="flex gap-2">
+                        <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setNopeus, nopeus)}>-</Button>
+                        <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setNopeus, nopeus)}>+</Button>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
 
-              <Card variant="subtle">
-                <CardContent variant="dense">
-                  <StatBlock label="Terä (Kesto)" value={teraScore} className="bg-secondary/10 border-secondary/30" />
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Näkemys (d4: {nakemys})</span>
-                    <div className="flex gap-2">
-                      <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setNakemys, nakemys)}>-</Button>
-                      <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setNakemys, nakemys)}>+</Button>
+                <Card variant="subtle">
+                  <CardContent variant="dense">
+                    <StatBlock theme="secondary-light" label="Mieli (Kesto)" value={mieliScore} />
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Ymmärrys (d4: {ymmarrys})</span>
+                      <div className="flex gap-2">
+                        <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setYmmarrys, ymmarrys)}>-</Button>
+                        <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setYmmarrys, ymmarrys)}>+</Button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-center text-sm px-2">
-                    <span className="font-bold text-text/80">Näppäryys (d4: {napparyys})</span>
-                    <div className="flex gap-2">
-                      <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setNapparyys, napparyys)}>-</Button>
-                      <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setNapparyys, napparyys)}>+</Button>
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Persoona (d4: {persoona})</span>
+                      <div className="flex gap-2">
+                        <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setPersoona, persoona)}>-</Button>
+                        <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setPersoona, persoona)}>+</Button>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+
+                <Card variant="subtle">
+                  <CardContent variant="dense">
+                    <StatBlock theme="secondary-light" label="Terä (Kesto)" value={teraScore} />
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Näkemys (d4: {nakemys})</span>
+                      <div className="flex gap-2">
+                        <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setNakemys, nakemys)}>-</Button>
+                        <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setNakemys, nakemys)}>+</Button>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center text-sm px-2">
+                      <span className="font-bold text-text/80">Näppäryys (d4: {napparyys})</span>
+                      <div className="flex gap-2">
+                        <Button variant="primary" size="icon" onClick={() => handleRemoveDie(setNapparyys, napparyys)}>-</Button>
+                        <Button variant="secondary" size="icon" onClick={() => handleAssignDie(setNapparyys, napparyys)}>+</Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-          </div>
 
-          <DiceRoller />
+            <DiceRoller />
 
-          <Button
-            size="lg"
-            className="mt-8"
-            onClick={handleSave}
-            disabled={isPending || characterName.trim() === "" || diceRemaining > 0}
-          >
-            {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
-          </Button>
+            <Button
+              size="lg"
+              className="mt-8"
+              onClick={handleSave}
+              disabled={isPending || characterName.trim() === "" || diceRemaining > 0}
+            >
+              {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
+            </Button>
+          </HeadingLevelProvider>
         </CardContent>
       </Card>
     </div>
@@ -244,10 +246,12 @@ function InnerApp() {
                   <CardTitle>{char.name}</CardTitle>
                 </CardHeader>
                 <CardContent variant="dense">
-                  <div className="grid grid-cols-2 gap-2">
-                    <p className="font-bold text-[var(--theme-accent)] uppercase col-span-2">{char.archetype}</p>
-                    <p className="text-left">Vaurio: {char.vaurio}</p>
-                    <p className="text-right">Sisu: {char.currentSisuCount}x{char.sisuDie}</p>
+                  <div className="flex flex-col gap-2 w-full">
+                    <p className="font-bold text-[var(--theme-accent)] uppercase">{char.archetype}</p>
+                    <div className="flex justify-between items-center w-full">
+                      <p className="text-left">Vaurio: {char.vaurio}</p>
+                      <p className="text-right">Sisu: {char.currentSisuCount} x {char.sisuDie}</p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
