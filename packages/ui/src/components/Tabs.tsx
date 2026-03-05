@@ -54,7 +54,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 );
 Tabs.displayName = "Tabs";
 
-export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ className, onKeyDown, ...props }, ref) => {
@@ -125,7 +125,7 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
         role="tablist"
         aria-orientation="horizontal"
         className={cn(
-          "flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] gap-1 px-4 sm:px-0",
+          "f",
           className,
         )}
         onKeyDown={handleKeyDown}
@@ -139,14 +139,14 @@ TabsList.displayName = "TabsList";
 export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
   theme?:
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+  | "base"
+  | "inverted"
+  | "primary-light"
+  | "primary-dark"
+  | "secondary-light"
+  | "secondary-dark"
+  | "accent-light"
+  | "accent-dark";
 }
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(

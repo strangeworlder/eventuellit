@@ -26,14 +26,14 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
                 ref={ref}
                 data-theme={theme}
                 className={cn(
-                    "font-sans text-[var(--theme-text)]",
+                    "font-sans text-[var(--theme-text)] tracking-[0.015em]",
                     {
-                        "text-base leading-relaxed font-normal": variant === "base",
-                        "text-lg leading-relaxed font-normal": variant === "large",
-                        "text-sm leading-snug font-normal": variant === "small",
-                        "text-xl leading-normal font-light opacity-90": variant === "lead",
-                        "text-base leading-relaxed opacity-70": variant === "muted",
-                        "text-base leading-relaxed font-semibold": variant === "bold",
+                        "text-[1.05rem] leading-[1.7] font-normal": variant === "base",
+                        "text-[1.15rem] leading-[1.7] font-normal": variant === "large",
+                        "text-[0.9rem] leading-snug font-normal": variant === "small",
+                        "text-[1.25rem] leading-normal font-light opacity-90": variant === "lead",
+                        "text-[1.05rem] leading-[1.7] opacity-70": variant === "muted",
+                        "text-[1.05rem] leading-[1.7] font-semibold": variant === "bold",
                     },
                     className
                 )}

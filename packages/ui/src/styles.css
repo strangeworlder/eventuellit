@@ -2,67 +2,68 @@
 @import "tailwindcss";
 
 @theme {
-    /* Breakpoints */
-    --breakpoint-mobile: 640px;
-    --breakpoint-tablet: 768px;
-    --breakpoint-desktop: 1024px;
-    --breakpoint-x-wide: 1280px;
+  /* Breakpoints */
+  --breakpoint-mobile: 640px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-x-wide: 1280px;
 
-    --color-primary: #da4b4b;
-    --color-primary-foreground: #0f0f13;
-    --color-primary-50: #fdf4f4;
-    --color-primary-100: #f4caca;
-    --color-primary-200: #eba0a0;
-    --color-primary-300: #e37575;
-    --color-primary-400: #de6060;
-    --color-primary-500: #da4b4b;
-    --color-primary-600: #d63636;
-    --color-primary-700: #c92929;
-    --color-primary-800: #9e2121;
-    --color-primary-900: #741818;
+  --color-primary: #da4b4b;
+  --color-primary-foreground: #0f0f13;
+  --color-primary-50: #fdf4f4;
+  --color-primary-100: #f4caca;
+  --color-primary-200: #eba0a0;
+  --color-primary-300: #e37575;
+  --color-primary-400: #de6060;
+  --color-primary-500: #da4b4b;
+  --color-primary-600: #d63636;
+  --color-primary-700: #c92929;
+  --color-primary-800: #9e2121;
+  --color-primary-900: #741818;
 
-    --color-secondary: #0d8c87;
-    --color-secondary-foreground: #0f0f13;
-    --color-secondary-50: #73f2ed;
-    --color-secondary-100: #44eee7;
-    --color-secondary-200: #16e9e1;
-    --color-secondary-300: #11bbb4;
-    --color-secondary-400: #0fa39e;
-    --color-secondary-500: #0d8c87;
-    --color-secondary-600: #0b7571;
-    --color-secondary-700: #095d5a;
-    --color-secondary-800: #042f2d;
-    --color-secondary-900: #000000;
+  --color-secondary: #0d8c87;
+  --color-secondary-foreground: #0f0f13;
+  --color-secondary-50: #73f2ed;
+  --color-secondary-100: #44eee7;
+  --color-secondary-200: #16e9e1;
+  --color-secondary-300: #11bbb4;
+  --color-secondary-400: #0fa39e;
+  --color-secondary-500: #0d8c87;
+  --color-secondary-600: #0b7571;
+  --color-secondary-700: #095d5a;
+  --color-secondary-800: #042f2d;
+  --color-secondary-900: #000000;
 
-    --color-accent: #6e6eff;
-    --color-accent-foreground: #0f0f13;
-    --color-accent-50: #ffffff;
-    --color-accent-100: #ffffff;
-    --color-accent-200: #d4d4ff;
-    --color-accent-300: #a1a1ff;
-    --color-accent-400: #8888ff;
-    --color-accent-500: #6e6eff;
-    --color-accent-600: #5555ff;
-    --color-accent-700: #3b3bff;
-    --color-accent-800: #0808ff;
-    --color-accent-900: #0000d4;
+  --color-accent: #6e6eff;
+  --color-accent-foreground: #0f0f13;
+  --color-accent-50: #ffffff;
+  --color-accent-100: #ffffff;
+  --color-accent-200: #d4d4ff;
+  --color-accent-300: #a1a1ff;
+  --color-accent-400: #8888ff;
+  --color-accent-500: #6e6eff;
+  --color-accent-600: #5555ff;
+  --color-accent-700: #3b3bff;
+  --color-accent-800: #0808ff;
+  --color-accent-900: #0000d4;
 
-    --color-background: #0f0f13;
-    --color-text: #f4f4f0;
+  --color-background: #0f0f13;
+  --color-text: #f4f4f0;
 
-    /* Semantic Theme Colors - dynamically changes based on data-theme attribute */
-    --color-surface: var(--theme-bg);
-    --color-foreground: var(--theme-text);
-    --color-theme-primary: var(--theme-primary);
-    --color-theme-primary-foreground: var(--theme-primary-foreground);
-    --color-theme-secondary: var(--theme-secondary);
-    --color-theme-accent: var(--theme-accent);
+  /* Semantic Theme Colors - dynamically changes based on data-theme attribute */
+  --color-surface: var(--theme-bg);
+  --color-foreground: var(--theme-text);
+  --color-theme-primary: var(--theme-primary);
+  --color-theme-primary-foreground: var(--theme-primary-foreground);
+  --color-theme-secondary: var(--theme-secondary);
+  --color-theme-accent: var(--theme-accent);
 
-    --font-sans: "Inter", sans-serif;
-    --font-heading: "Outfit", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Outfit", sans-serif;
 }
 
 @layer base {
+
   :root,
   [data-theme="base"] {
     --theme-bg: var(--color-background);
@@ -165,6 +166,9 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    letter-spacing: 0.015em;
   }
 
   h1,

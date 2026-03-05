@@ -6,16 +6,18 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { Page } from "@repo/ui/components/Page";
 import { StatBlock } from "@repo/ui/components/StatBlock";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/Tabs";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { Routes, Route, Navigate, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
+import { cn } from "@repo/ui/components/Button";
 import { useCreateCharacter } from "./api/characters";
 import { CharacterSheet } from "./CharacterSheet";
 
 const queryClient = new QueryClient();
 
 function GeneratorForm() {
-  const { mutate: createCharacter, isPending, isSuccess } = useCreateCharacter();
+  const { mutate: createCharacter, isPending, isSuccess, reset } = useCreateCharacter();
+  const navigate = useNavigate();
 
   const [characterName, setCharacterName] = useState("");
   const [archetype, setArchetype] = useState<"soldier" | "expert">("soldier");
@@ -64,6 +66,18 @@ function GeneratorForm() {
     });
   };
 
+  const handleReset = () => {
+    reset();
+    setCharacterName("");
+    setArchetype("soldier");
+    setFysiikka(0);
+    setNopeus(0);
+    setYmmarrys(0);
+    setPersoona(0);
+    setNakemys(0);
+    setNapparyys(0);
+  };
+
   if (isSuccess) {
     return (
       <div className="space-y-8 animate-in fade-in duration-500">
@@ -73,9 +87,14 @@ function GeneratorForm() {
               Hahmo Luotu Onnistuneesti!
             </Heading>
             <p className="text-text/80 text-lg">Hahmosi tallennettiin tietokantaan.</p>
-            <Button className="mt-6" onClick={() => window.location.reload()}>
-              Tee uusi hahmo
-            </Button>
+            <div className="flex gap-4 mt-6">
+              <Button onClick={() => navigate("../list")}>
+                Palaa listaan
+              </Button>
+              <Button variant="secondary" onClick={handleReset}>
+                Tee uusi hahmo
+              </Button>
+            </div>
           </HeadingLevelProvider>
         </div>
       </div>
@@ -276,9 +295,29 @@ function GeneratorForm() {
   );
 }
 
+function CharacterSheetRoute() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  if (!id) return <div>Virheellinen id</div>;
+
+  return <CharacterSheet characterId={Number(id)} onBack={() => navigate("../list")} />;
+}
+
 function InnerApp() {
-  const [view, setView] = useState<"list" | "generator" | "sheet">("list");
-  const [selectedCharacterId, setSelectedCharacterId] = useState<number | null>(null);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  // Dynamically determine the correct base path for absolute routing to avoid nesting issues
+  const getBasePath = () => {
+    const segments = pathname.split('/').filter(Boolean);
+    if (segments.length === 0) return '';
+    // If the first segment is an internal page, we are mounted at root
+    if (['list', 'new', 'character'].includes(segments[0])) return '';
+    // Otherwise, use the first segment as the mount point (e.g. "/generator")
+    return `/${segments[0]}`;
+  };
+
+  const basePath = getBasePath();
 
   // Quick helper to fetch character list
   const { data: characters, isLoading } = useQuery({
@@ -290,78 +329,95 @@ function InnerApp() {
     },
   });
 
+  const tabClass = (isActive: boolean) => cn(
+    "relative cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm sm:text-base font-bold uppercase tracking-widest transition-all",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
+    "disabled:pointer-events-none disabled:opacity-50",
+    "rounded-t-md",
+    "mb-[-2px]", // Overlap the bottom border of the list
+    isActive
+      ? "bg-[var(--theme-bg)] text-[var(--theme-primary)] z-10 border-2 border-b-[var(--theme-text)] font-bold"
+      : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:bg-[var(--theme-primary)]/15 hover:text-[var(--theme-text)] font-semibold"
+  );
+
   return (
     <Page>
-      <Tabs value={view} onValueChange={(v) => setView(v as typeof view)}>
-        {/* Navigation / Header */}
-        <TabsList>
-          <TabsTrigger value="list">Hahmoluettelo</TabsTrigger>
-          <TabsTrigger value="generator">Uusi Hahmo</TabsTrigger>
-          {view === "sheet" && <TabsTrigger value="sheet">Hahmolomake</TabsTrigger>}
-        </TabsList>
+      <div
+        role="tablist"
+        aria-orientation="horizontal"
+        className="flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] gap-1 px-4 sm:px-0"
+      >
+        <NavLink
+          to={`${basePath}/list`}
+          className={({ isActive }) => tabClass(isActive)}
+        >
+          Hahmoluettelo
+        </NavLink>
+        <NavLink
+          to={`${basePath}/new`}
+          className={({ isActive }) => tabClass(isActive)}
+        >
+          Uusi Hahmo
+        </NavLink>
+      </div>
 
-        {/* Views */}
-        <TabsContent value="generator">
-          <GeneratorForm />
-        </TabsContent>
+      <div className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] animate-in fade-in duration-300 pt-8">
+        <Routes>
+          <Route path="/" element={<Navigate to="list" replace />} />
 
-        <TabsContent value="sheet">
-          {selectedCharacterId && (
-            <CharacterSheet characterId={selectedCharacterId} onBack={() => setView("list")} />
-          )}
-        </TabsContent>
+          <Route path="list" element={
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
+              {isLoading && (
+                <p className="text-primary animate-pulse uppercase tracking-widest font-bold">
+                  Ladataan hahmoja...
+                </p>
+              )}
 
-        <TabsContent value="list">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
-            {isLoading && (
-              <p className="text-primary animate-pulse uppercase tracking-widest font-bold">
-                Ladataan hahmoja...
-              </p>
-            )}
+              {!isLoading && characters?.length === 0 && (
+                <div className="col-span-full text-center py-12 text-text/60">
+                  <p className="text-xl">Ei hahmoja vielä.</p>
+                  <Button
+                    className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md"
+                    onClick={() => navigate(`${basePath}/new`)}
+                  >
+                    Luo ensimmäinen hahmosi
+                  </Button>
+                </div>
+              )}
 
-            {!isLoading && characters?.length === 0 && (
-              <div className="col-span-full text-center py-12 text-text/60">
-                <p className="text-xl">Ei hahmoja vielä.</p>
-                <Button
-                  className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md"
-                  onClick={() => setView("generator")}
-                >
-                  Luo ensimmäinen hahmosi
-                </Button>
-              </div>
-            )}
-
-            {!isLoading &&
-              characters?.map((char: any) => (
-                <Card
-                  key={char.id}
-                  className="hover:bg-secondary/5 cursor-pointer hover:shadow-[4px_4px_0px_rgba(201,42,42,1)] transition-all transform hover:-translate-y-1"
-                  onClick={() => {
-                    setSelectedCharacterId(char.id);
-                    setView("sheet");
-                  }}
-                >
-                  <CardHeader>
-                    <CardTitle>{char.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent variant="dense">
-                    <div className="flex flex-col gap-2 w-full">
-                      <p className="font-bold text-[var(--theme-accent)] uppercase">
-                        {char.archetype}
-                      </p>
-                      <div className="flex justify-between items-center w-full">
-                        <p className="text-left">Vaurio: {char.vaurio}</p>
-                        <p className="text-right">
-                          Sisu: {char.currentSisuCount} x {char.sisuDie}
+              {!isLoading &&
+                characters?.map((char: any) => (
+                  <Card
+                    key={char.id}
+                    className="hover:bg-secondary/5 cursor-pointer hover:shadow-[4px_4px_0px_rgba(201,42,42,1)] transition-all transform hover:-translate-y-1"
+                    onClick={() => navigate(`${basePath}/character/${char.id}`)}
+                  >
+                    <CardHeader>
+                      <CardTitle>{char.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent variant="dense">
+                      <div className="flex flex-col gap-2 w-full">
+                        <p className="font-bold text-[var(--theme-accent)] uppercase">
+                          {char.archetype}
                         </p>
+                        <div className="flex justify-between items-center w-full">
+                          <p className="text-left">Vaurio: {char.vaurio}</p>
+                          <p className="text-right">
+                            Sisu: {char.currentSisuCount} x {char.sisuDie}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-          </div>
-        </TabsContent>
-      </Tabs>
+                    </CardContent>
+                  </Card>
+                ))}
+            </div>
+          } />
+
+          <Route path="new" element={<GeneratorForm />} />
+
+          <Route path="character/:id" element={<CharacterSheetRoute />} />
+        </Routes>
+      </div>
     </Page>
   );
 }

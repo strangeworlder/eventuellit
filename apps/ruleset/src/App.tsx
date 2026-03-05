@@ -1,197 +1,137 @@
 import { HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { Page } from "@repo/ui/components/Page";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/Tabs";
-import { Text } from "@repo/ui/components/Text";
-import { TextSection } from "@repo/ui/components/TextSection";
+import { MarkdownRenderer } from "@repo/ui/components/Markdown";
+import { cn } from "@repo/ui/components/Button";
+
+import { Routes, Route, Navigate, NavLink, useLocation } from "react-router-dom";
+
+// Lightweight frontmatter parser to avoid Node 'Buffer' dependency from gray-matter in the browser
+function parseFrontmatter(md: string) {
+  const match = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
+  const data: Record<string, any> = {};
+  let content = md;
+  if (match) {
+    const frontmatter = match[1];
+    content = md.slice(match[0].length);
+    frontmatter.split(/\r?\n/).forEach(line => {
+      const colonIndex = line.indexOf(':');
+      if (colonIndex !== -1) {
+        const key = line.slice(0, colonIndex).trim();
+        let value = line.slice(colonIndex + 1).trim();
+        if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+          value = value.slice(1, -1);
+        }
+        if (!isNaN(Number(value)) && value !== '') {
+          data[key] = Number(value);
+        } else {
+          data[key] = value;
+        }
+      }
+    });
+  }
+  return { data, content };
+}
+
+// Dynamically import all markdown files in the content directory and subdirectories
+const modules = import.meta.glob("./content/**/*.md", { eager: true, query: "?raw", import: "default" });
+
+interface MarkdownPage {
+  id: string;
+  title: string;
+  order: number;
+  content: string;
+  description?: string;
+}
+
+const pages: MarkdownPage[] = Object.entries(modules).map(([path, rawMdx]) => {
+  const rawString = typeof rawMdx === "string" ? rawMdx : "";
+  const { data, content } = parseFrontmatter(rawString);
+
+  // Fallback ID from filename
+  const filename = path.split("/").pop()?.replace(".md", "") || "unknown";
+
+  return {
+    id: filename.toLowerCase(),
+    title: data.title || filename,
+    order: data.order || 99,
+    description: data.description || "",
+    content: content,
+  };
+}).sort((a, b) => a.order - b.order);
 
 function App() {
+  const { pathname } = useLocation();
+
+  const tabClass = (isActive: boolean) => cn(
+    "relative cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm sm:text-base font-bold uppercase tracking-widest transition-all",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
+    "disabled:pointer-events-none disabled:opacity-50",
+    "rounded-t-md",
+    "mb-[-2px]", // Overlap the bottom border of the list
+    isActive
+      ? "bg-[var(--theme-bg)] text-[var(--theme-primary)] z-10 border-2 border-b-[var(--theme-text)] font-bold"
+      : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:bg-[var(--theme-primary)]/15 hover:text-[var(--theme-text)] font-semibold"
+  );
+
+  const defaultPath = pages.length > 0 ? pages[0].id : "";
+
+  // Dynamically determine the correct base path for absolute routing to avoid nesting issues
+  const getBasePath = () => {
+    const segments = pathname.split('/').filter(Boolean);
+    if (segments.length === 0) return '/';
+    // If the first segment exactly matches a page ID, it means we are mounted at the root
+    if (pages.some(p => p.id === segments[0])) return '/';
+    // Otherwise, use the first segment as the mount point (e.g. "/ruleset")
+    return `/${segments[0]}`;
+  };
+
+  const basePath = getBasePath();
+
   return (
     <Page>
-      <Tabs defaultValue="mekaniikat">
-        <TabsList>
-          <TabsTrigger value="mekaniikat">Säännöt & Mekaniikat</TabsTrigger>
-          <TabsTrigger value="maailma">Maailma</TabsTrigger>
-        </TabsList>
+      {pages.length > 0 && (
+        <>
+          <div
+            role="tablist"
+            aria-orientation="horizontal"
+            className="flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] gap-1 px-4 sm:px-0"
+          >
+            {pages.map((page) => (
+              <NavLink
+                key={page.id}
+                to={basePath === '/' ? `/${page.id}` : `${basePath}/${page.id}`}
+                className={({ isActive }) => tabClass(isActive)}
+              >
+                {page.title}
+              </NavLink>
+            ))}
+          </div>
 
-        <TabsContent value="mekaniikat">
-          <HeadingLevelProvider>
-            <Hero
-              title="Säännöt & Mekaniikat"
-              description="Peli käyttää rankasti modifioitua Hood-roolipelin ja FREE/FALL -järjestelmää."
-            />
-            <div className="space-y-10">
-              <HeadingLevelProvider>
-
-                <TextSection title="Pelijärjestelmä">
-                  <Text variant="large" className="mb-2">
-                    <strong className="text-[var(--theme-accent)]">n20, yritä saada isoa.</strong>
-                  </Text>
-                  <ul className="list-disc ml-6 space-y-2 text-[var(--theme-text)]">
-                    <li><strong className="text-[var(--theme-accent)]">5 noppaa:</strong> 20-sivuisten määrä käytettävissä heittoon on 5.</li>
-                    <li><strong className="text-[var(--theme-accent)]">Akselit:</strong> Yleensä heitoissa nopat pitää jakaa vähintään kahdelle akselille, jotka pelinjohtaja määrittelee (esim. &quot;nopeasti&quot; ja &quot;hiljaa&quot;). Pelaaja päättää kuinka monta noppaa millekin asettaa ja tulos on korkein noppa sillä akselilla.</li>
-                    <li><strong className="text-[var(--theme-accent)]">Perusominaisuudet:</strong> Aloittavalla hahmolla on kaksi jotka ovat kumpikin +n4. Jos pätee heittoon, voi lisätä perusominaisuusnopan (esim. +n4 tuloksen) yhdelle akselille.</li>
-                    <li><strong className="text-[var(--theme-accent)]">Taidot ja kestot:</strong> Taidot oikeuttavat yrittämään asiaa. Ilman perustetta on käytettävä kestopisteitä (1 oikea kesto tai 2 muuta).</li>
-                    <li><strong className="text-[var(--theme-accent)]">Sisu:</strong> Sisunoppia on alussa 3n6 tai 3n8. Vahinko voi vähentää sisua (kuvaa asioita kuten läheltä piti -tilanteet ja taisteluväsymys).</li>
-                    <li><strong className="text-[var(--theme-accent)]">Vaurio:</strong> Sisun loppuessa menettää kestoa tai kärsii vauriota. Vaurio vähentää suoraan heitettävien noppien määrää. 5 vauriolla on poissa pelistä.</li>
-                  </ul>
-                </TextSection>
-
-                <TextSection title="Hahmot">
-                  <Text variant="large" className="mb-4">
-                    Pelaajahahmot ovat (anti)sankareita kytevässä kapinassa tyrannaista aurinkokuntaa vastaan.
-                  </Text>
-                  <ul className="list-none space-y-4">
-                    <li className="flex items-start">
-                      <span className="text-[var(--theme-accent)] mr-3 font-bold">▶</span>
-                      <div>
-                        <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest ml-1">
-                          Tyypit:
-                        </strong>
-                        <span className="text-lg ml-2 text-[var(--theme-text)]">
-                          <strong>Sotilas</strong> (2 taitoa, 3n8 sisu) tai <strong>Ekspertti</strong> (3 taitoa, 3n6 sisu).
-                        </span>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-[var(--theme-accent)] mr-3 font-bold">▶</span>
-                      <div>
-                        <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest ml-1">
-                          Keho:
-                        </strong>
-                        <span className="text-lg ml-2 text-[var(--theme-text)]">
-                          Fysiikka, Nopeus.
-                        </span>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-[var(--theme-accent)] mr-3 font-bold">▶</span>
-                      <div>
-                        <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest ml-1">
-                          Mieli:
-                        </strong>
-                        <span className="text-lg ml-2 text-[var(--theme-text)]">
-                          Ymmärrys, Persoona.
-                        </span>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-[var(--theme-accent)] mr-3 font-bold">▶</span>
-                      <div>
-                        <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest ml-1">
-                          Terä:
-                        </strong>
-                        <span className="text-lg ml-2 text-[var(--theme-text)]">
-                          Näkemys, Näppäryys.
-                        </span>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-[var(--theme-accent)] mr-3 font-bold">▶</span>
-                      <div>
-                        <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest ml-1">
-                          Kestot:
-                        </strong>
-                        <span className="text-lg ml-2 text-[var(--theme-text)]">
-                          Keho, Mieli ja Terä alkavat 8:sta pistermäärästä. Jokainen +n4 perusominaisuudessa antaa +2 kyseiseen kestoon.
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                </TextSection>
-
-                <TextSection title="Hahmokehitys">
-                  <Text variant="large">
-                    Jos hahmo palaa uuteen jaksoon, pelaaja saa:
-                  </Text>
-                  <ul className="list-disc ml-6 space-y-2 text-lg mt-2 text-[var(--theme-text)]">
-                    <li>Lisätä uuden +n4 johonkin perusominaisuuteen <em>tai</em> nostaa olemassa olevan arvoa (n4 &rarr; n6 &rarr; n8 &rarr; n10 &rarr; n12 jne).</li>
-                    <li>Jaksokohtaisen uuden taidon.</li>
-                    <li>Valita joko toisen taidon, +1n6 sisunopan, tai +1n8 sisunopan.</li>
-                  </ul>
-                </TextSection>
-              </HeadingLevelProvider>
-
-            </div>
-          </HeadingLevelProvider>
-        </TabsContent>
-
-        <TabsContent value="maailma">
-          <HeadingLevelProvider>
-            <div className="flex flex-col space-y-8 max-w-4xl pt-4">
-              <Hero
-                title="Maailma & Tyylilaji"
-                description="Nestemäisen avaruuden aurinkokunta ja nousu tyranniaa vastaan."
-              />
-              <div className="space-y-10">
-                <HeadingLevelProvider>
-                  <TextSection title="Eventuellit-antologia">
-                    <Text variant="large">
-                      Eventuellit-antologia on sarja two- tai threeshotteja, jotka sijoittuvat ihmiskunnan asuttamaan nestemäisen avaruuden (virtaukset ja kitkat perinteisen tyhjiön sijaan) aurinkokuntaan.
-                      Pelit käsittelevät tavalla tai toisella nousua tyranniaa ja maailman staattisuutta vastaan. Pelaajaporukka vaihtelee antologian jaksojen välillä,
-                      mutta pelaajien hahmot, jos säilyvät hengissä, voivat palata tarinaan.
-                    </Text>
-                  </TextSection>
-
-                  <TextSection title="Tyylilajit">
-                    <ul className="list-none space-y-6 mt-4">
-                      <li className="flex items-start">
-                        <span className="text-[var(--theme-accent)] mr-3 font-bold mt-1">▶</span>
-                        <div>
-                          <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest text-lg">
-                            Toiminnallinen draama:
-                          </strong>
-                          <Text variant="base" className="mt-1">
-                            Peli koostuu yksittäisistä tarinoista, jotka ovat konkreettisia toimia suuremmassa kuvassa pyrkimyksenä murtaa maailman status quo.
-                            Teoilla on seurauksia. <span className="opacity-70">(Esim. The Matrix, Andor, V for Vendetta)</span>
-                          </Text>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-[var(--theme-accent)] mr-3 font-bold mt-1">▶</span>
-                        <div>
-                          <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest text-lg">
-                            Avaruusooppera:
-                          </strong>
-                          <Text variant="base" className="mt-1">
-                            Scifiä, mutta ei täysin kovaa sellaista. Tieteen taso on 50% analogista retroscifiä, 35% modernia kovaa scifiä, 15% fantastista.
-                            Lähtökohtaisesti maailman toimintaan voi luottaa. <span className="opacity-70">(Esim. Andromeda, Star Wars Rebels, Battlestar Galactica)</span>
-                          </Text>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-[var(--theme-accent)] mr-3 font-bold mt-1">▶</span>
-                        <div>
-                          <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest text-lg">
-                            Surrealistinen:
-                          </strong>
-                          <Text variant="base" className="mt-1">
-                            Maailma ei tunnu aina noudattavan hahmojen ymmärrystä siitä. &quot;Näin sen unessa&quot; voi olla perusteltu syy aloitteelle.
-                            Surrealismi pelissä noudattaa omia piilotettuja lainalaisuuksiaan ja asettuu usein hahmoja vastaan. <span className="opacity-70">(Esim. The Prisoner, Life on Mars)</span>
-                          </Text>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-[var(--theme-accent)] mr-3 font-bold mt-1">▶</span>
-                        <div>
-                          <strong className="text-[var(--theme-primary)] font-black uppercase tracking-widest text-lg">
-                            Eksistentiaalinen:
-                          </strong>
-                          <Text variant="base" className="mt-1">
-                            Ytimessä on kriisi yksilön toimijuudesta. Miten voimme vaikuttaa vihamielisessä, mielivaltaisessa maailmassa? David vs. Goliath.
-                            <span className="opacity-70">(Esim. Westworld, Mr. Robot, The Good Place)</span>
-                          </Text>
-                        </div>
-                      </li>
-                    </ul>
-                  </TextSection>
-                </HeadingLevelProvider>
-
-              </div>
-            </div>
-          </HeadingLevelProvider>
-        </TabsContent>
-      </Tabs>
+          <div className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] animate-in fade-in duration-300 pt-4">
+            <Routes>
+              <Route path="/" element={<Navigate to={defaultPath} replace />} />
+              {pages.map((page) => (
+                <Route key={page.id} path={page.id} element={
+                  <HeadingLevelProvider>
+                    <Hero
+                      title={page.title}
+                      description={page.description}
+                    />
+                    <div className="space-y-10">
+                      <HeadingLevelProvider>
+                        <MarkdownRenderer>
+                          {page.content}
+                        </MarkdownRenderer>
+                      </HeadingLevelProvider>
+                    </div>
+                  </HeadingLevelProvider>
+                } />
+              ))}
+            </Routes>
+          </div>
+        </>
+      )}
     </Page>
   );
 }

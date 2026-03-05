@@ -1,6 +1,7 @@
 import { ActiveStatBlock } from "@repo/ui/components/ActiveStatBlock";
 import { Button } from "@repo/ui/components/Button";
 import { DicePoolAllocator } from "@repo/ui/components/DicePoolAllocator";
+import { GameTerm } from "@repo/ui/components/GameTerm";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -159,12 +160,12 @@ export function CharacterSheet({
             <div className="space-y-6">
               <Heading>Nopat & Toiminta</Heading>
               <p className="text-text/80 text-lg leading-relaxed bg-accent/10 p-4 border-l-4 border-accent mt-4">
-                Sinulla on <strong className="text-accent font-black text-xl">{baseDice}n20</strong>{" "}
+                Sinulla on <GameTerm variant="accent" className="font-black text-xl">{baseDice}n20</GameTerm>{" "}
                 oletuksena. <br />
                 Olet ottanut{" "}
-                <strong className="text-primary font-bold">{character.vaurio} Vauriota</strong>,
+                <GameTerm variant="primary" className="font-bold">{character.vaurio} Vauriota</GameTerm>,
                 joten noppapoolisi koko on{" "}
-                <strong className="text-primary font-black text-2xl">{maxDice}</strong>.
+                <GameTerm variant="primary" className="font-black text-2xl">{maxDice}</GameTerm>.
               </p>
 
               <DicePoolAllocator
