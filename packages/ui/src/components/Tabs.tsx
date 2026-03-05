@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useRef, useState } from "react";
+import { NavLink, type NavLinkProps } from "react-router-dom";
 import { cn } from "./Button";
 
 type TabsContextValue = {
@@ -125,7 +126,11 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
         role="tablist"
         aria-orientation="horizontal"
         className={cn(
-          "f",
+          "relative flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] mb-0 gap-1 px-4 sm:px-0",
+          "[anchor-scope:--active-tab]",
+          "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
+          "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
+          "after:transition-all after:duration-300 after:ease-in-out",
           className,
         )}
         onKeyDown={handleKeyDown}
@@ -174,8 +179,9 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           "disabled:pointer-events-none disabled:opacity-50",
           "rounded-t-md",
           "mb-[-2px]", // Overlap the bottom border of the list
+          isSelected && "[anchor-name:--active-tab]",
           isSelected
-            ? "bg-[var(--theme-bg)] text-[var(--theme-primary)] z-10 border-2 border-b-[var(--theme-text)] font-bold"
+            ? "bg-transparent text-[var(--theme-primary)] z-10 border-2 border-transparent font-bold"
             : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:bg-[var(--theme-primary)]/15 hover:text-[var(--theme-text)] font-semibold",
           className,
         )}
@@ -185,6 +191,50 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
   },
 );
 TabsTrigger.displayName = "TabsTrigger";
+
+export interface TabsLinkProps extends Omit<NavLinkProps, "className"> {
+  theme?:
+  | "base"
+  | "inverted"
+  | "primary-light"
+  | "primary-dark"
+  | "secondary-light"
+  | "secondary-dark"
+  | "accent-light"
+  | "accent-dark";
+  className?: string;
+}
+
+/**
+ * A tab trigger that renders as a `NavLink` for router-based navigation.
+ * Active state is determined by the current URL, not by Tabs context.
+ */
+export const TabsLink = React.forwardRef<HTMLAnchorElement, TabsLinkProps>(
+  ({ className, theme, ...props }, ref) => {
+    return (
+      <NavLink
+        ref={ref}
+        role="tab"
+        data-theme={theme}
+        className={({ isActive }) =>
+          cn(
+            "relative cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm sm:text-base font-bold uppercase tracking-widest transition-all",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
+            "rounded-t-md",
+            "mb-[-2px]",
+            isActive && "[anchor-name:--active-tab]",
+            isActive
+              ? "bg-transparent text-[var(--theme-text)] z-10 border-2 border-transparent font-bold"
+              : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:bg-[var(--theme-primary)]/15 hover:text-[var(--theme-text)] font-semibold",
+            className,
+          )
+        }
+        {...props}
+      />
+    );
+  },
+);
+TabsLink.displayName = "TabsLink";
 
 export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;

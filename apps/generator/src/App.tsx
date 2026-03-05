@@ -6,10 +6,10 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { Page } from "@repo/ui/components/Page";
 import { StatBlock } from "@repo/ui/components/StatBlock";
+import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Routes, Route, Navigate, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
-import { cn } from "@repo/ui/components/Button";
+import { Routes, Route, Navigate, useLocation, useNavigate, useParams, useMatch } from "react-router-dom";
 import { useCreateCharacter } from "./api/characters";
 import { CharacterSheet } from "./CharacterSheet";
 
@@ -319,6 +319,11 @@ function InnerApp() {
 
   const basePath = getBasePath();
 
+  // Detect if we're currently on a character sheet page (handles both mounted-at-root and at /generator)
+  const characterMatchAbsolute = useMatch(`${basePath}/character/:id`);
+  const characterMatchRelative = useMatch(`character/:id`);
+  const activeCharId = (characterMatchAbsolute ?? characterMatchRelative)?.params?.id;
+
   // Quick helper to fetch character list
   const { data: characters, isLoading } = useQuery({
     queryKey: ["characters"],
@@ -329,95 +334,75 @@ function InnerApp() {
     },
   });
 
-  const tabClass = (isActive: boolean) => cn(
-    "relative cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm sm:text-base font-bold uppercase tracking-widest transition-all",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
-    "disabled:pointer-events-none disabled:opacity-50",
-    "rounded-t-md",
-    "mb-[-2px]", // Overlap the bottom border of the list
-    isActive
-      ? "bg-[var(--theme-bg)] text-[var(--theme-primary)] z-10 border-2 border-b-[var(--theme-text)] font-bold"
-      : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:bg-[var(--theme-primary)]/15 hover:text-[var(--theme-text)] font-semibold"
-  );
-
   return (
     <Page>
-      <div
-        role="tablist"
-        aria-orientation="horizontal"
-        className="flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] gap-1 px-4 sm:px-0"
-      >
-        <NavLink
-          to={`${basePath}/list`}
-          className={({ isActive }) => tabClass(isActive)}
-        >
-          Hahmoluettelo
-        </NavLink>
-        <NavLink
-          to={`${basePath}/new`}
-          className={({ isActive }) => tabClass(isActive)}
-        >
-          Uusi Hahmo
-        </NavLink>
-      </div>
+      <Tabs>
+        <TabsList>
+          <TabsLink to={`${basePath}/list`}>Hahmoluettelo</TabsLink>
+          <TabsLink to={`${basePath}/new`}>Uusi Hahmo</TabsLink>
+          {activeCharId && (
+            <TabsLink to={`${basePath}/character/${activeCharId}`}>Hahmosivu</TabsLink>
+          )}
+        </TabsList>
 
-      <div className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] animate-in fade-in duration-300 pt-8">
-        <Routes>
-          <Route path="/" element={<Navigate to="list" replace />} />
+        <div className="animate-in fade-in duration-300 pt-8">
+          <Routes>
+            <Route path="/" element={<Navigate to="list" replace />} />
 
-          <Route path="list" element={
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
-              {isLoading && (
-                <p className="text-primary animate-pulse uppercase tracking-widest font-bold">
-                  Ladataan hahmoja...
-                </p>
-              )}
+            <Route path="list" element={
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
+                {isLoading && (
+                  <p className="text-primary animate-pulse uppercase tracking-widest font-bold">
+                    Ladataan hahmoja...
+                  </p>
+                )}
 
-              {!isLoading && characters?.length === 0 && (
-                <div className="col-span-full text-center py-12 text-text/60">
-                  <p className="text-xl">Ei hahmoja vielä.</p>
-                  <Button
-                    className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md"
-                    onClick={() => navigate(`${basePath}/new`)}
-                  >
-                    Luo ensimmäinen hahmosi
-                  </Button>
-                </div>
-              )}
+                {!isLoading && characters?.length === 0 && (
+                  <div className="col-span-full text-center py-12 text-text/60">
+                    <p className="text-xl">Ei hahmoja vielä.</p>
+                    <Button
+                      className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md"
+                      onClick={() => navigate(`${basePath}/new`)}
+                    >
+                      Luo ensimmäinen hahmosi
+                    </Button>
+                  </div>
+                )}
 
-              {!isLoading &&
-                characters?.map((char: any) => (
-                  <Card
-                    key={char.id}
-                    className="hover:bg-secondary/5 cursor-pointer hover:shadow-[4px_4px_0px_rgba(201,42,42,1)] transition-all transform hover:-translate-y-1"
-                    onClick={() => navigate(`${basePath}/character/${char.id}`)}
-                  >
-                    <CardHeader>
-                      <CardTitle>{char.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent variant="dense">
-                      <div className="flex flex-col gap-2 w-full">
-                        <p className="font-bold text-[var(--theme-accent)] uppercase">
-                          {char.archetype}
-                        </p>
-                        <div className="flex justify-between items-center w-full">
-                          <p className="text-left">Vaurio: {char.vaurio}</p>
-                          <p className="text-right">
-                            Sisu: {char.currentSisuCount} x {char.sisuDie}
+                {!isLoading &&
+                  characters?.map((char: any) => (
+                    <Card
+                      key={char.id}
+                      className="hover:bg-secondary/5 cursor-pointer hover:shadow-[4px_4px_0px_rgba(201,42,42,1)] transition-all transform hover:-translate-y-1"
+                      onClick={() => navigate(`${basePath}/character/${char.id}`)}
+                    >
+                      <CardHeader>
+                        <CardTitle>{char.name}</CardTitle>
+                      </CardHeader>
+                      <CardContent variant="dense">
+                        <div className="flex flex-col gap-2 w-full">
+                          <p className="font-bold text-[var(--theme-accent)] uppercase">
+                            {char.archetype}
                           </p>
+                          <div className="flex justify-between items-center w-full">
+                            <p className="text-left">Vaurio: {char.vaurio}</p>
+                            <p className="text-right">
+                              Sisu: {char.currentSisuCount} x {char.sisuDie}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-            </div>
-          } />
+                      </CardContent>
+                    </Card>
+                  ))}
+              </div>
+            } />
 
-          <Route path="new" element={<GeneratorForm />} />
+            <Route path="new" element={<GeneratorForm />} />
 
-          <Route path="character/:id" element={<CharacterSheetRoute />} />
-        </Routes>
-      </div>
+            <Route path="character/:id" element={<CharacterSheetRoute />} />
+          </Routes>
+        </div>
+      </Tabs>
     </Page>
   );
 }

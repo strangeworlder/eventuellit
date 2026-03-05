@@ -2,9 +2,9 @@ import { HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { Page } from "@repo/ui/components/Page";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { cn } from "@repo/ui/components/Button";
+import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
 
-import { Routes, Route, Navigate, NavLink, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 // Lightweight frontmatter parser to avoid Node 'Buffer' dependency from gray-matter in the browser
 function parseFrontmatter(md: string) {
@@ -63,17 +63,6 @@ const pages: MarkdownPage[] = Object.entries(modules).map(([path, rawMdx]) => {
 function App() {
   const { pathname } = useLocation();
 
-  const tabClass = (isActive: boolean) => cn(
-    "relative cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm sm:text-base font-bold uppercase tracking-widest transition-all",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
-    "disabled:pointer-events-none disabled:opacity-50",
-    "rounded-t-md",
-    "mb-[-2px]", // Overlap the bottom border of the list
-    isActive
-      ? "bg-[var(--theme-bg)] text-[var(--theme-primary)] z-10 border-2 border-b-[var(--theme-text)] font-bold"
-      : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:bg-[var(--theme-primary)]/15 hover:text-[var(--theme-text)] font-semibold"
-  );
-
   const defaultPath = pages.length > 0 ? pages[0].id : "";
 
   // Dynamically determine the correct base path for absolute routing to avoid nesting issues
@@ -91,24 +80,19 @@ function App() {
   return (
     <Page>
       {pages.length > 0 && (
-        <>
-          <div
-            role="tablist"
-            aria-orientation="horizontal"
-            className="flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] gap-1 px-4 sm:px-0"
-          >
+        <Tabs>
+          <TabsList>
             {pages.map((page) => (
-              <NavLink
+              <TabsLink
                 key={page.id}
                 to={basePath === '/' ? `/${page.id}` : `${basePath}/${page.id}`}
-                className={({ isActive }) => tabClass(isActive)}
               >
                 {page.title}
-              </NavLink>
+              </TabsLink>
             ))}
-          </div>
+          </TabsList>
 
-          <div className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] animate-in fade-in duration-300 pt-4">
+          <div className="animate-in fade-in duration-300 pt-4">
             <Routes>
               <Route path="/" element={<Navigate to={defaultPath} replace />} />
               {pages.map((page) => (
@@ -130,7 +114,7 @@ function App() {
               ))}
             </Routes>
           </div>
-        </>
+        </Tabs>
       )}
     </Page>
   );
