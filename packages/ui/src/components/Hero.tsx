@@ -13,7 +13,7 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
             <div
                 ref={ref}
                 className={cn(
-                    "border-b-2 border-[var(--theme-secondary)] pb-4 mb-6 mt-6 bg-[var(--theme-bg)] text-[var(--theme-text)]",
+                    "border-b-2 border-[var(--theme-secondary)] pb-4 mb-6 mt-6 bg-[var(--theme-bg)] text-[var(--theme-text)] px-4",
                     className
                 )}
                 {...props}

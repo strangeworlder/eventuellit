@@ -58,8 +58,11 @@ Tabs.displayName = "Tabs";
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ className, onKeyDown, ...props }, ref) => {
+  ({ className, onKeyDown, style, ...props }, ref) => {
     const listRef = useRef<HTMLDivElement>(null);
+    const [tugX, setTugX] = useState(0);
+    const [tugStretch, setTugStretch] = useState(1);
+    const [tugSkew, setTugSkew] = useState(0);
 
     // Merge refs logic to ensure we have a local ref for querying DOM while forwarding to parent
     const setRefs = useCallback(
@@ -120,6 +123,50 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
       onKeyDown?.(e);
     };
 
+    const handleMouseOver = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+      const target = (e.target as HTMLElement).closest('[role="tab"]') as HTMLElement | null;
+      if (!target || !listRef.current) return;
+
+      // Don't tug if hovering the already-active tab
+      const isActive =
+        target.getAttribute("aria-selected") === "true" ||
+        target.getAttribute("aria-current") === "page";
+
+      if (isActive) {
+        setTugX(0);
+        setTugStretch(1);
+        setTugSkew(0);
+        return;
+      }
+
+      // Find all tabs and the active one to compute index distance
+      const tabs = Array.from(
+        listRef.current.querySelectorAll<HTMLElement>('[role="tab"]'),
+      );
+      const activeIndex = tabs.findIndex(
+        (t) =>
+          t.getAttribute("aria-selected") === "true" ||
+          t.getAttribute("aria-current") === "page",
+      );
+      const targetIndex = tabs.indexOf(target);
+      if (activeIndex === -1 || targetIndex === -1) return;
+
+      const indexDistance = Math.abs(targetIndex - activeIndex);
+      const direction = targetIndex > activeIndex ? 1 : -1;
+
+      // Constant pull: Offset + scale + skew
+      // The pull feels "heavier" the further away the tab is
+      setTugX(direction * (2 + indexDistance * 2));
+      setTugStretch(1 + indexDistance * 0.025);
+      setTugSkew(direction * (indexDistance));
+    }, []);
+
+    const handleMouseLeave = useCallback(() => {
+      setTugX(0);
+      setTugStretch(1);
+      setTugSkew(0);
+    }, []);
+
     return (
       <div
         ref={setRefs}
@@ -130,10 +177,20 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
           "[anchor-scope:--active-tab]",
           "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
           "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
-          "after:transition-all after:duration-300 after:ease-in-out",
+          "after:transition-all after:duration-500 after:ease-[cubic-bezier(0.23,1,0.32,1)]",
+          "after:[transform:translateX(var(--tab-tug,0px))_scaleX(var(--tab-stretch,1))_skewX(var(--tab-skew,0deg))]",
+          "after:pointer-events-none",
           className,
         )}
+        style={{
+          "--tab-tug": `${tugX}px`,
+          "--tab-stretch": tugStretch,
+          "--tab-skew": `${tugSkew}deg`,
+          ...style,
+        } as React.CSSProperties}
         onKeyDown={handleKeyDown}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
         {...props}
       />
     );
@@ -182,7 +239,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           isSelected && "[anchor-name:--active-tab]",
           isSelected
             ? "bg-transparent text-[var(--theme-primary)] z-10 border-2 border-transparent font-bold"
-            : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:bg-[var(--theme-primary)]/15 hover:text-[var(--theme-text)] font-semibold",
+            : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:[text-shadow:0_0_15px_var(--theme-secondary)] hover:text-[var(--theme-text)] font-semibold",
           className,
         )}
         {...props}
@@ -225,7 +282,7 @@ export const TabsLink = React.forwardRef<HTMLAnchorElement, TabsLinkProps>(
             isActive && "[anchor-name:--active-tab]",
             isActive
               ? "bg-transparent text-[var(--theme-text)] z-10 border-2 border-transparent font-bold"
-              : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:bg-[var(--theme-primary)]/15 hover:text-[var(--theme-text)] font-semibold",
+              : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:[text-shadow:0_0_15px_var(--theme-secondary)] hover:text-[var(--theme-text)] font-semibold",
             className,
           )
         }

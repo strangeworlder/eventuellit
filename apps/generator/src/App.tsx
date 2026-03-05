@@ -107,7 +107,7 @@ function GeneratorForm() {
         <Hero title="Uusi Hahmo" />
 
         <HeadingLevelProvider>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 px-4">
             <Input
               label="Hahmon Nimi"
               placeholder="Syötä nimi..."
@@ -373,7 +373,6 @@ function InnerApp() {
                   characters?.map((char: any) => (
                     <Card
                       key={char.id}
-                      className="hover:bg-secondary/5 cursor-pointer hover:shadow-[4px_4px_0px_rgba(201,42,42,1)] transition-all transform hover:-translate-y-1"
                       onClick={() => navigate(`${basePath}/character/${char.id}`)}
                     >
                       <CardHeader>

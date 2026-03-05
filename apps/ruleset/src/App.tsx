@@ -104,9 +104,11 @@ function App() {
                     />
                     <div className="space-y-10">
                       <HeadingLevelProvider>
-                        <MarkdownRenderer>
-                          {page.content}
-                        </MarkdownRenderer>
+                        <div className="px-4">
+                          <MarkdownRenderer>
+                            {page.content}
+                          </MarkdownRenderer>
+                        </div>
                       </HeadingLevelProvider>
                     </div>
                   </HeadingLevelProvider>
