@@ -40,7 +40,7 @@ export const WithStackedContent: Story = {
   render: () => (
     <div className="min-h-screen bg-background text-text">
       <Page>
-        <Card variant="default">
+        <Card variant="primary">
           <CardHeader>
             <CardTitle>Top Section</CardTitle>
           </CardHeader>

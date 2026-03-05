@@ -12,14 +12,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: "default" | "sm" | "lg" | "icon" | "nav";
   justify?: "center" | "start" | "end";
   theme?:
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+  | "base"
+  | "inverted"
+  | "primary-light"
+  | "primary-dark"
+  | "secondary-light"
+  | "secondary-dark"
+  | "accent-light"
+  | "accent-dark";
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -42,7 +42,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             "h-12 px-6 py-2": size === "default",
             "h-9 px-3": size === "sm",
             "h-14 px-8 py-4 text-xl w-full": size === "lg",
-            "h-10 w-10 min-w-[2.5rem] px-0 py-0 text-xl font-black": size === "icon",
+            "h-10 w-10 min-w-[2.5rem] px-0 py-0 text-xl font-black leading-none": size === "icon",
             "w-full p-2 h-auto text-sm normal-case tracking-normal font-normal shadow-none hover:shadow-none hover:-translate-y-0":
               size === "nav",
           },

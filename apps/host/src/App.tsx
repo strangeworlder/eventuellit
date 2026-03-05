@@ -10,6 +10,8 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from
 // Initialize the global query client for server-state caching
 const queryClient = new QueryClient();
 
+import { LandingPage } from "./components/LandingPage";
+
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));
 const RulesetApp = React.lazy(() => import("ruleset/App"));
@@ -19,7 +21,11 @@ function AppContent() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const activeView = location.pathname.startsWith("/generator") ? "generator" : "ruleset";
+  const activeView = location.pathname.startsWith("/generator")
+    ? "generator"
+    : location.pathname.startsWith("/ruleset")
+      ? "ruleset"
+      : "home";
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background text-text selection:bg-accent selection:text-white">
@@ -29,8 +35,11 @@ function AppContent() {
         expanded={sidebarOpen}
         onExpandedChange={setSidebarOpen}
       >
-        <SidebarHeader>
-          <div className="w-8 h-8 rounded bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] flex items-center justify-center font-bold flex-shrink-0">
+        <SidebarHeader
+          className="cursor-pointer hover:bg-primary/5 transition-colors group"
+          onClick={() => navigate("/")}
+        >
+          <div className="w-8 h-8 rounded bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">
             E
           </div>
           <Heading as="h4" className="ml-3 truncate">
@@ -67,7 +76,7 @@ function AppContent() {
           <Menu size={28} />
         </Button>
 
-        <header className="absolute top-[88px] left-5 desktop:top-5 desktop:left-5 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-10">
+        <header className="absolute top-[88px] left-5 desktop:top-5 desktop:left-5 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-10 transition-all duration-300">
           {activeView === "generator" && (
             <Heading as="h1" className="m-0">
               Eventuellit: Hahmopaja
@@ -90,9 +99,10 @@ function AppContent() {
           >
             <div className="animate-in fade-in duration-500">
               <Routes>
-                <Route path="/" element={<Navigate to="/ruleset" replace />} />
+                <Route path="/" element={<LandingPage />} />
                 <Route path="/generator/*" element={<GeneratorApp />} />
                 <Route path="/ruleset/*" element={<RulesetApp />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
           </Suspense>

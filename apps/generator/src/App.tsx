@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Ca
 import { DiceRoller } from "@repo/ui/components/DiceRoller";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
+import { Icon } from "@repo/ui/components/Icon";
 import { Input } from "@repo/ui/components/Input";
 import { Page } from "@repo/ui/components/Page";
 import { StatBlock } from "@repo/ui/components/StatBlock";
@@ -14,6 +15,64 @@ import { useCreateCharacter } from "./api/characters";
 import { CharacterSheet } from "./CharacterSheet";
 
 const queryClient = new QueryClient();
+
+interface AttributeCardProps {
+  cardVariant?: "subtle" | "primary";
+  label: string;
+  score: number;
+  subAttributes: Array<{
+    name: string;
+    labelFi: string;
+    value: number;
+    setter: React.Dispatch<React.SetStateAction<number>>;
+  }>;
+  diceRemaining: number;
+  onAssign: (setter: React.Dispatch<React.SetStateAction<number>>, current: number) => void;
+  onRemove: (setter: React.Dispatch<React.SetStateAction<number>>, current: number) => void;
+}
+
+function AttributeCard({
+  cardVariant = "subtle",
+  label,
+  score,
+  subAttributes,
+  diceRemaining,
+  onAssign,
+  onRemove,
+}: AttributeCardProps) {
+  return (
+    <Card variant={cardVariant}>
+      <CardContent variant="dense">
+        <StatBlock label={label} value={score} />
+        {subAttributes.map((attr) => (
+          <div key={attr.name} className="flex justify-between items-center text-sm px-2">
+            <span className="font-bold text-text/80">{attr.labelFi} (d4: {attr.value})</span>
+            <div className="flex gap-2">
+              <Button
+                variant={cardVariant === "primary" ? "secondary" : "primary"}
+                size="icon"
+                onClick={() => onRemove(attr.setter, attr.value)}
+                disabled={attr.value === 0}
+                aria-label={`Poista ${attr.name} noppa`}
+              >
+                <Icon name="minus" size={16} />
+              </Button>
+              <Button
+                variant="secondary"
+                size="icon"
+                onClick={() => onAssign(attr.setter, attr.value)}
+                disabled={diceRemaining === 0}
+                aria-label={`Lisää ${attr.name} noppa`}
+              >
+                <Icon name="plus" size={16} />
+              </Button>
+            </div>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
 
 function GeneratorForm() {
   const { mutate: createCharacter, isPending, isSuccess, reset } = useCreateCharacter();
@@ -144,137 +203,42 @@ function GeneratorForm() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card variant="subtle">
-                  <CardContent variant="dense">
-                    <StatBlock theme="inverted" label="Keho (Kesto)" value={kehoScore} />
-                    <div className="flex justify-between items-center text-sm px-2">
-                      <span className="font-bold text-text/80">Fysiikka (d4: {fysiikka})</span>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="primary"
-                          size="icon"
-                          onClick={() => handleRemoveDie(setFysiikka, fysiikka)}
-                        >
-                          -
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          onClick={() => handleAssignDie(setFysiikka, fysiikka)}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center text-sm px-2">
-                      <span className="font-bold text-text/80">Nopeus (d4: {nopeus})</span>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="primary"
-                          size="icon"
-                          onClick={() => handleRemoveDie(setNopeus, nopeus)}
-                        >
-                          -
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          onClick={() => handleAssignDie(setNopeus, nopeus)}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card variant="subtle">
-                  <CardContent variant="dense">
-                    <StatBlock theme="secondary-light" label="Mieli (Kesto)" value={mieliScore} />
-                    <div className="flex justify-between items-center text-sm px-2">
-                      <span className="font-bold text-text/80">Ymmärrys (d4: {ymmarrys})</span>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="primary"
-                          size="icon"
-                          onClick={() => handleRemoveDie(setYmmarrys, ymmarrys)}
-                        >
-                          -
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          onClick={() => handleAssignDie(setYmmarrys, ymmarrys)}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center text-sm px-2">
-                      <span className="font-bold text-text/80">Persoona (d4: {persoona})</span>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="primary"
-                          size="icon"
-                          onClick={() => handleRemoveDie(setPersoona, persoona)}
-                        >
-                          -
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          onClick={() => handleAssignDie(setPersoona, persoona)}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card variant="subtle">
-                  <CardContent variant="dense">
-                    <StatBlock theme="secondary-light" label="Terä (Kesto)" value={teraScore} />
-                    <div className="flex justify-between items-center text-sm px-2">
-                      <span className="font-bold text-text/80">Näkemys (d4: {nakemys})</span>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="primary"
-                          size="icon"
-                          onClick={() => handleRemoveDie(setNakemys, nakemys)}
-                        >
-                          -
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          onClick={() => handleAssignDie(setNakemys, nakemys)}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center text-sm px-2">
-                      <span className="font-bold text-text/80">Näppäryys (d4: {napparyys})</span>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="primary"
-                          size="icon"
-                          onClick={() => handleRemoveDie(setNapparyys, napparyys)}
-                        >
-                          -
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          onClick={() => handleAssignDie(setNapparyys, napparyys)}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <AttributeCard
+                  label="Keho"
+                  cardVariant="primary"
+                  score={kehoScore}
+                  diceRemaining={diceRemaining}
+                  onAssign={handleAssignDie}
+                  onRemove={handleRemoveDie}
+                  subAttributes={[
+                    { name: "Fysiikka", labelFi: "Fysiikka", value: fysiikka, setter: setFysiikka },
+                    { name: "Nopeus", labelFi: "Nopeus", value: nopeus, setter: setNopeus },
+                  ]}
+                />
+                <AttributeCard
+                  label="Mieli"
+                  cardVariant="primary"
+                  score={mieliScore}
+                  diceRemaining={diceRemaining}
+                  onAssign={handleAssignDie}
+                  onRemove={handleRemoveDie}
+                  subAttributes={[
+                    { name: "Ymmärrys", labelFi: "Ymmärrys", value: ymmarrys, setter: setYmmarrys },
+                    { name: "Persoona", labelFi: "Persoona", value: persoona, setter: setPersoona },
+                  ]}
+                />
+                <AttributeCard
+                  cardVariant="primary"
+                  label="Terä"
+                  score={teraScore}
+                  diceRemaining={diceRemaining}
+                  onAssign={handleAssignDie}
+                  onRemove={handleRemoveDie}
+                  subAttributes={[
+                    { name: "Näkemys", labelFi: "Näkemys", value: nakemys, setter: setNakemys },
+                    { name: "Näppäryys", labelFi: "Näppäryys", value: napparyys, setter: setNapparyys },
+                  ]}
+                />
               </div>
             </div>
 
@@ -344,56 +308,60 @@ function InnerApp() {
             <TabsLink to={`${basePath}/character/${activeCharId}`}>Hahmosivu</TabsLink>
           )}
         </TabsList>
-
-        <div className="animate-in fade-in duration-300 pt-8">
+        <div className="animate-in fade-in duration-300">
           <Routes>
             <Route path="/" element={<Navigate to="list" replace />} />
-
             <Route path="list" element={
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
-                {isLoading && (
-                  <p className="text-primary animate-pulse uppercase tracking-widest font-bold">
-                    Ladataan hahmoja...
-                  </p>
-                )}
+              <>
+                <HeadingLevelProvider>
+                  <Hero title="Hahmot" description="Hahmot" />
 
-                {!isLoading && characters?.length === 0 && (
-                  <div className="col-span-full text-center py-12 text-text/60">
-                    <p className="text-xl">Ei hahmoja vielä.</p>
-                    <Button
-                      className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md"
-                      onClick={() => navigate(`${basePath}/new`)}
-                    >
-                      Luo ensimmäinen hahmosi
-                    </Button>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
+                    {isLoading && (
+                      <p className="text-primary animate-pulse uppercase tracking-widest font-bold">
+                        Ladataan hahmoja...
+                      </p>
+                    )}
+
+                    {!isLoading && characters?.length === 0 && (
+                      <div className="col-span-full text-center py-12 text-text/60">
+                        <p className="text-xl">Ei hahmoja vielä.</p>
+                        <Button
+                          className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md"
+                          onClick={() => navigate(`${basePath}/new`)}
+                        >
+                          Luo ensimmäinen hahmosi
+                        </Button>
+                      </div>
+                    )}
+
+                    {!isLoading &&
+                      characters?.map((char: any) => (
+                        <Card
+                          key={char.id}
+                          onClick={() => navigate(`${basePath}/character/${char.id}`)}
+                        >
+                          <CardHeader>
+                            <CardTitle>{char.name}</CardTitle>
+                          </CardHeader>
+                          <CardContent variant="dense">
+                            <div className="flex flex-col gap-2 w-full">
+                              <p className="font-bold text-[var(--theme-accent)] uppercase">
+                                {char.archetype}
+                              </p>
+                              <div className="flex justify-between items-center w-full">
+                                <p className="text-left">Vaurio: {char.vaurio}</p>
+                                <p className="text-right">
+                                  Sisu: {char.currentSisuCount} x {char.sisuDie}
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
                   </div>
-                )}
-
-                {!isLoading &&
-                  characters?.map((char: any) => (
-                    <Card
-                      key={char.id}
-                      onClick={() => navigate(`${basePath}/character/${char.id}`)}
-                    >
-                      <CardHeader>
-                        <CardTitle>{char.name}</CardTitle>
-                      </CardHeader>
-                      <CardContent variant="dense">
-                        <div className="flex flex-col gap-2 w-full">
-                          <p className="font-bold text-[var(--theme-accent)] uppercase">
-                            {char.archetype}
-                          </p>
-                          <div className="flex justify-between items-center w-full">
-                            <p className="text-left">Vaurio: {char.vaurio}</p>
-                            <p className="text-right">
-                              Sisu: {char.currentSisuCount} x {char.sisuDie}
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-              </div>
+                </HeadingLevelProvider>
+              </>
             } />
 
             <Route path="new" element={<GeneratorForm />} />

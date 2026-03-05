@@ -1,54 +1,101 @@
 import React from "react";
 import { cn } from "./Button";
 import { Heading, HeadingLevelProvider } from "./Heading";
+import { Icon, type IconName } from "./Icon";
+import { type Theme, ThemeContext, primaryThemeMap, useCurrentTheme } from "./Theme";
+
+// Re-export for backward compatibility with consumers importing Theme from Card
+export type { Theme } from "./Theme";
+export { useCurrentTheme };
 
 /**
- * Defines the available theme options for theming the Card and its children.
+ * Context for passing icon configuration from Card to its children (primarily CardHeader).
  */
-export type Theme =
-  | "base"
-  | "inverted"
-  | "primary-light"
-  | "primary-dark"
-  | "secondary-light"
-  | "secondary-dark"
-  | "accent-light"
-  | "accent-dark";
+interface CardIconContextValue {
+  iconName?: IconName;
+  iconVariant?: "primary" | "secondary" | "accent";
+}
+
+const CardIconContext = React.createContext<CardIconContextValue>({});
+export const useCardIcon = () => React.useContext(CardIconContext);
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** The visual style variant of the card. */
-  variant?: "default" | "success" | "subtle" | "rule";
+  /** The semantic visual style variant of the card.
+   * - `primary` (default): Swaps to a contrasting theme for the surface, ensuring accessible nesting.
+   * - `secondary`: Transparent background with secondary-colored border and text.
+   * - `accent`: Theme background with accent-colored text and a thick bottom accent border.
+   * - `subtle`: Light bordered surface card.
+   * - `rule`: Left-accented callout block.
+   */
+  variant?: "primary" | "secondary" | "accent" | "subtle" | "rule";
   /** The theme context to apply, which modifies the component's CSS variables. */
   theme?: Theme;
+  /** Optional icon to render in the CardHeader. */
+  iconName?: IconName;
+  /** The color variant for the icon container. Defaults to "primary". */
+  iconVariant?: "primary" | "secondary" | "accent";
 }
 
 /**
  * The core container block for the Card subcomponent architecture.
  * Groups related concepts, providing thematic backgrounds, borders, and shadows.
+ *
+ * The **primary** variant doesn't hardcode colors — it swaps to a mapped `data-theme`,
+ * so that all children (text, borders, nested components) inherit proper contrast
+ * automatically from the CSS theme system.
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = "default", theme, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      data-theme={theme}
-      className={cn(
-        "rounded-sm text-[var(--theme-text)] overflow-visible relative group",
-        {
-          "border-2 border-[var(--theme-primary)] bg-[var(--theme-bg)]": variant === "default",
-          "border-2 border-[var(--theme-secondary)]/50 bg-[var(--theme-secondary)]/5 shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)]":
-            variant === "success",
-          "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] shadow-md":
-            variant === "subtle",
-          "bg-[var(--theme-secondary)]/10 border-l-8 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow":
-            variant === "rule",
-        },
-        className,
-      )}
-      {...props}
-    >
-      <HeadingLevelProvider>{children}</HeadingLevelProvider>
-    </div>
-  ),
+  ({ className, variant = "primary", theme, iconName, iconVariant = "primary", children, ...props }, ref) => {
+    const parentTheme = useCurrentTheme();
+
+    // The effective base theme: explicit prop overrides inherited context
+    const baseTheme = theme ?? parentTheme;
+
+    // For primary, swap to the mapped contrasting theme.
+    // For other variants, only set data-theme if explicitly provided via prop.
+    const resolvedTheme =
+      variant === "primary" ? primaryThemeMap[baseTheme] : theme;
+
+    // Children should see the resolved theme (or inherited base) in context
+    const childTheme = resolvedTheme ?? baseTheme;
+
+    return (
+      <ThemeContext.Provider value={childTheme}>
+        <CardIconContext.Provider value={{ iconName, iconVariant }}>
+          <div
+            ref={ref}
+            data-theme={resolvedTheme}
+            data-variant={variant}
+            className={cn(
+              "rounded-xl overflow-visible relative group",
+              {
+                // Primary: uses the swapped theme's bg/text via CSS variables
+                "bg-[var(--theme-bg)] text-[var(--theme-text)]":
+                  variant === "primary",
+                // Secondary: transparent bg, secondary border + text
+                "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
+                  variant === "secondary",
+                // Accent: theme bg, accent text, thick bottom accent border
+                "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
+                  variant === "accent",
+                // Subtle: light bordered surface card
+                "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
+                  variant === "subtle",
+                // Rule: left-accented callout block
+                "bg-[var(--theme-secondary)]/10 text-[var(--theme-text)] border-l-8 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow":
+                  variant === "rule",
+                "[corner-shape:scoop_round_round_round] rounded-tl-4xl": iconName,
+              },
+              className,
+            )}
+            {...props}
+          >
+            <HeadingLevelProvider>{children}</HeadingLevelProvider>
+          </div>
+        </CardIconContext.Provider>
+      </ThemeContext.Provider >
+    );
+  },
 );
 Card.displayName = "Card";
 
@@ -58,17 +105,37 @@ Card.displayName = "Card";
 export const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { theme?: Theme }
->(({ className, theme, ...props }, ref) => (
-  <div
-    ref={ref}
-    data-theme={theme}
-    className={cn(
-      "flex flex-col space-y-1.5 p-4 tablet:p-6 border-b-2 border-[var(--theme-primary)]/20",
-      className,
-    )}
-    {...props}
-  />
-));
+>(({ className, theme, children, ...props }, ref) => {
+  const { iconName, iconVariant } = useCardIcon();
+
+  return (
+    <div
+      ref={ref}
+      data-theme={theme}
+      className={cn(
+        "flex flex-col space-y-1.5 p-4 tablet:p-6 border-b-2 border-current/20",
+        className,
+      )}
+      {...props}
+    >
+      {iconName && (
+        <div
+          className={cn(
+            "w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 absolute -top-6 -left-6",
+            {
+              "border-[var(--theme-bg)] border-2 text-[var(--theme-bg)]": iconVariant === "primary",
+              "border-[var(--theme-primary)]/50 border-2 text-[var(--theme-primary)]/50": iconVariant === "secondary",
+              "border-[var(--theme-accent)]/50 border-2 text-[var(--theme-accent)]/50": iconVariant === "accent",
+            }
+          )}
+        >
+          <Icon name={iconName} size={28} />
+        </div>
+      )}
+      {children}
+    </div>
+  );
+});
 CardHeader.displayName = "CardHeader";
 
 /**
@@ -78,11 +145,10 @@ CardHeader.displayName = "CardHeader";
 export const CardTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement> & {
-    variant?: "primary" | "secondary" | "accent" | "default" | "rule";
     theme?: Theme;
   }
->(({ className, variant = "primary", theme, ...props }, ref) => (
-  <Heading ref={ref} data-theme={theme} {...props} />
+>(({ className, theme, ...props }, ref) => (
+  <Heading ref={ref} data-theme={theme} className={cn("font-bold", className)} {...props} />
 ));
 CardTitle.displayName = "CardTitle";
 
@@ -96,7 +162,7 @@ export const CardDescription = React.forwardRef<
   <p
     ref={ref}
     data-theme={theme}
-    className={cn("text-lg font-bold uppercase tracking-wider text-[var(--theme-text)]", className)}
+    className={cn("text-lg font-bold uppercase tracking-wider opacity-80", className)}
     {...props}
   />
 ));

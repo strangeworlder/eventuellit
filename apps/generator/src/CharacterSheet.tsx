@@ -3,6 +3,7 @@ import { Button } from "@repo/ui/components/Button";
 import { DicePoolAllocator } from "@repo/ui/components/DicePoolAllocator";
 import { GameTerm } from "@repo/ui/components/GameTerm";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
+import { Hero } from "@repo/ui/components/Hero";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface Character {
@@ -84,19 +85,11 @@ export function CharacterSheet({
 
   return (
     <HeadingLevelProvider>
-      <div className="space-y-8 animate-in fade-in duration-500">
-        <div className="flex justify-between items-center border-b-4 border-primary pb-6 bg-secondary/10 p-6 shadow-[inset_0_0_20px_rgba(201,42,42,0.1)]">
-          <div>
-            <Button variant="ghost" onClick={onBack}>
-              ◀ Paluu listaan
-            </Button>
-            <Heading>{character.name}</Heading>
-            <p className="text-text/90 text-xl uppercase tracking-widest font-bold mt-2">
-              {character.archetype === "soldier" ? "Sotilas" : "Ekspertti"}
-            </p>
-          </div>
-        </div>
-
+      <div className="animate-in fade-in duration-500">
+        <Hero
+          title={character.name}
+          description={character.archetype === "soldier" ? "Sotilas" : "Ekspertti"}
+        />
         <HeadingLevelProvider>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
             <div className="space-y-6">
@@ -105,7 +98,6 @@ export function CharacterSheet({
               <div className="grid grid-cols-2 gap-4 mt-4 mb-8">
                 {/* Sisu (Grit) takes hits before Kesto/Vaurio */}
                 <ActiveStatBlock
-                  theme="secondary-light"
                   label={`Sisu (${character.sisuCount} x ${character.sisuDie})`}
                   value={character.currentSisuCount}
                   maxValue={character.sisuCount}
@@ -120,7 +112,6 @@ export function CharacterSheet({
 
                 {/* Vaurio permanently reduces dice pool */}
                 <ActiveStatBlock
-                  theme="primary-light"
                   label="Vaurio"
                   value={character.vaurio}
                   maxAllowed={5}
@@ -169,7 +160,6 @@ export function CharacterSheet({
               </p>
 
               <DicePoolAllocator
-                theme="inverted"
                 maxDice={maxDice}
                 axes={["Nopea", "Äänetön", "Tarkka"]}
                 attributeDie="n4" // For now hardcoded to demonstrate UI functionality

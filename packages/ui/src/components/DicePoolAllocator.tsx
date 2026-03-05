@@ -1,25 +1,34 @@
 import React, { useState } from "react";
 import { Button, cn } from "./Button";
+import { type Theme, useCurrentTheme, primaryThemeMap } from "./Theme";
 import { DiceIcon } from "./DiceIcon";
 import { Heading, HeadingLevelProvider } from "./Heading";
+import { Icon } from "./Icon";
+import { ToggleButton } from "./ToggleButton";
+
+// Re-export Theme for consumers who import from this module
+export type { Theme };
 
 export interface DicePoolAllocatorProps extends React.HTMLAttributes<HTMLDivElement> {
-  maxDice: number; // e.g. 5 minus Vaurio
+  maxDice: number;
   availableDiceLabel?: string;
   onAllocationChange?: (allocation: Record<string, number>) => void;
-  axes: string[]; // e.g. ["Nopea", "Äänetön", "Tarkka"]
-  attributeDie?: "n4" | "n6" | "n8" | "n10" | "n12" | null; // e.g. +1n6 from Attributes
-  theme?:
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+  axes: string[];
+  attributeDie?: "n4" | "n6" | "n8" | "n10" | "n12" | null;
+  /** The theme context to apply, which modifies the component's CSS variables. */
+  theme?: Theme;
 }
 
+/**
+ * An interactive dice pool allocation widget. Players distribute a fixed pool of d20s
+ * across named action axes, with an optional attribute die toggle per axis.
+ *
+ * Follows the **primary component** pattern from the design system — it swaps to a
+ * contrasting `data-theme` based on its parent theme context (via `primaryThemeMap`),
+ * so that all children inherit correct contrast automatically from the CSS theme system.
+ *
+ * The `theme` prop overrides the inherited context theme before the primary swap is applied.
+ */
 export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAllocatorProps>(
   (
     {
@@ -34,6 +43,10 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
     },
     ref,
   ) => {
+    const parentTheme = useCurrentTheme();
+    const baseTheme = theme ?? parentTheme;
+    const resolvedTheme = primaryThemeMap[baseTheme];
+
     // Track how many n20s are allocated per axis
     const [allocation, setAllocation] = useState<Record<string, number>>(() => {
       const initial: Record<string, number> = {};
@@ -69,45 +82,51 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
     return (
       <div
         ref={ref}
-        data-theme={theme}
+        data-theme={resolvedTheme}
         className={cn(
-          "p-8 rounded-sm border-4 border-[var(--theme-primary)]/40 bg-[var(--theme-bg)] space-y-8 shadow-lg relative overflow-hidden",
+          "rounded-xl bg-[var(--theme-bg)] shadow-md ring-1 ring-current/10 relative overflow-hidden",
           className,
         )}
         {...props}
       >
         <HeadingLevelProvider>
-          {/* Decorative retro element */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--theme-primary)]/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-          <div className="flex flex-nowrap justify-between items-end border-b-2 border-[var(--theme-primary)]/30 pb-4 relative z-10 gap-4">
+          {/* Decorative ambient glow */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--theme-primary)]/8 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+
+          {/* Header */}
+          <div className="flex flex-nowrap justify-between items-end border-b border-current/20 px-6 pt-6 pb-4 relative z-10 gap-4">
             <div className="w-full sm:w-auto">
               <Heading>Toiminnan Luonne</Heading>
-              <p className="text-[var(--theme-text)]/70 text-base font-bold mt-1">
+              <p className="text-[var(--theme-text)]/60 text-sm font-medium mt-1">
                 Jaa nopat vaadittujen ominaisuuksien kesken.
               </p>
             </div>
-            <div className="text-left sm:text-right w-full sm:w-auto">
-              <span className="block text-5xl font-heading font-black text-[var(--theme-text)]">
-                {diceRemaining}{" "}
-                <span className="text-2xl text-[var(--theme-text)]/40">/ {maxDice}</span>
+            <div className="text-left sm:text-right shrink-0">
+              <span className="block text-5xl font-heading font-black text-[var(--theme-text)] leading-none">
+                {diceRemaining}
+                <span className="text-2xl text-[var(--theme-text)]/30 font-light"> / {maxDice}</span>
               </span>
-              <span className="text-sm text-[var(--theme-primary)] font-bold uppercase tracking-widest mt-1 block">
+              <span className="text-xs text-[var(--theme-primary)] font-bold uppercase tracking-widest mt-1.5 block">
                 {availableDiceLabel}
               </span>
             </div>
           </div>
 
-          <div className="space-y-4">
+          {/* Axes */}
+          <div className="px-6 pb-6 pt-2 relative z-10">
             <HeadingLevelProvider>
-              {axes.map((axis) => (
+              {axes.map((axis, idx) => (
                 <div
                   key={axis}
-                  className="flex flex-wrap items-center justify-between p-4 rounded-sm bg-[var(--theme-secondary)]/5 border-2 border-[var(--theme-secondary)]/20 relative z-10 gap-4"
+                  className={cn(
+                    "flex flex-wrap items-center justify-between py-4 gap-4",
+                    idx < axes.length - 1 && "border-b border-current/10",
+                  )}
                 >
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2 w-full lg:w-auto flex-1 min-w-[200px]">
                     <Heading className="min-w-[120px]">{axis}</Heading>
 
-                    {/* Render allocated n20 tokens visually */}
+                    {/* Allocated dice tokens */}
                     <div className="flex flex-wrap gap-2 items-center flex-1 min-h-[40px]">
                       {Array.from({ length: allocation[axis] || 0 }).map((_, i) => (
                         <DiceIcon
@@ -115,53 +134,48 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
                           faces={20}
                           size="md"
                           active={true}
-                          className="-rotate-3 hover:rotate-0"
+                          className="-rotate-3 hover:rotate-0 transition-transform"
                         />
                       ))}
                       {(allocation[axis] || 0) === 0 && (
-                        <span className="text-sm text-[var(--theme-text)]/30 italic font-bold whitespace-nowrap">
-                          -- Ei noppia --
+                        <span className="text-sm text-[var(--theme-text)]/25 italic whitespace-nowrap">
+                          — Ei noppia —
                         </span>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between w-full sm:w-auto gap-4 shrink-0">
+                  <div className="flex items-center gap-3 shrink-0">
                     {/* Optional Attribute Die Toggle */}
                     {attributeDie && (
-                      <button
+                      <ToggleButton
+                        pressed={selectedAttributeAxis === axis}
                         onClick={() =>
                           setSelectedAttributeAxis(selectedAttributeAxis === axis ? null : axis)
                         }
-                        className={cn(
-                          "px-3 py-1 rounded-sm text-xs font-bold transition-colors border-2",
-                          selectedAttributeAxis === axis
-                            ? "bg-[var(--theme-secondary)] text-[var(--theme-secondary-foreground)] border-[var(--theme-secondary)]"
-                            : "bg-transparent text-[var(--theme-text)]/50 border-[var(--theme-text)]/30 hover:border-[var(--theme-text)]/50",
-                        )}
                       >
                         +1{attributeDie}
-                      </button>
+                      </ToggleButton>
                     )}
 
-                    <div className="flex gap-2 bg-[var(--theme-bg)] p-1.5 border-2 border-[var(--theme-secondary)]/30">
+                    <div className="flex gap-1.5">
                       <Button
                         variant="secondary"
                         size="icon"
                         onClick={() => handleDeallocate(axis)}
                         disabled={(allocation[axis] || 0) === 0}
-                        className="rounded-sm bg-[var(--theme-secondary)]/10 text-[var(--theme-secondary)] border-[var(--theme-secondary)]/50 hover:bg-[var(--theme-primary)] hover:text-[var(--theme-primary-foreground)] hover:border-[var(--theme-primary)] shadow-none shrink-0"
+                        aria-label={`Remove die from ${axis}`}
                       >
-                        -
+                        <Icon name="minus" size={16} />
                       </Button>
                       <Button
                         variant="secondary"
                         size="icon"
                         onClick={() => handleAllocate(axis)}
                         disabled={diceRemaining === 0}
-                        className="rounded-sm bg-[var(--theme-secondary)]/10 text-[var(--theme-secondary)] border-[var(--theme-secondary)]/50 hover:bg-[var(--theme-primary)] hover:text-[var(--theme-primary-foreground)] hover:border-[var(--theme-primary)] shadow-none shrink-0"
+                        aria-label={`Add die to ${axis}`}
                       >
-                        +
+                        <Icon name="plus" size={16} />
                       </Button>
                     </div>
                   </div>

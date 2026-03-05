@@ -8,7 +8,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
  * It is built with a subcomponent architecture (`CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, and `CardFooter`)
  * to provide maximum flexibility while maintaining consistent spacing and styling.
  *
- * Supports different visual variants and integrates perfectly with the design system's CSS variable-based theming.
+ * The Card's `variant` prop controls which **semantic pattern** is used:
+ * - **`primary`** (default): Solid `--theme-primary` background with inverted text. Matches the "Primary Component" pattern from the design system themes.
+ * - **`secondary`**: Transparent background with `--theme-secondary` border and text. Matches the "Secondary Component" pattern.
+ * - **`accent`**: Theme background with `--theme-accent` text and a thick bottom accent border. Matches the "Accent Notifier" pattern.
+ * - **`subtle`**: Light bordered surface card for non-semantic grouping.
+ * - **`rule`**: Left-accented callout block for game mechanics.
  *
  * > **Note:** `Card` is intended for bounded areas of related content (like character stats, rule blocks, or interactive widgets).
  * > It should **not** be used as a primary page or tab layout wrapper. For main layouts, use semantic HTML tags (`<div>`, `<main>`) with a `<HeadingLevelProvider>`.
@@ -23,8 +28,8 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "success", "subtle", "rule"],
-      description: "Visual style variant of the main card container.",
+      options: ["primary", "secondary", "accent", "subtle", "rule"],
+      description: "Semantic visual style variant of the card.",
     },
     theme: {
       control: "select",
@@ -41,6 +46,16 @@ const meta = {
       ],
       description: "Theme context to apply to the card and all nested subcomponents.",
     },
+    iconName: {
+      control: "select",
+      options: [undefined, "sparkles", "dice5", "book", "chevron-left", "chevron-right"],
+      description: "Optional icon to render in the CardHeader.",
+    },
+    iconVariant: {
+      control: "select",
+      options: ["primary", "secondary", "accent"],
+      description: "The color variant for the icon container.",
+    },
   },
 } satisfies Meta<typeof Card>;
 
@@ -48,12 +63,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * The standard Card configuration used for most content blocks.
+ * The default Card uses the **primary** variant: a solid `--theme-primary` background
+ * with inverted text, matching the "Primary Component" pattern from the design system themes.
  */
 export const Default: Story = {
   args: {
     className: "w-[350px]",
-    variant: "default",
+    variant: "primary",
   },
   render: (args) => (
     <Card {...args}>
@@ -62,11 +78,11 @@ export const Default: Story = {
         <CardDescription>Stats and conditions</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex justify-between items-center py-2 border-b border-[var(--theme-primary)]/10">
+        <div className="flex justify-between items-center py-2 border-b border-current/10">
           <span className="font-bold">Strength</span>
           <span>16 (+3)</span>
         </div>
-        <div className="flex justify-between items-center py-2 border-b border-[var(--theme-primary)]/10">
+        <div className="flex justify-between items-center py-2 border-b border-current/10">
           <span className="font-bold">Dexterity</span>
           <span>14 (+2)</span>
         </div>
@@ -84,16 +100,17 @@ export const Default: Story = {
 };
 
 /**
- * Different visual variants for the Card container.
- * - `default`: Standard bordered look.
- * - `success`: Glowing highlight for positive outcomes.
- * - `subtle`: Lighter borders, softer shadow.
- * - `rule`: Left accentuated border, typical for callouts or rule blocks.
+ * All five semantic visual variants. Each matches a distinct design system pattern:
+ * - **Primary**: Solid fill, inverted text — for primary actions and content.
+ * - **Secondary**: Outlined, transparent — for secondary/alternative interactions.
+ * - **Accent**: Bottom accent border — for highlights, notifications, active states.
+ * - **Subtle**: Soft bordered surface — for non-semantic grouping.
+ * - **Rule**: Left-accented callout — for game mechanics and rules.
  */
 export const Variants: Story = {
   render: () => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-      {(["default", "success", "subtle", "rule"] as const).map((variant) => (
+      {(["primary", "secondary", "accent", "subtle", "rule"] as const).map((variant) => (
         <Card key={variant} variant={variant}>
           <CardHeader>
             <CardTitle className="capitalize">{variant} Variant</CardTitle>
@@ -113,7 +130,7 @@ export const Variants: Story = {
 export const ContentDensity: Story = {
   render: () => (
     <div className="flex flex-col gap-6 w-[350px]">
-      <Card>
+      <Card variant="subtle">
         <CardHeader>
           <CardTitle>Default Padding</CardTitle>
         </CardHeader>
@@ -124,7 +141,7 @@ export const ContentDensity: Story = {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card variant="subtle">
         <CardHeader>
           <CardTitle>Dense Padding</CardTitle>
         </CardHeader>
@@ -140,13 +157,13 @@ export const ContentDensity: Story = {
 
 /**
  * The 'rule' variant is specifically tailored for presenting game mechanics or important callouts.
- * By using the 'rule' variant on `Card`, `CardTitle` and `CardContent`, we get a highly stylized block.
+ * By using the 'rule' variant on `Card` and `CardContent`, we get a highly stylized block.
  */
 export const RuleBlock: Story = {
   render: () => (
     <Card variant="rule" className="max-w-xl">
       <CardHeader>
-        <CardTitle variant="rule">Critical Hits</CardTitle>
+        <CardTitle>Critical Hits</CardTitle>
       </CardHeader>
       <CardContent variant="rule">
         When you score a critical hit, you get to roll extra dice for the attack's damage against
@@ -161,8 +178,40 @@ export const RuleBlock: Story = {
 };
 
 /**
+ * Demonstrates the built-in icon support. Icons automatically scale on hover
+ * and adapt their colors based on the `iconVariant` and current theme.
+ */
+export const Icons: Story = {
+  render: () => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+      <Card iconName="dice5" iconVariant="primary">
+        <CardHeader>
+          <CardTitle>Generator</CardTitle>
+        </CardHeader>
+        <CardContent>Primary themed icon (Dice)</CardContent>
+      </Card>
+
+      <Card iconName="book" iconVariant="secondary">
+        <CardHeader>
+          <CardTitle>Ruleset</CardTitle>
+        </CardHeader>
+        <CardContent>Secondary themed icon (Book)</CardContent>
+      </Card>
+
+      <Card iconName="sparkles" iconVariant="accent">
+        <CardHeader>
+          <CardTitle>New Features</CardTitle>
+        </CardHeader>
+        <CardContent>Accent themed icon (Sparkles)</CardContent>
+      </Card>
+    </div>
+  ),
+};
+
+/**
  * Cards can be themed via `data-theme` using the `theme` prop.
  * This changes the CSS variables used within the Card, automatically recoloring text, borders, backgrounds, and shadows.
+ * Notice how each Card adapts its primary variant to the theme's primary color.
  */
 export const Themes: Story = {
   parameters: {
@@ -181,8 +230,13 @@ export const Themes: Story = {
           "accent-light",
           "accent-dark",
         ] as const
-      ).map((theme) => (
-        <Card key={theme} theme={theme}>
+      ).map((theme, idx) => (
+        <Card
+          key={theme}
+          theme={theme}
+          iconName={idx % 2 === 0 ? "dice5" : "book"}
+          iconVariant={idx % 3 === 0 ? "primary" : idx % 3 === 1 ? "secondary" : "accent"}
+        >
           <CardHeader>
             <CardTitle>{theme}</CardTitle>
             <CardDescription>Theme Example</CardDescription>
@@ -193,12 +247,12 @@ export const Themes: Story = {
                 <span>Progress</span>
                 <span className="font-bold">80%</span>
               </div>
-              <div className="h-2 w-full bg-[var(--theme-text)]/20 rounded-full overflow-hidden">
-                <div className="h-full bg-[var(--theme-primary)]" style={{ width: "80%" }} />
+              <div className="h-2 w-full bg-current/20 rounded-full overflow-hidden">
+                <div className="h-full bg-[var(--theme-bg)]" style={{ width: "80%" }} />
               </div>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-end border-t border-[var(--theme-primary)]/10 pt-4 mt-2">
+          <CardFooter className="flex justify-end border-t border-current/10 pt-4 mt-2">
             <Button>Action</Button>
           </CardFooter>
         </Card>

@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, cn } from "./Button";
-
+import { Icon } from "./Icon";
+import { type Theme } from "./Theme";
+import { Heading, HeadingLevelProvider } from "./Heading";
 export interface ActiveStatBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
   value: number;
@@ -10,15 +12,7 @@ export interface ActiveStatBlockProps extends React.HTMLAttributes<HTMLDivElemen
   onDecrement?: () => void;
   minAllowed?: number;
   maxAllowed?: number;
-  theme?:
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+  theme?: Theme;
 }
 
 export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockProps>(
@@ -43,50 +37,60 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
         ref={ref}
         data-theme={theme}
         className={cn(
-          "flex flex-col p-4 rounded-sm border-2 border-[var(--theme-secondary)]/30 bg-[var(--theme-bg)] gap-3 shadow-inner",
+          "flex flex-col p-6 rounded-xl border shadow-sm gap-3",
           className,
         )}
+        style={{
+          borderColor: "var(--theme-secondary)",
+          color: "var(--theme-secondary)",
+          backgroundColor: "transparent",
+        }}
         {...props}
       >
-        <div className="flex items-center gap-3 border-b-2 border-[var(--theme-secondary)]/20 pb-2">
-          {icon && <div className="text-[var(--theme-primary)]">{icon}</div>}
-          <span className="font-heading font-black text-[var(--theme-secondary)] uppercase tracking-widest text-sm drop-shadow-sm">
-            {label}
-          </span>
-        </div>
-
-        <div className="flex items-center justify-between mt-2">
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={onDecrement}
-            disabled={value <= minAllowed}
-            className="rounded-sm bg-[var(--theme-secondary)]/10 border-[var(--theme-secondary)]/50 hover:bg-[var(--theme-primary)] hover:text-[var(--theme-primary-foreground)] hover:border-[var(--theme-primary)] shadow-none"
+        <HeadingLevelProvider>
+          <div
+            className="flex items-center gap-3 pb-3"
+            style={{ borderBottom: "1px solid var(--theme-secondary)" }}
           >
-            -
-          </Button>
-
-          <div className="flex items-baseline gap-1 mx-4">
-            <span className="text-4xl font-heading font-black text-[var(--theme-text)] leading-none">
-              {value}
-            </span>
-            {maxValue !== undefined && (
-              <span className="text-lg font-bold text-[var(--theme-text)]/50 leading-none">
-                / {maxValue}
-              </span>
-            )}
+            {icon && <div>{icon}</div>}
+            <Heading>
+              {label}
+            </Heading>
           </div>
 
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={onIncrement}
-            disabled={value >= (maxValue ?? maxAllowed)}
-            className="rounded-sm bg-[var(--theme-secondary)]/10 border-[var(--theme-secondary)]/50 hover:bg-[var(--theme-primary)] hover:text-[var(--theme-primary-foreground)] hover:border-[var(--theme-primary)] shadow-none"
-          >
-            +
-          </Button>
-        </div>
+          <div className="flex items-center justify-between mt-1">
+            <Button
+              variant="secondary"
+              size="icon"
+              onClick={onDecrement}
+              disabled={value <= minAllowed}
+              aria-label={`Decrease ${label}`}
+            >
+              <Icon name="minus" size={16} />
+            </Button>
+
+            <div className="flex items-baseline gap-1 mx-4">
+              <span className="text-4xl text-[var(--theme-text)] font-heading font-black leading-none">
+                {value}
+              </span>
+              {maxValue !== undefined && (
+                <span className="text-lg font-bold eading-none">
+                  / {maxValue}
+                </span>
+              )}
+            </div>
+
+            <Button
+              variant="secondary"
+              size="icon"
+              onClick={onIncrement}
+              disabled={value >= (maxValue ?? maxAllowed)}
+              aria-label={`Increase ${label}`}
+            >
+              <Icon name="plus" size={16} />
+            </Button>
+          </div>
+        </HeadingLevelProvider>
       </div>
     );
   },
