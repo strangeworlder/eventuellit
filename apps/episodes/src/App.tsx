@@ -1,10 +1,13 @@
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
+import { ImageElement, type ImageSource } from "@repo/ui/components/ImageElement";
+import { Link } from "@repo/ui/components/Link";
 import { Page } from "@repo/ui/components/Page";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
 import { Badge } from "@repo/ui/components/Badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui/components/Card";
+import { useEffect, useState } from "react";
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { List, ListItem } from "@repo/ui/components/List";
@@ -84,6 +87,47 @@ interface EpisodePage {
     location?: string;
     locationLink?: string;
     mechanicalAdditions?: string;
+    image?: string;
+    imageAlt?: string;
+}
+
+interface ImageVariant {
+    width: number;
+    avif: string;
+    webp: string;
+    jpg: string;
+}
+
+interface ManifestImageEntry {
+    width: number;
+    height: number;
+    placeholder: string;
+    variants: ImageVariant[];
+}
+
+type ImageManifest = Record<string, ManifestImageEntry>;
+
+const remoteOrigin = new URL(import.meta.url).origin;
+const manifestUrl = `${remoteOrigin}/images/manifest.json`;
+
+function resolveRemoteAssetUrl(assetPath: string) {
+    if (assetPath.startsWith("http://") || assetPath.startsWith("https://") || assetPath.startsWith("data:")) {
+        return assetPath;
+    }
+
+    const normalizedPath = assetPath.startsWith("/") ? assetPath : `/${assetPath}`;
+    return `${remoteOrigin}${normalizedPath}`;
+}
+
+function buildImageSources(variants: ImageVariant[]): ImageSource[] {
+    const sorted = [...variants].sort((a, b) => a.width - b.width);
+    const avifSrcSet = sorted.map((variant) => `${resolveRemoteAssetUrl(variant.avif)} ${variant.width}w`).join(", ");
+    const webpSrcSet = sorted.map((variant) => `${resolveRemoteAssetUrl(variant.webp)} ${variant.width}w`).join(", ");
+
+    return [
+        { type: "image/avif", srcSet: avifSrcSet },
+        { type: "image/webp", srcSet: webpSrcSet },
+    ];
 }
 
 const episodes: EpisodePage[] = Object.entries(modules).map(([path, rawMdx]) => {
@@ -104,10 +148,19 @@ const episodes: EpisodePage[] = Object.entries(modules).map(([path, rawMdx]) => 
         location: data.location,
         locationLink: data.locationLink,
         mechanicalAdditions: data.mechanicalAdditions,
+        image: data.image,
+        imageAlt: data.imageAlt,
     };
 }).sort((a, b) => a.order - b.order);
 
-function EpisodeDetails({ episode }: { episode: EpisodePage }) {
+function EpisodeDetails({ episode, imageManifest }: { episode: EpisodePage; imageManifest: ImageManifest }) {
+    const imageEntry = episode.image ? imageManifest[episode.image] : undefined;
+    const sortedVariants = imageEntry ? [...imageEntry.variants].sort((a, b) => a.width - b.width) : [];
+    const largestJpg = sortedVariants.length > 0
+        ? resolveRemoteAssetUrl(sortedVariants[sortedVariants.length - 1].jpg)
+        : undefined;
+    const imageSources = imageEntry ? buildImageSources(imageEntry.variants) : undefined;
+
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             <HeadingLevelProvider>
@@ -122,15 +175,28 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
                     </div>
                 </Hero>
 
-                <div className="layout-split">
-                    <div className="layout-stack space-y-6">
+                <div className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8 px-4 tablet:pr-8 tablet:pl-0">
+                    <div className="space-y-6">
                         <HeadingLevelProvider>
                             <MarkdownRenderer>{episode.content}</MarkdownRenderer>
                         </HeadingLevelProvider>
                     </div>
-                    <div className="layout-stack space-y-6 pt-6">
-                        <div className="space-y-6">
-                            <Card variant="secondary">
+                    <div className="space-y-8 pt-6">
+                        {imageEntry && largestJpg && (
+                            <ImageElement
+                                src={largestJpg}
+                                sources={imageSources}
+                                sizes="(max-width: 1024px) 100vw, 24rem"
+                                width={imageEntry.width}
+                                height={imageEntry.height}
+                                alt={episode.imageAlt || episode.title}
+                                placeholderSrc={imageEntry.placeholder}
+                                variant="secondary"
+                            />
+                        )}
+
+                        <div className="space-y-4">
+                            <Card variant="secondary" className="gap-2">
                                 <CardHeader>
                                     <CardTitle>Tiedot</CardTitle>
                                 </CardHeader>
@@ -161,11 +227,12 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
                                         {episode.location && (
                                             <>
                                                 <Heading>Sijainti</Heading>
-                                                <a
+                                                <Link
                                                     href={episode.locationLink || "#"}
+                                                    external={Boolean(episode.locationLink)}
                                                 >
                                                     {episode.location}
-                                                </a>
+                                                </Link>
                                             </>
                                         )}
                                     </HeadingLevelProvider>
@@ -174,12 +241,12 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
                         </div>
 
                         {episode.mechanicalAdditions && (
-                            <div className="desktop:col-span-1">
+                            <div className="desktop:col-span-1 space-y-4">
                                 <Card iconName="zap">
                                     <CardHeader>
                                         <CardTitle>Mekaaniset Lisäykset</CardTitle>
                                     </CardHeader>
-                                    <CardContent>
+                                    <CardContent className="pt-0 tablet:pt-0">
                                         <MarkdownRenderer>{episode.mechanicalAdditions}</MarkdownRenderer>
                                     </CardContent>
                                 </Card>
@@ -194,6 +261,7 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
 
 function App() {
     const { pathname } = useLocation();
+    const [imageManifest, setImageManifest] = useState<ImageManifest>({});
 
     const getBasePath = () => {
         const segments = pathname.split('/').filter(Boolean);
@@ -204,6 +272,27 @@ function App() {
 
     const basePath = getBasePath();
     const defaultPath = episodes.length > 0 ? episodes[0].id : "";
+
+    useEffect(() => {
+        let cancelled = false;
+
+        fetch(manifestUrl)
+            .then((response) => (response.ok ? response.json() : {}))
+            .then((manifest: ImageManifest) => {
+                if (!cancelled) {
+                    setImageManifest(manifest);
+                }
+            })
+            .catch(() => {
+                if (!cancelled) {
+                    setImageManifest({});
+                }
+            });
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     return (
         <Page>
@@ -227,7 +316,7 @@ function App() {
                                 <Route
                                     key={episode.id}
                                     path={episode.id}
-                                    element={<EpisodeDetails episode={episode} />}
+                                    element={<EpisodeDetails episode={episode} imageManifest={imageManifest} />}
                                 />
                             ))}
                         </Routes>

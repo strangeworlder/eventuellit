@@ -14,7 +14,7 @@ import "../styles.css";
  * - **Context**: Only use icons when they add clarity. Don't use them for every single menu item unless necessary.
  */
 const meta = {
-    title: "Design System/Icons",
+    title: "Suunnittelujarjestelma/Perustat/Icons",
     parameters: {
         layout: "fullscreen",
     },

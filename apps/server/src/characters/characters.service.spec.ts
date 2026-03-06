@@ -1,4 +1,5 @@
 import { Test, type TestingModule } from "@nestjs/testing";
+import { vi } from "vitest";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import { CharactersService } from "./characters.service";
 
@@ -11,17 +12,17 @@ describe("CharactersService", () => {
     mockDb = {
       query: {
         characters: {
-          findMany: jest.fn(),
-          findFirst: jest.fn(),
+          findMany: vi.fn(),
+          findFirst: vi.fn(),
         },
       },
-      insert: jest.fn().mockReturnThis(),
-      values: jest.fn().mockReturnThis(),
-      returning: jest.fn(),
-      update: jest.fn().mockReturnThis(),
-      set: jest.fn().mockReturnThis(),
-      where: jest.fn().mockReturnThis(),
-      delete: jest.fn().mockReturnThis(),
+      insert: vi.fn().mockReturnThis(),
+      values: vi.fn().mockReturnThis(),
+      returning: vi.fn(),
+      update: vi.fn().mockReturnThis(),
+      set: vi.fn().mockReturnThis(),
+      where: vi.fn().mockReturnThis(),
+      delete: vi.fn().mockReturnThis(),
     };
 
     const module: TestingModule = await Test.createTestingModule({

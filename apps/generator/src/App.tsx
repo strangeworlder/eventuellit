@@ -4,11 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Ca
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
+import { LoadingState } from "@repo/ui/components/LoadingState";
+import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page } from "@repo/ui/components/Page";
 import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Routes, Route, Navigate, useLocation, useNavigate, useParams, useMatch } from "react-router-dom";
+import { apiBaseUrl } from "./api/base-url";
 import { useCreateCharacter } from "./api/characters";
 import { CharacterSheet } from "./CharacterSheet";
 
@@ -80,22 +83,22 @@ function GeneratorForm() {
   if (isSuccess) {
     return (
       <div className="space-y-8 animate-in fade-in duration-500">
-        <div className="border-2 border-[var(--theme-secondary)]/50 bg-[var(--theme-secondary)]/5 shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)] p-8 rounded-sm text-[var(--theme-text)]">
-          <HeadingLevelProvider>
-            <Heading data-theme="secondary" className="mb-4">
-              Hahmo Luotu Onnistuneesti!
-            </Heading>
-            <p className="text-text/80 text-lg">Hahmosi tallennettiin tietokantaan.</p>
-            <div className="flex gap-4 mt-6">
+        <NoticePanel
+          variant="success"
+          title="Hahmo luotu onnistuneesti!"
+          actions={(
+            <>
               <Button onClick={() => navigate("../list")}>
                 Palaa listaan
               </Button>
               <Button variant="secondary" onClick={handleReset}>
                 Tee uusi hahmo
               </Button>
-            </div>
-          </HeadingLevelProvider>
-        </div>
+            </>
+          )}
+        >
+          <p className="text-lg">Hahmosi tallennettiin tietokantaan.</p>
+        </NoticePanel>
       </div>
     );
   }
@@ -265,7 +268,7 @@ function InnerApp() {
   const { data: characters, isLoading } = useQuery({
     queryKey: ["characters"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/characters");
+      const res = await fetch(`${apiBaseUrl}/characters`);
       if (!res.ok) throw new Error("Failed to fetch characters");
       return res.json();
     },
@@ -291,9 +294,7 @@ function InnerApp() {
 
                   <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 animate-in fade-in duration-500">
                     {isLoading && (
-                      <p className="text-primary animate-pulse uppercase tracking-widest font-bold">
-                        Ladataan hahmoja...
-                      </p>
+                      <LoadingState message="Ladataan hahmoja..." />
                     )}
 
                     {!isLoading && characters?.length === 0 && (

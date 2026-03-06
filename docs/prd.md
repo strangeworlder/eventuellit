@@ -72,3 +72,5 @@ Because this is an anthology, characters that survive can return in later episod
 ## Technical Architecture Requirements
 - **Dynamic Rules Context:** The generator and character sheet must support "Episode-Specific" skill injection, as lists change per episode.
 - **Dice State Management:** The frontend needs to track the current pool size of n20s (which decreases with Vaurio), the state of Sisu dice, and complex derived math for "Kesto" calculation when dice upgrade into larger tiers during progression.
+- **Environment Safety Baseline:** Frontend-backend integration must use environment-based endpoints (`VITE_API_BASE_URL`) and backend infrastructure values (`DATABASE_URL`, `CORS_ORIGINS`) without hardcoded localhost defaults.
+- **Backend Input Integrity:** Character write endpoints must enforce DTO validation and field whitelisting to prevent malformed payloads and over-posting.

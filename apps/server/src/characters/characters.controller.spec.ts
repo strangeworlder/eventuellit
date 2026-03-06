@@ -1,4 +1,5 @@
 import { Test, type TestingModule } from "@nestjs/testing";
+import { vi } from "vitest";
 import { CharactersController } from "./characters.controller";
 import { CharactersService } from "./characters.service";
 
@@ -12,11 +13,11 @@ describe("CharactersController", () => {
         {
           provide: CharactersService,
           useValue: {
-            findAll: jest.fn().mockResolvedValue([]),
-            findOne: jest.fn(),
-            create: jest.fn(),
-            update: jest.fn(),
-            remove: jest.fn(),
+            findAll: vi.fn().mockResolvedValue([]),
+            findOne: vi.fn(),
+            create: vi.fn(),
+            update: vi.fn(),
+            remove: vi.fn(),
           },
         },
       ],

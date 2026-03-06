@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { DiceRoller } from "./DiceRoller";
 
 const meta = {
-  title: "TTRPG/DiceRoller",
+  title: "Suunnittelujarjestelma/Pelimekaniikka/DiceRoller",
   component: DiceRoller,
   parameters: {
     layout: "centered",

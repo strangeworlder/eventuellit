@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import { Page } from "./Page";
 
 const meta: Meta<typeof Page> = {
-  title: "Layout/Page",
+  title: "Suunnittelujarjestelma/Rakenne/Page",
   component: Page,
   parameters: {
     layout: "fullscreen",

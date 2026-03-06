@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DiceIcon } from "./DiceIcon";
 
 const meta = {
-  title: "Components/DiceIcon",
+  title: "Suunnittelujarjestelma/Komponentit/DiceIcon",
   component: DiceIcon,
   parameters: {
     layout: "centered",

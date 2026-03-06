@@ -5,6 +5,14 @@ import * as schema from "./schema";
 
 export const DATABASE_CONNECTION = "DATABASE_CONNECTION";
 
+function getDatabaseUrl() {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    throw new Error("DATABASE_URL is required");
+  }
+  return databaseUrl;
+}
+
 @Global()
 @Module({
   providers: [
@@ -12,8 +20,7 @@ export const DATABASE_CONNECTION = "DATABASE_CONNECTION";
       provide: DATABASE_CONNECTION,
       useFactory: () => {
         const pool = new Pool({
-          connectionString:
-            process.env.DATABASE_URL || "postgres://root:password123@localhost:5432/eventuellit",
+          connectionString: getDatabaseUrl(),
         });
         return drizzle(pool, { schema });
       },

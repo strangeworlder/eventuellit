@@ -3,7 +3,7 @@ import React from "react";
 import "../styles.css";
 
 const meta = {
-  title: "Design System/Typography",
+  title: "Suunnittelujarjestelma/Perustat/Typografia",
   parameters: {
     layout: "padded",
   },
@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const SampleText = "The quick brown fox jumps over the lazy dog";
+const SampleText = "Vikkelä kettu loikkaa laiskan koiran yli";
 
 export const Chart: Story = {
   render: () => (
@@ -34,7 +34,7 @@ export const Chart: Story = {
             marginBottom: "1rem",
           }}
         >
-          Typography
+          Typografia
         </h1>
         <p
           style={{
@@ -45,13 +45,13 @@ export const Chart: Story = {
             lineHeight: 1.6,
           }}
         >
-          The design system relies on two font families. Headings prioritize structural clarity and
-          personality, while body text prioritizes legibility at smaller sizes.
+          Design-järjestelmä hyödyntää kahta fonttiperhettä. Otsikot korostavat rakennetta ja
+          persoonallisuutta, kun taas leipäteksti painottaa luettavuutta pienemmissä koissa.
         </p>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-        {/* Headings */}
+        {/* Otsikot */}
         <div>
           <div
             style={{ borderBottom: "1px solid #333", paddingBottom: "1rem", marginBottom: "2rem" }}
@@ -63,7 +63,7 @@ export const Chart: Story = {
                 color: "var(--color-primary)",
               }}
             >
-              Headings (Outfit)
+              Otsikot (Outfit)
             </h2>
             <code style={{ fontSize: "0.875rem", opacity: 0.7 }}>
               font-family: var(--font-heading)
@@ -80,7 +80,7 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Heading 1 (h1) - Black 900
+                Otsikko 1 (h1) - Black 900
               </span>
               <div
                 style={{
@@ -102,7 +102,7 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Heading 2 (h2) - Black 900
+                Otsikko 2 (h2) - Black 900
               </span>
               <div
                 style={{
@@ -124,7 +124,7 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Heading 3 (h3) - Bold 700
+                Otsikko 3 (h3) - Bold 700
               </span>
               <div
                 style={{
@@ -140,7 +140,7 @@ export const Chart: Story = {
           </div>
         </div>
 
-        {/* Body */}
+        {/* Leipäteksti */}
         <div style={{ marginTop: "2rem" }}>
           <div
             style={{ borderBottom: "1px solid #333", paddingBottom: "1rem", marginBottom: "2rem" }}
@@ -152,7 +152,7 @@ export const Chart: Story = {
                 color: "var(--color-secondary)",
               }}
             >
-              Body Content (Inter)
+              Leipäteksti (Inter)
             </h2>
             <code style={{ fontSize: "0.875rem", opacity: 0.7 }}>
               font-family: var(--font-sans)
@@ -169,7 +169,7 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Large Text (1.125rem) - Regular 400
+                Suuri teksti (1.125rem) - Regular 400
               </span>
               <div
                 style={{
@@ -191,7 +191,7 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Base Text (1rem) - Regular 400
+                Perusteksti (1rem) - Regular 400
               </span>
               <div
                 style={{
@@ -213,7 +213,7 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Small Text (0.875rem) - Regular 400
+                Pieni teksti (0.875rem) - Regular 400
               </span>
               <div
                 style={{
@@ -235,7 +235,7 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Body Text - Bold 600
+                Leipäteksti - Bold 600
               </span>
               <div style={{ fontSize: "1rem", fontFamily: "var(--font-sans)", fontWeight: 600 }}>
                 {SampleText}

@@ -1,5 +1,6 @@
 import { Button } from "@repo/ui/components/Button";
 import { Heading } from "@repo/ui/components/Heading";
+import { LoadingState } from "@repo/ui/components/LoadingState";
 import { Sidebar, SidebarContent, SidebarHeader, SidebarItem } from "@repo/ui/components/Sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BookOpen, Dice5, Menu, Map } from "lucide-react";
@@ -31,10 +32,9 @@ function AppContent() {
         : "home";
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-background text-text selection:bg-accent selection:text-white">
+    <div data-theme="inverted" className="flex h-screen w-screen overflow-hidden bg-[var(--theme-bg)] text-[var(--theme-text)] selection:bg-[var(--theme-accent)] selection:text-[var(--theme-bg)]">
       <Sidebar
         className="flex-shrink-0 z-20 shadow-xl"
-        theme="base"
         expanded={sidebarOpen}
         onExpandedChange={setSidebarOpen}
       >
@@ -86,7 +86,7 @@ function AppContent() {
           <Menu size={28} />
         </Button>
 
-        <header className="absolute top-[88px] left-5 desktop:top-5 desktop:left-5 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-10 transition-all duration-300">
+        <header className="absolute top-20 left-5 desktop:top-5 desktop:left-5 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-10 transition-all duration-300">
           {activeView === "generator" && (
             <Heading as="h1" className="m-0">
               Eventuellit: Hahmopaja
@@ -104,12 +104,10 @@ function AppContent() {
           )}
         </header>
 
-        <div className="pl-16 desktop:pl-24 md:pl-32 max-w-7xl mx-auto w-full">
+        <div className="pl-16 desktop:pl-24 tablet:pl-32 max-w-7xl mx-auto w-full">
           <Suspense
             fallback={
-              <div className="text-primary animate-pulse uppercase tracking-widest font-black text-2xl mt-6">
-                Ladataan kohdetta...
-              </div>
+              <LoadingState message="Ladataan kohdetta..." size="large" className="mt-6" />
             }
           >
             <div className="animate-in fade-in duration-500">

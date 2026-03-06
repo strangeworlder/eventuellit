@@ -3,7 +3,7 @@ import { Hero } from "./Hero";
 import "../styles.css";
 
 const meta = {
-    title: "Components/Hero",
+    title: "Suunnittelujarjestelma/Komponentit/Hero",
     component: Hero,
     parameters: {
         layout: "padded",

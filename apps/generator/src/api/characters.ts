@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiBaseUrl } from "./base-url";
 
-const API_URL = "http://localhost:3000/characters";
+const API_URL = `${apiBaseUrl}/characters`;
 
 export interface CreateCharacterDto {
   name: string;

@@ -1,0 +1,27 @@
+{
+  "jakso-1": {
+    "width": 1024,
+    "height": 1024,
+    "placeholder": "data:image/jpeg;base64,/9j/2wBDABQUFBQVFBcZGRcfIh4iHy4rJycrLkYyNjI2MkZqQk5CQk5Cal5yXVZdcl6phXZ2hanDpJukw+zT0+z/////////2wBDARQUFBQVFBcZGRcfIh4iHy4rJycrLkYyNjI2MkZqQk5CQk5Cal5yXVZdcl6phXZ2hanDpJukw+zT0+z/////////wgARCAAYABgDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAMEBQL/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAwEC/9oADAMBAAIQAxAAAADMhsX52y0hKbsdVRj/xAAkEAABAwMEAQUAAAAAAAAAAAACAQMEABESBRMUITMxQlKBov/aAAgBAQABPwCVJl8uSnJdAAcL3Ub8zFcJby29UUlSo0ibyo4m+726KdnWO7qL7disT60NilCyTYY37uqXX7pwdvVGW/i+NSG5m+7gD1kkEY2Dqt+fyN7hd7ePj/VNRZZTmXTac8qESqCpX//EABkRAAMAAwAAAAAAAAAAAAAAAAACERAhQf/aAAgBAgEBPwDdHnMMf//EABsRAAEEAwAAAAAAAAAAAAAAABEAAQIhEBIx/9oACAEDAQE/AGaGhc2okX1HH//Z",
+    "variants": [
+      {
+        "width": 480,
+        "avif": "/images/jakso-1-480.avif",
+        "webp": "/images/jakso-1-480.webp",
+        "jpg": "/images/jakso-1-480.jpg"
+      },
+      {
+        "width": 768,
+        "avif": "/images/jakso-1-768.avif",
+        "webp": "/images/jakso-1-768.webp",
+        "jpg": "/images/jakso-1-768.jpg"
+      },
+      {
+        "width": 1024,
+        "avif": "/images/jakso-1-1024.avif",
+        "webp": "/images/jakso-1-1024.webp",
+        "jpg": "/images/jakso-1-1024.jpg"
+      }
+    ]
+  }
+}

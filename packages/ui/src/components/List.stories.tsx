@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { List, ListItem } from "./List";
 
 const meta = {
-    title: "Components/List",
+    title: "Suunnittelujarjestelma/Komponentit/List",
     component: List,
     parameters: {
         layout: "padded",

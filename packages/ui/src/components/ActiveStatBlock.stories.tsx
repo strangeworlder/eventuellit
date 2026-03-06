@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ActiveStatBlock } from "./ActiveStatBlock";
 
 const meta = {
-  title: "Components/ActiveStatBlock",
+  title: "Suunnittelujarjestelma/Komponentit/ActiveStatBlock",
   component: ActiveStatBlock,
   parameters: {
     layout: "centered",
@@ -12,7 +12,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["secondary", "accent"],
+      options: ["primary", "secondary", "accent"],
     },
     theme: {
       control: "select",
@@ -54,7 +54,7 @@ const InteractiveStatBlock = (props: any) => {
 export const Default: Story = {
   render: (args) => <InteractiveStatBlock {...args} />,
   args: {
-    label: "Health",
+    label: "Terveys",
     value: 10,
     maxValue: 20,
     icon: "zap",
@@ -64,7 +64,7 @@ export const Default: Story = {
 export const NoMaxValue: Story = {
   render: (args) => <InteractiveStatBlock {...args} />,
   args: {
-    label: "Armor",
+    label: "Panssari",
     value: 5,
     icon: "book",
   },
@@ -73,7 +73,7 @@ export const NoMaxValue: Story = {
 export const WithoutIcon: Story = {
   render: (args) => <InteractiveStatBlock {...args} />,
   args: {
-    label: "Stamina",
+    label: "Kestävyys",
     value: 100,
     maxValue: 100,
   },
@@ -82,11 +82,22 @@ export const WithoutIcon: Story = {
 export const Accent: Story = {
   render: (args) => <InteractiveStatBlock {...args} />,
   args: {
-    label: "Magic Points",
+    label: "Taikapisteet",
     value: 15,
     maxValue: 50,
     variant: "accent",
     icon: "sparkles",
+  },
+};
+
+export const Primary: Story = {
+  render: (args) => <InteractiveStatBlock {...args} />,
+  args: {
+    label: "Kesto",
+    value: 8,
+    maxValue: 12,
+    variant: "primary",
+    icon: "shield",
   },
 };
 
@@ -119,7 +130,7 @@ export const ThemeShowcase: Story = {
     );
   },
   args: {
-    label: "Theme",
+    label: "Teema",
     value: 10,
   },
 };

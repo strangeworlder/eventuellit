@@ -13,7 +13,7 @@ import { DicePoolAllocator } from "./DicePoolAllocator";
  * useful when placing the widget inside a layout that doesn't participate in the theme tree.
  */
 const meta = {
-  title: "Components/DicePoolAllocator",
+  title: "Suunnittelujarjestelma/Pelimekaniikka/DicePoolAllocator",
   component: DicePoolAllocator,
   parameters: {
     layout: "centered",

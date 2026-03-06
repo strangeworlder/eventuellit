@@ -111,3 +111,83 @@ Before implementing complex features or debugging, review this file to ensure yo
 **Issue:** Consumer applications were using generic Tailwind breakpoints (`md:`, `lg:`) and arbitrary spacing/radius values which led to inconsistent responsive behaviors and layouts.
 **Nuance/Resolution:** We migrated to a unified set of Design Tokens documented in Storybook (`Tokens.stories.tsx`). This includes custom semantic breakpoints (`mobile`, `tablet`, `desktop`, `x-wide`) registered in Tailwind v4's `@theme` directive, as well as standardized spacing and border-radius scales.
 **Action:** Always use the custom semantic breakpoints (`tablet:flex`, `max-desktop:hidden`) instead of default Tailwind breakpoints. Avoid using arbitrary values in classes (like `w-[320px]` or `p-[18px]`); stick strictly to the documented spacing and layout scales.
+
+#### 19. Primary Variant Pattern for Stat Blocks (March 2026)
+**Issue:** `StatBlock` and `ActiveStatBlock` only supported `secondary` and `accent`, causing inconsistent primary-surface behavior versus other core components.
+**Nuance/Resolution:** Components exposing a `primary` variant must use `primaryThemeMap` to swap `data-theme` relative to their parent context and provide the resolved theme through `ThemeContext` for nested descendants.
+**Action:** For `primary`, resolve with `useCurrentTheme -> baseTheme -> primaryThemeMap[baseTheme]`; for non-primary variants, keep inherited theming unless an explicit `theme` prop is provided.
+
+#### 20. Mixed Jest/Vitest Test Gate Drift in Server (March 2026)
+**Issue:** Root `npm test` used Vitest while `apps/server` still used Jest scripts/config and Jest-specific test doubles, causing server tests to fail or be skipped under the real workspace gate.
+**Nuance/Resolution:** The backend must run on the same Vitest stack as the rest of the monorepo to keep CI signal reliable and avoid toolchain split-brain.
+**Action:** Migrate `apps/server` test scripts to Vitest, add local `vitest.config.ts` (`globals: true`), replace `jest.fn` with `vi.fn`, and remove obsolete Jest config artifacts.
+
+#### 21. Backend Input Safety and Runtime Env Hardening (March 2026)
+**Issue:** Character endpoints accepted broad Drizzle insert payloads directly, CORS was wildcarded, and DB/API runtime defaults were hardcoded to localhost credentials/URLs.
+**Nuance/Resolution:** Relying on inferred ORM insert types at controller boundaries enables over-posting and malformed writes. Hardcoded runtime endpoints create deployment drift and increase security risk.
+**Action:** Introduce explicit DTOs with `class-validator`, enforce global `ValidationPipe` (`transform + whitelist + forbidNonWhitelisted`), map service writes to allowed fields only, require `DATABASE_URL`/`CORS_ORIGINS`, and require frontend `VITE_API_BASE_URL` for API calls.
+
+#### 22. Storybook Text Is Part of Finnish-Only Surface (March 2026)
+**Issue:** English labels and descriptions in Storybook stories (including ARIA labels and component demo content) drifted from the Finnish-only UI requirement.
+**Nuance/Resolution:** Storybook is treated as a user-facing design surface in this project. Localization rules apply to stories, labels, and accessibility text, not only production routes.
+**Action:** Keep Storybook-visible copy in Finnish by default, including demo labels and component explanatory text.
+
+#### 23. Remove Nest Scaffold Endpoints Early (March 2026)
+**Issue:** Retaining default Nest `Hello World` controller/service/tests creates noise and can falsely signal API coverage while not representing domain behavior.
+**Nuance/Resolution:** Scaffold artifacts quickly become technical debt and can mask missing contract tests for real modules.
+**Action:** Remove starter controller/service and generic e2e specs once feature modules are in place; keep server README project-specific.
+
+#### 24. Vitest Workspace Config Compatibility (March 2026)
+**Issue:** Root test execution silently diverged because `vitest.workspace.ts` used `defineWorkspace`/CLI behavior not supported in the installed Vitest runtime.
+**Nuance/Resolution:** Even when `apps/server` passes locally with its own config, the root gate can still fail if workspace-level globals are not applied consistently.
+**Action:** Use a root `vitest.config.ts` with explicit `include` globs and `globals: true`, and run root tests through that single config.
+
+#### 20. Episode Images in Host-Mounted Microfrontend (March 2026)
+**Issue:** Episode images rendered inside the host-mounted `episodes` microfrontend cannot reliably use plain root-relative paths like `/images/...`, because those resolve to the host origin instead of the remote origin during Module Federation composition.
+**Nuance/Resolution:** Image assets are now generated at build-time from `apps/episodes/src/content/images` into responsive `avif/webp/jpg` variants plus a tiny placeholder in `apps/episodes/public/images`, with a generated `manifest.json`. Runtime image URLs must be resolved against `new URL(import.meta.url).origin` before rendering.
+**Action:** Keep episode markdown image references as frontmatter keys (e.g. `image: jakso-1`), load `public/images/manifest.json` in the app, then resolve every manifest path to remote-origin URLs before passing them into the shared `ImageElement` component.
+
+#### 24. Semantic Image Variants for Themed Placement Consistency (March 2026)
+**Issue:** A single image style made sidebar usage work, but it did not guarantee visual consistency when placing image+caption blocks in different layout contexts across the app.
+**Nuance/Resolution:** `ImageElement` now exposes strict semantic variants (`primary`, `secondary`, `accent`) aligned with design-system theme semantics. The original look was normalized as `secondary`, while `primary` and `accent` provide predictable alternatives without ad-hoc consumer styling.
+**Action:** Default `ImageElement` to `variant="secondary"` and require consumers to opt into `primary` or `accent` intentionally for featured placements.
+
+#### 25. Badge Micro-Typography Alignment with Theme Showcase (March 2026)
+**Issue:** The generic `Badge` component used a slightly heavier footprint (`text-sm` + medium weight), which did not match the tighter, more polished badge chip shown in the `Themes.stories.tsx` accent showcase.
+**Nuance/Resolution:** The accent showcase chip establishes the preferred micro-typography baseline for badge-like labels in the design system.
+**Action:** Keep `Badge` typography aligned to the showcase style by using `text-xs` + `font-bold` with `px-3 py-1` pill spacing as the default baseline.
+
+#### 26. Solid Accent Badge as an Explicit Semantic Variant (March 2026)
+**Issue:** `Themes.stories.tsx` used a bespoke `<span>` for the accent status chip, while `Badge` lacked a variant that produced the same filled accent pill.
+**Nuance/Resolution:** A repeated visual idiom (filled accent status chip) should be represented by a design-system variant, not ad-hoc story markup.
+**Action:** Use `Badge variant="accent-solid"` for filled status chips (`bg-[var(--theme-accent)] text-[var(--theme-bg)]`) and replace custom inline chip spans in stories with the shared component.
+
+#### 27. NPM Workspace Install Drift Causes False TS2307 in Server (March 2026)
+**Issue:** `apps/server` DTO imports from `class-validator` failed with `TS2307: Cannot find module 'class-validator'` even though the dependency already existed in `apps/server/package.json`.
+**Nuance/Resolution:** In this npm workspace setup, declarations in `package.json` are not enough if workspace installs are stale. TypeScript can report module-not-found when the package is simply absent from `node_modules`.
+**Action:** Run `npm install -w @eventuellit/server` after dependency edits (or when module resolution unexpectedly fails), then verify with `npm run -w @eventuellit/server build`.
+
+#### 28. Storybook 10 Drift: Remove Unused Legacy Packages Instead of Mixing Majors (March 2026)
+**Issue:** `@repo/ui` built successfully with Storybook 10, but still declared `@storybook/blocks@8` and `@storybook/test@8`, producing compatibility warnings and future fragility.
+**Nuance/Resolution:** If those packages are not imported in stories or config, the safest fix is removal, not partial major upgrades. Keeping mixed major Storybook packages creates false confidence because build may still pass transiently.
+**Action:** Keep `@storybook/*` dependencies aligned to the active major and remove unused legacy packages from `packages/ui/package.json`, then refresh lockfile with `npm install -w @repo/ui`.
+
+#### 29. Storybook IA Drift: Mixed English/Finnish Roots Hide Component Ownership (March 2026)
+**Issue:** Storybook navigation mixed roots (`Components`, `Design System`, `Layout`, `Typography`, `TTRPG`, `Suunnittelujarjestelma`), making it unclear what belongs to the Design System versus demos/foundations.
+**Nuance/Resolution:** A unified top-level namespace and semantic subgroups makes ownership and extraction boundaries explicit.
+**Action:** Normalize story titles under `Suunnittelujarjestelma/*` and separate categories into `Komponentit`, `Perustat`, `Rakenne`, and `Pelimekaniikka`.
+
+#### 30. App-Level UI Repetition: Prefer DS Primitives Before Composite Abstractions (March 2026)
+**Issue:** Loading and notice patterns were repeated with ad-hoc Tailwind blocks across host/generator views, while larger composite candidates (`RoutedTabs`, feature-card navigation) still vary by app routing context.
+**Nuance/Resolution:** High-frequency, low-variance patterns should be extracted immediately (`LoadingState`, `NoticePanel`). Route-driven composites should remain app-shell composition until two stable implementations converge on the same API.
+**Action:** Extract and adopt shared primitives first; defer DS-level `RoutedTabs`/feature-card composites until repeated behavior is truly stable across apps.
+
+#### 31. ImageElement Lightbox Must Be Portaled for True Fullscreen Behavior (March 2026)
+**Issue:** Inline editorial images in app layouts are often intentionally smaller than the source asset, which requires an image modal to inspect the full-size visual. Rendering the modal inside the image wrapper can be clipped by local layout constraints (like `overflow-hidden`).
+**Nuance/Resolution:** A design-system lightbox should render as a classic gallery overlay via `ReactDOM.createPortal(..., document.body)` so it escapes local stacking/clipping contexts while keeping accessibility controls (Esc close, backdrop close, focus restore).
+**Action:** Keep `ImageElement` click-to-zoom behavior in the component itself, but always portal the dialog overlay to `document.body` and provide keyboard-operable close controls.
+
+#### 32. Host Shell Must Not Override Active Theme Context (March 2026)
+**Issue:** `apps/host/src/App.tsx` hardcoded `data-theme="inverted"` at the root and set `theme="base"` on the sidebar, causing the shell to ignore the active theme context and forcing mismatched colors in composed views.
+**Nuance/Resolution:** The host shell is a secondary layout surface and must inherit theme context instead of overriding it. Theme-aware classes should use explicit CSS variables (`var(--theme-*)`) rather than fixed aliases/hardcoded colors.
+**Action:** Remove hardcoded theme props from host shell containers and use explicit variable-based classes such as `bg-[var(--theme-bg)]`, `text-[var(--theme-text)]`, and selection colors tied to theme variables.

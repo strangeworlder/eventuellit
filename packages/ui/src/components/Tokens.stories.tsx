@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  title: "Design System/Tokens",
+  title: "Suunnittelujarjestelma/Perustat/Tokens",
   parameters: {
     layout: "padded",
   },

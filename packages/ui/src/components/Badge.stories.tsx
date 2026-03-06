@@ -3,13 +3,13 @@ import React from "react";
 import { Badge } from "./Badge";
 
 const meta: Meta<typeof Badge> = {
-    title: "Components/Badge",
+    title: "Suunnittelujarjestelma/Komponentit/Badge",
     component: Badge,
     tags: ["autodocs"],
     argTypes: {
         variant: {
             control: "select",
-            options: ["primary", "secondary", "accent", "outline"],
+            options: ["primary", "secondary", "accent", "accent-solid", "outline"],
         },
         theme: {
             control: "select",
@@ -61,16 +61,23 @@ export const Outline: Story = {
     },
 };
 
+export const AccentSolid: Story = {
+    args: {
+        variant: "accent-solid",
+        children: "Aktiivinen",
+    },
+};
+
 export const WithDifferentThemes: Story = {
     render: (args) => (
         <div className="flex flex-col gap-4 p-4">
             <div className="flex gap-2" data-theme="base">
-                <Badge {...args} theme="base">Base Theme</Badge>
-                <Badge {...args} theme="inverted">Inverted Theme</Badge>
+                <Badge {...args} theme="base">Perusteema</Badge>
+                <Badge {...args} theme="inverted">Käänteinen teema</Badge>
             </div>
             <div className="flex gap-2" data-theme="primary-dark">
-                <Badge {...args} theme="primary-dark">Primary Dark</Badge>
-                <Badge {...args} theme="secondary-dark">Secondary Dark</Badge>
+                <Badge {...args} theme="primary-dark">Tumma pääteema</Badge>
+                <Badge {...args} theme="secondary-dark">Tumma sivuteema</Badge>
             </div>
         </div>
     ),

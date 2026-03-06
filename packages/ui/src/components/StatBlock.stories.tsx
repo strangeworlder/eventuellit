@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StatBlock } from "./StatBlock";
 
 const meta = {
-  title: "Components/StatBlock",
+  title: "Suunnittelujarjestelma/Komponentit/StatBlock",
   component: StatBlock,
   parameters: {
     layout: "centered",
@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["secondary", "accent"],
+      options: ["primary", "secondary", "accent"],
     },
     theme: {
       control: "select",
@@ -36,7 +36,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: "Health",
+    label: "Terveys",
     value: 10,
     maxValue: 20,
     icon: "zap",
@@ -45,7 +45,7 @@ export const Default: Story = {
 
 export const LargeNumbers: Story = {
   args: {
-    label: "Credits",
+    label: "Krediitit",
     value: 15420,
     icon: "sparkles",
   },
@@ -53,7 +53,7 @@ export const LargeNumbers: Story = {
 
 export const WithoutMax: Story = {
   args: {
-    label: "Level",
+    label: "Taso",
     value: 5,
     icon: "dice5",
   },
@@ -61,7 +61,7 @@ export const WithoutMax: Story = {
 
 export const Accent: Story = {
   args: {
-    label: "Experience",
+    label: "Kokemus",
     value: 750,
     maxValue: 1000,
     variant: "accent",
@@ -69,9 +69,19 @@ export const Accent: Story = {
   },
 };
 
+export const Primary: Story = {
+  args: {
+    label: "Sisu",
+    value: 3,
+    maxValue: 6,
+    variant: "primary",
+    icon: "shield",
+  },
+};
+
 export const ThemeShowcase: Story = {
   args: {
-    label: "Theme",
+    label: "Teema",
     value: 0,
   },
   render: () => {

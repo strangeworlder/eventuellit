@@ -7,6 +7,8 @@ import {
     Minus,
     Plus,
     Zap,
+    Shield,
+    X,
 } from "lucide-react";
 import React from "react";
 
@@ -19,6 +21,8 @@ export const icons = {
     minus: Minus,
     plus: Plus,
     zap: Zap,
+    shield: Shield,
+    x: X,
 } as const;
 
 export type IconName = keyof typeof icons;

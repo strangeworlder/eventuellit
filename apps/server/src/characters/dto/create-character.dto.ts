@@ -1,0 +1,44 @@
+import {
+  ArrayMaxSize,
+  IsArray,
+  IsIn,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from "class-validator";
+
+export class CreateCharacterDto {
+  @IsString()
+  name!: string;
+
+  @IsIn(["soldier", "expert"])
+  archetype!: "soldier" | "expert";
+
+  @IsInt()
+  @Min(0)
+  keho!: number;
+
+  @IsInt()
+  @Min(0)
+  mieli!: number;
+
+  @IsInt()
+  @Min(0)
+  tera!: number;
+
+  @IsIn(["n4", "n6", "n8", "n10", "n12"])
+  sisuDie!: "n4" | "n6" | "n8" | "n10" | "n12";
+
+  @IsInt()
+  @Min(0)
+  @Max(12)
+  sisuCount!: number;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(50)
+  @IsString({ each: true })
+  skills?: string[];
+}

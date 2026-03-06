@@ -4,7 +4,7 @@ import { Link } from "./Link";
 import { Text } from "./Text";
 
 const meta = {
-    title: "Components/Link",
+    title: "Suunnittelujarjestelma/Komponentit/Link",
     component: Link,
     parameters: {
         layout: "padded",

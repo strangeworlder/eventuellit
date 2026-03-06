@@ -4,7 +4,10 @@ import { DicePoolAllocator } from "@repo/ui/components/DicePoolAllocator";
 import { GameTerm } from "@repo/ui/components/GameTerm";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
+import { LoadingState } from "@repo/ui/components/LoadingState";
+import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiBaseUrl } from "./api/base-url";
 
 interface Character {
   id: number;
@@ -35,7 +38,7 @@ export function CharacterSheet({
   const { data: character, isLoading } = useQuery<Character>({
     queryKey: ["character", characterId],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/characters/${characterId}`);
+      const res = await fetch(`${apiBaseUrl}/characters/${characterId}`);
       if (!res.ok) throw new Error("Character fetch failed");
       return res.json();
     },
@@ -43,7 +46,7 @@ export function CharacterSheet({
 
   const { mutate: updateCharacter } = useMutation({
     mutationFn: async (updates: Partial<Character>) => {
-      const res = await fetch(`http://localhost:3000/characters/${characterId}`, {
+      const res = await fetch(`${apiBaseUrl}/characters/${characterId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updates),
@@ -72,11 +75,7 @@ export function CharacterSheet({
   });
 
   if (isLoading || !character) {
-    return (
-      <div className="p-8 text-primary animate-pulse uppercase tracking-widest font-black text-2xl">
-        Ladataan hahmoa...
-      </div>
-    );
+    return <LoadingState message="Ladataan hahmoa..." size="large" layout="padded" />;
   }
 
   // PRD logic for dice limit
@@ -150,14 +149,15 @@ export function CharacterSheet({
             {/* Right Column: Dice Play Area */}
             <div className="space-y-6">
               <Heading>Nopat & Toiminta</Heading>
-              <p className="text-text/80 text-lg leading-relaxed bg-accent/10 p-4 border-l-4 border-accent mt-4">
-                Sinulla on <GameTerm variant="accent" className="font-black text-xl">{baseDice}n20</GameTerm>{" "}
-                oletuksena. <br />
-                Olet ottanut{" "}
-                <GameTerm variant="primary" className="font-bold">{character.vaurio} Vauriota</GameTerm>,
-                joten noppapoolisi koko on{" "}
-                <GameTerm variant="primary" className="font-black text-2xl">{maxDice}</GameTerm>.
-              </p>
+              <NoticePanel variant="info" title="Nopat ja toiminta" className="mt-4">
+                <p className="text-lg leading-relaxed">
+                  Sinulla on <GameTerm variant="accent" className="font-black text-xl">{baseDice}n20</GameTerm>{" "}
+                  oletuksena. Olet ottanut{" "}
+                  <GameTerm variant="primary" className="font-bold">{character.vaurio} vauriota</GameTerm>,
+                  joten noppapoolisi koko on{" "}
+                  <GameTerm variant="primary" className="font-black text-2xl">{maxDice}</GameTerm>.
+                </p>
+              </NoticePanel>
 
               <DicePoolAllocator
                 maxDice={maxDice}

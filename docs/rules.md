@@ -19,6 +19,8 @@
 - **Windows Runtime Environment:** Any command invoking Node environment shifting MUST account for NVM symlink limits (`Access is Denied`) and PowerShell script restrictions. Utilize `Set-ExecutionPolicy -Scope CurrentUser` natively.
 - **Zero Vulnerabilities:** We maintain a strict zero-vulnerability policy for all *runtime* dependencies. If a new package introduces a vulnerability, an alternative must be found. 
 - **Build-time Exceptions:** If a widely-used build tool (like `@nestjs/cli` or Vite) flags a vulnerability deep in its dependency tree that cannot be non-destructively patched, it MUST be documented in `docs/learnings.md` with an explanation.
+- **No Hardcoded Runtime Endpoints/Credentials:** API hosts, database URLs, and CORS origins must come from environment variables (`VITE_API_BASE_URL`, `DATABASE_URL`, `CORS_ORIGINS`). Do not commit localhost defaults in runtime code.
+- **Backend Input Whitelisting:** Nest controllers must consume explicit DTO classes validated by `class-validator`. Global `ValidationPipe` must run with `whitelist: true` and `forbidNonWhitelisted: true`; direct Drizzle insert types in `@Body()` are forbidden.
 
 ## Naming Conventions
 - React Components: `PascalCase`

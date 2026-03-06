@@ -7,6 +7,8 @@ sessionDates: 2026-03-01, 2026-03-08
 location: Kilpi (Kynnys) 
 locationLink: /ruleset/maailma
 description: Vuosikymmenen keikka Kilven asemalla. Tavoitteena ryöstää muinainen ohjauslevy ja paeta uudella aluksella.
+image: jakso-1
+imageAlt: Julistekuva ohjauslevyn ryöstöstä
 mechanicalAdditions: |
   #### Valmistautuminen
   Operaation taktinen luonne heijastuu valmistautumismekaniikkaan. Pelaajat pelin alussa uhraavat 3–9 pistettä hahmonsa kestoista (Keho, Mieli ja/tai Terä) ja muuttavat ne valmistautumispisteiksi. 

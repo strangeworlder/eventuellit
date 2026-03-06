@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MarkdownRenderer } from "./Markdown";
 
 const meta = {
-    title: "Components/MarkdownRenderer",
+    title: "Suunnittelujarjestelma/Komponentit/MarkdownRenderer",
     component: MarkdownRenderer,
     parameters: {
         layout: "padded",
@@ -14,28 +14,28 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const sampleMarkdown = `
-# Markdown Renderer Test
+# Markdown-renderöijän testi
 
-This is a paragraph of ordinary text demonstrating how the \`MarkdownRenderer\` maps standard markdown to the **Design System**. Notice how the bold text utilizes the proper typography weight, and how *italic* text is appropriately styled.
+Tämä kappale näyttää, miten \`MarkdownRenderer\` muuntaa tavallisen markdownin **suunnittelujärjestelmän** komponenteiksi. Huomaa, että lihavoitu teksti käyttää oikeaa typografiapainoa ja *kursivoitu* teksti tyylittyy oikein.
 
-## Headings and Sections
+## Otsikot ja osiot
 
-Here is an \`inline_code_snippet\` which maps to the GameTerm component. By default, it uses the accent variant.
+Tässä on \`inline_code_snippet\`, joka mapataan GameTerm-komponentiksi. Oletuksena käytetään korostusvarianttia.
 
-### Lists and Links
+### Listat ja linkit
 
-Let's look at an unordered list:
-- First item
-- Second item
-  - Inner items also work if supported by the list component structure natively, though nested lists might look basic here.
-- Third item, containing a [link to example.com](https://example.com)
+Katsotaan ensin järjestämätöntä listaa:
+- Ensimmäinen kohta
+- Toinen kohta
+  - Sisäkkäiset kohdat toimivat myös, jos listakomponentin rakenne tukee niitä.
+- Kolmas kohta, jossa on [linkki example.com-sivulle](https://example.com)
 
-And an ordered list:
-1. One step
-2. Two step
-3. Three step
+Ja järjestetty lista:
+1. Ensimmäinen vaihe
+2. Toinen vaihe
+3. Kolmas vaihe
 
-> Blockquotes are also supported, giving a nice stylized border treatment on the left edge.
+> Myös lainauslohkot ovat tuettuja, ja ne saavat tyylitellyn vasemman reunuksen.
 `;
 
 export const Default: Story = {
