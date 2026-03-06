@@ -1,12 +1,10 @@
+import { AttributeCard, getScoreBonusFromValue } from "@repo/ui/components/AttributeCard";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
-import { DiceRoller } from "@repo/ui/components/DiceRoller";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
-import { Icon } from "@repo/ui/components/Icon";
 import { Input } from "@repo/ui/components/Input";
 import { Page } from "@repo/ui/components/Page";
-import { StatBlock } from "@repo/ui/components/StatBlock";
 import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -15,64 +13,6 @@ import { useCreateCharacter } from "./api/characters";
 import { CharacterSheet } from "./CharacterSheet";
 
 const queryClient = new QueryClient();
-
-interface AttributeCardProps {
-  cardVariant?: "subtle" | "primary";
-  label: string;
-  score: number;
-  subAttributes: Array<{
-    name: string;
-    labelFi: string;
-    value: number;
-    setter: React.Dispatch<React.SetStateAction<number>>;
-  }>;
-  diceRemaining: number;
-  onAssign: (setter: React.Dispatch<React.SetStateAction<number>>, current: number) => void;
-  onRemove: (setter: React.Dispatch<React.SetStateAction<number>>, current: number) => void;
-}
-
-function AttributeCard({
-  cardVariant = "subtle",
-  label,
-  score,
-  subAttributes,
-  diceRemaining,
-  onAssign,
-  onRemove,
-}: AttributeCardProps) {
-  return (
-    <Card variant={cardVariant}>
-      <CardContent variant="dense">
-        <StatBlock label={label} value={score} />
-        {subAttributes.map((attr) => (
-          <div key={attr.name} className="flex justify-between items-center text-sm px-2">
-            <span className="font-bold text-text/80">{attr.labelFi} (d4: {attr.value})</span>
-            <div className="flex gap-2">
-              <Button
-                variant={cardVariant === "primary" ? "secondary" : "primary"}
-                size="icon"
-                onClick={() => onRemove(attr.setter, attr.value)}
-                disabled={attr.value === 0}
-                aria-label={`Poista ${attr.name} noppa`}
-              >
-                <Icon name="minus" size={16} />
-              </Button>
-              <Button
-                variant="secondary"
-                size="icon"
-                onClick={() => onAssign(attr.setter, attr.value)}
-                disabled={diceRemaining === 0}
-                aria-label={`Lisää ${attr.name} noppa`}
-              >
-                <Icon name="plus" size={16} />
-              </Button>
-            </div>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-  );
-}
 
 function GeneratorForm() {
   const { mutate: createCharacter, isPending, isSuccess, reset } = useCreateCharacter();
@@ -89,10 +29,10 @@ function GeneratorForm() {
   const [nakemys, setNakemys] = useState(0);
   const [napparyys, setNapparyys] = useState(0);
 
-  // Math logic: Base 8 + (+2 per assigned d4 in the category)
-  const kehoScore = 8 + fysiikka * 2 + nopeus * 2;
-  const mieliScore = 8 + ymmarrys * 2 + persoona * 2;
-  const teraScore = 8 + nakemys * 2 + napparyys * 2;
+  // Math logic: Base 8 + bonus based on assigned dice
+  const kehoScore = 8 + getScoreBonusFromValue(fysiikka) + getScoreBonusFromValue(nopeus);
+  const mieliScore = 8 + getScoreBonusFromValue(ymmarrys) + getScoreBonusFromValue(persoona);
+  const teraScore = 8 + getScoreBonusFromValue(nakemys) + getScoreBonusFromValue(napparyys);
 
   const totalDiceAssigned = fysiikka + nopeus + ymmarrys + persoona + nakemys + napparyys;
   const diceRemaining = 2 - totalDiceAssigned;
@@ -202,51 +142,84 @@ function GeneratorForm() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 tablet:grid-cols-3 gap-6">
                 <AttributeCard
                   label="Keho"
-                  cardVariant="primary"
                   score={kehoScore}
-                  diceRemaining={diceRemaining}
-                  onAssign={handleAssignDie}
-                  onRemove={handleRemoveDie}
                   subAttributes={[
-                    { name: "Fysiikka", labelFi: "Fysiikka", value: fysiikka, setter: setFysiikka },
-                    { name: "Nopeus", labelFi: "Nopeus", value: nopeus, setter: setNopeus },
+                    {
+                      name: "Fysiikka",
+                      label: "Fysiikka",
+                      value: fysiikka,
+                      onAdd: () => handleAssignDie(setFysiikka, fysiikka),
+                      onRemove: () => handleRemoveDie(setFysiikka, fysiikka),
+                      canAdd: diceRemaining > 0,
+                      canRemove: fysiikka > 0,
+                    },
+                    {
+                      name: "Nopeus",
+                      label: "Nopeus",
+                      value: nopeus,
+                      onAdd: () => handleAssignDie(setNopeus, nopeus),
+                      onRemove: () => handleRemoveDie(setNopeus, nopeus),
+                      canAdd: diceRemaining > 0,
+                      canRemove: nopeus > 0,
+                    },
                   ]}
                 />
                 <AttributeCard
                   label="Mieli"
-                  cardVariant="primary"
                   score={mieliScore}
-                  diceRemaining={diceRemaining}
-                  onAssign={handleAssignDie}
-                  onRemove={handleRemoveDie}
                   subAttributes={[
-                    { name: "Ymmärrys", labelFi: "Ymmärrys", value: ymmarrys, setter: setYmmarrys },
-                    { name: "Persoona", labelFi: "Persoona", value: persoona, setter: setPersoona },
+                    {
+                      name: "Ymmärrys",
+                      label: "Ymmärrys",
+                      value: ymmarrys,
+                      onAdd: () => handleAssignDie(setYmmarrys, ymmarrys),
+                      onRemove: () => handleRemoveDie(setYmmarrys, ymmarrys),
+                      canAdd: diceRemaining > 0,
+                      canRemove: ymmarrys > 0,
+                    },
+                    {
+                      name: "Persoona",
+                      label: "Persoona",
+                      value: persoona,
+                      onAdd: () => handleAssignDie(setPersoona, persoona),
+                      onRemove: () => handleRemoveDie(setPersoona, persoona),
+                      canAdd: diceRemaining > 0,
+                      canRemove: persoona > 0,
+                    },
                   ]}
                 />
                 <AttributeCard
-                  cardVariant="primary"
                   label="Terä"
                   score={teraScore}
-                  diceRemaining={diceRemaining}
-                  onAssign={handleAssignDie}
-                  onRemove={handleRemoveDie}
                   subAttributes={[
-                    { name: "Näkemys", labelFi: "Näkemys", value: nakemys, setter: setNakemys },
-                    { name: "Näppäryys", labelFi: "Näppäryys", value: napparyys, setter: setNapparyys },
+                    {
+                      name: "Näkemys",
+                      label: "Näkemys",
+                      value: nakemys,
+                      onAdd: () => handleAssignDie(setNakemys, nakemys),
+                      onRemove: () => handleRemoveDie(setNakemys, nakemys),
+                      canAdd: diceRemaining > 0,
+                      canRemove: nakemys > 0,
+                    },
+                    {
+                      name: "Näppäryys",
+                      label: "Näppäryys",
+                      value: napparyys,
+                      onAdd: () => handleAssignDie(setNapparyys, napparyys),
+                      onRemove: () => handleRemoveDie(setNapparyys, napparyys),
+                      canAdd: diceRemaining > 0,
+                      canRemove: napparyys > 0,
+                    },
                   ]}
                 />
               </div>
             </div>
 
-            <DiceRoller />
-
             <Button
               size="lg"
-              className="mt-8 self-start"
               onClick={handleSave}
               disabled={isPending || characterName.trim() === "" || diceRemaining > 0}
             >
@@ -316,7 +289,7 @@ function InnerApp() {
                 <HeadingLevelProvider>
                   <Hero title="Hahmot" description="Hahmot" />
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
+                  <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 animate-in fade-in duration-500">
                     {isLoading && (
                       <p className="text-primary animate-pulse uppercase tracking-widest font-bold">
                         Ladataan hahmoja...

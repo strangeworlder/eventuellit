@@ -10,6 +10,10 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
+    variant: {
+      control: "select",
+      options: ["secondary", "accent"],
+    },
     theme: {
       control: "select",
       options: [
@@ -53,7 +57,7 @@ export const Default: Story = {
     label: "Health",
     value: 10,
     maxValue: 20,
-    icon: <span>❤️</span>,
+    icon: "zap",
   },
 };
 
@@ -62,7 +66,7 @@ export const NoMaxValue: Story = {
   args: {
     label: "Armor",
     value: 5,
-    icon: <span>🛡️</span>,
+    icon: "book",
   },
 };
 
@@ -72,6 +76,17 @@ export const WithoutIcon: Story = {
     label: "Stamina",
     value: 100,
     maxValue: 100,
+  },
+};
+
+export const Accent: Story = {
+  render: (args) => <InteractiveStatBlock {...args} />,
+  args: {
+    label: "Magic Points",
+    value: 15,
+    maxValue: 50,
+    variant: "accent",
+    icon: "sparkles",
   },
 };
 
@@ -97,7 +112,7 @@ export const ThemeShowcase: Story = {
             label={theme}
             value={10}
             maxValue={20}
-            icon={<span>⚙️</span>}
+            icon="sparkles"
           />
         ))}
       </div>

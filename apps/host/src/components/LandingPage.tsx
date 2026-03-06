@@ -14,7 +14,7 @@ export function LandingPage() {
                     <Badge icon="sparkles" className="mb-4">
                         Tervetuloa seikkailuun
                     </Badge>
-                    <Heading className="text-5xl md:text-7xl font-black tracking-tighter">
+                    <Heading className="text-5xl tablet:text-7xl font-black tracking-tighter">
                         EVENTUELLIT
                     </Heading>
                     <p className="text-xl text-text/60 max-w-2xl mx-auto leading-relaxed">
@@ -23,7 +23,7 @@ export function LandingPage() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+                <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 w-full max-w-6xl">
                     <Card
                         className="group cursor-pointer hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 animate-in fade-in slide-in-from-left-8 duration-700 delay-100"
                         onClick={() => navigate("/generator")}

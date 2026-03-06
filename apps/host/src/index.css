@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @import "../../../packages/ui/src/styles.css";
+
 @source "../../../packages/ui/src";
+@source "../../episodes/src";
+@source "../../generator/src";
+@source "../../ruleset/src";
 
 /* Custom Reset or base global styles go here */

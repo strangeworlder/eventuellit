@@ -11,24 +11,53 @@ function parseFrontmatter(md: string) {
   const match = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
   const data: Record<string, any> = {};
   let content = md;
+
   if (match) {
     const frontmatter = match[1];
     content = md.slice(match[0].length);
-    frontmatter.split(/\r?\n/).forEach(line => {
-      const colonIndex = line.indexOf(':');
-      if (colonIndex !== -1) {
-        const key = line.slice(0, colonIndex).trim();
-        let value = line.slice(colonIndex + 1).trim();
-        if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-          value = value.slice(1, -1);
+
+    const lines = frontmatter.split(/\r?\n/);
+    let currentKey: string | null = null;
+    let isBlock = false;
+    let blockLines: string[] = [];
+
+    for (const line of lines) {
+      const topLevelMatch = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
+
+      if (topLevelMatch && (!isBlock || (line.trim() !== "" && !line.startsWith("  ") && !line.startsWith("\t")))) {
+        if (isBlock && currentKey) {
+          data[currentKey] = blockLines.join("\n").trim();
+          isBlock = false;
+          blockLines = [];
         }
-        if (!isNaN(Number(value)) && value !== '') {
-          data[key] = Number(value);
+
+        const key = topLevelMatch[1];
+        const rest = topLevelMatch[2].trim();
+
+        if (rest === "|") {
+          currentKey = key;
+          isBlock = true;
+          blockLines = [];
         } else {
-          data[key] = value;
+          currentKey = key;
+          let value = rest;
+          if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+            value = value.slice(1, -1);
+          }
+          if (!isNaN(Number(value)) && value !== "") {
+            data[key] = Number(value);
+          } else {
+            data[key] = value;
+          }
         }
+      } else if (isBlock) {
+        blockLines.push(line.replace(/^ {0,2}/, ""));
       }
-    });
+    }
+
+    if (isBlock && currentKey) {
+      data[currentKey] = blockLines.join("\n").trim();
+    }
   }
   return { data, content };
 }
@@ -102,13 +131,11 @@ function App() {
                       title={page.title}
                       description={page.description}
                     />
-                    <div className="space-y-10">
+                    <div className="layout-stack">
                       <HeadingLevelProvider>
-                        <div className="px-4">
-                          <MarkdownRenderer>
-                            {page.content}
-                          </MarkdownRenderer>
-                        </div>
+                        <MarkdownRenderer>
+                          {page.content}
+                        </MarkdownRenderer>
                       </HeadingLevelProvider>
                     </div>
                   </HeadingLevelProvider>

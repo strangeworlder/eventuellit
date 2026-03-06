@@ -218,3 +218,75 @@ export const BorderRadius: Story = {
     </div>
   ),
 };
+const layoutTokens = {
+  stack: {
+    name: "layout-stack",
+    description: "Single column layout with vertical spacing.",
+    usage: "Ruleset pages, long-form content.",
+    structure: "Flex Column (gap-10), px-4",
+  },
+  split: {
+    name: "layout-split",
+    description: "Two-column grid layout (2:1 ratio) on desktop.",
+    usage: "Episode details, dashboards, sidebar layouts.",
+    structure: "Grid (gap-4), px-4, 2fr 1fr on desktop",
+  },
+};
+
+export const Layout: Story = {
+  render: () => (
+    <div className="space-y-12 font-sans">
+      <div>
+        <h2 className="text-2xl font-heading font-bold mb-4">Layout Tokens</h2>
+        <p className="opacity-80 mb-8 max-w-prose">
+          These tokens represent standard page structures in our application. They are implemented
+          as utility classes rather than components to remain flexible.
+        </p>
+
+        <div className="space-y-10">
+          {Object.entries(layoutTokens).map(([key, token]) => (
+            <div key={key} className="space-y-4">
+              <div className="flex items-baseline gap-3">
+                <code className="text-accent-300 font-bold bg-accent-900/50 px-2 py-1 rounded text-lg">
+                  .{token.name}
+                </code>
+                <span className="text-sm opacity-60 italic">{token.description}</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white/5 border border-white/10 rounded-lg p-6 space-y-3">
+                  <div className="flex justify-between text-xs opacity-50 uppercase tracking-widest">
+                    <span>Structure</span>
+                  </div>
+                  <p className="font-mono text-sm">{token.structure}</p>
+
+                  <div className="pt-4 flex justify-between text-xs opacity-50 uppercase tracking-widest">
+                    <span>Common Usage</span>
+                  </div>
+                  <p className="text-sm">{token.usage}</p>
+                </div>
+
+                <div className="relative border border-dashed border-white/20 rounded-lg bg-white/5 min-h-[200px] overflow-hidden p-2">
+                  <div className="absolute top-2 right-2 text-[10px] opacity-30 font-mono">Visual Preview</div>
+
+                  {key === 'stack' ? (
+                    <div className="layout-stack py-4 h-full">
+                      <div className="h-8 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">Section 1</div>
+                      <div className="h-24 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">Main Content</div>
+                      <div className="h-12 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">Section 2</div>
+                    </div>
+                  ) : (
+                    <div className="layout-split py-4 h-full">
+                      <div className="h-32 bg-secondary-500/20 rounded border border-secondary-500/30 flex items-center justify-center text-xs">Main Column</div>
+                      <div className="h-32 bg-accent-500/20 rounded border border-accent-500/30 flex items-center justify-center text-xs">Sidebar</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+};

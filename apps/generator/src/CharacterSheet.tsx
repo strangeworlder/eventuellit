@@ -91,7 +91,7 @@ export function CharacterSheet({
           description={character.archetype === "soldier" ? "Sotilas" : "Ekspertti"}
         />
         <HeadingLevelProvider>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 mt-8">
             <div className="space-y-6">
               <Heading>Resurssit</Heading>
 

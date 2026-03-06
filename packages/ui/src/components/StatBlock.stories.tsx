@@ -9,6 +9,10 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
+    variant: {
+      control: "select",
+      options: ["secondary", "accent"],
+    },
     theme: {
       control: "select",
       options: [
@@ -35,7 +39,7 @@ export const Default: Story = {
     label: "Health",
     value: 10,
     maxValue: 20,
-    icon: <span>❤️</span>,
+    icon: "zap",
   },
 };
 
@@ -43,7 +47,7 @@ export const LargeNumbers: Story = {
   args: {
     label: "Credits",
     value: 15420,
-    icon: <span>💎</span>,
+    icon: "sparkles",
   },
 };
 
@@ -51,7 +55,17 @@ export const WithoutMax: Story = {
   args: {
     label: "Level",
     value: 5,
-    icon: <span>⭐</span>,
+    icon: "dice5",
+  },
+};
+
+export const Accent: Story = {
+  args: {
+    label: "Experience",
+    value: 750,
+    maxValue: 1000,
+    variant: "accent",
+    icon: "sparkles",
   },
 };
 
@@ -81,7 +95,7 @@ export const ThemeShowcase: Story = {
             label={theme}
             value={Math.floor(Math.random() * 50) + 10}
             maxValue={100}
-            icon={<span>🔰</span>}
+            icon="zap"
           />
         ))}
       </div>

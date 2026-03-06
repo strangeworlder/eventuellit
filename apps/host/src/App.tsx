@@ -45,7 +45,7 @@ function AppContent() {
           <div className="w-8 h-8 rounded bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">
             E
           </div>
-          <Heading as="h4" className="ml-3 truncate">
+          <Heading variant="h4" className="ml-3 truncate" style={{ fontWeight: 700, letterSpacing: "-0.02em" }}>
             Eventuellit
           </Heading>
         </SidebarHeader>

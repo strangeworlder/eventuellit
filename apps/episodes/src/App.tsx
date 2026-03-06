@@ -7,30 +7,65 @@ import { Badge } from "@repo/ui/components/Badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui/components/Card";
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { List, ListItem } from "@repo/ui/components/List";
 
 // Lightweight frontmatter parser
 function parseFrontmatter(md: string) {
     const match = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
     const data: Record<string, any> = {};
     let content = md;
+
     if (match) {
         const frontmatter = match[1];
         content = md.slice(match[0].length);
-        frontmatter.split(/\r?\n/).forEach(line => {
-            const colonIndex = line.indexOf(':');
-            if (colonIndex !== -1) {
-                const key = line.slice(0, colonIndex).trim();
-                let value = line.slice(colonIndex + 1).trim();
-                if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-                    value = value.slice(1, -1);
+
+        const lines = frontmatter.split(/\r?\n/);
+        let currentKey: string | null = null;
+        let isBlock = false;
+        let blockLines: string[] = [];
+
+        for (const line of lines) {
+            const topLevelMatch = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
+
+            // If we find what looks like a new key, and we're not currently in a block
+            // OR we are in a block but this line isn't indented (meaning the block ended)
+            if (topLevelMatch && (!isBlock || (line.trim() !== "" && !line.startsWith("  ") && !line.startsWith("\t")))) {
+                // If we were in a block, save it before starting the new key
+                if (isBlock && currentKey) {
+                    data[currentKey] = blockLines.join("\n").trim();
+                    isBlock = false;
+                    blockLines = [];
                 }
-                if (!isNaN(Number(value)) && value !== '') {
-                    data[key] = Number(value);
+
+                const key = topLevelMatch[1];
+                const rest = topLevelMatch[2].trim();
+
+                if (rest === "|") {
+                    currentKey = key;
+                    isBlock = true;
+                    blockLines = [];
                 } else {
-                    data[key] = value;
+                    currentKey = key;
+                    let value = rest;
+                    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+                        value = value.slice(1, -1);
+                    }
+                    if (!isNaN(Number(value)) && value !== "") {
+                        data[key] = Number(value);
+                    } else {
+                        data[key] = value;
+                    }
                 }
+            } else if (isBlock) {
+                // We are in a block, just accumulate lines and strip leading spaces (up to 2)
+                blockLines.push(line.replace(/^ {0,2}/, ""));
             }
-        });
+        }
+
+        // Finalize last block if exists
+        if (isBlock && currentKey) {
+            data[currentKey] = blockLines.join("\n").trim();
+        }
     }
     return { data, content };
 }
@@ -87,61 +122,69 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
                     </div>
                 </Hero>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
-                    <div className="lg:col-span-2 space-y-10">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Synopsis & Tapahtumat</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <MarkdownRenderer>{episode.content}</MarkdownRenderer>
-                            </CardContent>
-                        </Card>
-
-                        {episode.mechanicalAdditions && (
-                            <Card theme="secondary-light" iconName="zap">
+                <div className="layout-split">
+                    <div className="layout-stack space-y-6">
+                        <HeadingLevelProvider>
+                            <MarkdownRenderer>{episode.content}</MarkdownRenderer>
+                        </HeadingLevelProvider>
+                    </div>
+                    <div className="layout-stack space-y-6 pt-6">
+                        <div className="space-y-6">
+                            <Card variant="secondary">
                                 <CardHeader>
-                                    <CardTitle>Mekaaniset Lisäykset</CardTitle>
+                                    <CardTitle>Tiedot</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <MarkdownRenderer>{episode.mechanicalAdditions}</MarkdownRenderer>
+                                    <HeadingLevelProvider>
+                                        {episode.players && (
+                                            <>
+                                                <Heading>Pelaajat</Heading>
+                                                <p>{episode.players}</p>
+                                            </>
+                                        )}
+                                        {episode.sessionDates && (
+                                            <>
+                                                <Heading>Sessiot</Heading>
+                                                <List variant="unbulleted">
+                                                    {episode.sessionDates.split(',').map((dateStr, index) => {
+                                                        const date = new Date(dateStr.trim());
+                                                        const formattedDate = isNaN(date.getTime())
+                                                            ? dateStr.trim()
+                                                            : date.toLocaleDateString('fi-FI');
+                                                        return (
+                                                            <ListItem key={index}>{formattedDate}</ListItem>
+                                                        );
+                                                    })}
+                                                </List>
+                                            </>
+                                        )}
+                                        {episode.location && (
+                                            <>
+                                                <Heading>Sijainti</Heading>
+                                                <a
+                                                    href={episode.locationLink || "#"}
+                                                >
+                                                    {episode.location}
+                                                </a>
+                                            </>
+                                        )}
+                                    </HeadingLevelProvider>
                                 </CardContent>
                             </Card>
-                        )}
-                    </div>
+                        </div>
 
-                    <div className="space-y-6">
-                        <Card variant="secondary">
-                            <CardHeader>
-                                <CardTitle>Tiedot</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <HeadingLevelProvider>
-                                    {episode.players && (
-                                        <>
-                                            <Heading>Pelaajat</Heading>
-                                            <p>{episode.players}</p>
-                                        </>
-                                    )}
-                                    {episode.sessionDates && (
-                                        <>
-                                            <Heading>Sessiot</Heading>
-                                            <p>{episode.sessionDates}</p>
-                                        </>
-                                    )}
-                                    {episode.location && (
-                                        <>
-                                            <Heading>Sijainti</Heading>
-                                            <a
-                                                href={episode.locationLink || "#"}
-                                            >
-                                                {episode.location}
-                                            </a>
-                                        </>
-                                    )}
-                                </HeadingLevelProvider>
-                            </CardContent>
-                        </Card>
+                        {episode.mechanicalAdditions && (
+                            <div className="desktop:col-span-1">
+                                <Card iconName="zap">
+                                    <CardHeader>
+                                        <CardTitle>Mekaaniset Lisäykset</CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <MarkdownRenderer>{episode.mechanicalAdditions}</MarkdownRenderer>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        )}
                     </div>
                 </div>
             </HeadingLevelProvider>
