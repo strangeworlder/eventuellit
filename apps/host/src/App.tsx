@@ -2,7 +2,7 @@ import { Button } from "@repo/ui/components/Button";
 import { Heading } from "@repo/ui/components/Heading";
 import { Sidebar, SidebarContent, SidebarHeader, SidebarItem } from "@repo/ui/components/Sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BookOpen, Dice5, Menu } from "lucide-react";
+import { BookOpen, Dice5, Menu, Map } from "lucide-react";
 import React, { Suspense, useState } from "react";
 
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ import { LandingPage } from "./components/LandingPage";
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));
 const RulesetApp = React.lazy(() => import("ruleset/App"));
+const EpisodesApp = React.lazy(() => import("episodes/App"));
 
 function AppContent() {
   const location = useLocation();
@@ -25,7 +26,9 @@ function AppContent() {
     ? "generator"
     : location.pathname.startsWith("/ruleset")
       ? "ruleset"
-      : "home";
+      : location.pathname.startsWith("/episodes")
+        ? "episodes"
+        : "home";
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background text-text selection:bg-accent selection:text-white">
@@ -62,6 +65,13 @@ function AppContent() {
           >
             Sääntökirja
           </SidebarItem>
+          <SidebarItem
+            icon={<Map size={20} />}
+            active={activeView === "episodes"}
+            onClick={() => navigate("/episodes")}
+          >
+            Jaksot
+          </SidebarItem>
         </SidebarContent>
       </Sidebar>
 
@@ -87,6 +97,11 @@ function AppContent() {
               Eventuellit: Säännöt
             </Heading>
           )}
+          {activeView === "episodes" && (
+            <Heading as="h1" className="m-0">
+              Eventuellit: Jaksot
+            </Heading>
+          )}
         </header>
 
         <div className="pl-16 desktop:pl-24 md:pl-32 max-w-7xl mx-auto w-full">
@@ -102,6 +117,7 @@ function AppContent() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/generator/*" element={<GeneratorApp />} />
                 <Route path="/ruleset/*" element={<RulesetApp />} />
+                <Route path="/episodes/*" element={<EpisodesApp />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>

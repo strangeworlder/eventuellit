@@ -146,6 +146,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
         className={cn(
           "font-bold tracking-tight",
           {
+            "font-black tracking-normal": ["h1", "h2", "h4", "h5"].includes(activeVariant),
             "font-heading text-4xl tablet:text-5xl uppercase text-[var(--theme-primary)]": activeVariant === "h1",
             "font-heading text-3xl tablet:text-4xl uppercase text-[var(--theme-text)]": activeVariant === "h2",
             "font-heading text-2xl tablet:text-3xl uppercase text-[var(--theme-primary)]": activeVariant === "h3",

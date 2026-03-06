@@ -23,7 +23,7 @@ export function LandingPage() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
                     <Card
                         className="group cursor-pointer hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 animate-in fade-in slide-in-from-left-8 duration-700 delay-100"
                         onClick={() => navigate("/generator")}
@@ -42,7 +42,7 @@ export function LandingPage() {
                     </Card>
 
                     <Card
-                        className="group cursor-pointer hover:border-secondary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-secondary/10 animate-in fade-in slide-in-from-right-8 duration-700 delay-200"
+                        className="group cursor-pointer hover:border-secondary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-secondary/10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200"
                         onClick={() => navigate("/ruleset")}
                         theme="base"
                         iconName="book"
@@ -54,6 +54,23 @@ export function LandingPage() {
                         <CardContent>
                             <p className="text-text/70">
                                 Tutustu pelin sääntöihin ja maailmaan. Kattava ja helposti selattava opas kaikille pelaajille.
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    <Card
+                        className="group cursor-pointer hover:border-accent/50 transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 animate-in fade-in slide-in-from-right-8 duration-700 delay-300"
+                        onClick={() => navigate("/episodes")}
+                        theme="base"
+                        iconName="zap"
+                        iconVariant="accent"
+                    >
+                        <CardHeader>
+                            <CardTitle>Jaksot</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-text/70">
+                                Seuraa meneillään olevia jaksoja ja tutki menneitä seikkailuja. Valmistaudu seuraavaan istuntoon.
                             </p>
                         </CardContent>
                     </Card>

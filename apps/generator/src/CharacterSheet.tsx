@@ -25,7 +25,7 @@ interface Character {
 
 export function CharacterSheet({
   characterId,
-  onBack,
+  onBack: _onBack,
 }: {
   characterId: number;
   onBack: () => void;

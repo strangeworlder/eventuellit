@@ -6,7 +6,7 @@ import {
     ChevronRight,
     Minus,
     Plus,
-    type LucideIcon
+    Zap,
 } from "lucide-react";
 import React from "react";
 
@@ -18,6 +18,7 @@ export const icons = {
     "chevron-right": ChevronRight,
     minus: Minus,
     plus: Plus,
+    zap: Zap,
 } as const;
 
 export type IconName = keyof typeof icons;

@@ -13,6 +13,7 @@ export default defineConfig({
       remotes: {
         generator: "http://localhost:3001/assets/remoteEntry.js",
         ruleset: "http://localhost:3002/assets/remoteEntry.js",
+        episodes: "http://localhost:3004/assets/remoteEntry.js",
       },
       shared: ["react", "react-dom", "react-router-dom"],
     }),

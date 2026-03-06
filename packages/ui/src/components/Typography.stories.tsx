@@ -28,8 +28,9 @@ export const Chart: Story = {
         <h1
           style={{
             fontSize: "2.5rem",
-            fontWeight: 700,
+            fontWeight: 900,
             fontFamily: "var(--font-heading)",
+            letterSpacing: "0",
             marginBottom: "1rem",
           }}
         >
@@ -79,14 +80,14 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Heading 1 (h1) - Bold 700
+                Heading 1 (h1) - Black 900
               </span>
               <div
                 style={{
                   fontSize: "3rem",
                   fontFamily: "var(--font-heading)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.025em",
+                  fontWeight: 900,
+                  letterSpacing: "0",
                 }}
               >
                 {SampleText}
@@ -101,14 +102,14 @@ export const Chart: Story = {
                   marginBottom: "0.25rem",
                 }}
               >
-                Heading 2 (h2) - Bold 700
+                Heading 2 (h2) - Black 900
               </span>
               <div
                 style={{
                   fontSize: "2.25rem",
                   fontFamily: "var(--font-heading)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.025em",
+                  fontWeight: 900,
+                  letterSpacing: "0",
                 }}
               >
                 {SampleText}
