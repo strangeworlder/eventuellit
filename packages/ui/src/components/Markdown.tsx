@@ -50,8 +50,8 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, cl
                         }
                         return <GameTerm variant="accent" className={className} {...props}>{children}</GameTerm>;
                     },
-                    strong: ({ node, ...props }: any) => (
-                        <strong className="font-semibold text-[var(--theme-text)]" {...props} />
+                    strong: ({ node, className, ...props }: any) => (
+                        <GameTerm variant="primary" className={className} {...props} />
                     ),
                     em: ({ node, ...props }: any) => (
                         <em className="italic opacity-90" {...props} />

@@ -14,48 +14,48 @@ type Story = StoryObj<typeof meta>;
 // The color data generated from our contrast script
 const colorData = {
   base: {
-    primary: "#da4b4b",
-    secondary: "#0d8c87",
-    accent: "#6e6eff",
+    primary: "#cf534a",
+    secondary: "#278b86",
+    accent: "#5479de",
     background: "#0f0f13",
     text: "#f4f4f0",
   },
   scales: {
     primary: {
-      "50": "#fdf4f4",
-      "100": "#f4caca",
-      "200": "#eba0a0",
-      "300": "#e37575",
-      "400": "#de6060",
-      "500": "#da4b4b",
-      "600": "#d63636",
-      "700": "#c92929",
-      "800": "#9e2121",
-      "900": "#741818",
+      "50": "#faeceb",
+      "100": "#f4d9d7",
+      "200": "#ecbab6",
+      "300": "#e5a39e",
+      "400": "#d8756e",
+      "500": "#cf534a",
+      "600": "#bd3c32",
+      "700": "#9d312a",
+      "800": "#792620",
+      "900": "#591c18",
     },
     secondary: {
-      "50": "#73f2ed",
-      "100": "#44eee7",
-      "200": "#16e9e1",
-      "300": "#11bbb4",
-      "400": "#0fa39e",
-      "500": "#0d8c87",
-      "600": "#0b7571",
-      "700": "#095d5a",
-      "800": "#042f2d",
-      "900": "#000000",
+      "50": "#dff6f5",
+      "100": "#bfedeb",
+      "200": "#90e0dc",
+      "300": "#5cd1cb",
+      "400": "#35bbb4",
+      "500": "#278b86",
+      "600": "#227773",
+      "700": "#1c6360",
+      "800": "#154c49",
+      "900": "#0f3432",
     },
     accent: {
-      "50": "#ffffff",
-      "100": "#ffffff",
-      "200": "#d4d4ff",
-      "300": "#a1a1ff",
-      "400": "#8888ff",
-      "500": "#6e6eff",
-      "600": "#5555ff",
-      "700": "#3b3bff",
-      "800": "#0808ff",
-      "900": "#0000d4",
+      "50": "#eaeefb",
+      "100": "#d4ddf7",
+      "200": "#b2c3f0",
+      "300": "#9cb2ec",
+      "400": "#6d8de3",
+      "500": "#5479de",
+      "600": "#315ed8",
+      "700": "#234bb8",
+      "800": "#1b398d",
+      "900": "#142a67",
     },
   },
   foreground: {
@@ -168,7 +168,7 @@ const ColorScale = ({
         }}
       >
         <h4 style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
-          Accessibility Chart (Use this with this)
+          Saavutettavuus (Käytä tätä tämän kanssa)
         </h4>
         <div
           style={{
@@ -186,10 +186,10 @@ const ColorScale = ({
             }}
           >
             <p style={{ color: colorData.base.text }}>
-              Dark Background ({colorData.base.background})
+              Tumma tausta ({colorData.base.background})
             </p>
             <p style={{ color: scale["500"], fontWeight: "bold", marginTop: "0.5rem" }}>
-              Safe Text Color: {name}-500
+              Turvallinen tekstiväri: {name}-500
             </p>
           </div>
 
@@ -202,11 +202,11 @@ const ColorScale = ({
             }}
           >
             <p style={{ color: foregroundColor }}>
-              {name}-500 Background ({scale["500"]})
+              {name}-500 tausta ({scale["500"]})
             </p>
             <p style={{ color: foregroundColor, fontWeight: "bold", marginTop: "0.5rem" }}>
-              Safe Text Color:{" "}
-              {foregroundColor === colorData.base.text ? "Text (#f4f4f0)" : "Background (#0f0f13)"}
+              Turvallinen tekstiväri:{" "}
+              {foregroundColor === colorData.base.text ? "Teksti (#f4f4f0)" : "Tausta (#0f0f13)"}
             </p>
           </div>
         </div>
@@ -218,11 +218,11 @@ const ColorScale = ({
 const CrossColorCombinations = () => {
   // Collect all colors in the system
   const allColors: { name: string; hex: string; group: string }[] = [
-    { name: "Background", hex: colorData.base.background, group: "Base" },
-    { name: "Text", hex: colorData.base.text, group: "Base" },
-    { name: "Primary (Base)", hex: colorData.base.primary, group: "Base" },
-    { name: "Secondary (Base)", hex: colorData.base.secondary, group: "Base" },
-    { name: "Accent (Base)", hex: colorData.base.accent, group: "Base" },
+    { name: "Tausta", hex: colorData.base.background, group: "Perus" },
+    { name: "Teksti", hex: colorData.base.text, group: "Perus" },
+    { name: "Primary (Perus)", hex: colorData.base.primary, group: "Perus" },
+    { name: "Secondary (Perus)", hex: colorData.base.secondary, group: "Perus" },
+    { name: "Accent (Perus)", hex: colorData.base.accent, group: "Perus" },
   ];
 
   Object.entries(colorData.scales).forEach(([scaleName, scale]) => {
@@ -246,7 +246,7 @@ const CrossColorCombinations = () => {
           marginBottom: "1rem",
         }}
       >
-        Full Context Matrix
+        Täysi kontekstimatriisi
       </h2>
       <p
         style={{
@@ -257,8 +257,8 @@ const CrossColorCombinations = () => {
           lineHeight: 1.6,
         }}
       >
-        This is a comprehensive, exhaustive list of every valid WCAG 2.1 AA (4.5:1) text color that
-        can be used on top of every possible background color in our system.
+        Tämä on kattava lista kaikista WCAG 2.1 AA (4.5:1) -kelpoisista tekstiväreistä, joita voi
+        käyttää jokaisen järjestelmän taustavärin päällä.
       </p>
 
       <div
@@ -302,7 +302,7 @@ const CrossColorCombinations = () => {
                         : "rgba(0,0,0,0.6)",
                   }}
                 >
-                  Background
+                  Tausta
                 </span>
                 <h3
                   style={{
@@ -372,7 +372,7 @@ export const Chart: Story = {
           marginBottom: "1rem",
         }}
       >
-        Colors & Accessibility
+        Värit ja saavutettavuus
       </h1>
       <p
         style={{
@@ -383,10 +383,10 @@ export const Chart: Story = {
           lineHeight: 1.6,
         }}
       >
-        This chart displays the base design system colors mathematically adjusted to meet WCAG 2.1
-        AA minimum contrast ratio (4.5:1 for normal text) against the default dark background
-        (`#0f0f13`). It provides a 10-step scale (50-900) and strict "use this with this" pairings
-        for accessible design.
+        Tämä näkymä esittää design-järjestelmän perusvärit niin, että ne täyttävät WCAG 2.1 AA
+        -minimikontrastin (4.5:1 normaalille tekstille) oletustummaa taustaa (`#0f0f13`) vasten.
+        Mukana on 10-portainen asteikko (50-900) sekä selkeät "käytä tätä tämän kanssa" -parit
+        saavutettavaan käyttöön.
       </p>
 
       {Object.entries(colorData.scales).map(([name, scale]) => (

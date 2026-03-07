@@ -28,6 +28,17 @@ export interface ImageElementProps
   enableModal?: boolean;
 }
 
+const resolveNearestDataTheme = (
+  element: HTMLElement | null,
+): string | undefined => {
+  if (!element || typeof document === "undefined") {
+    return undefined;
+  }
+
+  const themedAncestor = element.closest("[data-theme]");
+  return themedAncestor?.getAttribute("data-theme") ?? undefined;
+};
+
 /**
  * Lightweight, themed image primitive for editorial/media usage.
  * Supports responsive <picture> sources and a blur placeholder while loading.
@@ -36,6 +47,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
   (
     {
       className,
+      "data-theme": dataThemeProp,
       src,
       alt,
       variant = "secondary",
@@ -56,6 +68,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
   ) => {
     const [isLoaded, setIsLoaded] = React.useState(false);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [modalDataTheme, setModalDataTheme] = React.useState<string | undefined>(undefined);
     const imgRef = React.useRef<HTMLImageElement | null>(null);
     const triggerRef = React.useRef<HTMLButtonElement | null>(null);
     const closeButtonRef = React.useRef<HTMLButtonElement | null>(null);
@@ -73,6 +86,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
       if (!enableModal) {
         return;
       }
+      setModalDataTheme(resolveNearestDataTheme(triggerRef.current));
       previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
       setIsModalOpen(true);
     }, [enableModal]);
@@ -127,7 +141,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
       isModalOpen && typeof document !== "undefined"
         ? ReactDOM.createPortal(
             <div
-              data-theme={childTheme}
+              data-theme={modalDataTheme ?? dataThemeProp ?? childTheme}
               className="fixed inset-0 z-50 desktop:z-50 max-desktop:z-50 flex items-center justify-center bg-black/80 p-4"
               onClick={closeModal}
             >

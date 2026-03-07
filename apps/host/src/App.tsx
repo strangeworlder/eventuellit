@@ -32,7 +32,7 @@ function AppContent() {
         : "home";
 
   return (
-    <div data-theme="inverted" className="flex h-screen w-screen overflow-hidden bg-[var(--theme-bg)] text-[var(--theme-text)] selection:bg-[var(--theme-accent)] selection:text-[var(--theme-bg)]">
+    <div className="flex h-screen w-screen overflow-hidden bg-[var(--theme-bg)] text-[var(--theme-text)] selection:bg-[var(--theme-accent)] selection:text-[var(--theme-bg)]">
       <Sidebar
         className="flex-shrink-0 z-20 shadow-xl"
         expanded={sidebarOpen}
