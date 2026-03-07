@@ -10,6 +10,7 @@ When asked to start a new feature, follow these steps:
 3. Read the Learnings Document (`docs/learnings.md`) to avoid repeating past mistakes.
 4. Propose an `implementation_plan.md` to the user before writing any code.
 5. Ensure code adheres to guidelines in `docs/rules.md`.
+6. If `docs/learnings.md` has been recently condensed, cross-check `.agents/workflows/learnings-retention.md` to ensure critical constraints were promoted before relying on a removed entry.
 
 ## Critical Feature Development Rules
 - **Strict Finnish Localization**: The entire user-facing application MUST be purely in Finnish. Do not use English translations in the UI layer, even in prototypes or Storybook mock data.

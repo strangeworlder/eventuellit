@@ -2,7 +2,8 @@
 
 1. Always check `docs/prd.md` before implementing new features to ensure alignment with requirements.
 2. Follow architectural guidelines in `docs/architecture.md`.
-3. Check `docs/rules.md` and `docs/learnings.md` for specific formatting, naming conventions, and to avoid repeating historic project bugs.
-4. Reference `.agents/workflows/` for standard operational tasks.
+3. Check `docs/rules.md` and `docs/learnings.md` for specific formatting, naming conventions, and to avoid repeating historic project bugs. Treat `docs/rules.md` and `docs/architecture.md` as long-term canonical sources; treat `docs/learnings.md` as a rolling log.
+4. Reference `.agents/workflows/` for standard operational tasks. For any learnings cleanup/purge, follow `.agents/workflows/learnings-retention.md` before deleting or rewriting entries.
 5. **AGENT DIRECTIVE:** When a technical or functional decision is made with the user, YOU MUST update the relevant documentation (`docs/architecture.md`, `docs/prd.md`, `docs/rules.md`, or `docs/learnings.md`) instantly.
 6. **PROACTIVE CONTINUOUS LEARNING:** Do NOT wait for the user to prompt you. After every complex debugging session or configuration milestone, you MUST proactively summarize the nuances, bugs, and specific fixes in `docs/learnings.md` so that future agents do not repeat the mistakes.
+7. **LEARNINGS PURGE SAFETY:** Never delete critical learnings outright. First promote evergreen constraints to `docs/rules.md`/`docs/architecture.md`, and copy recurring runbooks into `.agents/workflows/` so the behavior survives future purges.

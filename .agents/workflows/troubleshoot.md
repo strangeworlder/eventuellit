@@ -5,6 +5,8 @@ description: Troubleshooting common stack and environment errors
 
 When encountering persistent errors, check if they map to these known project nuances:
 
+If you resolve a new recurring issue, add it here and mirror the incident details in `docs/learnings.md`. For purge/cleanup sessions, follow `.agents/workflows/learnings-retention.md` so recurring fixes are never lost.
+
 ## Node & NVM
 - **Symptom:** `exit status 5: Access is denied` when running `nvm use`.
 - **Cause:** Windows restricts symlink creation for normal accounts.
