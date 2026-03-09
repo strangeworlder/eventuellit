@@ -23,9 +23,9 @@
     "vitest": "^4.0.18"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
-  "packageManager": "npm@9.6.4",
+  "packageManager": "npm@10.9.2",
   "workspaces": [
     "apps/*",
     "packages/*"
