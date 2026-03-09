@@ -10,6 +10,7 @@
 - Prefer explicit over implicit behavior.
 - **PROACTIVE DOCUMENTATION:** You (the AI) MUST proactively update `docs/learnings.md` and `docs/rules.md` at the end of every major debugging or configuration session. *Do not wait for the user to tell you to log what you learned.*
 - **Language Requirement:** The entire user-facing application (UI, forms, error messages) MUST be in Finnish ONLY. **Do not include English translations, even in parentheses, and even in mock data like Storybook args.** Our code structure (variables, components, API routes) will be written in English for developer conventionality, but anything the end-user or designer sees must perfectly match the Finnish PRD terminologies (e.g. `Keho`, `Sisu`, `Kesto`).
+- **Ruleset Markdown Heading Baseline:** In `apps/ruleset/src/content/*.md`, top-level content headings MUST start at `###` (H3), with nested sections at `####` (H4), to match page composition and heading hierarchy.
 - **Test-Driven Development (TDD):** All meaningful logic (state hooks, component logic, backend services) MUST be accompanied by a Vitest test suite. We prioritize a test-first approach.
 - **Linting & Formatting:** We use **Biome**. Do not use ESLint or Prettier commands. Code must pass `npm run lint` and `npm run format` (Biome checks) before features are considered complete.
 
@@ -38,3 +39,7 @@
 - **Guaranteed Stacking Context (Z-Index):** Off-canvas features, dialogs, and overlays MUST declare their z-index utilizing strict responsive prefixes (e.g., `max-desktop:z-50`) to enforce their dominance. Relying on base `z-50` strings will fail via `tailwind-merge` if a consumer app tries passing a parent utility class like `className="z-20"` down through props.
 - **Custom Breakpoints:** We utilize explicit breakpoints defined in `packages/ui/src/styles.css` instead of Tailwind defaults: `mobile` (640px), `tablet` (768px), `desktop` (1024px), `x-wide` (1280px). Always use these named breakpoints (`desktop:flex`, `max-desktop:hidden`) rather than Tailwind's generic `lg` or `md` abstractions.
 - **Structural Design Tokens:** Avoid arbitrary values in Tailwind classes (e.g., `p-[18px]`, `w-[300px]`, `rounded-[10px]`). Strictly adhere to the standard spacing and border-radius scales documented in the Design System's `Tokens.stories.tsx`. Layouts should be predictable and conform to the grid.
+- **Portaled Overlay Theme Fidelity:** Any UI rendered via `ReactDOM.createPortal(..., document.body)` (lightboxes/modals/popovers) must preserve the nearest active `data-theme` scope from its trigger/source element. Do not assume parent DOM inheritance survives a portal boundary.
+
+## Microfrontend Assets
+- **Remote-Origin Asset Resolution:** In host-mounted MFEs, do not rely on root-relative static paths (for example `/images/...`) for remote-owned assets. Resolve URLs against the remote origin (`new URL(import.meta.url).origin`) and use manifest-driven paths where applicable so assets load correctly when composed by the host.

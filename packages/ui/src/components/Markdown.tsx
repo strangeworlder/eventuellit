@@ -48,10 +48,10 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, cl
                         if (isBlock) {
                             return <code className={className} {...props}>{children}</code>;
                         }
-                        return <GameTerm variant="accent" className={className} {...props}>{children}</GameTerm>;
+                        return <GameTerm variant="primary" className={className} {...props}>{children}</GameTerm>;
                     },
                     strong: ({ node, className, ...props }: any) => (
-                        <GameTerm variant="primary" className={className} {...props} />
+                        <GameTerm variant="accent" className={className} {...props} />
                     ),
                     em: ({ node, ...props }: any) => (
                         <em className="italic opacity-90" {...props} />

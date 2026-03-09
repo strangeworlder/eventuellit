@@ -57,3 +57,18 @@ export const Korostus: Story = {
     layout: "padded",
   },
 };
+
+export const Pikkukuva: Story = {
+  args: {
+    src: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80",
+    alt: "Avaruusnakyma pikkukuvana",
+    width: 64,
+    height: 64,
+    className: "w-14 h-14",
+    placeholderSrc: placeholder,
+    variant: "thumbnail",
+  },
+  parameters: {
+    layout: "centered",
+  },
+};

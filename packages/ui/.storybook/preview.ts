@@ -2,6 +2,7 @@ import type { Preview } from "@storybook/react-vite";
 import "../src/styles.css"; // Import the Tailwind styles we set up earlier
 
 const preview: Preview = {
+  tags: ["autodocs"],
   parameters: {
     controls: {
       matchers: {

@@ -12,9 +12,10 @@ export interface ImageSource {
 
 export interface ImageElementProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "children"> {
+  "data-theme"?: string;
   src: string;
   alt: string;
-  variant?: "primary" | "secondary" | "accent";
+  variant?: "primary" | "secondary" | "accent" | "thumbnail";
   theme?: Theme;
   sources?: ImageSource[];
   sizes?: string;
@@ -66,6 +67,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     },
     ref,
   ) => {
+    const safeAlt = alt.trim() || "Kuva";
     const [isLoaded, setIsLoaded] = React.useState(false);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [modalDataTheme, setModalDataTheme] = React.useState<string | undefined>(undefined);
@@ -148,7 +150,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               <div
                 role="dialog"
                 aria-modal="true"
-                aria-label={`Kuvan tarkastelu: ${alt}`}
+                aria-label={`Kuvan tarkastelu: ${safeAlt}`}
                 aria-describedby={caption ? captionId : undefined}
                 className="relative flex max-h-[95vh] w-full max-w-6xl flex-col gap-3 rounded-xl border border-[var(--theme-secondary)] bg-[var(--theme-bg)] p-3 shadow-2xl"
                 onClick={(event) => event.stopPropagation()}
@@ -200,6 +202,9 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               // Accent mirrors the DS accent framing pattern.
               "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
                 variant === "accent",
+              // Thumbnail variant is a compact media trigger for larger preview.
+              "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)] w-14 h-14":
+                variant === "thumbnail",
             },
             className,
           )}
@@ -218,7 +223,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               aria-hidden="true"
               className={cn("absolute inset-0 animate-pulse", {
                 "bg-[var(--theme-primary)]/10": variant === "primary",
-                "bg-[var(--theme-secondary)]/20": variant === "secondary",
+                "bg-[var(--theme-secondary)]/20": variant === "secondary" || variant === "thumbnail",
                 "bg-[var(--theme-accent)]/15": variant === "accent",
               })}
             />
@@ -230,13 +235,18 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
             onClick={openModal}
             className={cn(
               "group rounded-xl overflow-hidden block w-full text-left transition-transform duration-200 ease-out",
+              variant === "thumbnail" && "h-full w-full rounded-lg",
               enableModal &&
                 "cursor-zoom-in hover:scale-[1.02] hover:rotate-[0.25deg] focus-visible:scale-[1.012] focus-visible:rotate-[0.5deg]",
             )}
-            aria-label={enableModal ? `Avaa kuva suurempana: ${alt}` : undefined}
+            aria-label={enableModal ? `Avaa kuva suurempana: ${safeAlt}` : undefined}
             aria-haspopup={enableModal ? "dialog" : undefined}
           >
-            <picture className="block">
+            <picture
+              className={cn("block", {
+                "h-full w-full": variant === "thumbnail",
+              })}
+            >
               {sources.map((source) => (
                 <source
                   key={`${source.type}-${source.srcSet}`}
@@ -257,6 +267,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
                 onLoad={() => setIsLoaded(true)}
                 className={cn(
                   "h-full w-full object-cover transition-opacity duration-300",
+                  variant === "thumbnail" && "h-full w-full",
                   isLoaded ? "opacity-100" : "opacity-0",
                   imgClassName,
                 )}

@@ -1,76 +1,110 @@
 # Product Requirements Document: Eventuellit-antologia
 
 ## Overview
-"Eventuellit-antologia" is a TTRPG system designed for episodic 2-to-3-shot adventures set in a unique solar system filled with "liquid space" (where movement is affected by currents and friction rather than a vacuum). The overarching narrative focuses on rebellion against tyranny and the static nature of the world.
+"Eventuellit-antologia" is a TTRPG system for episodic 2-3-shot adventures in a "liquid space" solar system. Movement is affected by currents and friction instead of vacuum logic. The narrative focuses on rebellion against tyranny, scarcity, and high-stakes decision making.
 - **Genre:** Retro-Space Opera (50% analog/retro, 35% hard sci-fi, 15% fantastic), Action Drama, Surrealist, Existential.
 - **System Base:** Heavily modified versions of Jukka Sorsa's "Hood" and Ville Takanen's "FREE/FALL".
-- **Localization Requirement:** The end-user language for the entire application (UI, forms, character sheets) MUST be **Finnish**. Code and backend variable names will remain in English, but all textual output must use the official Finnish terminology.
+- **Localization Requirement:** End-user language in UI and rules content MUST be Finnish only.
 
-## 1. Core Game Mechanics (The n20 System)
-### Dice Pool & Resolution
-- **Base Resolution:** Roll a pool of n20s (default is 5n20 available for a standard action). The goal is to get a high number.
-- **Axes defined by GM:** Actions are governed by "Axes" (e.g., "fast" and "quiet").
-- **Splitting the Pool:** The player must allocate their 5n20s across the given axes (e.g., 4n20 to "fast", 1n20 to "quiet").
-- **Result:** The highest rolling die on a specific axis becomes the result for that axis.
-- **Attribute Modifiers:** If a base attribute applies to an axis, the player rolls the attribute die (e.g., 1n4, 1n6) and adds the result directly to the highest n20 on that axis.
+## 1. Core Resolution: Noppakoura and Axes
 
-### Skills & Justification
-- Skills act as narrative *permission* to attempt an action.
-- If a character lacks a skill, they can justify the action using specific equipment.
-- **Pushing through without skill/equipment:** A character can spend 1 point of the relevant "Duration/Capacity" (Kesto), or 2 points of an unrelated "Duration/Capacity", to attempt the action anyway.
+### Noppakoura (5n20)
+- Baseline action capacity is **5n20** per situation/round.
+- Players can split dice across multiple tasks or concentrate dice into one high-priority task.
 
-## 2. Character Generation
+### Axes
+- Actions resolve through GM-defined **Axes** (for example speed + stealth), not a single roll.
+- All required axes are resolved simultaneously.
+- A player allocates dice to each axis.
+- If an axis receives no dice, that axis fails automatically.
+- Axis result = highest die on that axis (`k1` behavior).
+- Baseline success threshold is **13**.
 
-### Step 1: Character Archetype
-The player chooses one of two classes:
-1.  **Soldier (Sotilas):**
-    - Receives 2 Skills.
-    - Sisu (Grit) Pool: 3n8.
-2.  **Expert (Ekspertti):**
-    - Receives 3 Skills.
-    - Sisu (Grit) Pool: 3n6.
+### Difficulty and Circumstances
+- **Easy:** 9 (exceptionally favorable conditions).
+- **Standard:** 13 (default).
+- **Hard:** 17 (extreme conditions).
+- Opposed checks (especially conflicts) should prefer opposition-based resolution over blanket threshold inflation.
 
-### Step 2: Core Attributes & Durations (Kestot)
-There are 3 main categories, each containing 2 specific attributes. All characters start with a base score of `8` in the 3 Categories.
+### Critical Success (Doubles)
+- If an axis succeeds and at least two dice show the same face value, the result is a critical success.
+- Critical outcomes must grant meaningful advantage (for example extra effect, better positioning, additional intel, or increased damage impact).
 
-*   **Keho (Body) - Base 8:**
-    *   Fysiikka (Physique)
-    *   Nopeus (Speed)
-*   **Mieli (Mind) - Base 8:**
-    *   Ymmärrys (Understanding)
-    *   Persoona (Personality)
-*   **Terä (Edge) - Base 8:**
-    *   Näkemys (Vision/Insight)
-    *   Näppäryys (Dexterity/Sleight)
+## 2. Character Model: Attributes, Kesto, Skills, Equipment
 
-**Assigning Attribute Dice:**
-- The player receives two `+1d4` dice.
-- They assign these two dice to any of the 6 attributes.
-- **Duration (Kesto) Calculation:** For every `+d4` an attribute receives, its parent Category's base score increases by `+2`. *(Example: A player puts +1d4 in Fysiikka and +1d4 in Nopeus. Their Keho (Body) category becomes 12).*
+### Core Attributes
+- Three categories, each with two attributes:
+  - **Keho:** Fysiikka, Nopeus
+  - **Mieli:** Ymmärrys, Persoona
+  - **Terä:** Näkemys, Näppäryys
+- Characters select two strong attributes and gain **+n4** in each.
+- When an attribute applies to an axis, roll the attribute die and add it to that axis result.
 
-### Step 3: Skills selection
-- The player selects skills from an "Episode-Specific List" (Jaksokohtainen lista) equal to their allowed amount (2 for Soldier, 3 for Expert). These skills explain why they are the protagonist of this specific mission.
+### Kesto
+- Category Kesto starts at **8** for Keho, Mieli, and Terä.
+- Each +n4 in an attribute raises its parent category Kesto by **+2**.
 
-## 3. Damage, Sisu (Grit), and Health
-- **Sisu (Grit):** Represents close calls and battle fatigue. Damage first reduces Sisu dice.
-- **Duration/Capacity Loss:** When Sisu runs out, the character loses points from their Kesto (Durations).
-- **Vaurio (Wounds/Direct Damage):** If damage bypasses Kesto, the character takes Vaurio.
-    - Each point of Vaurio *permanently reduces* the amount of n20s available in their dice pool for actions.
-    - At 5 Vaurio, the character is taken out of action.
-- *Recovery:* Sisu, Durations, and Vaurio generally heal entirely at the end of an episode (jakso).
+### Skills and Equipment
+- **Skills** are narrative permission gates to attempt specialized actions.
+- **Equipment** is a narrative/mechanical enabler (can unlock attempts, add axes, and define weapon damage die such as 1n6).
+- If skill/equipment is missing, a character may still attempt by paying **1 point** from relevant Kesto.
+- Positive fictional positioning/environment may allow attempts without Kesto payment.
 
-## 4. Character Progression (Returning Characters)
-Because this is an anthology, characters that survive can return in later episodes. When they do, they level up:
-1.  **Attribute Increase:** Add one `+1d4` to any attribute.
-    - *Stacking Rule:* If an attribute already has two dice of the same size (e.g., two `d4`s), they combine into one die of the next size up (e.g., `n4 -> n6 -> n8 -> n10 -> n12`).
-    - *Duration Recalculation:* Higher tier dice grant half their maximum value to the parent Category's Kesto. *(Example: Removing two `n4`s (+4 total) to get one `n6` (+3 total) will temporarily drop that Kesto score by 1).*
-2.  **Skill Increase:** Receive 1 new Episode-specific Skill.
-3.  **Progression Choice:** Choose one of the following:
-    - Take 1 more extra Skill AND add +1n6 to the Sisu Pool.
-    - Add +1n8 to the Sisu Pool.
+## 3. Cooperation and Environment
+
+### Assist
+- One character can assist another with an axis roll.
+- On success, the acting character gains **+1n20** to their next roll.
+
+### Group Action
+- In coordinated scenes, participants pool dice into shared axes.
+- GM evaluates result quality by comparing successful axes against group size and scene demands.
+
+### Environment Effects
+- **Positive environment:** can waive Kesto access costs.
+- **Negative environment:** can add mandatory axes and/or raise thresholds on affected axes.
+
+## 4. Conflict and Combat Flow (Ajastin 20-0)
+
+### Round Structure
+1. **Declaration:** GM telegraphs normal opponent intent, players declare and allocate, then GM telegraphs special-opponent intent.
+2. **Initiative:** Dice on Aloite axis define tempo on the timer. Tempo result is either `5 x dice committed` or highest die result (scene-specific method chosen by rules context/GM procedure).
+3. **Movement:** Resolved on its own axis; one die supports one zone shift.
+4. **Resolution:** Actions resolve in Ajastin order.
+
+## 5. Damage, Sisu, Uhka, Harmi
+
+### Sisu First
+- Incoming damage first interacts with **Sisu**.
+- Damage removes Sisu dice whose face value is at or below damage magnitude.
+
+### Uhkanopat
+- If an attack does not remove Sisu, it creates/accumulates **Uhkanopat** that amplify subsequent hits.
+
+### Kesto and Harmi
+- When Sisu is depleted, damage converts into Kesto loss (1:1) or **Harmi**.
+- If a target has no Sisu, apply impact from highest relevant damage/threat die.
+- Each Harmi permanently reduces action pool by **-1n20**.
+- At **5 Harmi**, the character is removed from play.
+
+## 6. Recovery and Advancement
+
+### Recovery
+- Between episodes, Sisu and Kesto recover.
+- Harmi clears through downtime/maintenance procedures between episodes.
+
+### Advancement
+- End of episode: add one **n4** to an attribute.
+- Two equal dice in the same attribute combine into next die tier (`n4 -> n6 -> n8 -> n10 -> n12`).
+- Choose progression reward:
+  - new skill + **+1n6 Sisu**, or
+  - **+1n8 Sisu**.
 
 ## Technical Architecture Requirements
-- **Dynamic Rules Context:** The generator and character sheet must support "Episode-Specific" skill injection, as lists change per episode.
-- **Dice State Management:** The frontend needs to track the current pool size of n20s (which decreases with Vaurio), the state of Sisu dice, and complex derived math for "Kesto" calculation when dice upgrade into larger tiers during progression.
-- **Environment Safety Baseline:** Frontend-backend integration must use environment-based endpoints (`VITE_API_BASE_URL`) and backend infrastructure values (`DATABASE_URL`, `CORS_ORIGINS`) without hardcoded localhost defaults.
-- **Backend Input Integrity:** Character write endpoints must enforce DTO validation and field whitelisting to prevent malformed payloads and over-posting.
+- **Dynamic rules context:** Ruleset and generator must support episode- and scene-specific axis definitions, thresholds, and telegraphed opposition behavior.
+- **Dice state engine:** Frontend must track n20 pool allocation, per-axis outcomes, doubles detection, Sisu changes, Uhkanopat accumulation, Harmi-based pool reduction, and Ajastin sequencing.
+- **Character model derivations:** Kesto derivation and attribute-die tier upgrades must be deterministic and test-covered.
+- **Assist and group flows:** UX/state model must support assist grants (+1n20 next roll) and pooled group-axis resolution.
+- **Environment-aware checks:** System must support positive/negative environment modifiers that alter access cost, mandatory axes, or threshold.
+- **Environment safety baseline:** Frontend-backend integration uses environment endpoints (`VITE_API_BASE_URL`, `DATABASE_URL`, `CORS_ORIGINS`) with no hardcoded localhost runtime defaults.
+- **Backend input integrity:** Character write endpoints enforce DTO validation, whitelist, and forbid-non-whitelisted behavior.
