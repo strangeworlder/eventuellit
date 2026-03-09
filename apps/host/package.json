@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "start": "sirv dist --port $PORT --cors --single",
+    "start": "sirv dist --port $PORT --host 0.0.0.0 --cors --single",
     "lint": "eslint .",
     "preview": "vite preview"
   },
