@@ -1,0 +1,8 @@
+import{j as m}from"./jsx-runtime-u17CrQMm.js";import{R as i}from"./iframe-RLsCwdXb.js";import{c as s}from"./Heading-DaMVR3YC.js";const a=i.forwardRef(({className:t,variant:e="base",theme:l,...r},n)=>m.jsx("p",{ref:n,"data-theme":l,className:s("font-sans text-[var(--theme-text)] tracking-[0.015em]",{"text-[1.05rem] leading-[1.7] font-normal":e==="base","text-[1.15rem] leading-[1.7] font-normal":e==="large","text-[0.9rem] leading-snug font-normal":e==="small","text-[1.25rem] leading-normal font-light opacity-90":e==="lead","text-[1.05rem] leading-[1.7] opacity-70":e==="muted","text-[1.05rem] leading-[1.7] font-semibold":e==="bold"},t),...r}));a.displayName="Text";a.__docgenInfo={description:"A standardized Text component that maps to Design System typography tokens and supports theming.",methods:[],displayName:"Text",props:{variant:{required:!1,tsType:{name:"union",raw:'"base" | "large" | "small" | "lead" | "muted" | "bold"',elements:[{name:"literal",value:'"base"'},{name:"literal",value:'"large"'},{name:"literal",value:'"small"'},{name:"literal",value:'"lead"'},{name:"literal",value:'"muted"'},{name:"literal",value:'"bold"'}]},description:"",defaultValue:{value:'"base"',computed:!1}},theme:{required:!1,tsType:{name:"union",raw:`| "base"\r
+| "inverted"\r
+| "primary-light"\r
+| "primary-dark"\r
+| "secondary-light"\r
+| "secondary-dark"\r
+| "accent-light"\r
+| "accent-dark"`,elements:[{name:"literal",value:'"base"'},{name:"literal",value:'"inverted"'},{name:"literal",value:'"primary-light"'},{name:"literal",value:'"primary-dark"'},{name:"literal",value:'"secondary-light"'},{name:"literal",value:'"secondary-dark"'},{name:"literal",value:'"accent-light"'},{name:"literal",value:'"accent-dark"'}]},description:""}}};export{a as T};
