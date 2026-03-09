@@ -1,7 +1,3 @@
-const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
-if (!configuredApiBaseUrl) {
-  throw new Error("VITE_API_BASE_URL is required");
-}
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 export const apiBaseUrl = configuredApiBaseUrl.replace(/\/$/, "");
