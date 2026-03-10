@@ -117,13 +117,6 @@ function AppContent() {
     }
 
     const updateProgressPinning = () => {
-      const laneRect = laneRef.current?.getBoundingClientRect();
-      if (laneRect) {
-        setProgressFixedLeftPx((previous) =>
-          Math.abs(previous - laneRect.left) > 0.5 ? laneRect.left : previous,
-        );
-      }
-
       const pinStartScrollTop = Math.max(0, progressStartOffsetPx - progressStickyTopPx);
       const nextPinned = scrollRoot.scrollTop >= pinStartScrollTop;
       setProgressIsPinned((previous) => (previous !== nextPinned ? nextPinned : previous));
@@ -164,6 +157,9 @@ function AppContent() {
       );
       setHeadingVisualBottomPx((previous) =>
         Math.abs(previous - nextHeadingVisualBottom) > 0.5 ? nextHeadingVisualBottom : previous,
+      );
+      setProgressFixedLeftPx((previous) =>
+        Math.abs(previous - laneRect.left) > 0.5 ? laneRect.left : previous,
       );
     };
 
@@ -272,11 +268,15 @@ function AppContent() {
 
           {(activeView === "ruleset" || activeView === "episodes") && articleProgress && (
             <div
-              className="z-30 w-72"
+              className="z-30"
               style={{
-                position: progressIsPinned ? "fixed" : "absolute",
-                left: progressIsPinned ? `${progressFixedLeftPx}px` : "0px",
-                top: progressIsPinned ? `${progressStickyTopPx}px` : `${progressStartOffsetPx}px`,
+                position: "fixed",
+                left: `${progressFixedLeftPx}px`,
+                top: `${progressStickyTopPx}px`,
+                opacity: progressIsPinned ? 1 : 0,
+                transform: progressIsPinned ? "translateY(0px)" : "translateY(-8px)",
+                transition: "opacity 180ms ease, transform 180ms ease",
+                pointerEvents: progressIsPinned ? "auto" : "none",
               }}
             >
               <ArticleProgressNavigator

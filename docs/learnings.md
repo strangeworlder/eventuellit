@@ -112,6 +112,10 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 **Issue:** Building rail offsets from `querySelectorAll("h3[id]")` infers `Element[]`, which fails when helper functions expect `HTMLElement` and causes TypeScript build breaks in article MFEs.
 **Action:** Use `querySelectorAll<HTMLElement>("h3[id]")` when collecting headings for progress rails so offset calculations and jump handling stay type-safe in both `episodes` and `ruleset`.
 
+### 23) Host Rail Visibility Should Fade In After Rotated H1 Exits View
+**Issue:** Letting the host rail physically scroll into view under the rotated lane heading adds extra visual movement and can increase per-scroll position work for a purely decorative transition.
+**Action:** Keep the rail fixed to the lane x-position/top anchor and toggle visibility with an opacity/translate fade once the rotated host `h1` has scrolled past the pin threshold; avoid updating lane-left position in the scroll handler.
+
 ---
 
 ## Purge Ledger

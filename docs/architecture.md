@@ -40,6 +40,7 @@ The monorepo structure is expected to follow this pattern:
 - Rail fill uses normalized host scroll-root progress (`scrollTop / (scrollHeight - clientHeight)`), while marker positions are derived from actual heading Y-offset normalization against full scroll height (`headingTop / scrollHeight`) rather than equal marker spacing.
 - Host and article MFEs communicate rail state and jump actions through a browser `CustomEvent` bridge to keep host-level placement synchronized with remote article anchors.
 - Article MFEs publish rail `sections` and heading offsets from rendered `h3[id]` DOM nodes (not markdown re-parsing) so clickable rail IDs always match the live anchors.
+- In the host left lane, the rail should fade in only after the rotated host `h1` has visually scrolled away; avoid scroll-in motion of the rail itself to reduce scroll-driven layout churn.
 
 ## State Management
 Current implementation uses:
