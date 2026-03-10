@@ -34,6 +34,12 @@ The monorepo structure is expected to follow this pattern:
   - `Suunnittelujarjestelma/Pelimekaniikka/*` for domain-specific interaction components.
 - Repeated app-level UI states (e.g., loading labels and notice panels) should be extracted into `@repo/ui` primitives before further app growth.
 - Routed tabs and feature-card compositions are still treated as application-shell composition patterns until at least two stable app contexts require a shared DS-level abstraction.
+- `@repo/ui` `ImageElement` is the canonical responsive media primitive: it should auto-consume `/images/manifest.json` (when present) to apply optimized source sets, intrinsic dimensions, and blur placeholders without app-specific fetch logic.
+- Long-form markdown article navigation (vertical sticky rail under host H1 + section jump markers) is implemented as a shared `@repo/ui` component and helper utility set, with rail rendering owned by `apps/host` and content-state publishing owned by consuming MFEs (`ruleset`, `episodes`).
+- `@repo/ui` `ArticleProgressNavigator` exposes semantic visual variants: `default` (panel rail with always-visible labels) and `minimal` (rail-only markers with hover/focus rotated labels anchored to each marker) for space-constrained host lanes.
+- Rail fill uses normalized host scroll-root progress (`scrollTop / (scrollHeight - clientHeight)`), while marker positions are derived from actual heading Y-offset normalization against full scroll height (`headingTop / scrollHeight`) rather than equal marker spacing.
+- Host and article MFEs communicate rail state and jump actions through a browser `CustomEvent` bridge to keep host-level placement synchronized with remote article anchors.
+- Article MFEs publish rail `sections` and heading offsets from rendered `h3[id]` DOM nodes (not markdown re-parsing) so clickable rail IDs always match the live anchors.
 
 ## State Management
 Current implementation uses:
