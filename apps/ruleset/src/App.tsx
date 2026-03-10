@@ -1,11 +1,22 @@
+import {
+  mapSectionOffsetsToProgressPositions,
+  resolveActiveSectionId,
+} from "@repo/ui/components/article-navigation-utils";
+import {
+  ARTICLE_JUMP_EVENT,
+  ARTICLE_PROGRESS_EVENT,
+  type ArticleJumpPayload,
+  type ArticleProgressPayload,
+} from "@repo/ui/components/article-progress-events";
 import { HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { ImageElement } from "@repo/ui/components/ImageElement";
-import { Page } from "@repo/ui/components/Page";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
+import { Page } from "@repo/ui/components/Page";
+import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
+import { useEffect, useMemo, useRef } from "react";
 
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 // Lightweight frontmatter parser to avoid Node 'Buffer' dependency from gray-matter in the browser
 function parseFrontmatter(md: string) {
@@ -26,7 +37,10 @@ function parseFrontmatter(md: string) {
     for (const line of lines) {
       const topLevelMatch = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
 
-      if (topLevelMatch && (!isBlock || (line.trim() !== "" && !line.startsWith("  ") && !line.startsWith("\t")))) {
+      if (
+        topLevelMatch &&
+        (!isBlock || (line.trim() !== "" && !line.startsWith("  ") && !line.startsWith("\t")))
+      ) {
         if (isBlock && currentKey) {
           data[currentKey] = blockLines.join("\n").trim();
           isBlock = false;
@@ -43,10 +57,13 @@ function parseFrontmatter(md: string) {
         } else {
           currentKey = key;
           let value = rest;
-          if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+          if (
+            (value.startsWith('"') && value.endsWith('"')) ||
+            (value.startsWith("'") && value.endsWith("'"))
+          ) {
             value = value.slice(1, -1);
           }
-          if (!isNaN(Number(value)) && value !== "") {
+          if (!Number.isNaN(Number(value)) && value !== "") {
             data[key] = Number(value);
           } else {
             data[key] = value;
@@ -118,7 +135,11 @@ function splitByMajorSections(content: string): string[] {
 }
 
 // Dynamically import all markdown files in the content directory and subdirectories
-const modules = import.meta.glob("./content/**/*.md", { eager: true, query: "?raw", import: "default" });
+const modules = import.meta.glob("./content/**/*.md", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+});
 
 interface MarkdownPage {
   id: string;
@@ -132,7 +153,11 @@ interface MarkdownPage {
 const remoteOrigin = new URL(import.meta.url).origin;
 
 function resolveRemoteAssetUrl(assetPath: string) {
-  if (assetPath.startsWith("http://") || assetPath.startsWith("https://") || assetPath.startsWith("data:")) {
+  if (
+    assetPath.startsWith("http://") ||
+    assetPath.startsWith("https://") ||
+    assetPath.startsWith("data:")
+  ) {
     return assetPath;
   }
 
@@ -140,27 +165,156 @@ function resolveRemoteAssetUrl(assetPath: string) {
   return `${remoteOrigin}${normalizedPath}`;
 }
 
-const pages: MarkdownPage[] = Object.entries(modules).map(([path, rawMdx]) => {
-  const rawString = typeof rawMdx === "string" ? rawMdx : "";
-  const { data, content, frontmatter } = parseFrontmatter(rawString);
+const pages: MarkdownPage[] = Object.entries(modules)
+  .map(([path, rawMdx]) => {
+    const rawString = typeof rawMdx === "string" ? rawMdx : "";
+    const { data, content, frontmatter } = parseFrontmatter(rawString);
 
-  // Fallback ID from filename
-  const filename = path.split("/").pop()?.replace(".md", "") || "unknown";
+    // Fallback ID from filename
+    const filename = path.split("/").pop()?.replace(".md", "") || "unknown";
 
-  const legacyImage = asString(data.image);
-  const images = parseImagesFromFrontmatter(frontmatter);
-  const resolvedImages =
-    images.length > 0 ? images : legacyImage ? [legacyImage] : [];
+    const legacyImage = asString(data.image);
+    const images = parseImagesFromFrontmatter(frontmatter);
+    const resolvedImages = images.length > 0 ? images : legacyImage ? [legacyImage] : [];
 
-  return {
-    id: filename.toLowerCase(),
-    title: asString(data.title) || filename,
-    order: asNumber(data.order) || 99,
-    description: asString(data.description) || "",
-    content: content,
-    images: resolvedImages,
-  };
-}).sort((a, b) => a.order - b.order);
+    return {
+      id: filename.toLowerCase(),
+      title: asString(data.title) || filename,
+      order: asNumber(data.order) || 99,
+      description: asString(data.description) || "",
+      content: content,
+      images: resolvedImages,
+    };
+  })
+  .sort((a, b) => a.order - b.order);
+
+function RulesetArticleView({ page }: { page: MarkdownPage }) {
+  const { pathname } = useLocation();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const articleRef = useRef<HTMLDivElement>(null);
+
+  const sections = useMemo(() => splitByMajorSections(page.content), [page.content]);
+
+  useEffect(() => {
+    const scrollRoot = document.getElementById("app-scroll-root");
+    if (!scrollRoot) {
+      return;
+    }
+
+    const getOffsetWithinScrollRoot = (element: HTMLElement) => {
+      const elementRect = element.getBoundingClientRect();
+      const rootRect = scrollRoot.getBoundingClientRect();
+      return elementRect.top - rootRect.top + scrollRoot.scrollTop;
+    };
+
+    const dispatchProgress = (payload: ArticleProgressPayload) => {
+      window.dispatchEvent(
+        new CustomEvent<ArticleProgressPayload>(ARTICLE_PROGRESS_EVENT, { detail: payload }),
+      );
+    };
+
+    const updateScrollState = () => {
+      const scrollY = scrollRoot.scrollTop;
+      const maxScroll = Math.max(scrollRoot.scrollHeight - scrollRoot.clientHeight, 1);
+      const headingElements = Array.from(articleRef.current?.querySelectorAll("h3[id]") ?? []);
+      const renderedSections = headingElements.map((heading) => ({
+        id: heading.id,
+        label: heading.textContent?.trim() ?? heading.id,
+      }));
+
+      const sectionOffsets = headingElements.map((heading) => ({
+        id: heading.id,
+        top: getOffsetWithinScrollRoot(heading),
+      }));
+
+      const nextProgress = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
+      const nextActiveSectionId = resolveActiveSectionId(
+        scrollY + scrollRoot.clientHeight * 0.3,
+        sectionOffsets,
+      );
+      const nextMarkerPositions = mapSectionOffsetsToProgressPositions(
+        sectionOffsets,
+        0,
+        scrollRoot.scrollHeight,
+      );
+
+      dispatchProgress({
+        source: "ruleset",
+        route: pathname,
+        sections: renderedSections,
+        progress: nextProgress,
+        activeSectionId: nextActiveSectionId,
+        markerPositions: nextMarkerPositions,
+      });
+    };
+
+    const onJumpRequested = (event: Event) => {
+      const customEvent = event as CustomEvent<ArticleJumpPayload>;
+      const payload = customEvent.detail;
+      if (!payload || payload.source !== "ruleset") {
+        return;
+      }
+
+      const element = document.getElementById(payload.sectionId);
+      if (element) {
+        const targetTop = Math.max(getOffsetWithinScrollRoot(element) - 96, 0);
+        scrollRoot.scrollTo({ top: targetTop, behavior: "smooth" });
+      }
+    };
+
+    updateScrollState();
+    scrollRoot.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    window.addEventListener(ARTICLE_JUMP_EVENT, onJumpRequested as EventListener);
+
+    return () => {
+      scrollRoot.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+      window.removeEventListener(ARTICLE_JUMP_EVENT, onJumpRequested as EventListener);
+    };
+  }, [pathname]);
+
+  const heroImage = page.images[0];
+  const inContentImages = page.images.slice(1);
+
+  return (
+    <HeadingLevelProvider>
+      <Hero
+        ref={heroRef}
+        title={page.title}
+        description={page.description}
+        backgroundImageSrc={heroImage ? resolveRemoteAssetUrl(heroImage) : undefined}
+      />
+      <div className="layout-stack">
+        <div ref={articleRef}>
+          <HeadingLevelProvider>
+            <div className="space-y-8">
+              {sections.map((section, index) => {
+                const imagePath = inContentImages[index];
+                const imageUrl = imagePath ? resolveRemoteAssetUrl(imagePath) : undefined;
+
+                return (
+                  <div key={`${page.id}-section-${index}`} className="space-y-6">
+                    <MarkdownRenderer headingIdPrefix={page.id}>{section}</MarkdownRenderer>
+                    {imageUrl && (
+                      <ImageElement
+                        src={imageUrl}
+                        alt={`${page.title} kuvitus ${index + 2}`}
+                        variant="secondary"
+                        className="w-full max-w-2xl mx-auto"
+                        imgClassName="max-h-[24rem]"
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </HeadingLevelProvider>
+        </div>
+      </div>
+    </HeadingLevelProvider>
+  );
+}
 
 function App() {
   const { pathname } = useLocation();
@@ -169,10 +323,10 @@ function App() {
 
   // Dynamically determine the correct base path for absolute routing to avoid nesting issues
   const getBasePath = () => {
-    const segments = pathname.split('/').filter(Boolean);
-    if (segments.length === 0) return '/';
+    const segments = pathname.split("/").filter(Boolean);
+    if (segments.length === 0) return "/";
     // If the first segment exactly matches a page ID, it means we are mounted at the root
-    if (pages.some(p => p.id === segments[0])) return '/';
+    if (pages.some((p) => p.id === segments[0])) return "/";
     // Otherwise, use the first segment as the mount point (e.g. "/ruleset")
     return `/${segments[0]}`;
   };
@@ -187,7 +341,7 @@ function App() {
             {pages.map((page) => (
               <TabsLink
                 key={page.id}
-                to={basePath === '/' ? `/${page.id}` : `${basePath}/${page.id}`}
+                to={basePath === "/" ? `/${page.id}` : `${basePath}/${page.id}`}
               >
                 {page.title}
               </TabsLink>
@@ -198,48 +352,11 @@ function App() {
             <Routes>
               <Route path="/" element={<Navigate to={defaultPath} replace />} />
               {pages.map((page) => {
-                const heroImage = page.images[0];
-                const inContentImages = page.images.slice(1);
-                const sections = splitByMajorSections(page.content);
-
                 return (
                   <Route
                     key={page.id}
                     path={page.id}
-                    element={(
-                      <HeadingLevelProvider>
-                        <Hero
-                          title={page.title}
-                          description={page.description}
-                          backgroundImageSrc={heroImage ? resolveRemoteAssetUrl(heroImage) : undefined}
-                        />
-                        <div className="layout-stack">
-                          <HeadingLevelProvider>
-                            <div className="space-y-8">
-                              {sections.map((section, index) => {
-                                const imagePath = inContentImages[index];
-                                const imageUrl = imagePath ? resolveRemoteAssetUrl(imagePath) : undefined;
-
-                                return (
-                                  <div key={`${page.id}-section-${index}`} className="space-y-6">
-                                    <MarkdownRenderer>{section}</MarkdownRenderer>
-                                    {imageUrl && (
-                                      <ImageElement
-                                        src={imageUrl}
-                                        alt={`${page.title} kuvitus ${index + 2}`}
-                                        variant="secondary"
-                                        className="w-full max-w-2xl mx-auto"
-                                        imgClassName="max-h-[24rem]"
-                                      />
-                                    )}
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </HeadingLevelProvider>
-                        </div>
-                      </HeadingLevelProvider>
-                    )}
+                    element={<RulesetArticleView page={page} />}
                   />
                 );
               })}

@@ -10,6 +10,23 @@ export interface ImageSource {
   type: "image/avif" | "image/webp" | "image/jpeg" | "image/png";
 }
 
+interface ImageVariant {
+  width: number;
+  avif: string;
+  webp: string;
+  jpg: string;
+}
+
+interface ManifestImageEntry {
+  width: number;
+  height: number;
+  placeholder: string;
+  variants: ImageVariant[];
+}
+
+type ImageManifest = Record<string, ManifestImageEntry>;
+const EMPTY_SOURCES: ImageSource[] = [];
+
 export interface ImageElementProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "children"> {
   "data-theme"?: string;
@@ -40,9 +57,80 @@ const resolveNearestDataTheme = (
   return themedAncestor?.getAttribute("data-theme") ?? undefined;
 };
 
+const manifestPromiseCache = new Map<string, Promise<ImageManifest | null>>();
+const componentOrigin = new URL(import.meta.url).origin;
+
+const normalizeKey = (value: string): string =>
+  value.toLowerCase().replace(/[^a-z0-9-]/g, "-");
+
+const resolveAssetUrlFromOrigin = (origin: string, assetPath: string): string => {
+  if (
+    assetPath.startsWith("http://") ||
+    assetPath.startsWith("https://") ||
+    assetPath.startsWith("data:")
+  ) {
+    return assetPath;
+  }
+
+  const normalizedPath = assetPath.startsWith("/") ? assetPath : `/${assetPath}`;
+  return `${origin}${normalizedPath}`;
+};
+
+const buildImageSources = (origin: string, variants: ImageVariant[]): ImageSource[] => {
+  const sorted = [...variants].sort((a, b) => a.width - b.width);
+  const avifSrcSet = sorted
+    .map((variant) => `${resolveAssetUrlFromOrigin(origin, variant.avif)} ${variant.width}w`)
+    .join(", ");
+  const webpSrcSet = sorted
+    .map((variant) => `${resolveAssetUrlFromOrigin(origin, variant.webp)} ${variant.width}w`)
+    .join(", ");
+
+  return [
+    { type: "image/avif", srcSet: avifSrcSet },
+    { type: "image/webp", srcSet: webpSrcSet },
+  ];
+};
+
+const loadImageManifest = (manifestUrl: string): Promise<ImageManifest | null> => {
+  const existing = manifestPromiseCache.get(manifestUrl);
+  if (existing) {
+    return existing;
+  }
+
+  const request = fetch(manifestUrl)
+    .then((response) => {
+      if (!response.ok) {
+        return null;
+      }
+      return response.json() as Promise<ImageManifest>;
+    })
+    .catch(() => null);
+
+  manifestPromiseCache.set(manifestUrl, request);
+  return request;
+};
+
+const normalizeImageSrc = (src: string): string => {
+  if (
+    src.startsWith("http://") ||
+    src.startsWith("https://") ||
+    src.startsWith("data:")
+  ) {
+    return src;
+  }
+
+  if (!src.includes("/")) {
+    return `${componentOrigin}/images/${src}.jpg`;
+  }
+
+  const normalizedPath = src.startsWith("/") ? src : `/${src}`;
+  return `${componentOrigin}${normalizedPath}`;
+};
+
 /**
  * Lightweight, themed image primitive for editorial/media usage.
  * Supports responsive <picture> sources and a blur placeholder while loading.
+ * If `/images/manifest.json` exists for the image origin, optimization data is auto-applied.
  */
 export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
   (
@@ -53,7 +141,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
       alt,
       variant = "secondary",
       theme,
-      sources = [],
+      sources = EMPTY_SOURCES,
       sizes = "100vw",
       placeholderSrc,
       caption,
@@ -71,6 +159,8 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     const [isLoaded, setIsLoaded] = React.useState(false);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [modalDataTheme, setModalDataTheme] = React.useState<string | undefined>(undefined);
+    const [manifestEntry, setManifestEntry] = React.useState<ManifestImageEntry | null>(null);
+    const [manifestOrigin, setManifestOrigin] = React.useState<string | null>(null);
     const imgRef = React.useRef<HTMLImageElement | null>(null);
     const triggerRef = React.useRef<HTMLButtonElement | null>(null);
     const closeButtonRef = React.useRef<HTMLButtonElement | null>(null);
@@ -80,10 +170,29 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     const resolvedTheme = variant === "primary" ? primaryThemeMap[baseTheme] : theme;
     const childTheme = resolvedTheme ?? baseTheme;
     const captionId = React.useId();
-    const sourcesKey = React.useMemo(
-      () => sources.map((source) => `${source.type}:${source.srcSet}`).join("|"),
-      [sources],
+    const autoSources = React.useMemo(() => {
+      if (!manifestEntry || !manifestOrigin || sources.length > 0) {
+        return undefined;
+      }
+      return buildImageSources(manifestOrigin, manifestEntry.variants);
+    }, [manifestEntry, manifestOrigin, sources]);
+    const resolvedSources = autoSources ?? sources;
+    const resolvedSourcesKey = React.useMemo(
+      () => resolvedSources.map((source) => `${source.type}:${source.srcSet}`).join("|"),
+      [resolvedSources],
     );
+    const resolvedPlaceholderSrc = placeholderSrc ?? manifestEntry?.placeholder;
+    const resolvedWidth = width ?? manifestEntry?.width;
+    const resolvedHeight = height ?? manifestEntry?.height;
+    const normalizedSrc = React.useMemo(() => normalizeImageSrc(src), [src]);
+    const resolvedSrc = React.useMemo(() => {
+      if (manifestEntry && manifestOrigin && manifestEntry.variants.length > 0) {
+        const sorted = [...manifestEntry.variants].sort((a, b) => a.width - b.width);
+        const largest = sorted[sorted.length - 1];
+        return resolveAssetUrlFromOrigin(manifestOrigin, largest.jpg);
+      }
+      return normalizedSrc;
+    }, [manifestEntry, manifestOrigin, normalizedSrc]);
     const openModal = React.useCallback(() => {
       if (!enableModal) {
         return;
@@ -98,13 +207,60 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
 
     React.useEffect(() => {
       setIsLoaded(false);
-    }, [src, sourcesKey]);
+    }, [resolvedSrc, resolvedSourcesKey]);
 
     React.useEffect(() => {
       if (imgRef.current?.complete) {
         setIsLoaded(true);
       }
-    }, [src, sourcesKey]);
+    }, [resolvedSrc, resolvedSourcesKey]);
+
+    React.useEffect(() => {
+      if (typeof window === "undefined") {
+        return;
+      }
+
+      if (src.startsWith("data:")) {
+        setManifestEntry(null);
+        setManifestOrigin(null);
+        return;
+      }
+
+      let parsedUrl: URL;
+      try {
+        parsedUrl = new URL(normalizedSrc);
+      } catch {
+        setManifestEntry(null);
+        setManifestOrigin(null);
+        return;
+      }
+
+      const pathname = parsedUrl.pathname;
+      const filename = pathname.split("/").pop() ?? "";
+      const extensionless = filename.replace(/\.[^.]+$/, "");
+      const key = normalizeKey(extensionless || src);
+      const origin = parsedUrl.origin;
+      const manifestUrl = `${origin}/images/manifest.json`;
+      let cancelled = false;
+
+      loadImageManifest(manifestUrl).then((manifest) => {
+        if (cancelled) {
+          return;
+        }
+        if (!manifest) {
+          setManifestEntry(null);
+          setManifestOrigin(null);
+          return;
+        }
+        const entry = manifest[key];
+        setManifestEntry(entry ?? null);
+        setManifestOrigin(entry ? origin : null);
+      });
+
+      return () => {
+        cancelled = true;
+      };
+    }, [normalizedSrc, src]);
 
     React.useEffect(() => {
       if (!isModalOpen) {
@@ -166,7 +322,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
                   <Icon name="x" />
                 </Button>
                 <img
-                  src={src}
+                  src={resolvedSrc}
                   alt={alt}
                   className="max-h-[80vh] w-full rounded-md object-contain"
                 />
@@ -210,15 +366,15 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
           )}
           {...props}
         >
-          {placeholderSrc && !isLoaded && (
+          {resolvedPlaceholderSrc && !isLoaded && (
             <img
-              src={placeholderSrc}
+              src={resolvedPlaceholderSrc}
               alt=""
               aria-hidden="true"
               className="absolute inset-0 h-full w-full scale-110 object-cover blur-lg opacity-90 transition-opacity duration-300"
             />
           )}
-          {!placeholderSrc && !isLoaded && (
+          {!resolvedPlaceholderSrc && !isLoaded && (
             <div
               aria-hidden="true"
               className={cn("absolute inset-0 animate-pulse", {
@@ -247,7 +403,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
                 "h-full w-full": variant === "thumbnail",
               })}
             >
-              {sources.map((source) => (
+              {resolvedSources.map((source) => (
                 <source
                   key={`${source.type}-${source.srcSet}`}
                   srcSet={source.srcSet}
@@ -257,13 +413,13 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               ))}
               <img
                 ref={imgRef}
-                src={src}
+                src={resolvedSrc}
                 sizes={sizes}
                 alt={alt}
                 loading={loading}
                 decoding={decoding}
-                width={width}
-                height={height}
+                width={resolvedWidth}
+                height={resolvedHeight}
                 onLoad={() => setIsLoaded(true)}
                 className={cn(
                   "h-full w-full object-cover transition-opacity duration-300",
