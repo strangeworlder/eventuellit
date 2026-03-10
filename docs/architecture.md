@@ -39,6 +39,7 @@ The monorepo structure is expected to follow this pattern:
 - `@repo/ui` `ArticleProgressNavigator` exposes semantic visual variants: `default` (panel rail with always-visible labels) and `minimal` (rail-only markers with hover/focus rotated labels anchored to each marker) for space-constrained host lanes.
 - Rail fill uses normalized host scroll-root progress (`scrollTop / (scrollHeight - clientHeight)`), while marker positions are derived from actual heading Y-offset normalization against full scroll height (`headingTop / scrollHeight`) rather than equal marker spacing.
 - Host and article MFEs communicate rail state and jump actions through a browser `CustomEvent` bridge to keep host-level placement synchronized with remote article anchors.
+- Browser tab title ownership stays in `apps/host`: derive `document.title` from the current router pathname so nested routes in any mounted microfrontend still show contextual location in the tab.
 - Article MFEs publish rail `sections` and heading offsets from rendered `h3[id]` DOM nodes (not markdown re-parsing) so clickable rail IDs always match the live anchors.
 - In the host left lane, the rail should fade in only after the rotated host `h1` has visually scrolled away; avoid scroll-in motion of the rail itself to reduce scroll-driven layout churn.
 - Host progress-event consumption must be backward-compatible across independently deployed MFEs: prefer `payload.source` matching, but allow route-prefix fallback (`/ruleset` or `/episodes`) when source values drift between deployments.

@@ -20,6 +20,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from
 const queryClient = new QueryClient();
 
 import { LandingPage } from "./components/LandingPage";
+import { buildDocumentTitle } from "./route-title";
 
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));
@@ -50,6 +51,10 @@ function AppContent() {
       : location.pathname.startsWith("/episodes")
         ? "episodes"
         : "home";
+
+  useEffect(() => {
+    document.title = buildDocumentTitle(location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     const activeSource: ArticleProgressSource | null =

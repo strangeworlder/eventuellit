@@ -5,7 +5,7 @@ order: 2
 
 ### Eventuellit-antologia
 
-Eventuellit-antologia on sarja two- tai threeshotteja, jotka sijoittuvat ihmiskunnan asuttamaan nestemäisen avaruuden (virtaukset ja kitkat perinteisen tyhjiön sijaan) aurinkokuntaan. 
+Eventuellit-antologia on sarja two- tai threeshotteja, jotka sijoittuvat ihmiskunnan asuttamaan nestemäisen avaruuden (nesteen aikaansaamat virtaukset ja kitkat perinteisen tyhjiön sijaan) aurinkokuntaan. 
 
 Pelit käsittelevät tavalla tai toisella nousua tyranniaa ja maailman staattisuutta vastaan. Pelaajaporukka vaihtelee antologian jaksojen välillä, 
 mutta pelaajien hahmot, jos säilyvät hengissä, voivat palata tarinaan.
