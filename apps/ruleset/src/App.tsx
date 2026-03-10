@@ -216,7 +216,9 @@ function RulesetArticleView({ page }: { page: MarkdownPage }) {
     const updateScrollState = () => {
       const scrollY = scrollRoot.scrollTop;
       const maxScroll = Math.max(scrollRoot.scrollHeight - scrollRoot.clientHeight, 1);
-      const headingElements = Array.from(articleRef.current?.querySelectorAll("h3[id]") ?? []);
+      const headingElements = Array.from(
+        articleRef.current?.querySelectorAll<HTMLElement>("h3[id]") ?? [],
+      );
       const renderedSections = headingElements.map((heading) => ({
         id: heading.id,
         label: heading.textContent?.trim() ?? heading.id,

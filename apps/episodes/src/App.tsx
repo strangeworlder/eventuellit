@@ -18,7 +18,7 @@ import { List, ListItem } from "@repo/ui/components/List";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Page } from "@repo/ui/components/Page";
 import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 // Lightweight frontmatter parser
@@ -162,7 +162,9 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
     const updateScrollState = () => {
       const scrollY = scrollRoot.scrollTop;
       const maxScroll = Math.max(scrollRoot.scrollHeight - scrollRoot.clientHeight, 1);
-      const headingElements = Array.from(articleRef.current?.querySelectorAll("h3[id]") ?? []);
+      const headingElements = Array.from(
+        articleRef.current?.querySelectorAll<HTMLElement>("h3[id]") ?? [],
+      );
       const renderedSections = headingElements.map((heading) => ({
         id: heading.id,
         label: heading.textContent?.trim() ?? heading.id,

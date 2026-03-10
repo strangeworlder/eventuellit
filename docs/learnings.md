@@ -108,6 +108,10 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 **Issue:** Re-rendering full marker lists on every scroll progress tick creates unnecessary work (new closures, repeated class-condition evaluation, and extra layout churn) in long-form article rails.
 **Action:** Keep marker lists memoized in a dedicated `React.memo` subcomponent and animate rail fill via `transform: scaleY(...)` on a full-height element instead of repeatedly changing `height`.
 
+### 22) Querying Heading Anchors Should Use Typed `querySelectorAll<HTMLElement>`
+**Issue:** Building rail offsets from `querySelectorAll("h3[id]")` infers `Element[]`, which fails when helper functions expect `HTMLElement` and causes TypeScript build breaks in article MFEs.
+**Action:** Use `querySelectorAll<HTMLElement>("h3[id]")` when collecting headings for progress rails so offset calculations and jump handling stay type-safe in both `episodes` and `ruleset`.
+
 ---
 
 ## Purge Ledger
