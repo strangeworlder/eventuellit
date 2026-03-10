@@ -1,9 +1,6 @@
 import { defineConfig } from "drizzle-kit";
 
-const databaseUrl = process.env.DATABASE_URL;
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL is required");
-}
+const databaseUrl = process.env.DATABASE_URL || "postgresql://root:password123@localhost:5432/eventuellit";
 
 export default defineConfig({
   schema: "./src/db/schema.ts",

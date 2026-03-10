@@ -8,11 +8,11 @@
   "scripts": {
     "build": "nest build",
     "format": "biome format --write src test",
-    "start": "nest start",
+    "start": "node dist/src/main.js",
     "dev": "npm run start:dev",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main.js",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "lint": "biome check src test",

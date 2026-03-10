@@ -3,10 +3,7 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 
 function getCorsOrigins() {
-  const configuredOrigins = process.env.CORS_ORIGINS;
-  if (!configuredOrigins) {
-    throw new Error("CORS_ORIGINS is required");
-  }
+  const configuredOrigins = process.env.CORS_ORIGINS || "http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:3003,http://localhost:3004";
 
   const origins = configuredOrigins
     .split(",")
