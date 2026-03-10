@@ -54,12 +54,25 @@ function AppContent() {
   useEffect(() => {
     const activeSource: ArticleProgressSource | null =
       activeView === "ruleset" || activeView === "episodes" ? activeView : null;
+    const activeRoutePrefix = activeSource ? `/${activeSource}` : null;
+
+    const isPayloadForActiveView = (payload: ArticleProgressPayload) => {
+      if (!activeSource) {
+        return false;
+      }
+
+      if (payload.source === activeSource) {
+        return true;
+      }
+
+      return Boolean(activeRoutePrefix && payload.route?.startsWith(activeRoutePrefix));
+    };
 
     const onArticleProgress = (event: Event) => {
       const customEvent = event as CustomEvent<ArticleProgressPayload>;
       const payload = customEvent.detail;
 
-      if (!payload || !activeSource || payload.source !== activeSource) {
+      if (!payload || !isPayloadForActiveView(payload)) {
         return;
       }
 

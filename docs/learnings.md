@@ -116,6 +116,10 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 **Issue:** Letting the host rail physically scroll into view under the rotated lane heading adds extra visual movement and can increase per-scroll position work for a purely decorative transition.
 **Action:** Keep the rail fixed to the lane x-position/top anchor and toggle visibility with an opacity/translate fade once the rotated host `h1` has scrolled past the pin threshold; avoid updating lane-left position in the scroll handler.
 
+### 24) Host Rail Event Filtering Needs Deployment-Skew Fallback
+**Issue:** In production, one MFE can lag behind host expectations for event payload fields (for example `source` shape/value), causing host rail updates to be filtered out for that view while another MFE still works.
+**Action:** In host progress-event listeners, accept exact `source` match first, then fall back to `route` prefix matching (`/ruleset` or `/episodes`) to preserve behavior across staggered deployments.
+
 ---
 
 ## Purge Ledger
