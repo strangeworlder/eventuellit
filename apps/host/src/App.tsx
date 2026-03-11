@@ -57,6 +57,15 @@ function AppContent() {
     document.title = buildDocumentTitle(location.pathname);
   }, [location.pathname]);
 
+  // Close the mobile sidebar on route change so it doesn't stay open while the
+  // page transitions in the background. Desktop sidebar stays unaffected.
+  useEffect(() => {
+    const DESKTOP_BREAKPOINT = 1024;
+    if (window.innerWidth < DESKTOP_BREAKPOINT) {
+      setSidebarOpen(false);
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     const activeSource: ArticleProgressSource | null =
       activeView === "ruleset" || activeView === "episodes" ? activeView : null;
@@ -259,7 +268,7 @@ function AppContent() {
             ref={burgerRef}
             variant="ghost"
             size="icon"
-            className="sticky top-4 z-40 max-desktop:z-50 desktop:hidden text-[var(--theme-primary)] hover:bg-transparent"
+            className="fixed top-4 left-2 z-10 desktop:hidden text-[var(--theme-primary)] hover:bg-transparent"
             onClick={() => setSidebarOpen(true)}
             aria-label="Avaa valikko"
           >
@@ -268,7 +277,7 @@ function AppContent() {
 
           <header
             ref={headingRef}
-            className="absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300"
+            className="bg-[var(--theme-bg)]/80 px-4 tablet:px-0 absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300"
           >
             {/* Hahmopaja heading temporarily hidden from production */}
             {activeView === "ruleset" && (

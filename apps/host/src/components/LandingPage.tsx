@@ -11,13 +11,11 @@ export function LandingPage() {
         <div className="flex flex-col items-center justify-center min-h-[80vh] py-12 px-4">
             <HeadingLevelContext.Provider value={1}>
                 <div className="text-center mb-16 space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                    <Badge icon="sparkles" className="mb-4">
-                        Tervetuloa seikkailuun
-                    </Badge>
+
                     <Heading className="text-5xl tablet:text-7xl font-black tracking-tighter">
                         EVENTUELLIT
                     </Heading>
-                    <p className="text-xl text-text/60 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-[var(--theme-text)] max-w-2xl mx-auto leading-relaxed">
                         Kaikki mitä tarvitset seuraavaan roolipelisessioosi.
                         Luo hahmoja, tarkista säännöt ja uppoudu tarinaan.
                     </p>

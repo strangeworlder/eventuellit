@@ -2,8 +2,8 @@
 title: Ohjainlevy
 order: 1
 status: active
-players: Alice, Bob, Charlie
-sessionDates: 2026-03-01, 2026-03-08
+players: Jori, Pekka, Taija
+sessionDates: 2026-03-26, 2026-03-30
 location: Kilpi, Kynnyksen 9. asema
 locationLink: /ruleset/maailma
 description: Eventuellit: Ensimmäinen jakso. Vuosikymmenen keikka rikkoutuneella Kilven linnakeasemalla.
