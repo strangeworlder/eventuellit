@@ -100,13 +100,34 @@ export function resolveActiveSectionFromProgress(
   sectionIds: string[],
   markerPositions: Record<string, number>,
 ): string | undefined {
+  if (sectionIds.length === 0) {
+    return undefined;
+  }
+
+  // Filter to only sections that have marker positions to avoid data sync issues
+  const sectionsWithMarkers = sectionIds.filter((id) => markerPositions[id] !== undefined);
+  
+  // If no sections have markers, fall back to first section
+  if (sectionsWithMarkers.length === 0) {
+    return sectionIds[0];
+  }
+
+  // At 100% progress, always return the last section with a marker
+  if (progress >= 100) {
+    return sectionsWithMarkers[sectionsWithMarkers.length - 1];
+  }
+
+  // Find the last section where marker position <= progress
   let activeId: string | undefined;
-  for (const id of sectionIds) {
-    if ((markerPositions[id] ?? 0) <= progress) {
+  for (const id of sectionsWithMarkers) {
+    const markerPos = markerPositions[id];
+    if (markerPos !== undefined && markerPos <= progress) {
       activeId = id;
     }
   }
-  return activeId ?? sectionIds[0];
+
+  // If no section found (progress < first marker), return first section
+  return activeId ?? sectionsWithMarkers[0];
 }
 
 export function mapSectionOffsetsToProgressPositions(

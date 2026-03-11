@@ -105,4 +105,16 @@ describe("article navigation utils", () => {
   it("returns undefined for empty sections", () => {
     expect(resolveActiveSectionFromProgress(50, [], {})).toBeUndefined();
   });
+
+  it("filters out sections missing from markerPositions", () => {
+    const markers = { alku: 10, keskiosa: 30 };
+    // "loppu" is in sectionIds but not in markers - should be filtered out
+    expect(resolveActiveSectionFromProgress(100, ["alku", "keskiosa", "loppu"], markers)).toBe("keskiosa");
+  });
+
+  it("handles sections with missing markers by falling back to first section", () => {
+    const markers = {};
+    // No markers, should fall back to first section
+    expect(resolveActiveSectionFromProgress(50, ["alku", "keskiosa"], markers)).toBe("alku");
+  });
 });
