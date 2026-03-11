@@ -11,7 +11,7 @@ import { Heading } from "@repo/ui/components/Heading";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { Sidebar, SidebarContent, SidebarHeader, SidebarItem } from "@repo/ui/components/Sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BookOpen, Dice5, MapIcon, Menu } from "lucide-react";
+import { BookOpen, MapIcon, Menu } from "lucide-react";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -23,7 +23,8 @@ import { LandingPage } from "./components/LandingPage";
 import { buildDocumentTitle } from "./route-title";
 
 // Lazily load the exposed Vite Federation micro-frontends
-const GeneratorApp = React.lazy(() => import("generator/App"));
+// Hahmopaja temporarily disabled from production
+// const GeneratorApp = React.lazy(() => import("generator/App"));
 const RulesetApp = React.lazy(() => import("ruleset/App"));
 const EpisodesApp = React.lazy(() => import("episodes/App"));
 const DEFAULT_BURGER_HEIGHT_PX = 48;
@@ -225,6 +226,7 @@ function AppContent() {
         </SidebarHeader>
 
         <SidebarContent>
+          {/* Hahmopaja temporarily hidden from production
           <SidebarItem
             icon={<Dice5 size={20} />}
             active={activeView === "generator"}
@@ -232,6 +234,7 @@ function AppContent() {
           >
             Hahmopaja
           </SidebarItem>
+          */}
           <SidebarItem
             icon={<BookOpen size={20} />}
             active={activeView === "ruleset"}
@@ -267,11 +270,7 @@ function AppContent() {
             ref={headingRef}
             className="absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300"
           >
-            {activeView === "generator" && (
-              <Heading as="h1" className="m-0">
-                Eventuellit: Hahmopaja
-              </Heading>
-            )}
+            {/* Hahmopaja heading temporarily hidden from production */}
             {activeView === "ruleset" && (
               <Heading as="h1" className="m-0">
                 Eventuellit: Säännöt
@@ -326,7 +325,8 @@ function AppContent() {
             <div className="animate-in fade-in duration-500">
               <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/generator/*" element={<GeneratorApp />} />
+                {/* Hahmopaja route temporarily disabled */}
+                <Route path="/generator/*" element={<Navigate to="/" replace />} />
                 <Route path="/ruleset/*" element={<RulesetApp />} />
                 <Route path="/episodes/*" element={<EpisodesApp />} />
                 <Route path="*" element={<Navigate to="/" replace />} />

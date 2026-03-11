@@ -136,6 +136,11 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 **Issue:** `AnchoredTooltip` was initially created as a plain function export with no `forwardRef`, `displayName`, or `theme` prop, and used off-pattern tokens (`rounded-md`, `ring-1`, `shadow-lg`, arbitrary `max-w-[calc(...)]`) that diverged from the established DS visual language.
 **Action:** All new `@repo/ui` components must follow the shared DS contract: `React.forwardRef` with `displayName`, optional `theme?: Theme` prop piped to `data-theme`, explicit `font-sans`, and token-scale values (`rounded-sm` for small utilities, `border` over `ring`, `shadow-md` for floating overlays, standard `max-w-*` over arbitrary calc). Stories must use DS `<Button>` instead of raw `<button>` elements.
 
+### 27) Hahmopaja Temporarily Disabled in Production
+**Date:** 2026-03-11
+**Issue:** Hahmopaja (character generator) is not ready for production visibility yet.
+**Action:** Commented out Hahmopaja sidebar menu item, H1 heading, landing page card, and route in `apps/host/src/App.tsx` and `apps/host/src/components/LandingPage.tsx`. The `/generator` route now redirects to `/`. The lazy import of `generator/App` is also commented out. To re-enable, search for "Hahmopaja temporarily hidden" and "temporarily disabled" comments in those files and uncomment/restore. Also restore `Dice5` to the lucide-react import in `App.tsx` and revert the landing page grid back to `desktop:grid-cols-3` with `max-w-6xl`.
+
 ---
 
 ## Purge Ledger

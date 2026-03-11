@@ -23,7 +23,8 @@ export function LandingPage() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 w-full max-w-6xl">
+                <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 w-full max-w-4xl">
+                    {/* Hahmopaja card temporarily hidden from production
                     <Card
                         className="group cursor-pointer hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 animate-in fade-in slide-in-from-left-8 duration-700 delay-100"
                         onClick={() => navigate("/generator")}
@@ -40,6 +41,7 @@ export function LandingPage() {
                             </p>
                         </CardContent>
                     </Card>
+                    */}
 
                     <Card
                         className="group cursor-pointer hover:border-secondary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-secondary/10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200"
