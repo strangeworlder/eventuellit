@@ -136,10 +136,35 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 **Issue:** `AnchoredTooltip` was initially created as a plain function export with no `forwardRef`, `displayName`, or `theme` prop, and used off-pattern tokens (`rounded-md`, `ring-1`, `shadow-lg`, arbitrary `max-w-[calc(...)]`) that diverged from the established DS visual language.
 **Action:** All new `@repo/ui` components must follow the shared DS contract: `React.forwardRef` with `displayName`, optional `theme?: Theme` prop piped to `data-theme`, explicit `font-sans`, and token-scale values (`rounded-sm` for small utilities, `border` over `ring`, `shadow-md` for floating overlays, standard `max-w-*` over arbitrary calc). Stories must use DS `<Button>` instead of raw `<button>` elements.
 
-### 27) Hahmopaja Temporarily Disabled in Production
+### 27) Button Component Must Define All Interactive States Explicitly
+**Date:** 2026-03-11
+**Issue:** The `@repo/ui` `Button` only had a minimal `disabled:opacity-50` and no loading, focus-visible ring, or active/pressed state — forcing consumers to manually simulate loading (swapping text + `disabled={isLoading}`) and leaving keyboard navigation without a visible focus indicator.
+**Action:** Enhanced `Button` with four explicit state layers: **disabled** (`opacity-40 grayscale-[40%] cursor-not-allowed shadow-none translate-y-0 scale-100`), **loading** (`loading` boolean prop → spinner + `cursor-wait pointer-events-none` while keeping full visual opacity), **focus-visible** (2px ring using `--theme-secondary` with offset against `--theme-bg`), and **active/pressed** (`translate-y-0 scale-[0.98]` snap-back + per-variant background deepening). Consumers should use the `loading` prop instead of manually wiring `disabled={isPending}` + text swaps. Each variant also gained explicit `active:bg-*` values so pressed feedback is variant-aware.
+
+### 28) Hahmopaja Temporarily Disabled in Production
 **Date:** 2026-03-11
 **Issue:** Hahmopaja (character generator) is not ready for production visibility yet.
 **Action:** Commented out Hahmopaja sidebar menu item, H1 heading, landing page card, and route in `apps/host/src/App.tsx` and `apps/host/src/components/LandingPage.tsx`. The `/generator` route now redirects to `/`. The lazy import of `generator/App` is also commented out. To re-enable, search for "Hahmopaja temporarily hidden" and "temporarily disabled" comments in those files and uncomment/restore. Also restore `Dice5` to the lucide-react import in `App.tsx` and revert the landing page grid back to `desktop:grid-cols-3` with `max-w-6xl`.
+
+### 29) Loading Is Disabled but Must Stay Readable and Explainable in Buttons
+**Date:** 2026-03-11
+**Issue:** Treating `loading` identically to `disabled` reduced contrast and hid useful status context for users when actions were in progress.
+**Action:** In `@repo/ui` `Button`, keep native `disabled` interaction lock during loading but split visual styling from passive disabled treatment so loading remains high-contrast. Add a button-specific `AnchoredTooltip` variant and render it in loading state with Finnish copy for explicit status communication.
+
+### 30) Danger Buttons Need Multi-Cue Affordance, Not Color Alone
+**Date:** 2026-03-11
+**Issue:** Destructive actions were primarily signaled by color, which is insufficient for robust affordance and accessibility.
+**Action:** `Button` `danger` now combines multiple cues: default foreground danger icon, subtle background icon layer, stronger structural border/shadow treatment, and distinct pressed behavior. Keep the affordance token-driven and theme-aware.
+
+### 31) Breakpoints Should Avoid Popular Viewport Edge Values
+**Date:** 2026-03-11
+**Issue:** Using breakpoints at common viewport widths makes responsive UI feel unstable because users can hover around exact threshold boundaries during normal browser usage.
+**Action:** Rebalanced design-system breakpoints to pulled-back thresholds and added an extra wide tier in `packages/ui/src/styles.css`: `mobile` 550px, `tablet` 700px, `desktop` 900px, `x-wide` 1200px, `xx-wide` 1500px. Keep token docs (for example `Tokens.stories.tsx`) synchronized with these values.
+
+### 32) Breakpoint Migration Must Target Source Files, Not Built Storybook Assets
+**Date:** 2026-03-11
+**Issue:** Default Tailwind breakpoint prefixes (`sm/md/lg/xl/2xl`) remained in multiple `packages/ui/src/components` files even though project rules require custom breakpoint names, and mirrored strings in `packages/ui/storybook-static` can mislead edits.
+**Action:** Migrate responsive classes in source files using the mapping `sm->mobile`, `md->tablet`, `lg->desktop`, `xl->x-wide`, `2xl->xx-wide` (and matching `max-*` variants when present). Do not hand-edit `storybook-static`; regenerate it from updated source when publishing Storybook outputs.
 
 ---
 

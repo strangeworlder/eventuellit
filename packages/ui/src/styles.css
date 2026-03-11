@@ -3,10 +3,11 @@
 
 @theme {
   /* Breakpoints */
-  --breakpoint-mobile: 640px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1024px;
-  --breakpoint-x-wide: 1280px;
+  --breakpoint-mobile: 550px;
+  --breakpoint-tablet: 700px;
+  --breakpoint-desktop: 900px;
+  --breakpoint-x-wide: 1200px;
+  --breakpoint-xx-wide: 1500px;
 
   --color-primary: #cf534a;
   --color-primary-foreground: #0f0f13;

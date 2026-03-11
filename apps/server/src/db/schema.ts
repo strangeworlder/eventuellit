@@ -1,11 +1,20 @@
-import { integer, jsonb, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { integer, jsonb, pgTable, serial, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  discordId: text("discord_id").unique().notNull(), // As per PRD (Login via Discord)
+  email: text("email").unique().notNull(),
   username: text("username").notNull(),
   avatarUrl: text("avatar_url"),
   role: text("role").default("player").notNull(), // player or gm
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const magicLinkTokens = pgTable("magic_link_tokens", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  token: uuid("token").unique().notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  usedAt: timestamp("used_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

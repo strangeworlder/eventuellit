@@ -9,9 +9,15 @@ import {
 import { Button } from "@repo/ui/components/Button";
 import { Heading } from "@repo/ui/components/Heading";
 import { LoadingState } from "@repo/ui/components/LoadingState";
-import { Sidebar, SidebarContent, SidebarHeader, SidebarItem } from "@repo/ui/components/Sidebar";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarItem,
+} from "@repo/ui/components/Sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BookOpen, MapIcon, Menu } from "lucide-react";
+import { BookOpen, LogIn, LogOut, MapIcon, Menu, UserCircle } from "lucide-react";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -20,11 +26,15 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from
 const queryClient = new QueryClient();
 
 import { LandingPage } from "./components/LandingPage";
+import { LoginPage } from "./components/LoginPage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { VerifyPage } from "./components/VerifyPage";
 import { buildDocumentTitle } from "./route-title";
+import { useAuth } from "@repo/auth/use-auth";
+import { Dice5 } from "lucide-react";
 
 // Lazily load the exposed Vite Federation micro-frontends
-// Hahmopaja temporarily disabled from production
-// const GeneratorApp = React.lazy(() => import("generator/App"));
+const GeneratorApp = React.lazy(() => import("generator/App"));
 const RulesetApp = React.lazy(() => import("ruleset/App"));
 const EpisodesApp = React.lazy(() => import("episodes/App"));
 const DEFAULT_BURGER_HEIGHT_PX = 48;
@@ -34,9 +44,11 @@ const PROGRESS_HEADING_GAP_PX = 12;
 function AppContent() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isLoggedIn, user, logout } = useAuth();
   const laneRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [articleProgress, setArticleProgress] = useState<ArticleProgressPayload | null>(null);
   const [burgerHeightPx, setBurgerHeightPx] = useState(DEFAULT_BURGER_HEIGHT_PX);
@@ -180,6 +192,16 @@ function AppContent() {
         ? Math.max(0, headingRect.bottom - laneRect.top)
         : 0;
 
+      // On desktop, anchor to sidebar's right edge; on mobile, use lane's left edge
+      const isDesktop = window.innerWidth >= 1024;
+      let nextProgressLeft: number;
+      if (isDesktop && sidebarRef.current) {
+        const sidebarRect = sidebarRef.current.getBoundingClientRect();
+        nextProgressLeft = sidebarRect.right;
+      } else {
+        nextProgressLeft = laneRect.left;
+      }
+
       setBurgerHeightPx((previous) =>
         Math.abs(previous - nextBurgerHeight) > 0.5 ? nextBurgerHeight : previous,
       );
@@ -187,7 +209,7 @@ function AppContent() {
         Math.abs(previous - nextHeadingVisualBottom) > 0.5 ? nextHeadingVisualBottom : previous,
       );
       setProgressFixedLeftPx((previous) =>
-        Math.abs(previous - laneRect.left) > 0.5 ? laneRect.left : previous,
+        Math.abs(previous - nextProgressLeft) > 0.5 ? nextProgressLeft : previous,
       );
     };
 
@@ -203,17 +225,21 @@ function AppContent() {
     if (burgerRef.current) {
       resizeObserver.observe(burgerRef.current);
     }
+    if (sidebarRef.current) {
+      resizeObserver.observe(sidebarRef.current);
+    }
 
     window.addEventListener("resize", updateLaneMetrics);
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener("resize", updateLaneMetrics);
     };
-  }, [activeView, articleProgress]);
+  }, [activeView, articleProgress, sidebarOpen]);
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-[var(--theme-bg)] text-[var(--theme-text)] selection:bg-[var(--theme-accent)] selection:text-[var(--theme-bg)]">
       <Sidebar
+        ref={sidebarRef}
         className="flex-shrink-0 z-20 shadow-xl"
         expanded={sidebarOpen}
         onExpandedChange={setSidebarOpen}
@@ -235,15 +261,15 @@ function AppContent() {
         </SidebarHeader>
 
         <SidebarContent>
-          {/* Hahmopaja temporarily hidden from production
-          <SidebarItem
-            icon={<Dice5 size={20} />}
-            active={activeView === "generator"}
-            onClick={() => navigate("/generator")}
-          >
-            Hahmopaja
-          </SidebarItem>
-          */}
+          {isLoggedIn && (
+            <SidebarItem
+              icon={<Dice5 size={20} />}
+              active={activeView === "generator"}
+              onClick={() => navigate("/generator")}
+            >
+              Hahmopaja
+            </SidebarItem>
+          )}
           <SidebarItem
             icon={<BookOpen size={20} />}
             active={activeView === "ruleset"}
@@ -259,6 +285,37 @@ function AppContent() {
             Jaksot
           </SidebarItem>
         </SidebarContent>
+
+        <SidebarFooter>
+          {isLoggedIn ? (
+            <>
+              {user && (
+                <div className="mb-2 px-2 py-1.5 rounded-md bg-[var(--theme-secondary)]/5 text-[var(--theme-secondary)]/80 text-sm truncate">
+                  <div className="flex items-center gap-2">
+                    <UserCircle size={16} className="flex-shrink-0" />
+                    <span className="truncate">{user.username || user.email}</span>
+                  </div>
+                </div>
+              )}
+              <SidebarItem
+                icon={<LogOut size={20} />}
+                onClick={() => {
+                  logout();
+                  navigate("/");
+                }}
+              >
+                Kirjaudu ulos
+              </SidebarItem>
+            </>
+          ) : (
+            <SidebarItem
+              icon={<LogIn size={20} />}
+              onClick={() => navigate("/kirjaudu")}
+            >
+              Kirjaudu sisään
+            </SidebarItem>
+          )}
+        </SidebarFooter>
       </Sidebar>
 
       <main id="app-scroll-root" className="flex-1 overflow-y-auto w-full h-full relative">
@@ -279,7 +336,11 @@ function AppContent() {
             ref={headingRef}
             className="bg-[var(--theme-bg)]/80 px-4 tablet:px-0 absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300"
           >
-            {/* Hahmopaja heading temporarily hidden from production */}
+            {activeView === "generator" && (
+              <Heading as="h1" className="m-0">
+                Eventuellit: Hahmopaja
+              </Heading>
+            )}
             {activeView === "ruleset" && (
               <Heading as="h1" className="m-0">
                 Eventuellit: Säännöt
@@ -334,8 +395,16 @@ function AppContent() {
             <div className="animate-in fade-in duration-500">
               <Routes>
                 <Route path="/" element={<LandingPage />} />
-                {/* Hahmopaja route temporarily disabled */}
-                <Route path="/generator/*" element={<Navigate to="/" replace />} />
+                <Route path="/kirjaudu" element={<LoginPage />} />
+                <Route path="/auth/vahvista" element={<VerifyPage />} />
+                <Route
+                  path="/generator/*"
+                  element={
+                    <ProtectedRoute>
+                      <GeneratorApp />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/ruleset/*" element={<RulesetApp />} />
                 <Route path="/episodes/*" element={<EpisodesApp />} />
                 <Route path="*" element={<Navigate to="/" replace />} />

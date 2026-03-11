@@ -1,4 +1,3 @@
-import { Badge } from "@repo/ui/components/Badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Heading, HeadingLevelContext } from "@repo/ui/components/Heading";
 

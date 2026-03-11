@@ -176,12 +176,6 @@ export const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>
 
         {expanded && <span className="truncate">{children}</span>}
 
-        {/* Tooltip for collapsed state */}
-        {!expanded && (
-          <div className="absolute left-full ml-4 px-2 py-1 bg-[var(--theme-bg)] text-[var(--theme-secondary)] border border-[var(--theme-secondary)]/20 shadow-lg rounded opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
-            {children}
-          </div>
-        )}
       </Button>
     );
   },

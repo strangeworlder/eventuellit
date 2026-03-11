@@ -12,10 +12,11 @@ type Story = StoryObj<typeof meta>;
 
 // Breakpoints defined in styles.css
 const breakpoints = {
-  mobile: "640px",
-  tablet: "768px",
-  desktop: "1024px",
-  "x-wide": "1280px",
+  mobile: "550px",
+  tablet: "700px",
+  desktop: "900px",
+  "x-wide": "1200px",
+  "xx-wide": "1500px",
 };
 
 // Spacing scale from Tailwind CSS v4 defaults + custom overrides if any
@@ -113,8 +114,11 @@ export const Breakpoints: Story = {
             <span className="hidden desktop:block x-wide:hidden text-primary-300">
               Desktop (&ge; {breakpoints.desktop})
             </span>
-            <span className="hidden x-wide:block text-green-300">
+            <span className="hidden x-wide:block xx-wide:hidden text-green-300">
               X-Wide (&ge; {breakpoints["x-wide"]})
+            </span>
+            <span className="hidden xx-wide:block text-yellow-300">
+              XX-Wide (&ge; {breakpoints["xx-wide"]})
             </span>
           </div>
 
@@ -135,6 +139,10 @@ export const Breakpoints: Story = {
             <div
               className="h-2 w-8 rounded-full bg-white/20 x-wide:bg-green-500 transition-colors"
               title="X-Wide"
+            />
+            <div
+              className="h-2 w-8 rounded-full bg-white/20 xx-wide:bg-yellow-500 transition-colors"
+              title="XX-Wide"
             />
           </div>
         </div>
@@ -191,7 +199,7 @@ export const BorderRadius: Story = {
           <code>rounded-full</code>.
         </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-6">
           {Object.entries(radiusScale).map(([name, value]) => {
             return (
               <div key={name} className="flex flex-col gap-3">
@@ -253,7 +261,7 @@ export const Layout: Story = {
                 <span className="text-sm opacity-60 italic">{token.description}</span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
                 <div className="bg-white/5 border border-white/10 rounded-lg p-6 space-y-3">
                   <div className="flex justify-between text-xs opacity-50 uppercase tracking-widest">
                     <span>Structure</span>

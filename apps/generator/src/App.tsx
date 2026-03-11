@@ -14,6 +14,7 @@ import { Routes, Route, Navigate, useLocation, useNavigate, useParams, useMatch 
 import { apiBaseUrl } from "./api/base-url";
 import { useCreateCharacter } from "./api/characters";
 import { CharacterSheet } from "./CharacterSheet";
+import { useAuth } from "@repo/auth/use-auth";
 
 const queryClient = new QueryClient();
 
@@ -224,7 +225,8 @@ function GeneratorForm() {
             <Button
               size="lg"
               onClick={handleSave}
-              disabled={isPending || characterName.trim() === "" || diceRemaining > 0}
+              loading={isPending}
+              disabled={characterName.trim() === "" || diceRemaining > 0}
             >
               {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
             </Button>
@@ -246,6 +248,7 @@ function CharacterSheetRoute() {
 function InnerApp() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { user: _user } = useAuth(); // Available for future use (e.g., tying characters to userId)
 
   // Dynamically determine the correct base path for absolute routing to avoid nesting issues
   const getBasePath = () => {

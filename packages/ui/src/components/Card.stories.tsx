@@ -109,7 +109,7 @@ export const Default: Story = {
  */
 export const Variants: Story = {
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+    <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6 w-full max-w-4xl">
       {(["primary", "secondary", "accent", "subtle", "rule"] as const).map((variant) => (
         <Card key={variant} variant={variant}>
           <CardHeader>
@@ -183,7 +183,7 @@ export const RuleBlock: Story = {
  */
 export const Icons: Story = {
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+    <div className="grid grid-cols-1 tablet:grid-cols-3 gap-6 w-full max-w-5xl">
       <Card iconName="dice5" iconVariant="primary">
         <CardHeader>
           <CardTitle>Generator</CardTitle>
@@ -218,7 +218,7 @@ export const Themes: Story = {
     layout: "padded",
   },
   render: () => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+    <div className="grid grid-cols-1 mobile:grid-cols-2 desktop:grid-cols-3 x-wide:grid-cols-4 gap-4 w-full">
       {(
         [
           "base",

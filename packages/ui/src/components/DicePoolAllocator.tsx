@@ -95,13 +95,13 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
 
           {/* Header */}
           <div className="flex flex-nowrap justify-between items-end border-b border-current/20 px-6 pt-6 pb-4 relative z-10 gap-4">
-            <div className="w-full sm:w-auto">
+            <div className="w-full mobile:w-auto">
               <Heading>Toiminnan Luonne</Heading>
               <p className="text-[var(--theme-text)]/60 text-sm font-medium mt-1">
                 Jaa nopat vaadittujen ominaisuuksien kesken.
               </p>
             </div>
-            <div className="text-left sm:text-right shrink-0">
+            <div className="text-left mobile:text-right shrink-0">
               <span className="block text-5xl font-heading font-black text-[var(--theme-text)] leading-none">
                 {diceRemaining}
                 <span className="text-2xl text-[var(--theme-text)]/30 font-light"> / {maxDice}</span>
@@ -123,7 +123,7 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
                     idx < axes.length - 1 && "border-b border-current/10",
                   )}
                 >
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 w-full lg:w-auto flex-1 min-w-[200px]">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 w-full desktop:w-auto flex-1 min-w-[200px]">
                     <Heading className="min-w-[120px]">{axis}</Heading>
 
                     {/* Allocated dice tokens */}

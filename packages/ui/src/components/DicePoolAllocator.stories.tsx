@@ -96,7 +96,7 @@ export const ThemeShowcase: Story = {
     ] as const;
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
         {themes.map((theme) => (
           <div key={theme}>
             <p className="font-bold text-center mb-2">{theme}</p>

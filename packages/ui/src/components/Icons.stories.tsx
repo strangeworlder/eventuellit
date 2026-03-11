@@ -42,7 +42,7 @@ export const Gallery: Story = {
         <div className="min-h-screen bg-black text-white font-sans flex flex-col">
             {/* Header section matching Themes.stories.tsx */}
             <div
-                className="p-8 md:p-16 border-b border-white/10"
+                className="p-8 tablet:p-16 border-b border-white/10"
                 style={{ backgroundColor: "var(--color-background)", color: "var(--color-text)" }}
             >
                 <h1 className="text-5xl font-extrabold font-heading mb-4">Icons</h1>
@@ -52,7 +52,7 @@ export const Gallery: Story = {
                 </p>
             </div>
 
-            <div className="p-8 md:p-16 flex flex-col gap-20">
+            <div className="p-8 tablet:p-16 flex flex-col gap-20">
                 {/* General UI Icons */}
                 <section>
                     <div className="flex flex-col gap-2 mb-8 border-b border-white/5 pb-4">
@@ -60,7 +60,7 @@ export const Gallery: Story = {
                         <p className="opacity-60">Standard functional icons for navigation and control.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 x-wide:grid-cols-4 gap-6">
                         {Object.keys(icons).map((name) => (
                             <div
                                 key={name}
@@ -103,7 +103,7 @@ export const Gallery: Story = {
                         <p className="opacity-60">Domain-specific components for game mechanics.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 x-wide:grid-cols-4 gap-6">
                         {([4, 6, 8, 10, 12, 20] as const).map((faces) => (
                             <div
                                 key={faces}

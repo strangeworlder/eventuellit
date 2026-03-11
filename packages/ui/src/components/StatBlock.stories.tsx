@@ -97,7 +97,7 @@ export const ThemeShowcase: Story = {
     ];
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 min-w-[300px] sm:min-w-[600px] lg:min-w-[1000px]">
+      <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-4 gap-4 min-w-[300px] mobile:min-w-[600px] desktop:min-w-[1000px]">
         {themes.map((theme) => (
           <StatBlock
             key={theme}

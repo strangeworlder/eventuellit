@@ -4,10 +4,13 @@ import { cn } from "./Heading";
 import type { Theme } from "./Theme";
 
 export type AnchoredTooltipPlacement = "right" | "left" | "top" | "bottom";
+export type AnchoredTooltipVariant = "default" | "button-loading";
 
 export interface AnchoredTooltipProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Sijainti ankkurielementin suhteen */
   placement?: AnchoredTooltipPlacement;
+  /** Visual variant for contextual tooltip presentation. */
+  variant?: AnchoredTooltipVariant;
   /** The theme context to apply, which modifies the component's CSS variables. */
   theme?: Theme;
 }
@@ -17,6 +20,13 @@ const placementClasses: Record<AnchoredTooltipPlacement, string> = {
   left: "[right:anchor(left)] [top:anchor(center)] -translate-y-1/2",
   top: "[left:anchor(center)] [bottom:anchor(top)] -translate-x-1/2",
   bottom: "[left:anchor(center)] [top:anchor(bottom)] -translate-x-1/2",
+};
+
+const variantClasses: Record<AnchoredTooltipVariant, string> = {
+  default:
+    "rounded-sm bg-[var(--theme-bg)]/95 px-2 py-1 text-[var(--theme-text)] shadow-md border border-[var(--theme-secondary)]/40 font-semibold",
+  "button-loading":
+    "rounded-sm bg-[var(--theme-primary)] px-3 py-2 text-[var(--theme-primary-foreground)] shadow-md border-2 border-[var(--theme-primary-foreground)]/60 font-bold uppercase tracking-widest",
 };
 
 /**
@@ -37,7 +47,7 @@ const placementClasses: Record<AnchoredTooltipPlacement, string> = {
  * ```
  */
 export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltipProps>(
-  ({ placement = "right", className, theme, children, ...props }, ref) => {
+  ({ placement = "right", variant = "default", className, theme, children, ...props }, ref) => {
     return (
       <span
         ref={ref}
@@ -46,7 +56,7 @@ export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltip
         className={cn(
           "anchored-tooltip",
           "pointer-events-none absolute max-w-xs overflow-hidden text-ellipsis whitespace-nowrap font-sans text-xs font-semibold tracking-[0.015em]",
-          "rounded-sm bg-[var(--theme-bg)]/95 px-2 py-1 text-[var(--theme-text)] shadow-md border border-[var(--theme-secondary)]/40",
+          variantClasses[variant],
           "opacity-0 transition-opacity duration-150",
           "[position-anchor:--tooltip-anchor]",
           placementClasses[placement],

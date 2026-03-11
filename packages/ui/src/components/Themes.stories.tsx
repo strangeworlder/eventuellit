@@ -29,7 +29,7 @@ const ThemeShowcase = ({ themeId, themeName }: { themeId: string; themeName: str
     <div data-theme={themeId} className="w-full flex">
       {/* The wrapper sets the data-theme attribute, cascading properties down to children */}
       <div
-        className="w-full p-8 md:p-16 flex flex-col md:flex-row gap-8 transition-colors duration-200"
+        className="w-full p-8 tablet:p-16 flex flex-col tablet:flex-row gap-8 transition-colors duration-200"
         style={{ backgroundColor: "var(--theme-bg)", color: "var(--theme-text)" }}
       >
         {/* Info Block */}
@@ -116,7 +116,7 @@ export const Gallery: Story = {
   render: () => (
     <div className="min-h-screen bg-black text-white font-sans flex flex-col">
       <div
-        className="p-8 md:p-16 border-b border-white/10"
+        className="p-8 tablet:p-16 border-b border-white/10"
         style={{ backgroundColor: "var(--color-background)", color: "var(--color-text)" }}
       >
         <h1 className="text-5xl font-extrabold font-heading mb-4">Kontekstuaaliset teemat</h1>

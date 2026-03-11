@@ -47,7 +47,7 @@ export const WithStackedContent: Story = {
           <CardContent>Important introductory info.</CardContent>
         </Card>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-6">
           <Card variant="subtle">
             <CardContent className="h-48 flex items-center justify-center">Grid Item 1</CardContent>
           </Card>

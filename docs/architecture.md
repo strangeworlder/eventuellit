@@ -18,11 +18,12 @@ This application is a ruleset and character generator for a new TTRPG system. It
 ## Component Hierarchy
 The monorepo structure is expected to follow this pattern:
 - `apps/host`: The shell application orchestrating the MFEs.
-- `apps/generator`: Character generator Micro Frontend.
+- `apps/generator`: Character generator Micro Frontend (protected by authentication).
 - `apps/ruleset`: Ruleset documentation Micro Frontend.
 - `apps/episodes`: Episode journal Micro Frontend.
 - `apps/server`: NestJS backend API.
 - `packages/ui`: Shared React/Tailwind design system components visualized through Storybook.
+- `packages/auth`: Shared authentication hooks and API wrappers for MFEs.
 - `packages/config`: Shared TS and tooling configs.
 
 ## Design System Storybook Taxonomy
@@ -51,6 +52,14 @@ Current implementation uses:
 
 No global Zustand store is currently in production code. If cross-MFE global state becomes necessary later, it must be introduced explicitly as a separate architectural decision.
 
+## Authentication
+- **Magic link authentication:** Users log in via email magic links (no passwords). Magic links are valid for 15 minutes and single-use.
+- **JWT sessions:** Upon successful token verification, the server issues a JWT stored in an httpOnly cookie (`auth_token`) with 7-day expiry. This cookie is automatically sent with all requests to the API.
+- **Email allowlist:** Only emails that exist in the `users` table can request magic links. No self-registration; new users must be added to the database manually.
+- **Shared auth package:** `@repo/auth` provides `useAuth()` and `useRequireAuth()` hooks that any MFE can use. Each MFE's TanStack Query instance independently calls `/auth/me`; the httpOnly cookie is the single source of truth.
+- **Protected routes:** Routes can be protected using `useRequireAuth()`, which redirects unauthenticated users to `/kirjaudu`.
+- **Development-friendly:** In development, magic links are logged to the server console instead of being sent via email.
+
 ## API Boundary and Input Safety
 - Controllers must use explicit DTO classes and class-validator decorators.
 - `ValidationPipe` runs globally with `transform`, `whitelist`, and `forbidNonWhitelisted` enabled.
@@ -60,3 +69,6 @@ No global Zustand store is currently in production code. If cross-MFE global sta
 - `DATABASE_URL` is required for server DB bootstrap and Drizzle tooling.
 - `CORS_ORIGINS` is required and must contain a comma-separated allowlist (no wildcard CORS).
 - Frontend API origin must be configured via `VITE_API_BASE_URL` (no hardcoded localhost URLs).
+- `JWT_SECRET` is required for server JWT token signing.
+- `MAGIC_LINK_BASE_URL` is the frontend base URL for building magic link verification URLs (defaults to `http://localhost:3003` in development).
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` are optional and only needed for production email sending (not yet implemented).

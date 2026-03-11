@@ -3,7 +3,7 @@ import { cn } from "./Button";
 import { Heading, HeadingLevelProvider } from "./Heading";
 
 export interface NoticePanelProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "success" | "info";
+  variant?: "success" | "info" | "error";
   title?: string;
   actions?: React.ReactNode;
 }
@@ -22,6 +22,8 @@ export const NoticePanel = React.forwardRef<HTMLDivElement, NoticePanelProps>(
             variant === "success",
           "border-l-4 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10":
             variant === "info",
+          "border-l-4 border-red-500/80 bg-red-500/10":
+            variant === "error",
         },
         className,
       )}
