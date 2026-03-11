@@ -1,6 +1,6 @@
 import {
   mapSectionOffsetsToProgressPositions,
-  resolveActiveSectionId,
+  resolveActiveSectionFromProgress,
 } from "@repo/ui/components/article-navigation-utils";
 import {
   ARTICLE_JUMP_EVENT,
@@ -230,14 +230,15 @@ function RulesetArticleView({ page }: { page: MarkdownPage }) {
       }));
 
       const nextProgress = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
-      const nextActiveSectionId = resolveActiveSectionId(
-        scrollY + scrollRoot.clientHeight * 0.3,
-        sectionOffsets,
-      );
       const nextMarkerPositions = mapSectionOffsetsToProgressPositions(
         sectionOffsets,
         0,
         scrollRoot.scrollHeight,
+      );
+      const nextActiveSectionId = resolveActiveSectionFromProgress(
+        nextProgress,
+        renderedSections.map((s) => s.id),
+        nextMarkerPositions,
       );
 
       dispatchProgress({
@@ -303,6 +304,7 @@ function RulesetArticleView({ page }: { page: MarkdownPage }) {
                         src={imageUrl}
                         alt={`${page.title} kuvitus ${index + 2}`}
                         variant="secondary"
+                        sizes="(max-width: 768px) 100vw, 42rem"
                         className="w-full max-w-2xl mx-auto"
                         imgClassName="max-h-[24rem]"
                       />

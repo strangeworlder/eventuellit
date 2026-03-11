@@ -60,6 +60,14 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 **Issue:** Keeping image manifest fetch + responsive source wiring inside app-level code duplicates logic and prevents other MFEs from automatically getting compacted images/placeholders.
 **Action:** Centralize manifest lookup in `packages/ui/src/components/ImageElement.tsx` and run per-app image optimization scripts that emit `/images/manifest.json` so `ruleset` and `episodes` inherit the same behavior.
 
+### 11) Frontmatter Image Names Need URL Decoding Before Manifest Key Lookup
+**Issue:** Ruleset images with non-ASCII characters in file names (for example `Pelipöytäily.png`) are URL-encoded in browser paths, which can break manifest key matching and silently fall back to original PNG assets.
+**Action:** Decode the URL filename (`decodeURIComponent`) before key normalization in `ImageElement`, and route Hero background rendering through `ImageElement` so both background and inline images share the same optimization path.
+
+### 12) Responsive Variant Selection Needs Correct `sizes` + Small Fallback `src`
+**Issue:** Even with manifest-backed `<picture>` sources, browsers may fetch the fallback `img src` early and/or pick oversized variants if `sizes` is left too broad (for example defaulting to viewport width for thumbnails).
+**Action:** In `ImageElement`, keep inline fallback `src` on the smallest manifest JPG while reserving largest JPG for modal view, and pass explicit `sizes` from known layouts (`Hero` background `100vw`, thumbnail `56px`, ruleset inline images capped to content width).
+
 ### 10) Host Mobile Menu Toggle Must Stay Viewport-Pinned During Scroll
 **Issue:** The host app mobile menu toggle can scroll out of view when positioned inside the scrollable main content.
 **Action:** Keep the toggle viewport-pinned with `fixed` positioning (`top-4 left-4`) and a responsive mobile stacking class (`max-desktop:z-50`) so it remains reachable while content scrolls.
@@ -119,6 +127,14 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 ### 24) Host Rail Event Filtering Needs Deployment-Skew Fallback
 **Issue:** In production, one MFE can lag behind host expectations for event payload fields (for example `source` shape/value), causing host rail updates to be filtered out for that view while another MFE still works.
 **Action:** In host progress-event listeners, accept exact `source` match first, then fall back to `route` prefix matching (`/ruleset` or `/episodes`) to preserve behavior across staggered deployments.
+
+### 25) Reusable CSS Anchor-Positioned Tooltips via `:has()` Sibling Binding
+**Issue:** The `ArticleProgressNavigator` minimal variant hand-wired `anchor-name`, `anchor-scope`, and `position-anchor` CSS properties plus Tailwind `peer` hover classes, making the tooltip pattern non-reusable and verbose.
+**Action:** Extracted a standalone `AnchoredTooltip` component (`packages/ui/src/components/AnchoredTooltip.tsx`) that auto-binds to its previous sibling via CSS `:has()` rules in `styles.css`. The parent automatically gets `anchor-scope`, the previous sibling gets `anchor-name`, and hover/focus-visible visibility is handled purely in CSS. The component accepts a `placement` prop (`right | left | top | bottom`) for positioning relative to the anchor.
+
+### 26) New DS Components Must Follow Shared Structural & Styling Conventions
+**Issue:** `AnchoredTooltip` was initially created as a plain function export with no `forwardRef`, `displayName`, or `theme` prop, and used off-pattern tokens (`rounded-md`, `ring-1`, `shadow-lg`, arbitrary `max-w-[calc(...)]`) that diverged from the established DS visual language.
+**Action:** All new `@repo/ui` components must follow the shared DS contract: `React.forwardRef` with `displayName`, optional `theme?: Theme` prop piped to `data-theme`, explicit `font-sans`, and token-scale values (`rounded-sm` for small utilities, `border` over `ring`, `shadow-md` for floating overlays, standard `max-w-*` over arbitrary calc). Stories must use DS `<Button>` instead of raw `<button>` elements.
 
 ---
 

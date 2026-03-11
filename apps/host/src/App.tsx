@@ -250,7 +250,7 @@ function AppContent() {
       </Sidebar>
 
       <main id="app-scroll-root" className="flex-1 overflow-y-auto w-full h-full relative">
-        <div ref={laneRef} className="absolute top-0 left-2 desktop:left-3 z-30 w-72 pt-4">
+        <div ref={laneRef} className="absolute top-0 left-2 desktop:left-3 z-30 pt-4">
           {/* Keep mobile controls always reachable above heading and progress lane. */}
           <Button
             ref={burgerRef}

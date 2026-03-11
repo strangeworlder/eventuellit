@@ -1,6 +1,7 @@
 import { memo, useCallback, useMemo } from "react";
 import type React from "react";
 
+import { AnchoredTooltip } from "./AnchoredTooltip";
 import type { ArticleSectionAnchor } from "./article-navigation-utils";
 import { cn } from "./Heading";
 
@@ -18,6 +19,7 @@ interface MarkerModel {
   id: string;
   label: string;
   isActive: boolean;
+  isScrolledPast: boolean;
   topPercent: number;
 }
 
@@ -51,46 +53,73 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
     );
   }
 
-  return markers.map((marker) => (
-    <button
-      key={marker.id}
-      type="button"
-      data-section-id={marker.id}
-      title={`Siirry osioon: ${marker.label}`}
-      aria-label={`Siirry osioon: ${marker.label}`}
-      aria-current={marker.isActive ? "true" : undefined}
-      onClick={handleMarkerClick}
-      className={cn(
-        "group absolute -translate-y-1/2 cursor-pointer transition-colors",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:ring-offset-2",
-        "focus-visible:ring-offset-[var(--theme-bg)] aria-[current=true]:text-[var(--theme-primary)]",
-        isMinimalVariant
-          ? "p-4 left-0 flex items-center justify-center text-[var(--theme-text)]"
-          : "left-0 flex w-full items-center gap-3 text-left",
-      )}
-      style={{ top: `${marker.topPercent}%` }}
-    >
-      <span
-        className={cn(
-          "h-3 w-3 shrink-0 rounded-full border border-[var(--theme-secondary)] bg-[var(--theme-bg)]",
-          "group-aria-[current=true]:border-[var(--theme-primary)] group-aria-[current=true]:bg-[var(--theme-primary)]",
-        )}
-      />
-      {isMinimalVariant ? (
-        <span
+  return markers.map((marker) =>
+    isMinimalVariant ? (
+      <div
+        key={marker.id}
+        className="absolute -translate-y-1/2"
+        style={{ top: `${marker.topPercent}%` }}
+      >
+        <button
+          type="button"
+          data-section-id={marker.id}
+          title={`Siirry osioon: ${marker.label}`}
+          aria-label={`Siirry osioon: ${marker.label}`}
+          aria-current={marker.isActive ? "true" : undefined}
+          onClick={handleMarkerClick}
           className={cn(
-            "pointer-events-none absolute left-6 top-1/2 max-w-[calc(100dvh-3rem)] -translate-x-1/2 -translate-y-1/2 overflow-hidden text-ellipsis whitespace-nowrap rounded-md bg-[var(--theme-bg)]/95 px-2 py-1 text-xs font-semibold text-[var(--theme-text)] shadow-lg ring-1 ring-[var(--theme-secondary)]/40",
-            "origin-top rotate-270 opacity-0 transition-opacity duration-150",
-            "group-hover:opacity-100 group-focus-visible:opacity-100",
+            "group cursor-pointer transition-colors",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:ring-offset-2",
+            "focus-visible:ring-offset-[var(--theme-bg)] aria-[current=true]:text-[var(--theme-primary)]",
+            "p-4 left-0 flex items-center justify-center text-[var(--theme-text)]",
           )}
         >
+          <span
+            className={cn(
+              "absolute h-3 w-3 shrink-0 rounded-full border bg-[var(--theme-bg)]",
+              marker.isScrolledPast
+                ? "border-[var(--theme-primary)]"
+                : "border-[var(--theme-secondary)]",
+              "group-aria-[current=true]:border-[var(--theme-primary)] group-aria-[current=true]:bg-[var(--theme-primary)]",
+            )}
+            style={{ left: "1.5rem", transform: "translateX(-50%)" }}
+          />
+        </button>
+        <AnchoredTooltip placement="right">
           {marker.label}
-        </span>
-      ) : (
+        </AnchoredTooltip>
+      </div>
+    ) : (
+      <button
+        key={marker.id}
+        type="button"
+        data-section-id={marker.id}
+        title={`Siirry osioon: ${marker.label}`}
+        aria-label={`Siirry osioon: ${marker.label}`}
+        aria-current={marker.isActive ? "true" : undefined}
+        onClick={handleMarkerClick}
+        className={cn(
+          "group absolute -translate-y-1/2 cursor-pointer transition-colors",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:ring-offset-2",
+          "focus-visible:ring-offset-[var(--theme-bg)] aria-[current=true]:text-[var(--theme-primary)]",
+          "left-0 flex w-full items-center text-left pl-[2.625rem]",
+        )}
+        style={{ top: `${marker.topPercent}%` }}
+      >
+        <span
+          className={cn(
+            "absolute h-3 w-3 shrink-0 rounded-full border bg-[var(--theme-bg)]",
+            marker.isScrolledPast
+              ? "border-[var(--theme-primary)]"
+              : "border-[var(--theme-secondary)]",
+            "group-aria-[current=true]:border-[var(--theme-primary)] group-aria-[current=true]:bg-[var(--theme-primary)]",
+          )}
+          style={{ left: "1.5rem", transform: "translateX(-50%)" }}
+        />
         <span className="text-sm font-semibold">{marker.label}</span>
-      )}
-    </button>
-  ));
+      </button>
+    ),
+  );
 });
 
 export function ArticleProgressNavigator({
@@ -124,14 +153,18 @@ export function ArticleProgressNavigator({
     () =>
       sections.map((section, index) => {
         const fallbackTopPercent = markerCount <= 1 ? 0 : (index / Math.max(markerCount - 1, 1)) * 100;
+        const topPercent = markerPositions?.[section.id] ?? fallbackTopPercent;
+        const isActive = section.id === activeSectionId;
+        const isScrolledPast = !isActive && topPercent < boundedProgress;
         return {
           id: section.id,
           label: section.label,
-          isActive: section.id === activeSectionId,
-          topPercent: markerPositions?.[section.id] ?? fallbackTopPercent,
+          isActive,
+          isScrolledPast,
+          topPercent,
         };
       }),
-    [activeSectionId, markerCount, markerPositions, sections],
+    [activeSectionId, boundedProgress, markerCount, markerPositions, sections],
   );
 
   return (
@@ -148,10 +181,13 @@ export function ArticleProgressNavigator({
         className="relative"
         style={{ height: typeof resolvedRailHeight === "number" ? `${resolvedRailHeight}px` : resolvedRailHeight }}
       >
-        <div className="absolute ml-6 top-0 h-full w-1 -translate-x-1/2 rounded-full bg-[var(--theme-secondary)]/30" />
         <div
-          className="absolute ml-6 top-0 h-full w-1 -translate-x-1/2 rounded-full bg-[var(--theme-primary)] origin-top transform-gpu transition-transform duration-150"
-          style={{ transform: `translateX(-50%) scaleY(${boundedProgress / 100})` }}
+          className="absolute top-0 h-full w-1 rounded-full bg-[var(--theme-secondary)]/30"
+          style={{ left: "1.5rem", transform: "translateX(-50%)" }}
+        />
+        <div
+          className="absolute top-0 h-full w-1 rounded-full bg-[var(--theme-primary)] origin-top transform-gpu transition-transform duration-150"
+          style={{ left: "1.5rem", transform: `translateX(-50%) scaleY(${boundedProgress / 100})` }}
         />
         <ArticleProgressMarkers
           markers={markers}

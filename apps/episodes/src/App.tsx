@@ -1,6 +1,6 @@
 import {
   mapSectionOffsetsToProgressPositions,
-  resolveActiveSectionId,
+  resolveActiveSectionFromProgress,
 } from "@repo/ui/components/article-navigation-utils";
 import {
   ARTICLE_JUMP_EVENT,
@@ -176,14 +176,15 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
       }));
 
       const nextProgress = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
-      const nextActiveSectionId = resolveActiveSectionId(
-        scrollY + scrollRoot.clientHeight * 0.3,
-        sectionOffsets,
-      );
       const nextMarkerPositions = mapSectionOffsetsToProgressPositions(
         sectionOffsets,
         0,
         scrollRoot.scrollHeight,
+      );
+      const nextActiveSectionId = resolveActiveSectionFromProgress(
+        nextProgress,
+        renderedSections.map((s) => s.id),
+        nextMarkerPositions,
       );
 
       dispatchProgress({

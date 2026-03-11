@@ -29,11 +29,16 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
                 )}
                 {backgroundImageSrc && (
                     <>
-                        <img
+                        <ImageElement
                             src={backgroundImageSrc}
-                            alt={backgroundImageAlt}
-                            aria-hidden={backgroundImageAlt.length === 0}
-                            className="absolute inset-0 h-full w-full object-cover"
+                            alt={backgroundImageAlt || "Hero-kuva"}
+                            variant="secondary"
+                            sizes="100vw"
+                            enableModal={false}
+                            loading="eager"
+                            decoding="async"
+                            className="absolute inset-0 rounded-none border-0 overflow-hidden"
+                            imgClassName="absolute inset-0 h-full w-full object-cover"
                         />
                         <div
                             aria-hidden="true"
@@ -62,6 +67,7 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
                             src={backgroundImageSrc}
                             alt={backgroundImageAlt || "Hero-kuva"}
                             variant="thumbnail"
+                            sizes="56px"
                             loading="lazy"
                         />
                     </div>

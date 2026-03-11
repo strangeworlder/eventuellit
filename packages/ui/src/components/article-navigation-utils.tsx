@@ -95,6 +95,20 @@ export function resolveActiveSectionId(
   return activeId ?? sectionOffsets[0]?.id;
 }
 
+export function resolveActiveSectionFromProgress(
+  progress: number,
+  sectionIds: string[],
+  markerPositions: Record<string, number>,
+): string | undefined {
+  let activeId: string | undefined;
+  for (const id of sectionIds) {
+    if ((markerPositions[id] ?? 0) <= progress) {
+      activeId = id;
+    }
+  }
+  return activeId ?? sectionIds[0];
+}
+
 export function mapSectionOffsetsToProgressPositions(
   sectionOffsets: Array<{ id: string; top: number }>,
   contentStartY: number,

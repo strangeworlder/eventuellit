@@ -127,6 +127,14 @@ const normalizeImageSrc = (src: string): string => {
   return `${componentOrigin}${normalizedPath}`;
 };
 
+const decodeSafe = (value: string): string => {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+
 /**
  * Lightweight, themed image primitive for editorial/media usage.
  * Supports responsive <picture> sources and a blur placeholder while loading.
@@ -185,14 +193,37 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     const resolvedWidth = width ?? manifestEntry?.width;
     const resolvedHeight = height ?? manifestEntry?.height;
     const normalizedSrc = React.useMemo(() => normalizeImageSrc(src), [src]);
+    const sortedManifestVariants = React.useMemo(() => {
+      if (!manifestEntry) {
+        return [];
+      }
+      return [...manifestEntry.variants].sort((a, b) => a.width - b.width);
+    }, [manifestEntry]);
+    const smallestManifestJpg = React.useMemo(() => {
+      if (!manifestOrigin || sortedManifestVariants.length === 0) {
+        return undefined;
+      }
+      return resolveAssetUrlFromOrigin(manifestOrigin, sortedManifestVariants[0].jpg);
+    }, [manifestOrigin, sortedManifestVariants]);
+    const largestManifestJpg = React.useMemo(() => {
+      if (!manifestOrigin || sortedManifestVariants.length === 0) {
+        return undefined;
+      }
+      return resolveAssetUrlFromOrigin(
+        manifestOrigin,
+        sortedManifestVariants[sortedManifestVariants.length - 1].jpg,
+      );
+    }, [manifestOrigin, sortedManifestVariants]);
+    const shouldAutoResolveSrc = Boolean(
+      manifestEntry && manifestOrigin && sources.length === 0 && smallestManifestJpg,
+    );
     const resolvedSrc = React.useMemo(() => {
-      if (manifestEntry && manifestOrigin && manifestEntry.variants.length > 0) {
-        const sorted = [...manifestEntry.variants].sort((a, b) => a.width - b.width);
-        const largest = sorted[sorted.length - 1];
-        return resolveAssetUrlFromOrigin(manifestOrigin, largest.jpg);
+      if (shouldAutoResolveSrc && smallestManifestJpg) {
+        return smallestManifestJpg;
       }
       return normalizedSrc;
-    }, [manifestEntry, manifestOrigin, normalizedSrc]);
+    }, [shouldAutoResolveSrc, smallestManifestJpg, normalizedSrc]);
+    const modalSrc = largestManifestJpg ?? resolvedSrc;
     const openModal = React.useCallback(() => {
       if (!enableModal) {
         return;
@@ -237,7 +268,8 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
 
       const pathname = parsedUrl.pathname;
       const filename = pathname.split("/").pop() ?? "";
-      const extensionless = filename.replace(/\.[^.]+$/, "");
+      const decodedFilename = decodeSafe(filename);
+      const extensionless = decodedFilename.replace(/\.[^.]+$/, "");
       const key = normalizeKey(extensionless || src);
       const origin = parsedUrl.origin;
       const manifestUrl = `${origin}/images/manifest.json`;
@@ -322,7 +354,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
                   <Icon name="x" />
                 </Button>
                 <img
-                  src={resolvedSrc}
+                  src={modalSrc}
                   alt={alt}
                   className="max-h-[80vh] w-full rounded-md object-contain"
                 />
@@ -339,6 +371,40 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
             document.body,
           )
         : null;
+
+    const pictureContent = (
+      <picture
+        className={cn("block", {
+          "h-full w-full": variant === "thumbnail",
+        })}
+      >
+        {resolvedSources.map((source) => (
+          <source
+            key={`${source.type}-${source.srcSet}`}
+            srcSet={source.srcSet}
+            type={source.type}
+            sizes={sizes}
+          />
+        ))}
+        <img
+          ref={imgRef}
+          src={resolvedSrc}
+          sizes={sizes}
+          alt={alt}
+          loading={loading}
+          decoding={decoding}
+          width={resolvedWidth}
+          height={resolvedHeight}
+          onLoad={() => setIsLoaded(true)}
+          className={cn(
+            "h-full w-full object-cover transition-opacity duration-300",
+            variant === "thumbnail" && "h-full w-full",
+            isLoaded ? "opacity-100" : "opacity-0",
+            imgClassName,
+          )}
+        />
+      </picture>
+    );
 
     return (
       <ThemeContext.Provider value={childTheme}>
@@ -385,51 +451,26 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
             />
           )}
 
-          <button
-            ref={triggerRef}
-            type="button"
-            onClick={openModal}
-            className={cn(
-              "group rounded-xl overflow-hidden block w-full text-left transition-transform duration-200 ease-out",
-              variant === "thumbnail" && "h-full w-full rounded-lg",
-              enableModal &&
+          {enableModal ? (
+            <button
+              ref={triggerRef}
+              type="button"
+              onClick={openModal}
+              className={cn(
+                "group rounded-xl overflow-hidden block w-full text-left transition-transform duration-200 ease-out",
+                variant === "thumbnail" && "h-full w-full rounded-lg",
                 "cursor-zoom-in hover:scale-[1.02] hover:rotate-[0.25deg] focus-visible:scale-[1.012] focus-visible:rotate-[0.5deg]",
-            )}
-            aria-label={enableModal ? `Avaa kuva suurempana: ${safeAlt}` : undefined}
-            aria-haspopup={enableModal ? "dialog" : undefined}
-          >
-            <picture
-              className={cn("block", {
-                "h-full w-full": variant === "thumbnail",
-              })}
+              )}
+              aria-label={`Avaa kuva suurempana: ${safeAlt}`}
+              aria-haspopup="dialog"
             >
-              {resolvedSources.map((source) => (
-                <source
-                  key={`${source.type}-${source.srcSet}`}
-                  srcSet={source.srcSet}
-                  type={source.type}
-                  sizes={sizes}
-                />
-              ))}
-              <img
-                ref={imgRef}
-                src={resolvedSrc}
-                sizes={sizes}
-                alt={alt}
-                loading={loading}
-                decoding={decoding}
-                width={resolvedWidth}
-                height={resolvedHeight}
-                onLoad={() => setIsLoaded(true)}
-                className={cn(
-                  "h-full w-full object-cover transition-opacity duration-300",
-                  variant === "thumbnail" && "h-full w-full",
-                  isLoaded ? "opacity-100" : "opacity-0",
-                  imgClassName,
-                )}
-              />
-            </picture>
-          </button>
+              {pictureContent}
+            </button>
+          ) : (
+            <div className={cn("rounded-xl overflow-hidden block w-full", variant === "thumbnail" && "h-full w-full rounded-lg")}>
+              {pictureContent}
+            </div>
+          )}
 
           {caption && (
             <figcaption

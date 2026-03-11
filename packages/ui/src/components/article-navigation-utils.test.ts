@@ -5,6 +5,7 @@ import {
   createUniqueHeadingId,
   extractH3SectionsFromMarkdown,
   mapSectionOffsetsToProgressPositions,
+  resolveActiveSectionFromProgress,
   resolveActiveSectionId,
   slugifyHeadingLabel,
 } from "./article-navigation-utils";
@@ -83,5 +84,25 @@ describe("article navigation utils", () => {
 
     expect(positions["viimeinen-h3"]).toBe(50);
     expect(calculateArticleProgress(1200, 200, 1200)).toBe(100);
+  });
+
+  it("resolves active section from progress when before first marker", () => {
+    const markers = { alku: 5, keskiosa: 30, loppu: 60 };
+    expect(resolveActiveSectionFromProgress(0, ["alku", "keskiosa", "loppu"], markers)).toBe("alku");
+    expect(resolveActiveSectionFromProgress(3, ["alku", "keskiosa", "loppu"], markers)).toBe("alku");
+  });
+
+  it("resolves active section from progress when between markers", () => {
+    const markers = { alku: 10, keskiosa: 30, loppu: 60 };
+    expect(resolveActiveSectionFromProgress(50, ["alku", "keskiosa", "loppu"], markers)).toBe("keskiosa");
+  });
+
+  it("resolves last section as active at 100% progress", () => {
+    const markers = { alku: 10, keskiosa: 30, loppu: 60 };
+    expect(resolveActiveSectionFromProgress(100, ["alku", "keskiosa", "loppu"], markers)).toBe("loppu");
+  });
+
+  it("returns undefined for empty sections", () => {
+    expect(resolveActiveSectionFromProgress(50, [], {})).toBeUndefined();
   });
 });
