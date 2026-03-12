@@ -4,6 +4,7 @@ const TOP_LEVEL_ROUTE_TITLES: Record<string, string> = {
   generator: "Hahmopaja",
   ruleset: "Säännöt",
   episodes: "Jaksot",
+  world: "Maailma",
 };
 
 const toTitleCase = (value: string) =>

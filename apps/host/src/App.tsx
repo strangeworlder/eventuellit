@@ -17,7 +17,7 @@ import {
   SidebarItem,
 } from "@repo/ui/components/Sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BookOpen, LogIn, LogOut, MapIcon, Menu, UserCircle } from "lucide-react";
+import { BookOpen, Globe, LogIn, LogOut, MapIcon, Menu, UserCircle } from "lucide-react";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -37,6 +37,7 @@ import { Dice5 } from "lucide-react";
 const GeneratorApp = React.lazy(() => import("generator/App"));
 const RulesetApp = React.lazy(() => import("ruleset/App"));
 const EpisodesApp = React.lazy(() => import("episodes/App"));
+const WorldApp = React.lazy(() => import("world/App"));
 const DEFAULT_BURGER_HEIGHT_PX = 48;
 const BURGER_TOP_OFFSET_PX = 16;
 const PROGRESS_HEADING_GAP_PX = 12;
@@ -63,7 +64,9 @@ function AppContent() {
       ? "ruleset"
       : location.pathname.startsWith("/episodes")
         ? "episodes"
-        : "home";
+        : location.pathname.startsWith("/world")
+          ? "world"
+          : "home";
 
   useEffect(() => {
     document.title = buildDocumentTitle(location.pathname);
@@ -80,7 +83,9 @@ function AppContent() {
 
   useEffect(() => {
     const activeSource: ArticleProgressSource | null =
-      activeView === "ruleset" || activeView === "episodes" ? activeView : null;
+      activeView === "ruleset" || activeView === "episodes" || activeView === "world"
+        ? activeView
+        : null;
     const activeRoutePrefix = activeSource ? `/${activeSource}` : null;
 
     const isPayloadForActiveView = (payload: ArticleProgressPayload) => {
@@ -113,7 +118,7 @@ function AppContent() {
   }, [activeView]);
 
   useEffect(() => {
-    if (activeView !== "ruleset" && activeView !== "episodes") {
+    if (activeView !== "ruleset" && activeView !== "episodes" && activeView !== "world") {
       setArticleProgress(null);
     }
   }, [activeView]);
@@ -284,6 +289,13 @@ function AppContent() {
           >
             Jaksot
           </SidebarItem>
+          <SidebarItem
+            icon={<Globe size={20} />}
+            active={activeView === "world"}
+            onClick={() => navigate("/world")}
+          >
+            Maailma
+          </SidebarItem>
         </SidebarContent>
 
         <SidebarFooter>
@@ -351,9 +363,14 @@ function AppContent() {
                 Eventuellit: Jaksot
               </Heading>
             )}
+            {activeView === "world" && (
+              <Heading as="h1" className="m-0">
+                Eventuellit: Maailma
+              </Heading>
+            )}
           </header>
 
-          {(activeView === "ruleset" || activeView === "episodes") && articleProgress && (
+          {(activeView === "ruleset" || activeView === "episodes" || activeView === "world") && articleProgress && (
             <div
               className="z-30"
               style={{
@@ -407,6 +424,7 @@ function AppContent() {
                 />
                 <Route path="/ruleset/*" element={<RulesetApp />} />
                 <Route path="/episodes/*" element={<EpisodesApp />} />
+                <Route path="/world/*" element={<WorldApp />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
