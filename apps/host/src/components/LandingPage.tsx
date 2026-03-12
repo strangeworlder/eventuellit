@@ -11,10 +11,10 @@ export function LandingPage() {
             <HeadingLevelContext.Provider value={1}>
                 <div className="text-center mb-16 space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
 
-                    <Heading className="text-5xl tablet:text-7xl font-black tracking-tighter">
+                    <Heading className="text-3xl mobile:text-5xl tablet:text-7xl font-black tracking-tighter">
                         EVENTUELLIT
                     </Heading>
-                    <p className="text-xl text-[var(--theme-text)] max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-md mobile:text-xl text-[var(--theme-text)] max-w-2xl mx-auto leading-relaxed">
                         Kaikki mitä tarvitset seuraavaan roolipelisessioosi.
                         Luo hahmoja, tarkista säännöt ja uppoudu tarinaan.
                     </p>

@@ -29,28 +29,22 @@ Toiminta ratkeaa **akseleilla**, jotka kuvaavat tehtävän eri ulottuvuuksia. Pe
 1. `NOPPIEN JAKO`: Päätä, miten priorisoit toimintasi. Voit asettaa useita noppia yhdelle akselille tai jättää akselin ilman noppia.
 2. `TYHJÄT AKSELIT`: Jos jätät akselin ilman noppia, hahmosi epäonnistuu kyseisellä osa-alueella automaattisesti.
 3. `LUE TULOS`: Heitä nopat. Akselin tulos on sille asetettujen noppien suurin yksittäinen silmäluku.
-4. `ONNISTUMISKYNNYS (OK)`: Akseli onnistuu, jos tulos on yhtä suuri tai korkeampi kuin **onnistumiskynnys**. Oletusarvo on **13**.
-5. `OSUMAT`: Jos säännöt tai pelinjohtaja pyytää **osumia**, laske kuinka moni akselille asetetuista nopista saavuttaa tai ylittää onnistumiskynnyksen.
+4. `ONNISTUMISKYNNYS (OK)`: Akseli onnistuu, jos tulos on yhtä suuri tai korkeampi kuin **onnistumiskynnys**. Oletusarvo on **13**. Pelinjohtaja voi pyytää heittoa korkeammalla tai matalammalla onnistumiskynnyksellä.
 
-#### Vaikeusasteet
-
-Käytä oletusarvoa **13** onnistumiskynnykselle, ellei pelinjohtaja erikseen ilmoita jotain muuta onnistumiskynnystä.
-
-* **Helppo (OK 9)**: Olosuhteet ovat huomattavan suotuisat.  
-* **Vakio (OK 13)**: Normaali haastava suoritus paineen alla.  
-* **Vaikea (OK 17)**: Tilanne on lähes mahdoton ilman erityisosaamista tai onnea.
+##### Osumat 
+Jos säännöt vaativat tai pelinjohtaja pyytää sinua laskemaan **osumia** onnistumisen sijaan, tulos on kuinka moni akselille asetetuista nopista saavuttaa tai ylittää onnistumiskynnyksen.
 
 ##### Tuplat (Kriittinen onnistuminen)
 
-Jos onnistut akselilla ja vähintään kaksi sille heitettyä noppaa näyttää samaa silmälukua, saavutat **kriittisen onnistumisen**. Saat lisätietoa, teet enemmän vauriota tai luot merkittävän edun. Pelinjohtaja voi päättää, että kriittinen onnistuminen kompensoi epäonnistumista heiton toisella akselilla.
+Jos onnistut akselilla ja vähintään kaksi sille heitettyä noppaa näyttää samaa silmälukua, saavutat **kriittisen onnistumisen**. Saat lisätietoa, teet enemmän vauriota tai luot merkittävän edun. Pelinjohtaja voi päättää, että kriittinen onnistuminen kompensoi epäonnistumista heiton toisella akselilla. Samaa silmälukua näyttävien noppien ei tarvitse ylittää onnistumiskynnystä, mutta heiton itsessään on onnistuttava.
 
 #### Avustaminen
 
-Yksi hahmo voi auttaa toista suorituksessa pelinjohtajan suostumuksella. Avustaja tekee heiton sopivalla akselilla. Onnistunut heitto lisää pääsuorittajan noppakouraan yhden nopan (`+1n20`) tämän seuraavaan heittoon. Maksimissaan yksi noppa lisää per heitto.
+Yksi hahmo voi auttaa toista suorituksessa pelinjohtajan suostumuksella. Avustaja tekee heiton sopivalla akselilla. Onnistunut heitto antaa pääsuorittajan noppakouraan yhden nopan (`+1n20`) tämän seuraavaan heittoon. Maksimissaan yksi noppa lisää per heitto.
 
 #### Ryhmätoiminta
 
-Kun koko ryhmä toimii yhdessä (esim. pako tai joukkohiipailu), kaikki osallistujat jakavat noppansa yhteisille akseleille. Akselit vaativat tietyn määrän onnistumisia ryhmältä (yleensä jotain yhden ja yrittävien hahmojen määrän välillä), että koko akseli on onnistuminen.
+Kun koko ryhmä toimii yhdessä (esim. pako tai joukkohiippailu), kaikki osallistujat jakavat noppansa yhteisille akseleille. Akselit vaativat tietyn määrän onnistumisia ryhmältä (yleensä jotain yhden ja yrittävien hahmojen määrän välillä), että koko akseli on onnistuminen.
 
 ### 2\. Hahmo ja ominaisuudet
 

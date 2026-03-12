@@ -22,7 +22,7 @@ export const GameTerm = React.forwardRef<HTMLElement, GameTermProps>(
                 ref={ref}
                 className={cn(
                     {
-                        "text-[var(--theme-accent)]": variant === "default" || variant === "accent",
+                        "[color:color-mix(in_srgb,var(--theme-accent)_40%,var(--theme-text))] font-black": variant === "default" || variant === "accent",
                         "text-[var(--theme-primary)]": variant === "primary",
                         "text-[var(--theme-primary)] font-black uppercase tracking-widest ml-1": variant === "label",
                     },
