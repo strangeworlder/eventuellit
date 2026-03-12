@@ -21,6 +21,7 @@ The monorepo structure is expected to follow this pattern:
 - `apps/generator`: Character generator Micro Frontend (protected by authentication).
 - `apps/ruleset`: Ruleset documentation Micro Frontend.
 - `apps/episodes`: Episode journal Micro Frontend.
+- `apps/world`: World-building Micro Frontend (locations, factions, NPCs). Port 3005.
 - `apps/server`: NestJS backend API.
 - `packages/ui`: Shared React/Tailwind design system components visualized through Storybook.
 - `packages/auth`: Shared authentication hooks and API wrappers for MFEs.
@@ -43,7 +44,8 @@ The monorepo structure is expected to follow this pattern:
 - Browser tab title ownership stays in `apps/host`: derive `document.title` from the current router pathname so nested routes in any mounted microfrontend still show contextual location in the tab.
 - Article MFEs publish rail `sections` and heading offsets from rendered `h3[id]` DOM nodes (not markdown re-parsing) so clickable rail IDs always match the live anchors.
 - In the host left lane, the rail should fade in only after the rotated host `h1` has visually scrolled away; avoid scroll-in motion of the rail itself to reduce scroll-driven layout churn.
-- Host progress-event consumption must be backward-compatible across independently deployed MFEs: prefer `payload.source` matching, but allow route-prefix fallback (`/ruleset` or `/episodes`) when source values drift between deployments.
+- Host progress-event consumption must be backward-compatible across independently deployed MFEs: prefer `payload.source` matching, but allow route-prefix fallback (`/ruleset`, `/episodes`, or `/world`) when source values drift between deployments.
+- `apps/world` follows the same article MFE pattern as `ruleset` and `episodes`: markdown glob loading, frontmatter parsing, `ArticleProgressSource` event publishing, and `ARTICLE_JUMP_EVENT` consumption. New content MFEs that need the progress rail must add their source name to `ArticleProgressSource` in `packages/ui/src/components/article-progress-events.tsx` and the host's `activeView` / progress-filter logic in `apps/host/src/App.tsx`.
 
 ## State Management
 Current implementation uses:

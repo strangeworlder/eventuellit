@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
           generator: `${env.VITE_GENERATOR_URL || "http://localhost:3001"}/assets/remoteEntry.js`,
           ruleset: `${env.VITE_RULESET_URL || "http://localhost:3002"}/assets/remoteEntry.js`,
           episodes: `${env.VITE_EPISODES_URL || "http://localhost:3004"}/assets/remoteEntry.js`,
+          world: `${env.VITE_WORLD_URL || "http://localhost:3005"}/assets/remoteEntry.js`,
         },
         shared: ["react", "react-dom", "react-router-dom"],
       }),
