@@ -15,6 +15,7 @@ import { Page } from "@repo/ui/components/Page";
 import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
 import { useEffect, useRef } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { StationConnections } from "@repo/ui/components/StationConnections";
 
 // Lightweight frontmatter parser
 function parseFrontmatter(md: string) {
@@ -55,13 +56,15 @@ const modules = import.meta.glob("./content/**/*.md", {
   import: "default",
 });
 
-interface WorldEntry {
+export interface WorldEntry {
   id: string;
   title: string;
   order: number;
   content: string;
   description?: string;
   category?: string;
+  connections?: string;
+  tension?: string;
 }
 
 const entries: WorldEntry[] = Object.entries(modules)
@@ -78,11 +81,21 @@ const entries: WorldEntry[] = Object.entries(modules)
       description: data.description || "",
       content,
       category: data.category || "",
+      connections: data.connections || "",
+      tension: data.tension || "",
     };
   })
   .sort((a, b) => a.order - b.order);
 
-function WorldEntryView({ entry }: { entry: WorldEntry }) {
+function WorldEntryView({
+  entry,
+  entries,
+  basePath,
+}: {
+  entry: WorldEntry;
+  entries: WorldEntry[];
+  basePath: string;
+}) {
   const { pathname } = useLocation();
   const articleRef = useRef<HTMLDivElement>(null);
 
@@ -179,6 +192,14 @@ function WorldEntryView({ entry }: { entry: WorldEntry }) {
             </MarkdownRenderer>
           </HeadingLevelProvider>
         </div>
+        {entry.category === "asema" && entry.connections && (
+          <StationConnections
+            connections={entry.connections}
+            tension={entry.tension}
+            stations={entries}
+            basePath={basePath}
+          />
+        )}
       </HeadingLevelProvider>
     </div>
   );
@@ -219,7 +240,7 @@ function App() {
                 <Route
                   key={entry.id}
                   path={entry.id}
-                  element={<WorldEntryView entry={entry} />}
+                  element={<WorldEntryView entry={entry} entries={entries} basePath={basePath} />}
                 />
               ))}
             </Routes>
