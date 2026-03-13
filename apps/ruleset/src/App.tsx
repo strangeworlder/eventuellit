@@ -303,7 +303,7 @@ function RulesetArticleView({ page }: { page: MarkdownPage }) {
                       <ImageElement
                         src={imageUrl}
                         alt={`${page.title} kuvitus ${index + 2}`}
-                        variant="secondary"
+                        variant="inline"
                         sizes="(max-width: 768px) 100vw, 42rem"
                         className="w-full max-w-2xl mx-auto"
                         imgClassName="max-h-[24rem]"

@@ -32,7 +32,7 @@ export interface ImageElementProps
   "data-theme"?: string;
   src: string;
   alt: string;
-  variant?: "primary" | "secondary" | "accent" | "thumbnail";
+  variant?: "primary" | "secondary" | "accent" | "thumbnail" | "inline";
   theme?: Theme;
   sources?: ImageSource[];
   sizes?: string;
@@ -158,11 +158,12 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
       imgClassName,
       width,
       height,
-      enableModal = true,
+      enableModal,
       ...props
     },
     ref,
   ) => {
+    const isModalEnabled = enableModal ?? variant !== "inline";
     const safeAlt = alt.trim() || "Kuva";
     const [isLoaded, setIsLoaded] = React.useState(false);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -225,13 +226,13 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     }, [shouldAutoResolveSrc, smallestManifestJpg, normalizedSrc]);
     const modalSrc = largestManifestJpg ?? resolvedSrc;
     const openModal = React.useCallback(() => {
-      if (!enableModal) {
+      if (!isModalEnabled) {
         return;
       }
       setModalDataTheme(resolveNearestDataTheme(triggerRef.current));
       previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
       setIsModalOpen(true);
-    }, [enableModal]);
+    }, [isModalEnabled]);
     const closeModal = React.useCallback(() => {
       setIsModalOpen(false);
     }, []);
@@ -421,6 +422,9 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               // Secondary follows supporting component semantics.
               "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
                 variant === "secondary",
+              // Inline is optimized for article flow and does not open modal by default.
+              "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
+                variant === "inline",
               // Accent mirrors the DS accent framing pattern.
               "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
                 variant === "accent",
@@ -445,13 +449,14 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               aria-hidden="true"
               className={cn("absolute inset-0 animate-pulse", {
                 "bg-[var(--theme-primary)]/10": variant === "primary",
-                "bg-[var(--theme-secondary)]/20": variant === "secondary" || variant === "thumbnail",
+                "bg-[var(--theme-secondary)]/20":
+                  variant === "secondary" || variant === "thumbnail" || variant === "inline",
                 "bg-[var(--theme-accent)]/15": variant === "accent",
               })}
             />
           )}
 
-          {enableModal ? (
+          {isModalEnabled ? (
             <button
               ref={triggerRef}
               type="button"
@@ -478,7 +483,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
                 "border-[var(--theme-primary)]/20 text-[var(--theme-text)]/80":
                   variant === "primary",
                 "border-[var(--theme-secondary)]/30 text-[var(--theme-secondary)]":
-                  variant === "secondary",
+                  variant === "secondary" || variant === "inline",
                 "border-[var(--theme-accent)]/40 text-[var(--theme-accent)] font-semibold":
                   variant === "accent",
               })}

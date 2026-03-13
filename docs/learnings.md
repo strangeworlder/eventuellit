@@ -166,6 +166,11 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 **Issue:** Default Tailwind breakpoint prefixes (`sm/md/lg/xl/2xl`) remained in multiple `packages/ui/src/components` files even though project rules require custom breakpoint names, and mirrored strings in `packages/ui/storybook-static` can mislead edits.
 **Action:** Migrate responsive classes in source files using the mapping `sm->mobile`, `md->tablet`, `lg->desktop`, `xl->x-wide`, `2xl->xx-wide` (and matching `max-*` variants when present). Do not hand-edit `storybook-static`; regenerate it from updated source when publishing Storybook outputs.
 
+### 33) Ruleset Inline Article Images Should Not Open Lightbox Modals
+**Date:** 2026-03-13
+**Issue:** Opening full-size modals from in-flow rules text images interrupts long-form reading and introduces extra interaction noise for purely illustrative content.
+**Action:** Added `ImageElement` `variant="inline"` in `@repo/ui`, which disables modal opening by default while keeping shared responsive/manifest behavior; `apps/ruleset` markdown section images now use this inline variant.
+
 ---
 
 ## Purge Ledger
