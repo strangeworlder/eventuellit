@@ -27,6 +27,9 @@ out/
 build
 dist
 
+# Claude
+.claude
+.clone
 
 # Debug
 npm-debug.log*
