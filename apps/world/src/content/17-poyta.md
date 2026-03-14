@@ -11,12 +11,12 @@ tension: "Matala"
 
 Pöytä on paikka, jossa viholliset istuvat ja puhuvat. Sovittelijat ovat rakentaneet tähän vanhan kauppakeskuksen raunioille neutraalin vyöhykkeen, jossa Kynnyksen fraktioiden edustajat voivat kohdata ilman, että aseita tarvitaan heti. Täällä syntyy sopimuksia — ja ne myös rikkoutuvat tässä.
 
-Aseveljet häiritsevät: heille rauha neuvottelemalla on luovutus toisella nimellä.
+Ratasvartio häiritsee: heille rauha neuvottelemalla on luovutus toisella nimellä.
 
 ### Hallinta
 
-**Hallitseva fraktio:** Sovittelijat
-**Häiritsevä fraktio:** Aseveljet
+**Hallitseva faktio:** Sovittelijat
+**Häiritsevä faktio:** Ratasvartio
 **Jännite:** Matala
 
 ### Palvelut

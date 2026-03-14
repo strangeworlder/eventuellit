@@ -15,8 +15,8 @@ Reunalla Kilpi on harvinaisessa asemassa, sillä se tuo aurinkokuntaan ulkopuole
 
 ### Hallinta
 
-**Hallitseva fraktio:** Aseveljet
-**Häiritsevä fraktio:** Spektaakkeli
+**Hallitseva faktio:** Ratasvartio
+**Häiritsevä faktio:** Pyhän Tragedian lapset
 **Jännite:** Murtunut
 
 KW-konsortiumin Ratasvartio-erikoisjoukot hallitsevat Kilven betonibunkkereita omasta keskushallinnostaan aikaa sitten vieraantuneena itsenäisenä paikallisena tyranniana. He ylläpitävät mekaanista järjestystä ja sotilaallisia rutiineja vailla jatkuvaa yhteyttä KW:n ylempiin elimiin.

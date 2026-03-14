@@ -11,12 +11,12 @@ tension: "Korkea"
 
 Laki on paikka, jossa asiat ratkaistaan virallisesti. Argumentaattorit ovat ottaneet vanhan oikeustaloperinnön omakseen — jokainen riita, jokainen sopimus, jokainen syytös käsitellään täällä julkisesti ja protokollan mukaisesti. Tai ainakin niin pitäisi olla.
 
-Spektaakkeli on löytänyt Laissa mahdollisuuden: oikeudenkäynneistä on tullut viihdettä. Syytettyjen puolustuspuheet keräävät yleisöä, tuomiot julkistetaan seremonioilla. Argumentaattorit ovat huolissaan, mutta yleisöä riittää.
+Pyhän Tragedian lapset on löytänyt Laissa mahdollisuuden: oikeudenkäynneistä on tullut viihdettä. Syytettyjen puolustuspuheet keräävät yleisöä, tuomiot julkistetaan seremonioilla. Argumentaattorit ovat huolissaan, mutta yleisöä riittää.
 
 ### Hallinta
 
-**Hallitseva fraktio:** Argumentaattorit
-**Häiritsevä fraktio:** Spektaakkeli
+**Hallitseva faktio:** Argumentaattorit
+**Häiritsevä faktio:** Pyhän Tragedian lapset
 **Jännite:** Korkea
 
 ### Palvelut
