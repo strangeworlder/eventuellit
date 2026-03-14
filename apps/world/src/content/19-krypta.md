@@ -15,8 +15,8 @@ Pääsy on teknisesti avoin, mutta Reliikinmetsästäjät tietävät tarkalleen 
 
 ### Hallinta
 
-**Hallitseva fraktio:** Reliikinmetsästäjät
-**Häiritsevä fraktio:** —
+**Hallitseva faktio:** Reliikinmetsästäjät
+**Häiritsevä faktio:** —
 **Jännite:** Matala
 
 ### Palvelut

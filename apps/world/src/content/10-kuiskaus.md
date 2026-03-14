@@ -1,7 +1,7 @@
 ---
 title: "Kuiskaus"
 order: 10
-description: "Polttopiste 2 — hajonnut viestintäkeskus ja tiedon solmupiste."
+description: "Polttopiste — hajonnut viestintäkeskus ja tiedon solmupiste."
 category: asema
 connections: "Seula, Verso, Siemen, Krypta"
 tension: "Murtunut"
@@ -15,8 +15,8 @@ Sovittelijat yrittävät avata Kuiskausta kaikille, koska heidän mielestään s
 
 ### Hallinta
 
-**Hallitseva fraktio:** Argumentaattorit
-**Häiritsevä fraktio:** Sovittelijat
+**Hallitseva faktio:** Argumentaattorit
+**Häiritsevä faktio:** Sovittelijat
 **Jännite:** Murtunut
 
 ### Palvelut

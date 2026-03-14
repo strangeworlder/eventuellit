@@ -15,8 +15,8 @@ Se on ainoa Kynnyksen asemista, jossa vallitsee lähes täydellinen rauha. Täm�
 
 ### Hallinta
 
-**Hallitseva fraktio:** KW-konsortio
-**Häiritsevä fraktio:** —
+**Hallitseva faktio:** KW-konsortio
+**Häiritsevä faktio:** —
 **Jännite:** Matala
 
 ### Palvelut

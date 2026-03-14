@@ -1,7 +1,7 @@
 ---
 title: "Kilpi"
 order: 9
-description: "Polttopiste 1 — rikkoutunut linnakeasema Kynnyksen reunalla."
+description: "Polttopiste — rikkoutunut linnakeasema Kynnyksen reunalla."
 category: asema
 connections: "Pöytä, Siemen"
 tension: "Murtunut"
@@ -11,7 +11,7 @@ tension: "Murtunut"
 
 Kilpi on yksi Kynnyksen reuna-asemista. Sen alkuperäinen tarkoitus oli toimia suojeluslinnakkeena jotain unohtunutta uhkaa vastaan. Muistona asema on muodoltaan kanavamainen — sen läpi kulkee mittava tyhjän nesteavaruuden alue, jonka läpi alusten on ollut lähes pakko kulkea päästäkseen Kynnyksen alueelle Kilven suunnalta. Kanavaa reunustaa joka suuntaan bunkkereita ja aseman luonne onkin moniin muihin nähden käänteinen — rakennukset osoittavat sisäänpäin, aseman ulkopinnan ollen tonneittain betonia ja tykkitorneja.
 
-Reunalla Kilpi on harvinaisessa asemassa, sillä se tuo aurinkokuntaan ulkopuolelta materiaa ja tarvikkeita. Kynnyksen toisella puolella on syvää avaruutta, jossa on raaka-aineita, aarteita ja hylkyjä. Niitä tuodaan Kilpeen, jossa ne käsitellään ja lähetetään eteenpäin.
+Reunalla Kilpi on harvinaisessa asemassa, sillä se tuo aurinkokuntaan sen ulkopuolelta materiaa ja tarvikkeita. Kynnyksen toisella puolella on syvää avaruutta, jossa on raaka-aineita, aarteita ja hylkyjä. Niitä tuodaan Kilpeen, jossa ne käsitellään ja lähetetään eteenpäin.
 
 ### Hallinta
 

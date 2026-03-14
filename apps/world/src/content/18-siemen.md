@@ -15,8 +15,8 @@ Kartoittajat häiritsevät, koska Siemenen arkistot sisältävät geologista ja 
 
 ### Hallinta
 
-**Hallitseva fraktio:** Kasvattajat
-**Häiritsevä fraktio:** Kartoittajat
+**Hallitseva faktio:** Kasvattajat
+**Häiritsevä faktio:** Kartoittajat
 **Jännite:** Matala
 
 ### Palvelut

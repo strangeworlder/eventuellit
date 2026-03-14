@@ -11,12 +11,12 @@ tension: "Matala"
 
 Alasin on paikka, jonne rikkinäiset alukset tuodaan joko korjattaviksi tai purettaviksi. KW-konsortion teollisuustelakka on täynnä hitsauksen kipinöitä, öljyn hajua ja miehiä, joilla on liian vähän unta ja liian paljon töitä. Asemaa pidetään suhteellisen vakaana — työtä riittää, eikä kenelläkään ole aikaa kapinointiin.
 
-Tuhkan puolue yrittää saada asemasta jalansijaa, koska telakan osaaminen olisi kriittistä heidän pidemmän tähtäimen suunnitelmilleen. KW-konsortio ei aio luopua hallinnastaan.
+Tuhkan puolueen populistit yrittävät saada asemasta jalansijaa, koska telakan osaaminen olisi kriittistä heidän pidemmän tähtäimen suunnitelmilleen. KW-konsortio ei aio luopua hallinnastaan.
 
 ### Hallinta
 
-**Hallitseva fraktio:** KW-konsortio
-**Häiritsevä fraktio:** Tuhkan puolue
+**Hallitseva faktio:** KW-konsortio
+**Häiritsevä faktio:** Tuhkan puolue
 **Jännite:** Matala
 
 ### Palvelut

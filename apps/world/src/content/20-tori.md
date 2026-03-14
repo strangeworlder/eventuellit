@@ -15,8 +15,8 @@ Asemalla ei ole virallisia häiriötekijöitä, koska kukaan ei halua virallises
 
 ### Hallinta
 
-**Hallitseva fraktio:** Romunkerääjät
-**Häiritsevä fraktio:** —
+**Hallitseva faktio:** Romunkerääjät
+**Häiritsevä faktio:** —
 **Jännite:** Matala
 
 ### Palvelut

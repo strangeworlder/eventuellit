@@ -15,8 +15,8 @@ Legendan Kertojat haluavat päästä käsiksi Verkon arkistoihin. Historia on he
 
 ### Hallinta
 
-**Hallitseva fraktio:** Kartoittajat
-**Häiritsevä fraktio:** Legendan Kertojat
+**Hallitseva faktio:** Kartoittajat
+**Häiritsevä faktio:** Legendan Kertojat
 **Jännite:** Korkea
 
 ### Palvelut

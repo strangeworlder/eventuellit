@@ -15,8 +15,8 @@ Kaksi Kynnyksen voimakkaimmista toimijoista jakaa aseman velvollisuudet ja voito
 
 ### Hallinta
 
-**Hallitseva fraktio:** Peräkunta
-**Häiritsevä fraktio:** KelloWerks
+**Hallitseva faktio:** Tuhkan puolue
+**Häiritsevä faktio:** KW-konsortio
 **Jännite:** Korkea
 
 Kilven tapahtumien jälkeen Verson tilanne on kiristynyt räjähdyspisteeseen. Jokin on muuttumassa — ja ne, jotka eivät kuulu kummankaan puolen ytimeen, näkevät nyt tilaisuuden.

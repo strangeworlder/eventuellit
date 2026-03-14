@@ -15,8 +15,8 @@ Argumentaattorit ovat jatkuvasti eri mieltä siitä, mitä Ikoni lähettää. Fa
 
 ### Hallinta
 
-**Hallitseva fraktio:** Legendan Kertojat
-**Häiritsevä fraktio:** Argumentaattorit
+**Hallitseva faktio:** Legendan Kertojat
+**Häiritsevä faktio:** Argumentaattorit
 **Jännite:** Matala
 
 ### Palvelut

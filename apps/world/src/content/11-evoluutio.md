@@ -1,7 +1,7 @@
 ---
 title: "Evoluutio"
 order: 11
-description: "Polttopiste 3 — hajonnut tutkimuskeskus, klinikka ja kybernetiikan basaari."
+description: "Polttopiste — hajonnut tutkimuskeskus, klinikka ja kybernetiikan basaari."
 category: asema
 connections: "Alasin, Siemen, Tori"
 tension: "Murtunut"
@@ -15,8 +15,8 @@ Aseman käytävillä myydään kyberneettisiä parannuksia, geneettisiä muutoks
 
 ### Hallinta
 
-**Hallitseva fraktio:** Legendan Kertojat
-**Häiritsevä fraktio:** Kasvattajat
+**Hallitseva faktio:** Legendan Kertojat
+**Häiritsevä faktio:** Kasvattajat
 **Jännite:** Murtunut
 
 ### Palvelut

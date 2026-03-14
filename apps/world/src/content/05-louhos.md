@@ -15,8 +15,8 @@ Reliikinmetsästäjät ovat ottaneet Louhoksen käytännössä omakseen. Vanhoje
 
 ### Hallinta
 
-**Hallitseva fraktio:** Neutraali
-**Häiritsevä fraktio:** Reliikinmetsästäjät
+**Hallitseva faktio:** Neutraali
+**Häiritsevä faktio:** Reliikinmetsästäjät
 **Jännite:** Murtunut
 
 ### Palvelut

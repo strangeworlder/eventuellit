@@ -15,8 +15,8 @@ Asema on kaksinainen: teollinen energialaitos ja meditatiivinen luostari rinnakk
 
 ### Hallinta
 
-**Hallitseva fraktio:** KW-konsortio
-**Häiritsevä fraktio:** Ekklesia
+**Hallitseva faktio:** KW-konsortio
+**Häiritsevä faktio:** Ekklesia
 **Jännite:** Korkea
 
 ### Palvelut
