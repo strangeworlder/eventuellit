@@ -172,7 +172,7 @@ export function StationConnections({
             })}
           </defs>
 
-          {nodes.map(({ title, x, y, station }) => {
+          {nodes.map(({ title, x, y }) => {
             const safeId = title.replace(/[^a-zA-Z0-9]/g, "_");
             return (
               <line
