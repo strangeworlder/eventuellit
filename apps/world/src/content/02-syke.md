@@ -9,17 +9,15 @@ tension: "Korkea"
 
 ### Yleiskuvaus
 
-Syke sykkii Kynnyksen sydämenä. Sen reaktorit syöttävät energiaa lähes kaikkialle muualle, mikä antaa KelloWerksille yliotteen neuvotteluissa — kuka tahansa, joka haluaa pitää valot päällä, on velkaa Sykkeelle. Tämä asema on myös Ekklesian yhä kasvavan läsnäolon taistelutanner.
+Syke sykkii Kynnyksen sydämenä. Sen reaktorit syöttävät energiaa lähes kaikkialle muualle, mikä antaa KW-konsortiolle yliotteen neuvotteluissa — kuka tahansa, joka haluaa pitää valot päällä, on velkaa Sykkeelle. Tämä asema on myös Ekklesian yhä kasvavan läsnäolon taistelutanner.
 
-Asema on kaksinainen: teollinen energialaitos ja meditatiivinen luostari rinnakkain. KelloWerksin insinöörit ja Ekklesian munkit kiertävät samoja käytäviä katsomatta toisiaan silmiin.
+Asema on kaksinainen: teollinen energialaitos ja meditatiivinen luostari rinnakkain. Konsortion insinöörit ja Ekklesian munkit kiertävät samoja käytäviä katsomatta toisiaan silmiin.
 
 ### Hallinta
 
-**Hallitseva fraktio:** KelloWerks
+**Hallitseva fraktio:** KW-konsortio
 **Häiritsevä fraktio:** Ekklesia
 **Jännite:** Korkea
-
-Ekklesia on vakuuttunut, että reaktorin energia on pyhää — ja että se kuuluu kaikille, ei yhdelle konsortiolle. Tämä teologinen kanta tekee tilanteesta vaarallisen.
 
 ### Palvelut
 
