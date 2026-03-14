@@ -3,7 +3,7 @@ title: "Tori"
 order: 20
 description: "Basaari — Kynnyksen musta pörssi ja kierrätyskeskus."
 category: asema
-connections: "Evoluutio, Laki"
+connections: "Evoluutio:E, Laki:W"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Asemalla ei ole virallisia häiriötekijöitä, koska kukaan ei halua virallises
 
 ### Hallinta
 
-**Hallitseva faktio:** Romunkerääjät
-**Häiritsevä faktio:** —
-**Jännite:** Matala
+- **Hallitseva faktio:** Romunkerääjät
+- **Häiritsevä faktio:** —
+- **Jännite:** Matala
 
 ### Palvelut
 

@@ -3,7 +3,7 @@ title: "Laki"
 order: 12
 description: "Oikeuslaitos — Kynnyksen sopimuskeskus ja kiistojen areenaa."
 category: asema
-connections: "Alasin, Tori, Louhos, Vaaka, Häkki"
+connections: "Alasin:NE, Tori:E, Louhos:N, Vaaka:NW, Häkki:W"
 tension: "Korkea"
 ---
 
@@ -15,9 +15,9 @@ Pyhän Tragedian lapset on löytänyt Laissa mahdollisuuden: oikeudenkäynneist�
 
 ### Hallinta
 
-**Hallitseva faktio:** Argumentaattorit
-**Häiritsevä faktio:** Pyhän Tragedian lapset
-**Jännite:** Korkea
+- **Hallitseva faktio:** Argumentaattorit
+- **Häiritsevä faktio:** Pyhän Tragedian lapset
+- **Jännite:** Korkea
 
 ### Palvelut
 

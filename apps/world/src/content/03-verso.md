@@ -3,7 +3,7 @@ title: "Verso"
 order: 3
 description: "Biodomi — Kynnyksen ruoantuotantoasema, räjähdysherkkä tilanne."
 category: asema
-connections: "Seula, Pesä, Kuiskaus"
+connections: "Seula:W, Pesä:N, Kuiskaus:SE"
 tension: "Korkea"
 ---
 
@@ -15,9 +15,9 @@ Kaksi Kynnyksen voimakkaimmista toimijoista jakaa aseman velvollisuudet ja voito
 
 ### Hallinta
 
-**Hallitseva faktio:** Tuhkan puolue
-**Häiritsevä faktio:** KW-konsortio
-**Jännite:** Korkea
+- **Hallitseva faktio:** Tuhkan puolue
+- **Häiritsevä faktio:** KW-konsortio
+- **Jännite:** Korkea
 
 Kilven tapahtumien jälkeen Verson tilanne on kiristynyt räjähdyspisteeseen. Jokin on muuttumassa — ja ne, jotka eivät kuulu kummankaan puolen ytimeen, näkevät nyt tilaisuuden.
 

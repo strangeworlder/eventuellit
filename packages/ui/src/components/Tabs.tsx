@@ -61,8 +61,9 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ className, onKeyDown, style, ...props }, ref) => {
     const listRef = useRef<HTMLDivElement>(null);
     const [tugX, setTugX] = useState(0);
-    const [tugStretch, setTugStretch] = useState(1);
-    const [tugSkew, setTugSkew] = useState(0);
+    const [tugY, setTugY] = useState(0);
+    const [stretchX, setStretchX] = useState(1);
+    const [stretchY, setStretchY] = useState(1);
 
     // Merge refs logic to ensure we have a local ref for querying DOM while forwarding to parent
     const setRefs = useCallback(
@@ -134,37 +135,47 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
 
       if (isActive) {
         setTugX(0);
-        setTugStretch(1);
-        setTugSkew(0);
+        setTugY(0);
+        setStretchX(1);
+        setStretchY(1);
         return;
       }
 
-      // Find all tabs and the active one to compute index distance
       const tabs = Array.from(
         listRef.current.querySelectorAll<HTMLElement>('[role="tab"]'),
       );
-      const activeIndex = tabs.findIndex(
+      const activeTab = tabs.find(
         (t) =>
           t.getAttribute("aria-selected") === "true" ||
           t.getAttribute("aria-current") === "page",
       );
-      const targetIndex = tabs.indexOf(target);
-      if (activeIndex === -1 || targetIndex === -1) return;
 
-      const indexDistance = Math.abs(targetIndex - activeIndex);
-      const direction = targetIndex > activeIndex ? 1 : -1;
+      if (!activeTab) return;
 
-      // Constant pull: Offset + scale + skew
-      // The pull feels "heavier" the further away the tab is
-      setTugX(direction * (2 + indexDistance * 2));
-      setTugStretch(1 + indexDistance * 0.025);
-      setTugSkew(direction * (indexDistance));
+      const activeRect = activeTab.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      const dx = targetRect.left - activeRect.left;
+      const dy = targetRect.top - activeRect.top;
+
+      const maxPull = 12;
+      const pullX = Math.max(-maxPull, Math.min(maxPull, dx * 0.06));
+      const pullY = Math.max(-maxPull, Math.min(maxPull, dy * 0.06));
+
+      const scaleX = 1 + Math.abs(pullX) / Math.max(activeRect.width, 1);
+      const scaleY = 1 + Math.abs(pullY) / Math.max(activeRect.height, 1);
+
+      setTugX(pullX);
+      setTugY(pullY);
+      setStretchX(scaleX);
+      setStretchY(scaleY);
     }, []);
 
     const handleMouseLeave = useCallback(() => {
       setTugX(0);
-      setTugStretch(1);
-      setTugSkew(0);
+      setTugY(0);
+      setStretchX(1);
+      setStretchY(1);
     }, []);
 
     return (
@@ -178,14 +189,15 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
           "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
           "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
           "after:transition-all after:duration-500 after:ease-[cubic-bezier(0.23,1,0.32,1)]",
-          "after:[transform:translateX(var(--tab-tug,0px))_scaleX(var(--tab-stretch,1))_skewX(var(--tab-skew,0deg))]",
+          "after:[transform:translateX(var(--tab-tug-x,0px))_translateY(var(--tab-tug-y,0px))_scaleX(var(--tab-stretch-x,1))_scaleY(var(--tab-stretch-y,1))]",
           "after:pointer-events-none",
           className,
         )}
         style={{
-          "--tab-tug": `${tugX}px`,
-          "--tab-stretch": tugStretch,
-          "--tab-skew": `${tugSkew}deg`,
+          "--tab-tug-x": `${tugX}px`,
+          "--tab-tug-y": `${tugY}px`,
+          "--tab-stretch-x": stretchX,
+          "--tab-stretch-y": stretchY,
           ...style,
         } as React.CSSProperties}
         onKeyDown={handleKeyDown}

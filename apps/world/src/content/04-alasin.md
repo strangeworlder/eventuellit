@@ -3,7 +3,7 @@ title: "Alasin"
 order: 4
 description: "Telakka — Kynnyksen raskaan korjauksen teollisuusasema."
 category: asema
-connections: "Seula, Evoluutio, Laki"
+connections: "Seula:E, Evoluutio:S, Laki:SW"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Tuhkan puolueen populistit yrittävät saada asemasta jalansijaa, koska telakan 
 
 ### Hallinta
 
-**Hallitseva faktio:** KW-konsortio
-**Häiritsevä faktio:** Tuhkan puolue
-**Jännite:** Matala
+- **Hallitseva faktio:** KW-konsortio
+- **Häiritsevä faktio:** Tuhkan puolue
+- **Jännite:** Matala
 
 ### Palvelut
 

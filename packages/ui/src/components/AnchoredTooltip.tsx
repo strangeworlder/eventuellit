@@ -4,7 +4,7 @@ import { cn } from "./Heading";
 import type { Theme } from "./Theme";
 
 export type AnchoredTooltipPlacement = "right" | "left" | "top" | "bottom";
-export type AnchoredTooltipVariant = "default" | "button-loading";
+export type AnchoredTooltipVariant = "default" | "button-loading" | "station-description";
 
 export interface AnchoredTooltipProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Sijainti ankkurielementin suhteen */
@@ -13,13 +13,15 @@ export interface AnchoredTooltipProps extends React.HTMLAttributes<HTMLSpanEleme
   variant?: AnchoredTooltipVariant;
   /** The theme context to apply, which modifies the component's CSS variables. */
   theme?: Theme;
+  /** Explicitly control visibility (ignores hover CSS if provided) */
+  isOpen?: boolean;
 }
 
 const placementClasses: Record<AnchoredTooltipPlacement, string> = {
-  right: "[left:anchor(right)] [top:anchor(center)] -translate-y-1/2",
-  left: "[right:anchor(left)] [top:anchor(center)] -translate-y-1/2",
-  top: "[left:anchor(center)] [bottom:anchor(top)] -translate-x-1/2",
-  bottom: "[left:anchor(center)] [top:anchor(bottom)] -translate-x-1/2",
+  right: "left-full top-1/2 -translate-y-1/2 ml-2",
+  left: "right-full top-1/2 -translate-y-1/2 mr-2",
+  top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
+  bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
 };
 
 const variantClasses: Record<AnchoredTooltipVariant, string> = {
@@ -27,6 +29,8 @@ const variantClasses: Record<AnchoredTooltipVariant, string> = {
     "rounded-sm bg-[var(--theme-bg)]/95 px-2 py-1 text-[var(--theme-text)] shadow-md border border-[var(--theme-secondary)]/40 font-semibold",
   "button-loading":
     "rounded-sm bg-[var(--theme-primary)] px-3 py-2 text-[var(--theme-primary-foreground)] shadow-md border-2 border-[var(--theme-primary-foreground)]/60 font-bold uppercase tracking-widest",
+  "station-description":
+    "rounded-lg bg-[var(--theme-bg)]/98 px-3 py-3 text-[var(--theme-text)]/80 shadow-xl border border-[var(--theme-secondary)]/30 font-normal whitespace-normal w-52 leading-relaxed",
 };
 
 /**
@@ -47,18 +51,23 @@ const variantClasses: Record<AnchoredTooltipVariant, string> = {
  * ```
  */
 export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltipProps>(
-  ({ placement = "right", variant = "default", className, theme, children, ...props }, ref) => {
+  ({ placement = "right", variant = "default", className, theme, isOpen, children, ...props }, ref) => {
+    if (isOpen === false) return null;
+
     return (
       <span
         ref={ref}
         role="tooltip"
         data-theme={theme}
         className={cn(
-          "anchored-tooltip",
-          "pointer-events-none absolute max-w-xs overflow-hidden text-ellipsis whitespace-nowrap font-sans text-xs font-semibold tracking-[0.015em]",
+          "anchored-tooltip absolute font-sans text-xs tracking-[0.015em] z-50",
           variantClasses[variant],
-          "opacity-0 transition-opacity duration-150",
-          "[position-anchor:--tooltip-anchor]",
+          // If controlled, strictly use isOpen boolean. If uncontrolled, use group-hover for CSS-only tooltips.
+          isOpen !== undefined
+            ? isOpen
+              ? "opacity-100 visible pointer-events-auto"
+              : "opacity-0 invisible pointer-events-none"
+            : "opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto",
           placementClasses[placement],
           className,
         )}

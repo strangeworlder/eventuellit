@@ -3,7 +3,7 @@ title: "Häkki"
 order: 14
 description: "Pyhän Tragedian lapset — veriurheilun ja uhkapelin asema."
 category: asema
-connections: "Seula, Akseli, Laki, Verkko"
+connections: "Seula:N, Akseli:NE, Laki:E, Verkko:SE"
 tension: "Korkea"
 ---
 
@@ -15,9 +15,9 @@ Kartoittajat pitävät Häkkiä silmällä, koska siellä käydyillä peleillä 
 
 ### Hallinta
 
-**Hallitseva faktio:** Pyhän Tragedian lapset
-**Häiritsevä faktio:** Kartoittajat
-**Jännite:** Korkea
+- **Hallitseva faktio:** Pyhän Tragedian lapset
+- **Häiritsevä faktio:** Kartoittajat
+- **Jännite:** Korkea
 
 ### Palvelut
 

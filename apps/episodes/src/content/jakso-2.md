@@ -5,7 +5,7 @@ status: planned
 players: '?'
 sessionDates: 2026-04-14, 2026-04-16
 location: Verso, Kynnyksen 3. asema
-locationLink: /ruleset/maailma
+locationLink: /world/03-verso
 description: Eventuellit: Toinen jakso. Verson räjähdysherkkä tilanne antaa hahmoille tilaisuuden tehdä jotain radikaalia.
 image: jakso-2
 imageAlt: Julistekuva Verson tilanteesta

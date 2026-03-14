@@ -3,7 +3,7 @@ title: "Pöytä"
 order: 17
 description: "Neuvottelu — diplomatian ja sovittelun asema."
 category: asema
-connections: "Katedraali, Pesä, Kilpi"
+connections: "Katedraali:NE, Pesä:NW, Kilpi:SE"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Ratasvartio häiritsee: heille rauha neuvottelemalla on luovutus toisella nimell
 
 ### Hallinta
 
-**Hallitseva faktio:** Sovittelijat
-**Häiritsevä faktio:** Ratasvartio
-**Jännite:** Matala
+- **Hallitseva faktio:** Sovittelijat
+- **Häiritsevä faktio:** Ratasvartio
+- **Jännite:** Matala
 
 ### Palvelut
 

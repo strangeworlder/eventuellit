@@ -3,7 +3,7 @@ title: "Vaaka"
 order: 13
 description: "Areena — Kynnyksen sotilasakatemia ja kaksintaistelujen kenttä."
 category: asema
-connections: "Laki, Verkko"
+connections: "Laki:S, Verkko:N"
 tension: "Korkea"
 ---
 
@@ -15,9 +15,9 @@ Legendan Kertojat häiritsevät: heille Vaaka on draaman näyttämö, ei sodan h
 
 ### Hallinta
 
-**Hallitseva faktio:** Ratasvartio
-**Häiritsevä faktio:** Legendan Kertojat
-**Jännite:** Korkea
+- **Hallitseva faktio:** Ratasvartio
+- **Häiritsevä faktio:** Legendan Kertojat
+- **Jännite:** Korkea
 
 ### Palvelut
 

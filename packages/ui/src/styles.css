@@ -196,17 +196,6 @@
   }
 }
 
-/* AnchoredTooltip: auto-bind anchor via sibling placement */
-*:has(> .anchored-tooltip) {
-  anchor-scope: --tooltip-anchor;
-}
-:has(+ .anchored-tooltip) {
-  anchor-name: --tooltip-anchor;
-}
-:has(+ .anchored-tooltip):hover + .anchored-tooltip,
-:has(+ .anchored-tooltip):focus-visible + .anchored-tooltip {
-  opacity: 1;
-}
 
 .layout-stack {
   display: flex;

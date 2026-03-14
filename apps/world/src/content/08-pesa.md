@@ -3,7 +3,7 @@ title: "Pesä"
 order: 8
 description: "Tuhkan puolueen koti — vanhakaupunki, asuinalue ja turvaverkko."
 category: asema
-connections: "Seula, Katedraali, Pöytä, Verso"
+connections: "Seula:SW, Katedraali:N, Pöytä:SE, Verso:E"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Täällä ei olla vallankumouksellisia — täällä yritetään pitää se, mit
 
 ### Hallinta
 
-**Hallitseva faktio:** Tuhkan puolue
-**Häiritsevä faktio:** —
-**Jännite:** Matala
+- **Hallitseva faktio:** Tuhkan puolue
+- **Häiritsevä faktio:** —
+- **Jännite:** Matala
 
 ### Palvelut
 

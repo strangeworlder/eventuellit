@@ -331,46 +331,46 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     const modalContent =
       isModalOpen && typeof document !== "undefined"
         ? ReactDOM.createPortal(
+          <div
+            data-theme={modalDataTheme ?? dataThemeProp ?? childTheme}
+            className="fixed inset-0 z-50 desktop:z-50 max-desktop:z-50 flex items-center justify-center bg-black/80 p-4"
+            onClick={closeModal}
+          >
             <div
-              data-theme={modalDataTheme ?? dataThemeProp ?? childTheme}
-              className="fixed inset-0 z-50 desktop:z-50 max-desktop:z-50 flex items-center justify-center bg-black/80 p-4"
-              onClick={closeModal}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Kuvan tarkastelu: ${safeAlt}`}
+              aria-describedby={caption ? captionId : undefined}
+              className="relative flex max-h-[95vh] w-full max-w-6xl flex-col gap-3 rounded-xl border border-[var(--theme-secondary)] bg-[var(--theme-bg)] p-3 shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
             >
-              <div
-                role="dialog"
-                aria-modal="true"
-                aria-label={`Kuvan tarkastelu: ${safeAlt}`}
-                aria-describedby={caption ? captionId : undefined}
-                className="relative flex max-h-[95vh] w-full max-w-6xl flex-col gap-3 rounded-xl border border-[var(--theme-secondary)] bg-[var(--theme-bg)] p-3 shadow-2xl"
-                onClick={(event) => event.stopPropagation()}
+              <Button
+                ref={closeButtonRef}
+                type="button"
+                variant="secondary"
+                size="icon"
+                onClick={closeModal}
+                className="self-end"
               >
-                <Button
-                  ref={closeButtonRef}
-                  type="button"
-                  variant="secondary"
-                  size="icon"
-                  onClick={closeModal}
-                  className="self-end"
+                <Icon name="x" />
+              </Button>
+              <img
+                src={modalSrc}
+                alt={alt}
+                className="max-h-[80vh] w-full rounded-md object-contain"
+              />
+              {caption && (
+                <div
+                  id={captionId}
+                  className="border-t border-[var(--theme-secondary)]/30 pt-2 text-sm text-[var(--theme-secondary)]"
                 >
-                  <Icon name="x" />
-                </Button>
-                <img
-                  src={modalSrc}
-                  alt={alt}
-                  className="max-h-[80vh] w-full rounded-md object-contain"
-                />
-                {caption && (
-                  <div
-                    id={captionId}
-                    className="border-t border-[var(--theme-secondary)]/30 pt-2 text-sm text-[var(--theme-secondary)]"
-                  >
-                    {caption}
-                  </div>
-                )}
-              </div>
-            </div>,
-            document.body,
-          )
+                  {caption}
+                </div>
+              )}
+            </div>
+          </div>,
+          document.body,
+        )
         : null;
 
     const pictureContent = (
@@ -421,10 +421,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
                 variant === "primary",
               // Secondary follows supporting component semantics.
               "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
-                variant === "secondary",
-              // Inline is optimized for article flow and does not open modal by default.
-              "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
-                variant === "inline",
+                variant === "secondary" || variant === "inline",
               // Accent mirrors the DS accent framing pattern.
               "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
                 variant === "accent",

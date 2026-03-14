@@ -3,7 +3,7 @@ title: "Krypta"
 order: 19
 description: "Museo — pyhäkkö, arkisto ja reliikinmetsästäjien koti."
 category: asema
-connections: "Siemen, Kuiskaus"
+connections: "Siemen:NE, Kuiskaus:N"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Pääsy on teknisesti avoin, mutta Reliikinmetsästäjät tietävät tarkalleen 
 
 ### Hallinta
 
-**Hallitseva faktio:** Reliikinmetsästäjät
-**Häiritsevä faktio:** —
-**Jännite:** Matala
+- **Hallitseva faktio:** Reliikinmetsästäjät
+- **Häiritsevä faktio:** —
+- **Jännite:** Matala
 
 ### Palvelut
 

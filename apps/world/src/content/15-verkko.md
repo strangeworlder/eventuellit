@@ -3,7 +3,7 @@ title: "Verkko"
 order: 15
 description: "Observatorio — Kynnyksen valvontakeskus ja tiedusteluasema."
 category: asema
-connections: "Katedraali, Häkki, Vaaka"
+connections: "Katedraali:W, Häkki:SW, Vaaka:S"
 tension: "Korkea"
 ---
 
@@ -15,9 +15,9 @@ Legendan Kertojat haluavat päästä käsiksi Verkon arkistoihin. Historia on he
 
 ### Hallinta
 
-**Hallitseva faktio:** Kartoittajat
-**Häiritsevä faktio:** Legendan Kertojat
-**Jännite:** Korkea
+- **Hallitseva faktio:** Kartoittajat
+- **Häiritsevä faktio:** Legendan Kertojat
+- **Jännite:** Korkea
 
 ### Palvelut
 

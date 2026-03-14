@@ -5,7 +5,7 @@ status: active
 players: Jori, Pekka, Taija
 sessionDates: 2026-03-26, 2026-03-30
 location: Kilpi, Kynnyksen 9. asema
-locationLink: /ruleset/maailma
+locationLink: /world/09-kilpi
 description: Eventuellit: Ensimmäinen jakso. Vuosikymmenen keikka rikkoutuneella Kilven linnakeasemalla.
 image: jakso-1
 imageAlt: Julistekuva ohjauslevyn ryöstöstä

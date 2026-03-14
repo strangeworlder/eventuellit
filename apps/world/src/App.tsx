@@ -185,21 +185,28 @@ function WorldEntryView({
     <div className="space-y-8 animate-in fade-in duration-500">
       <HeadingLevelProvider>
         <Hero title={entry.title} description={entry.description} />
-        <div ref={articleRef} className="px-4 tablet:pr-8 tablet:pl-0">
-          <HeadingLevelProvider>
-            <MarkdownRenderer headingIdPrefix={`world-${entry.id}`}>
-              {entry.content}
-            </MarkdownRenderer>
-          </HeadingLevelProvider>
+        <div className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8 px-4 tablet:pr-8 tablet:pl-0">
+          <div ref={articleRef} className="space-y-6">
+            <HeadingLevelProvider>
+              <MarkdownRenderer headingIdPrefix={`world-${entry.id}`}>
+                {entry.content}
+              </MarkdownRenderer>
+            </HeadingLevelProvider>
+          </div>
+          <div className="space-y-8 pt-6">
+            {entry.category === "asema" && entry.connections && (
+              <HeadingLevelProvider>
+                <StationConnections
+                  connections={entry.connections}
+                  tension={entry.tension}
+                  currentStationOrder={entry.order}
+                  stations={entries}
+                  basePath={basePath}
+                />
+              </HeadingLevelProvider>
+            )}
+          </div>
         </div>
-        {entry.category === "asema" && entry.connections && (
-          <StationConnections
-            connections={entry.connections}
-            tension={entry.tension}
-            stations={entries}
-            basePath={basePath}
-          />
-        )}
       </HeadingLevelProvider>
     </div>
   );

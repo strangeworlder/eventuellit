@@ -3,7 +3,7 @@ title: "Syke"
 order: 2
 description: "Reaktori — Kynnyksen energiakeskus ja luostari."
 category: asema
-connections: "Seula, Akseli, Katedraali"
+connections: "Seula:S, Akseli:W, Katedraali:E"
 tension: "Korkea"
 ---
 
@@ -15,9 +15,9 @@ Asema on kaksinainen: teollinen energialaitos ja meditatiivinen luostari rinnakk
 
 ### Hallinta
 
-**Hallitseva faktio:** KW-konsortio
-**Häiritsevä faktio:** Ekklesia
-**Jännite:** Korkea
+- **Hallitseva faktio:** KW-konsortio
+- **Häiritsevä faktio:** Ekklesia
+- **Jännite:** Korkea
 
 ### Palvelut
 

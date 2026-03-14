@@ -3,7 +3,7 @@ title: "Ikoni"
 order: 16
 description: "Studio — Kynnyksen mediakeskus ja julkisuuskoneen koti."
 category: asema
-connections: "Katedraali"
+connections: "Katedraali:S"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Argumentaattorit ovat jatkuvasti eri mieltä siitä, mitä Ikoni lähettää. Fa
 
 ### Hallinta
 
-**Hallitseva faktio:** Legendan Kertojat
-**Häiritsevä faktio:** Argumentaattorit
-**Jännite:** Matala
+- **Hallitseva faktio:** Legendan Kertojat
+- **Häiritsevä faktio:** Argumentaattorit
+- **Jännite:** Matala
 
 ### Palvelut
 

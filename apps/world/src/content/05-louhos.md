@@ -3,7 +3,7 @@ title: "Louhos"
 order: 5
 description: "Kaivosasema — hajonnut raaka-ainekeskus mustine markkinoineen."
 category: asema
-connections: "Seula, Laki"
+connections: "Seula:NE, Laki:SE"
 tension: "Murtunut"
 ---
 
@@ -15,9 +15,9 @@ Reliikinmetsästäjät ovat ottaneet Louhoksen käytännössä omakseen. Vanhoje
 
 ### Hallinta
 
-**Hallitseva faktio:** Neutraali
-**Häiritsevä faktio:** Reliikinmetsästäjät
-**Jännite:** Murtunut
+- **Hallitseva faktio:** Neutraali
+- **Häiritsevä faktio:** Reliikinmetsästäjät
+- **Jännite:** Murtunut
 
 ### Palvelut
 

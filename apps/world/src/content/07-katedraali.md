@@ -3,7 +3,7 @@ title: "Katedraali"
 order: 7
 description: "Ekklesian sydän — temppeli, teatteri ja propagandakeskus."
 category: asema
-connections: "Syke, Akseli, Verkko, Pesä, Ikoni, Pöytä"
+connections: "Syke:W, Akseli:NW, Verkko:E, Pesä:S, Ikoni:N, Pöytä:SW"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Kulttuurikeskuksen perintö on edelleen näkyvissä — teatteri, konsertit, rit
 
 ### Hallinta
 
-**Hallitseva faktio:** Ekklesia
-**Häiritsevä faktio:** —
-**Jännite:** Matala
+- **Hallitseva faktio:** Ekklesia
+- **Häiritsevä faktio:** —
+- **Jännite:** Matala
 
 ### Palvelut
 

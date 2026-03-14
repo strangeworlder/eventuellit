@@ -3,7 +3,7 @@ title: "Akseli"
 order: 6
 description: "KW-konsortio HQ — Kynnyksen hallintotorni ja logiikkakeskus."
 category: asema
-connections: "Syke, Katedraali, Häkki"
+connections: "Syke:E, Katedraali:SE, Häkki:S"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Se on ainoa Kynnyksen asemista, jossa vallitsee lähes täydellinen rauha. Täm�
 
 ### Hallinta
 
-**Hallitseva faktio:** KW-konsortio
-**Häiritsevä faktio:** —
-**Jännite:** Matala
+- **Hallitseva faktio:** KW-konsortio
+- **Häiritsevä faktio:** —
+- **Jännite:** Matala
 
 ### Palvelut
 

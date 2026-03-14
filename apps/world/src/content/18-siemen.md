@@ -3,7 +3,7 @@ title: "Siemen"
 order: 18
 description: "Akatemia — Kynnyksen koulutusasema ja maatila."
 category: asema
-connections: "Kilpi, Kuiskaus, Krypta, Evoluutio"
+connections: "Kilpi:S, Kuiskaus:W, Krypta:SW, Evoluutio:NW"
 tension: "Matala"
 ---
 
@@ -15,9 +15,9 @@ Kartoittajat häiritsevät, koska Siemenen arkistot sisältävät geologista ja 
 
 ### Hallinta
 
-**Hallitseva faktio:** Kasvattajat
-**Häiritsevä faktio:** Kartoittajat
-**Jännite:** Matala
+- **Hallitseva faktio:** Kasvattajat
+- **Häiritsevä faktio:** Kartoittajat
+- **Jännite:** Matala
 
 ### Palvelut
 

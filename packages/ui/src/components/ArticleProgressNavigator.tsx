@@ -57,7 +57,7 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
     isMinimalVariant ? (
       <div
         key={marker.id}
-        className="absolute -translate-y-1/2"
+        className="group relative absolute -translate-y-1/2"
         style={{ top: `${marker.topPercent}%` }}
       >
         <button
@@ -68,7 +68,7 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
           aria-current={marker.isActive ? "true" : undefined}
           onClick={handleMarkerClick}
           className={cn(
-            "group cursor-pointer transition-colors",
+            "cursor-pointer transition-colors",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:ring-offset-2",
             "focus-visible:ring-offset-[var(--theme-bg)] aria-[current=true]:text-[var(--theme-primary)]",
             "p-4 left-0 flex items-center justify-center text-[var(--theme-text)]",

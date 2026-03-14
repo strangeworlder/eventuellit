@@ -8,42 +8,49 @@ const kynnysSampleStations = [
   {
     id: "02-syke",
     title: "Syke",
+    order: 2,
     description: "Teollinen solmu — Kynnyksen moottorit käyvät täällä.",
     tension: "Matala",
   },
   {
     id: "03-verso",
     title: "Verso",
+    order: 3,
     description: "Biodomi — viimeinen luonnonvalo ja kasvava vastarinta.",
     tension: "Korkea",
   },
   {
     id: "08-pesa",
     title: "Pesä",
+    order: 8,
     description: "Siirtolaisten kauttakulku ja ahtaat asuinsolut.",
     tension: "Matala",
   },
   {
     id: "10-kuiskaus",
     title: "Kuiskaus",
+    order: 10,
     description: "Informaatioverkostojen solmukohta — kaikki kulkee tästä.",
     tension: "Murtunut",
   },
   {
     id: "04-alasin",
     title: "Alasin",
+    order: 4,
     description: "Raskas teollisuus ja välimatkan päässä olevat siirtokunnat.",
     tension: "Korkea",
   },
   {
     id: "05-louhos",
     title: "Louhos",
+    order: 5,
     description: "Kaivosasema — resurssit virtaavat ylöspäin, ihmiset alaspäin.",
     tension: "Korkea",
   },
   {
     id: "14-hakki",
     title: "Häkki",
+    order: 14,
     description: "Säilytysasema — vankilat ja pakkotyöleirit.",
     tension: "Murtunut",
   },
@@ -87,8 +94,9 @@ type Story = StoryObj<typeof StationConnections>;
 /** Seula — Kynnyksen keskusasema, 7 yhteyttä */
 export const Solmupiste: Story = {
   args: {
-    connections: "Syke, Verso, Pesä, Kuiskaus, Alasin, Louhos, Häkki",
+    connections: "Syke:N, Verso:E, Pesä:NE, Kuiskaus:SE, Alasin:W, Louhos:SW, Häkki:S",
     tension: "Matala",
+    currentStationOrder: 1,
     stations: kynnysSampleStations,
     basePath: "/",
   },
@@ -99,17 +107,20 @@ export const Murtunut: Story = {
   args: {
     connections: "Verso, Siemen, Krypta",
     tension: "Murtunut",
+    currentStationOrder: 10,
     stations: [
       ...kynnysSampleStations,
       {
         id: "18-siemen",
         title: "Siemen",
+        order: 18,
         description: "Hylätty tutkimusasema — jokin kasvaa pimeydessä.",
         tension: "Murtunut",
       },
       {
         id: "19-krypta",
         title: "Krypta",
+        order: 19,
         description: "Hautausmaa-asema. Kukaan ei kysy, keitä täällä lepää.",
         tension: "Murtunut",
       },
@@ -123,29 +134,34 @@ export const Korkea: Story = {
   args: {
     connections: "Syke, Akseli, Verkko, Pesä, Ikoni, Pöytä",
     tension: "Korkea",
+    currentStationOrder: 7,
     stations: [
       ...kynnysSampleStations,
       {
         id: "06-akseli",
         title: "Akseli",
+        order: 6,
         description: "Kiertoradan ylläpito — Kynnyksen orbitaalinen selkäranka.",
         tension: "Korkea",
       },
       {
         id: "15-verkko",
         title: "Verkko",
+        order: 15,
         description: "Valvontasolmu — kaikkialla läsnä, ei missään näkyvissä.",
         tension: "Korkea",
       },
       {
         id: "16-ikoni",
         title: "Ikoni",
+        order: 16,
         description: "Ekklesian pyhäkkö — pilgrimit saapuvat, harvat palaavat.",
         tension: "Korkea",
       },
       {
         id: "17-poyta",
         title: "Pöytä",
+        order: 17,
         description: "Neuvotteluasema — fraktiot kokoontuvat, sopimukset hajoavat.",
         tension: "Korkea",
       },
@@ -159,10 +175,12 @@ export const YksiYhteys: Story = {
   args: {
     connections: "Siemen",
     tension: "Murtunut",
+    currentStationOrder: 9,
     stations: [
       {
         id: "18-siemen",
         title: "Siemen",
+        order: 18,
         description: "Hylätty tutkimusasema — jokin kasvaa pimeydessä.",
         tension: "Murtunut",
       },
@@ -183,6 +201,7 @@ export const KaikkiJannitetasot: Story = {
           <StationConnections
             connections="Syke, Pesä, Verso"
             tension="Matala"
+            currentStationOrder={1}
             stations={kynnysSampleStations}
             basePath="/"
           />
@@ -194,6 +213,7 @@ export const KaikkiJannitetasot: Story = {
           <StationConnections
             connections="Alasin, Louhos, Häkki"
             tension="Korkea"
+            currentStationOrder={12}
             stations={kynnysSampleStations}
             basePath="/"
           />
@@ -205,6 +225,7 @@ export const KaikkiJannitetasot: Story = {
           <StationConnections
             connections="Kuiskaus, Häkki"
             tension="Murtunut"
+            currentStationOrder={19}
             stations={kynnysSampleStations}
             basePath="/"
           />

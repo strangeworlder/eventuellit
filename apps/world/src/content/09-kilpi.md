@@ -3,7 +3,7 @@ title: "Kilpi"
 order: 9
 description: "Polttopiste — rikkoutunut linnakeasema Kynnyksen reunalla."
 category: asema
-connections: "Pöytä, Siemen"
+connections: "Pöytä:NW, Siemen:N"
 tension: "Murtunut"
 ---
 
@@ -15,9 +15,9 @@ Reunalla Kilpi on harvinaisessa asemassa, sillä se tuo aurinkokuntaan sen ulkop
 
 ### Hallinta
 
-**Hallitseva faktio:** Ratasvartio
-**Häiritsevä faktio:** Pyhän Tragedian lapset
-**Jännite:** Murtunut
+- **Hallitseva faktio:** Ratasvartio
+- **Häiritsevä faktio:** Pyhän Tragedian lapset
+- **Jännite:** Murtunut
 
 KW-konsortiumin Ratasvartio-erikoisjoukot hallitsevat Kilven betonibunkkereita omasta keskushallinnostaan aikaa sitten vieraantuneena itsenäisenä paikallisena tyranniana. He ylläpitävät mekaanista järjestystä ja sotilaallisia rutiineja vailla jatkuvaa yhteyttä KW:n ylempiin elimiin.
 
