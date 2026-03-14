@@ -61,17 +61,6 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
                     )}
                     {children}
                 </div>
-                {backgroundImageSrc && (
-                    <div className="absolute right-4 bottom-4 z-20">
-                        <ImageElement
-                            src={backgroundImageSrc}
-                            alt={backgroundImageAlt || "Hero-kuva"}
-                            variant="thumbnail"
-                            sizes="56px"
-                            loading="lazy"
-                        />
-                    </div>
-                )}
             </div>
         );
     }

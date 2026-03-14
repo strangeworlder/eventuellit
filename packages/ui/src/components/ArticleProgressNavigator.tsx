@@ -134,6 +134,8 @@ export function ArticleProgressNavigator({
   ...props
 }: ArticleProgressNavigatorProps) {
   const boundedProgress = Math.min(100, Math.max(0, progress));
+  const hasProgressStarted = boundedProgress > 0;
+  const isProgressComplete = boundedProgress >= 100;
   const markerCount = sections.length;
   const resolvedRailHeight = railHeight ?? Math.max(220, markerCount * 48);
   const isMinimalVariant = variant === "minimal";
@@ -182,12 +184,26 @@ export function ArticleProgressNavigator({
         style={{ height: typeof resolvedRailHeight === "number" ? `${resolvedRailHeight}px` : resolvedRailHeight }}
       >
         <div
+          className={cn(
+            "absolute h-px w-4 rounded-full",
+            hasProgressStarted ? "bg-[var(--theme-primary)]" : "bg-[var(--theme-secondary)]/60",
+          )}
+          style={{ left: "1.5rem", top: 0, transform: "translateX(-50%)" }}
+        />
+        <div
           className="absolute top-0 h-full w-1 rounded-full bg-[var(--theme-secondary)]/30"
           style={{ left: "1.5rem", transform: "translateX(-50%)" }}
         />
         <div
           className="absolute top-0 h-full w-1 rounded-full bg-[var(--theme-primary)] origin-top transform-gpu transition-transform duration-150"
           style={{ left: "1.5rem", transform: `translateX(-50%) scaleY(${boundedProgress / 100})` }}
+        />
+        <div
+          className={cn(
+            "absolute h-px w-4 rounded-full",
+            isProgressComplete ? "bg-[var(--theme-primary)]" : "bg-[var(--theme-secondary)]/60",
+          )}
+          style={{ left: "1.5rem", bottom: 0, transform: "translateX(-50%)" }}
         />
         <ArticleProgressMarkers
           markers={markers}
