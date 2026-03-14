@@ -1,0 +1,29 @@
+---
+title: "Pesä"
+order: 8
+description: "Tuhkan puolueen koti — vanhakaupunki, asuinalue ja turvaverkko."
+category: asema
+connections: "Seula, Katedraali, Pöytä, Verso"
+tension: "Matala"
+---
+
+### Yleiskuvaus
+
+Pesä on paikka, johon palataan. Tuhkan puolueen hallitsema asema on Kynnyksen vanhin asuimisto — sokkeloiset käytävät, sukupolvien kerrostumat seinissä, naapurit jotka tuntevat toisensa. Se on täynnä pieniä kahviloita, majataloja ja ihmisiä, joille Kynnys on kotipaikka eikä väliasema.
+
+Täällä ei olla vallankumouksellisia — täällä yritetään pitää se, mitä on. Tuhkan puolue on tässä tehtävässä hyvä.
+
+### Hallinta
+
+**Hallitseva faktio:** Tuhkan puolue
+**Häiritsevä faktio:** —
+**Jännite:** Matala
+
+### Palvelut
+
+- Asuminen ja majoitus
+- Piilottelu ja suoja
+
+### Yhteydet
+
+Pesältä pääsee suoraan asemille: **Seula**, **Katedraali**, **Pöytä**, **Verso**.
