@@ -287,7 +287,6 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
                         <Heading>Sijainti</Heading>
                         <Link
                           href={episode.locationLink || "#"}
-                          external={Boolean(episode.locationLink)}
                         >
                           {episode.location}
                         </Link>
