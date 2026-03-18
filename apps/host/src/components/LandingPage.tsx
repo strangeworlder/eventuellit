@@ -25,7 +25,7 @@ export function LandingPage() {
                     <VideoCta
                         youtubeId="I6QePHTGGqU"
                         title="Eventuellit – Kutsu kapinaan staattisuutta vastaan"
-                        ctaText="Lue säännöt"
+                        ctaText="Lue esittely"
                         onClickCta={() => navigate("/ruleset/johdanto")}
                     />
                 </div>
