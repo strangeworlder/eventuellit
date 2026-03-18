@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "./Button";
 
 export interface VideoCtaProps {
@@ -42,7 +41,7 @@ export function VideoCta({
           allowFullScreen
         ></iframe>
       </div>
-      
+
       <Button
         size="lg"
         variant="primary"
