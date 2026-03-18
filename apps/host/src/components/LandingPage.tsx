@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Heading, HeadingLevelContext } from "@repo/ui/components/Heading";
+import { VideoCta } from "@repo/ui/components/VideoCta";
 
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +19,15 @@ export function LandingPage() {
                         Kaikki mitä tarvitset seuraavaan roolipelisessioosi.
                         Luo hahmoja, tarkista säännöt ja uppoudu tarinaan.
                     </p>
+                </div>
+
+                <div className="w-full max-w-4xl mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+                    <VideoCta
+                        youtubeId="I6QePHTGGqU"
+                        title="Eventuellit – Kutsu kapinaan staattisuutta vastaan"
+                        ctaText="Lue säännöt"
+                        onClickCta={() => navigate("/ruleset/johdanto")}
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 w-full max-w-4xl">
