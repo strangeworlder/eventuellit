@@ -7,10 +7,12 @@ const handler = sirv("dist", {
   single: true,
   setHeaders(res, pathname) {
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if (pathname === "/index.html" || pathname.endsWith("remoteEntry.js")) {
-      res.setHeader("Cache-Control", "no-cache");
-    } else {
+    const isHashedAsset =
+      pathname.startsWith("/assets/") && !pathname.endsWith("remoteEntry.js");
+    if (isHashedAsset) {
       res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    } else {
+      res.setHeader("Cache-Control", "no-cache");
     }
   },
 });
