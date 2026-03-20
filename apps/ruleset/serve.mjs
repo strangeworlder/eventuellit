@@ -8,7 +8,9 @@ const handler = sirv("dist", {
   setHeaders(res, pathname) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     const isHashedAsset =
-      pathname.startsWith("/assets/") && !pathname.endsWith("remoteEntry.js");
+      pathname.startsWith("/assets/") &&
+      !pathname.endsWith("remoteEntry.js") &&
+      !pathname.endsWith("entry.js");
     if (isHashedAsset) {
       res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
     } else {

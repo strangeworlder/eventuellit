@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     federation({
       name: "ruleset",
-      filename: "remoteEntry.js",
+      filename: "entry.js",
       exposes: {
         "./App": "./src/App.tsx",
       },
