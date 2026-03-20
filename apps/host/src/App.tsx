@@ -69,7 +69,16 @@ function AppContent() {
           : "home";
 
   useEffect(() => {
-    document.title = buildDocumentTitle(location.pathname);
+    const title = buildDocumentTitle(location.pathname);
+    document.title = title;
+
+    const setMeta = (selector: string, value: string) => {
+      const el = document.querySelector<HTMLMetaElement>(selector);
+      if (el) el.setAttribute("content", value);
+    };
+
+    setMeta('meta[property="og:title"]', title);
+    setMeta('meta[name="twitter:title"]', title);
   }, [location.pathname]);
 
   // Close the mobile sidebar on route change so it doesn't stay open while the
