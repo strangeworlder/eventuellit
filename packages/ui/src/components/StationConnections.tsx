@@ -72,7 +72,7 @@ function tooltipPlacement(
   deg %= 360;
   // If the node is on the right side of the chart (East), the tooltip should be placed on its left side 
   // (pointing inwards to the center)
-  if (deg >= 315 || deg < 45) return "left";
+  if (deg >= 315 || deg <= 45) return "left";
   // Node is South -> Tooltip Top
   if (deg >= 45 && deg < 135) return "top";
   // Node is West -> Tooltip Right
