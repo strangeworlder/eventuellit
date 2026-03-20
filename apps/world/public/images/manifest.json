@@ -1,0 +1,33 @@
+{
+  "09-kilpi": {
+    "width": 2752,
+    "height": 1536,
+    "placeholder": "data:image/jpeg;base64,/9j/2wBDABQUFBQVFBcZGRcfIh4iHy4rJycrLkYyNjI2MkZqQk5CQk5Cal5yXVZdcl6phXZ2hanDpJukw+zT0+z/////////2wBDARQUFBQVFBcZGRcfIh4iHy4rJycrLkYyNjI2MkZqQk5CQk5Cal5yXVZdcl6phXZ2hanDpJukw+zT0+z/////////wgARCAANABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIDBAX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAv/aAAwDAQACEAMQAAAAyUJ6iuMH/8QAIhAAAgEDAwUBAAAAAAAAAAAAAQIDABESBCFBIjEyQmKx/9oACAEBAAE/AElbJ1GVw7ftSPO3Tmd9rCotVKsiLncZjegriZwGHmePqmjAV293FmNLp7GGz93Xiv/EABsRAAICAwEAAAAAAAAAAAAAAAECABEDEiFR/9oACAECAQE/AMaAkm69jO3BsZ//xAAcEQACAgIDAAAAAAAAAAAAAAABAgADERIhMVH/2gAIAQMBAT8AtsbCg8+RFU5Oo7n/2Q==",
+    "variants": [
+      {
+        "width": 480,
+        "avif": "/images/09-kilpi-480.avif",
+        "webp": "/images/09-kilpi-480.webp",
+        "jpg": "/images/09-kilpi-480.jpg"
+      },
+      {
+        "width": 768,
+        "avif": "/images/09-kilpi-768.avif",
+        "webp": "/images/09-kilpi-768.webp",
+        "jpg": "/images/09-kilpi-768.jpg"
+      },
+      {
+        "width": 1200,
+        "avif": "/images/09-kilpi-1200.avif",
+        "webp": "/images/09-kilpi-1200.webp",
+        "jpg": "/images/09-kilpi-1200.jpg"
+      },
+      {
+        "width": 2752,
+        "avif": "/images/09-kilpi-2752.avif",
+        "webp": "/images/09-kilpi-2752.webp",
+        "jpg": "/images/09-kilpi-2752.jpg"
+      }
+    ]
+  }
+}

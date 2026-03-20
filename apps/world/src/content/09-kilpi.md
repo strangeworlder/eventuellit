@@ -5,6 +5,7 @@ description: "Polttopiste — murtunut vartio Kynnyksen reunalla."
 category: asema
 connections: "Pöytä:NW, Siemen:N"
 tension: "Murtunut"
+image: /images/09-kilpi.png
 ---
 
 ### Yleiskuvaus

@@ -17,6 +17,20 @@ import { useEffect, useRef } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { StationConnections } from "@repo/ui/components/StationConnections";
 
+const remoteOrigin = new URL(import.meta.url).origin;
+
+function resolveRemoteAssetUrl(assetPath: string) {
+  if (
+    assetPath.startsWith("http://") ||
+    assetPath.startsWith("https://") ||
+    assetPath.startsWith("data:")
+  ) {
+    return assetPath;
+  }
+  const normalizedPath = assetPath.startsWith("/") ? assetPath : `/${assetPath}`;
+  return `${remoteOrigin}${normalizedPath}`;
+}
+
 // Lightweight frontmatter parser
 function parseFrontmatter(md: string) {
   const match = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
@@ -65,6 +79,7 @@ export interface WorldEntry {
   category?: string;
   connections?: string;
   tension?: string;
+  image?: string;
 }
 
 const entries: WorldEntry[] = Object.entries(modules)
@@ -83,6 +98,7 @@ const entries: WorldEntry[] = Object.entries(modules)
       category: data.category || "",
       connections: data.connections || "",
       tension: data.tension || "",
+      image: data.image || "",
     };
   })
   .sort((a, b) => a.order - b.order);
@@ -184,7 +200,11 @@ function WorldEntryView({
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <HeadingLevelProvider>
-        <Hero title={entry.title} description={entry.description} />
+        <Hero
+          title={entry.title}
+          description={entry.description}
+          backgroundImageSrc={entry.image ? resolveRemoteAssetUrl(entry.image) : undefined}
+        />
         <div className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8 px-4 tablet:pr-8 tablet:pl-0">
           <div ref={articleRef} className="space-y-6">
             <HeadingLevelProvider>
