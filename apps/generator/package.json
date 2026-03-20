@@ -6,19 +6,19 @@
   "scripts": {
     "dev": "concurrently \"vite build --watch\" \"vite preview\"",
     "build": "tsc -b && vite build",
-    "start": "static-server",
+    "start": "node serve.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",
     "@repo/auth": "*",
-    "@repo/static-server": "*",
     "@repo/ui": "*",
     "@tanstack/react-query": "^5.90.21",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.13.1"
+    "react-router-dom": "^7.13.1",
+    "sirv": "^3.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
