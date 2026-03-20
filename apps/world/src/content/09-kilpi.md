@@ -26,14 +26,13 @@ sisäänpäin kohti keskuskanavaa. Kynnykselle Kilven suunnasta pyrkivät alukse
 läpi bunkkerijonojen välissä. Matkaajia seuraa jatkuva tunne siitä, että he ovat lukemattomien 
 näkymättömien aseiden tähtäimessä.
 
-Aseman akustiikka on betoninen painajainen. Kanava on osittain valtava kaikukoppa: ääni ei kuole, 
-se muuttaa muotoaan. Pienikin metallinen kilahdus kaukaisella telakalla kulkee kilometrien matkan 
-betoniseinien välissä ja kasvaa matalaksi, pahaenteiseksi jyrinäksi. 
-Räjähdyksen paineaalto ja ulvova melu jäävät kiertämään kanavaa minuuteiksi. Ne repivät tärykalvoja ja 
-muistuttavat jatkuvasti aseman särkyneestä tilasta. Jopa kuiskaus saattaa matkata 
-huoltokuituja pitkin ja nousta esiin aseman toisella puolella vääristyneenä suhinana.
+Aseman akustiikka on betoninen painajainen. Kanava on osittain valtava kaikukoppa: ääni ei aina kuole, 
+se muuttaa muotoaan. Sopivassa kohdassa kaukaisella telakalla tapahtuva työkalun kilahdus voi kulkea kilometrien matkan 
+betoniseinien välissä ja voimistua yllättävillä tavoilla. 
+Mikä pahempaa, jos jossain tapahtuu pahaa, räjähdyksen paineaalto ja ulvova melu jäävät kiertämään kanavaa minuuteiksi. Joskus jopa kuiskaus saattaa matkata 
+huoltokuituja pitkin ja nousta esiin aseman toisella puolella vääristyneenä aavemaisena tervehdyksenä.
 
-Katoissa ja rakenteiden raoissa parveilevat mekaaniset lokit. Nämä autonomiset huoltolennokit 
+Sataman ja kanavan katoissa ja rakenteiden raoissa parveilevat mekaaniset lokit. Nämä autonomiset huoltolennokit 
 ovat aikojen saatossa villiintyneet mekaanisiksi loisiksi. Ne varastavat asukkailta ja 
 huoltokohteista irto-osia, muttereita ja johtoja rakentaakseen niistä sekavia pesiään aseman 
 pimeisiin kulmiin. Niiden jatkuva, sieluton meteli on pysyvä osa Kilven äänimaisemaa.
