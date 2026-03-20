@@ -40,8 +40,8 @@ pimeisiin kulmiin. Niiden jatkuva, sieluton meteli on pysyvä osa Kilven äänim
 
 ### Hallinta
 
-- **Hallitseva faktio:** Ratasvartio
-- **Häiritsevä faktio:** Pyhän Tragedian lapset
+- **Hallitseva faktio:** Ei kukaan
+- **Häiritsevä faktio:** Ratasvartio, Pyhän Tragedian lapset
 - **Jännite:** Murtunut
 
 Tuhkan puolueen vetäytymistä seurasi säälimätön valtakamppailu. KW-konsortion Ratasvartio-erikoisjoukot
