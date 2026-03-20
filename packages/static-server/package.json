@@ -1,0 +1,12 @@
+{
+  "name": "@repo/static-server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "static-server": "./serve.mjs"
+  },
+  "dependencies": {
+    "sirv": "^3.0.0"
+  }
+}
