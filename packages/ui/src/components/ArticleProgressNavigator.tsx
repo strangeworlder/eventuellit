@@ -57,7 +57,7 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
     isMinimalVariant ? (
       <div
         key={marker.id}
-        className="group relative absolute -translate-y-1/2"
+        className="group absolute -translate-y-1/2"
         style={{ top: `${marker.topPercent}%` }}
       >
         <button
