@@ -39,10 +39,11 @@ export class AuthController {
       const { user, jwt } = await this.authService.verifyToken(dto.token);
 
       // Set httpOnly cookie
+      const isProduction = process.env.NODE_ENV === "production";
       res.cookie("auth_token", jwt, {
         httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
+        sameSite: isProduction ? "none" : "lax",
+        secure: isProduction,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
@@ -79,7 +80,12 @@ export class AuthController {
   @Post("logout")
   @UseGuards(JwtAuthGuard)
   async logout(@Res() res: Response): Promise<void> {
-    res.clearCookie("auth_token");
+    const isProduction = process.env.NODE_ENV === "production";
+    res.clearCookie("auth_token", {
+      httpOnly: true,
+      sameSite: isProduction ? "none" : "lax",
+      secure: isProduction,
+    });
     res.status(200).json({ message: "Logged out successfully" });
   }
 }
