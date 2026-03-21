@@ -20,7 +20,7 @@ export const magicLinkTokens = pgTable("magic_link_tokens", {
 
 export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
-  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }), // Nullable for now while we build without auth
+  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
   name: text("name").notNull(),
   archetype: text("archetype").notNull().default("soldier"),
   keho: integer("keho").default(8).notNull(),

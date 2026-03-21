@@ -248,7 +248,7 @@ function CharacterSheetRoute() {
 function InnerApp() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { user: _user } = useAuth(); // Available for future use (e.g., tying characters to userId)
+  const { user } = useAuth();
 
   // Dynamically determine the correct base path for absolute routing to avoid nesting issues
   const getBasePath = () => {
@@ -271,7 +271,9 @@ function InnerApp() {
   const { data: characters, isLoading } = useQuery({
     queryKey: ["characters"],
     queryFn: async () => {
-      const res = await fetch(`${apiBaseUrl}/characters`);
+      const res = await fetch(`${apiBaseUrl}/characters`, {
+        credentials: "include",
+      });
       if (!res.ok) throw new Error("Failed to fetch characters");
       return res.json();
     },
@@ -332,6 +334,14 @@ function InnerApp() {
                                   Sisu: {char.currentSisuCount} x {char.sisuDie}
                                 </p>
                               </div>
+                              {char.ownerName && (
+                                <p className="text-sm text-text/60 mt-1">
+                                  Pelaaja: {char.ownerName}
+                                  {user && char.userId === user.id && (
+                                    <span className="ml-2 text-xs font-semibold text-[var(--theme-accent)] uppercase">(sinun)</span>
+                                  )}
+                                </p>
+                              )}
                             </div>
                           </CardContent>
                         </Card>
