@@ -8,7 +8,6 @@ import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { useAuth } from "@repo/auth/use-auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { apiBaseUrl } from "./api/base-url";
 
 interface Character {
@@ -38,7 +37,6 @@ export function CharacterSheet({
   onBack: () => void;
 }) {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const { data: character, isLoading } = useQuery<Character>({
