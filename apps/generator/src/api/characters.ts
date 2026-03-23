@@ -13,8 +13,7 @@ export interface CreateCharacterDto {
   keho: number;
   mieli: number;
   tera: number;
-  sisuDie: string;
-  sisuCount: number;
+  sisuDice: Array<{ id: string; faces: number }>;
   skills: { name: string; isCustom?: boolean }[];
   fysiikka?: number;
   nopeus?: number;

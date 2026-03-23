@@ -47,7 +47,7 @@ describe("CharactersController", () => {
   });
 
   it("should pass userId to create", async () => {
-    await controller.create({ name: "Hero", archetype: "Sotilas", episodeId: 1, keho: 8, mieli: 8, tera: 8, sisuDie: "n8", sisuCount: 3, skills: [] }, mockReq);
+    await controller.create({ name: "Hero", archetype: "Sotilas", episodeId: 1, keho: 8, mieli: 8, tera: 8, sisuDice: [{ id: "sisu-0", faces: 8 }, { id: "sisu-1", faces: 8 }, { id: "sisu-2", faces: 8 }], skills: [] }, mockReq);
     expect(service.create).toHaveBeenCalledWith(expect.any(Object), mockUser.id);
   });
 

@@ -56,8 +56,11 @@ describe("CharactersService", () => {
       keho: 8,
       mieli: 8,
       tera: 8,
-      sisuDie: "n8" as const,
-      sisuCount: 3,
+      sisuDice: [
+        { id: "sisu-0", faces: 8 },
+        { id: "sisu-1", faces: 8 },
+        { id: "sisu-2", faces: 8 },
+      ],
       skills: [],
     };
 

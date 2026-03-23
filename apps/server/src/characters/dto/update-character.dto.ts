@@ -1,4 +1,4 @@
-import { ArrayMaxSize, IsArray, IsIn, IsInt, IsOptional, IsString, Max, Min } from "class-validator";
+import { ArrayMaxSize, IsArray, IsIn, IsInt, IsOptional, IsString, Min } from "class-validator";
 
 export class UpdateCharacterDto {
   @IsOptional()
@@ -52,20 +52,14 @@ export class UpdateCharacterDto {
   currentTera?: number;
 
   @IsOptional()
-  @IsIn(["n4", "n6", "n8", "n10", "n12"])
-  sisuDie?: "n4" | "n6" | "n8" | "n10" | "n12";
+  @IsArray()
+  @ArrayMaxSize(20)
+  sisuDice?: Array<{ id: string; faces: number }>;
 
   @IsOptional()
-  @IsInt()
-  @Min(0)
-  @Max(12)
-  sisuCount?: number;
-
-  @IsOptional()
-  @IsInt()
-  @Min(0)
-  @Max(12)
-  currentSisuCount?: number;
+  @IsArray()
+  @ArrayMaxSize(20)
+  removedSisuIds?: string[];
 
   @IsOptional()
   @IsArray()

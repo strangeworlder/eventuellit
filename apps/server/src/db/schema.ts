@@ -65,9 +65,8 @@ export const characters = pgTable("characters", {
   currentMieli: integer("current_mieli").default(8).notNull(),
   tera: integer("tera").default(8).notNull(),
   currentTera: integer("current_tera").default(8).notNull(),
-  sisuDie: text("sisu_die").notNull().default("n6"),
-  sisuCount: integer("sisu_count").notNull().default(3),
-  currentSisuCount: integer("current_sisu_count").notNull().default(3),
+  sisuDice: jsonb("sisu_dice").default([]).notNull(), // Array<{ id: string, faces: number }>
+  removedSisuIds: jsonb("removed_sisu_ids").default([]).notNull(), // string[]
   harmit: jsonb("harmit").default([]).notNull(),
   skills: jsonb("skills").default([]).notNull(),
   inventory: jsonb("inventory").default([]).notNull(),

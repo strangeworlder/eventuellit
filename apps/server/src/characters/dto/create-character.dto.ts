@@ -5,7 +5,6 @@ import {
   IsInt,
   IsOptional,
   IsString,
-  Max,
   Min,
 } from "class-validator";
 
@@ -44,13 +43,9 @@ export class CreateCharacterDto {
   @Min(0)
   tera!: number;
 
-  @IsIn(["n4", "n6", "n8", "n10", "n12"])
-  sisuDie!: "n4" | "n6" | "n8" | "n10" | "n12";
-
-  @IsInt()
-  @Min(0)
-  @Max(12)
-  sisuCount!: number;
+  @IsArray()
+  @ArrayMaxSize(20)
+  sisuDice!: Array<{ id: string; faces: number }>;
 
   @IsOptional()
   @IsArray()

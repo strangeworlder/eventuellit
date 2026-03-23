@@ -150,8 +150,10 @@ function GeneratorForm() {
       keho: kehoScore,
       mieli: mieliScore,
       tera: teraScore,
-      sisuCount: 3,
-      sisuDie: archetype === "Sotilas" ? "n8" : "n6",
+      sisuDice: Array.from({ length: 3 }, (_, i) => ({
+        id: `sisu-${i}`,
+        faces: archetype === "Sotilas" ? 8 : 6,
+      })),
       skills: buildSkills(),
       fysiikka,
       nopeus,
@@ -568,8 +570,25 @@ function InnerApp() {
                                       Harmit: <span className={activeHarmit > 0 ? "font-bold text-[var(--theme-primary)]" : "font-medium text-[var(--theme-text)]/80"}>{activeHarmit} / 5</span>
                                     </span>
                                     <span className="text-[var(--theme-text)]/70 inline-flex items-center gap-1.5">
-                                      Sisu: <span className="font-medium text-[var(--theme-text)]/80">{char.currentSisuCount}</span>
-                                      <DiceIcon faces={Number.parseInt(char.sisuDie.replace("n", ""), 10) as 4 | 6 | 8 | 10 | 12 | 20} size="sm" />
+                                      Sisu:
+                                      {(() => {
+                                        const dice: Array<{ id: string; faces: number }> = char.sisuDice ?? [];
+                                        const removed = new Set<string>(char.removedSisuIds ?? []);
+                                        const activeByFaces = new Map<number, number>();
+                                        for (const d of dice) {
+                                          if (!removed.has(d.id)) {
+                                            activeByFaces.set(d.faces, (activeByFaces.get(d.faces) ?? 0) + 1);
+                                          }
+                                        }
+                                        const sorted = [...activeByFaces.entries()].sort(([a], [b]) => a - b);
+                                        if (sorted.length === 0) return <span className="font-medium text-[var(--theme-text)]/80">0</span>;
+                                        return sorted.map(([faces, count]) => (
+                                          <span key={faces} className="inline-flex items-center gap-0.5">
+                                            <span className="font-medium text-[var(--theme-text)]/80">{count}×</span>
+                                            <DiceIcon faces={faces as 4 | 6 | 8 | 10 | 12 | 20} size="sm" />
+                                          </span>
+                                        ));
+                                      })()}
                                     </span>
                                   </div>
                                   {char.ownerName && (
