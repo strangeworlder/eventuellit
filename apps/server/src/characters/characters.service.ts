@@ -33,6 +33,12 @@ const characterWithOwnerColumns = {
   vaurio: characters.vaurio,
   skills: characters.skills,
   inventory: characters.inventory,
+  fysiikka: characters.fysiikka,
+  nopeus: characters.nopeus,
+  ymmarrys: characters.ymmarrys,
+  persoona: characters.persoona,
+  nakemys: characters.nakemys,
+  napparyys: characters.napparyys,
   createdAt: characters.createdAt,
   updatedAt: characters.updatedAt,
   ownerName: users.username,
@@ -82,6 +88,12 @@ export class CharactersService {
       currentSisuCount: data.sisuCount,
       skills: data.skills ?? [],
       inventory: [],
+      fysiikka: data.fysiikka ?? 0,
+      nopeus: data.nopeus ?? 0,
+      ymmarrys: data.ymmarrys ?? 0,
+      persoona: data.persoona ?? 0,
+      nakemys: data.nakemys ?? 0,
+      napparyys: data.napparyys ?? 0,
       userId,
     };
     const result = await this.db.insert(characters).values(insertData).returning();
@@ -129,6 +141,12 @@ export class CharactersService {
       vaurio: data.vaurio,
       skills: data.skills,
       inventory: data.inventory,
+      fysiikka: data.fysiikka,
+      nopeus: data.nopeus,
+      ymmarrys: data.ymmarrys,
+      persoona: data.persoona,
+      nakemys: data.nakemys,
+      napparyys: data.napparyys,
       updatedAt: new Date(),
     };
     const result = await this.db

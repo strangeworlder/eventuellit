@@ -201,19 +201,18 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
       return [...manifestEntry.variants].sort((a, b) => a.width - b.width);
     }, [manifestEntry]);
     const smallestManifestJpg = React.useMemo(() => {
-      if (!manifestOrigin || sortedManifestVariants.length === 0) {
+      const first = sortedManifestVariants[0];
+      if (!manifestOrigin || !first) {
         return undefined;
       }
-      return resolveAssetUrlFromOrigin(manifestOrigin, sortedManifestVariants[0].jpg);
+      return resolveAssetUrlFromOrigin(manifestOrigin, first.jpg);
     }, [manifestOrigin, sortedManifestVariants]);
     const largestManifestJpg = React.useMemo(() => {
-      if (!manifestOrigin || sortedManifestVariants.length === 0) {
+      const last = sortedManifestVariants[sortedManifestVariants.length - 1];
+      if (!manifestOrigin || !last) {
         return undefined;
       }
-      return resolveAssetUrlFromOrigin(
-        manifestOrigin,
-        sortedManifestVariants[sortedManifestVariants.length - 1].jpg,
-      );
+      return resolveAssetUrlFromOrigin(manifestOrigin, last.jpg);
     }, [manifestOrigin, sortedManifestVariants]);
     const shouldAutoResolveSrc = Boolean(
       manifestEntry && manifestOrigin && sources.length === 0 && smallestManifestJpg,

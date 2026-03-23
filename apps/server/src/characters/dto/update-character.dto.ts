@@ -82,4 +82,34 @@ export class UpdateCharacterDto {
   @IsArray()
   @ArrayMaxSize(200)
   inventory?: unknown[];
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  fysiikka?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  nopeus?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  ymmarrys?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  persoona?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  nakemys?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  napparyys?: number;
 }

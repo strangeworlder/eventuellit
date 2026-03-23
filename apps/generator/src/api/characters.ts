@@ -16,6 +16,12 @@ export interface CreateCharacterDto {
   sisuDie: "n6" | "n8";
   sisuCount: number;
   skills: { name: string; isCustom?: boolean }[];
+  fysiikka?: number;
+  nopeus?: number;
+  ymmarrys?: number;
+  persoona?: number;
+  nakemys?: number;
+  napparyys?: number;
 }
 
 export function useCreateCharacter() {

@@ -56,4 +56,34 @@ export class CreateCharacterDto {
   @IsArray()
   @ArrayMaxSize(50)
   skills?: unknown[];
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  fysiikka?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  nopeus?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  ymmarrys?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  persoona?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  nakemys?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  napparyys?: number;
 }

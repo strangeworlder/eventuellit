@@ -141,6 +141,12 @@ function GeneratorForm() {
       sisuCount: 3,
       sisuDie: archetype === "soldier" ? "n8" : "n6",
       skills: buildSkills(),
+      fysiikka,
+      nopeus,
+      ymmarrys,
+      persoona,
+      nakemys,
+      napparyys,
     });
   };
 

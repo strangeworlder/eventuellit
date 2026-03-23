@@ -71,6 +71,12 @@ export const characters = pgTable("characters", {
   vaurio: integer("vaurio").notNull().default(0),
   skills: jsonb("skills").default([]).notNull(),
   inventory: jsonb("inventory").default([]).notNull(),
+  fysiikka: integer("fysiikka").default(0).notNull(),
+  nopeus: integer("nopeus").default(0).notNull(),
+  ymmarrys: integer("ymmarrys").default(0).notNull(),
+  persoona: integer("persoona").default(0).notNull(),
+  nakemys: integer("nakemys").default(0).notNull(),
+  napparyys: integer("napparyys").default(0).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

@@ -1,6 +1,7 @@
 import { ActiveStatBlock } from "@repo/ui/components/ActiveStatBlock";
 import { Button } from "@repo/ui/components/Button";
 import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
+import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { LoadingState } from "@repo/ui/components/LoadingState";
@@ -32,6 +33,12 @@ interface Character {
   vaurio: number;
   skills: { name: string; isCustom?: boolean }[] | string[];
   ownerName: string | null;
+  fysiikka: number;
+  nopeus: number;
+  ymmarrys: number;
+  persoona: number;
+  nakemys: number;
+  napparyys: number;
 }
 
 export function CharacterSheet({
@@ -217,26 +224,38 @@ export function CharacterSheet({
 
               <Heading>Kestot</Heading>
               <div className="grid grid-cols-1 gap-4 mt-4">
-                <ActiveStatBlock
+                <EnduranceBlock
                   label="Keho"
                   value={character.currentKeho}
                   maxValue={canEdit ? character.keho : character.currentKeho}
+                  subAttributes={[
+                    { label: "Fysiikka", diceValue: character.fysiikka },
+                    { label: "Nopeus", diceValue: character.nopeus },
+                  ]}
                   onIncrement={canEdit ? () => updateCharacter({ currentKeho: character.currentKeho + 1 }) : undefined}
                   onDecrement={canEdit ? () => updateCharacter({ currentKeho: character.currentKeho - 1 }) : undefined}
                   {...lockIfReadOnly(character.currentKeho)}
                 />
-                <ActiveStatBlock
+                <EnduranceBlock
                   label="Mieli"
                   value={character.currentMieli}
                   maxValue={canEdit ? character.mieli : character.currentMieli}
+                  subAttributes={[
+                    { label: "Ymmärrys", diceValue: character.ymmarrys },
+                    { label: "Persoona", diceValue: character.persoona },
+                  ]}
                   onIncrement={canEdit ? () => updateCharacter({ currentMieli: character.currentMieli + 1 }) : undefined}
                   onDecrement={canEdit ? () => updateCharacter({ currentMieli: character.currentMieli - 1 }) : undefined}
                   {...lockIfReadOnly(character.currentMieli)}
                 />
-                <ActiveStatBlock
+                <EnduranceBlock
                   label="Terä"
                   value={character.currentTera}
                   maxValue={canEdit ? character.tera : character.currentTera}
+                  subAttributes={[
+                    { label: "Näkemys", diceValue: character.nakemys },
+                    { label: "Näppäryys", diceValue: character.napparyys },
+                  ]}
                   onIncrement={canEdit ? () => updateCharacter({ currentTera: character.currentTera + 1 }) : undefined}
                   onDecrement={canEdit ? () => updateCharacter({ currentTera: character.currentTera - 1 }) : undefined}
                   {...lockIfReadOnly(character.currentTera)}
