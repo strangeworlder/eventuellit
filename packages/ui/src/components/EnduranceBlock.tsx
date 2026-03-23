@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, cn } from "./Button";
+import { Button } from "./Button";
+import { cn } from "./utils";
 import { DiceIcon } from "./DiceIcon";
 import { getDiceFromValue } from "./AttributeCard";
 import { Heading, HeadingLevelProvider } from "./Heading";

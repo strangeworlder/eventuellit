@@ -3,7 +3,7 @@ import type React from "react";
 
 import { AnchoredTooltip } from "./AnchoredTooltip";
 import type { ArticleSectionAnchor } from "./article-navigation-utils";
-import { cn } from "./Heading";
+import { cn } from "./utils";
 
 export interface ArticleProgressNavigatorProps extends React.HTMLAttributes<HTMLDivElement> {
   sections: ArticleSectionAnchor[];

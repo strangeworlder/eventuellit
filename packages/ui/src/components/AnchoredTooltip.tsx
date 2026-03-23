@@ -1,6 +1,6 @@
 import React from "react";
 
-import { cn } from "./Heading";
+import { cn } from "./utils";
 import type { Theme } from "./Theme";
 
 export type AnchoredTooltipPlacement = "right" | "left" | "top" | "bottom";

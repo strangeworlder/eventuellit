@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Button } from "./Button";
-import { cn } from "./Heading";
+import { cn } from "./utils";
 import { type Theme, ThemeContext, primaryThemeMap, useCurrentTheme } from "./Theme";
 import { Icon } from "./Icon";
 

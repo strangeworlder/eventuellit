@@ -7,6 +7,7 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
+import { ObscuredWrapper } from "@repo/ui/components/ObscuredWrapper";
 import { Page } from "@repo/ui/components/Page";
 import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
@@ -47,13 +48,13 @@ function GeneratorForm() {
   const navigate = useNavigate();
 
   const [characterName, setCharacterName] = useState("");
-  const [archetype, setArchetype] = useState<"soldier" | "expert">("soldier");
+  const [archetype, setArchetype] = useState<"soldier" | "expert" | null>(null);
   const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(null);
   const [sex, setSex] = useState("");
   const [motivation, setMotivation] = useState("");
   const [notes, setNotes] = useState("");
 
-  const taidotCount = TAIDOT_COUNTS[archetype];
+  const taidotCount = archetype ? TAIDOT_COUNTS[archetype] : 0;
   const [selectedTaidot, setSelectedTaidot] = useState<Array<string | null>>(
     Array(TAIDOT_COUNTS["soldier"]).fill(null),
   );
@@ -120,14 +121,23 @@ function GeneratorForm() {
     selectedTaidot.every((s) => s !== null) &&
     (!hasCustomSlot || customSkillText.trim() !== "");
 
+  // ── Step progression gates ──
+  const episodeSelected = selectedEpisodeId !== null;
+  const archetypeSelected = archetype !== null;
+  const nameEntered = characterName.trim() !== "";
+  const sexStepReached = nameEntered; // sex is optional, reaching it is enough
+  const diceAssigned = diceRemaining === 0;
+  const skillsFilled = taidotFilled && archetypeSelected;
+
   const canSubmit =
     characterName.trim() !== "" &&
     diceRemaining === 0 &&
     selectedEpisodeId !== null &&
+    archetypeSelected &&
     taidotFilled;
 
   const handleSave = () => {
-    if (!canSubmit || !selectedEpisodeId) return;
+    if (!canSubmit || !selectedEpisodeId || !archetype) return;
     createCharacter({
       name: characterName,
       archetype,
@@ -153,7 +163,7 @@ function GeneratorForm() {
   const handleReset = () => {
     reset();
     setCharacterName("");
-    setArchetype("soldier");
+    setArchetype(null);
     setSelectedEpisodeId(null);
     setSex("");
     setMotivation("");
@@ -195,7 +205,7 @@ function GeneratorForm() {
         <Hero title="Uusi Hahmo" />
         <HeadingLevelProvider>
           <div className="flex flex-col gap-8 px-4">
-            {/* ── Episode ── */}
+            {/* ── Step 1: Episode ── */}
             <div className="space-y-4">
               <div className="border-b-2 border-primary/20 pb-2">
                 <Heading>Jakso</Heading>
@@ -210,7 +220,7 @@ function GeneratorForm() {
                       variant={selectedEpisodeId === ep.id ? "primary" : "secondary"}
                       onClick={() => {
                         setSelectedEpisodeId(ep.id);
-                        setSelectedTaidot(Array(taidotCount).fill(null));
+                        setSelectedTaidot(Array(taidotCount || TAIDOT_COUNTS["soldier"]).fill(null));
                         setCustomSkillText("");
                       }}
                     >
@@ -225,240 +235,256 @@ function GeneratorForm() {
               )}
             </div>
 
-            {/* ── Name ── */}
-            <Input
-              label="Hahmon Nimi"
-              placeholder="Syötä nimi..."
-              value={characterName}
-              onChange={(e) => setCharacterName(e.target.value)}
-            />
-
-            {/* ── Sex ── */}
-            <div className="space-y-3">
-              <div className="border-b-2 border-primary/20 pb-2">
-                <Heading>Sukupuoli</Heading>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                {SEX_OPTIONS.map((opt) => (
+            {/* ── Step 2: Archetype ── */}
+            <ObscuredWrapper revealed={episodeSelected}>
+              <div className="space-y-4">
+                <div className="border-b-2 border-primary/20 pb-2">
+                  <Heading>Arkkityyppi</Heading>
+                </div>
+                <div className="flex gap-4">
                   <Button
-                    key={opt.value}
-                    size="sm"
-                    variant={sex === opt.value ? "primary" : "secondary"}
-                    onClick={() => setSex(sex === opt.value ? "" : opt.value)}
+                    variant="obscured"
+                    disabled
                   >
-                    {opt.label}
+                    Munkki (Sisu: 3n4, Taidot: 2)
                   </Button>
-                ))}
-              </div>
-            </div>
-
-            {/* ── Archetype ── */}
-            <div className="space-y-4">
-              <div className="border-b-2 border-primary/20 pb-2">
-                <Heading>Arkkityyppi</Heading>
-              </div>
-              <div className="flex gap-4">
-                <Button
-                  variant="obscured"
-                  disabled
-                >
-                  Munkki (Sisu: 3n4, Taidot: 2)
-                </Button>
-                <Button
-                  variant={archetype === "expert" ? "primary" : "secondary"}
-                  onClick={() => handleArchetypeChange("expert")}
-                >
-                  Ekspertti (Sisu: 3n6, Taidot: 3)
-                </Button>
-                <Button
-                  variant={archetype === "soldier" ? "primary" : "secondary"}
-                  onClick={() => handleArchetypeChange("soldier")}
-                >
-                  Sotilas (Sisu: 3n8, Taidot: 2)
-                </Button>
-              </div>
-            </div>
-
-            {/* ── Attributes ── */}
-            <div className="space-y-4">
-              <div className="flex justify-between items-center mb-2">
-                <Heading>Ominaisuudet (Kestot)</Heading>
-                <div className="flex items-center gap-2 text-slate-400 font-mono">
-                  <span>Noppia jäljellä:</span>
-                  <div className="flex gap-1.5">
-                    {Array.from({ length: diceRemaining }).map((_, i) => (
-                      <DiceIcon key={i} faces={4} size="sm" />
-                    ))}
-                  </div>
+                  <Button
+                    variant={archetype === "expert" ? "primary" : "secondary"}
+                    onClick={() => handleArchetypeChange("expert")}
+                  >
+                    Ekspertti (Sisu: 3n6, Taidot: 3)
+                  </Button>
+                  <Button
+                    variant={archetype === "soldier" ? "primary" : "secondary"}
+                    onClick={() => handleArchetypeChange("soldier")}
+                  >
+                    Sotilas (Sisu: 3n8, Taidot: 2)
+                  </Button>
                 </div>
               </div>
-              <div className="grid grid-cols-1 tablet:grid-cols-3 gap-6">
-                <AttributeCard
-                  label="Keho"
-                  score={kehoScore}
-                  subAttributes={[
-                    {
-                      name: "Fysiikka", label: "Fysiikka", value: fysiikka,
-                      onAdd: () => handleAssignDie(setFysiikka, fysiikka),
-                      onRemove: () => handleRemoveDie(setFysiikka, fysiikka),
-                      canAdd: diceRemaining > 0, canRemove: fysiikka > 0,
-                    },
-                    {
-                      name: "Nopeus", label: "Nopeus", value: nopeus,
-                      onAdd: () => handleAssignDie(setNopeus, nopeus),
-                      onRemove: () => handleRemoveDie(setNopeus, nopeus),
-                      canAdd: diceRemaining > 0, canRemove: nopeus > 0,
-                    },
-                  ]}
-                />
-                <AttributeCard
-                  label="Mieli"
-                  score={mieliScore}
-                  subAttributes={[
-                    {
-                      name: "Ymmärrys", label: "Ymmärrys", value: ymmarrys,
-                      onAdd: () => handleAssignDie(setYmmarrys, ymmarrys),
-                      onRemove: () => handleRemoveDie(setYmmarrys, ymmarrys),
-                      canAdd: diceRemaining > 0, canRemove: ymmarrys > 0,
-                    },
-                    {
-                      name: "Persoona", label: "Persoona", value: persoona,
-                      onAdd: () => handleAssignDie(setPersoona, persoona),
-                      onRemove: () => handleRemoveDie(setPersoona, persoona),
-                      canAdd: diceRemaining > 0, canRemove: persoona > 0,
-                    },
-                  ]}
-                />
-                <AttributeCard
-                  label="Terä"
-                  score={teraScore}
-                  subAttributes={[
-                    {
-                      name: "Näkemys", label: "Näkemys", value: nakemys,
-                      onAdd: () => handleAssignDie(setNakemys, nakemys),
-                      onRemove: () => handleRemoveDie(setNakemys, nakemys),
-                      canAdd: diceRemaining > 0, canRemove: nakemys > 0,
-                    },
-                    {
-                      name: "Näppäryys", label: "Näppäryys", value: napparyys,
-                      onAdd: () => handleAssignDie(setNapparyys, napparyys),
-                      onRemove: () => handleRemoveDie(setNapparyys, napparyys),
-                      canAdd: diceRemaining > 0, canRemove: napparyys > 0,
-                    },
-                  ]}
-                />
-              </div>
-            </div>
+            </ObscuredWrapper>
 
-            {/* ── Taidot ── */}
-            <div className="space-y-4">
-              <div className="border-b-2 border-primary/20 pb-2">
-                <Heading>Taidot ({taidotCount} valittava)</Heading>
+            {/* ── Step 3: Name ── */}
+            <ObscuredWrapper revealed={archetypeSelected}>
+              <Input
+                label="Hahmon Nimi"
+                placeholder="Syötä nimi..."
+                value={characterName}
+                onChange={(e) => setCharacterName(e.target.value)}
+              />
+            </ObscuredWrapper>
+
+            {/* ── Step 4: Sex ── */}
+            <ObscuredWrapper revealed={nameEntered}>
+              <div className="space-y-3">
+                <div className="border-b-2 border-primary/20 pb-2">
+                  <Heading>Sukupuoli</Heading>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {SEX_OPTIONS.map((opt) => (
+                    <Button
+                      key={opt.value}
+                      size="sm"
+                      variant={sex === opt.value ? "primary" : "secondary"}
+                      onClick={() => setSex(sex === opt.value ? "" : opt.value)}
+                    >
+                      {opt.label}
+                    </Button>
+                  ))}
+                </div>
               </div>
-              {!selectedEpisodeId ? (
-                <p className="text-secondary text-sm">
-                  Valitse ensin jakso nähdäksesi saatavilla olevat taidot.
-                </p>
-              ) : isSkillsLoading ? (
-                <LoadingState message="Ladataan taitoja..." />
-              ) : (
-                <div className="space-y-4">
-                  {Array.from({ length: taidotCount }).map((_, slotIndex) => {
-                    const slotValue = selectedTaidot[slotIndex];
-                    const isCustomSlot = slotValue === "custom";
-                    return (
-                      <Card key={slotIndex} variant="secondary">
-                        <CardHeader>
-                          <CardTitle>Taito {slotIndex + 1}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="flex flex-wrap gap-2">
-                            {episodeSkills?.map((skill) => {
-                              const selectedElsewhere = selectedTaidot.some(
-                                (s, i) => i !== slotIndex && s === skill.name,
-                              );
-                              return (
+            </ObscuredWrapper>
+
+            {/* ── Step 5: Attributes ── */}
+            <ObscuredWrapper revealed={sexStepReached}>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center mb-2">
+                  <Heading>Ominaisuudet (Kestot)</Heading>
+                  <div className="flex items-center gap-2 text-slate-400 font-mono">
+                    <span>Noppia jäljellä:</span>
+                    <div className="flex gap-1.5">
+                      {Array.from({ length: diceRemaining }).map((_, i) => (
+                        <DiceIcon key={i} faces={4} size="sm" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 tablet:grid-cols-3 gap-6">
+                  <AttributeCard
+                    label="Keho"
+                    score={kehoScore}
+                    subAttributes={[
+                      {
+                        name: "Fysiikka", label: "Fysiikka", value: fysiikka,
+                        onAdd: () => handleAssignDie(setFysiikka, fysiikka),
+                        onRemove: () => handleRemoveDie(setFysiikka, fysiikka),
+                        canAdd: diceRemaining > 0, canRemove: fysiikka > 0,
+                      },
+                      {
+                        name: "Nopeus", label: "Nopeus", value: nopeus,
+                        onAdd: () => handleAssignDie(setNopeus, nopeus),
+                        onRemove: () => handleRemoveDie(setNopeus, nopeus),
+                        canAdd: diceRemaining > 0, canRemove: nopeus > 0,
+                      },
+                    ]}
+                  />
+                  <AttributeCard
+                    label="Mieli"
+                    score={mieliScore}
+                    subAttributes={[
+                      {
+                        name: "Ymmärrys", label: "Ymmärrys", value: ymmarrys,
+                        onAdd: () => handleAssignDie(setYmmarrys, ymmarrys),
+                        onRemove: () => handleRemoveDie(setYmmarrys, ymmarrys),
+                        canAdd: diceRemaining > 0, canRemove: ymmarrys > 0,
+                      },
+                      {
+                        name: "Persoona", label: "Persoona", value: persoona,
+                        onAdd: () => handleAssignDie(setPersoona, persoona),
+                        onRemove: () => handleRemoveDie(setPersoona, persoona),
+                        canAdd: diceRemaining > 0, canRemove: persoona > 0,
+                      },
+                    ]}
+                  />
+                  <AttributeCard
+                    label="Terä"
+                    score={teraScore}
+                    subAttributes={[
+                      {
+                        name: "Näkemys", label: "Näkemys", value: nakemys,
+                        onAdd: () => handleAssignDie(setNakemys, nakemys),
+                        onRemove: () => handleRemoveDie(setNakemys, nakemys),
+                        canAdd: diceRemaining > 0, canRemove: nakemys > 0,
+                      },
+                      {
+                        name: "Näppäryys", label: "Näppäryys", value: napparyys,
+                        onAdd: () => handleAssignDie(setNapparyys, napparyys),
+                        onRemove: () => handleRemoveDie(setNapparyys, napparyys),
+                        canAdd: diceRemaining > 0, canRemove: napparyys > 0,
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            </ObscuredWrapper>
+
+            {/* ── Step 6: Taidot ── */}
+            <ObscuredWrapper revealed={diceAssigned}>
+              <div className="space-y-4">
+                <div className="border-b-2 border-primary/20 pb-2">
+                  <Heading>Taidot ({taidotCount} valittava)</Heading>
+                </div>
+                {!selectedEpisodeId ? (
+                  <p className="text-secondary text-sm">
+                    Valitse ensin jakso nähdäksesi saatavilla olevat taidot.
+                  </p>
+                ) : isSkillsLoading ? (
+                  <LoadingState message="Ladataan taitoja..." />
+                ) : (
+                  <div className="space-y-4">
+                    {Array.from({ length: taidotCount }).map((_, slotIndex) => {
+                      const slotValue = selectedTaidot[slotIndex];
+                      const isCustomSlot = slotValue === "custom";
+                      return (
+                        <Card key={slotIndex} variant="secondary">
+                          <CardHeader>
+                            <CardTitle>Taito {slotIndex + 1}</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="flex flex-wrap gap-2">
+                              {episodeSkills?.map((skill) => {
+                                const selectedElsewhere = selectedTaidot.some(
+                                  (s, i) => i !== slotIndex && s === skill.name,
+                                );
+                                return (
+                                  <Button
+                                    key={skill.id}
+                                    size="sm"
+                                    variant={slotValue === skill.name ? "primary" : "secondary"}
+                                    disabled={selectedElsewhere}
+                                    onClick={() =>
+                                      handleTaidotSelect(
+                                        slotIndex,
+                                        slotValue === skill.name ? null : skill.name,
+                                      )
+                                    }
+                                  >
+                                    {skill.name}
+                                  </Button>
+                                );
+                              })}
+                              {(!hasCustomSlot || isCustomSlot) && (
                                 <Button
-                                  key={skill.id}
                                   size="sm"
-                                  variant={slotValue === skill.name ? "primary" : "secondary"}
-                                  disabled={selectedElsewhere}
+                                  variant={isCustomSlot ? "primary" : "secondary"}
                                   onClick={() =>
                                     handleTaidotSelect(
                                       slotIndex,
-                                      slotValue === skill.name ? null : skill.name,
+                                      isCustomSlot ? null : "custom",
                                     )
                                   }
                                 >
-                                  {skill.name}
+                                  Oma taito...
                                 </Button>
-                              );
-                            })}
-                            {(!hasCustomSlot || isCustomSlot) && (
-                              <Button
-                                size="sm"
-                                variant={isCustomSlot ? "primary" : "secondary"}
-                                onClick={() =>
-                                  handleTaidotSelect(
-                                    slotIndex,
-                                    isCustomSlot ? null : "custom",
-                                  )
-                                }
-                              >
-                                Oma taito...
-                              </Button>
-                            )}
-                          </div>
-                          {isCustomSlot && (
-                            <div className="mt-3">
-                              <Input
-                                label="Kirjoita oma taito"
-                                placeholder="Esim. Hakkerointi"
-                                value={customSkillText}
-                                onChange={(e) => setCustomSkillText(e.target.value)}
-                              />
-                              <p className="text-xs text-secondary mt-1">
-                                GM tarkastaa omat taidot.
-                              </p>
+                              )}
                             </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
+                            {isCustomSlot && (
+                              <div className="mt-3">
+                                <Input
+                                  label="Kirjoita oma taito"
+                                  placeholder="Esim. Hakkerointi"
+                                  value={customSkillText}
+                                  onChange={(e) => setCustomSkillText(e.target.value)}
+                                />
+                                <p className="text-xs text-secondary mt-1">
+                                  GM tarkastaa omat taidot.
+                                </p>
+                              </div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </ObscuredWrapper>
+
+            {/* ── Step 7: Motivation (optional) ── */}
+            <ObscuredWrapper revealed={skillsFilled}>
+              <div className="space-y-2">
+                <div className="border-b-2 border-primary/20 pb-2">
+                  <Heading>Motivaatio (valinnainen)</Heading>
                 </div>
-              )}
-            </div>
-
-            {/* ── Motivation ── */}
-            <div className="space-y-2">
-              <div className="border-b-2 border-primary/20 pb-2">
-                <Heading>Motivaatio (valinnainen)</Heading>
+                <textarea
+                  className="w-full p-3 border rounded-md text-sm h-20 resize-none bg-transparent border-[var(--theme-secondary)]/30"
+                  placeholder="Mikä ajaa hahmoasi eteenpäin?"
+                  value={motivation}
+                  onChange={(e) => setMotivation(e.target.value)}
+                />
               </div>
-              <textarea
-                className="w-full p-3 border rounded-md text-sm h-20 resize-none bg-transparent border-[var(--theme-secondary)]/30"
-                placeholder="Mikä ajaa hahmoasi eteenpäin?"
-                value={motivation}
-                onChange={(e) => setMotivation(e.target.value)}
-              />
-            </div>
+            </ObscuredWrapper>
 
-            {/* ── Notes ── */}
-            <div className="space-y-2">
-              <div className="border-b-2 border-primary/20 pb-2">
-                <Heading>Muistiinpanot (valinnainen)</Heading>
+            {/* ── Step 8: Notes (optional) ── */}
+            <ObscuredWrapper revealed={skillsFilled}>
+              <div className="space-y-2">
+                <div className="border-b-2 border-primary/20 pb-2">
+                  <Heading>Muistiinpanot (valinnainen)</Heading>
+                </div>
+                <textarea
+                  className="w-full p-3 border rounded-md text-sm h-20 resize-none bg-transparent border-[var(--theme-secondary)]/30"
+                  placeholder="Lisätietoja hahmostasi..."
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
               </div>
-              <textarea
-                className="w-full p-3 border rounded-md text-sm h-20 resize-none bg-transparent border-[var(--theme-secondary)]/30"
-                placeholder="Lisätietoja hahmostasi..."
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
-            </div>
+            </ObscuredWrapper>
 
-            <Button size="lg" onClick={handleSave} loading={isPending} disabled={!canSubmit}>
-              {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
-            </Button>
+            <ObscuredWrapper revealed={skillsFilled}>
+              <Button size="lg" onClick={handleSave} loading={isPending} disabled={!canSubmit}>
+                {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
+              </Button>
+            </ObscuredWrapper>
           </div>
         </HeadingLevelProvider>
       </HeadingLevelProvider>

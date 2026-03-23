@@ -1,11 +1,6 @@
-import { type ClassValue, clsx } from "clsx";
 import type React from "react";
-import { twMerge } from "tailwind-merge";
 import { HeadingLevelContext } from "./Heading";
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from "./utils";
 
 export interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;

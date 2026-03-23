@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "./Heading"; // Reusing the utility
+import { cn } from "./utils"; // Reusing the utility
 
 export interface ListProps extends React.HTMLAttributes<HTMLUListElement | HTMLOListElement> {
     as?: "ul" | "ol";

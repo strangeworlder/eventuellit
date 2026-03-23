@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, cn } from "./Button";
+import { Button } from "./Button";
+import { cn } from "./utils";
 import { Icon, type IconName } from "./Icon";
 import { type Theme, ThemeContext, primaryThemeMap, useCurrentTheme } from "./Theme";
 import { Heading, HeadingLevelProvider } from "./Heading";

@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "./Button"; // Reusing the utility
+import { cn } from "./utils";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;

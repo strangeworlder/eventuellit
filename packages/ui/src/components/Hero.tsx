@@ -1,6 +1,6 @@
 import React from "react";
 import { Heading } from "./Heading";
-import { cn } from "./Heading";
+import { cn } from "./utils";
 import { ImageElement } from "./ImageElement";
 
 export interface HeroProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {

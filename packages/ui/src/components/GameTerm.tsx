@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "./Heading";
+import { cn } from "./utils";
 
 export interface GameTermProps extends React.HTMLAttributes<HTMLElement> {
     /**

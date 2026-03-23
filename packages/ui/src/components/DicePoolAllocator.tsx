@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, cn } from "./Button";
+import { Button } from "./Button";
+import { cn } from "./utils";
 import { type Theme, useCurrentTheme, primaryThemeMap } from "./Theme";
 import { DiceIcon } from "./DiceIcon";
 import { Heading, HeadingLevelProvider } from "./Heading";
@@ -164,7 +165,7 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
                         size="icon"
                         onClick={() => handleDeallocate(axis)}
                         disabled={(allocation[axis] || 0) === 0}
-                        aria-label={`Remove die from ${axis}`}
+                        aria-label={`Poista noppa kohteesta ${axis}`}
                       >
                         <Icon name="minus" size={16} />
                       </Button>
@@ -173,7 +174,7 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
                         size="icon"
                         onClick={() => handleAllocate(axis)}
                         disabled={diceRemaining === 0}
-                        aria-label={`Add die to ${axis}`}
+                        aria-label={`Lisää noppa kohteeseen ${axis}`}
                       >
                         <Icon name="plus" size={16} />
                       </Button>

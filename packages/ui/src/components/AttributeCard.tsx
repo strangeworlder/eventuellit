@@ -3,7 +3,7 @@ import { Button } from "./Button";
 import { Card, CardContent } from "./Card";
 import { StatBlock } from "./StatBlock";
 import { Icon } from "./Icon";
-import { cn } from "./Button";
+import { cn } from "./utils";
 import { DiceIcon } from "./DiceIcon";
 
 export const DIE_HIERARCHY: (4 | 6 | 8 | 10 | 12 | 20)[] = [4, 6, 8, 10, 12, 20];

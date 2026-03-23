@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useRef, useState } from "react";
 import { NavLink, type NavLinkProps } from "react-router-dom";
-import { cn } from "./Button";
+import { cn } from "./utils";
 
 type TabsContextValue = {
   value?: string;

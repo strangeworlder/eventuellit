@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "./Button";
+import { cn } from "./utils";
 
 export interface LoadingStateProps extends React.HTMLAttributes<HTMLDivElement> {
   message: string;
@@ -15,7 +15,7 @@ export const LoadingState = React.forwardRef<HTMLDivElement, LoadingStateProps>(
     <div
       ref={ref}
       className={cn(
-        "text-primary animate-pulse uppercase tracking-widest font-black",
+        "text-[var(--theme-primary)] animate-pulse uppercase tracking-widest font-black",
         {
           "text-xl": size === "default",
           "text-2xl": size === "large",

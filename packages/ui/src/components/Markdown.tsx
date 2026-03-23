@@ -3,7 +3,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { createUniqueHeadingId, normalizeHeadingLabel } from "./article-navigation-utils";
 import { GameTerm } from "./GameTerm";
-import { cn, Heading } from "./Heading";
+import { cn } from "./utils";
+import { Heading } from "./Heading";
 import { Link } from "./Link";
 import { List, ListItem } from "./List";
 import { Text } from "./Text";
@@ -98,7 +99,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
           },
           pre: ({ node, className, children, ref, ...props }) => (
             <pre
-              className="bg-black/50 p-4 rounded-md overflow-x-auto text-sm my-4 border border-white/10"
+              className="bg-[var(--theme-bg)]/80 p-4 rounded-md overflow-x-auto text-sm my-4 border border-[var(--theme-secondary)]/10"
               {...props}
             >
               {children}

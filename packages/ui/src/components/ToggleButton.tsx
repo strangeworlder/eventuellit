@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "./Button";
+import { cn } from "./utils";
 
 export interface ToggleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     /** Whether the button is currently in the pressed/active state */

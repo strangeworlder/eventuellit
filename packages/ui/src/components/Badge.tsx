@@ -1,12 +1,6 @@
-import { type ClassValue, clsx } from "clsx";
 import React from "react";
-import { twMerge } from "tailwind-merge";
 import { Icon, type IconName } from "./Icon";
-
-/** Utility function to merge tailwind classes safely */
-function cn(...inputs: ClassValue[]) {
-    return twMerge(clsx(inputs));
-}
+import { cn } from "./utils";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: "primary" | "secondary" | "accent" | "accent-solid" | "outline";

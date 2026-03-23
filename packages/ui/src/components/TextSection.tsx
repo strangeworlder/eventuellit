@@ -1,6 +1,6 @@
 import React from "react";
 import { Heading } from "./Heading";
-import { cn } from "./Heading";
+import { cn } from "./utils";
 
 export interface TextSectionProps extends React.HTMLAttributes<HTMLElement> {
     title?: string;

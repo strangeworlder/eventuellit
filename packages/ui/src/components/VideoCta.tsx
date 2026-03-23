@@ -25,14 +25,14 @@ export interface VideoCtaProps {
 
 export function VideoCta({
   youtubeId,
-  title = "Video embed",
+  title = "Videosoitin",
   ctaText,
   onClickCta,
   className = "",
 }: VideoCtaProps) {
   return (
     <div className={`w-full flex flex-col items-center gap-6 mobile:gap-8 ${className}`}>
-      <div className="w-full aspect-video rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-[var(--theme-text)]/10 bg-black/10 relative">
+      <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-[var(--theme-text)]/10 bg-[var(--theme-bg)]/50 relative">
         <iframe
           className="absolute inset-0 w-full h-full border-0"
           src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1`}

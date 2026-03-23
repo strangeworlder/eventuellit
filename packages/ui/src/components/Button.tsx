@@ -1,14 +1,10 @@
-import { type ClassValue, clsx } from "clsx";
-
 import React from "react";
-import { twMerge } from "tailwind-merge";
 import { AnchoredTooltip } from "./AnchoredTooltip";
 import { Icon, type IconName } from "./Icon";
+import { cn } from "./utils";
 
-/** Utility function to merge tailwind classes safely */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+/** Re-export cn from utils for backwards compatibility */
+export { cn };
 
 // ── Obscured-variant helpers ──
 
@@ -80,7 +76,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size = "default",
       justify = "center",
       loading = false,
-      loadingMessage = "Toiminto on kaynnissa",
+      loadingMessage = "Toiminto on käynnissä",
       showLoadingTooltip = true,
       showDangerIcon = true,
       dangerIcon = "x",

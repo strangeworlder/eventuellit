@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { cn } from "./Heading";
+import { cn } from "./utils";
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     external?: boolean;

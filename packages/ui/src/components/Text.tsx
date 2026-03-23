@@ -1,15 +1,6 @@
 import React from "react";
-import { cn } from "./Heading";
-
-export type Theme =
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+import { cn } from "./utils";
+import type { Theme } from "./Theme";
 
 export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
     variant?: "base" | "large" | "small" | "lead" | "muted" | "bold";

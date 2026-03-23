@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "./Button";
+import { cn } from "./utils";
 
 export interface DiceIconProps extends React.HTMLAttributes<HTMLDivElement> {
   faces: 4 | 6 | 8 | 10 | 12 | 20;

@@ -323,3 +323,30 @@
   text-transform: inherit;
   filter: blur(5.5px);
 }
+
+/* ── ObscuredWrapper ── */
+
+.obscured-wrapper {
+  pointer-events: none;
+  user-select: none;
+  position: relative;
+}
+
+.obscured-wrapper * {
+  filter: blur(1.5px);
+}
+
+.obscured-wrapper p,
+.obscured-wrapper span,
+.obscured-wrapper label,
+.obscured-wrapper h1,
+.obscured-wrapper h2,
+.obscured-wrapper h3,
+.obscured-wrapper h4,
+.obscured-wrapper h5,
+.obscured-wrapper h6,
+.obscured-wrapper li,
+.obscured-wrapper a,
+.obscured-wrapper button {
+  filter: blur(5.5px);
+}

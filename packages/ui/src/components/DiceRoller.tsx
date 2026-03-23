@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, cn } from "./Button";
+import { Button } from "./Button";
+import { cn } from "./utils";
 import { DiceIcon } from "./DiceIcon";
 
 const DICE_FACES: Record<string, 4 | 6 | 8 | 10 | 12 | 20> = {
@@ -34,7 +35,7 @@ export const DiceRoller = React.forwardRef<HTMLDivElement, DiceRollerProps>(
     return (
       <div ref={ref} className={cn("flex flex-col gap-3 mt-4", className)} {...props}>
         {label && (
-          <label className="text-sm font-black text-secondary uppercase tracking-widest">
+          <label className="text-sm font-black text-[var(--theme-secondary)] uppercase tracking-widest">
             {label}
           </label>
         )}

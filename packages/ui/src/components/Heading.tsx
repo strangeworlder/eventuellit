@@ -1,11 +1,8 @@
-import { type ClassValue, clsx } from "clsx";
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "./utils";
 
-/** Utility function to merge tailwind classes safely */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+/** Re-export cn from utils for backwards compatibility */
+export { cn };
 
 const FlickeringText = ({ text }: { text: string }) => {
   const [flickerIndex, setFlickerIndex] = React.useState<number | null>(null);

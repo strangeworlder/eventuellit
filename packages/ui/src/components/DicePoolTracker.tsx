@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { cn } from "./Button";
+import { cn } from "./utils";
 import { DiceIcon, type DiceIconProps } from "./DiceIcon";
 import { Heading, HeadingLevelProvider } from "./Heading";
 
