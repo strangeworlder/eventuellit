@@ -1,18 +1,11 @@
 import React from "react";
+import type { Theme } from "./Theme";
 import { cn } from "./utils";
 
 export interface ToggleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     /** Whether the button is currently in the pressed/active state */
     pressed: boolean;
-    theme?:
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+    theme?: Theme;
 }
 
 /**

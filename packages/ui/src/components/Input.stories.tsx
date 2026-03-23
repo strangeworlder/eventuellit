@@ -33,3 +33,12 @@ export const WithError: Story = {
     error: "Koodi on virheellinen.",
   },
 };
+
+export const Obscured: Story = {
+  name: "Piilotettu",
+  args: {
+    label: "Salainen kenttä",
+    placeholder: "Ei näkyvissä...",
+    obscured: true,
+  },
+};

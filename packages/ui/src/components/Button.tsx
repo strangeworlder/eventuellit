@@ -1,25 +1,13 @@
 import React from "react";
 import { AnchoredTooltip } from "./AnchoredTooltip";
 import { Icon, type IconName } from "./Icon";
-import { cn } from "./utils";
+import { useObscured } from "./ObscuredWrapper";
+import { cn, obscureString } from "./utils";
 
 /** Re-export cn from utils for backwards compatibility */
 export { cn };
 
-// ── Obscured-variant helpers ──
-
-/** Pattern matching any letter (including Finnish äöåÄÖÅ) or digit. */
-const LETTER_OR_DIGIT = /[a-zA-ZäöåÄÖÅ0-9]/g;
-
-/** Replace letters & digits with case-matched x/X, keep special chars. */
-function obscureString(str: string): string {
-  return str.replace(LETTER_OR_DIGIT, (ch) =>
-    ch >= "A" && ch <= "Z" ||
-      ch === "Ä" || ch === "Ö" || ch === "Å"
-      ? "X"
-      : "x",
-  );
-}
+// ── Obscured helpers ──
 
 /** Recursively walk React children and obscure every text node. */
 function obscureText(node: React.ReactNode): React.ReactNode {
@@ -44,8 +32,10 @@ function flattenToString(node: React.ReactNode): string {
 }
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "danger" | "ghost" | "ghost-secondary" | "obscured";
+  variant?: "primary" | "secondary" | "danger" | "ghost" | "ghost-secondary";
   size?: "default" | "sm" | "lg" | "icon" | "nav";
+  /** When true, blurs & disables the button with a glitch effect. Works with any variant. */
+  obscured?: boolean;
   justify?: "center" | "start" | "end";
   /** When true, shows a spinner and disables interaction. */
   loading?: boolean;
@@ -82,19 +72,22 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       dangerIcon = "x",
       theme,
       disabled,
+      obscured: obscuredProp = false,
       children,
       "aria-describedby": ariaDescribedBy,
       ...props
     },
     ref,
   ) => {
-    const isObscured = variant === "obscured";
+    const isObscured = obscuredProp || useObscured();
     const isDisabled = disabled || loading || isObscured;
     const tooltipId = React.useId();
     const isDanger = variant === "danger";
     const shouldRenderDangerIcon = isDanger && showDangerIcon;
     const shouldRenderLoadingTooltip = loading && showLoadingTooltip;
     const obscuredLabel = isObscured ? obscureString(flattenToString(children)) : undefined;
+    const glitchSeed = React.useMemo(() => isObscured ? Math.random() * 6 : 0, []);
+    const glitchDuration = React.useMemo(() => isObscured ? 4 + Math.random() * 5 : 6, []);
     const mergedAriaDescribedBy = [ariaDescribedBy, shouldRenderLoadingTooltip ? tooltipId : undefined]
       .filter(Boolean)
       .join(" ") || undefined;
@@ -102,6 +95,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const buttonElement = (
       <button
         ref={ref}
+        style={isObscured ? { '--glitch-delay': `-${glitchSeed.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s`, ...props.style } as React.CSSProperties : props.style}
         data-theme={theme}
         data-obscured={obscuredLabel}
         disabled={isDisabled}
@@ -150,10 +144,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "ghost",
             "bg-transparent text-[var(--theme-secondary)]/70 hover:bg-[var(--theme-secondary)]/10 hover:text-[var(--theme-secondary)] active:bg-[var(--theme-secondary)]/20 border-2 border-transparent shadow-none hover:shadow-none active:shadow-none hover:-translate-y-0 active:translate-y-0":
               variant === "ghost-secondary",
-            // ── Obscured ──
-            "bg-[var(--theme-secondary)]/10 text-[var(--theme-secondary)] border-2 border-[var(--theme-secondary)]/20 select-none":
-              isObscured,
           },
+          isObscured && "select-none blur-[1.5px]",
           isObscured && "btn-obscured-glitch",
           className,
         )}

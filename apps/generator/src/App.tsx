@@ -5,6 +5,8 @@ import { DiceIcon } from "@repo/ui/components/DiceIcon";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
+import { RadioGroup, RadioGroupItem } from "@repo/ui/components/RadioGroup";
+import { TextArea } from "@repo/ui/components/TextArea";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { ObscuredWrapper } from "@repo/ui/components/ObscuredWrapper";
@@ -237,31 +239,16 @@ function GeneratorForm() {
 
             {/* ── Step 2: Archetype ── */}
             <ObscuredWrapper revealed={episodeSelected}>
-              <div className="space-y-4">
-                <div className="border-b-2 border-primary/20 pb-2">
-                  <Heading>Arkkityyppi</Heading>
-                </div>
-                <div className="flex gap-4">
-                  <Button
-                    variant="obscured"
-                    disabled
-                  >
-                    Munkki (Sisu: 3n4, Taidot: 2)
-                  </Button>
-                  <Button
-                    variant={archetype === "expert" ? "primary" : "secondary"}
-                    onClick={() => handleArchetypeChange("expert")}
-                  >
-                    Ekspertti (Sisu: 3n6, Taidot: 3)
-                  </Button>
-                  <Button
-                    variant={archetype === "soldier" ? "primary" : "secondary"}
-                    onClick={() => handleArchetypeChange("soldier")}
-                  >
-                    Sotilas (Sisu: 3n8, Taidot: 2)
-                  </Button>
-                </div>
-              </div>
+              <RadioGroup
+                name="archetype"
+                label="Arkkityyppi"
+                value={archetype ?? undefined}
+                onValueChange={(v) => handleArchetypeChange(v as "soldier" | "expert")}
+              >
+                <RadioGroupItem value="monk" label="Munkki" description="Sisu: 3n4, Taidot: 2" obscured />
+                <RadioGroupItem value="expert" label="Ekspertti" description="Sisu: 3n6, Taidot: 3" />
+                <RadioGroupItem value="soldier" label="Sotilas" description="Sisu: 3n8, Taidot: 2" />
+              </RadioGroup>
             </ObscuredWrapper>
 
             {/* ── Step 3: Name ── */}
@@ -276,23 +263,17 @@ function GeneratorForm() {
 
             {/* ── Step 4: Sex ── */}
             <ObscuredWrapper revealed={nameEntered}>
-              <div className="space-y-3">
-                <div className="border-b-2 border-primary/20 pb-2">
-                  <Heading>Sukupuoli</Heading>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {SEX_OPTIONS.map((opt) => (
-                    <Button
-                      key={opt.value}
-                      size="sm"
-                      variant={sex === opt.value ? "primary" : "secondary"}
-                      onClick={() => setSex(sex === opt.value ? "" : opt.value)}
-                    >
-                      {opt.label}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+              <RadioGroup
+                name="sex"
+                label="Sukupuoli"
+                orientation="horizontal"
+                value={sex || undefined}
+                onValueChange={(v) => setSex(v)}
+              >
+                {SEX_OPTIONS.map((opt) => (
+                  <RadioGroupItem key={opt.value} value={opt.value} label={opt.label} />
+                ))}
+              </RadioGroup>
             </ObscuredWrapper>
 
             {/* ── Step 5: Attributes ── */}
@@ -456,8 +437,8 @@ function GeneratorForm() {
                 <div className="border-b-2 border-primary/20 pb-2">
                   <Heading>Motivaatio (valinnainen)</Heading>
                 </div>
-                <textarea
-                  className="w-full p-3 border rounded-md text-sm h-20 resize-none bg-transparent border-[var(--theme-secondary)]/30"
+                <TextArea
+                  className="h-20"
                   placeholder="Mikä ajaa hahmoasi eteenpäin?"
                   value={motivation}
                   onChange={(e) => setMotivation(e.target.value)}
@@ -471,8 +452,8 @@ function GeneratorForm() {
                 <div className="border-b-2 border-primary/20 pb-2">
                   <Heading>Muistiinpanot (valinnainen)</Heading>
                 </div>
-                <textarea
-                  className="w-full p-3 border rounded-md text-sm h-20 resize-none bg-transparent border-[var(--theme-secondary)]/30"
+                <TextArea
+                  className="h-20"
                   placeholder="Lisätietoja hahmostasi..."
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}

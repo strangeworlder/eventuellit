@@ -303,7 +303,8 @@
 
 .btn-obscured-glitch {
   position: relative;
-  animation: btn-glitch 6s step-end infinite;
+  animation: btn-glitch var(--glitch-duration, 6s) step-end infinite;
+  animation-delay: var(--glitch-delay, 0s);
 }
 
 .btn-obscured-glitch::after {
@@ -317,11 +318,24 @@
   opacity: 0;
   pointer-events: none;
   mix-blend-mode: screen;
-  animation: btn-glitch-echo 6s step-end infinite;
+  animation: btn-glitch-echo var(--glitch-duration, 6s) step-end infinite;
+  animation-delay: var(--glitch-delay, 0s);
   font: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
   filter: blur(5.5px);
+}
+
+/* ── Obscured field text blur (input/textarea/select) ── */
+
+.obscured-field {
+  color: transparent !important;
+  text-shadow: 0 0 10px var(--theme-text);
+}
+
+.obscured-field::placeholder {
+  color: transparent !important;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--theme-secondary) 40%, transparent);
 }
 
 /* ── ObscuredWrapper ── */

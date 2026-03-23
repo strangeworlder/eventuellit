@@ -50,11 +50,11 @@ function directionToAngle(dir: string | undefined): number {
 function tensionColor(tension: string | undefined): string {
   switch (tension) {
     case "Murtunut":
-      return "var(--theme-primary)";
+      return "var(--color-primary-500)";
     case "Korkea":
-      return "var(--theme-accent)";
+      return "var(--color-accent-500)";
     default:
-      return "var(--theme-secondary)";
+      return "var(--color-secondary-500)";
   }
 }
 

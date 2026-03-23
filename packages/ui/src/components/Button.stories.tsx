@@ -105,7 +105,7 @@ export const DisabledGhostSecondary: Story = {
 export const Obscured: Story = {
   name: "Piilotettu",
   args: {
-    variant: "obscured",
+    obscured: true,
     children: "Lähetä raportti",
   },
 };
@@ -114,9 +114,9 @@ export const ObscuredAllSizes: Story = {
   name: "Piilotettu (koot)",
   render: () => (
     <div className="flex flex-wrap items-end gap-4">
-      <Button variant="obscured" size="sm">Pieni</Button>
-      <Button variant="obscured" size="default">Oletus</Button>
-      <Button variant="obscured" size="lg">Suuri painike</Button>
+      <Button obscured size="sm">Pieni</Button>
+      <Button obscured size="default">Oletus</Button>
+      <Button obscured size="lg">Suuri painike</Button>
     </div>
   ),
 };
@@ -206,10 +206,10 @@ export const AllStates: Story = {
           Piilotettu
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button variant="obscured">Ensisijainen</Button>
-          <Button variant="obscured">Toissijainen</Button>
-          <Button variant="obscured">Vaara</Button>
-          <Button variant="obscured">Haamu</Button>
+          <Button variant="primary" obscured>Ensisijainen</Button>
+          <Button variant="secondary" obscured>Toissijainen</Button>
+          <Button variant="danger" obscured>Vaara</Button>
+          <Button variant="ghost-secondary" obscured>Haamu</Button>
         </div>
       </div>
     </div>

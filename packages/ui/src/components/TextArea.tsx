@@ -3,16 +3,22 @@ import { useObscured } from "./ObscuredWrapper";
 import type { Theme } from "./Theme";
 import { cn, obscureString } from "./utils";
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
   theme?: Theme;
-  /** When true, blurs & disables the input with an obscured visual effect. */
+  /** "monospace" applies a mono font suited for code/markdown editors. */
+  variant?: "default" | "monospace";
+  /** When true, blurs & disables the textarea with an obscured visual effect. */
   obscured?: boolean;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, error, theme, obscured: obscuredProp, disabled, placeholder, value, defaultValue, ...props }, ref) => {
+export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  (
+    { className, label, error, theme, variant = "default", obscured: obscuredProp, disabled, placeholder, value, defaultValue, ...props },
+    ref,
+  ) => {
     const obscured = obscuredProp || useObscured();
     const isDisabled = disabled || obscured;
     const glitchDuration = React.useMemo(() => obscured ? 4 + Math.random() * 5 : 6, []);
@@ -40,7 +46,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {obscured ? obscureString(label) : label}
           </label>
         )}
-        <input
+        <textarea
           ref={ref}
           disabled={isDisabled}
           placeholder={obscuredPlaceholder}
@@ -49,8 +55,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           data-obscured={obscured ? obscureString(placeholder ?? "") : undefined}
           style={obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
           className={cn(
-            "flex h-12 w-full rounded-sm border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] px-4 py-2 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all placeholder:text-[var(--theme-secondary)]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
-            error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
+            "flex w-full rounded-sm border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] px-4 py-3 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all resize-none placeholder:text-[var(--theme-secondary)]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+            variant === "monospace" && "font-mono text-sm font-normal",
+            error &&
+              "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
             obscured && "blur-[1.5px] btn-obscured-glitch obscured-field",
             className,
           )}
@@ -65,4 +73,4 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
-Input.displayName = "Input";
+TextArea.displayName = "TextArea";

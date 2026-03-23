@@ -21,6 +21,8 @@ import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Page } from "@repo/ui/components/Page";
 import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
 import { Input } from "@repo/ui/components/Input";
+import { Select } from "@repo/ui/components/Select";
+import { TextArea } from "@repo/ui/components/TextArea";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -82,37 +84,38 @@ function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onC
           <Input label="Slug (URL)" name="slug" value={formData.slug ?? ""} onChange={handleChange} />
           <Input label="Järjestys" type="number" name="order" value={formData.order?.toString() ?? "99"} onChange={handleChange} />
 
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium">Tila</span>
-            <select name="status" className="p-2 border rounded-md" value={formData.status ?? "planned"} onChange={handleChange}>
-              <option value="active">Aktiivinen</option>
-              <option value="completed">Arkistoitu</option>
-              <option value="planned">Tulossa</option>
-            </select>
-          </div>
+          <Select
+            label="Tila"
+            name="status"
+            value={formData.status ?? "planned"}
+            onChange={handleChange}
+            options={[
+              { value: "active", label: "Aktiivinen" },
+              { value: "completed", label: "Arkistoitu" },
+              { value: "planned", label: "Tulossa" },
+            ]}
+          />
         </div>
 
         <Input label="Lyhyt Kuvaus" name="description" value={formData.description ?? ""} onChange={handleChange} />
 
-        <div className="flex flex-col gap-1">
-          <span className="text-sm font-medium">Sisältö (Markdown)</span>
-          <textarea
-            name="content"
-            className="p-2 border rounded-md font-mono text-sm h-64"
-            value={formData.content ?? ""}
-            onChange={handleChange}
-          />
-        </div>
+        <TextArea
+          label="Sisältö (Markdown)"
+          name="content"
+          variant="monospace"
+          className="h-64"
+          value={formData.content ?? ""}
+          onChange={handleChange}
+        />
 
-        <div className="flex flex-col gap-1">
-          <span className="text-sm font-medium">Mekaaniset Lisäykset (Markdown)</span>
-          <textarea
-            name="mechanicalAdditions"
-            className="p-2 border rounded-md font-mono text-sm h-32"
-            value={formData.mechanicalAdditions ?? ""}
-            onChange={handleChange}
-          />
-        </div>
+        <TextArea
+          label="Mekaaniset Lisäykset (Markdown)"
+          name="mechanicalAdditions"
+          variant="monospace"
+          className="h-32"
+          value={formData.mechanicalAdditions ?? ""}
+          onChange={handleChange}
+        />
 
         <div className="grid grid-cols-2 gap-4">
           <Input label="Pelaajat" name="players" value={formData.players ?? ""} onChange={handleChange} />

@@ -1,4 +1,5 @@
 import { ActiveStatBlock } from "@repo/ui/components/ActiveStatBlock";
+import { TextArea } from "@repo/ui/components/TextArea";
 import { Button } from "@repo/ui/components/Button";
 import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
 import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
@@ -314,8 +315,8 @@ function EditableTextarea({
     return (
       <div className="space-y-2">
         <p className="text-sm text-secondary">{label}:</p>
-        <textarea
-          className="w-full p-2 border rounded-md text-sm h-20 resize-none bg-transparent border-[var(--theme-secondary)]/30"
+        <TextArea
+          className="h-20"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           // biome-ignore lint/a11y/noAutofocus: intentional for edit mode
