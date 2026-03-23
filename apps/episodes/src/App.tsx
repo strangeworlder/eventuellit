@@ -8,7 +8,9 @@ import {
   type ArticleJumpPayload,
   type ArticleProgressPayload,
 } from "@repo/ui/components/article-progress-events";
+import { useAuth } from "@repo/auth/use-auth";
 import { Badge } from "@repo/ui/components/Badge";
+import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
@@ -18,128 +20,209 @@ import { List, ListItem } from "@repo/ui/components/List";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Page } from "@repo/ui/components/Page";
 import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
-import { useEffect, useRef } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Input } from "@repo/ui/components/Input";
+import { LoadingState } from "@repo/ui/components/LoadingState";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {
+  type Episode,
+  useCreateEpisode,
+  useCreateEpisodeSkill,
+  useDeleteEpisode,
+  useDeleteEpisodeSkill,
+  useEpisode,
+  useEpisodes,
+  useEpisodeSkills,
+  useUpdateEpisode,
+  useUpdateEpisodeSkill,
+} from "./api/episodes";
 
-// Lightweight frontmatter parser
-function parseFrontmatter(md: string) {
-  const match = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
-  // biome-ignore lint/suspicious/noExplicitAny: Frontmatter supports mixed scalar + block values across episode fields.
-  const data: Record<string, any> = {};
-  let content = md;
-
-  if (match) {
-    const frontmatter = match[1];
-    content = md.slice(match[0].length);
-
-    const lines = frontmatter.split(/\r?\n/);
-    let currentKey: string | null = null;
-    let isBlock = false;
-    let blockLines: string[] = [];
-
-    for (const line of lines) {
-      const topLevelMatch = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
-
-      // If we find what looks like a new key, and we're not currently in a block
-      // OR we are in a block but this line isn't indented (meaning the block ended)
-      if (
-        topLevelMatch &&
-        (!isBlock || (line.trim() !== "" && !line.startsWith("  ") && !line.startsWith("\t")))
-      ) {
-        // If we were in a block, save it before starting the new key
-        if (isBlock && currentKey) {
-          data[currentKey] = blockLines.join("\n").trim();
-          isBlock = false;
-          blockLines = [];
-        }
-
-        const key = topLevelMatch[1];
-        const rest = topLevelMatch[2].trim();
-
-        if (rest === "|") {
-          currentKey = key;
-          isBlock = true;
-          blockLines = [];
-        } else {
-          currentKey = key;
-          let value = rest;
-          if (
-            (value.startsWith('"') && value.endsWith('"')) ||
-            (value.startsWith("'") && value.endsWith("'"))
-          ) {
-            value = value.slice(1, -1);
-          }
-          if (!Number.isNaN(Number(value)) && value !== "") {
-            data[key] = Number(value);
-          } else {
-            data[key] = value;
-          }
-        }
-      } else if (isBlock) {
-        // We are in a block, just accumulate lines and strip leading spaces (up to 2)
-        blockLines.push(line.replace(/^ {0,2}/, ""));
-      }
-    }
-
-    // Finalize last block if exists
-    if (isBlock && currentKey) {
-      data[currentKey] = blockLines.join("\n").trim();
-    }
-  }
-  return { data, content };
-}
-
-const modules = import.meta.glob("./content/**/*.md", {
-  eager: true,
-  query: "?raw",
-  import: "default",
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
 });
 
-interface EpisodePage {
-  id: string;
-  title: string;
-  order: number;
-  content: string;
-  description?: string;
-  status: "active" | "completed" | "planned";
-  players?: string;
-  sessionDates?: string;
-  location?: string;
-  locationLink?: string;
-  mechanicalAdditions?: string;
-  image?: string;
-  imageAlt?: string;
+function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onCancel: () => void; onSave: (data: Partial<Episode>) => void }) {
+  const [formData, setFormData] = useState<Partial<Episode>>(
+    episode || {
+      title: "",
+      slug: "",
+      order: 99,
+      status: "planned",
+      description: "",
+      content: "",
+      players: "",
+      sessionDates: "",
+      location: "",
+      locationLink: "",
+      image: "",
+      imageAlt: "",
+      mechanicalAdditions: "",
+      summary: "",
+    }
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: name === "order" ? parseInt(value) || 0 : value }));
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{episode ? "Muokkaa Jaksoa" : "Uusi Jakso"}</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <Input label="Otsikko" name="title" value={formData.title ?? ""} onChange={handleChange} />
+          <Input label="Slug (URL)" name="slug" value={formData.slug ?? ""} onChange={handleChange} />
+          <Input label="Järjestys" type="number" name="order" value={formData.order?.toString() ?? "99"} onChange={handleChange} />
+
+          <div className="flex flex-col gap-1">
+            <span className="text-sm font-medium">Tila</span>
+            <select name="status" className="p-2 border rounded-md" value={formData.status ?? "planned"} onChange={handleChange}>
+              <option value="active">Aktiivinen</option>
+              <option value="completed">Arkistoitu</option>
+              <option value="planned">Tulossa</option>
+            </select>
+          </div>
+        </div>
+
+        <Input label="Lyhyt Kuvaus" name="description" value={formData.description ?? ""} onChange={handleChange} />
+
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-medium">Sisältö (Markdown)</span>
+          <textarea
+            name="content"
+            className="p-2 border rounded-md font-mono text-sm h-64"
+            value={formData.content ?? ""}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-medium">Mekaaniset Lisäykset (Markdown)</span>
+          <textarea
+            name="mechanicalAdditions"
+            className="p-2 border rounded-md font-mono text-sm h-32"
+            value={formData.mechanicalAdditions ?? ""}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <Input label="Pelaajat" name="players" value={formData.players ?? ""} onChange={handleChange} />
+          <Input label="Sessiot" name="sessionDates" value={formData.sessionDates ?? ""} onChange={handleChange} />
+          <Input label="Sijainti" name="location" value={formData.location ?? ""} onChange={handleChange} />
+          <Input label="Sijainti (Linkki)" name="locationLink" value={formData.locationLink ?? ""} onChange={handleChange} />
+          <Input label="Kuva (URL)" name="image" value={formData.image ?? ""} onChange={handleChange} />
+          <Input label="Kuva (Alt)" name="imageAlt" value={formData.imageAlt ?? ""} onChange={handleChange} />
+        </div>
+
+        <div className="flex gap-2 justify-end mt-4">
+          <Button variant="secondary" onClick={onCancel}>Peruuta</Button>
+          <Button onClick={() => onSave(formData)}>Tallenna</Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
 
-const episodes: EpisodePage[] = Object.entries(modules)
-  .map(([path, rawMdx]) => {
-    const rawString = typeof rawMdx === "string" ? rawMdx : "";
-    const { data, content } = parseFrontmatter(rawString);
+function EpisodeSkillsEditor({ episodeId }: { episodeId: number }) {
+  const { data: skills, isLoading } = useEpisodeSkills(episodeId);
+  const { mutate: addSkill } = useCreateEpisodeSkill();
+  const { mutate: removeSkill } = useDeleteEpisodeSkill();
+  const { mutate: updateSkill } = useUpdateEpisodeSkill();
 
-    const filename = path.split("/").pop()?.replace(".md", "") || "unknown";
+  const [newSkillName, setNewSkillName] = useState("");
+  const [editingSkillId, setEditingSkillId] = useState<number | null>(null);
+  const [editingSkillName, setEditingSkillName] = useState("");
 
-    return {
-      id: filename.toLowerCase(),
-      title: data.title || filename,
-      order: data.order || 99,
-      description: data.description || "",
-      content: content,
-      status: data.status || "planned",
-      players: data.players,
-      sessionDates: data.sessionDates,
-      location: data.location,
-      locationLink: data.locationLink,
-      mechanicalAdditions: data.mechanicalAdditions,
-      image: data.image,
-      imageAlt: data.imageAlt,
-    };
-  })
-  .sort((a, b) => a.order - b.order);
+  if (isLoading) return <LoadingState message="Ladataan taitoja..." />;
 
-function EpisodeDetails({ episode }: { episode: EpisodePage }) {
+  const handleAdd = () => {
+    if (!newSkillName.trim()) return;
+    addSkill({ episodeId, name: newSkillName.trim() }, {
+      onSuccess: () => setNewSkillName("")
+    });
+  };
+
+  const handleUpdate = (skillId: number) => {
+    if (!editingSkillName.trim()) return;
+    updateSkill({ episodeId, skillId, name: editingSkillName.trim() }, {
+      onSuccess: () => {
+        setEditingSkillId(null);
+        setEditingSkillName("");
+      }
+    });
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Hallitse Taitoja (GM)</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {skills && skills.length > 0 ? (
+          <List variant="unbulleted">
+            {skills.map((skill) => (
+              <ListItem key={skill.id} className="flex justify-between items-center group">
+                {editingSkillId === skill.id ? (
+                  <div className="flex gap-2 w-full">
+                    <Input value={editingSkillName} onChange={(e) => setEditingSkillName(e.target.value)} />
+                    <Button variant="primary" onClick={() => handleUpdate(skill.id)}>Save</Button>
+                    <Button variant="secondary" onClick={() => setEditingSkillId(null)}>Cancel</Button>
+                  </div>
+                ) : (
+                  <>
+                    <span>{skill.name}</span>
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="secondary" onClick={() => {
+                        setEditingSkillId(skill.id);
+                        setEditingSkillName(skill.name);
+                      }}>Edit</Button>
+                      <Button size="sm" variant="danger" onClick={() => removeSkill({ episodeId, skillId: skill.id })}>✖</Button>
+                    </div>
+                  </>
+                )}
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <p className="text-sm text-secondary">Ei taitoja määritetty.</p>
+        )}
+
+        <div className="flex gap-2 items-end pt-4 border-t">
+          <Input
+            label="Uusi taito"
+            value={newSkillName}
+            onChange={(e) => setNewSkillName(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+          />
+          <Button onClick={handleAdd}>Lisää</Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function EpisodeDetails({ id }: { id: string }) {
+  const { data: episodes, isLoading: isEpisodesLoading } = useEpisodes();
+  const episode = episodes?.find((e) => e.slug === id);
+  const { data: fullEpisode, isLoading: isEpisodeLoading } = useEpisode(episode?.id as number);
+  const { user } = useAuth();
+  const isGm = user?.role === "gm";
+  const { mutate: updateEpisode } = useUpdateEpisode();
+  const { mutate: deleteEpisode } = useDeleteEpisode();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
-  const heroRef = useRef<HTMLDivElement>(null);
   const articleRef = useRef<HTMLDivElement>(null);
+
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const scrollRoot = document.getElementById("app-scroll-root");
@@ -223,34 +306,68 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
     };
   }, [pathname]);
 
+  if (isEpisodesLoading || isEpisodeLoading) return <LoadingState message="Ladataan jaksoa..." />;
+  if (!episode || !fullEpisode) return <div className="p-8 text-center">Jaksoa ei löytynyt.</div>;
+
+  if (isEditing && isGm) {
+    return (
+      <EpisodeEditForm
+        episode={fullEpisode}
+        onCancel={() => setIsEditing(false)}
+        onSave={(data) => {
+          updateEpisode({ ...data, id: fullEpisode.id }, {
+            onSuccess: () => setIsEditing(false)
+          });
+        }}
+      />
+    );
+  }
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <HeadingLevelProvider>
-        <Hero ref={heroRef} title={episode.title} description={episode.description}>
+        {isGm && (
+          <div className="flex gap-2 justify-end mb-4 px-4 tablet:p-0">
+            <Button variant="secondary" onClick={() => setIsEditing(true)}>Muokkaa Jaksoa</Button>
+            <Button variant="danger" onClick={() => {
+              if (window.confirm("Oletko varma että haluat poistaa jakson?")) {
+                deleteEpisode(fullEpisode.id, {
+                  onSuccess: () => navigate("/")
+                });
+              }
+            }}>Poista Jakso</Button>
+          </div>
+        )}
+
+        <Hero title={fullEpisode.title} description={fullEpisode.description || ""}>
           <div className="flex gap-2 mt-4">
-            {episode.status === "active" && (
+            {fullEpisode.status === "active" && (
               <Badge variant="primary" icon="sparkles">
                 Aktiivinen Jakso
               </Badge>
             )}
-            {episode.status === "completed" && <Badge variant="secondary">Arkistoitu</Badge>}
-            {episode.status === "planned" && <Badge variant="outline">Tulossa</Badge>}
+            {fullEpisode.status === "completed" && <Badge variant="secondary">Arkistoitu</Badge>}
+            {fullEpisode.status === "planned" && <Badge variant="outline">Tulossa</Badge>}
           </div>
         </Hero>
+
         <div className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8 px-4 tablet:pr-8 tablet:pl-0">
           <div ref={articleRef} className="space-y-6">
             <HeadingLevelProvider>
-              <MarkdownRenderer headingIdPrefix={`episode-${episode.id}`}>
-                {episode.content}
-              </MarkdownRenderer>
+              {fullEpisode.content && (
+                <MarkdownRenderer headingIdPrefix={`episode-${fullEpisode.id}`}>
+                  {fullEpisode.content}
+                </MarkdownRenderer>
+              )}
             </HeadingLevelProvider>
           </div>
+
           <div className="space-y-8 pt-6">
-            {episode.image && (
+            {fullEpisode.image && (
               <ImageElement
-                src={episode.image}
+                src={fullEpisode.image}
                 sizes="(max-width: 1024px) 100vw, 24rem"
-                alt={episode.imageAlt || episode.title}
+                alt={fullEpisode.imageAlt || fullEpisode.title}
                 variant="secondary"
               />
             )}
@@ -262,17 +379,17 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
                 </CardHeader>
                 <CardContent>
                   <HeadingLevelProvider>
-                    {episode.players && (
+                    {fullEpisode.players && (
                       <>
                         <Heading>Pelaajat</Heading>
-                        <p>{episode.players}</p>
+                        <p>{fullEpisode.players}</p>
                       </>
                     )}
-                    {episode.sessionDates && (
+                    {fullEpisode.sessionDates && (
                       <>
                         <Heading>Sessiot</Heading>
                         <List variant="unbulleted">
-                          {episode.sessionDates.split(",").map((dateStr) => {
+                          {fullEpisode.sessionDates.split(",").map((dateStr) => {
                             const date = new Date(dateStr.trim());
                             const formattedDate = Number.isNaN(date.getTime())
                               ? dateStr.trim()
@@ -282,13 +399,11 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
                         </List>
                       </>
                     )}
-                    {episode.location && (
+                    {fullEpisode.location && (
                       <>
                         <Heading>Sijainti</Heading>
-                        <Link
-                          href={episode.locationLink || "#"}
-                        >
-                          {episode.location}
+                        <Link href={fullEpisode.locationLink || "#"}>
+                          {fullEpisode.location}
                         </Link>
                       </>
                     )}
@@ -297,17 +412,21 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
               </Card>
             </div>
 
-            {episode.mechanicalAdditions && (
+            {fullEpisode.mechanicalAdditions && (
               <div className="desktop:col-span-1 space-y-4">
                 <Card iconName="zap">
                   <CardHeader>
                     <CardTitle>Mekaaniset Lisäykset</CardTitle>
                   </CardHeader>
                   <CardContent className="pt-0 tablet:pt-0">
-                    <MarkdownRenderer>{episode.mechanicalAdditions}</MarkdownRenderer>
+                    <MarkdownRenderer>{fullEpisode.mechanicalAdditions}</MarkdownRenderer>
                   </CardContent>
                 </Card>
               </div>
+            )}
+
+            {isGm && (
+              <EpisodeSkillsEditor episodeId={fullEpisode.id} />
             )}
           </div>
         </div>
@@ -316,55 +435,93 @@ function EpisodeDetails({ episode }: { episode: EpisodePage }) {
   );
 }
 
-function App() {
+function EpisodeWrapper() {
   const { pathname } = useLocation();
+  const { data: episodes, isLoading } = useEpisodes();
+  const { user } = useAuth();
+  const isGm = user?.role === "gm";
+  const { mutate: createEpisode } = useCreateEpisode();
+
+  const [isCreating, setIsCreating] = useState(false);
+
+  if (isLoading) {
+    return <Page><LoadingState message="Ladataan jaksoja..." /></Page>;
+  }
 
   const getBasePath = () => {
     const segments = pathname.split("/").filter(Boolean);
     if (segments.length === 0) return "/";
-    if (episodes.some((p) => p.id === segments[0])) return "/";
+    if (episodes?.some((p) => p.slug === segments[0])) return "/";
     return `/${segments[0]}`;
   };
 
   const basePath = getBasePath();
-  const defaultPath = episodes.length > 0 ? episodes[0].id : "";
+  const defaultPath = episodes && episodes.length > 0 ? episodes[0].slug : "";
 
   return (
     <Page>
-      {episodes.length > 0 && (
-        <Tabs>
-          <TabsList>
-            {episodes.map((episode) => (
-              <TabsLink
-                key={episode.id}
-                to={basePath === "/" ? `/${episode.id}` : `${basePath}/${episode.id}`}
-              >
-                #{episode.order}: {episode.title}
-              </TabsLink>
-            ))}
-          </TabsList>
-
-          <div>
-            <Routes>
-              <Route path="/" element={<Navigate to={defaultPath} replace />} />
-              {episodes.map((episode) => (
-                <Route
-                  key={episode.id}
-                  path={episode.id}
-                  element={<EpisodeDetails episode={episode} />}
-                />
-              ))}
-            </Routes>
-          </div>
-        </Tabs>
-      )}
-      {episodes.length === 0 && (
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <p className="text-text/40 italic">Ei jaksoja löydetty.</p>
+      {isGm && (
+        <div className="mb-6 flex justify-end">
+          <Button onClick={() => setIsCreating(!isCreating)}>
+            {isCreating ? "Peruuta" : "Luo Uusi Jakso"}
+          </Button>
         </div>
+      )}
+
+      {isCreating && isGm ? (
+        <EpisodeEditForm
+          onCancel={() => setIsCreating(false)}
+          onSave={(data) => {
+            createEpisode(data, {
+              onSuccess: () => setIsCreating(false)
+            });
+          }}
+        />
+      ) : (
+        <>
+          {episodes && episodes.length > 0 && (
+            <Tabs>
+              <TabsList>
+                {episodes.map((episode) => (
+                  <TabsLink
+                    key={episode.id}
+                    to={basePath === "/" ? `/${episode.slug}` : `${basePath}/${episode.slug}`}
+                  >
+                    #{episode.order}: {episode.title}
+                  </TabsLink>
+                ))}
+              </TabsList>
+
+              <div>
+                <Routes>
+                  <Route path="/" element={<Navigate to={defaultPath} replace />} />
+                  {episodes.map((episode) => (
+                    <Route
+                      key={episode.id}
+                      path={episode.slug}
+                      element={<EpisodeDetails id={episode.slug} />}
+                    />
+                  ))}
+                </Routes>
+              </div>
+            </Tabs>
+          )}
+
+          {episodes && episodes.length === 0 && (
+            <div className="flex items-center justify-center min-h-[50vh]">
+              <p className="text-secondary">Ei jaksoja löydetty.</p>
+            </div>
+          )}
+        </>
       )}
     </Page>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <EpisodeWrapper />
+    </QueryClientProvider>
+  );
+}

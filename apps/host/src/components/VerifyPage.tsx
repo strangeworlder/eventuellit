@@ -61,7 +61,7 @@ export function VerifyPage() {
         <div className="px-4 space-y-8 animate-in fade-in duration-500">
           <NoticePanel variant="error" title="Virhe">
             <p className="text-lg">{error || "Kirjautumislinkki on virheellinen tai vanhentunut."}</p>
-            <p className="text-sm text-text/60 mt-4">
+            <p className="text-sm text-secondary mt-4">
               Pyydä uusi kirjautumislinkki, jos ongelma jatkuu.
             </p>
           </NoticePanel>

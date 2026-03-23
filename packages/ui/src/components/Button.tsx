@@ -10,8 +10,45 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// ── Obscured-variant helpers ──
+
+/** Pattern matching any letter (including Finnish äöåÄÖÅ) or digit. */
+const LETTER_OR_DIGIT = /[a-zA-ZäöåÄÖÅ0-9]/g;
+
+/** Replace letters & digits with case-matched x/X, keep special chars. */
+function obscureString(str: string): string {
+  return str.replace(LETTER_OR_DIGIT, (ch) =>
+    ch >= "A" && ch <= "Z" ||
+      ch === "Ä" || ch === "Ö" || ch === "Å"
+      ? "X"
+      : "x",
+  );
+}
+
+/** Recursively walk React children and obscure every text node. */
+function obscureText(node: React.ReactNode): React.ReactNode {
+  if (typeof node === "string") return obscureString(node);
+  if (typeof node === "number") return obscureString(String(node));
+  if (Array.isArray(node)) return node.map(obscureText);
+  if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
+    return React.cloneElement(node, undefined, obscureText(node.props.children));
+  }
+  return node;
+}
+
+/** Flatten React children to a plain string (for the data-attribute echo). */
+function flattenToString(node: React.ReactNode): string {
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(flattenToString).join("");
+  if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
+    return flattenToString(node.props.children);
+  }
+  return "";
+}
+
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "danger" | "ghost" | "ghost-secondary";
+  variant?: "primary" | "secondary" | "danger" | "ghost" | "ghost-secondary" | "obscured";
   size?: "default" | "sm" | "lg" | "icon" | "nav";
   justify?: "center" | "start" | "end";
   /** When true, shows a spinner and disables interaction. */
@@ -25,14 +62,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /** Icon used for danger affordance when variant is danger. */
   dangerIcon?: IconName;
   theme?:
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+  | "base"
+  | "inverted"
+  | "primary-light"
+  | "primary-dark"
+  | "secondary-light"
+  | "secondary-dark"
+  | "accent-light"
+  | "accent-dark";
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -55,11 +92,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    const isDisabled = disabled || loading;
+    const isObscured = variant === "obscured";
+    const isDisabled = disabled || loading || isObscured;
     const tooltipId = React.useId();
     const isDanger = variant === "danger";
     const shouldRenderDangerIcon = isDanger && showDangerIcon;
     const shouldRenderLoadingTooltip = loading && showLoadingTooltip;
+    const obscuredLabel = isObscured ? obscureString(flattenToString(children)) : undefined;
     const mergedAriaDescribedBy = [ariaDescribedBy, shouldRenderLoadingTooltip ? tooltipId : undefined]
       .filter(Boolean)
       .join(" ") || undefined;
@@ -68,6 +107,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         data-theme={theme}
+        data-obscured={obscuredLabel}
         disabled={isDisabled}
         aria-disabled={isDisabled || undefined}
         aria-busy={loading || undefined}
@@ -83,10 +123,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           "active:translate-y-0 active:shadow-sm active:scale-[0.98]",
           // ── Disabled ── flattened, desaturated, no hover/active shift
           disabled && !loading &&
-            "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",
+          "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",
           // ── Loading ── disabled interaction, but preserve strong contrast
           loading &&
-            "cursor-wait opacity-100 grayscale-0 shadow-sm hover:shadow-sm hover:-translate-y-0 active:translate-y-0 active:scale-100",
+          "cursor-wait opacity-100 grayscale-0 shadow-sm hover:shadow-sm hover:-translate-y-0 active:translate-y-0 active:scale-100",
           // ── Justify ──
           {
             "justify-center": justify === "center",
@@ -114,7 +154,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "ghost",
             "bg-transparent text-[var(--theme-secondary)]/70 hover:bg-[var(--theme-secondary)]/10 hover:text-[var(--theme-secondary)] active:bg-[var(--theme-secondary)]/20 border-2 border-transparent shadow-none hover:shadow-none active:shadow-none hover:-translate-y-0 active:translate-y-0":
               variant === "ghost-secondary",
+            // ── Obscured ──
+            "bg-[var(--theme-secondary)]/10 text-[var(--theme-secondary)] border-2 border-[var(--theme-secondary)]/20 select-none":
+              isObscured,
           },
+          isObscured && "btn-obscured-glitch",
           className,
         )}
         {...props}
@@ -142,7 +186,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               aria-hidden="true"
             />
           )}
-          {children}
+          {isObscured ? <span className="blur-[5.5px]">{obscureText(children)}</span> : children}
         </span>
       </button>
     );

@@ -8,15 +8,19 @@ import { eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import { characters, users } from "../db/schema";
+import { characters, characterEpisodes, users, episodes } from "../db/schema";
 import { CreateCharacterDto } from "./dto/create-character.dto";
 import { UpdateCharacterDto } from "./dto/update-character.dto";
 
 const characterWithOwnerColumns = {
   id: characters.id,
   userId: characters.userId,
+  episodeId: characters.episodeId,
   name: characters.name,
   archetype: characters.archetype,
+  sex: characters.sex,
+  motivation: characters.motivation,
+  notes: characters.notes,
   keho: characters.keho,
   currentKeho: characters.currentKeho,
   mieli: characters.mieli,
@@ -32,6 +36,7 @@ const characterWithOwnerColumns = {
   createdAt: characters.createdAt,
   updatedAt: characters.updatedAt,
   ownerName: users.username,
+  episodeTitle: episodes.title,
 };
 
 @Injectable()
@@ -44,7 +49,8 @@ export class CharactersService {
     return this.db
       .select(characterWithOwnerColumns)
       .from(characters)
-      .leftJoin(users, eq(characters.userId, users.id));
+      .leftJoin(users, eq(characters.userId, users.id))
+      .leftJoin(episodes, eq(characters.episodeId, episodes.id));
   }
 
   async findOne(id: number) {
@@ -52,6 +58,7 @@ export class CharactersService {
       .select(characterWithOwnerColumns)
       .from(characters)
       .leftJoin(users, eq(characters.userId, users.id))
+      .leftJoin(episodes, eq(characters.episodeId, episodes.id))
       .where(eq(characters.id, id));
     return rows[0] ?? null;
   }
@@ -60,6 +67,10 @@ export class CharactersService {
     const insertData: typeof characters.$inferInsert = {
       name: data.name,
       archetype: data.archetype,
+      episodeId: data.episodeId,
+      sex: data.sex,
+      motivation: data.motivation,
+      notes: data.notes,
       keho: data.keho,
       currentKeho: data.keho,
       mieli: data.mieli,
@@ -74,7 +85,17 @@ export class CharactersService {
       userId,
     };
     const result = await this.db.insert(characters).values(insertData).returning();
-    return result[0];
+    const character = result[0];
+
+    // Also insert into characterEpisodes junction table
+    if (data.episodeId) {
+      await this.db.insert(characterEpisodes).values({
+        characterId: character.id,
+        episodeId: data.episodeId,
+      });
+    }
+
+    return character;
   }
 
   async update(id: number, data: UpdateCharacterDto, userId: number, role: string) {
@@ -93,6 +114,9 @@ export class CharactersService {
     const updateData: Partial<typeof characters.$inferInsert> = {
       name: data.name,
       archetype: data.archetype,
+      sex: data.sex,
+      motivation: data.motivation,
+      notes: data.notes,
       keho: data.keho,
       currentKeho: data.currentKeho,
       mieli: data.mieli,

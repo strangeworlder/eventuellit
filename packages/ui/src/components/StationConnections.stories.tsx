@@ -57,7 +57,7 @@ const kynnysSampleStations = [
 ];
 
 const meta: Meta<typeof StationConnections> = {
-  title: "Maailma/Asemayhteydet",
+  title: "Suunnittelujarjestelma/Komponentit/Asemayhteydet",
   component: StationConnections,
   tags: ["autodocs"],
   parameters: {

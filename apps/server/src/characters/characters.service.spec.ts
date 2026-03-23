@@ -46,12 +46,13 @@ describe("CharactersService", () => {
   });
 
   it("should create a character with userId from JWT", async () => {
-    const characterData = { name: "Test Character", userId: 1 };
+    const characterData = { name: "Test Character", userId: 1, id: 1 };
     mockDb.returning.mockResolvedValueOnce([characterData]);
 
     const dto = {
       name: "Test Character",
       archetype: "soldier" as const,
+      episodeId: 1,
       keho: 8,
       mieli: 8,
       tera: 8,
@@ -66,7 +67,9 @@ describe("CharactersService", () => {
   });
 
   it("should find all characters with owner join", async () => {
-    mockDb.leftJoin.mockResolvedValueOnce([]);
+    mockDb.leftJoin
+      .mockReturnValueOnce(mockDb)  // first leftJoin (users) chains
+      .mockResolvedValueOnce([]);   // second leftJoin (episodes) resolves
     const result = await service.findAll();
     expect(mockDb.select).toHaveBeenCalled();
     expect(result).toEqual([]);

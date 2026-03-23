@@ -43,7 +43,7 @@ export function LandingPage() {
                             <CardTitle>Hahmopaja</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-text/70">
+                            <p className="text-text">
                                 Luo ja muokkaa hahmoja Eventuellit-järjestelmään. Kaikki työkalut hahmonkehitykseen yhdessä paikassa.
                             </p>
                         </CardContent>
@@ -61,7 +61,7 @@ export function LandingPage() {
                             <CardTitle>Sääntökirja</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-text/70">
+                            <p className="text-text">
                                 Tutustu pelin sääntöihin ja maailmaan. Kattava ja helposti selattava opas kaikille pelaajille.
                             </p>
                         </CardContent>
@@ -78,7 +78,7 @@ export function LandingPage() {
                             <CardTitle>Jaksot</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-text/70">
+                            <p className="text-text">
                                 Seuraa meneillään olevia jaksoja ja tutki menneitä seikkailuja. Valmistaudu seuraavaan istuntoon.
                             </p>
                         </CardContent>

@@ -10,6 +10,18 @@ export class UpdateCharacterDto {
   archetype?: "soldier" | "expert";
 
   @IsOptional()
+  @IsIn(["male", "female", "non-binary", "none"])
+  sex?: string;
+
+  @IsOptional()
+  @IsString()
+  motivation?: string;
+
+  @IsOptional()
+  @IsString()
+  notes?: string;
+
+  @IsOptional()
   @IsInt()
   @Min(0)
   keho?: number;
@@ -64,8 +76,7 @@ export class UpdateCharacterDto {
   @IsOptional()
   @IsArray()
   @ArrayMaxSize(50)
-  @IsString({ each: true })
-  skills?: string[];
+  skills?: unknown[];
 
   @IsOptional()
   @IsArray()

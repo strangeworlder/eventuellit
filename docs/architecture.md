@@ -5,10 +5,10 @@ This application is a ruleset and character generator for a new TTRPG system. It
 
 ## Core Technology Stack
 - **Monorepo Management:** Turborepo
-- **Frontend Framework:** React 18+
+- **Frontend Framework:** React 19
 - **Micro Frontend Ecosystem:** Vite with Webpack 5 Module Federation Plugins
-- **Design System & Styling:** Tailwind CSS, Radix UI (via shadcn/ui)
-- **Component Documentation:** Storybook
+- **Design System & Styling:** Tailwind CSS 4, Lucide React (icons)
+- **Component Documentation:** Storybook 10
 - **Backend / BFF:** NestJS (TypeScript)
 - **Database:** PostgreSQL (utilizing `JSONB` for flexible character sheets)
 - **ORM:** Drizzle ORM
@@ -22,10 +22,11 @@ The monorepo structure is expected to follow this pattern:
 - `apps/ruleset`: Ruleset documentation Micro Frontend.
 - `apps/episodes`: Episode journal Micro Frontend.
 - `apps/world`: World-building Micro Frontend (locations, factions, NPCs). Port 3005.
-- `apps/server`: NestJS backend API.
+- `apps/server`: NestJS backend API (modules: `auth`, `characters`, `episodes`, `db`).
 - `packages/ui`: Shared React/Tailwind design system components visualized through Storybook.
 - `packages/auth`: Shared authentication hooks and API wrappers for MFEs.
-- `packages/config`: Shared TS and tooling configs.
+- `packages/eslint-config`: Shared ESLint configuration.
+- `packages/typescript-config`: Shared TypeScript configuration.
 
 ## Design System Storybook Taxonomy
 - Storybook content in `packages/ui` must use a single Finnish root namespace: `Suunnittelujarjestelma`.
@@ -73,4 +74,4 @@ No global Zustand store is currently in production code. If cross-MFE global sta
 - Frontend API origin must be configured via `VITE_API_BASE_URL` (no hardcoded localhost URLs).
 - `JWT_SECRET` is required for server JWT token signing.
 - `MAGIC_LINK_BASE_URL` is the frontend base URL for building magic link verification URLs (defaults to `http://localhost:3003` in development).
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` are optional and only needed for production email sending (not yet implemented).
+- `RESEND_API_KEY` is optional; when set, the server sends magic link emails via the Resend API. When absent, magic links are logged to the server console (development mode).

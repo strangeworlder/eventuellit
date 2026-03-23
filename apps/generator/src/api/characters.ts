@@ -6,12 +6,16 @@ const API_URL = `${apiBaseUrl}/characters`;
 export interface CreateCharacterDto {
   name: string;
   archetype: "soldier" | "expert";
+  episodeId: number;
+  sex?: string;
+  motivation?: string;
+  notes?: string;
   keho: number;
   mieli: number;
   tera: number;
   sisuDie: "n6" | "n8";
   sisuCount: number;
-  skills: string[];
+  skills: { name: string; isCustom?: boolean }[];
 }
 
 export function useCreateCharacter() {

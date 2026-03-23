@@ -18,6 +18,22 @@ export class CreateCharacterDto {
 
   @IsInt()
   @Min(0)
+  episodeId!: number;
+
+  @IsOptional()
+  @IsIn(["male", "female", "non-binary", "none"])
+  sex?: string;
+
+  @IsOptional()
+  @IsString()
+  motivation?: string;
+
+  @IsOptional()
+  @IsString()
+  notes?: string;
+
+  @IsInt()
+  @Min(0)
   keho!: number;
 
   @IsInt()
@@ -39,6 +55,5 @@ export class CreateCharacterDto {
   @IsOptional()
   @IsArray()
   @ArrayMaxSize(50)
-  @IsString({ each: true })
-  skills?: string[];
+  skills?: unknown[];
 }

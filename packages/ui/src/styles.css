@@ -216,3 +216,110 @@
     grid-template-columns: 2fr 1fr;
   }
 }
+
+/* ── Obscured-button glitch effect ── */
+
+@keyframes btn-glitch {
+
+  /* idle for the vast majority of the cycle */
+  0%,
+  100% {
+    clip-path: none;
+    transform: translateX(0);
+  }
+
+  /* burst 1 – small slice top-third */
+  92% {
+    clip-path: inset(8% 0 60% 0);
+    transform: translateX(-3px);
+  }
+
+  93% {
+    clip-path: inset(55% 0 10% 0);
+    transform: translateX(4px);
+  }
+
+  94% {
+    clip-path: none;
+    transform: translateX(0);
+  }
+
+  /* burst 2 – quick double-shift */
+  97% {
+    clip-path: inset(30% 0 40% 0);
+    transform: translateX(3px);
+  }
+
+  98% {
+    clip-path: inset(70% 0 5% 0);
+    transform: translateX(-2px);
+  }
+
+  99% {
+    clip-path: none;
+    transform: translateX(0);
+  }
+}
+
+@keyframes btn-glitch-echo {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  92% {
+    opacity: 0.35;
+    transform: translateX(4px);
+  }
+
+  93% {
+    opacity: 0.25;
+    transform: translateX(-5px);
+  }
+
+  94%,
+  96% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  97% {
+    opacity: 0.3;
+    transform: translateX(-4px);
+  }
+
+  98% {
+    opacity: 0.2;
+    transform: translateX(3px);
+  }
+
+  99% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}
+
+.btn-obscured-glitch {
+  position: relative;
+  animation: btn-glitch 6s step-end infinite;
+}
+
+.btn-obscured-glitch::after {
+  content: attr(data-obscured);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme-accent, #5479de);
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: btn-glitch-echo 6s step-end infinite;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  filter: blur(5.5px);
+}

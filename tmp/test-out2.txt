@@ -1,0 +1,724 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90mC:/Users/alvan/eventuellit/apps/server[39m
+
+ [32m???[39m src/characters/characters.service.spec.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 64[2mms[22m[39m
+ [32m???[39m src/episodes/episodes.service.spec.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 74[2mms[22m[39m
+ [31m???[39m src/episodes/episodes.controller.spec.ts [2m([22m[2m11 tests[22m[2m | [22m[31m10 failed[39m[2m)[22m[32m 82[2mms[22m[39m
+     [32m???[39m should be defined[32m 30[2mms[22m[39m
+[31m     [31m??[31m should call findAll[39m[32m 12[2mms[22m[39m
+[31m     [31m??[31m should call findAll with status filter[39m[32m 5[2mms[22m[39m
+[31m     [31m??[31m should pass gmId to create[39m[32m 3[2mms[22m[39m
+[31m     [31m??[31m should throw ForbiddenException when player tries to create[39m[32m 6[2mms[22m[39m
+[31m     [31m??[31m should allow GM to update[39m[32m 3[2mms[22m[39m
+[31m     [31m??[31m should throw when player tries to update[39m[32m 2[2mms[22m[39m
+[31m     [31m??[31m should allow GM to delete[39m[32m 3[2mms[22m[39m
+[31m     [31m??[31m should allow GM to add skill[39m[32m 6[2mms[22m[39m
+[31m     [31m??[31m should throw when player tries to add skill[39m[32m 4[2mms[22m[39m
+[31m     [31m??[31m should allow GM to remove skill[39m[32m 3[2mms[22m[39m
+ [31m???[39m src/characters/characters.controller.spec.ts [2m([22m[2m5 tests[22m[2m | [22m[31m4 failed[39m[2m)[22m[32m 54[2mms[22m[39m
+     [32m???[39m should be defined[32m 30[2mms[22m[39m
+[31m     [31m??[31m should call findAll[39m[32m 9[2mms[22m[39m
+[31m     [31m??[31m should pass userId to create[39m[32m 5[2mms[22m[39m
+[31m     [31m??[31m should pass userId and role to update[39m[32m 4[2mms[22m[39m
+[31m     [31m??[31m should pass userId and role to remove[39m[32m 4[2mms[22m[39m
+node.exe : 
+At line:1 char:1
++ & "C:\Program Files\n
+odejs/node.exe" "C:\Pro
+gram Files\nodejs/node_
+mo ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (:String) [],    
+ RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+[31m??????????????????
+[39m[1m[41m Failed T
+ests 14 [49m[22m[31m
+?????????????????????[
+39m
+
+[41m[1m FAIL [22m[4
+9m src/characters/chara
+cters.controller.spec.t
+s[2m > [22mCharacters
+Controller[2m > [22ms
+hould call findAll
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'findAll')[39m
+[36m [2m???[22m Char
+actersController.findAl
+l src/characters/charac
+ters.controller.ts:[2m
+32:35[22m[39m
+    [90m 30| [39m  [
+33m@[39m[33mGet[39m(
+)
+    [90m 31| [39m  [
+34mfindAll[39m() {
+    [90m 32| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mchar
+actersService[33m.[39
+m[34mfindAll[39m()[3
+3m;[39m
+    [90m   | [39m    
+                       
+       [31m^[39m
+    [90m 33| [39m  }
+    [90m 34| [39m
+[90m [2m???[22m src/
+characters/characters.c
+ontroller.spec.ts:[2m4
+4:22[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[1/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/characters/chara
+cters.controller.spec.t
+s[2m > [22mCharacters
+Controller[2m > [22ms
+hould pass userId to cr
+eate
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'create')[39m
+[36m [2m???[22m Char
+actersController.create
+ src/characters/charact
+ers.controller.ts:[2m2
+7:35[22m[39m
+    [90m 25| [39m  cr
+eate(@Body() createChar
+acterDto: CreateCharact
+erDto, @Req() req: R???
+    [90m 26| [39m    
+[35mconst[39m user [
+33m=[39m (req [35mas
+[39m any)[33m.[39muse
+r[33m;[39m
+    [90m 27| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mchar
+actersService[33m.[39
+m[34mcreate[39m(creat
+eCharacterDto[33m,[39
+m user[33m.[39mid)[3
+3m;[39m
+    [90m   | [39m    
+                       
+       [31m^[39m
+    [90m 28| [39m  }
+    [90m 29| [39m
+[90m [2m???[22m src/
+characters/characters.c
+ontroller.spec.ts:[2m4
+9:22[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[2/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/characters/chara
+cters.controller.spec.t
+s[2m > [22mCharacters
+Controller[2m > [22ms
+hould pass userId and r
+ole to update
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'update')[39m
+[36m [2m???[22m Char
+actersController.update
+ src/characters/charact
+ers.controller.ts:[2m4
+7:35[22m[39m
+    [90m 45| [39m  ) 
+{
+    [90m 46| [39m    
+[35mconst[39m user [
+33m=[39m (req [35mas
+[39m any)[33m.[39muse
+r[33m;[39m
+    [90m 47| [39m    
+return this.charactersS
+ervice.update(id, updat
+eCharacterDto, user.???
+    [90m   | [39m    
+                       
+       [31m^[39m
+    [90m 48| [39m  }
+    [90m 49| [39m
+[90m [2m???[22m src/
+characters/characters.c
+ontroller.spec.ts:[2m5
+4:22[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[3/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/characters/chara
+cters.controller.spec.t
+s[2m > [22mCharacters
+Controller[2m > [22ms
+hould pass userId and r
+ole to remove
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'remove')[39m
+[36m [2m???[22m Char
+actersController.remove
+ src/characters/charact
+ers.controller.ts:[2m5
+3:35[22m[39m
+    [90m 51| [39m  [
+34mremove[39m([33m@[
+39m[33mParam[39m([32
+m"id"[39m[33m,[39m 
+[33mParseIntPipe[39m) 
+id[33m:[39m number[3
+3m,[39m [33m@[39m[3
+3mReq[39m() req[33m:
+[39m [33mRequest[39m)
+ {
+    [90m 52| [39m    
+[35mconst[39m user [
+33m=[39m (req [35mas
+[39m any)[33m.[39muse
+r[33m;[39m
+    [90m 53| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mchar
+actersService[33m.[39
+m[34mremove[39m(id[3
+3m,[39m user[33m.[39
+mid[33m,[39m user[33
+m.[39mrole)[33m;[39m
+    [90m   | [39m    
+                       
+       [31m^[39m
+    [90m 54| [39m  }
+    [90m 55| [39m}
+[90m [2m???[22m src/
+characters/characters.c
+ontroller.spec.ts:[2m5
+9:22[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[4/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+call findAll
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'findAll')[39m
+[36m [2m???[22m Epis
+odesController.findAll 
+src/episodes/episodes.c
+ontroller.ts:[2m37:33
+[22m[39m
+    [90m 35| [39m  [
+33m@[39m[33mGet[39m(
+)
+    [90m 36| [39m  [
+34mfindAll[39m([33m@
+[39m[33mQuery[39m([3
+2m"status"[39m) status
+[33m?[39m[33m:[39m 
+string) {
+    [90m 37| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mepis
+odesService[33m.[39m
+[34mfindAll[39m(status
+)[33m;[39m
+    [90m   | [39m    
+                       
+     [31m^[39m
+    [90m 38| [39m  }
+    [90m 39| [39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m51:22
+[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[5/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+call findAll with statu
+s filter
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'findAll')[39m
+[36m [2m???[22m Epis
+odesController.findAll 
+src/episodes/episodes.c
+ontroller.ts:[2m37:33
+[22m[39m
+    [90m 35| [39m  [
+33m@[39m[33mGet[39m(
+)
+    [90m 36| [39m  [
+34mfindAll[39m([33m@
+[39m[33mQuery[39m([3
+2m"status"[39m) status
+[33m?[39m[33m:[39m 
+string) {
+    [90m 37| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mepis
+odesService[33m.[39m
+[34mfindAll[39m(status
+)[33m;[39m
+    [90m   | [39m    
+                       
+     [31m^[39m
+    [90m 38| [39m  }
+    [90m 39| [39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m56:22
+[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[6/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+pass gmId to create
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'create')[39m
+[36m [2m???[22m Epis
+odesController.create s
+rc/episodes/episodes.co
+ntroller.ts:[2m49:33[
+22m[39m
+    [90m 47| [39m  [
+34mcreate[39m([33m@[
+39m[33mBody[39m() dto
+[33m:[39m [33mCreate
+EpisodeDto[39m[33m,[
+39m [33m@[39m[33mReq
+[39m() req[33m:[39m 
+[33mRequest[39m) {
+    [90m 48| [39m    
+[35mconst[39m user [
+33m=[39m [34mensureGm
+[39m(req)[33m;[39m
+    [90m 49| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mepis
+odesService[33m.[39m
+[34mcreate[39m(dto[33
+m,[39m user[33m.[39m
+id)[33m;[39m
+    [90m   | [39m    
+                       
+     [31m^[39m
+    [90m 50| [39m  }
+    [90m 51| [39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m61:22
+[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[7/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+throw ForbiddenExceptio
+n when player tries to 
+create
+[31m[1mForbiddenExcep
+tion[22m: Only GMs can
+ perform this action[3
+9m
+[36m [2m???[22m ensu
+reGm src/episodes/episo
+des.controller.ts:[2m2
+6:11[22m[39m
+    [90m 24| [39m  [
+35mconst[39m user [33
+m=[39m (req [35mas[3
+9m any)[33m.[39muser
+[33m;[39m
+    [90m 25| [39m  [
+35mif[39m ([33m![39m
+user [33m||[39m user
+[33m.[39mrole [33m!==
+[39m [32m"gm"[39m) {
+    [90m 26| [39m    
+[35mthrow[39m [35mne
+w[39m [33mForbiddenEx
+ception[39m([32m"Only
+ GMs can perform this a
+ction"[39m)[33m;[39m
+    [90m   | [39m    
+      [31m^[39m
+    [90m 27| [39m  }
+    [90m 28| [39m  [
+35mreturn[39m user[33
+m;[39m
+[90m [2m???[22m Epis
+odesController.create s
+rc/episodes/episodes.co
+ntroller.ts:[2m48:18[
+22m[39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m73:18
+[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[8/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+allow GM to update
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'update')[39m
+[36m [2m???[22m Epis
+odesController.update s
+rc/episodes/episodes.co
+ntroller.ts:[2m60:33[
+22m[39m
+    [90m 58| [39m  ) 
+{
+    [90m 59| [39m    
+[34mensureGm[39m(req)
+[33m;[39m
+    [90m 60| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mepis
+odesService[33m.[39m
+[34mupdate[39m(id[33m
+,[39m dto)[33m;[39m
+    [90m   | [39m    
+                       
+     [31m^[39m
+    [90m 61| [39m  }
+    [90m 62| [39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m78:22
+[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+?????????[9/14]???[22m
+[39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+throw when player tries
+ to update
+[31m[1mForbiddenExcep
+tion[22m: Only GMs can
+ perform this action[3
+9m
+[36m [2m???[22m ensu
+reGm src/episodes/episo
+des.controller.ts:[2m2
+6:11[22m[39m
+    [90m 24| [39m  [
+35mconst[39m user [33
+m=[39m (req [35mas[3
+9m any)[33m.[39muser
+[33m;[39m
+    [90m 25| [39m  [
+35mif[39m ([33m![39m
+user [33m||[39m user
+[33m.[39mrole [33m!==
+[39m [32m"gm"[39m) {
+    [90m 26| [39m    
+[35mthrow[39m [35mne
+w[39m [33mForbiddenEx
+ception[39m([32m"Only
+ GMs can perform this a
+ction"[39m)[33m;[39m
+    [90m   | [39m    
+      [31m^[39m
+    [90m 27| [39m  }
+    [90m 28| [39m  [
+35mreturn[39m user[33
+m;[39m
+[90m [2m???[22m Epis
+odesController.update s
+rc/episodes/episodes.co
+ntroller.ts:[2m59:5[2
+2m[39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m84:18
+[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+??????[10/14]???[22m[
+39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+allow GM to delete
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'remove')[39m
+[36m [2m???[22m Epis
+odesController.remove s
+rc/episodes/episodes.co
+ntroller.ts:[2m67:33[
+22m[39m
+    [90m 65| [39m  [
+34mremove[39m([33m@[
+39m[33mParam[39m([32
+m"id"[39m[33m,[39m 
+[33mParseIntPipe[39m) 
+id[33m:[39m number[3
+3m,[39m [33m@[39m[3
+3mReq[39m() req[33m:
+[39m [33mRequest[39m)
+ {
+    [90m 66| [39m    
+[34mensureGm[39m(req)
+[33m;[39m
+    [90m 67| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mepis
+odesService[33m.[39m
+[34mremove[39m(id)[33
+m;[39m
+    [90m   | [39m    
+                       
+     [31m^[39m
+    [90m 68| [39m  }
+    [90m 69| [39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m89:22
+[22m[39m
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[31m14 failed[39m[22m[2m | [22m[1m[32m25 passed[39m[22m[90m (39)[39m
+[2m   Start at [22m 08:58:10
+[2m   Duration [22m 2.53s[2m (transform 463ms, setup 0ms, import 8.28s, tests 275ms, environment 1ms)[22m
+
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+??????[11/14]???[22m[
+39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+allow GM to add skill
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'addSkill')[39m
+[36m [2m???[22m Epis
+odesController.addSkill
+ src/episodes/episodes.
+controller.ts:[2m85:33
+[22m[39m
+    [90m 83| [39m  ) 
+{
+    [90m 84| [39m    
+[34mensureGm[39m(req)
+[33m;[39m
+    [90m 85| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mepis
+odesService[33m.[39m
+[34maddSkill[39m(id[3
+3m,[39m dto)[33m;[39
+m
+    [90m   | [39m    
+                       
+     [31m^[39m
+    [90m 86| [39m  }
+    [90m 87| [39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m94:22
+[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+??????[12/14]???[22m[
+39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+throw when player tries
+ to add skill
+[31m[1mForbiddenExcep
+tion[22m: Only GMs can
+ perform this action[3
+9m
+[36m [2m???[22m ensu
+reGm src/episodes/episo
+des.controller.ts:[2m2
+6:11[22m[39m
+    [90m 24| [39m  [
+35mconst[39m user [33
+m=[39m (req [35mas[3
+9m any)[33m.[39muser
+[33m;[39m
+    [90m 25| [39m  [
+35mif[39m ([33m![39m
+user [33m||[39m user
+[33m.[39mrole [33m!==
+[39m [32m"gm"[39m) {
+    [90m 26| [39m    
+[35mthrow[39m [35mne
+w[39m [33mForbiddenEx
+ception[39m([32m"Only
+ GMs can perform this a
+ction"[39m)[33m;[39m
+    [90m   | [39m    
+      [31m^[39m
+    [90m 27| [39m  }
+    [90m 28| [39m  [
+35mreturn[39m user[33
+m;[39m
+[90m [2m???[22m Epis
+odesController.addSkill
+ src/episodes/episodes.
+controller.ts:[2m84:5
+[22m[39m
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m100:1
+8[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+??????[13/14]???[22m[
+39m
+
+[41m[1m FAIL [22m[4
+9m src/episodes/episode
+s.controller.spec.ts[2
+m > [22mEpisodesContro
+ller[2m > [22mshould 
+allow GM to remove skil
+l
+[31m[1mTypeError[22m
+: Cannot read propertie
+s of undefined (reading
+ 'removeSkill')[39m
+[36m [2m???[22m Epis
+odesController.removeSk
+ill src/episodes/episod
+es.controller.ts:[2m10
+8:33[22m[39m
+    [90m106| [39m  ) 
+{
+    [90m107| [39m    
+[34mensureGm[39m(req)
+[33m;[39m
+    [90m108| [39m    
+[35mreturn[39m [35mt
+his[39m[33m.[39mepis
+odesService[33m.[39m
+[34mremoveSkill[39m(id
+[33m,[39m skillId)[3
+3m;[39m
+    [90m   | [39m    
+                       
+     [31m^[39m
+    [90m109| [39m  }
+    [90m110| [39m}
+[90m [2m???[22m src/
+episodes/episodes.contr
+oller.spec.ts:[2m105:2
+2[22m[39m
+
+[31m[2m??????????????
+???????????????????????
+???????????????????????
+??????[14/14]???[22m[
+39m
+

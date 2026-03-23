@@ -18,11 +18,47 @@ export const magicLinkTokens = pgTable("magic_link_tokens", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const episodes = pgTable("episodes", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").unique().notNull(),
+  title: text("title").notNull(),
+  order: integer("order").default(99).notNull(),
+  status: text("status").default("planned").notNull(), // active, completed, planned
+  description: text("description"),
+  content: text("content"), // Main body (markdown)
+  players: text("players"), // Comma-separated player names
+  sessionDates: text("session_dates"), // Comma-separated dates
+  location: text("location"),
+  locationLink: text("location_link"),
+  image: text("image"),
+  imageAlt: text("image_alt"),
+  mechanicalAdditions: text("mechanical_additions"), // Markdown content
+  summary: text("summary"),
+  gmId: integer("gm_id")
+    .references(() => users.id)
+    .notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const episodeSkills = pgTable("episode_skills", {
+  id: serial("id").primaryKey(),
+  episodeId: integer("episode_id")
+    .references(() => episodes.id, { onDelete: "cascade" })
+    .notNull(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  episodeId: integer("episode_id").references(() => episodes.id),
   name: text("name").notNull(),
   archetype: text("archetype").notNull().default("soldier"),
+  sex: text("sex"), // male, female, non-binary, none
+  motivation: text("motivation"),
+  notes: text("notes"),
   keho: integer("keho").default(8).notNull(),
   currentKeho: integer("current_keho").default(8).notNull(),
   mieli: integer("mieli").default(8).notNull(),
@@ -39,13 +75,12 @@ export const characters = pgTable("characters", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const episodes = pgTable("episodes", {
+export const characterEpisodes = pgTable("character_episodes", {
   id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  summary: text("summary"),
-  gmId: integer("gm_id")
-    .references(() => users.id)
+  characterId: integer("character_id")
+    .references(() => characters.id, { onDelete: "cascade" })
     .notNull(),
-  datePlayed: timestamp("date_played").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  episodeId: integer("episode_id")
+    .references(() => episodes.id, { onDelete: "cascade" })
+    .notNull(),
 });

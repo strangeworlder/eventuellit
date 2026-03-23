@@ -15,7 +15,7 @@
 - **Linting & Formatting:** We use **Biome**. Do not use ESLint or Prettier commands. Code must pass `npm run lint` and `npm run format` (Biome checks) before features are considered complete.
 
 ## Security & Dependencies
-- **NPM Workspaces over PNPM/Yarn Syntax:** We use traditional NPM (`npm@9.6.4+`). Do not use the `pnpm` style `"workspace:*"` alias dependencies in `package.json`. Always use `*` to designate an internal local package without a publishing registry version.
+- **NPM Workspaces over PNPM/Yarn Syntax:** We use traditional NPM (`npm@10.9.2+`). Do not use the `pnpm` style `"workspace:*"` alias dependencies in `package.json`. Always use `*` to designate an internal local package without a publishing registry version.
 - **Vite 6 Ecosystem Compatibility:** Ensure any new frontend frameworks or server integrations support Vite 6 native dev servers. Express middlewares (e.g. `res.status().send()`) will crash the environment. Be aggressive with dependency version alignments.
 - **Windows Runtime Environment:** Any command invoking Node environment shifting MUST account for NVM symlink limits (`Access is Denied`) and PowerShell script restrictions. Utilize `Set-ExecutionPolicy -Scope CurrentUser` natively.
 - **Zero Vulnerabilities:** We maintain a strict zero-vulnerability policy for all *runtime* dependencies. If a new package introduces a vulnerability, an alternative must be found. 
@@ -27,7 +27,9 @@
 ## Naming Conventions
 - React Components: `PascalCase`
 - Utility Functions/Hooks: `camelCase`
-- Files/Folders: `kebab-case` (e.g., `character-sheet.tsx`)
+- Component Files: `PascalCase` (e.g., `CharacterSheet.tsx`)
+- Utility/Hook Files: `kebab-case` (e.g., `article-navigation-utils.tsx`)
+- Folders: `kebab-case`
 
 ## Styling
 - Strict use of Tailwind CSS utility classes.

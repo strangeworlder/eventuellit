@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { vi } from "vitest";
 import { JwtAuthGuard } from "../auth/auth.guard";
@@ -33,7 +34,7 @@ describe("CharactersController", () => {
       .useValue({ canActivate: () => true })
       .compile();
 
-    controller = module.get<CharactersController>(CharactersController);
+    controller = new CharactersController(service);
   });
 
   it("should be defined", () => {
@@ -46,7 +47,7 @@ describe("CharactersController", () => {
   });
 
   it("should pass userId to create", async () => {
-    await controller.create({ name: "Hero", archetype: "soldier", keho: 8, mieli: 8, tera: 8, sisuDie: "n8", sisuCount: 3, skills: [] }, mockReq);
+    await controller.create({ name: "Hero", archetype: "soldier", episodeId: 1, keho: 8, mieli: 8, tera: 8, sisuDie: "n8", sisuCount: 3, skills: [] }, mockReq);
     expect(service.create).toHaveBeenCalledWith(expect.any(Object), mockUser.id);
   });
 

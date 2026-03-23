@@ -42,7 +42,7 @@ export function LoginPage() {
                 Jos sähköpostiosoite on järjestelmässä, olet saanut kirjautumislinkin sähköpostiisi.
                 Klikkaa linkkiä kirjautuaksesi sisään.
               </p>
-              <p className="text-sm text-text/60 mt-4">
+              <p className="text-sm text-secondary mt-4">
                 Huom: Kehitysympäristössä linkki tulostetaan myös palvelimen konsoliin.
               </p>
             </NoticePanel>
