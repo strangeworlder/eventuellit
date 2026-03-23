@@ -11,7 +11,8 @@
     "build": "tsc -b && vite build",
     "start": "node serve.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check-types": "tsc -b --noEmit"
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",

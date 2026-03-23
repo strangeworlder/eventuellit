@@ -54,7 +54,7 @@ export function extractH3SectionsFromMarkdown(
       continue;
     }
 
-    const label = normalizeHeadingLabel(headingMatch[1]);
+    const label = normalizeHeadingLabel(headingMatch[1]!);
     sections.push({
       id: createUniqueHeadingId(label, usageMap, prefix),
       label,
