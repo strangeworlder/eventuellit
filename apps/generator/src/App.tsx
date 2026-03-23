@@ -50,7 +50,7 @@ function GeneratorForm() {
   const [characterName, setCharacterName] = useState("");
   const [archetype, setArchetype] = useState<"soldier" | "expert" | null>(null);
   const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(null);
-  const [sex, setSex] = useState("");
+  const [sex, setSex] = useState("none");
   const [motivation, setMotivation] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -165,7 +165,7 @@ function GeneratorForm() {
     setCharacterName("");
     setArchetype(null);
     setSelectedEpisodeId(null);
-    setSex("");
+    setSex("none");
     setMotivation("");
     setNotes("");
     setSelectedTaidot(Array(TAIDOT_COUNTS["soldier"]).fill(null));
