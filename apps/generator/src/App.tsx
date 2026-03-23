@@ -33,9 +33,9 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
 });
 
-const TAIDOT_COUNTS: Record<"soldier" | "expert", number> = {
-  soldier: 2,
-  expert: 3,
+const TAIDOT_COUNTS: Record<string, number> = {
+  Sotilas: 2,
+  Ekspertti: 3,
 };
 
 const SEX_OPTIONS = [
@@ -50,7 +50,7 @@ function GeneratorForm() {
   const navigate = useNavigate();
 
   const [characterName, setCharacterName] = useState("");
-  const [archetype, setArchetype] = useState<"soldier" | "expert" | null>(null);
+  const [archetype, setArchetype] = useState<string | null>(null);
   const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(null);
   const [sex, setSex] = useState("none");
   const [motivation, setMotivation] = useState("");
@@ -62,7 +62,7 @@ function GeneratorForm() {
   );
   const [customSkillText, setCustomSkillText] = useState("");
 
-  const handleArchetypeChange = (a: "soldier" | "expert") => {
+  const handleArchetypeChange = (a: string) => {
     setArchetype(a);
     setSelectedTaidot(Array(TAIDOT_COUNTS[a]).fill(null));
     setCustomSkillText("");
@@ -151,7 +151,7 @@ function GeneratorForm() {
       mieli: mieliScore,
       tera: teraScore,
       sisuCount: 3,
-      sisuDie: archetype === "soldier" ? "n8" : "n6",
+      sisuDie: archetype === "Sotilas" ? "n8" : "n6",
       skills: buildSkills(),
       fysiikka,
       nopeus,
@@ -170,7 +170,7 @@ function GeneratorForm() {
     setSex("none");
     setMotivation("");
     setNotes("");
-    setSelectedTaidot(Array(TAIDOT_COUNTS["soldier"]).fill(null));
+    setSelectedTaidot(Array(TAIDOT_COUNTS["Sotilas"]).fill(null));
     setCustomSkillText("");
     setFysiikka(0);
     setNopeus(0);
@@ -222,7 +222,7 @@ function GeneratorForm() {
                       variant={selectedEpisodeId === ep.id ? "primary" : "secondary"}
                       onClick={() => {
                         setSelectedEpisodeId(ep.id);
-                        setSelectedTaidot(Array(taidotCount || TAIDOT_COUNTS["soldier"]).fill(null));
+                        setSelectedTaidot(Array(taidotCount || TAIDOT_COUNTS["Sotilas"]).fill(null));
                         setCustomSkillText("");
                       }}
                     >
@@ -243,11 +243,11 @@ function GeneratorForm() {
                 name="archetype"
                 label="Arkkityyppi"
                 value={archetype ?? undefined}
-                onValueChange={(v) => handleArchetypeChange(v as "soldier" | "expert")}
+                onValueChange={(v) => handleArchetypeChange(v)}
               >
-                <RadioGroupItem value="monk" label="Munkki" description="Sisu: 3n4, Taidot: 2" obscured />
-                <RadioGroupItem value="expert" label="Ekspertti" description="Sisu: 3n6, Taidot: 3" />
-                <RadioGroupItem value="soldier" label="Sotilas" description="Sisu: 3n8, Taidot: 2" />
+                <RadioGroupItem value="Munkki" label="Munkki" description="Sisu: 3n4, Taidot: 2" obscured />
+                <RadioGroupItem value="Ekspertti" label="Ekspertti" description="Sisu: 3n6, Taidot: 3" />
+                <RadioGroupItem value="Sotilas" label="Sotilas" description="Sisu: 3n8, Taidot: 2" />
               </RadioGroup>
             </ObscuredWrapper>
 
@@ -539,44 +539,54 @@ function InnerApp() {
                         </div>
                       )}
                       {!isLoading &&
-                        characters?.map((char: any) => (
-                          <Card
-                            key={char.id}
-                            onClick={() => navigate(`${basePath}/character/${char.id}`)}
-                          >
-                            <CardHeader>
-                              <CardTitle>{char.name}</CardTitle>
-                            </CardHeader>
-                            <CardContent variant="dense">
-                              <div className="flex flex-col gap-2 w-full">
-                                <p className="font-bold text-[var(--theme-accent)] uppercase">
-                                  {char.archetype}
+                        characters?.map((char: any) => {
+                          const activeHarmit = (char.harmit ?? []).filter((h: { healed: boolean }) => !h.healed).length;
+                          const archetypeLabel = char.archetype;
+                          const isOwn = user && char.userId === user.id;
+
+                          return (
+                            <Card
+                              key={char.id}
+                              variant="interactive"
+                              onClick={() => navigate(`${basePath}/character/${char.id}`)}
+                            >
+                              <CardHeader>
+                                <CardTitle>{char.name}</CardTitle>
+                                <p className="text-xs font-bold uppercase tracking-widest text-[var(--theme-secondary)]">
+                                  {archetypeLabel}
                                 </p>
-                                {char.episodeTitle && (
-                                  <p className="text-xs text-secondary">
-                                    Jakso: {char.episodeTitle}
-                                  </p>
-                                )}
-                                <div className="flex justify-between items-center w-full">
-                                  <p className="text-left">Vaurio: {char.vaurio}</p>
-                                  <p className="text-right">
-                                    Sisu: {char.currentSisuCount} x {char.sisuDie}
-                                  </p>
+                              </CardHeader>
+                              <CardContent variant="dense">
+                                <div className="flex flex-col gap-3 w-full">
+                                  {char.episodeTitle && (
+                                    <p className="text-xs text-[var(--theme-text)]/60">
+                                      Jakso: <span className="text-[var(--theme-text)]/80 font-medium">{char.episodeTitle}</span>
+                                    </p>
+                                  )}
+                                  <div className="flex justify-between items-center w-full text-sm">
+                                    <span className="text-[var(--theme-text)]/70">
+                                      Harmit: <span className={activeHarmit > 0 ? "font-bold text-[var(--theme-primary)]" : "font-medium text-[var(--theme-text)]/80"}>{activeHarmit} / 5</span>
+                                    </span>
+                                    <span className="text-[var(--theme-text)]/70 inline-flex items-center gap-1.5">
+                                      Sisu: <span className="font-medium text-[var(--theme-text)]/80">{char.currentSisuCount}</span>
+                                      <DiceIcon faces={Number.parseInt(char.sisuDie.replace("n", ""), 10) as 4 | 6 | 8 | 10 | 12 | 20} size="sm" />
+                                    </span>
+                                  </div>
+                                  {char.ownerName && (
+                                    <p className="text-xs text-[var(--theme-text)]/50 border-t border-[var(--theme-text)]/10 pt-2 mt-1">
+                                      Pelaaja: {char.ownerName}
+                                      {isOwn && (
+                                        <span className="ml-2 text-[10px] font-black tracking-widest text-[var(--theme-secondary)] uppercase">
+                                          sinun
+                                        </span>
+                                      )}
+                                    </p>
+                                  )}
                                 </div>
-                                {char.ownerName && (
-                                  <p className="text-sm text-secondary mt-1">
-                                    Pelaaja: {char.ownerName}
-                                    {user && char.userId === user.id && (
-                                      <span className="ml-2 text-xs font-semibold text-[var(--theme-accent)] uppercase">
-                                        (sinun)
-                                      </span>
-                                    )}
-                                  </p>
-                                )}
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
+                              </CardContent>
+                            </Card>
+                          );
+                        })}
                     </div>
                   </HeadingLevelProvider>
                 </>

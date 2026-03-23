@@ -42,7 +42,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           {/* Track + Thumb */}
           <span
             className="relative mt-0.5 shrink-0"
-            data-obscured={obscured ? "x" : undefined}
+            data-text={obscured ? "x" : undefined}
             style={obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
           >
             <input
@@ -63,7 +63,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
                   ? "bg-[var(--theme-primary)] border-[var(--theme-primary)]"
                   : "bg-[var(--theme-secondary)]/20 border-[var(--theme-secondary)]/40",
                 "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-primary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
-                obscured && "blur-[1.5px] btn-obscured-glitch",
+                obscured && "blur-[1.5px] obscured-glitch",
               )}
             />
             <span
@@ -78,19 +78,23 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           </span>
           <span className="flex flex-col gap-0.5 select-none">
             <span
+              data-text={obscured ? obscureString(label) : undefined}
               className={cn(
                 "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-primary)] transition-colors",
-                obscured && "blur-[5.5px]",
+                obscured && "blur-[5.5px] obscured-glitch",
               )}
+              style={obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
             >
               {obscured ? obscureString(label) : label}
             </span>
             {description && (
               <span
+                data-text={obscured ? obscureString(description) : undefined}
                 className={cn(
                   "text-sm text-[var(--theme-secondary)]/70",
-                  obscured && "blur-[5.5px]",
+                  obscured && "blur-[5.5px] obscured-glitch",
                 )}
+                style={obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
               >
                 {obscured ? obscureString(description) : description}
               </span>

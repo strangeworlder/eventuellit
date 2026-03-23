@@ -68,7 +68,7 @@ export const characters = pgTable("characters", {
   sisuDie: text("sisu_die").notNull().default("n6"),
   sisuCount: integer("sisu_count").notNull().default(3),
   currentSisuCount: integer("current_sisu_count").notNull().default(3),
-  vaurio: integer("vaurio").notNull().default(0),
+  harmit: jsonb("harmit").default([]).notNull(),
   skills: jsonb("skills").default([]).notNull(),
   inventory: jsonb("inventory").default([]).notNull(),
   fysiikka: integer("fysiikka").default(0).notNull(),

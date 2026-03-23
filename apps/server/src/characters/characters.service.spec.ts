@@ -51,7 +51,7 @@ describe("CharactersService", () => {
 
     const dto = {
       name: "Test Character",
-      archetype: "soldier" as const,
+      archetype: "Sotilas",
       episodeId: 1,
       keho: 8,
       mieli: 8,
@@ -78,26 +78,28 @@ describe("CharactersService", () => {
   it("should allow owner to update their character", async () => {
     const character = { id: 1, userId: 42 };
     mockDb.query.characters.findFirst.mockResolvedValueOnce(character);
-    mockDb.returning.mockResolvedValueOnce([{ ...character, vaurio: 1 }]);
+    const harmit = [{ text: "Palovamma", healed: false }];
+    mockDb.returning.mockResolvedValueOnce([{ ...character, harmit }]);
 
-    const result = await service.update(1, { vaurio: 1 }, 42, "player");
-    expect(result).toEqual({ ...character, vaurio: 1 });
+    const result = await service.update(1, { harmit }, 42, "player");
+    expect(result).toEqual({ ...character, harmit });
   });
 
   it("should allow gm to update any character", async () => {
     const character = { id: 1, userId: 99 };
     mockDb.query.characters.findFirst.mockResolvedValueOnce(character);
-    mockDb.returning.mockResolvedValueOnce([{ ...character, vaurio: 2 }]);
+    const harmit = [{ text: "Murtuma", healed: false }, { text: "Shokki", healed: true }];
+    mockDb.returning.mockResolvedValueOnce([{ ...character, harmit }]);
 
-    const result = await service.update(1, { vaurio: 2 }, 1, "gm");
-    expect(result).toEqual({ ...character, vaurio: 2 });
+    const result = await service.update(1, { harmit }, 1, "gm");
+    expect(result).toEqual({ ...character, harmit });
   });
 
   it("should throw ForbiddenException when non-owner player tries to update", async () => {
     const character = { id: 1, userId: 99 };
     mockDb.query.characters.findFirst.mockResolvedValueOnce(character);
 
-    await expect(service.update(1, { vaurio: 1 }, 1, "player")).rejects.toThrow(
+    await expect(service.update(1, { harmit: [{ text: "Haava", healed: false }] }, 1, "player")).rejects.toThrow(
       ForbiddenException,
     );
   });
@@ -105,7 +107,7 @@ describe("CharactersService", () => {
   it("should throw NotFoundException when updating non-existent character", async () => {
     mockDb.query.characters.findFirst.mockResolvedValueOnce(undefined);
 
-    await expect(service.update(999, { vaurio: 1 }, 1, "player")).rejects.toThrow(
+    await expect(service.update(999, { harmit: [{ text: "Haava", healed: false }] }, 1, "player")).rejects.toThrow(
       NotFoundException,
     );
   });

@@ -140,12 +140,12 @@ export function RadioGroupItem({
           className="peer sr-only"
         />
         <span
-          data-obscured={isObscured ? "x" : undefined}
+          data-text={isObscured ? "x" : undefined}
           style={isObscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
           className={cn(
             "h-5 w-5 rounded-full border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] transition-all peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-primary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
             isSelected && "border-[var(--theme-primary)]",
-            isObscured && "blur-[1.5px] btn-obscured-glitch",
+            isObscured && "blur-[1.5px] obscured-glitch",
           )}
         />
         {isSelected && (
@@ -159,19 +159,23 @@ export function RadioGroupItem({
       </span>
       <span className="flex flex-col gap-0.5 select-none">
         <span
+          data-text={isObscured ? obscureString(label) : undefined}
           className={cn(
             "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-primary)] transition-colors",
-            isObscured && "blur-[5.5px]",
+            isObscured && "blur-[5.5px] obscured-glitch",
           )}
+          style={isObscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
         >
           {isObscured ? obscureString(label) : label}
         </span>
         {description && (
           <span
+            data-text={isObscured ? obscureString(description) : undefined}
             className={cn(
               "text-sm text-[var(--theme-secondary)]/70",
-              isObscured && "blur-[5.5px]",
+              isObscured && "blur-[5.5px] obscured-glitch",
             )}
+            style={isObscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
           >
             {isObscured ? obscureString(description) : description}
           </span>

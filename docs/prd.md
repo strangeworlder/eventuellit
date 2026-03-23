@@ -84,14 +84,16 @@
 ### Kesto and Harmi
 - When Sisu is depleted, damage converts into Kesto loss (1:1) or **Harmi**.
 - If a target has no Sisu, apply impact from highest relevant damage/threat die.
-- Each Harmi permanently reduces action pool by **-1n20**.
-- At **5 Harmi**, the character is removed from play.
+- Each Harmi is a **named tag** (free-text label written by the player, e.g. "Palovamma", "Shokki").
+- Active (unhealed) Harmi tags reduce the action pool by **-1n20** each.
+- Healed Harmi tags no longer reduce the pool but persist and count toward the removal threshold.
+- At **5 total Harmi** (active + healed), the character is removed from play.
 
 ## 6. Recovery and Advancement
 
 ### Recovery
 - Between episodes, Sisu and Kesto recover.
-- Harmi clears through downtime/maintenance procedures between episodes.
+- Harmi tags can be healed through downtime/maintenance procedures between episodes. Healed tags remain on the character but stop affecting the dice pool.
 
 ### Advancement
 - End of episode: add one **n4** to an attribute.

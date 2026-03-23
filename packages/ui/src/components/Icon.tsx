@@ -1,4 +1,7 @@
 import {
+    AlertTriangle,
+    HeartPulse,
+    ShieldAlert,
     Sparkles,
     Dice5,
     BookOpen,
@@ -21,6 +24,9 @@ import {
 import React from "react";
 
 export const icons = {
+    "alert-triangle": AlertTriangle,
+    "heart-pulse": HeartPulse,
+    "shield-alert": ShieldAlert,
     sparkles: Sparkles,
     dice5: Dice5,
     book: BookOpen,

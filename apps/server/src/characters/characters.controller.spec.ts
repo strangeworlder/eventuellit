@@ -47,13 +47,14 @@ describe("CharactersController", () => {
   });
 
   it("should pass userId to create", async () => {
-    await controller.create({ name: "Hero", archetype: "soldier", episodeId: 1, keho: 8, mieli: 8, tera: 8, sisuDie: "n8", sisuCount: 3, skills: [] }, mockReq);
+    await controller.create({ name: "Hero", archetype: "Sotilas", episodeId: 1, keho: 8, mieli: 8, tera: 8, sisuDie: "n8", sisuCount: 3, skills: [] }, mockReq);
     expect(service.create).toHaveBeenCalledWith(expect.any(Object), mockUser.id);
   });
 
   it("should pass userId and role to update", async () => {
-    await controller.update(1, { vaurio: 1 }, mockReq);
-    expect(service.update).toHaveBeenCalledWith(1, { vaurio: 1 }, mockUser.id, mockUser.role);
+    const harmit = [{ text: "Palovamma", healed: false }];
+    await controller.update(1, { harmit }, mockReq);
+    expect(service.update).toHaveBeenCalledWith(1, { harmit }, mockUser.id, mockUser.role);
   });
 
   it("should pass userId and role to remove", async () => {

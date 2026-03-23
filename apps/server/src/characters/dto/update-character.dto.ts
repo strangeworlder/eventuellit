@@ -6,8 +6,8 @@ export class UpdateCharacterDto {
   name?: string;
 
   @IsOptional()
-  @IsIn(["soldier", "expert"])
-  archetype?: "soldier" | "expert";
+  @IsString()
+  archetype?: string;
 
   @IsOptional()
   @IsIn(["male", "female", "non-binary", "none"])
@@ -68,10 +68,9 @@ export class UpdateCharacterDto {
   currentSisuCount?: number;
 
   @IsOptional()
-  @IsInt()
-  @Min(0)
-  @Max(5)
-  vaurio?: number;
+  @IsArray()
+  @ArrayMaxSize(5)
+  harmit?: Array<{ text: string; healed: boolean }>;
 
   @IsOptional()
   @IsArray()

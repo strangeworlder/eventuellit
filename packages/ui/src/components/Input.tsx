@@ -46,12 +46,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           placeholder={obscuredPlaceholder}
           value={obscuredValue}
           defaultValue={obscuredDefault}
-          data-obscured={obscured ? obscureString(placeholder ?? "") : undefined}
+          data-text={obscured ? obscureString(placeholder ?? "") : undefined}
           style={obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
           className={cn(
             "flex h-12 w-full rounded-sm border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] px-4 py-2 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all placeholder:text-[var(--theme-secondary)]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
             error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
-            obscured && "blur-[1.5px] btn-obscured-glitch obscured-field",
+            obscured && "blur-[1.5px] obscured-glitch obscured-field",
             className,
           )}
           {...props}

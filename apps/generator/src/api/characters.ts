@@ -5,7 +5,7 @@ const API_URL = `${apiBaseUrl}/characters`;
 
 export interface CreateCharacterDto {
   name: string;
-  archetype: "soldier" | "expert";
+  archetype: string;
   episodeId: number;
   sex?: string;
   motivation?: string;
@@ -13,7 +13,7 @@ export interface CreateCharacterDto {
   keho: number;
   mieli: number;
   tera: number;
-  sisuDie: "n6" | "n8";
+  sisuDie: string;
   sisuCount: number;
   skills: { name: string; isCustom?: boolean }[];
   fysiikka?: number;

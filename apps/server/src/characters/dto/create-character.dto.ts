@@ -13,8 +13,8 @@ export class CreateCharacterDto {
   @IsString()
   name!: string;
 
-  @IsIn(["soldier", "expert"])
-  archetype!: "soldier" | "expert";
+  @IsString()
+  archetype!: string;
 
   @IsInt()
   @Min(0)

@@ -25,9 +25,10 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    * - `secondary`: Transparent background with secondary-colored border and text.
    * - `accent`: Theme background with accent-colored text and a thick bottom accent border.
    * - `subtle`: Light bordered surface card.
+   * - `interactive`: Clickable surface card with hover glow, lift, and pointer cursor.
    * - `rule`: Left-accented callout block.
    */
-  variant?: "primary" | "secondary" | "accent" | "subtle" | "rule";
+  variant?: "primary" | "secondary" | "accent" | "subtle" | "interactive" | "rule";
   /** The theme context to apply, which modifies the component's CSS variables. */
   theme?: Theme;
   /** Optional icon to render in the CardHeader. */
@@ -81,6 +82,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
                 // Subtle: light bordered surface card
                 "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
                   variant === "subtle",
+                // Interactive: clickable surface card with hover glow and lift
+                "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md cursor-pointer transition-all duration-300 hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)] hover:-translate-y-1 hover:border-[var(--theme-secondary)]/40 active:translate-y-0 active:shadow-sm":
+                  variant === "interactive",
                 // Rule: left-accented callout block
                 "bg-[var(--theme-secondary)]/10 text-[var(--theme-text)] border-l-8 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow":
                   variant === "rule",

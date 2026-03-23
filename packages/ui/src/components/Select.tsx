@@ -58,12 +58,12 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         <select
           ref={ref}
           disabled={isDisabled}
-          data-obscured={obscured ? obscureString(placeholder ?? options[0]?.label ?? "") : undefined}
+          data-text={obscured ? obscureString(placeholder ?? options[0]?.label ?? "") : undefined}
           className={cn(
             "flex h-12 w-full appearance-none rounded-sm border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] px-4 py-2 pr-10 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
             error &&
               "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
-            obscured && "blur-[1.5px] btn-obscured-glitch obscured-field",
+            obscured && "blur-[1.5px] obscured-glitch obscured-field",
             className,
           )}
           style={{

@@ -7,7 +7,7 @@ const sampleSections = [
   { id: "pelimekaniikka", label: "1. Pelimekaniikka" },
   { id: "hahmo", label: "2. Hahmo ja ominaisuudet" },
   { id: "konfliktit", label: "3. Konfliktit ja taistelu" },
-  { id: "vaurio", label: "4. Vaurio ja selviytyminen" },
+  { id: "harmi", label: "4. Harmi ja selviytyminen" },
   { id: "kehitys", label: "5. Kehitys ja toipuminen" },
 ];
 
@@ -53,7 +53,7 @@ export const Interactive: Story = {
       pelimekaniikka: 6,
       hahmo: 24,
       konfliktit: 45,
-      vaurio: 62,
+      harmi: 62,
       kehitys: 78,
     },
   },

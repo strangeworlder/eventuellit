@@ -86,8 +86,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const shouldRenderDangerIcon = isDanger && showDangerIcon;
     const shouldRenderLoadingTooltip = loading && showLoadingTooltip;
     const obscuredLabel = isObscured ? obscureString(flattenToString(children)) : undefined;
-    const glitchSeed = React.useMemo(() => isObscured ? Math.random() * 6 : 0, []);
-    const glitchDuration = React.useMemo(() => isObscured ? 4 + Math.random() * 5 : 6, []);
+    const glitchSeed = React.useMemo(() => isObscured ? Math.random() * 36 : 0, []);
+    const glitchDuration = React.useMemo(() => isObscured ? 25 + Math.random() * 20 : 6, []);
     const mergedAriaDescribedBy = [ariaDescribedBy, shouldRenderLoadingTooltip ? tooltipId : undefined]
       .filter(Boolean)
       .join(" ") || undefined;
@@ -97,7 +97,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         style={isObscured ? { '--glitch-delay': `-${glitchSeed.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s`, ...props.style } as React.CSSProperties : props.style}
         data-theme={theme}
-        data-obscured={obscuredLabel}
+        data-text={obscuredLabel}
         disabled={isDisabled}
         aria-disabled={isDisabled || undefined}
         aria-busy={loading || undefined}
@@ -146,7 +146,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "ghost-secondary",
           },
           isObscured && "select-none blur-[1.5px]",
-          isObscured && "btn-obscured-glitch",
+          isObscured && "obscured-glitch",
           className,
         )}
         {...props}

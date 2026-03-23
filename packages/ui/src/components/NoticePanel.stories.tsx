@@ -36,7 +36,7 @@ export const Tieto: Story = {
       <p className="text-lg leading-relaxed">
         Sinulla on <GameTerm variant="accent" className="font-black text-xl">5n20</GameTerm>{" "}
         oletuksena. Olet ottanut{" "}
-        <GameTerm variant="primary" className="font-bold">2 vauriota</GameTerm>, joten
+        <GameTerm variant="primary" className="font-bold">2 harmia</GameTerm>, joten
         noppapoolisi koko on{" "}
         <GameTerm variant="primary" className="font-black text-2xl">3</GameTerm>.
       </p>
