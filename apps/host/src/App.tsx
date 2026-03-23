@@ -17,7 +17,7 @@ import {
   SidebarItem,
 } from "@repo/ui/components/Sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BookOpen, Globe, LogIn, LogOut, MapIcon, Menu, UserCircle } from "lucide-react";
+import { Icon } from "@repo/ui/components/Icon";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyPage } from "./components/VerifyPage";
 import { buildDocumentTitle } from "./route-title";
 import { useAuth } from "@repo/auth/use-auth";
-import { Dice5 } from "lucide-react";
+
 
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));
@@ -277,7 +277,7 @@ function AppContent() {
         <SidebarContent>
           {isLoggedIn && (
             <SidebarItem
-              icon={<Dice5 size={20} />}
+              icon={<Icon name="dice5" size={20} />}
               active={activeView === "generator"}
               onClick={() => navigate("/generator")}
             >
@@ -285,21 +285,21 @@ function AppContent() {
             </SidebarItem>
           )}
           <SidebarItem
-            icon={<BookOpen size={20} />}
+            icon={<Icon name="book" size={20} />}
             active={activeView === "ruleset"}
             onClick={() => navigate("/ruleset")}
           >
             Sääntökirja
           </SidebarItem>
           <SidebarItem
-            icon={<MapIcon size={20} />}
+            icon={<Icon name="map" size={20} />}
             active={activeView === "episodes"}
             onClick={() => navigate("/episodes")}
           >
             Jaksot
           </SidebarItem>
           <SidebarItem
-            icon={<Globe size={20} />}
+            icon={<Icon name="globe" size={20} />}
             active={activeView === "world"}
             onClick={() => navigate("/world")}
           >
@@ -313,13 +313,13 @@ function AppContent() {
               {user && (
                 <div className="mb-2 px-2 py-1.5 rounded-md bg-[var(--theme-secondary)]/5 text-[var(--theme-secondary)]/80 text-sm truncate">
                   <div className="flex items-center gap-2">
-                    <UserCircle size={16} className="flex-shrink-0" />
+                    <Icon name="user-circle" size={16} className="flex-shrink-0" />
                     <span className="truncate">{user.username || user.email}</span>
                   </div>
                 </div>
               )}
               <SidebarItem
-                icon={<LogOut size={20} />}
+                icon={<Icon name="log-out" size={20} />}
                 onClick={() => {
                   logout();
                   navigate("/");
@@ -330,7 +330,7 @@ function AppContent() {
             </>
           ) : (
             <SidebarItem
-              icon={<LogIn size={20} />}
+              icon={<Icon name="log-in" size={20} />}
               onClick={() => navigate("/kirjaudu")}
             >
               Kirjaudu sisään
@@ -350,7 +350,7 @@ function AppContent() {
             onClick={() => setSidebarOpen(true)}
             aria-label="Avaa valikko"
           >
-            <Menu size={28} />
+            <Icon name="menu" size={28} />
           </Button>
 
           <header

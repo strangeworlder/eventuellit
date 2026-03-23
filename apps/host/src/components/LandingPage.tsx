@@ -1,11 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Heading, HeadingLevelContext } from "@repo/ui/components/Heading";
 import { VideoCta } from "@repo/ui/components/VideoCta";
+import { useAuth } from "@repo/auth/use-auth";
 
 import { useNavigate } from "react-router-dom";
 
 export function LandingPage() {
     const navigate = useNavigate();
+    const { isLoggedIn } = useAuth();
 
     return (
         <div className="flex flex-col items-center justify-center min-h-[80vh] py-12 px-4">
@@ -31,31 +33,32 @@ export function LandingPage() {
                 </div>
 
                 <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 w-full max-w-4xl">
-                    {/* Hahmopaja card temporarily hidden from production
-                    <Card
-                        className="group cursor-pointer hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 animate-in fade-in slide-in-from-left-8 duration-700 delay-100"
-                        onClick={() => navigate("/generator")}
-                        theme="base"
-                        iconName="dice5"
-                        iconVariant="primary"
-                    >
-                        <CardHeader>
-                            <CardTitle>Hahmopaja</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-text">
-                                Luo ja muokkaa hahmoja Eventuellit-järjestelmään. Kaikki työkalut hahmonkehitykseen yhdessä paikassa.
-                            </p>
-                        </CardContent>
-                    </Card>
-                    */}
+
+                    {isLoggedIn && (
+                        <Card
+                            className="group cursor-pointer hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 animate-in fade-in slide-in-from-left-8 duration-700 delay-100"
+                            onClick={() => navigate("/generator")}
+                            theme="base"
+                            iconName="dice5"
+                            iconVariant="primary"
+                        >
+                            <CardHeader>
+                                <CardTitle>Hahmopaja</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-text">
+                                    Luo ja muokkaa hahmoja Eventuellit-järjestelmään. Kaikki työkalut hahmonkehitykseen yhdessä paikassa.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    )}
 
                     <Card
                         className="group cursor-pointer hover:border-secondary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-secondary/10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200"
                         onClick={() => navigate("/ruleset")}
                         theme="base"
                         iconName="book"
-                        iconVariant="secondary"
+                        iconVariant="primary"
                     >
                         <CardHeader>
                             <CardTitle>Sääntökirja</CardTitle>
@@ -72,7 +75,7 @@ export function LandingPage() {
                         onClick={() => navigate("/episodes")}
                         theme="base"
                         iconName="zap"
-                        iconVariant="accent"
+                        iconVariant="primary"
                     >
                         <CardHeader>
                             <CardTitle>Jaksot</CardTitle>
@@ -80,6 +83,23 @@ export function LandingPage() {
                         <CardContent>
                             <p className="text-text">
                                 Seuraa meneillään olevia jaksoja ja tutki menneitä seikkailuja. Valmistaudu seuraavaan istuntoon.
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    <Card
+                        className="group cursor-pointer hover:border-accent/50 transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 animate-in fade-in slide-in-from-right-8 duration-700 delay-300"
+                        onClick={() => navigate("/world")}
+                        theme="base"
+                        iconName="zap"
+                        iconVariant="primary"
+                    >
+                        <CardHeader>
+                            <CardTitle>Maailma</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-text">
+                                Tutustu pelin maailmaan. Tutki eri alueita, kulttuureja ja tapahtumia.
                             </p>
                         </CardContent>
                     </Card>

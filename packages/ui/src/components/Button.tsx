@@ -1,5 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
-import { Loader2 } from "lucide-react";
+
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { AnchoredTooltip } from "./AnchoredTooltip";
@@ -173,7 +173,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         <span className="relative z-10 inline-flex items-center gap-2">
           {loading && (
-            <Loader2
+            <Icon
+              name="loader2"
               className="animate-spin shrink-0"
               size={size === "sm" || size === "icon" ? 14 : size === "lg" ? 22 : 18}
               aria-hidden="true"

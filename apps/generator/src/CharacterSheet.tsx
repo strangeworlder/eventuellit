@@ -1,12 +1,13 @@
 import { ActiveStatBlock } from "@repo/ui/components/ActiveStatBlock";
 import { Button } from "@repo/ui/components/Button";
+import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { useAuth } from "@repo/auth/use-auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
 
 interface Character {
@@ -197,15 +198,11 @@ export function CharacterSheet({
             <div className="space-y-6">
               <Heading>Resurssit</Heading>
 
-              <div className="grid grid-cols-2 gap-4 mt-4 mb-8">
-                <ActiveStatBlock
-                  label={`Sisu (${character.sisuCount} x ${character.sisuDie})`}
-                  value={character.currentSisuCount}
-                  maxValue={canEdit ? character.sisuCount : character.currentSisuCount}
-                  onIncrement={canEdit ? () => updateCharacter({ currentSisuCount: character.currentSisuCount + 1 }) : undefined}
-                  onDecrement={canEdit ? () => updateCharacter({ currentSisuCount: character.currentSisuCount - 1 }) : undefined}
-                  {...lockIfReadOnly(character.currentSisuCount)}
-                  className="col-span-2"
+              <div className="space-y-4 mt-4 mb-8">
+                <SisuPoolSection
+                  character={character}
+                  canEdit={canEdit}
+                  onUpdate={updateCharacter}
                 />
 
                 <ActiveStatBlock
@@ -215,7 +212,6 @@ export function CharacterSheet({
                   onIncrement={canEdit ? () => updateCharacter({ vaurio: character.vaurio + 1 }) : undefined}
                   onDecrement={canEdit ? () => updateCharacter({ vaurio: character.vaurio - 1 }) : undefined}
                   minAllowed={canEdit ? 0 : character.vaurio}
-                  className="col-span-2"
                 />
               </div>
 
@@ -342,5 +338,53 @@ function EditableTextarea({
         {value || <span className="italic opacity-50">{placeholder}</span>}
       </p>
     </div>
+  );
+}
+
+/** Maps the flat sisuDie/sisuCount model into DicePoolTracker props */
+function SisuPoolSection({
+  character,
+  canEdit,
+  onUpdate,
+}: {
+  character: Character;
+  canEdit: boolean;
+  onUpdate: (updates: Partial<Character>) => void;
+}) {
+  const dieFaces = Number.parseInt(character.sisuDie.replace("n", ""), 10) as 4 | 6 | 8 | 10 | 12 | 20;
+
+  const dice = useMemo(
+    () =>
+      Array.from({ length: character.sisuCount }, (_, i) => ({
+        id: `sisu-${i}`,
+        faces: dieFaces,
+      })),
+    [character.sisuCount, dieFaces],
+  );
+
+  // Treat the *last* N dice as removed (N = sisuCount - currentSisuCount)
+  const removedIds = useMemo(() => {
+    const removedCount = character.sisuCount - character.currentSisuCount;
+    return dice.slice(dice.length - removedCount).map((d) => d.id);
+  }, [dice, character.sisuCount, character.currentSisuCount]);
+
+  const handleToggle = (id: string) => {
+    const isCurrentlyRemoved = removedIds.includes(id);
+    const newCount = isCurrentlyRemoved
+      ? character.currentSisuCount + 1
+      : character.currentSisuCount - 1;
+    if (newCount >= 0 && newCount <= character.sisuCount) {
+      onUpdate({ currentSisuCount: newCount });
+    }
+  };
+
+  return (
+    <DicePoolTracker
+      dice={dice}
+      removedIds={removedIds}
+      onDieToggle={canEdit ? handleToggle : undefined}
+      readOnly={!canEdit}
+      label="Sisu"
+    />
   );
 }

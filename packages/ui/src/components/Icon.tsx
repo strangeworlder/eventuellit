@@ -4,11 +4,19 @@ import {
     BookOpen,
     ChevronLeft,
     ChevronRight,
+    Globe,
+    Loader2,
+    LogIn,
+    LogOut,
+    Map,
+    Menu,
     Minus,
     Plus,
-    Zap,
+    Settings,
     Shield,
+    UserCircle,
     X,
+    Zap,
 } from "lucide-react";
 import React from "react";
 
@@ -18,11 +26,19 @@ export const icons = {
     book: BookOpen,
     "chevron-left": ChevronLeft,
     "chevron-right": ChevronRight,
+    globe: Globe,
+    loader2: Loader2,
+    "log-in": LogIn,
+    "log-out": LogOut,
+    map: Map,
+    menu: Menu,
     minus: Minus,
     plus: Plus,
-    zap: Zap,
+    settings: Settings,
     shield: Shield,
+    "user-circle": UserCircle,
     x: X,
+    zap: Zap,
 } as const;
 
 export type IconName = keyof typeof icons;

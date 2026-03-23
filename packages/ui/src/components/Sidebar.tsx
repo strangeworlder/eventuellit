@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Icon } from "./Icon";
 import * as React from "react";
 import { Button, cn } from "./Button";
 
@@ -98,7 +98,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
               )}
               aria-label={expanded ? "Collapse sidebar" : "Expand sidebar"}
             >
-              {expanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+              {expanded ? <Icon name="chevron-left" size={16} /> : <Icon name="chevron-right" size={16} />}
             </Button>
           </aside>
         </>
