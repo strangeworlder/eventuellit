@@ -91,7 +91,7 @@ export function LandingPage() {
                         className="group cursor-pointer hover:border-accent/50 transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 animate-in fade-in slide-in-from-right-8 duration-700 delay-300"
                         onClick={() => navigate("/world")}
                         theme="base"
-                        iconName="zap"
+                        iconName="map"
                         iconVariant="primary"
                     >
                         <CardHeader>

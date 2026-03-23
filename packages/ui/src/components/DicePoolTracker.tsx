@@ -71,26 +71,33 @@ export const DicePoolTracker = React.forwardRef<
       <div
         ref={ref}
         className={cn(
-          "rounded-xl border border-[var(--theme-secondary)]/30 p-5 transition-all duration-200",
+          "flex flex-col p-6 rounded-xl shadow-sm gap-3 transition-all duration-200 relative overflow-hidden",
+          "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]",
           className,
         )}
         {...props}
       >
         <HeadingLevelProvider>
-          {/* Header row */}
-          <div className="flex items-center justify-between pb-3 border-b border-[var(--theme-secondary)]/20 mb-4">
+          {/* Header — matches ActiveStatBlock secondary variant */}
+          <div
+            className={cn(
+              "flex items-center justify-between gap-3 pb-3 border-b border-current/20",
+              "border-b-[var(--theme-secondary)]",
+            )}
+          >
             {label && <Heading>{label}</Heading>}
-            <span className="text-lg font-heading font-black text-[var(--theme-text)] tabular-nums">
-              {activeCount}
-              <span className="text-[var(--theme-text)]/30 font-light">
-                {" "}
+            <div className="flex items-baseline gap-1">
+              <span className="text-4xl text-[var(--theme-text)] font-heading font-black leading-none tabular-nums">
+                {activeCount}
+              </span>
+              <span className="text-lg font-bold leading-none">
                 / {dice.length}
               </span>
-            </span>
+            </div>
           </div>
 
           {/* Dice grid — grouped by face type */}
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap gap-6 mt-1">
             {grouped.map(([faces, group], groupIdx) => (
               <div key={faces} className="flex items-center gap-1.5">
                 {groupIdx > 0 && (

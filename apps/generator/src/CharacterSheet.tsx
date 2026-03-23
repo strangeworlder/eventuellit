@@ -215,7 +215,7 @@ export function CharacterSheet({
                 />
               </div>
 
-              <Heading>Kestot (Durations)</Heading>
+              <Heading>Kestot</Heading>
               <div className="grid grid-cols-1 gap-4 mt-4">
                 <ActiveStatBlock
                   label="Keho"
