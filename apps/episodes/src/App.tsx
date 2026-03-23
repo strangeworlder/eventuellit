@@ -125,7 +125,10 @@ function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onC
 
         <div className="flex gap-2 justify-end mt-4">
           <Button variant="secondary" onClick={onCancel}>Peruuta</Button>
-          <Button onClick={() => onSave(formData)}>Tallenna</Button>
+          <Button onClick={() => {
+            const { id, gmId, createdAt, updatedAt, ...editableData } = formData as Episode;
+            onSave(editableData);
+          }}>Tallenna</Button>
         </div>
       </CardContent>
     </Card>
