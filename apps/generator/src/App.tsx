@@ -1,6 +1,7 @@
 import { AttributeCard, getScoreBonusFromValue } from "@repo/ui/components/AttributeCard";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
+import { DiceIcon } from "@repo/ui/components/DiceIcon";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
@@ -141,9 +142,14 @@ function GeneratorForm() {
             <div className="space-y-4">
               <div className="flex justify-between items-center mb-2">
                 <Heading>Ominaisuudet (Kestot)</Heading>
-                <span className="text-slate-400 font-mono">
-                  Noppia jäljellä: {diceRemaining}x 1d4
-                </span>
+                <div className="flex items-center gap-2 text-slate-400 font-mono">
+                  <span>Noppia jäljellä:</span>
+                  <div className="flex gap-1.5">
+                    {Array.from({ length: diceRemaining }).map((_, i) => (
+                      <DiceIcon key={i} faces={4} size="sm" />
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 tablet:grid-cols-3 gap-6">
@@ -303,10 +309,9 @@ function InnerApp() {
                     )}
 
                     {!isLoading && characters?.length === 0 && (
-                      <div className="col-span-full text-center py-12 text-text/60">
-                        <p className="text-xl">Ei hahmoja vielä.</p>
+                      <div className="col-span-full text-center py-12">
+                        <p className="text-secondary">Ei hahmoja vielä.</p>1
                         <Button
-                          className="mt-6 rounded-none font-bold uppercase tracking-wide shadow-md"
                           onClick={() => navigate(`${basePath}/new`)}
                         >
                           Luo ensimmäinen hahmosi
