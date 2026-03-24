@@ -107,6 +107,7 @@ Use the `loading` prop instead of manually wiring `disabled={isPending}` + text 
 - Do not use deprecated `/blocks` subpath for docs addon. Import `@storybook/addon-docs` directly.
 - Set `tags: ["autodocs"]` in `packages/ui/.storybook/preview.ts` globally.
 - All stories use the `Suunnittelujarjestelma` Finnish root namespace.
+- Stories are organized using **atomic design** hierarchy — see the `atomic-design` skill for classification rules and the full component map.
 
 ## ImageElement Component
 
