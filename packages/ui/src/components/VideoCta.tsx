@@ -44,7 +44,7 @@ export function VideoCta({
 
       <Button
         size="lg"
-        variant="primary"
+        variant="solid"
         onClick={onClickCta}
         className="w-full mobile:w-auto mobile:min-w-[280px] shadow-lg shadow-[var(--theme-primary)]/20 hover:shadow-xl hover:shadow-[var(--theme-primary)]/30 hover:-translate-y-1 transition-all duration-300"
       >

@@ -46,6 +46,53 @@ All new `@repo/ui` components must follow:
 - Rely on `[var(--theme-secondary)]` scoping with `transparent` backgrounds.
 - Never artificially inject a hardcoded `theme="..."` prop to force a specific colorway.
 
+## Color Accessibility — Semantic Token System
+
+The design system uses **pre-computed, solid-color semantic tokens** instead of opacity modifiers. All tokens are defined per-theme in `packages/ui/src/styles.css` and verified at WCAG AA contrast ratios.
+
+### Text hierarchy tokens
+
+| Token | Tailwind class | Contrast target | Purpose |
+|---|---|---|---|
+| `--theme-text` | `text-[var(--theme-text)]` | ≥ 7:1 | Primary body text |
+| `--theme-text-muted` | `text-text-muted` | ≥ 7:1 | Secondary info, labels, descriptions |
+| `--theme-text-subtle` | `text-text-subtle` | ≥ 4.5:1 | Captions, hints, inactive labels |
+| `--theme-text-placeholder` | `text-text-placeholder` | ≥ 3:1 | Form placeholders only |
+
+### Surface & border tokens
+
+| Token | Tailwind class | Purpose |
+|---|---|---|
+| `--theme-surface-tint` | `bg-[var(--theme-surface-tint)]` | Hover/active fill on interactive elements |
+| `--theme-border-soft` | `border-[var(--theme-border-soft)]` | Subtle dividers, card outlines |
+| `--theme-border-medium` | `border-[var(--theme-border-medium)]` | Form controls (Input, Select, Checkbox, RadioGroup) |
+
+### Prohibited patterns
+
+- **No Tailwind opacity modifiers on text:** `text-[var(--theme-text)]/50` — creates unpredictable contrast across themes.
+- **No `opacity` property on text elements:** `opacity-60` — reduces contrast for all children.
+- **No `color-mix()` on text colors** except behind known backgrounds in self-contained decorative contexts.
+- **No opacity on interactive backgrounds:** `hover:bg-[var(--theme-secondary)]/10` — use `bg-[var(--theme-surface-tint)]` instead.
+- **No opacity on structural borders:** `border-[var(--theme-secondary)]/40` — use `border-[var(--theme-border-medium)]` instead.
+
+### Permitted opacity exceptions
+
+These are intentional and WCAG-exempt:
+- `disabled:opacity-50` — disabled controls
+- Background overlays / image scrim layers (e.g., `bg-[var(--theme-bg)]/75` on Hero image)
+- Purely decorative shadows (`shadow-[...color-mix(...)]`), thin divider lines, ambient blur orbs
+
+### Button hover contrast rule
+
+On dark themes, `--theme-secondary` (mid-scale) is darker than `--theme-text-muted` (high-scale). Hover text must therefore go to **`--theme-text`** (full contrast), not `--theme-secondary`. Pattern for ghost/outline buttons:
+- **Resting:** `text-text-muted` (semantically dimmed, clearly readable)
+- **Hovered/active:** `text-[var(--theme-text)]` (full contrast = unambiguously engaged)
+
+### Variant class merge conflict
+
+When a Button variant sets a text color and the consumer className also sets one, `tailwind-merge` may not resolve the conflict if Tailwind v4 custom color names are involved. **Solution:** use a different `variant` rather than fighting class specificity. For example, active `SidebarItem`s use `variant="ghost"` (no resting text color) so the className text override wins cleanly.
+
+
 ## Portaled Overlay Theme Fidelity
 
 UI rendered via `ReactDOM.createPortal(..., document.body)` must preserve the nearest active `data-theme` scope from its trigger/source element. Don't assume parent DOM inheritance survives a portal boundary.

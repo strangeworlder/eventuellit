@@ -41,7 +41,7 @@ const variantClasses: Record<AnchoredTooltipVariant, string> = {
     "rounded-md px-3 py-1.5",
     "font-heading text-xs font-bold uppercase tracking-wider",
     "bg-[var(--theme-bg)]/95 text-[var(--theme-text)]",
-    "border border-[var(--theme-secondary)]/30",
+    "border border-[var(--theme-border-soft)]",
     "shadow-[0_0_10px_color-mix(in_srgb,var(--theme-secondary)_12%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)]",
   ].join(" "),
 
@@ -49,15 +49,15 @@ const variantClasses: Record<AnchoredTooltipVariant, string> = {
     "rounded-md px-3 py-2",
     "font-heading text-xs font-bold uppercase tracking-widest",
     "bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)]",
-    "border-2 border-[var(--theme-primary-foreground)]/50",
+    "border-2 border-[var(--theme-primary-foreground)]",
     "shadow-[0_0_14px_color-mix(in_srgb,var(--theme-primary)_30%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary-foreground)_15%,transparent)]",
   ].join(" "),
 
   "station-description": [
     "rounded-lg px-3 py-3 w-52 leading-relaxed whitespace-normal",
     "font-heading text-xs font-medium tracking-wide",
-    "bg-[var(--theme-bg)]/98 text-[var(--theme-text)]/80",
-    "border border-[var(--theme-secondary)]/25",
+    "bg-[var(--theme-bg)]/98 text-[var(--theme-text)]",
+    "border border-[var(--theme-border-soft)]",
     "shadow-[0_4px_20px_color-mix(in_srgb,var(--theme-bg)_40%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-secondary)_8%,transparent)]",
   ].join(" "),
 };

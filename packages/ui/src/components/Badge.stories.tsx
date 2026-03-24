@@ -32,7 +32,7 @@ type Story = StoryObj<typeof Badge>;
 
 export const Primary: Story = {
     args: {
-        variant: "primary",
+        variant: "solid",
         children: "Tervetuloa seikkailuun",
         icon: "sparkles",
     },
@@ -40,7 +40,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
     args: {
-        variant: "secondary",
+        variant: "outline",
         children: "Sääntökirja",
         icon: "book",
     },
@@ -48,7 +48,7 @@ export const Secondary: Story = {
 
 export const Accent: Story = {
     args: {
-        variant: "accent",
+        variant: "highlight",
         children: "Hahmopaja",
         icon: "dice5",
     },
@@ -63,7 +63,7 @@ export const Outline: Story = {
 
 export const AccentSolid: Story = {
     args: {
-        variant: "accent-solid",
+        variant: "highlight-solid",
         children: "Aktiivinen",
     },
 };
@@ -82,7 +82,7 @@ export const WithDifferentThemes: Story = {
         </div>
     ),
     args: {
-        variant: "primary",
+        variant: "solid",
         icon: "sparkles",
     },
 };

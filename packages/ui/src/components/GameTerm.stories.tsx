@@ -31,7 +31,7 @@ export const Default: Story = {
 
 export const PrimaryVariant: Story = {
     args: {
-        variant: "primary",
+        variant: "emphasis",
         children: "n20",
     },
     render: (args) => (

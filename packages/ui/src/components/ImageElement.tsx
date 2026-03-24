@@ -32,7 +32,7 @@ export interface ImageElementProps
   "data-theme"?: string;
   src: string;
   alt: string;
-  variant?: "primary" | "secondary" | "accent" | "thumbnail" | "inline";
+  variant?: "surface" | "outline" | "highlight" | "thumbnail" | "inline";
   theme?: Theme;
   sources?: ImageSource[];
   sizes?: string;
@@ -147,7 +147,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
       "data-theme": dataThemeProp,
       src,
       alt,
-      variant = "secondary",
+      variant = "outline",
       theme,
       sources = EMPTY_SOURCES,
       sizes = "100vw",
@@ -176,7 +176,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     const previouslyFocusedRef = React.useRef<HTMLElement | null>(null);
     const parentTheme = useCurrentTheme();
     const baseTheme = theme ?? parentTheme;
-    const resolvedTheme = variant === "primary" ? primaryThemeMap[baseTheme] : theme;
+    const resolvedTheme = variant === "surface" ? primaryThemeMap[baseTheme] : theme;
     const childTheme = resolvedTheme ?? baseTheme;
     const captionId = React.useId();
     const autoSources = React.useMemo(() => {
@@ -346,7 +346,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               <Button
                 ref={closeButtonRef}
                 type="button"
-                variant="secondary"
+                variant="outline"
                 size="icon"
                 onClick={closeModal}
                 className="self-end"
@@ -415,16 +415,16 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
           className={cn(
             "relative overflow-visible rounded-xl",
             {
-              // Primary mirrors Card/StatBlock semantics: swapped theme surface.
+              // Surface: mirrors Card/StatBlock semantics — swapped theme surface.
               "bg-[var(--theme-bg)] text-[var(--theme-text)]":
-                variant === "primary",
-              // Secondary follows supporting component semantics.
+                variant === "surface",
+              // Outline: supporting component semantics.
               "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
-                variant === "secondary" || variant === "inline",
-              // Accent mirrors the DS accent framing pattern.
+                variant === "outline" || variant === "inline",
+              // Highlight: accent framing pattern.
               "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
-                variant === "accent",
-              // Thumbnail variant is a compact media trigger for larger preview.
+                variant === "highlight",
+              // Thumbnail variant: compact media trigger for larger preview.
               "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)] w-14 h-14":
                 variant === "thumbnail",
             },
@@ -444,10 +444,10 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
             <div
               aria-hidden="true"
               className={cn("absolute inset-0 animate-pulse", {
-                "bg-[var(--theme-primary)]/10": variant === "primary",
+                "bg-[var(--theme-primary)]/10": variant === "surface",
                 "bg-[var(--theme-secondary)]/20":
-                  variant === "secondary" || variant === "thumbnail" || variant === "inline",
-                "bg-[var(--theme-accent)]/15": variant === "accent",
+                  variant === "outline" || variant === "thumbnail" || variant === "inline",
+                "bg-[var(--theme-accent)]/15": variant === "highlight",
               })}
             />
           )}
@@ -477,11 +477,11 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
             <figcaption
               className={cn("border-t px-3 py-2 text-sm", {
                 "border-[var(--theme-primary)]/20 text-[var(--theme-text)]/80":
-                  variant === "primary",
+                  variant === "surface",
                 "border-[var(--theme-secondary)]/30 text-[var(--theme-secondary)]":
-                  variant === "secondary" || variant === "inline",
+                  variant === "outline" || variant === "inline",
                 "border-[var(--theme-accent)]/40 text-[var(--theme-accent)] font-semibold":
-                  variant === "accent",
+                  variant === "highlight",
               })}
             >
               {caption}

@@ -25,7 +25,7 @@ export const Oletus: Story = {
     className: "w-80",
     caption: "Kuvan kuvateksti",
     placeholderSrc: placeholder,
-    variant: "secondary",
+    variant: "outline",
   },
 };
 
@@ -38,7 +38,7 @@ export const Primaarinen: Story = {
     className: "w-72",
     caption: "Ensisijainen korostus",
     placeholderSrc: placeholder,
-    variant: "primary",
+    variant: "surface",
   },
 };
 
@@ -51,7 +51,7 @@ export const Korostus: Story = {
     className: "w-72",
     caption: "Korostettu elementti",
     placeholderSrc: placeholder,
-    variant: "accent",
+    variant: "highlight",
   },
   parameters: {
     layout: "padded",

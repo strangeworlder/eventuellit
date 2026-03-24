@@ -17,14 +17,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    variant: "primary",
+    variant: "solid",
     children: "Hyökkää",
   },
 };
 
 export const Secondary: Story = {
   args: {
-    variant: "secondary",
+    variant: "outline",
     children: "Puolusta",
   },
 };
@@ -38,14 +38,14 @@ export const Danger: Story = {
 
 export const GhostSecondary: Story = {
   args: {
-    variant: "ghost-secondary",
+    variant: "ghost-subtle",
     children: "Peruuta",
   },
 };
 
 export const NavButton: Story = {
   args: {
-    variant: "ghost-secondary",
+    variant: "ghost-subtle",
     size: "nav",
     justify: "start",
     children: "Sääntökirja",
@@ -67,7 +67,7 @@ export const NavButton: Story = {
 export const DisabledPrimary: Story = {
   name: "Ei käytössä (primary)",
   args: {
-    variant: "primary",
+    variant: "solid",
     disabled: true,
     children: "Ei käytössä",
   },
@@ -76,7 +76,7 @@ export const DisabledPrimary: Story = {
 export const DisabledSecondary: Story = {
   name: "Ei käytössä (secondary)",
   args: {
-    variant: "secondary",
+    variant: "outline",
     disabled: true,
     children: "Ei käytössä",
   },
@@ -94,7 +94,7 @@ export const DisabledDanger: Story = {
 export const DisabledGhostSecondary: Story = {
   name: "Ei käytössä (ghost-secondary)",
   args: {
-    variant: "ghost-secondary",
+    variant: "ghost-subtle",
     disabled: true,
     children: "Ei käytössä",
   },
@@ -139,10 +139,10 @@ export const MultilineAllVariants: Story = {
   name: "Monirivi (kaikki variantit)",
   render: () => (
     <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 max-w-2xl">
-      <Button variant="primary">Ensisijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
-      <Button variant="secondary">Toissijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
+      <Button variant="solid">Ensisijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
+      <Button variant="outline">Toissijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
       <Button variant="danger">Vaarapainike jonka teksti on pitkä ja menee monelle riville</Button>
-      <Button variant="ghost-secondary">Haamupainike jonka teksti on pitkä ja menee monelle riville</Button>
+      <Button variant="ghost-subtle">Haamupainike jonka teksti on pitkä ja menee monelle riville</Button>
     </div>
   ),
 };
@@ -152,7 +152,7 @@ export const MultilineAllVariants: Story = {
 export const LoadingPrimary: Story = {
   name: "Ladataan (primary)",
   args: {
-    variant: "primary",
+    variant: "solid",
     loading: true,
     loadingMessage: "Tallennus on kaynnissa, odota hetki",
     children: "Tallennetaan...",
@@ -162,7 +162,7 @@ export const LoadingPrimary: Story = {
 export const LoadingSecondary: Story = {
   name: "Ladataan (secondary)",
   args: {
-    variant: "secondary",
+    variant: "outline",
     loading: true,
     children: "Ladataan...",
   },
@@ -181,7 +181,7 @@ export const LoadingDanger: Story = {
 export const LoadingLarge: Story = {
   name: "Ladataan (suuri)",
   args: {
-    variant: "primary",
+    variant: "solid",
     size: "lg",
     loading: true,
     children: "Tallennetaan hahmoa...",
@@ -199,10 +199,10 @@ export const AllStates: Story = {
           Oletus
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button variant="primary">Ensisijainen</Button>
-          <Button variant="secondary">Toissijainen</Button>
+          <Button variant="solid">Ensisijainen</Button>
+          <Button variant="outline">Toissijainen</Button>
           <Button variant="danger">Vaara</Button>
-          <Button variant="ghost-secondary">Haamu</Button>
+          <Button variant="ghost-subtle">Haamu</Button>
         </div>
       </div>
       <div className="space-y-2">
@@ -210,10 +210,10 @@ export const AllStates: Story = {
           Ei käytössä
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button variant="primary" disabled>Ensisijainen</Button>
-          <Button variant="secondary" disabled>Toissijainen</Button>
+          <Button variant="solid" disabled>Ensisijainen</Button>
+          <Button variant="outline" disabled>Toissijainen</Button>
           <Button variant="danger" disabled>Vaara</Button>
-          <Button variant="ghost-secondary" disabled>Haamu</Button>
+          <Button variant="ghost-subtle" disabled>Haamu</Button>
         </div>
       </div>
       <div className="space-y-2">
@@ -221,10 +221,10 @@ export const AllStates: Story = {
           Ladataan
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button variant="primary" loading>Ensisijainen</Button>
-          <Button variant="secondary" loading>Toissijainen</Button>
+          <Button variant="solid" loading>Ensisijainen</Button>
+          <Button variant="outline" loading>Toissijainen</Button>
           <Button variant="danger" loading>Vaara</Button>
-          <Button variant="ghost-secondary" loading>Haamu</Button>
+          <Button variant="ghost-subtle" loading>Haamu</Button>
         </div>
       </div>
       <div className="space-y-2">
@@ -232,10 +232,10 @@ export const AllStates: Story = {
           Piilotettu
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button variant="primary" obscured>Ensisijainen</Button>
-          <Button variant="secondary" obscured>Toissijainen</Button>
+          <Button variant="solid" obscured>Ensisijainen</Button>
+          <Button variant="outline" obscured>Toissijainen</Button>
           <Button variant="danger" obscured>Vaara</Button>
-          <Button variant="ghost-secondary" obscured>Haamu</Button>
+          <Button variant="ghost-subtle" obscured>Haamu</Button>
         </div>
       </div>
     </div>
@@ -251,8 +251,8 @@ export const DangerDistinct: Story = {
         merkitys ei perustu vain variin.
       </p>
       <div className="flex flex-wrap gap-4">
-        <Button variant="primary">Tallenna</Button>
-        <Button variant="secondary">Peruuta</Button>
+        <Button variant="solid">Tallenna</Button>
+        <Button variant="outline">Peruuta</Button>
         <Button variant="danger">Poista hahmo</Button>
         <Button variant="danger" loading loadingMessage="Poisto on kaynnissa, odota hetki">
           Poistetaan...

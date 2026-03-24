@@ -49,7 +49,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             data-text={obscured ? "x" : undefined}
             style={obscured ? glitchStyle : undefined}
             className={cn(
-              "mt-1 h-5 w-5 shrink-0 cursor-pointer rounded-sm border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] accent-[var(--theme-primary)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] disabled:cursor-not-allowed",
+              "mt-1 h-5 w-5 shrink-0 cursor-pointer rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] accent-[var(--theme-primary)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] disabled:cursor-not-allowed",
               error && "border-[var(--theme-accent)]",
               obscured && "blur-[1.5px] obscured-glitch",
               className,

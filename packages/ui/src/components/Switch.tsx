@@ -63,7 +63,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
                 "block h-6 w-11 rounded-full border-2 transition-colors",
                 checked
                   ? "bg-[var(--theme-primary)] border-[var(--theme-primary)]"
-                  : "bg-[var(--theme-secondary)]/20 border-[var(--theme-secondary)]/40",
+                  : "bg-[var(--theme-surface-tint)] border-[var(--theme-border-soft)]",
                 "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-primary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
                 obscured && "blur-[1.5px] obscured-glitch",
               )}

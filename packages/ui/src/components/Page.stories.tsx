@@ -74,7 +74,7 @@ export const WithStackedContent: Story = {
       <Page>
         <Hero title="Korttinäkymä" />
         <PageBody>
-          <Card variant="primary">
+          <Card variant="surface">
             <CardHeader>
               <CardTitle>Top Section</CardTitle>
             </CardHeader>

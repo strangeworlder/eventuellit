@@ -163,7 +163,7 @@ export function PrivacyPolicyPage() {
                 <Button
                   onClick={handleExportData}
                   loading={isExporting}
-                  variant="secondary"
+                  variant="outline"
                 >
                   <Icon name="download" size={16} className="mr-2" />
                   Lataa tietosi
@@ -205,7 +205,7 @@ export function PrivacyPolicyPage() {
                       </Button>
                       <Button
                         onClick={() => setShowDeleteConfirm(false)}
-                        variant="secondary"
+                        variant="outline"
                       >
                         Peruuta
                       </Button>

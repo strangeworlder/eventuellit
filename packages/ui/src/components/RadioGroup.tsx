@@ -133,7 +133,7 @@ export function RadioGroupItem({
           data-text={isObscured ? "x" : undefined}
           style={isObscured ? glitchStyle : undefined}
           className={cn(
-            "h-5 w-5 rounded-full border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] transition-all peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-primary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
+            "h-5 w-5 rounded-full border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] transition-all peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-primary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
             isSelected && "border-[var(--theme-primary)]",
             isObscured && "blur-[1.5px] obscured-glitch",
           )}

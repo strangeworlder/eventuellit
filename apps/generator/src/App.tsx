@@ -192,7 +192,7 @@ function GeneratorForm() {
           actions={
             <>
               <Button onClick={() => navigate("../list")}>Palaa listaan</Button>
-              <Button variant="secondary" onClick={handleReset}>
+              <Button variant="outline" onClick={handleReset}>
                 Tee uusi hahmo
               </Button>
             </>
@@ -222,7 +222,7 @@ function GeneratorForm() {
                   {activeEpisodes.map((ep) => (
                     <Button
                       key={ep.id}
-                      variant={selectedEpisodeId === ep.id ? "primary" : "secondary"}
+                      variant={selectedEpisodeId === ep.id ? "solid" : "outline"}
                       onClick={() => {
                         setSelectedEpisodeId(ep.id);
                         setSelectedTaidot(Array(taidotCount || TAIDOT_COUNTS["Sotilas"]).fill(null));
@@ -370,7 +370,7 @@ function GeneratorForm() {
                       const slotValue = selectedTaidot[slotIndex];
                       const isCustomSlot = slotValue === "custom";
                       return (
-                        <Card key={slotIndex} variant="secondary">
+                        <Card key={slotIndex} variant="outline">
                           <CardHeader>
                             <CardTitle>Taito {slotIndex + 1}</CardTitle>
                           </CardHeader>

@@ -63,7 +63,7 @@ export function VerifyPage() {
         </NoticePanel>
         <div className="flex gap-4">
           <Button onClick={() => navigate("/kirjaudu")}>Yritä uudelleen</Button>
-          <Button variant="secondary" onClick={() => navigate("/")}>
+          <Button variant="outline" onClick={() => navigate("/")}>
             Palaa etusivulle
           </Button>
         </div>

@@ -39,7 +39,7 @@ export const DiceRoller = React.forwardRef<HTMLDivElement, DiceRollerProps>(
             {label}
           </label>
         )}
-        <Button onClick={handleRoll} size="lg" variant="secondary">
+        <Button onClick={handleRoll} size="lg" variant="outline">
           <DiceIcon faces={faces} size="lg" active />
           <span>
             Heitä {count}

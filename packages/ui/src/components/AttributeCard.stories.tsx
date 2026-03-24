@@ -61,7 +61,7 @@ export const Default: Story = {
 
 export const Primary: Story = {
     args: {
-        variant: "primary",
+        variant: "surface",
         label: "Keho",
         score: 10,
         subAttributes: [
@@ -73,7 +73,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
     args: {
-        variant: "secondary",
+        variant: "outline",
         label: "Mieli",
         score: 8,
         subAttributes: [
@@ -85,7 +85,7 @@ export const Secondary: Story = {
 
 export const Accent: Story = {
     args: {
-        variant: "accent",
+        variant: "highlight",
         label: "Terä",
         score: 12,
         subAttributes: [

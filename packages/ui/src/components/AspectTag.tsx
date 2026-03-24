@@ -68,7 +68,7 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
 
           // ── Harm: healed ──
           isHealed && [
-            "border border-dashed border-[var(--theme-secondary)]/25",
+            "border border-dashed border-[var(--theme-border-soft)]",
             "bg-[var(--theme-secondary)]/5",
             "text-[var(--theme-secondary)]",
             "opacity-80",
@@ -77,13 +77,13 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
 
           // ── Skill ──
           !isHarm && [
-            "border border-[var(--theme-accent)]/30",
+            "border border-[var(--theme-border-soft)]",
             "border-l-[3px] border-l-[var(--theme-accent)]",
             "bg-[var(--theme-accent)]/8",
             "text-[var(--theme-accent)]",
             "shadow-sm",
             "hover:shadow-[0_0_12px_color-mix(in_srgb,var(--theme-accent)_20%,transparent)]",
-            "hover:border-[var(--theme-accent)]/50",
+            "hover:border-[var(--theme-border-medium)]",
           ],
 
           className,
@@ -113,7 +113,7 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
 
         {/* Custom skill indicator — mini pill */}
         {!isHarm && isCustom && (
-          <span className="inline-flex items-center rounded-full bg-[var(--theme-accent)]/15 px-1.5 py-px text-[9px] font-black tracking-widest text-[var(--theme-accent)]/60">
+          <span className="inline-flex items-center rounded-full bg-[var(--theme-accent)]/15 px-1.5 py-px text-[9px] font-black tracking-widest text-text-subtle">
             oma
           </span>
         )}
@@ -155,7 +155,7 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
                   "rounded p-0.5 transition-all duration-150",
                   "hover:bg-[color-mix(in_srgb,red_20%,transparent)] hover:scale-110",
                   "focus-visible:ring-1 focus-visible:ring-[var(--theme-accent)] outline-none",
-                  "text-[var(--theme-secondary)]/60 hover:text-[color-mix(in_srgb,var(--theme-text)_70%,red)]",
+                  "text-text-muted hover:text-[color-mix(in_srgb,var(--theme-text)_70%,red)]",
                 )}
                 aria-label={`Poista: ${text}`}
               >

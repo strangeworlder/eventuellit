@@ -56,7 +56,7 @@ export const PrimaryVaihto: Story = {
             Vanhemman teema: <span className="font-bold">{theme}</span>
           </p>
           <ThemeContext.Provider value={theme}>
-            <Card variant="primary">
+            <Card variant="surface">
               <CardHeader>
                 <CardTitle>Primary-vaihto</CardTitle>
               </CardHeader>

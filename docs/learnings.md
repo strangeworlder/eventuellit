@@ -171,6 +171,12 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 **Issue:** Opening full-size modals from in-flow rules text images interrupts long-form reading and introduces extra interaction noise for purely illustrative content.
 **Action:** Added `ImageElement` `variant="inline"` in `@repo/ui`, which disables modal opening by default while keeping shared responsive/manifest behavior; `apps/ruleset` markdown section images now use this inline variant.
 
+### 34) Color Tokens Must Be Pre-Computed Solid Values — Never Opacity Modifiers
+**Date:** 2026-03-24
+**Issue:** Opacity modifiers on text (`text-[var(...)]/50`, `opacity-60`) and interactive backgrounds (`hover:bg-[var(...)]/10`) produce theme-dependent, unauditable contrast ratios that fail WCAG AA on non-base themes. `color-mix()` on text colors has the same problem.
+**Action:** Introduced six semantic CSS tokens per theme in `styles.css` — `--theme-text-muted`, `--theme-text-subtle`, `--theme-text-placeholder`, `--theme-surface-tint`, `--theme-border-soft`, `--theme-border-medium` — all solid scale colors with verified contrast ratios. See the `ui-design-system` skill for full rules. Key pitfall: on dark themes, `--theme-secondary` sits at a *mid* scale step and is **darker** than `--theme-text-muted` (a high step), so hover text should always go to `--theme-text` (full contrast), not `--theme-secondary`.
+
+
 ---
 
 ## Purge Ledger

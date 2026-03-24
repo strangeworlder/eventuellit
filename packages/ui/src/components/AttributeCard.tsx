@@ -64,11 +64,11 @@ export interface AttributeCardSubAttribute {
 export interface AttributeCardProps extends React.HTMLAttributes<HTMLDivElement> {
     /** 
      * The visual style variant. 
-     * - `primary` (default): High-contrast swapped theme (mapped via primaryThemeMap).
-     * - `secondary`: Transparent background with secondary-colored border and text.
-     * - `accent`: Theme background with accent-colored text and a thick bottom accent border.
+     * - `surface` (default): High-contrast swapped theme (mapped via primaryThemeMap).
+     * - `outline`: Transparent background with secondary-colored border and text.
+     * - `highlight`: Theme background with accent-colored text and a thick bottom accent border.
      */
-    variant?: "primary" | "secondary" | "accent";
+    variant?: "surface" | "outline" | "highlight";
     /** The main name of the attribute (e.g., "Keho", "Mieli") */
     label: string;
     /** The summary score for this attribute */
@@ -83,7 +83,7 @@ export interface AttributeCardProps extends React.HTMLAttributes<HTMLDivElement>
  * can have dice assigned or removed.
  */
 export const AttributeCard = React.forwardRef<HTMLDivElement, AttributeCardProps>(
-    ({ className, variant = "primary", label, score, subAttributes, ...props }, ref) => {
+    ({ className, variant = "surface", label, score, subAttributes, ...props }, ref) => {
         return (
             <Card ref={ref} variant={variant} className={cn("transition-all duration-300", className)} {...props}>
                 <CardContent variant="dense" className="gap-5">
@@ -106,7 +106,7 @@ export const AttributeCard = React.forwardRef<HTMLDivElement, AttributeCardProps
                                                     key={`${attr.name}-${faces}-${i}`}
                                                     faces={faces}
                                                     size="sm"
-                                                    active={variant === "primary"}
+                                                    active={variant === "surface"}
                                                 />
                                             ))}
                                             {attr.value === 0 && (
@@ -120,7 +120,7 @@ export const AttributeCard = React.forwardRef<HTMLDivElement, AttributeCardProps
 
                                 <div className="flex gap-2">
                                     <Button
-                                        variant="secondary"
+                                        variant="outline"
                                         size="icon"
                                         onClick={attr.onRemove}
                                         disabled={!attr.canRemove}
@@ -129,7 +129,7 @@ export const AttributeCard = React.forwardRef<HTMLDivElement, AttributeCardProps
                                         <Icon name="minus" size={14} />
                                     </Button>
                                     <Button
-                                        variant="secondary"
+                                        variant="outline"
                                         size="icon"
                                         onClick={attr.onAdd}
                                         disabled={!attr.canAdd}

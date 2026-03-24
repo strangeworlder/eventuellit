@@ -1,5 +1,6 @@
 import React from "react";
 import { Heading } from "./Heading";
+import { Text } from "./Text";
 import { cn } from "./utils";
 import { ImageElement } from "./ImageElement";
 
@@ -32,7 +33,7 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
                         <ImageElement
                             src={backgroundImageSrc}
                             alt={backgroundImageAlt || "Hero-kuva"}
-                            variant="secondary"
+                            variant="outline"
                             sizes="100vw"
                             enableModal={false}
                             loading="eager"
@@ -55,9 +56,9 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
                 >
                     <Heading>{title}</Heading>
                     {description && (
-                        <p className="text-lg font-bold uppercase tracking-wider text-[var(--theme-text)]/90 mt-2">
+                        <Text variant="label" className="mt-2">
                             {description}
-                        </p>
+                        </Text>
                     )}
                     {children}
                 </div>

@@ -26,7 +26,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
                     "focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none",
                     pressed
                         ? "bg-[var(--theme-secondary)] text-[var(--theme-secondary-foreground)] border-[var(--theme-secondary)]"
-                        : "bg-transparent text-[var(--theme-text)]/50 border-[var(--theme-text)]/30 hover:border-[var(--theme-text)]/50",
+                        : "bg-transparent text-text-subtle border-[var(--theme-border-soft)] hover:border-[var(--theme-border-medium)]",
                     className,
                 )}
                 {...props}

@@ -28,7 +28,7 @@ export function FieldDescription({
           : undefined
       }
       className={cn(
-        "text-sm text-[var(--theme-secondary)]/70",
+        "text-sm text-text-muted",
         obscured && "blur-[5.5px] obscured-glitch",
         className,
       )}

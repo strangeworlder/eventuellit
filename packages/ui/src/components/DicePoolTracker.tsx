@@ -105,7 +105,7 @@ export const DicePoolTracker = React.forwardRef<
                 )}
 
                 {/* Subtle group label */}
-                <span className="text-xs font-mono text-[var(--theme-text)]/40 mr-1 select-none">
+                <span className="text-xs font-mono text-text-subtle mr-1 select-none">
                   d{faces}
                 </span>
 
@@ -152,14 +152,14 @@ export const DicePoolTracker = React.forwardRef<
 
           {/* Empty state */}
           {dice.length === 0 && (
-            <p className="text-sm text-[var(--theme-text)]/40 italic text-center py-4">
+            <p className="text-sm text-text-subtle italic text-center py-4">
               — Ei noppia —
             </p>
           )}
 
           {/* All removed state */}
           {dice.length > 0 && activeCount === 0 && (
-            <p className="text-xs text-[var(--theme-text)]/40 italic text-center mt-3">
+            <p className="text-xs text-text-subtle italic text-center mt-3">
               Kaikki nopat käytetty
             </p>
           )}

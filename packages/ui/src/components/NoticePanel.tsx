@@ -18,11 +18,11 @@ export const NoticePanel = React.forwardRef<HTMLDivElement, NoticePanelProps>(
       className={cn(
         "rounded-sm p-6 text-[var(--theme-text)]",
         {
-          "border-2 border-[var(--theme-secondary)]/50 bg-[var(--theme-secondary)]/5 shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)]":
+          "border-2 border-[var(--theme-border-medium)] bg-[var(--theme-secondary)]/5 shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)]":
             variant === "success",
           "border-l-4 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10":
             variant === "info",
-          "border-2 border-[var(--theme-accent)]/60 bg-[var(--theme-accent)]/15":
+          "border-2 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10":
             variant === "error",
         },
         className,
@@ -31,7 +31,7 @@ export const NoticePanel = React.forwardRef<HTMLDivElement, NoticePanelProps>(
     >
       <HeadingLevelProvider>
         {title ? <Heading className="mb-3">{title}</Heading> : null}
-        <div className="text-[var(--theme-text)]/85">{children}</div>
+        <div className="text-[var(--theme-text)]">{children}</div>
       </HeadingLevelProvider>
       {actions ? <div className="mt-6 flex gap-4">{actions}</div> : null}
     </div>

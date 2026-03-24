@@ -64,7 +64,7 @@ export const Accent: Story = {
     label: "Kokemus",
     value: 750,
     maxValue: 1000,
-    variant: "accent",
+    variant: "highlight",
     icon: "sparkles",
   },
 };
@@ -74,7 +74,7 @@ export const Primary: Story = {
     label: "Sisu",
     value: 3,
     maxValue: 6,
-    variant: "primary",
+    variant: "surface",
     icon: "shield",
   },
 };

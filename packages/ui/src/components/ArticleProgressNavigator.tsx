@@ -47,7 +47,7 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
 
   if (markers.length === 0) {
     return (
-      <p className={cn("text-sm text-[var(--theme-text)]/70", isMinimalVariant ? "pl-4" : "pl-5")}>
+      <p className={cn("text-sm text-text-muted", isMinimalVariant ? "pl-4" : "pl-5")}>
         Ei osioita
       </p>
     );
@@ -174,7 +174,7 @@ export function ArticleProgressNavigator({
       className={cn(
         isMinimalVariant
           ? "bg-transparent px-0 py-0"
-          : "rounded-xl border border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] px-3 py-4",
+          : "rounded-xl border border-[var(--theme-border-medium)] bg-[var(--theme-bg)] px-3 py-4",
         className,
       )}
       {...props}

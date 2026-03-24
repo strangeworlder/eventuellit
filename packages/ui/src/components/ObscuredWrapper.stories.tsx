@@ -27,8 +27,8 @@ export const Piilotettu: Story = {
           <Heading>Arkkityyppi</Heading>
           <p className="text-sm">Valitse hahmosi arkkityyppi alta.</p>
           <div className="flex gap-3">
-            <Button variant="secondary">Ekspertti</Button>
-            <Button variant="secondary">Sotilas</Button>
+            <Button variant="outline">Ekspertti</Button>
+            <Button variant="outline">Sotilas</Button>
           </div>
           <Input label="Hahmon nimi" placeholder="Syötä nimi..." value="" onChange={() => {}} />
         </div>
@@ -49,8 +49,8 @@ export const Paljastettu: Story = {
           <Heading>Arkkityyppi</Heading>
           <p className="text-sm">Valitse hahmosi arkkityyppi alta.</p>
           <div className="flex gap-3">
-            <Button variant="secondary">Ekspertti</Button>
-            <Button variant="secondary">Sotilas</Button>
+            <Button variant="outline">Ekspertti</Button>
+            <Button variant="outline">Sotilas</Button>
           </div>
           <Input label="Hahmon nimi" placeholder="Syötä nimi..." value="" onChange={() => {}} />
         </div>

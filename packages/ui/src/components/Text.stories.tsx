@@ -10,7 +10,7 @@ const meta = {
     layout: "centered",
   },
   args: {
-    variant: "base",
+    variant: "body",
     children:
       "Eventuellit on episodinen roolipelijarjestelma, jossa valinnat vaikuttavat seuraavan jakson asetelmiin.",
   },
@@ -31,7 +31,7 @@ export const Variantit: Story = {
   render: () => (
     <div className="flex max-w-3xl flex-col gap-4">
       <Text variant="lead">Johdanto: Tämä kappale toimii ingressina.</Text>
-      <Text variant="base">
+      <Text variant="body">
         Perusteksti kuvaa tilanteen selkeasti ja neutraalisti.
       </Text>
       <Text variant="bold">

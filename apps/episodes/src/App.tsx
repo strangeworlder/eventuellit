@@ -127,7 +127,7 @@ function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onC
         </div>
 
         <div className="flex gap-2 justify-end mt-4">
-          <Button variant="secondary" onClick={onCancel}>Peruuta</Button>
+          <Button variant="outline" onClick={onCancel}>Peruuta</Button>
           <Button onClick={() => {
             const { id, gmId, createdAt, updatedAt, ...editableData } = formData as Episode;
             onSave(editableData);
@@ -180,14 +180,14 @@ function EpisodeSkillsEditor({ episodeId }: { episodeId: number }) {
                 {editingSkillId === skill.id ? (
                   <div className="flex gap-2 w-full">
                     <Input value={editingSkillName} onChange={(e) => setEditingSkillName(e.target.value)} />
-                    <Button variant="primary" onClick={() => handleUpdate(skill.id)}>Save</Button>
-                    <Button variant="secondary" onClick={() => setEditingSkillId(null)}>Cancel</Button>
+                    <Button variant="solid" onClick={() => handleUpdate(skill.id)}>Save</Button>
+                    <Button variant="outline" onClick={() => setEditingSkillId(null)}>Cancel</Button>
                   </div>
                 ) : (
                   <>
                     <span>{skill.name}</span>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="secondary" onClick={() => {
+                      <Button size="sm" variant="outline" onClick={() => {
                         setEditingSkillId(skill.id);
                         setEditingSkillName(skill.name);
                       }}>Edit</Button>
@@ -334,7 +334,7 @@ function EpisodeDetails({ id }: { id: string }) {
       <HeadingLevelProvider>
         {isGm && (
           <div className="flex gap-2 justify-end mb-4 px-4 tablet:p-0">
-            <Button variant="secondary" onClick={() => setIsEditing(true)}>Muokkaa Jaksoa</Button>
+            <Button variant="outline" onClick={() => setIsEditing(true)}>Muokkaa Jaksoa</Button>
             <Button variant="danger" onClick={() => {
               if (window.confirm("Oletko varma että haluat poistaa jakson?")) {
                 deleteEpisode(fullEpisode.id, {
@@ -348,11 +348,11 @@ function EpisodeDetails({ id }: { id: string }) {
         <Hero title={fullEpisode.title} description={fullEpisode.description || ""}>
           <div className="flex gap-2 mt-4">
             {fullEpisode.status === "active" && (
-              <Badge variant="primary" icon="sparkles">
+              <Badge variant="solid" icon="sparkles">
                 Aktiivinen Jakso
               </Badge>
             )}
-            {fullEpisode.status === "completed" && <Badge variant="secondary">Arkistoitu</Badge>}
+            {fullEpisode.status === "completed" && <Badge variant="outline">Arkistoitu</Badge>}
             {fullEpisode.status === "planned" && <Badge variant="outline">Tulossa</Badge>}
           </div>
         </Hero>
@@ -374,12 +374,12 @@ function EpisodeDetails({ id }: { id: string }) {
                 src={fullEpisode.image}
                 sizes="(max-width: 1024px) 100vw, 24rem"
                 alt={fullEpisode.imageAlt || fullEpisode.title}
-                variant="secondary"
+                variant="outline"
               />
             )}
 
             <div className="space-y-4">
-              <Card variant="secondary" className="gap-2">
+              <Card variant="outline" className="gap-2">
                 <CardHeader>
                   <CardTitle>Tiedot</CardTitle>
                 </CardHeader>

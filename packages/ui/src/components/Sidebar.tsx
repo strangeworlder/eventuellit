@@ -93,7 +93,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
           >
             {children}
             <Button
-              variant="secondary"
+              variant="outline"
               size="icon"
               onClick={() => setExpanded((prev) => !prev)}
               className={cn(
@@ -163,14 +163,14 @@ export const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>
     return (
       <Button
         ref={ref}
-        variant="ghost-secondary"
+        variant={active ? "ghost" : "ghost-subtle"}
         size="nav"
         justify={expanded ? "start" : "center"}
         className={cn(
           "w-full flex items-center p-2 rounded-md transition-colors text-left group relative",
           active
-            ? "bg-[var(--theme-secondary)]/10 text-[var(--theme-secondary)] font-bold"
-            : "text-[var(--theme-secondary)]/70 hover:bg-[var(--theme-secondary)]/10 hover:text-[var(--theme-secondary)]",
+            ? "bg-[var(--theme-surface-tint)] text-[var(--theme-text)] font-bold"
+            : "hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)]",
           expanded ? "justify-start" : "justify-center",
           className,
         )}
@@ -195,7 +195,7 @@ export const SidebarFooter = React.forwardRef<HTMLDivElement, SidebarFooterProps
       <div
         ref={ref}
         className={cn(
-          "p-4 border-t border-[var(--theme-secondary)]/20 mt-auto",
+          "p-4 border-t border-[var(--theme-border-soft)] mt-auto",
           expanded ? "block" : "flex justify-center",
           className,
         )}

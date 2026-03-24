@@ -42,7 +42,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           data-text={obscured ? obscureString(placeholder ?? "") : undefined}
           style={obscured ? glitchStyle : undefined}
           className={cn(
-            "flex h-12 w-full rounded-sm border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] px-4 py-2 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all placeholder:text-[var(--theme-secondary)]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-12 w-full rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] px-4 py-2 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all placeholder:text-text-placeholder focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
             error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
             obscured && "blur-[1.5px] obscured-glitch obscured-field",
             className,

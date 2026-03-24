@@ -98,14 +98,14 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
           <div className="flex flex-nowrap justify-between items-end border-b border-current/20 px-6 pt-6 pb-4 relative z-10 gap-4">
             <div className="w-full mobile:w-auto">
               <Heading>Toiminnan Luonne</Heading>
-              <p className="text-[var(--theme-text)]/60 text-sm font-medium mt-1">
+              <p className="text-text-muted text-sm font-medium mt-1">
                 Jaa nopat vaadittujen ominaisuuksien kesken.
               </p>
             </div>
             <div className="text-left mobile:text-right shrink-0">
               <span className="block text-5xl font-heading font-black text-[var(--theme-text)] leading-none">
                 {diceRemaining}
-                <span className="text-2xl text-[var(--theme-text)]/30 font-light"> / {maxDice}</span>
+                <span className="text-2xl text-text-subtle font-light"> / {maxDice}</span>
               </span>
               <span className="text-xs text-[var(--theme-primary)] font-bold uppercase tracking-widest mt-1.5 block">
                 {availableDiceLabel}
@@ -139,7 +139,7 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
                         />
                       ))}
                       {(allocation[axis] || 0) === 0 && (
-                        <span className="text-sm text-[var(--theme-text)]/25 italic whitespace-nowrap">
+                        <span className="text-sm text-text-subtle italic whitespace-nowrap">
                           — Ei noppia —
                         </span>
                       )}
@@ -161,7 +161,7 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
 
                     <div className="flex gap-1.5">
                       <Button
-                        variant="secondary"
+                        variant="outline"
                         size="icon"
                         onClick={() => handleDeallocate(axis)}
                         disabled={(allocation[axis] || 0) === 0}
@@ -170,7 +170,7 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
                         <Icon name="minus" size={16} />
                       </Button>
                       <Button
-                        variant="secondary"
+                        variant="outline"
                         size="icon"
                         onClick={() => handleAllocate(axis)}
                         disabled={diceRemaining === 0}

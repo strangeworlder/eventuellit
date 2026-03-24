@@ -78,7 +78,7 @@ export function LoginPage() {
                 <Button type="submit" loading={isLoading} disabled={!email}>
                   {isLoading ? "Lähetetään..." : "Lähetä linkki"}
                 </Button>
-                <Button variant="secondary" type="button" onClick={() => navigate("/")}>
+                <Button variant="outline" type="button" onClick={() => navigate("/")}>
                   Peruuta
                 </Button>
               </div>

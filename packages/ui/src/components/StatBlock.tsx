@@ -10,15 +10,15 @@ export interface StatBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   value: number;
   maxValue?: number;
   icon?: IconName;
-  variant?: "primary" | "secondary" | "accent";
+  variant?: "surface" | "outline" | "highlight";
   theme?: Theme;
 }
 
 export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
-  ({ className, label, value, maxValue, icon, variant = "secondary", theme, ...props }, ref) => {
+  ({ className, label, value, maxValue, icon, variant = "outline", theme, ...props }, ref) => {
     const parentTheme = useCurrentTheme();
     const baseTheme = theme ?? parentTheme;
-    const resolvedTheme = variant === "primary" ? primaryThemeMap[baseTheme] : theme;
+    const resolvedTheme = variant === "surface" ? primaryThemeMap[baseTheme] : theme;
     const childTheme = resolvedTheme ?? baseTheme;
 
     return (
@@ -30,11 +30,11 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
           className={cn(
             "flex items-center gap-4 align-center justify-between p-6 rounded-xl shadow-sm transition-all duration-200 relative overflow-hidden",
             {
-              "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "primary",
+              "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "surface",
               "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
-                variant === "secondary",
+                variant === "outline",
               "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
-                variant === "accent",
+                variant === "highlight",
             },
             className,
           )}
@@ -49,7 +49,7 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
               {value}
             </span>
             {maxValue !== undefined && (
-              <span className="text-lg font-bold opacity-50 leading-none">
+              <span className="text-lg font-bold text-text-subtle leading-none">
                 / {maxValue}
               </span>
             )}

@@ -9,11 +9,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
  * to provide maximum flexibility while maintaining consistent spacing and styling.
  *
  * The Card's `variant` prop controls which **semantic pattern** is used:
- * - **`primary`** (default): Solid `--theme-primary` background with inverted text. Matches the "Primary Component" pattern from the design system themes.
- * - **`secondary`**: Transparent background with `--theme-secondary` border and text. Matches the "Secondary Component" pattern.
- * - **`accent`**: Theme background with `--theme-accent` text and a thick bottom accent border. Matches the "Accent Notifier" pattern.
+ * - **`surface`** (default): Solid `--theme-primary` background with inverted text. Matches the "Primary Component" pattern from the design system themes.
+ * - **`outline`**: Transparent background with `--theme-secondary` border and text. Matches the "Secondary Component" pattern.
+ * - **`highlight`**: Theme background with `--theme-accent` text and a thick bottom accent border. Matches the "Accent Notifier" pattern.
  * - **`subtle`**: Light bordered surface card for non-semantic grouping.
- * - **`rule`**: Left-accented callout block for game mechanics.
+ * - **`callout`**: Left-accented callout block for game mechanics.
  *
  * > **Note:** `Card` is intended for bounded areas of related content (like character stats, rule blocks, or interactive widgets).
  * > It should **not** be used as a primary page or tab layout wrapper. For main layouts, use semantic HTML tags (`<div>`, `<main>`) with a `<HeadingLevelProvider>`.
@@ -28,7 +28,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "accent", "subtle", "rule"],
+      options: ["surface", "outline", "highlight", "subtle", "callout"],
       description: "Semantic visual style variant of the card.",
     },
     theme: {
@@ -69,7 +69,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     className: "w-[350px]",
-    variant: "primary",
+    variant: "surface",
   },
   render: (args) => (
     <Card {...args}>
@@ -92,8 +92,8 @@ export const Default: Story = {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="secondary">Cancel</Button>
-        <Button variant="primary">Save Changes</Button>
+        <Button variant="outline">Cancel</Button>
+        <Button variant="solid">Save Changes</Button>
       </CardFooter>
     </Card>
   ),
@@ -110,7 +110,7 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6 w-full max-w-4xl">
-      {(["primary", "secondary", "accent", "subtle", "rule"] as const).map((variant) => (
+      {(["surface", "outline", "highlight", "subtle", "callout"] as const).map((variant) => (
         <Card key={variant} variant={variant}>
           <CardHeader>
             <CardTitle className="capitalize">{variant} Variant</CardTitle>
@@ -161,7 +161,7 @@ export const ContentDensity: Story = {
  */
 export const RuleBlock: Story = {
   render: () => (
-    <Card variant="rule" className="max-w-xl">
+    <Card variant="callout" className="max-w-xl">
       <CardHeader>
         <CardTitle>Critical Hits</CardTitle>
       </CardHeader>

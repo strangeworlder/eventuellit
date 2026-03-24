@@ -325,7 +325,7 @@ function EditableTextarea({
           </Button>
           <Button
             size="sm"
-            variant="ghost-secondary"
+            variant="ghost-subtle"
             onClick={() => {
               setDraft(value);
               setEditing(false);
@@ -405,7 +405,7 @@ function EditableText({
           </Button>
           <Button
             size="sm"
-            variant="ghost-secondary"
+            variant="ghost-subtle"
             onClick={() => {
               setDraft(value);
               setEditing(false);
@@ -478,7 +478,7 @@ function EditableSex({
         />
         <Button
           size="sm"
-          variant="ghost-secondary"
+          variant="ghost-subtle"
           onClick={() => setEditing(false)}
         >
           Peruuta
@@ -568,7 +568,7 @@ function SkillsSection({
                   <Button size="sm" onClick={saveSkill} disabled={!draftName.trim()}>
                     Tallenna
                   </Button>
-                  <Button size="sm" variant="ghost-secondary" onClick={cancelEditing}>
+                  <Button size="sm" variant="ghost-subtle" onClick={cancelEditing}>
                     Peruuta
                   </Button>
                 </div>

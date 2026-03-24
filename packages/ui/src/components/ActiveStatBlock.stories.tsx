@@ -85,7 +85,7 @@ export const Accent: Story = {
     label: "Taikapisteet",
     value: 15,
     maxValue: 50,
-    variant: "accent",
+    variant: "highlight",
     icon: "sparkles",
   },
 };
@@ -96,7 +96,7 @@ export const Primary: Story = {
     label: "Kesto",
     value: 8,
     maxValue: 12,
-    variant: "primary",
+    variant: "surface",
     icon: "shield",
   },
 };

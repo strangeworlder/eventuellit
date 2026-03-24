@@ -115,7 +115,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
               );
             }
             return (
-              <GameTerm variant="primary" className={className} {...props}>
+              <GameTerm variant="emphasis" className={className} {...props}>
                 {children}
               </GameTerm>
             );
@@ -123,10 +123,10 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
           strong: ({ node, className, ref, ...props }) => (
             <GameTerm variant="accent" className={className} {...props} />
           ),
-          em: ({ node, ref, ...props }) => <em className="italic opacity-90" {...props} />,
+          em: ({ node, ref, ...props }) => <em className="italic" {...props} />,
           blockquote: ({ node, ref, ...props }) => (
             <blockquote
-              className="border-l-4 border-[var(--theme-accent)] pl-4 italic opacity-80 my-4"
+              className="border-l-4 border-[var(--theme-accent)] pl-4 italic text-text-muted my-4"
               {...props}
             />
           ),

@@ -14,7 +14,7 @@ export interface ActiveStatBlockProps extends React.HTMLAttributes<HTMLDivElemen
   onDecrement?: () => void;
   minAllowed?: number;
   maxAllowed?: number;
-  variant?: "primary" | "secondary" | "accent";
+  variant?: "surface" | "outline" | "highlight";
   theme?: Theme;
 }
 
@@ -30,7 +30,7 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
       onDecrement,
       minAllowed = 0,
       maxAllowed = Infinity,
-      variant = "secondary",
+      variant = "outline",
       theme,
       ...props
     },
@@ -38,7 +38,7 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
   ) => {
     const parentTheme = useCurrentTheme();
     const baseTheme = theme ?? parentTheme;
-    const resolvedTheme = variant === "primary" ? primaryThemeMap[baseTheme] : theme;
+    const resolvedTheme = variant === "surface" ? primaryThemeMap[baseTheme] : theme;
     const childTheme = resolvedTheme ?? baseTheme;
 
     return (
@@ -50,11 +50,11 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
           className={cn(
             "flex flex-col p-6 rounded-xl shadow-sm gap-3 transition-all duration-200 relative overflow-hidden",
             {
-              "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "primary",
+              "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "surface",
               "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
-                variant === "secondary",
+                variant === "outline",
               "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
-                variant === "accent",
+                variant === "highlight",
             },
             className,
           )}
@@ -65,8 +65,8 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
               className={cn(
                 "flex items-center gap-3 pb-3 border-b border-current/20",
                 {
-                  "border-b-[var(--theme-secondary)]": variant === "secondary",
-                  "border-b-[var(--theme-accent)]": variant === "accent",
+                  "border-b-[var(--theme-secondary)]": variant === "outline",
+                  "border-b-[var(--theme-accent)]": variant === "highlight",
                 }
               )}
             >
@@ -78,7 +78,7 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
 
             <div className="flex items-center justify-between mt-1">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="icon"
                 onClick={onDecrement}
                 disabled={value <= minAllowed}
@@ -99,7 +99,7 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
               </div>
 
               <Button
-                variant="secondary"
+                variant="outline"
                 size="icon"
                 onClick={onIncrement}
                 disabled={value >= (maxValue ?? maxAllowed)}

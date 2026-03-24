@@ -106,11 +106,11 @@ export function SkillMasonry({
             variant={
               isCustom
                 ? isCustomSelected
-                  ? "primary"
-                  : "secondary"
+                  ? "solid"
+                  : "outline"
                 : item.selected
-                  ? "primary"
-                  : "secondary"
+                  ? "solid"
+                  : "outline"
             }
             disabled={isCustom ? false : item.disabled}
             className="text-left justify-start"

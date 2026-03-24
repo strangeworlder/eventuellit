@@ -76,7 +76,7 @@ export const EnduranceBlock = React.forwardRef<
           {/* Header */}
           <div
             className={cn(
-              "px-6 pt-5 pb-3 border-b border-[var(--theme-secondary)]/20",
+              "px-6 pt-5 pb-3 border-b border-[var(--theme-border-soft)]",
             )}
           >
             <Heading>{label}</Heading>
@@ -90,7 +90,7 @@ export const EnduranceBlock = React.forwardRef<
                 const dice = getDiceFromValue(attr.diceValue);
                 return (
                   <div key={attr.label} className="flex flex-col gap-1">
-                    <span className="text-xs font-bold text-[var(--theme-text)]/60 uppercase tracking-wider">
+                    <span className="text-xs font-bold text-text-muted uppercase tracking-wider">
                       {attr.label}
                     </span>
                     <div className="flex flex-wrap gap-1 min-h-[1.5rem] items-center">
@@ -105,7 +105,7 @@ export const EnduranceBlock = React.forwardRef<
                           />
                         ))
                       ) : (
-                        <span className="text-[10px] italic text-[var(--theme-text)]/20 font-bold uppercase tracking-tighter">
+                        <span className="text-[10px] italic text-text-subtle font-bold uppercase tracking-tighter">
                           Ei noppia
                         </span>
                       )}
@@ -135,7 +135,7 @@ export const EnduranceBlock = React.forwardRef<
               {canInteract && (
                 <div className="flex items-center gap-3 mt-1">
                   <Button
-                    variant="secondary"
+                    variant="outline"
                     size="icon"
                     onClick={onDecrement}
                     disabled={value <= minAllowed}
@@ -144,7 +144,7 @@ export const EnduranceBlock = React.forwardRef<
                     <Icon name="minus" size={16} />
                   </Button>
                   <Button
-                    variant="secondary"
+                    variant="outline"
                     size="icon"
                     onClick={onIncrement}
                     disabled={value >= (maxValue ?? maxAllowed)}

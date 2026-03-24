@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AnchoredTooltip } from "./AnchoredTooltip";
 import { DiceIcon } from "./DiceIcon";
 import { Heading } from "./Heading";
+import { Text } from "./Text";
 
 export interface ConnectedStation {
   id: string;
@@ -308,7 +309,7 @@ export function StationConnections({
                   </span>
                   {station ? (
                     <>
-                      <span className="text-xs leading-relaxed text-[var(--theme-text)]/70 block">
+                      <span className="text-xs leading-relaxed text-text-muted block">
                         {station.description || "Ei kuvausta."}
                       </span>
                       <Link
@@ -324,12 +325,13 @@ export function StationConnections({
                   )}
                 </AnchoredTooltip>
 
-                <span
-                  className="text-[0.6rem] font-semibold tracking-wide text-center leading-tight max-w-[64px] truncate"
+                <Text
+                  variant="node"
+                  className="text-center max-w-[64px] truncate"
                   style={{ color }}
                 >
                   {title}
-                </span>
+                </Text>
               </div>
             </div>
           );

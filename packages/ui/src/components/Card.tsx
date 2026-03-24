@@ -21,14 +21,14 @@ export const useCardIcon = () => React.useContext(CardIconContext);
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The semantic visual style variant of the card.
-   * - `primary` (default): Swaps to a contrasting theme for the surface, ensuring accessible nesting.
-   * - `secondary`: Transparent background with secondary-colored border and text.
-   * - `accent`: Theme background with accent-colored text and a thick bottom accent border.
+   * - `surface` (default): Swaps to a contrasting theme for the surface, ensuring accessible nesting.
+   * - `outline`: Transparent background with secondary-colored border and text.
+   * - `highlight`: Theme background with accent-colored text and a thick bottom accent border.
    * - `subtle`: Light bordered surface card.
    * - `interactive`: Clickable surface card with hover glow, lift, and pointer cursor.
-   * - `rule`: Left-accented callout block.
+   * - `callout`: Left-accented callout block.
    */
-  variant?: "primary" | "secondary" | "accent" | "subtle" | "interactive" | "rule";
+  variant?: "surface" | "outline" | "highlight" | "subtle" | "interactive" | "callout";
   /** The theme context to apply, which modifies the component's CSS variables. */
   theme?: Theme;
   /** Optional icon to render in the CardHeader. */
@@ -46,7 +46,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * automatically from the CSS theme system.
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = "primary", theme, iconName, iconVariant = "primary", children, ...props }, ref) => {
+  ({ className, variant = "surface", theme, iconName, iconVariant = "primary", children, ...props }, ref) => {
     const parentTheme = useCurrentTheme();
 
     // The effective base theme: explicit prop overrides inherited context
@@ -55,7 +55,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     // For primary, swap to the mapped contrasting theme.
     // For other variants, only set data-theme if explicitly provided via prop.
     const resolvedTheme =
-      variant === "primary" ? primaryThemeMap[baseTheme] : theme;
+      variant === "surface" ? primaryThemeMap[baseTheme] : theme;
 
     // Children should see the resolved theme (or inherited base) in context
     const childTheme = resolvedTheme ?? baseTheme;
@@ -70,24 +70,24 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
             className={cn(
               "rounded-xl overflow-visible relative group",
               {
-                // Primary: uses the swapped theme's bg/text via CSS variables
+                // Surface: uses the swapped theme's bg/text via CSS variables
                 "bg-[var(--theme-bg)] text-[var(--theme-text)]":
-                  variant === "primary",
-                // Secondary: transparent bg, secondary border + text
+                  variant === "surface",
+                // Outline: transparent bg, secondary border + text
                 "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
-                  variant === "secondary",
-                // Accent: theme bg, accent text, thick bottom accent border
+                  variant === "outline",
+                // Highlight: theme bg, accent text, thick bottom accent border
                 "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
-                  variant === "accent",
+                  variant === "highlight",
                 // Subtle: light bordered surface card
-                "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
+                "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
                   variant === "subtle",
                 // Interactive: clickable surface card with hover glow and lift
-                "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md cursor-pointer transition-all duration-500 ease-in hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)] hover:-translate-y-1 hover:border-[var(--theme-secondary)]/40 hover:duration-300 hover:ease-out active:translate-y-0 active:shadow-sm active:duration-75":
+                "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md cursor-pointer transition-all duration-500 ease-in hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)] hover:-translate-y-1 hover:border-[var(--theme-border-medium)] hover:duration-300 hover:ease-out active:translate-y-0 active:shadow-sm active:duration-75":
                   variant === "interactive",
-                // Rule: left-accented callout block
+                // Callout: left-accented callout block
                 "bg-[var(--theme-secondary)]/10 text-[var(--theme-text)] border-l-8 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow duration-500 ease-in hover:duration-300 hover:ease-out":
-                  variant === "rule",
+                  variant === "callout",
                 "[corner-shape:scoop_round_round_round] rounded-tl-4xl": iconName,
               },
               className,
@@ -128,8 +128,7 @@ export const CardHeader = React.forwardRef<
             "w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 ease-in group-hover:duration-300 group-hover:ease-out absolute -top-6 -left-6",
             {
               "border-[var(--theme-bg)] border-2 text-[var(--theme-bg)]": iconVariant === "primary",
-              "border-[var(--theme-primary)]/50 border-2 text-[var(--theme-primary)]/50": iconVariant === "secondary",
-              "border-[var(--theme-accent)]/50 border-2 text-[var(--theme-accent)]/50": iconVariant === "accent",
+              "border-[var(--theme-border-soft)] border-2 text-text-subtle": iconVariant === "secondary" || iconVariant === "accent",
             }
           )}
         >
@@ -166,7 +165,7 @@ export const CardDescription = React.forwardRef<
   <p
     ref={ref}
     data-theme={theme}
-    className={cn("text-lg font-bold uppercase tracking-wider opacity-80", className)}
+    className={cn("text-lg font-bold uppercase tracking-wider text-text-muted", className)}
     {...props}
   />
 ));
@@ -188,7 +187,7 @@ export const CardContent = React.forwardRef<
       {
         "gap-6 p-4 pt-4 tablet:p-6 tablet:pt-6": variant === "default",
         "gap-4 p-3 tablet:p-4": variant === "dense",
-        "gap-4 p-4 tablet:p-6 text-[var(--theme-text)]/90 leading-relaxed font-light": variant === "rule",
+        "gap-4 p-4 tablet:p-6 text-text-muted leading-relaxed font-light": variant === "rule",
       },
       className,
     )}

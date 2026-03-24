@@ -48,7 +48,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           data-text={obscured ? obscureString(placeholder ?? "") : undefined}
           style={obscured ? glitchStyle : undefined}
           className={cn(
-            "flex w-full rounded-sm border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] px-4 py-3 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all resize-none placeholder:text-[var(--theme-secondary)]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+            "flex w-full rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] px-4 py-3 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all resize-none placeholder:text-text-placeholder focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
             variant === "monospace" && "font-mono text-sm font-normal",
             error &&
               "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",

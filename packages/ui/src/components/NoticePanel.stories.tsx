@@ -24,7 +24,7 @@ export const Onnistuminen: Story = {
     actions: (
       <>
         <Button>Palaa listaan</Button>
-        <Button variant="secondary">Tee uusi hahmo</Button>
+        <Button variant="outline">Tee uusi hahmo</Button>
       </>
     ),
   },
@@ -36,9 +36,9 @@ export const Tieto: Story = {
       <p className="text-lg leading-relaxed">
         Sinulla on <GameTerm variant="accent" className="font-black text-xl">5n20</GameTerm>{" "}
         oletuksena. Olet ottanut{" "}
-        <GameTerm variant="primary" className="font-bold">2 harmia</GameTerm>, joten
+        <GameTerm variant="emphasis" className="font-bold">2 harmia</GameTerm>, joten
         noppapoolisi koko on{" "}
-        <GameTerm variant="primary" className="font-black text-2xl">3</GameTerm>.
+        <GameTerm variant="emphasis" className="font-black text-2xl">3</GameTerm>.
       </p>
     </NoticePanel>
   ),
