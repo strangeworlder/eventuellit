@@ -1,6 +1,32 @@
-import { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { Button } from "./Button";
 import { cn } from "./utils";
+
+/** Returns a stable map of item-id → glitch CSS vars, seeded once per unique id. */
+function useGlitchSeeds(ids: Array<string | number>): Map<string, React.CSSProperties> {
+  const cache = useRef(new Map<string, React.CSSProperties>());
+  return useMemo(() => {
+    const next = new Map<string, React.CSSProperties>();
+    for (const id of ids) {
+      const key = String(id);
+      const existing = cache.current.get(key);
+      if (existing) {
+        next.set(key, existing);
+      } else {
+        const delay = Math.random() * 36;
+        const duration = 25 + Math.random() * 20;
+        const style = {
+          "--glitch-delay": `-${delay.toFixed(2)}s`,
+          "--glitch-duration": `${duration.toFixed(2)}s`,
+        } as React.CSSProperties;
+        next.set(key, style);
+      }
+    }
+    cache.current = next;
+    return next;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ids.join(",")]);
+}
 
 export interface SkillItem {
   id: string | number;
@@ -94,6 +120,8 @@ export function SkillMasonry({
     return items;
   }, [skills, showCustomButton, customButtonLabel, sort]);
 
+  const glitchSeeds = useGlitchSeeds(allItems.map((i) => i.id));
+
   return (
     <div className={cn("flex flex-wrap gap-3", className)}>
       {allItems.map((item) => {
@@ -114,7 +142,7 @@ export function SkillMasonry({
             }
             disabled={isCustom ? false : item.disabled}
             className="text-left justify-start"
-            style={{ flexGrow: growTier(item.name), flexBasis: 0, minWidth: "fit-content" }}
+            style={{ flexGrow: growTier(item.name), flexBasis: 0, minWidth: "fit-content", ...glitchSeeds.get(String(item.id)) }}
             onClick={() => {
               if (isCustom) {
                 onCustomClick?.();
