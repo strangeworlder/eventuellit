@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "./Select";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Select",
+  title: "Suunnittelujarjestelma/Molekyylit/Select",
   component: Select,
   parameters: {
     layout: "centered",

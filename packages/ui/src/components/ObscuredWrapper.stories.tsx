@@ -5,7 +5,7 @@ import { Heading, HeadingLevelProvider } from "./Heading";
 import { Input } from "./Input";
 
 const meta: Meta<typeof ObscuredWrapper> = {
-  title: "Suunnittelujarjestelma/ObscuredWrapper",
+  title: "Suunnittelujarjestelma/Molekyylit/ObscuredWrapper",
   component: ObscuredWrapper,
   argTypes: {
     revealed: { control: "boolean" },

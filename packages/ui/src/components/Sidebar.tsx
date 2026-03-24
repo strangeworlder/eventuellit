@@ -76,7 +76,10 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             ref={ref}
             data-theme={theme}
             className={cn(
-              "h-full flex flex-col bg-[var(--theme-bg)] desktop:bg-transparent border-r border-[var(--theme-secondary)] transition-all duration-300 relative text-[var(--theme-secondary)] z-50",
+              "h-full flex flex-col bg-[var(--theme-bg)] desktop:bg-transparent border-r border-[var(--theme-secondary)] transition-all relative text-[var(--theme-secondary)] z-50",
+              expanded
+                ? "duration-300 ease-out"   // expand: snappy
+                : "duration-500 ease-in",   // collapse: gentle
               // Mobile behavior: fixed, off-canvas, slide in
               "max-desktop:fixed max-desktop:top-0 max-desktop:bottom-0 max-desktop:left-0 max-desktop:w-64 max-desktop:z-50",
               !expanded && "max-desktop:-translate-x-full",

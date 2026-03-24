@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Switch } from "./Switch";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Switch",
+  title: "Suunnittelujarjestelma/Molekyylit/Switch",
   component: Switch,
   parameters: {
     layout: "centered",

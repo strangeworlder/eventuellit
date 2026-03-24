@@ -8,7 +8,7 @@ import { Switch } from "./Switch";
 import { TextArea } from "./TextArea";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Lomakkeet",
+  title: "Suunnittelujarjestelma/Molekyylit/FormInputs",
   parameters: {
     layout: "padded",
   },

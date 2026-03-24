@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs";
 
 const meta: Meta<typeof Tabs> = {
-  title: "Suunnittelujarjestelma/Komponentit/Tabs",
+  title: "Suunnittelujarjestelma/Molekyylit/Tabs",
   component: Tabs,
   parameters: {
     layout: "padded",

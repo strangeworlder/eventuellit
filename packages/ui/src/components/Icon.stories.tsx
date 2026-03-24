@@ -6,7 +6,7 @@ import "../styles.css";
 const iconNames = Object.keys(icons) as Array<keyof typeof icons>;
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Icon",
+  title: "Suunnittelujarjestelma/Atomit/Icon",
   component: Icon,
   parameters: {
     layout: "centered",

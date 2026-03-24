@@ -5,7 +5,7 @@ import { TextSection } from "./TextSection";
 import "../styles.css";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Tekstiosio",
+  title: "Suunnittelujarjestelma/Molekyylit/TextSection",
   component: TextSection,
   parameters: {
     layout: "centered",

@@ -1,6 +1,10 @@
 import React from "react";
+import { FieldDescription } from "./FieldDescription";
+import { FieldError } from "./FieldError";
+import { FieldLabel } from "./FieldLabel";
 import { useObscured } from "./ObscuredWrapper";
 import type { Theme } from "./Theme";
+import { useObscuredGlitch } from "./useObscuredGlitch";
 import { cn, obscureString } from "./utils";
 
 export interface RadioGroupProps {
@@ -73,16 +77,7 @@ export function RadioGroup({
         role="radiogroup"
         aria-label={label}
       >
-        {label && (
-          <span
-            className={cn(
-              "text-sm font-black uppercase tracking-widest text-[var(--theme-secondary)]",
-              obscured && "blur-[5.5px]",
-            )}
-          >
-            {obscured ? obscureString(label) : label}
-          </span>
-        )}
+        {label && <FieldLabel obscured={obscured}>{label}</FieldLabel>}
         <div
           className={cn(
             "flex gap-3",
@@ -91,11 +86,7 @@ export function RadioGroup({
         >
           {children}
         </div>
-        {error && (
-          <span className="text-sm font-bold uppercase tracking-widest text-[var(--theme-accent)]">
-            {error}
-          </span>
-        )}
+        {error && <FieldError>{error}</FieldError>}
       </div>
     </RadioGroupContext.Provider>
   );
@@ -114,8 +105,7 @@ export function RadioGroupItem({
   const isDisabled = itemDisabled || ctx.disabled || isObscured;
   const isSelected = ctx.value === value;
   const inputId = React.useId();
-  const glitchDuration = React.useMemo(() => isObscured ? 4 + Math.random() * 5 : 6, []);
-  const glitchDelay = React.useMemo(() => isObscured ? Math.random() * 6 : 0, []);
+  const { glitchStyle } = useObscuredGlitch(isObscured ?? false);
 
   return (
     <label
@@ -141,7 +131,7 @@ export function RadioGroupItem({
         />
         <span
           data-text={isObscured ? "x" : undefined}
-          style={isObscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
+          style={isObscured ? glitchStyle : undefined}
           className={cn(
             "h-5 w-5 rounded-full border-2 border-[var(--theme-secondary)]/40 bg-[var(--theme-bg)] transition-all peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-primary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
             isSelected && "border-[var(--theme-primary)]",
@@ -164,21 +154,14 @@ export function RadioGroupItem({
             "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-primary)] transition-colors",
             isObscured && "blur-[5.5px] obscured-glitch",
           )}
-          style={isObscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
+          style={isObscured ? glitchStyle : undefined}
         >
           {isObscured ? obscureString(label) : label}
         </span>
         {description && (
-          <span
-            data-text={isObscured ? obscureString(description) : undefined}
-            className={cn(
-              "text-sm text-[var(--theme-secondary)]/70",
-              isObscured && "blur-[5.5px] obscured-glitch",
-            )}
-            style={isObscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
-          >
-            {isObscured ? obscureString(description) : description}
-          </span>
+          <FieldDescription obscured={isObscured} glitchStyle={glitchStyle}>
+            {description}
+          </FieldDescription>
         )}
       </span>
     </label>

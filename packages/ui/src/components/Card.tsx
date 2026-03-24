@@ -83,10 +83,10 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
                 "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
                   variant === "subtle",
                 // Interactive: clickable surface card with hover glow and lift
-                "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md cursor-pointer transition-all duration-300 hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)] hover:-translate-y-1 hover:border-[var(--theme-secondary)]/40 active:translate-y-0 active:shadow-sm":
+                "border-2 border-[var(--theme-primary)]/20 bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md cursor-pointer transition-all duration-500 ease-in hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)] hover:-translate-y-1 hover:border-[var(--theme-secondary)]/40 hover:duration-300 hover:ease-out active:translate-y-0 active:shadow-sm active:duration-75":
                   variant === "interactive",
                 // Rule: left-accented callout block
-                "bg-[var(--theme-secondary)]/10 text-[var(--theme-text)] border-l-8 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow":
+                "bg-[var(--theme-secondary)]/10 text-[var(--theme-text)] border-l-8 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow duration-500 ease-in hover:duration-300 hover:ease-out":
                   variant === "rule",
                 "[corner-shape:scoop_round_round_round] rounded-tl-4xl": iconName,
               },
@@ -125,7 +125,7 @@ export const CardHeader = React.forwardRef<
       {iconName && (
         <div
           className={cn(
-            "w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 absolute -top-6 -left-6",
+            "w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 ease-in group-hover:duration-300 group-hover:ease-out absolute -top-6 -left-6",
             {
               "border-[var(--theme-bg)] border-2 text-[var(--theme-bg)]": iconVariant === "primary",
               "border-[var(--theme-primary)]/50 border-2 text-[var(--theme-primary)]/50": iconVariant === "secondary",

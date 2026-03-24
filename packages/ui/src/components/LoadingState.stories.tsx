@@ -4,7 +4,7 @@ import { LoadingState } from "./LoadingState";
 import "../styles.css";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Lataustila",
+  title: "Suunnittelujarjestelma/Atomit/LoadingState",
   component: LoadingState,
   parameters: {
     layout: "centered",

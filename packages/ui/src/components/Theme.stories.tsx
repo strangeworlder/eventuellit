@@ -16,7 +16,7 @@ const themeValues: Theme[] = [
 ];
 
 const meta = {
-  title: "Suunnittelujarjestelma/Perustat/Teema",
+  title: "Suunnittelujarjestelma/Perustat/Theme",
   parameters: {
     layout: "padded",
   },

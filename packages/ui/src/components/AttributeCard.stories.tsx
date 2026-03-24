@@ -4,7 +4,7 @@ import { Theme } from "./Theme";
 import React, { useState } from "react";
 
 const meta: Meta<typeof AttributeCard> = {
-    title: "Suunnittelujarjestelma/Komponentit/AttributeCard",
+    title: "Suunnittelujarjestelma/Organismit/AttributeCard",
     component: AttributeCard,
     tags: ["autodocs"],
     argTypes: {

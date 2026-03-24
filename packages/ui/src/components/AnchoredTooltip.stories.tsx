@@ -4,7 +4,7 @@ import { AnchoredTooltip } from "./AnchoredTooltip";
 import { Button } from "./Button";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/AnchoredTooltip",
+  title: "Suunnittelujarjestelma/Molekyylit/AnchoredTooltip",
   component: AnchoredTooltip,
   parameters: {
     layout: "centered",

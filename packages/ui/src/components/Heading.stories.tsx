@@ -3,7 +3,7 @@ import { Heading } from "./Heading";
 import "../styles.css";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Otsikko",
+  title: "Suunnittelujarjestelma/Atomit/Heading",
   component: Heading,
   parameters: {
     layout: "padded",

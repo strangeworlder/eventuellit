@@ -4,7 +4,7 @@ import { Heading } from "./Heading";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarItem } from "./Sidebar";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Sidebar",
+  title: "Suunnittelujarjestelma/Organismit/Sidebar",
   component: Sidebar,
   parameters: {
     layout: "fullscreen",

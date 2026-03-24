@@ -1,6 +1,9 @@
 import React from "react";
+import { FieldError } from "./FieldError";
+import { FieldLabel } from "./FieldLabel";
 import { useObscured } from "./ObscuredWrapper";
 import type { Theme } from "./Theme";
+import { useObscuredGlitch } from "./useObscuredGlitch";
 import { cn, obscureString } from "./utils";
 
 export interface SelectOption {
@@ -34,8 +37,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ) => {
     const obscured = obscuredProp || useObscured();
     const isDisabled = disabled || obscured;
-    const glitchDuration = React.useMemo(() => obscured ? 4 + Math.random() * 5 : 6, []);
-    const glitchDelay = React.useMemo(() => obscured ? Math.random() * 6 : 0, []);
+    const { glitchStyle } = useObscuredGlitch(obscured);
 
     return (
       <div
@@ -45,16 +47,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         )}
         data-theme={theme}
       >
-        {label && (
-          <label
-            className={cn(
-              "text-sm font-black uppercase tracking-widest text-[var(--theme-secondary)]",
-              obscured && "blur-[5.5px]",
-            )}
-          >
-            {obscured ? obscureString(label) : label}
-          </label>
-        )}
+        {label && <FieldLabel obscured={obscured}>{label}</FieldLabel>}
         <select
           ref={ref}
           disabled={isDisabled}
@@ -71,7 +64,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             backgroundRepeat: "no-repeat",
             backgroundPosition: "right 0.75rem center",
             backgroundSize: "1rem",
-            ...(obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : {}),
+            ...(obscured ? glitchStyle ?? {} : {}),
           }}
           {...props}
         >
@@ -86,11 +79,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             </option>
           ))}
         </select>
-        {error && (
-          <span className="text-sm font-bold uppercase tracking-widest text-[var(--theme-accent)]">
-            {error}
-          </span>
-        )}
+        {error && <FieldError>{error}</FieldError>}
       </div>
     );
   },

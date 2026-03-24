@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ActiveStatBlock } from "./ActiveStatBlock";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/ActiveStatBlock",
+  title: "Suunnittelujarjestelma/Molekyylit/ActiveStatBlock",
   component: ActiveStatBlock,
   parameters: {
     layout: "centered",

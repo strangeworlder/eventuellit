@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { TextArea } from "./TextArea";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/TextArea",
+  title: "Suunnittelujarjestelma/Molekyylit/TextArea",
   component: TextArea,
   parameters: {
     layout: "centered",

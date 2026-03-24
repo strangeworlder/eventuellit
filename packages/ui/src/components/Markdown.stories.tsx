@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MarkdownRenderer } from "./Markdown";
 
 const meta = {
-    title: "Suunnittelujarjestelma/Komponentit/MarkdownRenderer",
+    title: "Suunnittelujarjestelma/Molekyylit/MarkdownRenderer",
     component: MarkdownRenderer,
     parameters: {
         layout: "padded",

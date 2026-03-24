@@ -458,9 +458,9 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               type="button"
               onClick={openModal}
               className={cn(
-                "group rounded-xl overflow-hidden block w-full text-left transition-transform duration-200 ease-out",
+                "group rounded-xl overflow-hidden block w-full text-left transition-transform duration-400 ease-in",
                 variant === "thumbnail" && "h-full w-full rounded-lg",
-                "cursor-zoom-in hover:scale-[1.02] hover:rotate-[0.25deg] focus-visible:scale-[1.012] focus-visible:rotate-[0.5deg]",
+                "cursor-zoom-in hover:scale-[1.02] hover:rotate-[0.25deg] hover:duration-200 hover:ease-out focus-visible:scale-[1.012] focus-visible:rotate-[0.5deg]",
               )}
               aria-label={`Avaa kuva suurempana: ${safeAlt}`}
               aria-haspopup="dialog"

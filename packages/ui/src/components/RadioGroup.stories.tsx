@@ -3,7 +3,7 @@ import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "./RadioGroup";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/RadioGroup",
+  title: "Suunnittelujarjestelma/Molekyylit/RadioGroup",
   component: RadioGroup,
   parameters: {
     layout: "centered",

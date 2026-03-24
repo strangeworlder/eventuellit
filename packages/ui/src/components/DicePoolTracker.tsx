@@ -118,8 +118,8 @@ export const DicePoolTracker = React.forwardRef<
                       disabled={readOnly}
                       onClick={() => handleClick(die.id)}
                       className={cn(
-                        "relative rounded-md p-0.5 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-[var(--theme-primary)]",
-                        !readOnly && "cursor-pointer hover:scale-110",
+                        "relative rounded-md p-0.5 transition-all duration-400 ease-in focus-visible:outline-2 focus-visible:outline-[var(--theme-primary)]",
+                        !readOnly && "cursor-pointer hover:scale-110 hover:duration-200 hover:ease-out",
                         readOnly && "cursor-default",
                         isRemoved && "opacity-30 scale-90",
                         !isRemoved && "hover:drop-shadow-md",

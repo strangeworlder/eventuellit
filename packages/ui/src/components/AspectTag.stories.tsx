@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AspectTag } from "./AspectTag";
 
 const meta: Meta<typeof AspectTag> = {
-  title: "Suunnittelujarjestelma/Komponentit/AspectTag",
+  title: "Suunnittelujarjestelma/Atomit/AspectTag",
   component: AspectTag,
   parameters: { layout: "padded" },
 };

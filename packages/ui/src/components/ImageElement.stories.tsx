@@ -5,7 +5,7 @@ const placeholder =
   "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgoLDhgQDg0NDh0VFhEYIB8iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQ0NDw0NDisZFRkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAH4AfgMBIgACEQEDEQH/xAAXAAADAQAAAAAAAAAAAAAAAAABAgME/8QAHhABAQEAAgIDAQAAAAAAAAAAAQIDABEhMQQSIkH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABcRAQEBAQAAAAAAAAAAAAAAAAEAESH/2gAMAwEAAhEDEQA/ALxJ8fQxqzKxKObK5YjN6Mmy3ee5mVQm0kW1bbkFqQ4fW9qJCVFQ8Dk7WjYx6H4WGNqelV8O8s7kWQ4DscQhHn4Q5f2dU8jGzT5rU1qVhG9r3vE0xqf4rY3J7x4q+R2k0V0H2sWH3QJX1Nw0xR0wqef/2Q==";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/ImageElement",
+  title: "Suunnittelujarjestelma/Atomit/ImageElement",
   component: ImageElement,
   parameters: {
     layout: "centered",

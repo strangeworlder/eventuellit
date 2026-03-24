@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SkillMasonry } from "./SkillMasonry";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/SkillMasonry",
+  title: "Suunnittelujarjestelma/Organismit/SkillMasonry",
   component: SkillMasonry,
   tags: ["autodocs"],
   parameters: {

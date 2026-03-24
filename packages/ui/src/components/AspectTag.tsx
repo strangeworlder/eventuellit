@@ -50,8 +50,8 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
           // ── Base ──
           "group inline-flex items-center gap-2 rounded-md px-3 py-1.5",
           "font-heading text-xs font-bold uppercase tracking-wider",
-          "transition-all duration-200 select-none",
-          "hover:scale-[1.03] hover:-translate-y-px",
+          "transition-all duration-300 ease-in select-none",
+          "hover:scale-[1.03] hover:-translate-y-px hover:duration-200 hover:ease-out",
 
           // ── Harm: active ──
           isHarm && !isHealed && [
@@ -120,7 +120,7 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
 
         {/* Action buttons — slide-in from right */}
         {!readOnly && (onToggleHeal || onRemove) && (
-          <span className="inline-flex items-center gap-0.5 ml-1 translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-focus-within:translate-x-0 group-focus-within:opacity-100 transition-all duration-200">
+          <span className="inline-flex items-center gap-0.5 ml-1 translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:duration-150 group-hover:ease-out group-focus-within:translate-x-0 group-focus-within:opacity-100 group-focus-within:duration-150 group-focus-within:ease-out transition-all duration-300 ease-in">
             {/* Heal/activate toggle */}
             {isHarm && onToggleHeal && (
               <button

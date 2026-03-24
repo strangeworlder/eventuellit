@@ -3,7 +3,7 @@ import { GameTerm } from "./GameTerm";
 import { Text } from "./Text";
 
 const meta = {
-    title: "Suunnittelujarjestelma/Komponentit/GameTerm",
+    title: "Suunnittelujarjestelma/Atomit/GameTerm",
     component: GameTerm,
     parameters: {
         layout: "padded",

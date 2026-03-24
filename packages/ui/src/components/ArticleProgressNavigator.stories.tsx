@@ -12,7 +12,7 @@ const sampleSections = [
 ];
 
 const meta: Meta<typeof ArticleProgressNavigator> = {
-  title: "Suunnittelujarjestelma/Komponentit/ArticleProgressNavigator",
+  title: "Suunnittelujarjestelma/Organismit/ArticleProgressNavigator",
   component: ArticleProgressNavigator,
   parameters: {
     layout: "padded",

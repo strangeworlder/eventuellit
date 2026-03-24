@@ -4,7 +4,7 @@ import { Badge } from "./Badge";
 import "../styles.css";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Perustat/Teemat",
+  title: "Suunnittelujarjestelma/Perustat/Themes",
   parameters: {
     layout: "fullscreen",
   },

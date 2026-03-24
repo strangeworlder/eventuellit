@@ -1,6 +1,9 @@
 import React from "react";
+import { FieldDescription } from "./FieldDescription";
+import { FieldError } from "./FieldError";
 import { useObscured } from "./ObscuredWrapper";
 import type { Theme } from "./Theme";
+import { useObscuredGlitch } from "./useObscuredGlitch";
 import { cn, obscureString } from "./utils";
 
 export interface SwitchProps
@@ -21,8 +24,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     const inputId = id ?? generatedId;
     const obscured = obscuredProp || useObscured();
     const isDisabled = disabled || obscured;
-    const glitchDuration = React.useMemo(() => obscured ? 4 + Math.random() * 5 : 6, []);
-    const glitchDelay = React.useMemo(() => obscured ? Math.random() * 6 : 0, []);
+    const { glitchStyle } = useObscuredGlitch(obscured);
 
     return (
       <div
@@ -43,7 +45,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           <span
             className="relative mt-0.5 shrink-0"
             data-text={obscured ? "x" : undefined}
-            style={obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
+            style={obscured ? glitchStyle : undefined}
           >
             <input
               ref={ref}
@@ -83,29 +85,18 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
                 "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-primary)] transition-colors",
                 obscured && "blur-[5.5px] obscured-glitch",
               )}
-              style={obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
+              style={obscured ? glitchStyle : undefined}
             >
               {obscured ? obscureString(label) : label}
             </span>
             {description && (
-              <span
-                data-text={obscured ? obscureString(description) : undefined}
-                className={cn(
-                  "text-sm text-[var(--theme-secondary)]/70",
-                  obscured && "blur-[5.5px] obscured-glitch",
-                )}
-                style={obscured ? { '--glitch-delay': `-${glitchDelay.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s` } as React.CSSProperties : undefined}
-              >
-                {obscured ? obscureString(description) : description}
-              </span>
+              <FieldDescription obscured={obscured} glitchStyle={glitchStyle}>
+                {description}
+              </FieldDescription>
             )}
           </span>
         </label>
-        {error && (
-          <span className="text-sm font-bold uppercase tracking-widest text-[var(--theme-accent)] pl-14">
-            {error}
-          </span>
-        )}
+        {error && <FieldError className="pl-14">{error}</FieldError>}
       </div>
     );
   },

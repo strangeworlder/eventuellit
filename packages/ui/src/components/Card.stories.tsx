@@ -19,7 +19,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
  * > It should **not** be used as a primary page or tab layout wrapper. For main layouts, use semantic HTML tags (`<div>`, `<main>`) with a `<HeadingLevelProvider>`.
  */
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Card",
+  title: "Suunnittelujarjestelma/Organismit/Card",
   component: Card,
   parameters: {
     layout: "centered",

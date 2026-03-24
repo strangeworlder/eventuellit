@@ -104,13 +104,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-describedby={mergedAriaDescribedBy}
         className={cn(
           // ── Base ──
-          "inline-flex cursor-pointer items-center gap-2 rounded-sm font-bold uppercase tracking-widest transition-all relative overflow-hidden",
+          "inline-flex cursor-pointer items-center gap-2 rounded-sm font-bold uppercase tracking-widest transition-all duration-350 ease-in relative overflow-hidden",
           // ── Focus-visible ── accessible ring replacing bare outline-none
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
-          // ── Hover ──
-          "shadow-sm hover:shadow-md hover:-translate-y-0.5",
+          // ── Hover ── snappy enter
+          "shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:duration-200 hover:ease-out",
           // ── Active / Pressed ── tactile feedback
-          "active:translate-y-0 active:shadow-sm active:scale-[0.98]",
+          "active:translate-y-0 active:shadow-sm active:scale-[0.98] active:duration-75",
           // ── Disabled ── flattened, desaturated, no hover/active shift
           disabled && !loading &&
           "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",

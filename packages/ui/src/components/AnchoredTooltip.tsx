@@ -95,7 +95,11 @@ export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltip
         className={cn(
           // ── Base ──
           "anchored-tooltip absolute z-50 select-none",
-          "transition-all duration-150 ease-out",
+          "transition-all",
+          // ── Asymmetric timing: snappy enter, gentle exit ──
+          hidden
+            ? "duration-200 ease-in"    // exit: gentle fade-out
+            : "duration-150 ease-out",  // enter: snappy pop-in
           variantClasses[variant],
           placementBase[placement],
 
@@ -110,7 +114,9 @@ export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltip
             : cn(
                 "opacity-0 invisible pointer-events-none",
                 "group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto group-hover:scale-100 group-hover:translate-x-0 group-hover:translate-y-0",
+                "group-hover:duration-150 group-hover:ease-out",
                 "group-focus-within:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:scale-100 group-focus-within:translate-x-0 group-focus-within:translate-y-0",
+                "group-focus-within:duration-150 group-focus-within:ease-out",
               ),
 
           className,

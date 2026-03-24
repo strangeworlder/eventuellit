@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StatBlock } from "./StatBlock";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/StatBlock",
+  title: "Suunnittelujarjestelma/Molekyylit/StatBlock",
   component: StatBlock,
   parameters: {
     layout: "centered",

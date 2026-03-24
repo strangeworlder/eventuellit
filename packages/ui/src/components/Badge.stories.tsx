@@ -3,7 +3,7 @@ import React from "react";
 import { Badge } from "./Badge";
 
 const meta: Meta<typeof Badge> = {
-    title: "Suunnittelujarjestelma/Komponentit/Badge",
+    title: "Suunnittelujarjestelma/Atomit/Badge",
     component: Badge,
     tags: ["autodocs"],
     argTypes: {

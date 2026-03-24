@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { VideoCta } from "./VideoCta";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/VideoCta",
+  title: "Suunnittelujarjestelma/Organismit/VideoCta",
   component: VideoCta,
   parameters: {
     layout: "padded",

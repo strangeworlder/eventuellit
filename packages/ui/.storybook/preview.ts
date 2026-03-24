@@ -4,6 +4,21 @@ import "../src/styles.css"; // Import the Tailwind styles we set up earlier
 const preview: Preview = {
   tags: ["autodocs"],
   parameters: {
+    options: {
+      storySort: {
+        order: [
+          "Suunnittelujarjestelma",
+          [
+            "Perustat",
+            "Atomit",
+            "Molekyylit",
+            "Organismit",
+            "Pelimekaniikka",
+            "Sivupohjat",
+          ],
+        ],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

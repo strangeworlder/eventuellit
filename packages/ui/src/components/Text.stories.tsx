@@ -4,7 +4,7 @@ import { Text } from "./Text";
 import "../styles.css";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Teksti",
+  title: "Suunnittelujarjestelma/Atomit/Text",
   component: Text,
   parameters: {
     layout: "centered",

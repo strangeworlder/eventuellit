@@ -6,7 +6,7 @@ import { NoticePanel } from "./NoticePanel";
 import "../styles.css";
 
 const meta = {
-  title: "Suunnittelujarjestelma/Komponentit/Ilmoituspaneeli",
+  title: "Suunnittelujarjestelma/Molekyylit/NoticePanel",
   component: NoticePanel,
   parameters: {
     layout: "padded",

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ToggleButton } from "./ToggleButton";
 
 const meta = {
-    title: "Suunnittelujarjestelma/Komponentit/ToggleButton",
+    title: "Suunnittelujarjestelma/Atomit/ToggleButton",
     component: ToggleButton,
     parameters: {
         layout: "centered",
