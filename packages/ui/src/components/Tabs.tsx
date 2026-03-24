@@ -64,6 +64,8 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
     const [tugY, setTugY] = useState(0);
     const [stretchX, setStretchX] = useState(1);
     const [stretchY, setStretchY] = useState(1);
+    const [isSettling, setIsSettling] = useState(false);
+    const settleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Merge refs logic to ensure we have a local ref for querying DOM while forwarding to parent
     const setRefs = useCallback(
@@ -124,22 +126,38 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
       onKeyDown?.(e);
     };
 
+    const triggerSettle = useCallback(() => {
+      // Clear any pending settle
+      if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
+      // Let the anchor travel first, then wobble back to neutral
+      settleTimerRef.current = setTimeout(() => {
+        setIsSettling(true);
+        setTugX(0);
+        setTugY(0);
+        setStretchX(1);
+        setStretchY(1);
+        // Clear the settling flag after the spring animation completes
+        settleTimerRef.current = setTimeout(() => setIsSettling(false), 700);
+      }, 80);
+    }, []);
+
     const handleMouseOver = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
       const target = (e.target as HTMLElement).closest('[role="tab"]') as HTMLElement | null;
       if (!target || !listRef.current) return;
 
-      // Don't tug if hovering the already-active tab
+      // Don't tug if hovering the already-active tab — instead settle to neutral
       const isActive =
         target.getAttribute("aria-selected") === "true" ||
         target.getAttribute("aria-current") === "page";
 
       if (isActive) {
-        setTugX(0);
-        setTugY(0);
-        setStretchX(1);
-        setStretchY(1);
+        triggerSettle();
         return;
       }
+
+      // Cancel any in-flight settle when user moves to a non-active tab
+      if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
+      setIsSettling(false);
 
       const tabs = Array.from(
         listRef.current.querySelectorAll<HTMLElement>('[role="tab"]'),
@@ -169,13 +187,16 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
       setTugY(pullY);
       setStretchX(scaleX);
       setStretchY(scaleY);
-    }, []);
+    }, [triggerSettle]);
 
     const handleMouseLeave = useCallback(() => {
+      if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
+      setIsSettling(true);
       setTugX(0);
       setTugY(0);
       setStretchX(1);
       setStretchY(1);
+      settleTimerRef.current = setTimeout(() => setIsSettling(false), 700);
     }, []);
 
     return (
@@ -188,7 +209,11 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
           "[anchor-scope:--active-tab]",
           "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
           "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
-          "after:transition-all after:duration-500 after:ease-[cubic-bezier(0.23,1,0.32,1)]",
+          // Position travels with ease-out-quart; transform uses a spring when settling, normal ease when tracking
+          "after:transition-[left,right,top,bottom] after:duration-500 after:ease-[cubic-bezier(0.23,1,0.32,1)]",
+          isSettling
+            ? "after:[transition:left_500ms_cubic-bezier(0.23,1,0.32,1),right_500ms_cubic-bezier(0.23,1,0.32,1),top_500ms_cubic-bezier(0.23,1,0.32,1),bottom_500ms_cubic-bezier(0.23,1,0.32,1),transform_600ms_cubic-bezier(0.34,1.56,0.64,1)]"
+            : "after:[transition:left_500ms_cubic-bezier(0.23,1,0.32,1),right_500ms_cubic-bezier(0.23,1,0.32,1),top_500ms_cubic-bezier(0.23,1,0.32,1),bottom_500ms_cubic-bezier(0.23,1,0.32,1),transform_200ms_ease-out]",
           "after:[transform:translateX(var(--tab-tug-x,0px))_translateY(var(--tab-tug-y,0px))_scaleX(var(--tab-stretch-x,1))_scaleY(var(--tab-stretch-y,1))]",
           "after:pointer-events-none",
           className,
@@ -203,6 +228,11 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
         onKeyDown={handleKeyDown}
         onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
+        onClick={(e) => {
+          if ((e.target as HTMLElement).closest('[role="tab"]')) {
+            triggerSettle();
+          }
+        }}
         {...props}
       />
     );
