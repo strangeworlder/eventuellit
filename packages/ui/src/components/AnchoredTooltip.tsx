@@ -17,20 +17,49 @@ export interface AnchoredTooltipProps extends React.HTMLAttributes<HTMLSpanEleme
   isOpen?: boolean;
 }
 
-const placementClasses: Record<AnchoredTooltipPlacement, string> = {
+/* ── Placement: position + slide-in origin ── */
+
+const placementBase: Record<AnchoredTooltipPlacement, string> = {
   right: "left-full top-1/2 -translate-y-1/2 ml-2",
   left: "right-full top-1/2 -translate-y-1/2 mr-2",
   top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
   bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
 };
 
+/** Extra transform applied when the tooltip is *hidden* – resolves to none on show. */
+const placementHiddenShift: Record<AnchoredTooltipPlacement, string> = {
+  right: "translate-x-1.5",
+  left: "-translate-x-1.5",
+  top: "-translate-y-1.5",
+  bottom: "translate-y-1.5",
+};
+
+/* ── Variant styles (aligned with AspectTag aesthetic) ── */
+
 const variantClasses: Record<AnchoredTooltipVariant, string> = {
-  default:
-    "rounded-sm bg-[var(--theme-bg)]/95 px-2 py-1 text-[var(--theme-text)] shadow-md border border-[var(--theme-secondary)]/40 font-semibold",
-  "button-loading":
-    "rounded-sm bg-[var(--theme-primary)] px-3 py-2 text-[var(--theme-primary-foreground)] shadow-md border-2 border-[var(--theme-primary-foreground)]/60 font-bold uppercase tracking-widest",
-  "station-description":
-    "rounded-lg bg-[var(--theme-bg)]/98 px-3 py-3 text-[var(--theme-text)]/80 shadow-xl border border-[var(--theme-secondary)]/30 font-normal whitespace-normal w-52 leading-relaxed",
+  default: [
+    "rounded-md px-3 py-1.5",
+    "font-heading text-xs font-bold uppercase tracking-wider",
+    "bg-[var(--theme-bg)]/95 text-[var(--theme-text)]",
+    "border border-[var(--theme-secondary)]/30",
+    "shadow-[0_0_10px_color-mix(in_srgb,var(--theme-secondary)_12%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)]",
+  ].join(" "),
+
+  "button-loading": [
+    "rounded-md px-3 py-2",
+    "font-heading text-xs font-bold uppercase tracking-widest",
+    "bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)]",
+    "border-2 border-[var(--theme-primary-foreground)]/50",
+    "shadow-[0_0_14px_color-mix(in_srgb,var(--theme-primary)_30%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary-foreground)_15%,transparent)]",
+  ].join(" "),
+
+  "station-description": [
+    "rounded-lg px-3 py-3 w-52 leading-relaxed whitespace-normal",
+    "font-heading text-xs font-medium tracking-wide",
+    "bg-[var(--theme-bg)]/98 text-[var(--theme-text)]/80",
+    "border border-[var(--theme-secondary)]/25",
+    "shadow-[0_4px_20px_color-mix(in_srgb,var(--theme-bg)_40%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-secondary)_8%,transparent)]",
+  ].join(" "),
 };
 
 /**
@@ -54,21 +83,36 @@ export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltip
   ({ placement = "right", variant = "default", className, theme, isOpen, children, ...props }, ref) => {
     if (isOpen === false) return null;
 
+    const hidden = isOpen !== undefined
+      ? !isOpen
+      : true; // uncontrolled: hidden by default, shown via group-hover
+
     return (
       <span
         ref={ref}
         role="tooltip"
         data-theme={theme}
         className={cn(
-          "anchored-tooltip absolute font-sans text-xs tracking-[0.015em] z-50",
+          // ── Base ──
+          "anchored-tooltip absolute z-50 select-none",
+          "transition-all duration-150 ease-out",
           variantClasses[variant],
-          // If controlled, strictly use isOpen boolean. If uncontrolled, use group-hover for CSS-only tooltips.
+          placementBase[placement],
+
+          // ── Hidden / visible states ──
+          hidden && placementHiddenShift[placement],
+          hidden && "scale-95",
+
           isOpen !== undefined
             ? isOpen
-              ? "opacity-100 visible pointer-events-auto"
+              ? "opacity-100 visible pointer-events-auto scale-100"
               : "opacity-0 invisible pointer-events-none"
-            : "opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto",
-          placementClasses[placement],
+            : cn(
+                "opacity-0 invisible pointer-events-none",
+                "group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto group-hover:scale-100 group-hover:translate-x-0 group-hover:translate-y-0",
+                "group-focus-within:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:scale-100 group-focus-within:translate-x-0 group-focus-within:translate-y-0",
+              ),
+
           className,
         )}
         {...props}

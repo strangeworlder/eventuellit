@@ -30,9 +30,11 @@ export interface EpisodeSkill {
 }
 
 const getAuthHeaders = () => {
-    return {
-        "Content-Type": "application/json",
-    };
+  const token = localStorage.getItem("auth_token");
+  return {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
 };
 
 // ========================
@@ -46,7 +48,10 @@ export const useEpisodes = (status?: string) => {
       const url = status
         ? `${API_BASE_URL}/episodes?status=${status}`
         : `${API_BASE_URL}/episodes`;
-      const response = await fetch(url, { credentials: "include" });
+      const response = await fetch(url, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch episodes");
       }
@@ -59,7 +64,10 @@ export const useEpisode = (id: number) => {
   return useQuery<Episode>({
     queryKey: ["episode", id],
     queryFn: async () => {
-      const response = await fetch(`${API_BASE_URL}/episodes/${id}`, { credentials: "include" });
+      const response = await fetch(`${API_BASE_URL}/episodes/${id}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch episode");
       }
@@ -141,7 +149,10 @@ export const useEpisodeSkills = (episodeId: number) => {
     queryFn: async () => {
       const response = await fetch(
         `${API_BASE_URL}/episodes/${episodeId}/skills`,
-        { credentials: "include" }
+        {
+          headers: getAuthHeaders(),
+          credentials: "include",
+        }
       );
       if (!response.ok) {
         throw new Error("Failed to fetch episode skills");

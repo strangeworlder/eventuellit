@@ -121,6 +121,32 @@ export const ObscuredAllSizes: Story = {
   ),
 };
 
+/* ── States: Multiline ── */
+
+export const Multiline: Story = {
+  name: "Monirivi",
+  render: () => (
+    <div className="flex flex-col gap-6 max-w-xs">
+      <Button>Lyhyt teksti</Button>
+      <Button>Pidempi teksti joka menee kahdelle riville tässä painikkeessa</Button>
+      <Button size="sm">Pieni painike jolla on pitkä teksti monella rivillä esimerkkinä</Button>
+      <Button size="lg">Suuri painike jossa on erityisen pitkä teksti joka vaatii useamman rivin näytöllä</Button>
+    </div>
+  ),
+};
+
+export const MultilineAllVariants: Story = {
+  name: "Monirivi (kaikki variantit)",
+  render: () => (
+    <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 max-w-2xl">
+      <Button variant="primary">Ensisijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
+      <Button variant="secondary">Toissijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
+      <Button variant="danger">Vaarapainike jonka teksti on pitkä ja menee monelle riville</Button>
+      <Button variant="ghost-secondary">Haamupainike jonka teksti on pitkä ja menee monelle riville</Button>
+    </div>
+  ),
+};
+
 /* ── States: Loading ── */
 
 export const LoadingPrimary: Story = {

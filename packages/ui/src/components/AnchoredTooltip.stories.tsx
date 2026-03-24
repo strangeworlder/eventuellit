@@ -37,7 +37,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Oikealla: Story = {
   render: (args) => (
-    <div className="relative flex items-center p-16">
+    <div className="group relative flex items-center p-16">
       <Button size="sm">Vie hiiri päälle</Button>
       <AnchoredTooltip {...args}>Lisätietoja tästä toiminnosta</AnchoredTooltip>
     </div>
@@ -49,7 +49,7 @@ export const Oikealla: Story = {
 
 export const Vasemmalla: Story = {
   render: (args) => (
-    <div className="relative flex items-center p-16">
+    <div className="group relative flex items-center p-16">
       <Button size="sm">Vie hiiri päälle</Button>
       <AnchoredTooltip {...args}>Edellinen vaihe</AnchoredTooltip>
     </div>
@@ -61,7 +61,7 @@ export const Vasemmalla: Story = {
 
 export const Ylapuolella: Story = {
   render: (args) => (
-    <div className="relative flex items-center p-16">
+    <div className="group relative flex items-center p-16">
       <Button size="sm">Vie hiiri päälle</Button>
       <AnchoredTooltip {...args}>Tärkeä huomautus</AnchoredTooltip>
     </div>
@@ -73,7 +73,7 @@ export const Ylapuolella: Story = {
 
 export const Alapuolella: Story = {
   render: (args) => (
-    <div className="relative flex items-center p-16">
+    <div className="group relative flex items-center p-16">
       <Button size="sm">Vie hiiri päälle</Button>
       <AnchoredTooltip {...args}>Avaa lisäasetukset</AnchoredTooltip>
     </div>
@@ -86,19 +86,19 @@ export const Alapuolella: Story = {
 export const KaikkiSuunnat: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-16 p-16">
-      <div className="relative flex items-center justify-center">
+      <div className="group relative flex items-center justify-center">
         <Button size="sm">Oikea</Button>
         <AnchoredTooltip placement="right">Oikealla puolella</AnchoredTooltip>
       </div>
-      <div className="relative flex items-center justify-center">
+      <div className="group relative flex items-center justify-center">
         <Button size="sm">Vasen</Button>
         <AnchoredTooltip placement="left">Vasemmalla puolella</AnchoredTooltip>
       </div>
-      <div className="relative flex items-center justify-center">
+      <div className="group relative flex items-center justify-center">
         <Button size="sm">Ylös</Button>
         <AnchoredTooltip placement="top">Yläpuolella</AnchoredTooltip>
       </div>
-      <div className="relative flex items-center justify-center">
+      <div className="group relative flex items-center justify-center">
         <Button size="sm">Alas</Button>
         <AnchoredTooltip placement="bottom">Alapuolella</AnchoredTooltip>
       </div>

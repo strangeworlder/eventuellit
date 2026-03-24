@@ -28,10 +28,12 @@ export function useCreateCharacter() {
 
   return useMutation({
     mutationFn: async (newCharacter: CreateCharacterDto) => {
+      const token = localStorage.getItem("auth_token");
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         credentials: "include",
         body: JSON.stringify(newCharacter),

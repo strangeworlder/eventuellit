@@ -11,6 +11,7 @@ import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { ObscuredWrapper } from "@repo/ui/components/ObscuredWrapper";
 import { Page } from "@repo/ui/components/Page";
+import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -374,43 +375,29 @@ function GeneratorForm() {
                             <CardTitle>Taito {slotIndex + 1}</CardTitle>
                           </CardHeader>
                           <CardContent>
-                            <div className="flex flex-wrap gap-2">
-                              {episodeSkills?.map((skill) => {
-                                const selectedElsewhere = selectedTaidot.some(
-                                  (s, i) => i !== slotIndex && s === skill.name,
-                                );
-                                return (
-                                  <Button
-                                    key={skill.id}
-                                    size="sm"
-                                    variant={slotValue === skill.name ? "primary" : "secondary"}
-                                    disabled={selectedElsewhere}
-                                    onClick={() =>
-                                      handleTaidotSelect(
-                                        slotIndex,
-                                        slotValue === skill.name ? null : skill.name,
-                                      )
-                                    }
-                                  >
-                                    {skill.name}
-                                  </Button>
-                                );
-                              })}
-                              {(!hasCustomSlot || isCustomSlot) && (
-                                <Button
-                                  size="sm"
-                                  variant={isCustomSlot ? "primary" : "secondary"}
-                                  onClick={() =>
-                                    handleTaidotSelect(
-                                      slotIndex,
-                                      isCustomSlot ? null : "custom",
-                                    )
-                                  }
-                                >
-                                  Oma taito...
-                                </Button>
-                              )}
-                            </div>
+                            <SkillMasonry
+                              sort="optimal"
+                              skills={episodeSkills?.map((skill) => ({
+                                id: skill.id,
+                                name: skill.name,
+                                disabled: selectedTaidot.some((s, i) => i !== slotIndex && s === skill.name),
+                                selected: slotValue === skill.name,
+                              })) ?? []}
+                              onSkillClick={(skill) =>
+                                handleTaidotSelect(
+                                  slotIndex,
+                                  slotValue === skill.name ? null : skill.name,
+                                )
+                              }
+                              showCustomButton={!hasCustomSlot || isCustomSlot}
+                              isCustomSelected={isCustomSlot}
+                              onCustomClick={() =>
+                                handleTaidotSelect(
+                                  slotIndex,
+                                  isCustomSlot ? null : "custom",
+                                )
+                              }
+                            />
                             {isCustomSlot && (
                               <div className="mt-3">
                                 <Input

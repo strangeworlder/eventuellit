@@ -125,9 +125,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           },
           // ── Size ──
           {
-            "h-12 px-6 py-2": size === "default",
-            "h-9 px-3": size === "sm",
-            "h-14 px-8 py-4 text-xl w-full": size === "lg",
+            "min-h-[3rem] h-auto px-6 py-2": size === "default",
+            "min-h-[2.25rem] h-auto px-3 py-1.5": size === "sm",
+            "min-h-[3.5rem] h-auto px-8 py-4 text-xl w-full": size === "lg",
             "h-10 w-10 min-w-[2.5rem] px-0 py-0 text-xl font-black leading-none": size === "icon",
             "w-full p-2 h-auto text-sm normal-case tracking-normal font-normal shadow-none hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100":
               size === "nav",
