@@ -29,6 +29,7 @@ import { LandingPage } from "./components/LandingPage";
 import { LoginPage } from "./components/LoginPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyPage } from "./components/VerifyPage";
+import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
 import { buildDocumentTitle } from "./route-title";
 import { useAuth } from "@repo/auth/use-auth";
 
@@ -336,6 +337,12 @@ function AppContent() {
               Kirjaudu sisään
             </SidebarItem>
           )}
+          <SidebarItem
+            icon={<Icon name="shield" size={20} />}
+            onClick={() => navigate("/tietosuoja")}
+          >
+            Tietosuoja
+          </SidebarItem>
         </SidebarFooter>
       </Sidebar>
 
@@ -434,6 +441,7 @@ function AppContent() {
                 <Route path="/ruleset/*" element={<RulesetApp />} />
                 <Route path="/episodes/*" element={<EpisodesApp />} />
                 <Route path="/world/*" element={<WorldApp />} />
+                <Route path="/tietosuoja" element={<PrivacyPolicyPage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>

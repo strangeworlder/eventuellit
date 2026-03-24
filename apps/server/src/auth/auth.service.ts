@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import { users, magicLinkTokens } from "../db/schema";
+import { users, magicLinkTokens, characters } from "../db/schema";
 import { MailService } from "./mail.service";
 
 @Injectable()
@@ -91,5 +91,67 @@ export class AuthService {
       where: eq(users.id, userId),
     });
     return user || null;
+  }
+
+  /** GDPR: Export all personal data for the authenticated user */
+  async exportUserData(userId: number) {
+    const user = await this.db.query.users.findFirst({
+      where: eq(users.id, userId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException("User not found");
+    }
+
+    const userCharacters = await this.db.query.characters.findMany({
+      where: eq(characters.userId, userId),
+    });
+
+    return {
+      exportedAt: new Date().toISOString(),
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        avatarUrl: user.avatarUrl,
+        createdAt: user.createdAt,
+      },
+      characters: userCharacters,
+    };
+  }
+
+  /** GDPR: Delete user account, transferring characters to GM */
+  async deleteUserAccount(userId: number): Promise<void> {
+    const user = await this.db.query.users.findFirst({
+      where: eq(users.id, userId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException("User not found");
+    }
+
+    // Find the GM user to transfer characters to
+    const gmUser = await this.db.query.users.findFirst({
+      where: eq(users.role, "gm"),
+    });
+
+    if (gmUser) {
+      // Transfer characters to GM ownership
+      await this.db
+        .update(characters)
+        .set({ userId: gmUser.id })
+        .where(eq(characters.userId, userId));
+    }
+
+    // Delete magic link tokens for this email
+    await this.db
+      .delete(magicLinkTokens)
+      .where(eq(magicLinkTokens.email, user.email));
+
+    // Delete the user record
+    await this.db
+      .delete(users)
+      .where(eq(users.id, userId));
   }
 }

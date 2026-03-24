@@ -17,7 +17,7 @@ export class JwtAuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
-    const token = this.extractTokenFromCookie(request);
+    const token = this.extractTokenFromRequest(request);
 
     if (!token) {
       throw new UnauthorizedException("No authentication token");
@@ -39,7 +39,11 @@ export class JwtAuthGuard implements CanActivate {
     }
   }
 
-  private extractTokenFromCookie(request: Request): string | null {
+  private extractTokenFromRequest(request: Request): string | null {
+    const authHeader = request.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      return authHeader.substring(7);
+    }
     return request.cookies?.auth_token || null;
   }
 }

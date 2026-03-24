@@ -39,12 +39,22 @@ export async function verifyToken(token: string): Promise<AuthUser> {
   }
 
   const data = await response.json();
+  if (data.token) {
+    localStorage.setItem("auth_token", data.token);
+  }
   return data.user;
 }
 
 export async function getCurrentUser(): Promise<AuthUser | null> {
+  const token = localStorage.getItem("auth_token");
+  const headers: Record<string, string> = {};
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const response = await fetch(`${getApiBaseUrl()}/auth/me`, {
     method: "GET",
+    headers,
     credentials: "include",
   });
 
@@ -60,12 +70,62 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
 }
 
 export async function logout(): Promise<void> {
+  const token = localStorage.getItem("auth_token");
+  const headers: Record<string, string> = {};
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const response = await fetch(`${getApiBaseUrl()}/auth/logout`, {
     method: "POST",
+    headers,
     credentials: "include",
   });
+
+  localStorage.removeItem("auth_token");
 
   if (!response.ok) {
     throw new Error("Failed to logout");
   }
 }
+
+export async function exportMyData(): Promise<unknown> {
+  const token = localStorage.getItem("auth_token");
+  const headers: Record<string, string> = {};
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${getApiBaseUrl()}/auth/my-data`, {
+    method: "GET",
+    headers,
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to export data");
+  }
+
+  return response.json();
+}
+
+export async function deleteMyAccount(): Promise<void> {
+  const token = localStorage.getItem("auth_token");
+  const headers: Record<string, string> = {};
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${getApiBaseUrl()}/auth/my-account`, {
+    method: "DELETE",
+    headers,
+    credentials: "include",
+  });
+
+  localStorage.removeItem("auth_token");
+
+  if (!response.ok) {
+    throw new Error("Failed to delete account");
+  }
+}
+

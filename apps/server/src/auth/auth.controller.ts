@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Post,
   Req,
@@ -55,6 +56,7 @@ export class AuthController {
           role: user.role,
           avatarUrl: user.avatarUrl,
         },
+        token: jwt,
       });
     } catch (error) {
       if (error instanceof UnauthorizedException) {
@@ -88,4 +90,30 @@ export class AuthController {
     });
     res.status(200).json({ message: "Logged out successfully" });
   }
+
+  @Get("my-data")
+  @UseGuards(JwtAuthGuard)
+  async exportMyData(@Req() req: Request) {
+    const user = (req as any).user;
+    return this.authService.exportUserData(user.id);
+  }
+
+  @Delete("my-account")
+  @UseGuards(JwtAuthGuard)
+  async deleteMyAccount(
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<void> {
+    const user = (req as any).user;
+    await this.authService.deleteUserAccount(user.id);
+
+    const isProduction = process.env.NODE_ENV === "production";
+    res.clearCookie("auth_token", {
+      httpOnly: true,
+      sameSite: isProduction ? "none" : "lax",
+      secure: isProduction,
+    });
+    res.status(200).json({ message: "Account deleted successfully" });
+  }
 }
+

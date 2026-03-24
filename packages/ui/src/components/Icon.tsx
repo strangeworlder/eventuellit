@@ -1,5 +1,6 @@
 import {
     AlertTriangle,
+    Download,
     HeartPulse,
     ShieldAlert,
     Sparkles,
@@ -17,6 +18,7 @@ import {
     Plus,
     Settings,
     Shield,
+    Trash2,
     UserCircle,
     X,
     Zap,
@@ -25,6 +27,7 @@ import React from "react";
 
 export const icons = {
     "alert-triangle": AlertTriangle,
+    download: Download,
     "heart-pulse": HeartPulse,
     "shield-alert": ShieldAlert,
     sparkles: Sparkles,
@@ -42,6 +45,7 @@ export const icons = {
     plus: Plus,
     settings: Settings,
     shield: Shield,
+    "trash-2": Trash2,
     "user-circle": UserCircle,
     x: X,
     zap: Zap,

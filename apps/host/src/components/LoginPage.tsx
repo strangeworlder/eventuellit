@@ -89,6 +89,16 @@ export function LoginPage() {
               </form>
             </CardContent>
           </Card>
+          <p className="text-xs text-[var(--theme-text)]/50 leading-relaxed max-w-md">
+            Kirjautuminen käyttää välttämätöntä evästettä istunnon ylläpitämiseksi.{" "}
+            <button
+              type="button"
+              onClick={() => navigate("/tietosuoja")}
+              className="underline hover:text-[var(--theme-primary)] transition-colors"
+            >
+              Lue tietosuojaselosteemme
+            </button>.
+          </p>
         </div>
       </HeadingLevelProvider>
     </Page>
