@@ -12,7 +12,7 @@ import { HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { ImageElement } from "@repo/ui/components/ImageElement";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { Page } from "@repo/ui/components/Page";
+import { Page, PageBody } from "@repo/ui/components/Page";
 import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
 import { useEffect, useMemo, useRef } from "react";
 
@@ -288,7 +288,7 @@ function RulesetArticleView({ page }: { page: MarkdownPage }) {
         description={page.description}
         backgroundImageSrc={heroImage ? resolveRemoteAssetUrl(heroImage) : undefined}
       />
-      <div className="layout-stack">
+      <PageBody>
         <div ref={articleRef}>
           <HeadingLevelProvider>
             <div className="space-y-8">
@@ -315,7 +315,7 @@ function RulesetArticleView({ page }: { page: MarkdownPage }) {
             </div>
           </HeadingLevelProvider>
         </div>
-      </div>
+      </PageBody>
     </HeadingLevelProvider>
   );
 }

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
-import { Page } from "./Page";
+import { Heading, HeadingLevelProvider } from "./Heading";
+import { Hero } from "./Hero";
+import { Page, PageBody } from "./Page";
 
 const meta: Meta<typeof Page> = {
   title: "Suunnittelujarjestelma/Sivupohjat/Page",
@@ -21,16 +23,46 @@ export const Default: Story = {
         Header Navigation Simulation
       </div>
       <Page>
-        <div className="flex flex-col space-y-4">
-          <div className="border-b border-primary/20 pb-2">
-            <h2 className="text-2xl font-bold font-sans">Welcome to the Page Component</h2>
-          </div>
+        <Hero title="Sivun otsikko" description="Lyhyt kuvaus sivun sisällöstä." />
+        <PageBody>
           <p className="text-text/90 leading-relaxed max-w-3xl">
             This component enforces a minimum width of 95vw, maximum width of 1280px, and 100%
             relative width with consistent padding. It's designed to live snugly within TabsContent
             containers across the different microfrontends.
           </p>
-        </div>
+        </PageBody>
+      </Page>
+    </div>
+  ),
+};
+
+export const WithHeroAndBody: Story = {
+  render: () => (
+    <div className="min-h-screen bg-background text-text">
+      <Page>
+        <Hero
+          title="Maailman Historiaa"
+          description="Tutki kampanjan maailmaa, sijainteja ja hahmoja."
+        />
+        <PageBody>
+          <HeadingLevelProvider>
+            <section className="space-y-4">
+              <Heading>Ensimmäinen osio</Heading>
+              <p className="text-text/80 leading-relaxed">
+                PageBody huolehtii vaakasuuntaisesta täytteestä, pystysuuntaisesta tilasta
+                osioiden välillä ja sisääntuloanimaatiosta automaattisesti.
+              </p>
+            </section>
+
+            <section className="space-y-4">
+              <Heading>Toinen osio</Heading>
+              <p className="text-text/80 leading-relaxed">
+                Ei tarvita manuaalista px-4, space-y-8 tai animate-in fade-in -luokkia.
+                PageBody tarjoaa ne kaikki valmiina.
+              </p>
+            </section>
+          </HeadingLevelProvider>
+        </PageBody>
       </Page>
     </div>
   ),
@@ -40,24 +72,27 @@ export const WithStackedContent: Story = {
   render: () => (
     <div className="min-h-screen bg-background text-text">
       <Page>
-        <Card variant="primary">
-          <CardHeader>
-            <CardTitle>Top Section</CardTitle>
-          </CardHeader>
-          <CardContent>Important introductory info.</CardContent>
-        </Card>
+        <Hero title="Korttinäkymä" />
+        <PageBody>
+          <Card variant="primary">
+            <CardHeader>
+              <CardTitle>Top Section</CardTitle>
+            </CardHeader>
+            <CardContent>Important introductory info.</CardContent>
+          </Card>
 
-        <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-6">
-          <Card variant="subtle">
-            <CardContent className="h-48 flex items-center justify-center">Grid Item 1</CardContent>
-          </Card>
-          <Card variant="subtle">
-            <CardContent className="h-48 flex items-center justify-center">Grid Item 2</CardContent>
-          </Card>
-          <Card variant="subtle">
-            <CardContent className="h-48 flex items-center justify-center">Grid Item 3</CardContent>
-          </Card>
-        </div>
+          <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-6">
+            <Card variant="subtle">
+              <CardContent className="h-48 flex items-center justify-center">Grid Item 1</CardContent>
+            </Card>
+            <Card variant="subtle">
+              <CardContent className="h-48 flex items-center justify-center">Grid Item 2</CardContent>
+            </Card>
+            <Card variant="subtle">
+              <CardContent className="h-48 flex items-center justify-center">Grid Item 3</CardContent>
+            </Card>
+          </div>
+        </PageBody>
       </Page>
     </div>
   ),

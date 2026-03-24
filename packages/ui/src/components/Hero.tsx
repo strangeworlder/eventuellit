@@ -16,7 +16,7 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
             <div
                 ref={ref}
                 className={cn(
-                    "relative overflow-hidden border-b-2 border-[var(--theme-secondary)] mb-6 mt-0 bg-[var(--theme-bg)] text-[var(--theme-text)] min-h-40 tablet:min-h-48",
+                    "relative overflow-hidden border-b-2 border-[var(--theme-secondary)] bg-[var(--theme-bg)] text-[var(--theme-text)] min-h-40 tablet:min-h-48",
                     className
                 )}
                 {...props}

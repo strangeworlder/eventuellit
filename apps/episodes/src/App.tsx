@@ -18,7 +18,7 @@ import { ImageElement } from "@repo/ui/components/ImageElement";
 import { Link } from "@repo/ui/components/Link";
 import { List, ListItem } from "@repo/ui/components/List";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { Page } from "@repo/ui/components/Page";
+import { Page, PageBody } from "@repo/ui/components/Page";
 import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
 import { Input } from "@repo/ui/components/Input";
 import { Select } from "@repo/ui/components/Select";
@@ -330,7 +330,7 @@ function EpisodeDetails({ id }: { id: string }) {
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="animate-in fade-in duration-500">
       <HeadingLevelProvider>
         {isGm && (
           <div className="flex gap-2 justify-end mb-4 px-4 tablet:p-0">
@@ -357,7 +357,7 @@ function EpisodeDetails({ id }: { id: string }) {
           </div>
         </Hero>
 
-        <div className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8 px-4 tablet:pr-8 tablet:pl-0">
+        <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
           <div ref={articleRef} className="space-y-6">
             <HeadingLevelProvider>
               {fullEpisode.content && (
@@ -435,7 +435,7 @@ function EpisodeDetails({ id }: { id: string }) {
               <EpisodeSkillsEditor episodeId={fullEpisode.id} />
             )}
           </div>
-        </div>
+        </PageBody>
       </HeadingLevelProvider>
     </div>
   );

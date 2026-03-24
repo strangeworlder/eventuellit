@@ -8,6 +8,7 @@ import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
+import { PageBody } from "@repo/ui/components/Page";
 import { Select } from "@repo/ui/components/Select";
 import { useAuth } from "@repo/auth/use-auth";
 import { Input } from "@repo/ui/components/Input";
@@ -141,7 +142,7 @@ export function CharacterSheet({
           </NoticePanel>
         )}
 
-        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 mt-8">
+        <PageBody className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
           <div className="space-y-6">
             <section
               className="rounded-sm border-l-4 border-[var(--theme-secondary)] bg-[var(--theme-secondary)]/5 p-6 mt-4 shadow-[0_0_12px_color-mix(in_srgb,var(--theme-secondary)_8%,transparent)]"
@@ -270,7 +271,7 @@ export function CharacterSheet({
               )}
             </div>
           </HeadingLevelProvider>
-        </div>
+        </PageBody>
       </div>
     </HeadingLevelProvider>
   );

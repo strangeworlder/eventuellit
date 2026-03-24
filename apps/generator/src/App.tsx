@@ -10,7 +10,7 @@ import { TextArea } from "@repo/ui/components/TextArea";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { ObscuredWrapper } from "@repo/ui/components/ObscuredWrapper";
-import { Page } from "@repo/ui/components/Page";
+import { Page, PageBody } from "@repo/ui/components/Page";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
@@ -209,7 +209,7 @@ function GeneratorForm() {
       <HeadingLevelProvider>
         <Hero title="Uusi Hahmo" />
         <HeadingLevelProvider>
-          <div className="flex flex-col gap-8 px-4">
+            <PageBody className="flex flex-col gap-8">
             {/* ── Step 1: Episode ── */}
             <div className="space-y-4">
               <div className="border-b-2 border-primary/20 pb-2">
@@ -455,7 +455,7 @@ function GeneratorForm() {
                 {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
               </Button>
             </ObscuredWrapper>
-          </div>
+            </PageBody>
         </HeadingLevelProvider>
       </HeadingLevelProvider>
     </div>
@@ -517,7 +517,7 @@ function InnerApp() {
                 <>
                   <HeadingLevelProvider>
                     <Hero title="Hahmot" description="Hahmot" />
-                    <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 animate-in fade-in duration-500">
+                    <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8">
                       {isLoading && <LoadingState message="Ladataan hahmoja..." />}
                       {!isLoading && characters?.length === 0 && (
                         <div className="col-span-full text-center py-12">
@@ -593,7 +593,7 @@ function InnerApp() {
                             </Card>
                           );
                         })}
-                    </div>
+                    </PageBody>
                   </HeadingLevelProvider>
                 </>
               }

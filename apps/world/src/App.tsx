@@ -11,7 +11,7 @@ import {
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { Page } from "@repo/ui/components/Page";
+import { Page, PageBody } from "@repo/ui/components/Page";
 import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
 import { useEffect, useRef } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
@@ -198,14 +198,14 @@ function WorldEntryView({
   }, [pathname]);
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="animate-in fade-in duration-500">
       <HeadingLevelProvider>
         <Hero
           title={entry.title}
           description={entry.description}
           backgroundImageSrc={entry.image ? resolveRemoteAssetUrl(entry.image) : undefined}
         />
-        <div className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8 px-4 tablet:pr-8 tablet:pl-0">
+        <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
           <div ref={articleRef} className="space-y-6">
             <HeadingLevelProvider>
               <MarkdownRenderer headingIdPrefix={`world-${entry.id}`}>
@@ -226,7 +226,7 @@ function WorldEntryView({
               </HeadingLevelProvider>
             )}
           </div>
-        </div>
+        </PageBody>
       </HeadingLevelProvider>
     </div>
   );
@@ -275,16 +275,16 @@ function App() {
         </Tabs>
       )}
       {entries.length === 0 && (
-        <div className="space-y-8 animate-in fade-in duration-500">
+        <div className="animate-in fade-in duration-500">
           <HeadingLevelProvider>
             <Hero title="Maailma" description="Tutki kampanjan maailmaa, sijainteja ja hahmoja." />
-            <div className="px-4 tablet:pr-8 tablet:pl-0">
+            <PageBody>
               <Heading>Sisältöä tulossa</Heading>
               <p className="text-[var(--theme-text)]/60 mt-2">
                 Maailman sisältöä ei ole vielä lisätty. Lisää markdown-tiedostoja{" "}
                 <code>src/content/</code>-kansioon.
               </p>
-            </div>
+            </PageBody>
           </HeadingLevelProvider>
         </div>
       )}

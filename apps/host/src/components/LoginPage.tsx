@@ -1,10 +1,9 @@
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
-import { HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
-import { Page } from "@repo/ui/components/Page";
+import { Page, PageBody } from "@repo/ui/components/Page";
 import { requestMagicLink } from "@repo/auth/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -34,73 +33,69 @@ export function LoginPage() {
   if (isSuccess) {
     return (
       <Page>
-        <HeadingLevelProvider>
-          <Hero title="Kirjautumislinkki lähetetty" />
-          <div className="px-4 space-y-8 animate-in fade-in duration-500">
-            <NoticePanel variant="success" title="Linkki lähetetty">
-              <p className="text-lg">
-                Jos sähköpostiosoite on järjestelmässä, olet saanut kirjautumislinkin sähköpostiisi.
-                Klikkaa linkkiä kirjautuaksesi sisään.
-              </p>
-              <p className="text-sm text-secondary mt-4">
-                Huom: Kehitysympäristössä linkki tulostetaan myös palvelimen konsoliin.
-              </p>
-            </NoticePanel>
-            <Button onClick={() => navigate("/")}>Palaa etusivulle</Button>
-          </div>
-        </HeadingLevelProvider>
+        <Hero title="Kirjautumislinkki lähetetty" />
+        <PageBody>
+          <NoticePanel variant="success" title="Linkki lähetetty">
+            <p className="text-lg">
+              Jos sähköpostiosoite on järjestelmässä, olet saanut kirjautumislinkin sähköpostiisi.
+              Klikkaa linkkiä kirjautuaksesi sisään.
+            </p>
+            <p className="text-sm text-secondary mt-4">
+              Huom: Kehitysympäristössä linkki tulostetaan myös palvelimen konsoliin.
+            </p>
+          </NoticePanel>
+          <Button onClick={() => navigate("/")}>Palaa etusivulle</Button>
+        </PageBody>
       </Page>
     );
   }
 
   return (
     <Page>
-      <HeadingLevelProvider>
-        <Hero title="Kirjaudu sisään" />
-        <div className="px-4 space-y-8 animate-in fade-in duration-500">
-          <Card>
-            <CardHeader>
-              <CardTitle>Pyydä kirjautumislinkki</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <Input
-                  label="Sähköpostiosoite"
-                  type="email"
-                  placeholder="sähköposti@esimerkki.fi"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  disabled={isLoading}
-                />
-                {error && (
-                  <NoticePanel variant="error" title="Virhe">
-                    {error}
-                  </NoticePanel>
-                )}
-                <div className="flex gap-4">
-                  <Button type="submit" loading={isLoading} disabled={!email}>
-                    {isLoading ? "Lähetetään..." : "Lähetä linkki"}
-                  </Button>
-                  <Button variant="secondary" type="button" onClick={() => navigate("/")}>
-                    Peruuta
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-          <p className="text-xs text-[var(--theme-text)]/50 leading-relaxed max-w-md">
-            Kirjautuminen käyttää välttämätöntä evästettä istunnon ylläpitämiseksi.{" "}
-            <button
-              type="button"
-              onClick={() => navigate("/tietosuoja")}
-              className="underline hover:text-[var(--theme-primary)] transition-colors"
-            >
-              Lue tietosuojaselosteemme
-            </button>.
-          </p>
-        </div>
-      </HeadingLevelProvider>
+      <Hero title="Kirjaudu sisään" />
+      <PageBody>
+        <Card>
+          <CardHeader>
+            <CardTitle>Pyydä kirjautumislinkki</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <Input
+                label="Sähköpostiosoite"
+                type="email"
+                placeholder="sähköposti@esimerkki.fi"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+              {error && (
+                <NoticePanel variant="error" title="Virhe">
+                  {error}
+                </NoticePanel>
+              )}
+              <div className="flex gap-4">
+                <Button type="submit" loading={isLoading} disabled={!email}>
+                  {isLoading ? "Lähetetään..." : "Lähetä linkki"}
+                </Button>
+                <Button variant="secondary" type="button" onClick={() => navigate("/")}>
+                  Peruuta
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+        <p className="text-xs text-[var(--theme-text)]/50 leading-relaxed max-w-md">
+          Kirjautuminen käyttää välttämätöntä evästettä istunnon ylläpitämiseksi.{" "}
+          <button
+            type="button"
+            onClick={() => navigate("/tietosuoja")}
+            className="underline hover:text-[var(--theme-primary)] transition-colors"
+          >
+            Lue tietosuojaselosteemme
+          </button>.
+        </p>
+      </PageBody>
     </Page>
   );
 }
