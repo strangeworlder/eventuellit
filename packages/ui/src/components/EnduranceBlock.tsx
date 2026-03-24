@@ -101,7 +101,6 @@ export const EnduranceBlock = React.forwardRef<
                             faces={faces}
                             size="sm"
                             active={false}
-                            className="opacity-50"
                           />
                         ))
                       ) : (

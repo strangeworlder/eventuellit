@@ -3,6 +3,7 @@ import { Heading } from "./Heading";
 import { Text } from "./Text";
 import { cn } from "./utils";
 import { ImageElement } from "./ImageElement";
+import { HeroCanvas } from "./HeroCanvas";
 
 export interface HeroProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
     title: React.ReactNode;
@@ -23,10 +24,13 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
                 {...props}
             >
                 {!backgroundImageSrc && (
-                    <div
-                        aria-hidden="true"
-                        className="absolute inset-0 bg-gradient-to-br from-[var(--theme-bg)] via-[var(--theme-secondary)]/15 to-[var(--theme-bg)]"
-                    />
+                    <>
+                        <HeroCanvas className="absolute inset-0 w-full h-full" />
+                        <div
+                            aria-hidden="true"
+                            className="absolute inset-0 bg-gradient-to-br from-[var(--theme-bg)]/80 via-[var(--theme-secondary)]/10 to-[var(--theme-bg)]/80"
+                        />
+                    </>
                 )}
                 {backgroundImageSrc && (
                     <>

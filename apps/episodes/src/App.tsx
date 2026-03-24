@@ -1,3 +1,4 @@
+import { SkillTagList } from "@repo/ui/components/SkillTagList";
 import {
   mapSectionOffsetsToProgressPositions,
   resolveActiveSectionFromProgress,
@@ -12,6 +13,7 @@ import { useAuth } from "@repo/auth/use-auth";
 import { Badge } from "@repo/ui/components/Badge";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
+import { Drawer } from "@repo/ui/components/Drawer";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { ImageElement } from "@repo/ui/components/ImageElement";
@@ -144,79 +146,56 @@ function EpisodeSkillsEditor({ episodeId }: { episodeId: number }) {
   const { mutate: removeSkill } = useDeleteEpisodeSkill();
   const { mutate: updateSkill } = useUpdateEpisodeSkill();
 
-  const [newSkillName, setNewSkillName] = useState("");
-  const [editingSkillId, setEditingSkillId] = useState<number | null>(null);
-  const [editingSkillName, setEditingSkillName] = useState("");
-
   if (isLoading) return <LoadingState message="Ladataan taitoja..." />;
 
-  const handleAdd = () => {
-    if (!newSkillName.trim()) return;
-    addSkill({ episodeId, name: newSkillName.trim() }, {
-      onSuccess: () => setNewSkillName("")
-    });
-  };
-
-  const handleUpdate = (skillId: number) => {
-    if (!editingSkillName.trim()) return;
-    updateSkill({ episodeId, skillId, name: editingSkillName.trim() }, {
-      onSuccess: () => {
-        setEditingSkillId(null);
-        setEditingSkillName("");
-      }
-    });
-  };
-
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Hallitse Taitoja (GM)</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {skills && skills.length > 0 ? (
-          <List variant="unbulleted">
-            {skills.map((skill) => (
-              <ListItem key={skill.id} className="flex justify-between items-center group">
-                {editingSkillId === skill.id ? (
-                  <div className="flex gap-2 w-full">
-                    <Input value={editingSkillName} onChange={(e) => setEditingSkillName(e.target.value)} />
-                    <Button variant="solid" onClick={() => handleUpdate(skill.id)}>Save</Button>
-                    <Button variant="outline" onClick={() => setEditingSkillId(null)}>Cancel</Button>
-                  </div>
-                ) : (
-                  <>
-                    <span>{skill.name}</span>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" onClick={() => {
-                        setEditingSkillId(skill.id);
-                        setEditingSkillName(skill.name);
-                      }}>Edit</Button>
-                      <Button size="sm" variant="danger" onClick={() => removeSkill({ episodeId, skillId: skill.id })}>✖</Button>
-                    </div>
-                  </>
-                )}
-              </ListItem>
-            ))}
-          </List>
-        ) : (
-          <p className="text-sm text-secondary">Ei taitoja määritetty.</p>
-        )}
-
-        <div className="flex gap-2 items-end pt-4 border-t">
-          <Input
-            label="Uusi taito"
-            value={newSkillName}
-            onChange={(e) => setNewSkillName(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-          />
-          <Button onClick={handleAdd}>Lisää</Button>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="space-y-3">
+      <Heading>Jakson Taidot</Heading>
+      <SkillTagList
+        items={(skills ?? []).map((s) => ({ id: s.id, name: s.name }))}
+        onItemEdit={(id, name) =>
+          updateSkill({ episodeId, skillId: id as number, name })
+        }
+        onItemRemove={(id) =>
+          removeSkill({ episodeId, skillId: id as number })
+        }
+        onItemAdd={(name) =>
+          addSkill({ episodeId, name })
+        }
+      />
+    </div>
   );
 }
 
-function EpisodeDetails({ id }: { id: string }) {
+function GmToolsPanel({
+  episode,
+  onEdit,
+  onDelete,
+  onCreateNew,
+}: {
+  episode: Episode;
+  onEdit: () => void;
+  onDelete: () => void;
+  onCreateNew: () => void;
+}) {
+  return (
+    <Drawer title="Pelinjohtajan Työkalut">
+      <div className="space-y-3">
+        <Heading>Toiminnot</Heading>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" size="sm" onClick={onEdit}>Muokkaa Jaksoa</Button>
+          <Button variant="danger" size="sm" onClick={onDelete}>Poista Jakso</Button>
+          <Button size="sm" onClick={onCreateNew}>Luo Uusi Jakso</Button>
+        </div>
+      </div>
+      <div className="space-y-3">
+        <EpisodeSkillsEditor episodeId={episode.id} />
+      </div>
+    </Drawer>
+  );
+}
+
+function EpisodeDetails({ id, onCreateNew }: { id: string; onCreateNew?: () => void }) {
   const { data: episodes, isLoading: isEpisodesLoading } = useEpisodes();
   const episode = episodes?.find((e) => e.slug === id);
   const { data: fullEpisode, isLoading: isEpisodeLoading } = useEpisode(episode?.id as number);
@@ -332,19 +311,6 @@ function EpisodeDetails({ id }: { id: string }) {
   return (
     <div className="animate-in fade-in duration-500">
       <HeadingLevelProvider>
-        {isGm && (
-          <div className="flex gap-2 justify-end mb-4 px-4 tablet:p-0">
-            <Button variant="outline" onClick={() => setIsEditing(true)}>Muokkaa Jaksoa</Button>
-            <Button variant="danger" onClick={() => {
-              if (window.confirm("Oletko varma että haluat poistaa jakson?")) {
-                deleteEpisode(fullEpisode.id, {
-                  onSuccess: () => navigate("/")
-                });
-              }
-            }}>Poista Jakso</Button>
-          </div>
-        )}
-
         <Hero title={fullEpisode.title} description={fullEpisode.description || ""}>
           <div className="flex gap-2 mt-4">
             {fullEpisode.status === "active" && (
@@ -356,6 +322,21 @@ function EpisodeDetails({ id }: { id: string }) {
             {fullEpisode.status === "planned" && <Badge variant="outline">Tulossa</Badge>}
           </div>
         </Hero>
+
+        {isGm && onCreateNew && (
+          <GmToolsPanel
+            episode={fullEpisode}
+            onEdit={() => setIsEditing(true)}
+            onDelete={() => {
+              if (window.confirm("Oletko varma että haluat poistaa jakson?")) {
+                deleteEpisode(fullEpisode.id, {
+                  onSuccess: () => navigate("/")
+                });
+              }
+            }}
+            onCreateNew={onCreateNew}
+          />
+        )}
 
         <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
           <div ref={articleRef} className="space-y-6">
@@ -430,10 +411,6 @@ function EpisodeDetails({ id }: { id: string }) {
                 </Card>
               </div>
             )}
-
-            {isGm && (
-              <EpisodeSkillsEditor episodeId={fullEpisode.id} />
-            )}
           </div>
         </PageBody>
       </HeadingLevelProvider>
@@ -466,13 +443,6 @@ function EpisodeWrapper() {
 
   return (
     <Page>
-      {isGm && (
-        <div className="mb-6 flex justify-end">
-          <Button onClick={() => setIsCreating(!isCreating)}>
-            {isCreating ? "Peruuta" : "Luo Uusi Jakso"}
-          </Button>
-        </div>
-      )}
 
       {isCreating && isGm ? (
         <EpisodeEditForm
@@ -505,7 +475,7 @@ function EpisodeWrapper() {
                     <Route
                       key={episode.id}
                       path={episode.slug}
-                      element={<EpisodeDetails id={episode.slug} />}
+                      element={<EpisodeDetails id={episode.slug} onCreateNew={() => setIsCreating(true)} />}
                     />
                   ))}
                 </Routes>

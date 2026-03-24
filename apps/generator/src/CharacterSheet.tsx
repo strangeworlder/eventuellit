@@ -1,7 +1,7 @@
 import { AspectTag } from "@repo/ui/components/AspectTag";
+import { SkillTagList } from "@repo/ui/components/SkillTagList";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { Button } from "@repo/ui/components/Button";
-import { Checkbox } from "@repo/ui/components/Checkbox";
 import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
 import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
@@ -510,85 +510,34 @@ function SkillsSection({
   canEdit: boolean;
   onUpdate: (skills: { name: string; isCustom?: boolean }[]) => void;
 }) {
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [draftName, setDraftName] = useState("");
-  const [draftCustom, setDraftCustom] = useState(false);
-
   if (!skills || skills.length === 0) return null;
 
-  const normalizedSkills = skills.map((s) =>
-    typeof s === "string" ? { name: s, isCustom: false } : s,
+  const normalizedSkills = skills.map((s, i) =>
+    typeof s === "string"
+      ? { id: i, name: s, isCustom: false }
+      : { id: i, name: s.name, isCustom: s.isCustom ?? false },
   );
-
-  const startEditing = (index: number) => {
-    if (!canEdit) return;
-    const skill = normalizedSkills[index];
-    setEditingIndex(index);
-    setDraftName(skill.name);
-    setDraftCustom(skill.isCustom ?? false);
-  };
-
-  const saveSkill = () => {
-    if (editingIndex === null || !draftName.trim()) return;
-    const updated = normalizedSkills.map((s, i) =>
-      i === editingIndex ? { name: draftName.trim(), isCustom: draftCustom } : s,
-    );
-    onUpdate(updated);
-    setEditingIndex(null);
-  };
-
-  const cancelEditing = () => {
-    setEditingIndex(null);
-  };
 
   return (
     <div>
       <p className="text-sm text-[var(--theme-text)]/70 mb-2">Taidot:</p>
-      <div className="flex flex-wrap gap-2">
-        {normalizedSkills.map((skill, i) => {
-          if (editingIndex === i) {
-            return (
-              <div key={i} className="flex flex-col gap-2 w-full">
-                <Input
-                  value={draftName}
-                  onChange={(e) => setDraftName(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") saveSkill();
-                    if (e.key === "Escape") cancelEditing();
-                  }}
-                  // biome-ignore lint/a11y/noAutofocus: intentional for edit mode
-                  autoFocus
-                />
-                <Checkbox
-                  label="Oma taito"
-                  checked={draftCustom}
-                  onChange={(e) => setDraftCustom(e.target.checked)}
-                />
-                <div className="flex items-center gap-3">
-                  <Button size="sm" onClick={saveSkill} disabled={!draftName.trim()}>
-                    Tallenna
-                  </Button>
-                  <Button size="sm" variant="ghost-subtle" onClick={cancelEditing}>
-                    Peruuta
-                  </Button>
-                </div>
-              </div>
-            );
-          }
-          return (
-            <AspectTag
-              key={i}
-              text={skill.name}
-              variant="skill"
-              isCustom={skill.isCustom ?? false}
-              readOnly={!canEdit}
-              onClick={() => startEditing(i)}
-              className={canEdit ? "cursor-pointer" : undefined}
-              title={canEdit ? "Klikkaa muokataksesi" : undefined}
-            />
-          );
-        })}
-      </div>
+      <SkillTagList
+        items={normalizedSkills}
+        readOnly={!canEdit}
+        showCustomToggle
+        onItemEdit={
+          canEdit
+            ? (id, name, isCustom) => {
+                const updated = normalizedSkills.map((s) =>
+                  s.id === id
+                    ? { name, isCustom: isCustom ?? s.isCustom }
+                    : { name: s.name, isCustom: s.isCustom },
+                );
+                onUpdate(updated);
+              }
+            : undefined
+        }
+      />
     </div>
   );
 }
