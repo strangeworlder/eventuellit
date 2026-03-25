@@ -51,15 +51,19 @@ export const DicePoolTracker = React.forwardRef<
     const removedSet = useMemo(() => new Set(removedIds), [removedIds]);
     const activeCount = dice.length - removedSet.size;
 
-    // Group dice by face count, sorted ascending
+    // Group dice by face count, sorted ascending (swirl sorts last)
     const grouped = useMemo(() => {
-      const groups = new Map<number, DicePoolDie[]>();
+      const groups = new Map<DicePoolDie["faces"], DicePoolDie[]>();
       for (const die of dice) {
         const list = groups.get(die.faces) ?? [];
         list.push(die);
         groups.set(die.faces, list);
       }
-      return [...groups.entries()].sort(([a], [b]) => a - b);
+      return [...groups.entries()].sort(([a], [b]) => {
+        if (a === "swirl") return 1;
+        if (b === "swirl") return -1;
+        return (a as number) - (b as number);
+      });
     }, [dice]);
 
     const handleClick = (id: string) => {
