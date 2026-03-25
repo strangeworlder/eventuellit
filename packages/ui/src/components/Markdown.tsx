@@ -9,9 +9,8 @@ import { Link } from "./Link";
 import { List, ListItem } from "./List";
 import { Text } from "./Text";
 
-export interface MarkdownRendererProps {
+export interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   children: string;
-  className?: string;
   headingIdPrefix?: string;
 }
 
@@ -35,15 +34,16 @@ function getNodeText(node: React.ReactNode): string {
   return "";
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
+export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendererProps>(function MarkdownRenderer({
   children,
   className,
   headingIdPrefix,
-}) => {
+  ...props
+}, ref) {
   const headingUsageMap = new Map<string, number>();
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div ref={ref} className={cn("space-y-4", className)} {...props}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -136,4 +136,5 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       </ReactMarkdown>
     </div>
   );
-};
+});
+MarkdownRenderer.displayName = "MarkdownRenderer";

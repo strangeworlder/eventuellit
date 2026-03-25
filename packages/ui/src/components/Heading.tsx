@@ -88,7 +88,7 @@ const FlickeringText = ({ text }: { text: string }) => {
             key={index}
             className={cn(
               isFlickering ? "flicker-char" : "",
-              breathState.toggle ? "breath-char-1" : "breath-char-2",
+              breathState.toggle ? "breath-char" : "",
               "inline-block transition-colors duration-300",
             )}
             style={{
@@ -157,40 +157,6 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
         )}
         {...props}
       >
-        {activeVariant === "h1" && (
-          <style suppressHydrationWarning>{`
-                        @keyframes breath-glow-1 {
-                            0%, 100% { text-shadow: none; }
-                            50% { text-shadow: 0 0 8px color-mix(in srgb, var(--theme-secondary) 33%, transparent); }
-                        }
-                        @keyframes breath-glow-2 {
-                            0%, 100% { text-shadow: none; }
-                            50% { text-shadow: 0 0 8px color-mix(in srgb, var(--theme-secondary) 33%, transparent); }
-                        }
-                        .breath-char-1 {
-                            animation: breath-glow-1 4s ease-in-out forwards;
-                        }
-                        .breath-char-2 {
-                            animation: breath-glow-2 4s ease-in-out forwards;
-                        }
-                        @keyframes fluorescent-flicker {
-                            0% { opacity: 1; text-shadow: none; }
-                            10% { opacity: 0.9; text-shadow: none; }
-                            20% { opacity: 1; text-shadow: 0 0 8px var(--theme-secondary);}
-                            30% { opacity: 0.9; text-shadow: none; }
-                            40% { opacity: 1; text-shadow: none; }
-                            50% { opacity: 0.85; text-shadow: none; }
-                            60% { opacity: 1; text-shadow: 0 0 8px var(--theme-secondary);}
-                            70% { opacity: 0.95; text-shadow: none; }
-                            80% { opacity: 0.85; text-shadow: none; }
-                            90% { opacity: 1; text-shadow: none; }
-                            100% { opacity: 0.75; text-shadow: none; }
-                        }
-                        .flicker-char {
-                            animation: fluorescent-flicker 0.8s infinite alternate !important;
-                        }
-                    `}</style>
-        )}
         {renderedChildren}
       </Component>
     );

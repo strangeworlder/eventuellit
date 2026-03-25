@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Heading } from "./Heading";
+import { Text } from "./Text";
 
 const meta = {
   title: "Suunnittelujarjestelma/Perustat/Tokens",
@@ -59,18 +61,18 @@ export const Breakpoints: Story = {
   render: () => (
     <div className="space-y-8 flex flex-col font-sans">
       <div>
-        <h2 className="text-2xl font-heading font-bold mb-4">Breakpoints</h2>
-        <p className="opacity-80 mb-6 max-w-prose">
+        <Heading as="h2" variant="h2" className="mb-4">Breakpoints</Heading>
+        <Text variant="muted" className="mb-6 max-w-prose">
           These are the standard breakpoints defined in our Design System. Use them as prefixes in
           your Tailwind classes to apply responsive styles (e.g.,{" "}
-          <code className="bg-white/10 px-1 py-0.5 rounded">tablet:text-lg</code>,{" "}
-          <code className="bg-white/10 px-1 py-0.5 rounded">desktop:flex-row</code>).
-        </p>
+          <code className="bg-[var(--theme-surface-tint)] px-1 py-0.5 rounded text-[var(--theme-text)]">tablet:text-lg</code>,{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 py-0.5 rounded text-[var(--theme-text)]">desktop:flex-row</code>).
+        </Text>
 
-        <div className="border border-white/10 rounded-lg overflow-hidden bg-background">
+        <div className="border border-[var(--theme-border-soft)] rounded-lg overflow-hidden bg-[var(--theme-bg)]">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-white/10 bg-white/5">
+              <tr className="border-b border-[var(--theme-border-soft)] bg-[var(--theme-surface-tint)]">
                 <th className="py-3 px-4 font-semibold">Prefix</th>
                 <th className="py-3 px-4 font-semibold">Minimum Width</th>
                 <th className="py-3 px-4 font-semibold">CSS Variable</th>
@@ -78,7 +80,7 @@ export const Breakpoints: Story = {
             </thead>
             <tbody>
               {Object.entries(breakpoints).map(([name, value]) => (
-                <tr key={name} className="border-b border-white/5 last:border-0">
+                <tr key={name} className="border-b border-[var(--theme-border-soft)] last:border-0">
                   <td className="py-3 px-4 whitespace-nowrap">
                     <code className="text-accent-300 font-bold bg-accent-900/50 px-2 py-1 rounded">
                       {name}:
@@ -86,7 +88,7 @@ export const Breakpoints: Story = {
                   </td>
                   <td className="py-3 px-4 text-primary-200">{value}</td>
                   <td className="py-3 px-4">
-                    <code className="opacity-70 text-sm">--breakpoint-{name}</code>
+                    <code className="text-text-subtle text-sm">--breakpoint-{name}</code>
                   </td>
                 </tr>
               ))}
@@ -95,14 +97,14 @@ export const Breakpoints: Story = {
         </div>
       </div>
 
-      <div className="mt-8 pt-8 border-t border-white/10">
-        <h3 className="text-xl font-heading font-bold mb-4">Visualizer</h3>
-        <p className="opacity-80 mb-6 text-sm">
+      <div className="mt-8 pt-8 border-t border-[var(--theme-border-soft)]">
+        <Heading as="h3" variant="h3" className="mb-4">Visualizer</Heading>
+        <Text variant="muted" className="mb-6">
           Resize your browser window to see how the container responds to these breakpoints.
-        </p>
-        <div className="relative h-32 rounded-lg border-2 border-dashed border-white/20 bg-white/5 flex items-center justify-center p-4 text-center transition-all duration-300">
+        </Text>
+        <div className="relative h-32 rounded-lg border-2 border-dashed border-[var(--theme-border-medium)] bg-[var(--theme-surface-tint)] flex items-center justify-center p-4 text-center transition-all duration-300">
           <div className="absolute inset-0 flex items-center justify-center font-bold text-lg pointer-events-none">
-            <span className="block mobile:hidden text-white/50">
+            <span className="block mobile:hidden text-text-subtle">
               Base (&lt; {breakpoints.mobile})
             </span>
             <span className="hidden mobile:block tablet:hidden text-accent-300">
@@ -114,10 +116,10 @@ export const Breakpoints: Story = {
             <span className="hidden desktop:block x-wide:hidden text-primary-300">
               Desktop (&ge; {breakpoints.desktop})
             </span>
-            <span className="hidden x-wide:block xx-wide:hidden text-green-300">
+            <span className="hidden x-wide:block xx-wide:hidden text-accent-200">
               X-Wide (&ge; {breakpoints["x-wide"]})
             </span>
-            <span className="hidden xx-wide:block text-yellow-300">
+            <span className="hidden xx-wide:block text-primary-200">
               XX-Wide (&ge; {breakpoints["xx-wide"]})
             </span>
           </div>
@@ -125,23 +127,23 @@ export const Breakpoints: Story = {
           {/* Visual indicators for active breakpoint */}
           <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-2">
             <div
-              className="h-2 w-8 rounded-full bg-white/20 mobile:bg-white/50 transition-colors"
+              className="h-2 w-8 rounded-full bg-[var(--theme-border-soft)] mobile:bg-[var(--theme-border-medium)] transition-colors"
               title="Mobile"
             />
             <div
-              className="h-2 w-8 rounded-full bg-white/20 tablet:bg-secondary-500 transition-colors"
+              className="h-2 w-8 rounded-full bg-[var(--theme-border-soft)] tablet:bg-secondary-500 transition-colors"
               title="Tablet"
             />
             <div
-              className="h-2 w-8 rounded-full bg-white/20 desktop:bg-primary-500 transition-colors"
+              className="h-2 w-8 rounded-full bg-[var(--theme-border-soft)] desktop:bg-primary-500 transition-colors"
               title="Desktop"
             />
             <div
-              className="h-2 w-8 rounded-full bg-white/20 x-wide:bg-green-500 transition-colors"
+              className="h-2 w-8 rounded-full bg-[var(--theme-border-soft)] x-wide:bg-accent-500 transition-colors"
               title="X-Wide"
             />
             <div
-              className="h-2 w-8 rounded-full bg-white/20 xx-wide:bg-yellow-500 transition-colors"
+              className="h-2 w-8 rounded-full bg-[var(--theme-border-soft)] xx-wide:bg-primary-400 transition-colors"
               title="XX-Wide"
             />
           </div>
@@ -155,12 +157,14 @@ export const Spacing: Story = {
   render: () => (
     <div className="space-y-4 font-sans">
       <div>
-        <h2 className="text-2xl font-heading font-bold mb-4">Spacing Scale</h2>
-        <p className="opacity-80 mb-6 max-w-prose">
+        <Heading as="h2" variant="h2" className="mb-4">Spacing Scale</Heading>
+        <Text variant="muted" className="mb-6 max-w-prose">
           The spacing scale is used for margins, paddings, gaps, and positioning. It follows a
-          predictable progression. Use Tailwind classes like <code>p-4</code>, <code>m-2</code>,{" "}
-          <code>gap-8</code>.
-        </p>
+          predictable progression. Use Tailwind classes like{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">p-4</code>,{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">m-2</code>,{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">gap-8</code>.
+        </Text>
 
         <div className="flex flex-col gap-2">
           {Object.entries(spacingScale).map(([name, value]) => {
@@ -170,10 +174,10 @@ export const Spacing: Story = {
 
             return (
               <div key={name} className="flex items-center gap-4 text-sm">
-                <div className="w-16 font-mono text-right opacity-70 border-r border-white/10 pr-4">
+                <div className="w-16 font-mono text-right text-text-subtle border-r border-[var(--theme-border-soft)] pr-4">
                   {name}
                 </div>
-                <div className="w-32 opacity-90">{value}</div>
+                <div className="w-32 text-text-muted">{value}</div>
                 <div className="flex-1">
                   <div
                     className="h-4 bg-primary-500 rounded-sm"
@@ -193,30 +197,26 @@ export const BorderRadius: Story = {
   render: () => (
     <div className="space-y-4 font-sans">
       <div>
-        <h2 className="text-2xl font-heading font-bold mb-4">Border Radius</h2>
-        <p className="opacity-80 mb-6 max-w-prose">
-          The standard border radius scale. Use utility classes like <code>rounded-md</code>,{" "}
-          <code>rounded-full</code>.
-        </p>
+        <Heading as="h2" variant="h2" className="mb-4">Border Radius</Heading>
+        <Text variant="muted" className="mb-6 max-w-prose">
+          The standard border radius scale. Use utility classes like{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">rounded-md</code>,{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">rounded-full</code>.
+        </Text>
 
         <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-6">
           {Object.entries(radiusScale).map(([name, value]) => {
             return (
               <div key={name} className="flex flex-col gap-3">
                 <div
-                  className="h-24 bg-white/10 border border-white/20 flex items-center justify-center"
+                  className="h-24 bg-[var(--theme-surface-tint)] border border-[var(--theme-border-soft)] flex items-center justify-center"
                   style={{ borderRadius: value }}
-                >
-                  <div className="w-4 h-4 rounded-full bg-white/20 absolute top-2 left-2" />
-                  <div className="w-4 h-4 rounded-full bg-white/20 absolute top-2 right-2" />
-                  <div className="w-4 h-4 rounded-full bg-white/20 absolute bottom-2 left-2" />
-                  <div className="w-4 h-4 rounded-full bg-white/20 absolute bottom-2 right-2" />
-                </div>
+                />
                 <div className="text-sm">
-                  <span className="font-bold font-mono">
+                  <span className="font-bold font-mono text-[var(--theme-text)]">
                     {name === "DEFAULT" ? "rounded" : `rounded-${name}`}
                   </span>
-                  <div className="opacity-70">{value}</div>
+                  <Text variant="caption">{value}</Text>
                 </div>
               </div>
             );
@@ -245,11 +245,11 @@ export const Layout: Story = {
   render: () => (
     <div className="space-y-12 font-sans">
       <div>
-        <h2 className="text-2xl font-heading font-bold mb-4">Layout Tokens</h2>
-        <p className="opacity-80 mb-8 max-w-prose">
+        <Heading as="h2" variant="h2" className="mb-4">Layout Tokens</Heading>
+        <Text variant="muted" className="mb-8 max-w-prose">
           These tokens represent standard page structures in our application. They are implemented
           as utility classes rather than components to remain flexible.
-        </p>
+        </Text>
 
         <div className="space-y-10">
           {Object.entries(layoutTokens).map(([key, token]) => (
@@ -258,24 +258,20 @@ export const Layout: Story = {
                 <code className="text-accent-300 font-bold bg-accent-900/50 px-2 py-1 rounded text-lg">
                   .{token.name}
                 </code>
-                <span className="text-sm opacity-60 italic">{token.description}</span>
+                <Text variant="caption" className="italic">{token.description}</Text>
               </div>
 
               <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
-                <div className="bg-white/5 border border-white/10 rounded-lg p-6 space-y-3">
-                  <div className="flex justify-between text-xs opacity-50 uppercase tracking-widest">
-                    <span>Structure</span>
-                  </div>
-                  <p className="font-mono text-sm">{token.structure}</p>
+                <div className="bg-[var(--theme-surface-tint)] border border-[var(--theme-border-soft)] rounded-lg p-6 space-y-3">
+                  <Text variant="label">Structure</Text>
+                  <p className="font-mono text-sm text-[var(--theme-text)]">{token.structure}</p>
 
-                  <div className="pt-4 flex justify-between text-xs opacity-50 uppercase tracking-widest">
-                    <span>Common Usage</span>
-                  </div>
-                  <p className="text-sm">{token.usage}</p>
+                  <Text variant="label" className="pt-4">Common Usage</Text>
+                  <Text variant="small">{token.usage}</Text>
                 </div>
 
-                <div className="relative border border-dashed border-white/20 rounded-lg bg-white/5 min-h-[200px] overflow-hidden p-2">
-                  <div className="absolute top-2 right-2 text-[10px] opacity-30 font-mono">Visual Preview</div>
+                <div className="relative border border-dashed border-[var(--theme-border-medium)] rounded-lg bg-[var(--theme-surface-tint)] min-h-[200px] overflow-hidden p-2">
+                  <Text variant="caption" className="absolute top-2 right-2 font-mono">Visual Preview</Text>
 
                   {key === 'stack' ? (
                     <div className="layout-stack py-4 h-full">

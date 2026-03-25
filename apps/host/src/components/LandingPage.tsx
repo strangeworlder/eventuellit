@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Heading, HeadingLevelContext } from "@repo/ui/components/Heading";
+import { Text } from "@repo/ui/components/Text";
 import { VideoCta } from "@repo/ui/components/VideoCta";
 import { useAuth } from "@repo/auth/use-auth";
 
@@ -17,10 +18,10 @@ export function LandingPage() {
                     <Heading className="text-3xl mobile:text-5xl tablet:text-7xl font-black tracking-tighter">
                         EVENTUELLIT
                     </Heading>
-                    <p className="text-md mobile:text-xl text-[var(--theme-text)] max-w-2xl mx-auto leading-relaxed">
+                    <Text variant="lead" className="max-w-2xl mx-auto">
                         Kaikki mitä tarvitset seuraavaan roolipelisessioosi.
                         Luo hahmoja, tarkista säännöt ja uppoudu tarinaan.
-                    </p>
+                    </Text>
                 </div>
 
                 <div className="w-full max-w-4xl mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
@@ -46,9 +47,9 @@ export function LandingPage() {
                                 <CardTitle>Hahmopaja</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-text">
+                                <Text>
                                     Luo ja muokkaa hahmoja Eventuellit-järjestelmään. Kaikki työkalut hahmonkehitykseen yhdessä paikassa.
-                                </p>
+                                </Text>
                             </CardContent>
                         </Card>
                     )}
@@ -64,9 +65,9 @@ export function LandingPage() {
                             <CardTitle>Sääntökirja</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-text">
+                            <Text>
                                 Tutustu pelin sääntöihin ja maailmaan. Kattava ja helposti selattava opas kaikille pelaajille.
-                            </p>
+                            </Text>
                         </CardContent>
                     </Card>
 
@@ -81,9 +82,9 @@ export function LandingPage() {
                             <CardTitle>Jaksot</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-text">
+                            <Text>
                                 Seuraa meneillään olevia jaksoja ja tutki menneitä seikkailuja. Valmistaudu seuraavaan istuntoon.
-                            </p>
+                            </Text>
                         </CardContent>
                     </Card>
 
@@ -98,9 +99,9 @@ export function LandingPage() {
                             <CardTitle>Maailma</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-text">
+                            <Text>
                                 Tutustu pelin maailmaan. Tutki eri alueita, kulttuureja ja tapahtumia.
-                            </p>
+                            </Text>
                         </CardContent>
                     </Card>
                 </div>

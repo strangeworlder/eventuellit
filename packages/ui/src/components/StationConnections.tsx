@@ -5,6 +5,7 @@ import { AnchoredTooltip, type AnchoredTooltipPlacement } from "./AnchoredToolti
 import { DiceIcon } from "./DiceIcon";
 import { Heading } from "./Heading";
 import { Text } from "./Text";
+import { cn } from "./utils";
 
 export type CompassDir = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
 
@@ -23,7 +24,7 @@ export interface ConnectedStation {
   tension?: string;
 }
 
-export interface StationConnectionsProps {
+export interface StationConnectionsProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Array of connection nodes built from the connections data file */
   connections: StationConnectionNode[];
   /** Tension level of the current station */
@@ -136,7 +137,7 @@ function posStyle(x: number, y: number): React.CSSProperties {
 
 type AnimPhase = "idle" | "exit" | "enter";
 
-export function StationConnections({
+export const StationConnections = React.forwardRef<HTMLDivElement, StationConnectionsProps>(function StationConnections({
   connections,
   tension,
   currentStationOrder,
@@ -144,7 +145,9 @@ export function StationConnections({
   stations,
   basePath = "/",
   onNavigate,
-}: StationConnectionsProps) {
+  className,
+  ...props
+}: StationConnectionsProps, ref) {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerPx, setContainerPx] = useState(SIZE);
@@ -406,7 +409,7 @@ export function StationConnections({
             {
               "--theme-primary": "var(--color-secondary-500)",
               "--theme-secondary": "var(--color-secondary-500)",
-              opacity: 0.35,
+              opacity: 0.95,
             } as React.CSSProperties
           }
         />
@@ -473,8 +476,7 @@ export function StationConnections({
         )}
 
         <Text
-          variant="node"
-          className="text-center max-w-[64px] truncate"
+          variant="station-node"
           style={{ color }}
         >
           {node.title}
@@ -492,7 +494,7 @@ export function StationConnections({
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <div className="px-4 tablet:pr-8 tablet:pl-0">
+    <div ref={ref} className={cn("px-4 tablet:pr-8 tablet:pl-0", className)} {...props}>
       <Heading className="mb-3">Yhteydet</Heading>
 
       <div
@@ -727,4 +729,5 @@ export function StationConnections({
       </div>
     </div>
   );
-}
+});
+StationConnections.displayName = "StationConnections";

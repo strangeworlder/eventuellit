@@ -63,3 +63,15 @@ export const Obscured: Story = {
     obscured: true,
   },
 };
+
+export const Virheellinen: Story = {
+  args: {
+    label: "Suoratoistolupa",
+    description: "Salli automaattinen suoratoisto pelisessioissa.",
+    error: "Asetus vaatii tilin vahvistamisen ennen kuin se voidaan ottaa käyttöön.",
+  },
+  render: (args) => {
+    const [checked, setChecked] = useState(false);
+    return <Switch {...args} checked={checked} onChange={(e) => setChecked(e.target.checked)} />;
+  },
+};

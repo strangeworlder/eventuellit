@@ -1,0 +1,111 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Suunnittelujarjestelma/Perustat/Suunnitteluperiaatteet" />
+
+# Suunnitteluperiaatteet
+
+These principles guide every decision made in this design system — what we build, why we build it, and how we evaluate trade-offs.
+
+---
+
+## 1. Purpose over Pixels
+
+Components expose **semantic intent**, not visual measurements.
+
+```tsx
+// ✅ Correct — choose the purpose
+<Button size="lg" variant="solid">Tallenna</Button>
+<Text variant="lead">Tervetuloa kampanjaan.</Text>
+<Card variant="callout">...</Card>
+
+// ❌ Wrong — fighting with pixels
+<button className="px-8 py-4 text-xl w-full">Tallenna</button>
+<p className="text-[1.25rem] leading-normal font-light">Tervetuloa...</p>
+```
+
+When you pick `variant="lead"` you are saying *what the content is*, not *how big it should be*. This lets us change visual scales globally without hunting down every component.
+
+---
+
+## 2. Token-First, Utility-Last
+
+Every color, size, shadow, and animation lives in a **CSS custom property** defined in `styles.css`. Tailwind utilities are the delivery mechanism — not the source of truth.
+
+```css
+/* ✅ Defined once, works everywhere */
+--motion-duration-base: 250ms;
+--shadow-overlay: 0 10px 15px -3px rgb(0 0 0 / 0.6);
+
+/* Used in components as: */
+transition-all duration-[var(--motion-duration-base)]
+shadow-[var(--shadow-overlay)]
+```
+
+If a value appears more than once across components, it becomes a token.
+
+---
+
+## 3. Accessibility is Non-Negotiable
+
+WCAG AA compliance is **built into the token system**, not bolted on afterward.
+
+- All 8 themes have **pre-verified contrast ratios** documented inline in `styles.css`
+- No opacity modifiers on text (they break contrast guarantees)
+- Interactive components include keyboard navigation, focus rings, and ARIA semantics by default
+- Danger/destructive actions use icon + text, never color alone
+
+---
+
+## 4. Finnish by Default
+
+All user-facing text is in Finnish. No English labels, even in parentheses or tooltips.
+
+```tsx
+// ✅
+<Button aria-label="Sulje">...</Button>
+<Switch label="Näytä piilotetut" />
+
+// ❌
+<Button aria-label="Close">...</Button>
+<Switch label="Show hidden (Näytä piilotetut)" />
+```
+
+This applies to: button labels, form labels, error messages, ARIA labels, empty state text, loading messages, and Storybook story args.
+
+---
+
+## 5. Component Contract
+
+Every new `@repo/ui` component must:
+
+- Use `React.forwardRef` with a typed ref
+- Set `ComponentName.displayName`
+- Accept an optional `theme?: Theme` prop
+- Use `font-sans` on the root element
+- Use token-scale values only — no arbitrary `p-[18px]`
+- Have a Storybook story with `tags: ["autodocs"]`
+- Follow atomic design placement (Atom → Molecule → Organism)
+
+---
+
+## 6. One Source, Multiple Surfaces
+
+The design system serves a **federated micro-frontend** architecture. Five apps share this package. Design decisions must hold up in every app context, including:
+
+- Different route roots (host, world, ruleset, episodes, generator)
+- Portal-rendered overlays that escape the React tree
+- `data-theme` scopes that can nest and override
+
+This is why portals must preserve theme context, and why components use `var(--theme-*)` instead of hardcoded colors.
+
+---
+
+## 7. Storybook is the Source of Truth for Design
+
+Every component variant, state, and theme permutation is demonstrated in Storybook. If it isn't in Storybook, it doesn't officially exist.
+
+- **Perustat** — foundational tokens (colors, typography, spacing, themes)
+- **Atomit** — smallest building blocks (Button, Text, Icon, Badge)
+- **Molekyylit** — composed from atoms (Card, Tabs, Input, ImageElement)
+- **Organismit** — complex layout components (Page, Sidebar, Drawer, Dialog)
+- **Pelimekaniikka** — game-specific domain components (DicePoolAllocator, StationConnections, StatBlock)

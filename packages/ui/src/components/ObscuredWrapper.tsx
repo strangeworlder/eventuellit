@@ -27,6 +27,9 @@ export interface ObscuredWrapperProps {
  * other elements receive a 1.5px blur.  `pointer-events` and `user-select`
  * are also disabled so the section is completely non-interactable.
  *
+ * A visually-hidden `<span>` announces "Sisältö piilotettu" to screen readers,
+ * while the blurred visual tree is hidden from AT via `aria-hidden`.
+ *
  * Child components that call `useObscured()` will automatically receive the
  * obscured state regardless of nesting depth.
  *
@@ -40,6 +43,8 @@ export const ObscuredWrapper = React.forwardRef<HTMLDivElement, ObscuredWrapperP
 
     return (
       <ObscuredContext.Provider value={true}>
+        {/* Screen-reader announcement: tells AT the section is intentionally hidden */}
+        <span className="sr-only">Sisältö piilotettu</span>
         <div
           ref={ref}
           aria-hidden="true"

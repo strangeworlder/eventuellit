@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, forwardRef } from "react";
 import { Button } from "./Button";
 import { cn } from "./utils";
 
@@ -35,7 +35,7 @@ export interface SkillItem {
   selected?: boolean;
 }
 
-export interface SkillMasonryProps {
+export interface SkillMasonryProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Array of skill items to render */
   skills: SkillItem[];
   /** Triggered when a skill is clicked */
@@ -55,8 +55,6 @@ export interface SkillMasonryProps {
   onCustomClick?: () => void;
   /** Text for the custom button */
   customButtonLabel?: string;
-  /** Optional className on the root container */
-  className?: string;
 }
 
 /**
@@ -90,7 +88,7 @@ function optimalOrder<T extends { name: string }>(items: T[]): T[] {
   return result;
 }
 
-export function SkillMasonry({
+export const SkillMasonry = forwardRef<HTMLDivElement, SkillMasonryProps>(function SkillMasonry({
   skills,
   onSkillClick,
   sort = "none",
@@ -99,7 +97,8 @@ export function SkillMasonry({
   onCustomClick,
   customButtonLabel = "Oma taito...",
   className,
-}: SkillMasonryProps) {
+  ...props
+}, ref) {
   const allItems = useMemo(() => {
     let items: Array<SkillItem & { _custom?: true }> = skills.map((s) => ({ ...s }));
 
@@ -123,7 +122,7 @@ export function SkillMasonry({
   const glitchSeeds = useGlitchSeeds(allItems.map((i) => i.id));
 
   return (
-    <div className={cn("flex flex-wrap gap-3", className)}>
+    <div ref={ref} className={cn("flex flex-wrap gap-3", className)} {...props}>
       {allItems.map((item) => {
         const isCustom = item._custom === true;
 
@@ -157,4 +156,5 @@ export function SkillMasonry({
       })}
     </div>
   );
-}
+});
+SkillMasonry.displayName = "SkillMasonry";

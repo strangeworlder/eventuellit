@@ -5,6 +5,21 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
+/** @type {import("eslint").Linter.RuleEntry} */
+const dsRawHtmlRule = [
+  "warn",
+  {
+    selector: "JSXOpeningElement[name.name='p']",
+    message:
+      "Avoid raw <p> elements in app code. Use <Text variant=\"...\"> from @repo/ui/components/Text instead.",
+  },
+  {
+    selector: "JSXOpeningElement[name.name=/^h[1-6]$/]",
+    message:
+      "Avoid raw heading elements in app code. Use <Heading> from @repo/ui/components/Heading instead.",
+  },
+];
+
 export default defineConfig([
   globalIgnores(["dist"]),
   {
@@ -18,6 +33,9 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    rules: {
+      "no-restricted-syntax": dsRawHtmlRule,
     },
   },
 ]);

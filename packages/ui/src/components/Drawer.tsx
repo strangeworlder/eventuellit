@@ -3,6 +3,8 @@ import { Button } from "./Button";
 import { Icon } from "./Icon";
 import { Heading, HeadingLevelProvider } from "./Heading";
 import { cn } from "./utils";
+import type { Theme } from "./Theme";
+import { useFocusTrap } from "./useFocusTrap";
 
 export type DrawerContextType = {
   expanded: boolean;
@@ -29,7 +31,7 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Callback when expanded state changes */
   onExpandedChange?: (expanded: boolean) => void;
   /** Optional theme override */
-  theme?: string;
+  theme?: Theme;
 }
 
 /**
@@ -57,6 +59,8 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
     const [internalExpanded, setInternalExpanded] = React.useState(defaultExpanded);
     const isControlled = controlledExpanded !== undefined;
     const expanded = isControlled ? controlledExpanded : internalExpanded;
+    const asideRef = React.useRef<HTMLElement>(null);
+    useFocusTrap(expanded, asideRef);
 
     const setExpanded = React.useCallback(
       (value: React.SetStateAction<boolean>) => {
@@ -99,6 +103,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
           </Button>
 
           <aside
+            ref={asideRef}
             className={cn(
               "bg-[var(--theme-bg)] text-[var(--theme-secondary)] border-b border-[var(--theme-secondary)] transition-all",
               expanded ? "duration-300 ease-out" : "duration-500 ease-in",

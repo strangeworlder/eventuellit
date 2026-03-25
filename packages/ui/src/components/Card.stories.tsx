@@ -25,12 +25,12 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {
-    variant: {
-      control: "select",
-      options: ["surface", "outline", "highlight", "subtle", "callout"],
-      description: "Semantic visual style variant of the card.",
-    },
+    argTypes: {
+        variant: {
+            control: "select",
+            options: ["surface", "outline", "highlight", "subtle", "interactive", "callout"],
+            description: "Semantic visual style variant of the card.",
+        },
     theme: {
       control: "select",
       options: [
@@ -74,26 +74,26 @@ export const Default: Story = {
   render: (args) => (
     <Card {...args}>
       <CardHeader>
-        <CardTitle>Character Info</CardTitle>
-        <CardDescription>Stats and conditions</CardDescription>
+        <CardTitle>Hahmon tiedot</CardTitle>
+        <CardDescription>Ominaisuudet ja tila</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex justify-between items-center py-2 border-b border-current/10">
-          <span className="font-bold">Strength</span>
+          <span className="font-bold">Voima</span>
           <span>16 (+3)</span>
         </div>
         <div className="flex justify-between items-center py-2 border-b border-current/10">
-          <span className="font-bold">Dexterity</span>
+          <span className="font-bold">Ketteryys</span>
           <span>14 (+2)</span>
         </div>
         <div className="flex justify-between items-center py-2">
-          <span className="font-bold">Constitution</span>
+          <span className="font-bold">Kestävyys</span>
           <span>15 (+2)</span>
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button variant="solid">Save Changes</Button>
+        <Button variant="outline">Peruuta</Button>
+        <Button variant="solid">Tallenna</Button>
       </CardFooter>
     </Card>
   ),
@@ -110,16 +110,45 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6 w-full max-w-4xl">
-      {(["surface", "outline", "highlight", "subtle", "callout"] as const).map((variant) => (
+      {(["surface", "outline", "highlight", "subtle", "interactive", "callout"] as const).map((variant) => (
         <Card key={variant} variant={variant}>
           <CardHeader>
-            <CardTitle className="capitalize">{variant} Variant</CardTitle>
+            <CardTitle className="capitalize">{variant}</CardTitle>
           </CardHeader>
           <CardContent>
-            This card uses the <strong>{variant}</strong> variant styling.
+            Tämä kortti käyttää <strong>{variant}</strong>-varianttia.
           </CardContent>
         </Card>
       ))}
+    </div>
+  ),
+};
+
+/**
+ * Interaktiivinen kortti reagoi hover- ja klikkaustilaan kohoamalla ja hehkumalla.
+ * Käytä tätä varianttia navigoitavissa sisältökorteissa, kuten asemalistauksissa.
+ */
+export const Interaktiivinen: Story = {
+  render: () => (
+    <div className="grid grid-cols-1 mobile:grid-cols-2 gap-4 max-w-xl">
+      <Card variant="interactive" className="cursor-pointer">
+        <CardHeader>
+          <CardTitle>Seula</CardTitle>
+          <CardDescription>Järjestys 1 — Matala jännite</CardDescription>
+        </CardHeader>
+        <CardContent>
+          Kynnyksen kauppasatama ja solmupiste. Vie hiiri päälle.
+        </CardContent>
+      </Card>
+      <Card variant="interactive" className="cursor-pointer">
+        <CardHeader>
+          <CardTitle>Kuiskaus</CardTitle>
+          <CardDescription>Järjestys 10 — Murtunut</CardDescription>
+        </CardHeader>
+        <CardContent>
+          Informaatioverkostojen solmukohta — kaikki kulkee tästä.
+        </CardContent>
+      </Card>
     </div>
   ),
 };
@@ -132,23 +161,30 @@ export const ContentDensity: Story = {
     <div className="flex flex-col gap-6 w-[350px]">
       <Card variant="subtle">
         <CardHeader>
-          <CardTitle>Default Padding</CardTitle>
+          <CardTitle>Oletusvälitys</CardTitle>
         </CardHeader>
         <CardContent variant="default">
-          <div className="bg-[var(--theme-primary)]/10 h-16 w-full rounded flex items-center justify-center">
-            Default
+          <div className="bg-[var(--theme-primary)]/10 h-16 w-full rounded flex items-center justify-center text-sm font-semibold">
+            Oletus
           </div>
         </CardContent>
       </Card>
 
       <Card variant="subtle">
         <CardHeader>
-          <CardTitle>Dense Padding</CardTitle>
+          <CardTitle>Tiivis välitys</CardTitle>
         </CardHeader>
         <CardContent variant="dense">
-          <div className="bg-[var(--theme-primary)]/10 h-16 w-full rounded flex items-center justify-center">
-            Dense
+          <div className="bg-[var(--theme-primary)]/10 h-16 w-full rounded flex items-center justify-center text-sm font-semibold">
+            Tiivis
           </div>
+        </CardContent>
+      </Card>
+
+      <Card variant="callout">
+        <CardContent variant="rule">
+          <strong>Sääntö:</strong> CardContent-variantti <code>rule</code> soveltuu peli&shy;mekaniikan
+          korostuksiin — tiheämpi sisäinen välitys, kapiteeli-kirjasintyyli.
         </CardContent>
       </Card>
     </div>
@@ -163,15 +199,14 @@ export const RuleBlock: Story = {
   render: () => (
     <Card variant="callout" className="max-w-xl">
       <CardHeader>
-        <CardTitle>Critical Hits</CardTitle>
+        <CardTitle>Kriittinen osuma</CardTitle>
       </CardHeader>
       <CardContent variant="rule">
-        When you score a critical hit, you get to roll extra dice for the attack's damage against
-        the target. Roll all of the attack's damage dice twice and add them together. Then add any
-        relevant modifiers as normal.
+        Kun teet kriittisen osuman, heität hyökkäyksesi vahinkopisteet kahdesti ja lasket ne yhteen.
+        Lisää tähän normaalit modifikaattorit.
         <br />
         <br />
-        To score a critical hit, you must roll a natural 20 on your attack roll.
+        Kriittinen osuma syntyy, kun hyökkäysheiton tulos on luonnollinen 20.
       </CardContent>
     </Card>
   ),
@@ -186,23 +221,23 @@ export const Icons: Story = {
     <div className="grid grid-cols-1 tablet:grid-cols-3 gap-6 w-full max-w-5xl">
       <Card iconName="dice5" iconVariant="primary">
         <CardHeader>
-          <CardTitle>Generator</CardTitle>
+          <CardTitle>Hahmopaja</CardTitle>
         </CardHeader>
-        <CardContent>Primary themed icon (Dice)</CardContent>
+        <CardContent>Ensisijainen kuvake (noppa)</CardContent>
       </Card>
 
       <Card iconName="book" iconVariant="secondary">
         <CardHeader>
-          <CardTitle>Ruleset</CardTitle>
+          <CardTitle>Sääntökirja</CardTitle>
         </CardHeader>
-        <CardContent>Secondary themed icon (Book)</CardContent>
+        <CardContent>Toissijainen kuvake (kirja)</CardContent>
       </Card>
 
       <Card iconName="sparkles" iconVariant="accent">
         <CardHeader>
-          <CardTitle>New Features</CardTitle>
+          <CardTitle>Uudet ominaisuudet</CardTitle>
         </CardHeader>
-        <CardContent>Accent themed icon (Sparkles)</CardContent>
+        <CardContent>Korostuskuvake (kipinät)</CardContent>
       </Card>
     </div>
   ),

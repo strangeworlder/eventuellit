@@ -1,0 +1,141 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Suunnittelujarjestelma/Perustat/Animaatiot" />
+
+# Animaatiot & Liike (Motion & Animation)
+
+Motion in this design system is intentional, purposeful, and token-driven. Animations reinforce spatial relationships, confirm interactions, and add ambient life — they never distract.
+
+---
+
+## Motion Tokens
+
+All duration and easing values are CSS custom properties defined in `styles.css`:
+
+```css
+/* Duration */
+--motion-duration-instant:  75ms   /* micro-feedback: active/pressed state */
+--motion-duration-fast:    150ms   /* tooltips, small state changes */
+--motion-duration-base:    250ms   /* standard transitions */
+--motion-duration-slow:    400ms   /* layout shifts, expanding panels */
+--motion-duration-enter:   500ms   /* page/panel enter animations */
+
+/* Easing */
+--motion-easing-default: cubic-bezier(0.4, 0, 0.2, 1)   /* standard — ease-in-out feel */
+--motion-easing-in:      cubic-bezier(0.4, 0, 1, 1)      /* exit animations */
+--motion-easing-out:     cubic-bezier(0, 0, 0.2, 1)      /* enter animations */
+--motion-easing-spring:  cubic-bezier(0.34, 1.56, 0.64, 1) /* springy, playful */
+```
+
+### Usage in components
+
+```tsx
+// CSS transition using tokens
+className="transition-all duration-[var(--motion-duration-base)] ease-[var(--motion-easing-default)]"
+
+// Tailwind shorthand where available
+className="transition-all duration-250"
+```
+
+---
+
+## Animation Layers
+
+### 1. Micro-interactions (Tailwind CSS transitions)
+
+Small, immediate feedback on state changes. Applied via utility classes.
+
+| Component | Effect |
+|---|---|
+| Button | `hover:-translate-y-0.5`, `active:scale-[0.98]` |
+| Card (interactive) | hover border shift, subtle lift |
+| DiceIcon | `hover:rotate-*`, color transitions |
+| AspectTag | hover scale + translate, harm pulse |
+| Tabs indicator | slide + stretch via CSS variables |
+
+### 2. Enter/exit animations (Tailwind `animate-in`)
+
+Used for content that appears or disappears:
+
+```tsx
+// Page content entrance
+className="animate-in fade-in duration-[var(--motion-duration-enter)]"
+
+// Modal/dialog content
+className="animate-in zoom-in-95 fade-in duration-[var(--motion-duration-fast)]"
+
+// Tab panel content
+className="animate-in fade-in duration-[var(--motion-duration-base)]"
+```
+
+### 3. Ambient animations (CSS keyframes)
+
+Continuous, low-intensity effects that suggest life without demanding attention. Defined in `styles.css`.
+
+| Animation | Component | Effect |
+|---|---|---|
+| `breath-glow` | `Heading` h1 | Character-by-character glow pulse |
+| `fluorescent-flicker` | `Heading` h1 | Occasional single-char opacity flicker |
+| `aspect-pulse` | `AspectTag` harm | Warm red glow pulse on active harm tags |
+| `obscured-glitch` | Obscured fields | Clipping/color glitch on hidden content |
+
+### 4. Complex scene animations (Framer Motion)
+
+Reserved for high-fidelity animated interactions:
+
+| Component | Animation |
+|---|---|
+| `StationConnections` | Scene pan + hero die spring on navigation |
+| `HeroCanvas` | Canvas particle/ambient loop |
+
+Framer Motion is used directly in these components — not abstracted — because the animation logic is tightly coupled to the component's state machine.
+
+---
+
+## Design Rules
+
+### Use motion to explain, not impress
+
+Every animation should answer: *"What changed, and where did it go?"*. Motion that doesn't answer this question should be removed.
+
+### Keep it fast for UI feedback
+
+- Press feedback: ≤ 75ms (`instant`)
+- Hover states: ≤ 150ms (`fast`)
+- Panel opens/closes: 250–400ms (`base`/`slow`)
+- Full page transitions: ≤ 500ms (`enter`)
+
+### Ambient animations are the exception
+
+The `breath-glow` and `fluorescent-flicker` effects on `Heading h1` are intentional brand moments — they shouldn't be applied broadly. Only the main page title (`h1`) gets this treatment.
+
+### Respect reduced motion
+
+For users who have `prefers-reduced-motion: reduce` set:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  /* Cancel ambient loops */
+  .breath-char { animation: none; }
+  .flicker-char { animation: none; }
+  
+  /* Shorten transitions */
+  * { transition-duration: 0.01ms !important; }
+}
+```
+
+---
+
+## Keyframes Reference
+
+These are defined in `styles.css` and available globally:
+
+| Keyframe | Class | Description |
+|---|---|---|
+| `breath-glow` | `.breath-char` | Slow glow ripple across heading characters |
+| `fluorescent-flicker` | `.flicker-char` | Neon tube flicker on individual characters |
+| `aspect-pulse` | Applied in `AspectTag.tsx` | Red glow pulse for active harm aspects |
+| `glitch-paths` | `.obscured-glitch > span` | Random clip-path jumping |
+| `glitch-movement` | `.obscured-glitch::before/after` | Positional offset of glitch echoes |
+| `glitch-opacity` | Combined with above | Opacity flickering of glitch layers |
+| `glitch-font` | Combined with above | Color/blur/weight variation of glitch echoes |

@@ -140,6 +140,14 @@ const kuiskausConnections: StationConnectionNode[] = [
   { title: "Krypta", direction: "S" },
 ];
 
+const sykeConnections: StationConnectionNode[] = [
+  { title: "Seula", direction: "S" },
+  { title: "Katedraali", direction: "E" },
+  { title: "Alasin", direction: "W" },
+  { title: "Akseli", direction: "SE" },
+  { title: "_marker_n", direction: "N", type: "marker", shape: 6 },
+];
+
 const meta: Meta<typeof StationConnections> = {
   title: "Suunnittelujarjestelma/Organismit/StationConnections",
   component: StationConnections,
@@ -204,12 +212,24 @@ export const Murtunut: Story = {
 };
 
 /** Katedraali — matala jännite, tiheä 6-yhteyden verkosto */
-export const Korkea: Story = {
+export const Tiheaverkosto: Story = {
   args: {
     connections: katedraaliConnections,
     tension: "Matala",
     currentStationOrder: 7,
     currentStationTitle: "Katedraali",
+    stations: kynnysSampleStations,
+    basePath: "/",
+  },
+};
+
+/** Syke — korkea jännite, teollinen solmupiste */
+export const KorkeaJannite: Story = {
+  args: {
+    connections: sykeConnections,
+    tension: "Korkea",
+    currentStationOrder: 2,
+    currentStationTitle: "Syke",
     stations: kynnysSampleStations,
     basePath: "/",
   },
@@ -250,13 +270,13 @@ export const KaikkiJannitetasot: Story = {
         </div>
         <div>
           <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
-            Matala jännite — Katedraali (6 yhteyttä)
+            Korkea jännite — Syke (5 yhteyttä + d6-merkki)
           </p>
           <StationConnections
-            connections={katedraaliConnections}
-            tension="Matala"
-            currentStationOrder={7}
-            currentStationTitle="Katedraali"
+            connections={sykeConnections}
+            tension="Korkea"
+            currentStationOrder={2}
+            currentStationTitle="Syke"
             stations={kynnysSampleStations}
             basePath="/"
           />

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import React from "react";
 import { ImageElement } from "./ImageElement";
 
 const placeholder =
@@ -68,6 +69,67 @@ export const Pikkukuva: Story = {
     placeholderSrc: placeholder,
     variant: "thumbnail",
   },
+  parameters: {
+    layout: "centered",
+  },
+};
+
+export const Sisaltokuva: Story = {
+  args: {
+    src: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=900&q=80",
+    alt: "Avaruusnäkymä tekstin sisällä",
+    width: 900,
+    height: 500,
+    className: "w-full max-w-prose",
+    caption: "Sisältökuva — ei avaa modaalia",
+    placeholderSrc: placeholder,
+    variant: "inline",
+  },
+  parameters: {
+    layout: "padded",
+  },
+};
+
+export const ModaaliKuva: Story = {
+  args: {
+    src: "https://images.unsplash.com/photo-1543722530-d2c3201371e7?auto=format&fit=crop&w=600&q=80",
+    alt: "Modaalikuva",
+  },
+  render: () => (
+    <div className="flex flex-col gap-6 items-center max-w-sm">
+      <div className="space-y-1">
+        <p className="text-xs font-black uppercase tracking-widest text-text-subtle">
+          enableModal — oletus (false)
+        </p>
+        <ImageElement
+          src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?auto=format&fit=crop&w=600&q=80"
+          alt="Modaali pois käytöstä"
+          width={480}
+          height={320}
+          className="w-64"
+          placeholderSrc={placeholder}
+          variant="outline"
+          enableModal={false}
+        />
+      </div>
+      <div className="space-y-1">
+        <p className="text-xs font-black uppercase tracking-widest text-text-subtle">
+          enableModal — päällä (true)
+        </p>
+        <ImageElement
+          src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?auto=format&fit=crop&w=600&q=80"
+          alt="Napsauta avataksesi suurennoksen"
+          width={480}
+          height={320}
+          className="w-64"
+          caption="Napsauta kuvaa avataksesi suurennoksen"
+          placeholderSrc={placeholder}
+          variant="outline"
+          enableModal
+        />
+      </div>
+    </div>
+  ),
   parameters: {
     layout: "centered",
   },

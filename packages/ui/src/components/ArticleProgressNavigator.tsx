@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from "react";
-import type React from "react";
+import React from "react";
 
 import { AnchoredTooltip } from "./AnchoredTooltip";
 import type { ArticleSectionAnchor } from "./article-navigation-utils";
@@ -122,7 +122,7 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
   );
 });
 
-export function ArticleProgressNavigator({
+export const ArticleProgressNavigator = React.forwardRef<HTMLDivElement, ArticleProgressNavigatorProps>(function ArticleProgressNavigator({
   sections,
   progress,
   variant = "default",
@@ -132,7 +132,7 @@ export function ArticleProgressNavigator({
   onSelectSection,
   className,
   ...props
-}: ArticleProgressNavigatorProps) {
+}, ref) {
   const boundedProgress = Math.min(100, Math.max(0, progress));
   const hasProgressStarted = boundedProgress > 0;
   const isProgressComplete = boundedProgress >= 100;
@@ -171,6 +171,7 @@ export function ArticleProgressNavigator({
 
   return (
     <div
+      ref={ref}
       className={cn(
         isMinimalVariant
           ? "bg-transparent px-0 py-0"
@@ -213,4 +214,5 @@ export function ArticleProgressNavigator({
       </div>
     </div>
   );
-}
+});
+ArticleProgressNavigator.displayName = "ArticleProgressNavigator";

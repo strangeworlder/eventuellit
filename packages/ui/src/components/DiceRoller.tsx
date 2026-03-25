@@ -21,6 +21,8 @@ export interface DiceRollerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const DiceRoller = React.forwardRef<HTMLDivElement, DiceRollerProps>(
   ({ className, diceType = "n10", count = 1, label, onRoll, ...props }, ref) => {
+    const buttonId = React.useId();
+
     const handleRoll = () => {
       if (onRoll) {
         // TTRPG mock logic for random generation bounds
@@ -35,11 +37,11 @@ export const DiceRoller = React.forwardRef<HTMLDivElement, DiceRollerProps>(
     return (
       <div ref={ref} className={cn("flex flex-col gap-3 mt-4", className)} {...props}>
         {label && (
-          <label className="text-sm font-black text-[var(--theme-secondary)] uppercase tracking-widest">
+          <label htmlFor={buttonId} className="text-sm font-black text-[var(--theme-secondary)] uppercase tracking-widest">
             {label}
           </label>
         )}
-        <Button onClick={handleRoll} size="lg" variant="outline">
+        <Button id={buttonId} onClick={handleRoll} size="lg" variant="outline">
           <DiceIcon faces={faces} size="lg" active />
           <span>
             Heitä {count}

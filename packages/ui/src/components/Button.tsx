@@ -134,11 +134,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           },
           // ── Variant ──
           {
-            "bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] hover:bg-[var(--color-primary-600)] active:bg-[var(--theme-primary)] border-2 border-transparent":
+            "bg-[var(--theme-accent)] text-[var(--theme-accent-foreground)] hover:bg-[var(--color-accent-600)] active:bg-[var(--theme-accent)] border-2 border-transparent":
               variant === "solid",
             "bg-transparent border-2 border-[var(--theme-secondary)] text-[var(--theme-secondary)] hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)] active:bg-[var(--theme-surface-tint)] active:text-[var(--theme-text)]":
               variant === "outline",
-            "bg-[var(--theme-accent)] text-[var(--theme-accent-foreground)] border-2 border-[var(--theme-accent-foreground)] rounded-md shadow-[0_0_0_1px_color-mix(in_srgb,var(--theme-accent)_40%,transparent),inset_0_-2px_0_color-mix(in_srgb,var(--theme-accent-foreground)_20%,transparent)] hover:bg-[var(--color-accent-600)] hover:border-[var(--theme-accent-foreground)] hover:shadow-[0_0_0_1px_color-mix(in_srgb,var(--theme-accent)_55%,transparent),inset_0_-2px_0_color-mix(in_srgb,var(--theme-accent-foreground)_28%,transparent)] active:bg-[var(--theme-accent)] active:scale-[0.96]":
+            "bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] border-2 border-[var(--theme-primary-foreground)] rounded-md shadow-[0_0_0_1px_color-mix(in_srgb,var(--theme-primary)_40%,transparent),inset_0_-2px_0_color-mix(in_srgb,var(--theme-primary-foreground)_20%,transparent)] hover:bg-[var(--color-primary-600)] hover:border-[var(--theme-primary-foreground)] hover:shadow-[0_0_0_1px_color-mix(in_srgb,var(--theme-primary)_55%,transparent),inset_0_-2px_0_color-mix(in_srgb,var(--theme-primary-foreground)_28%,transparent)] active:bg-[var(--theme-primary)] active:scale-[0.96]":
               variant === "danger",
             "hover:bg-[var(--theme-accent)] hover:text-[var(--theme-accent-foreground)] active:bg-[var(--color-accent-700)] shadow-none hover:shadow-none active:shadow-none":
               variant === "ghost",

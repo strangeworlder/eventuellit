@@ -12,7 +12,7 @@ const meta = {
     argTypes: {
         variant: {
             control: "select",
-            options: ["default", "accent", "primary", "label"],
+            options: ["default", "accent", "emphasis", "label"],
         },
     },
 } satisfies Meta<typeof GameTerm>;
@@ -36,6 +36,16 @@ export const PrimaryVariant: Story = {
     },
     render: (args) => (
         <Text>Vahinkoa heitetään yhdellä {<GameTerm {...args} />} nopalla.</Text>
+    )
+};
+
+export const AccentVariant: Story = {
+    args: {
+        variant: "accent",
+        children: "5n10",
+    },
+    render: (args) => (
+        <Text>Noppapoolisi koko on {<GameTerm {...args} />}.</Text>
     )
 };
 

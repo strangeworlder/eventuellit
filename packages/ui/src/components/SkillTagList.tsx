@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { AspectTag } from "./AspectTag";
 import { Button } from "./Button";
 import { Checkbox } from "./Checkbox";
@@ -14,7 +14,7 @@ export interface SkillTagItem {
   isCustom?: boolean;
 }
 
-export interface SkillTagListProps {
+export interface SkillTagListProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Current list of skills to render */
   items: SkillTagItem[];
   /** Called when a skill is renamed (or its isCustom flag toggled) via inline edit. Omit to disable editing. */
@@ -31,11 +31,9 @@ export interface SkillTagListProps {
   emptyMessage?: string;
   /** Disable all editing interactions */
   readOnly?: boolean;
-  /** Optional className on the root container */
-  className?: string;
 }
 
-export function SkillTagList({
+export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(function SkillTagList({
   items,
   onItemEdit,
   onItemRemove,
@@ -45,7 +43,8 @@ export function SkillTagList({
   emptyMessage = "Ei taitoja määritetty.",
   readOnly = false,
   className,
-}: SkillTagListProps) {
+  ...props
+}, ref) {
   // ── Inline edit state ──
   const [editingId, setEditingId] = useState<string | number | null>(null);
   const [draftName, setDraftName] = useState("");
@@ -84,7 +83,7 @@ export function SkillTagList({
   };
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div ref={ref} className={cn("space-y-3", className)} {...props}>
       {/* ── Tag list ── */}
       {items.length > 0 ? (
         <div className="flex flex-wrap gap-2">
@@ -155,4 +154,5 @@ export function SkillTagList({
       )}
     </div>
   );
-}
+});
+SkillTagList.displayName = "SkillTagList";

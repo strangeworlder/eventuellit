@@ -31,3 +31,11 @@ export const HighStakes: Story = {
     diceType: "n20",
   },
 };
+
+export const N6Noppa: Story = {
+  args: {
+    label: "Varusteheitto",
+    count: 3,
+    diceType: "n6",
+  },
+};

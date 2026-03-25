@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs";
+import { Tabs, TabsContent, TabsList, TabsLink, TabsTrigger } from "./Tabs";
 
 const meta: Meta<typeof Tabs> = {
   title: "Suunnittelujarjestelma/Molekyylit/Tabs",
@@ -70,6 +71,61 @@ export const Default: Story = {
         </TabsContent>
       </Tabs>
     </div>
+  ),
+};
+
+export const NavigointiLinkit: Story = {
+  render: () => (
+    <MemoryRouter initialEntries={["/hahmot"]}>
+      <div className="w-full max-w-2xl bg-[var(--theme-bg)] text-[var(--theme-text)] p-8">
+        <TabsList>
+          <TabsLink to="/hahmot">Hahmot</TabsLink>
+          <TabsLink to="/episodit">Episodit</TabsLink>
+          <TabsLink to="/maailma">Maailma</TabsLink>
+        </TabsList>
+        <Routes>
+          <Route
+            path="/hahmot"
+            element={
+              <Card className="mt-0 rounded-t-none">
+                <CardHeader>
+                  <CardTitle>Hahmoluettelo</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Kaikki kampanjan hahmot listattuna tässä paneelissa.</p>
+                </CardContent>
+              </Card>
+            }
+          />
+          <Route
+            path="/episodit"
+            element={
+              <Card className="mt-0 rounded-t-none">
+                <CardHeader>
+                  <CardTitle>Episodit</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Kampanjan episodien yhteenveto ja tapahtumat.</p>
+                </CardContent>
+              </Card>
+            }
+          />
+          <Route
+            path="/maailma"
+            element={
+              <Card className="mt-0 rounded-t-none">
+                <CardHeader>
+                  <CardTitle>Maailmankuva</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Asemien kartta ja lorekirjasto.</p>
+                </CardContent>
+              </Card>
+            }
+          />
+        </Routes>
+      </div>
+    </MemoryRouter>
   ),
 };
 

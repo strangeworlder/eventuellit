@@ -13,8 +13,9 @@ export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
      * - `label`: Section labels & category headers (uppercase, tracked).
      * - `caption`: Tiny metadata & footnotes.
      * - `node`: Map/diagram node labels (compact, tracked).
+     * - `station-node`: Label beneath a station die icon — tiny, centred, wraps within the die column width.
      */
-    variant?: "body" | "small" | "lead" | "muted" | "bold" | "label" | "caption" | "node";
+    variant?: "body" | "small" | "lead" | "muted" | "bold" | "label" | "caption" | "node" | "station-node";
     theme?: Theme;
 }
 
@@ -33,14 +34,15 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
                 className={cn(
                     "font-sans text-[var(--theme-text)] tracking-[0.015em]",
                     {
-                    "text-[1.05rem] leading-[1.7] font-normal": variant === "body",
-                        "text-[0.9rem] leading-snug font-normal": variant === "small",
-                        "text-[1.25rem] leading-normal font-light": variant === "lead",
-                        "text-[1.05rem] leading-[1.7] text-text-muted": variant === "muted",
-                        "text-[1.05rem] leading-[1.7] font-semibold": variant === "bold",
+                        "text-base leading-[1.7] font-normal": variant === "body",
+                        "text-sm leading-snug font-normal": variant === "small",
+                        "text-xl leading-normal font-light": variant === "lead",
+                        "text-base leading-[1.7] text-text-muted": variant === "muted",
+                        "text-base leading-[1.7] font-semibold": variant === "bold",
                         "text-xs font-black uppercase tracking-widest": variant === "label",
-                        "text-[0.75rem] leading-snug text-text-subtle": variant === "caption",
-                        "text-[0.6rem] font-semibold tracking-wide leading-tight": variant === "node",
+                        "text-xs leading-snug text-text-subtle": variant === "caption",
+                        "text-xs font-semibold tracking-wide leading-tight": variant === "node",
+                        "text-xs font-semibold tracking-normal leading-tight text-center max-w-16 break-words": variant === "station-node",
                     },
                     className
                 )}

@@ -26,6 +26,7 @@ import { Input } from "@repo/ui/components/Input";
 import { Select } from "@repo/ui/components/Select";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { LoadingState } from "@repo/ui/components/LoadingState";
+import { Text } from "@repo/ui/components/Text";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -485,7 +486,7 @@ function EpisodeWrapper() {
 
           {episodes && episodes.length === 0 && (
             <div className="flex items-center justify-center min-h-[50vh]">
-              <p className="text-secondary">Ei jaksoja löydetty.</p>
+              <Text variant="muted">Ei jaksoja löydetty.</Text>
             </div>
           )}
         </>

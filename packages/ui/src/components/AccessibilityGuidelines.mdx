@@ -1,0 +1,134 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Suunnittelujarjestelma/Perustat/Saavutettavuus" />
+
+# Saavutettavuusohjeet (Accessibility Guidelines)
+
+This design system targets **WCAG 2.1 AA** compliance. Accessibility is built into the component layer — consumers should not need to add ARIA attributes manually for standard patterns.
+
+---
+
+## Color Contrast
+
+All theme tokens are pre-verified at WCAG AA. Contrast ratios are documented inline in `styles.css`:
+
+```css
+/* base theme — bg=#0f0f13 */
+--theme-text-muted:       var(--color-secondary-400); /* #35bbb4, 8.1:1 ✅ */
+--theme-text-subtle:      var(--color-secondary-500); /* #278b86, 4.7:1 ✅ */
+--theme-text-placeholder: var(--color-secondary-700); /* #1c6360, 3.9:1 ✅ (placeholders: 3:1) */
+```
+
+### Rules that protect contrast
+
+- **Never** use opacity modifiers on text (`text-[var(--theme-text)]/50`, `opacity-60`)
+- **Never** use `color-mix()` on text outside decorative contexts
+- Use `text-text-muted`, `text-text-subtle`, `text-text-placeholder` — not ad hoc color utilities
+
+---
+
+## Keyboard Navigation
+
+### What is implemented automatically
+
+| Component | Keyboard behavior |
+|---|---|
+| **Button** | Enter/Space activates, Tab navigates |
+| **Tabs** | Arrow keys move between tabs, Home/End jump to first/last |
+| **RadioGroup** | Arrow keys move between options |
+| **Switch** | Space toggles |
+| **Select** | Native browser keyboard support |
+| **Dialog** | Escape closes, Tab/Shift+Tab cycle within, focus returns on close |
+| **Drawer** | Escape closes (via backdrop keydown), focus trapped inside when open |
+| **ImageElement modal** | Escape closes, focus moves to close button on open |
+
+### Focus rings
+
+All interactive elements use a visible `focus-visible:ring-2` ring with `--theme-secondary` color and `ring-offset-[var(--theme-bg)]`. This provides high contrast in all themes.
+
+---
+
+## ARIA Patterns
+
+### Implemented components
+
+| Component | ARIA roles / attributes |
+|---|---|
+| **Tabs** | `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, `aria-controls`, `aria-labelledby` |
+| **Switch** | `role="switch"`, `aria-checked` |
+| **RadioGroup** | `role="radiogroup"`, native inputs with `sr-only` visuals |
+| **Button (loading)** | `aria-busy`, `aria-describedby` pointing to loading tooltip |
+| **Dialog** | `role="dialog"`, `aria-modal`, `aria-labelledby`, `aria-describedby` |
+| **Toast** | `role="alert"`, `aria-live="polite"`, `aria-atomic` |
+| **AnchoredTooltip** | `role="tooltip"` |
+| **ToggleButton** | `aria-pressed` |
+| **ArticleProgressNavigator** | `aria-label`, `aria-current` on active marker |
+| **ObscuredWrapper** | Screen-reader announcement "Sisältö piilotettu" + `aria-hidden` on visual content |
+
+---
+
+## Forms
+
+Always use the DS form components — they wire `label`/`htmlFor`, error associations, and ARIA attributes automatically:
+
+```tsx
+// ✅ Correct — label and error are auto-wired
+<Input label="Hahmon nimi" error={errors.name?.message} />
+<Select label="Luokka" options={classes} />
+<Checkbox label="Hyväksy ehdot" />
+
+// ❌ Wrong — no label association, no error announcement
+<input className="..." />
+```
+
+---
+
+## Images
+
+```tsx
+// Informative image — always provide meaningful alt text
+<ImageElement src="hero.jpg" alt="Tornin varjo lankeaa aavikkokaupungille" />
+
+// Decorative image — empty alt, aria-hidden
+<ImageElement src="texture.jpg" alt="" aria-hidden="true" />
+```
+
+---
+
+## Reduced Motion
+
+The design system respects `prefers-reduced-motion`. Complex animations (Framer Motion, CSS keyframes) should be wrapped or use the media query:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .animated-element {
+    animation: none;
+    transition: none;
+  }
+}
+```
+
+Motion tokens are defined in `styles.css` to make this centrally manageable.
+
+---
+
+## Obscured Content
+
+`ObscuredWrapper` is used for the "spoiler mechanic" — content intentionally hidden from players. When `revealed={false}`:
+
+- Visual tree receives `aria-hidden="true"` (blurred content is hidden from AT)
+- A `sr-only` span announces "Sisältö piilotettu" to screen readers
+- `pointer-events: none` prevents all interaction
+
+This ensures screen reader users know the section exists and is intentionally hidden, rather than experiencing an unexplained gap in content.
+
+---
+
+## Testing Accessibility
+
+Recommended tools:
+
+- **axe DevTools** browser extension — automated WCAG checks
+- **NVDA / JAWS** (Windows), **VoiceOver** (macOS/iOS) — manual screen reader testing
+- **Keyboard-only navigation** — tab through every interactive element and verify logical focus order
+- **Colour Contrast Analyzer** — verify new custom colors before adding them

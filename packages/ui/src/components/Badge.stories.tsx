@@ -9,7 +9,7 @@ const meta: Meta<typeof Badge> = {
     argTypes: {
         variant: {
             control: "select",
-            options: ["primary", "secondary", "accent", "accent-solid", "outline"],
+            options: ["solid", "outline", "highlight", "highlight-solid", "ghost"],
         },
         theme: {
             control: "select",
@@ -65,6 +65,14 @@ export const AccentSolid: Story = {
     args: {
         variant: "highlight-solid",
         children: "Aktiivinen",
+    },
+};
+
+export const Haamu: Story = {
+    args: {
+        variant: "ghost",
+        children: "Vierailija",
+        icon: "user-circle",
     },
 };
 

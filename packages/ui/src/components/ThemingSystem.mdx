@@ -1,0 +1,154 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Suunnittelujarjestelma/Perustat/Teemajärjestelmä" />
+
+# Teemajärjestelmä (Theming System)
+
+The design system uses a **three-tier CSS custom property architecture** that enables runtime theme switching without JavaScript.
+
+---
+
+## Architecture
+
+```
+Tier 1 — Raw palette         Tier 2 — Theme scope          Tier 3 — Semantic aliases
+─────────────────────        ──────────────────────────    ──────────────────────────
+--color-primary-500          [data-theme="base"] {         @theme {
+--color-secondary-400          --theme-bg: ...               --color-text-muted:
+--color-accent-700             --theme-text: ...               var(--theme-text-muted);
+--color-background             --theme-primary: ...          --color-surface-tint:
+--color-text                   --theme-text-muted: ...         var(--theme-surface-tint);
+                             }                             }
+```
+
+**Tier 1** (raw palette) defines all colors at every scale step (50–900). These are constants — they never change.
+
+**Tier 2** (theme scope) maps semantic roles to palette values per theme. Each `[data-theme]` block defines 10 CSS variables that control the entire visual appearance of that scope.
+
+**Tier 3** (semantic aliases) bridges the theme variables into Tailwind's `@theme` system, making them available as utility classes like `text-text-muted`, `bg-surface-tint`, `border-border-soft`.
+
+---
+
+## The 8 Themes
+
+| `data-theme` | Background | Use case |
+|---|---|---|
+| `base` (default) | Dark (#0f0f13) | Primary app chrome, narrative content |
+| `inverted` | Light (#f4f4f0) | High-contrast light sections |
+| `primary-light` | Pink-red tint | Feature callouts, primary highlights |
+| `primary-dark` | Deep red | Danger areas, dramatic sections |
+| `secondary-light` | Teal tint | Info panels, skill sections |
+| `secondary-dark` | Deep teal | Map components, environmental text |
+| `accent-light` | Blue tint | Accent features, link areas |
+| `accent-dark` | Deep blue | Statistical panels, world data |
+
+---
+
+## Using Themes
+
+### On a component
+
+```tsx
+<Card theme="secondary-dark">
+  <CardContent>...</CardContent>
+</Card>
+```
+
+### On an HTML container
+
+```tsx
+<div data-theme="primary-light">
+  {/* All DS components inside inherit this theme */}
+</div>
+```
+
+### Reading the current theme in a component
+
+```tsx
+import { useCurrentTheme } from "@repo/ui/components/Theme";
+
+function MyComponent() {
+  const theme = useCurrentTheme();
+  // theme === "base" | "inverted" | "primary-light" | ...
+}
+```
+
+---
+
+## Portals and Theme Fidelity
+
+UI rendered via `ReactDOM.createPortal(..., document.body)` escapes the DOM theme inheritance. Always capture the theme before opening a portal:
+
+```tsx
+const triggerTheme = resolveNearestDataTheme(triggerRef.current);
+// Pass to portal content as data-theme
+```
+
+The `Dialog` and `Toast` components handle this automatically.
+
+---
+
+## Token Reference
+
+### Text hierarchy (all themes WCAG AA verified)
+
+```css
+--theme-text              /* ≥ 7:1 — primary body text */
+--theme-text-muted        /* ≥ 7:1 — labels, secondary info */
+--theme-text-subtle       /* ≥ 4.5:1 — captions, hints */
+--theme-text-placeholder  /* ≥ 3:1 — form placeholders only */
+```
+
+### Surfaces and borders
+
+```css
+--theme-surface-tint    /* hover/active fill on interactive elements */
+--theme-border-soft     /* subtle dividers, card outlines */
+--theme-border-medium   /* form controls (input, select, checkbox) */
+```
+
+### Primary, secondary, accent
+
+```css
+--theme-primary            /* primary action / accent color */
+--theme-primary-foreground /* text on primary backgrounds */
+--theme-secondary          /* supporting color, muted text role */
+--theme-accent             /* tertiary accent */
+```
+
+---
+
+## Prohibited Patterns
+
+```tsx
+// ❌ Opacity modifier on text — destroys contrast guarantee
+className="text-[var(--theme-text)]/60"
+className="opacity-70"
+
+// ❌ color-mix() on text — unpredictable across themes
+className="text-[color-mix(in_srgb,var(--theme-text)_60%,transparent)]"
+
+// ❌ Opacity on structural borders — use semantic token
+className="border-[var(--theme-secondary)]/40"
+
+// ❌ Opacity on interactive backgrounds — use surface-tint
+className="hover:bg-[var(--theme-secondary)]/10"
+
+// ✅ All of the above, corrected:
+className="text-text-subtle"            // text at 4.5:1
+className="text-text-muted"             // text at 7:1
+className="border-[var(--theme-border-soft)]"
+className="hover:bg-[var(--theme-surface-tint)]"
+```
+
+---
+
+## Extending the Theme System
+
+To add a new theme variant:
+
+1. Add a `[data-theme="my-theme"]` block to `styles.css`
+2. Define all 10 required `--theme-*` variables
+3. Verify WCAG AA contrast for all text tokens (document ratios in comments)
+4. Add `"my-theme"` to the `Theme` union type in `Theme.tsx`
+5. Add a preview to `Themes.stories.tsx`

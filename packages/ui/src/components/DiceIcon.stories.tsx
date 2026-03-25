@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     faces: {
       control: "select",
-      options: [4, 6, 8, 10, 12, 20],
+      options: [4, 6, 8, 10, 12, 20, "swirl"],
     },
     value: { control: "number" },
     size: {
@@ -59,6 +59,7 @@ export const Shapes: Story = {
       <DiceIcon faces={10} />
       <DiceIcon faces={12} />
       <DiceIcon faces={20} />
+      <DiceIcon faces="swirl" />
     </div>
   ),
 };
@@ -70,4 +71,22 @@ export const CustomValue: Story = {
     size: "lg",
     active: true,
   },
+};
+
+export const Pyorrepyora: Story = {
+  args: {
+    faces: "swirl",
+    size: "lg",
+    active: true,
+  },
+};
+
+export const IlmanArvoa: Story = {
+  args: { faces: 20 },
+  render: () => (
+    <div className="flex items-center gap-4">
+      <DiceIcon faces={20} value={17} size="lg" hideValue={false} />
+      <DiceIcon faces={20} value={17} size="lg" hideValue />
+    </div>
+  ),
 };

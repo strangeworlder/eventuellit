@@ -5,6 +5,7 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Icon } from "@repo/ui/components/Icon";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageBody } from "@repo/ui/components/Page";
+import { Text } from "@repo/ui/components/Text";
 import { useAuth } from "@repo/auth/use-auth";
 import { exportMyData, deleteMyAccount } from "@repo/auth/api";
 import { useState } from "react";
@@ -65,16 +66,16 @@ export function PrivacyPolicyPage() {
 
           <section className="space-y-4">
             <Heading>Rekisterinpitäjä</Heading>
-            <p className="text-[var(--theme-text)]/80 leading-relaxed">
+            <Text variant="muted">
               Eventuellit-roolipelisovelluksen ylläpitäjä. Yhteystiedot: <em>alvancow+eventuellit@gmail.com</em>.
-            </p>
+            </Text>
           </section>
 
           <section className="space-y-4">
             <Heading>Kerättävät tiedot</Heading>
-            <p className="text-[var(--theme-text)]/80 leading-relaxed">
+            <Text variant="muted">
               Keräämme seuraavia henkilötietoja palvelun toiminnan mahdollistamiseksi:
-            </p>
+            </Text>
             <ul className="list-disc pl-6 space-y-2 text-[var(--theme-text)]/80">
               <li><strong>Sähköpostiosoite</strong> — käytetään kirjautumiseen magic link -menetelmällä</li>
               <li><strong>Käyttäjänimi</strong> — näytetään sovelluksessa muille pelaajille</li>
@@ -84,18 +85,18 @@ export function PrivacyPolicyPage() {
 
           <section className="space-y-4">
             <Heading>Tietojen käyttötarkoitus</Heading>
-            <p className="text-[var(--theme-text)]/80 leading-relaxed">
+            <Text variant="muted">
               Henkilötietoja käytetään ainoastaan palvelun toiminnan mahdollistamiseen:
               kirjautumiseen, hahmojen luontiin ja pelitilanteen ylläpitoon.
               Emme käytä tietojasi markkinointiin, profilointiin tai muuhun tarkoitukseen.
-            </p>
+            </Text>
           </section>
 
           <section className="space-y-4">
             <Heading>Evästeet ja paikallinen tallennus</Heading>
-            <p className="text-[var(--theme-text)]/80 leading-relaxed">
+            <Text variant="muted">
               Sivusto käyttää ainoastaan <strong>välttämättömiä evästeitä</strong> kirjautumisen ylläpitoon:
-            </p>
+            </Text>
             <ul className="list-disc pl-6 space-y-2 text-[var(--theme-text)]/80">
               <li>
                 <strong>auth_token</strong> (eväste) — httpOnly-eväste, joka sisältää
@@ -106,35 +107,35 @@ export function PrivacyPolicyPage() {
                 paikallisessa tallennustilassa.
               </li>
             </ul>
-            <p className="text-[var(--theme-text)]/80 leading-relaxed">
+            <Text variant="muted">
               Emme käytä analytiikka-, mainonta- tai seurantaevästeitä.
               Sivusto ei lataa kolmannen osapuolen seurantapalveluita.
-            </p>
+            </Text>
           </section>
 
           <section className="space-y-4">
             <Heading>Oikeutesi</Heading>
-            <p className="text-[var(--theme-text)]/80 leading-relaxed">
+            <Text variant="muted">
               EU:n yleisen tietosuoja-asetuksen (GDPR) nojalla sinulla on seuraavat oikeudet:
-            </p>
+            </Text>
             <ul className="list-disc pl-6 space-y-2 text-[var(--theme-text)]/80">
               <li><strong>Oikeus saada pääsy tietoihisi</strong> — voit ladata kaikki sinusta tallennetut tiedot</li>
               <li><strong>Oikeus tietojen poistamiseen</strong> — voit pyytää tilisi ja tietojesi poistamista</li>
               <li><strong>Oikeus tehdä valitus</strong> — voit tehdä valituksen tietosuojavaltuutetun toimistoon (tietosuoja.fi)</li>
             </ul>
-            <p className="text-[var(--theme-text)]/80 leading-relaxed">
+            <Text variant="muted">
               Tilin poiston yhteydessä hahmosi siirtyvät pelinjohtajan hallintaan osana pelimaailmaa.
               Henkilötietosi (sähköposti, käyttäjänimi) poistetaan pysyvästi.
-            </p>
+            </Text>
           </section>
 
           <section className="space-y-4">
             <Heading>Tietojen säilytys</Heading>
-            <p className="text-[var(--theme-text)]/80 leading-relaxed">
+            <Text variant="muted">
               Tietojasi säilytetään niin kauan kuin tilisi on aktiivinen.
               Voit poistaa tilisi ja siihen liittyvät henkilötiedot milloin tahansa.
               Kirjautumistunnisteet vanhenevat automaattisesti 7 päivän kuluttua.
-            </p>
+            </Text>
           </section>
 
           {isLoggedIn && (
@@ -158,10 +159,10 @@ export function PrivacyPolicyPage() {
                   <CardTitle>Lataa tietosi</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-[var(--theme-text)]/70 mb-4">
+                  <Text variant="muted" className="mb-4">
                     Lataa kaikki sinusta tallennetut tiedot JSON-tiedostona.
                     Tiedosto sisältää käyttäjätietosi ja hahmosi.
-                  </p>
+                  </Text>
                   <Button
                     onClick={handleExportData}
                     loading={isExporting}
@@ -178,11 +179,11 @@ export function PrivacyPolicyPage() {
                   <CardTitle>Poista tilisi</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-[var(--theme-text)]/70 mb-4">
+                  <Text variant="muted" className="mb-4">
                     Tilisi ja henkilötietosi poistetaan pysyvästi.
                     Hahmosi siirtyvät pelinjohtajan hallintaan.
                     Tätä toimintoa ei voi peruuttaa.
-                  </p>
+                  </Text>
                   {!showDeleteConfirm ? (
                     <Button
                       onClick={() => setShowDeleteConfirm(true)}

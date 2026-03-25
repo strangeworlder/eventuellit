@@ -30,6 +30,17 @@ export const Onnistuminen: Story = {
   },
 };
 
+export const Virhe: Story = {
+  args: {
+    variant: "error",
+    title: "Tallennus epäonnistui",
+    children: "Palvelimeen ei saatu yhteyttä. Tarkista verkkoyhteys ja yritä uudelleen.",
+    actions: (
+      <Button>Yritä uudelleen</Button>
+    ),
+  },
+};
+
 export const Tieto: Story = {
   render: () => (
     <NoticePanel variant="info" title="Nopat ja toiminta">

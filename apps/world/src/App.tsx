@@ -9,6 +9,7 @@ import {
   type ArticleProgressPayload,
 } from "@repo/ui/components/article-progress-events";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
+import { Text } from "@repo/ui/components/Text";
 import { Hero } from "@repo/ui/components/Hero";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Page, PageAside, PageBody } from "@repo/ui/components/Page";
@@ -316,10 +317,10 @@ function App() {
             <Hero title="Maailma" description="Tutki kampanjan maailmaa, sijainteja ja hahmoja." />
             <PageBody>
               <Heading>Sisältöä tulossa</Heading>
-              <p className="text-[var(--theme-text)]/60 mt-2">
+              <Text variant="muted" className="mt-2">
                 Maailman sisältöä ei ole vielä lisätty. Lisää markdown-tiedostoja{" "}
                 <code>src/content/</code>-kansioon.
-              </p>
+              </Text>
             </PageBody>
           </HeadingLevelProvider>
         </div>

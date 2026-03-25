@@ -4,6 +4,7 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageBody } from "@repo/ui/components/Page";
+import { Text } from "@repo/ui/components/Text";
 import { requestMagicLink } from "@repo/auth/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -36,13 +37,13 @@ export function LoginPage() {
         <Hero title="Kirjautumislinkki lähetetty" />
         <PageBody>
           <NoticePanel variant="success" title="Linkki lähetetty">
-            <p className="text-lg">
+            <Text variant="lead">
               Jos sähköpostiosoite on järjestelmässä, olet saanut kirjautumislinkin sähköpostiisi.
               Klikkaa linkkiä kirjautuaksesi sisään.
-            </p>
-            <p className="text-sm text-secondary mt-4">
+            </Text>
+            <Text variant="small" className="mt-4">
               Huom: Kehitysympäristössä linkki tulostetaan myös palvelimen konsoliin.
-            </p>
+            </Text>
           </NoticePanel>
           <Button onClick={() => navigate("/")}>Palaa etusivulle</Button>
         </PageBody>
@@ -85,7 +86,7 @@ export function LoginPage() {
             </form>
           </CardContent>
         </Card>
-        <p className="text-xs text-[var(--theme-text)]/50 leading-relaxed max-w-md">
+        <Text variant="caption" className="max-w-md">
           Kirjautuminen käyttää välttämätöntä evästettä istunnon ylläpitämiseksi.{" "}
           <button
             type="button"
@@ -94,7 +95,7 @@ export function LoginPage() {
           >
             Lue tietosuojaselosteemme
           </button>.
-        </p>
+        </Text>
       </PageBody>
     </Page>
   );

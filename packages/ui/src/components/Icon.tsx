@@ -1,7 +1,10 @@
 import {
     AlertTriangle,
+    CircleCheck,
+    CircleX,
     Download,
     HeartPulse,
+    Info,
     ShieldAlert,
     Sparkles,
     Dice5,
@@ -27,7 +30,10 @@ import React from "react";
 
 export const icons = {
     "alert-triangle": AlertTriangle,
+    "circle-check": CircleCheck,
+    "circle-x": CircleX,
     download: Download,
+    info: Info,
     "heart-pulse": HeartPulse,
     "shield-alert": ShieldAlert,
     sparkles: Sparkles,

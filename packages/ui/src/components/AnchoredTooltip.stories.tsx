@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import React, { useState } from "react";
 
 import { AnchoredTooltip } from "./AnchoredTooltip";
 import { Button } from "./Button";
@@ -13,7 +14,20 @@ const meta = {
   argTypes: {
     placement: {
       control: "select",
-      options: ["right", "left", "top", "bottom"],
+      options: [
+        "right",
+        "left",
+        "top",
+        "bottom",
+        "bottom-left",
+        "bottom-right",
+        "top-left",
+        "top-right",
+      ],
+    },
+    variant: {
+      control: "select",
+      options: ["default", "button-loading", "station-description"],
     },
     theme: {
       control: "select",
@@ -102,6 +116,69 @@ export const KaikkiSuunnat: Story = {
         <Button size="sm">Alas</Button>
         <AnchoredTooltip placement="bottom">Alapuolella</AnchoredTooltip>
       </div>
+      <div className="group relative flex items-center justify-center">
+        <Button size="sm">Alas-vasen</Button>
+        <AnchoredTooltip placement="bottom-left">Ala-vasen kulma</AnchoredTooltip>
+      </div>
+      <div className="group relative flex items-center justify-center">
+        <Button size="sm">Alas-oikea</Button>
+        <AnchoredTooltip placement="bottom-right">Ala-oikea kulma</AnchoredTooltip>
+      </div>
+      <div className="group relative flex items-center justify-center">
+        <Button size="sm">Ylös-vasen</Button>
+        <AnchoredTooltip placement="top-left">Ylä-vasen kulma</AnchoredTooltip>
+      </div>
+      <div className="group relative flex items-center justify-center">
+        <Button size="sm">Ylös-oikea</Button>
+        <AnchoredTooltip placement="top-right">Ylä-oikea kulma</AnchoredTooltip>
+      </div>
     </div>
   ),
+};
+
+export const Variantit: Story = {
+  render: () => (
+    <div className="flex flex-col gap-16 items-center p-16">
+      <div className="group relative flex items-center justify-center">
+        <Button size="sm">Oletus</Button>
+        <AnchoredTooltip placement="right" variant="default">
+          Oletustyyli — yleinen lisätieto
+        </AnchoredTooltip>
+      </div>
+      <div className="group relative flex items-center justify-center">
+        <Button size="sm" loading>
+          Lataa
+        </Button>
+        <AnchoredTooltip placement="right" variant="button-loading">
+          Toiminto käynnissä — odota…
+        </AnchoredTooltip>
+      </div>
+      <div className="group relative flex items-center justify-center">
+        <Button size="sm" variant="outline">
+          Asema
+        </Button>
+        <AnchoredTooltip placement="right" variant="station-description">
+          Seula — Kynnyksen kauppasatama ja solmupiste.
+        </AnchoredTooltip>
+      </div>
+    </div>
+  ),
+};
+
+export const Hallittu: Story = {
+  render: () => {
+    const [open, setOpen] = useState(true);
+    return (
+      <div className="flex flex-col items-center gap-6 p-16">
+        <div className="relative flex items-center justify-center">
+          <Button size="sm" onClick={() => setOpen((v) => !v)}>
+            {open ? "Piilota" : "Näytä"} tooltip
+          </Button>
+          <AnchoredTooltip placement="right" isOpen={open}>
+            Tämä tooltip on hallitusti auki ({open ? "näkyvissä" : "piilotettu"})
+          </AnchoredTooltip>
+        </div>
+      </div>
+    );
+  },
 };

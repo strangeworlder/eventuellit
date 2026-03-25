@@ -1,6 +1,8 @@
+import React from "react";
 import { Button } from "./Button";
+import { cn } from "./utils";
 
-export interface VideoCtaProps {
+export interface VideoCtaProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * YouTube video ID
    */
@@ -17,21 +19,18 @@ export interface VideoCtaProps {
    * Handler for when the CTA button is clicked
    */
   onClickCta: () => void;
-  /**
-   * Optional custom classes for the container
-   */
-  className?: string;
 }
 
-export function VideoCta({
+export const VideoCta = React.forwardRef<HTMLDivElement, VideoCtaProps>(function VideoCta({
   youtubeId,
   title = "Videosoitin",
   ctaText,
   onClickCta,
-  className = "",
-}: VideoCtaProps) {
+  className,
+  ...props
+}, ref) {
   return (
-    <div className={`w-full flex flex-col items-center gap-6 mobile:gap-8 ${className}`}>
+    <div ref={ref} className={cn("w-full flex flex-col items-center gap-6 mobile:gap-8", className)} {...props}>
       <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-[var(--theme-text)]/10 bg-[var(--theme-bg)]/50 relative">
         <iframe
           className="absolute inset-0 w-full h-full border-0"
@@ -52,4 +51,5 @@ export function VideoCta({
       </Button>
     </div>
   );
-}
+});
+VideoCta.displayName = "VideoCta";
