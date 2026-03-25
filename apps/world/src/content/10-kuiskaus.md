@@ -3,7 +3,6 @@ title: "Kuiskaus"
 order: 10
 description: "Polttopiste — hajonnut viestintäkeskus ja tiedon solmupiste."
 category: asema
-connections: "Seula:NW, Verso:N, Siemen:E, Krypta:S"
 tension: "Murtunut"
 ---
 

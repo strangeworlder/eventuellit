@@ -3,7 +3,6 @@ title: "Siemen"
 order: 18
 description: "Akatemia — Kynnyksen koulutusasema ja maatila."
 category: asema
-connections: "Kilpi:S, Kuiskaus:W, Krypta:SW, Evoluutio:NW"
 tension: "Matala"
 ---
 

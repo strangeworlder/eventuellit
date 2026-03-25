@@ -50,3 +50,36 @@ export function PageBody({ children, className, ...props }: PageBodyProps) {
     </div>
   );
 }
+
+export interface PageAsideProps extends React.HTMLAttributes<HTMLElement> {
+  children?: React.ReactNode;
+  /** When true, sticks to the top on desktop so it stays in view while scrolling */
+  sticky?: boolean;
+}
+
+/**
+ * PageAside is a semantic sidebar companion to PageBody.
+ * Place it as a sibling to the main content inside a PageBody grid.
+ *
+ * @example
+ * ```tsx
+ * <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
+ *   <div>...main content...</div>
+ *   <PageAside sticky>...sidebar content...</PageAside>
+ * </PageBody>
+ * ```
+ */
+export function PageAside({ children, sticky, className, ...props }: PageAsideProps) {
+  return (
+    <aside
+      className={cn(
+        "space-y-8 pt-6",
+        sticky && "desktop:sticky desktop:top-0 desktop:self-start",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </aside>
+  );
+}

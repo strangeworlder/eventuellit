@@ -3,7 +3,6 @@ title: "Krypta"
 order: 19
 description: "Museo — pyhäkkö, arkisto ja reliikinmetsästäjien koti."
 category: asema
-connections: "Siemen:NE, Kuiskaus:N"
 tension: "Matala"
 ---
 

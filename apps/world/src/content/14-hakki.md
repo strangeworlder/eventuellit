@@ -3,7 +3,6 @@ title: "Häkki"
 order: 14
 description: "Pyhän Tragedian lapset — veriurheilun ja uhkapelin asema."
 category: asema
-connections: "Seula:N, Akseli:NE, Laki:E, Verkko:SE"
 tension: "Korkea"
 ---
 

@@ -3,7 +3,6 @@ title: "Verkko"
 order: 15
 description: "Observatorio — Kynnyksen valvontakeskus ja tiedusteluasema."
 category: asema
-connections: "Katedraali:W, Häkki:SW, Vaaka:S"
 tension: "Korkea"
 ---
 

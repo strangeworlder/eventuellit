@@ -1,16 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { StationConnections } from "./StationConnections";
+import { StationConnections, type StationConnectionNode } from "./StationConnections";
 
 // Representative sample of Kynnys stations for stories
 const kynnysSampleStations = [
+  {
+    id: "01-seula",
+    title: "Seula",
+    order: 1,
+    description: "Keskusasema — Kynnyksen kauppasatama ja solmupiste.",
+    tension: "Matala",
+  },
   {
     id: "02-syke",
     title: "Syke",
     order: 2,
     description: "Teollinen solmu — Kynnyksen moottorit käyvät täällä.",
-    tension: "Matala",
+    tension: "Korkea",
   },
   {
     id: "03-verso",
@@ -38,22 +45,99 @@ const kynnysSampleStations = [
     title: "Alasin",
     order: 4,
     description: "Raskas teollisuus ja välimatkan päässä olevat siirtokunnat.",
-    tension: "Korkea",
+    tension: "Matala",
   },
   {
     id: "05-louhos",
     title: "Louhos",
     order: 5,
     description: "Kaivosasema — resurssit virtaavat ylöspäin, ihmiset alaspäin.",
-    tension: "Korkea",
+    tension: "Murtunut",
   },
   {
     id: "14-hakki",
     title: "Häkki",
     order: 14,
     description: "Säilytysasema — vankilat ja pakkotyöleirit.",
-    tension: "Murtunut",
+    tension: "Korkea",
   },
+  {
+    id: "06-akseli",
+    title: "Akseli",
+    order: 6,
+    description: "KW-konsortio HQ — Kynnyksen hallintotorni ja logiikkakeskus.",
+    tension: "Matala",
+  },
+  {
+    id: "07-katedraali",
+    title: "Katedraali",
+    order: 7,
+    description: "Ekklesian sydän — temppeli, teatteri ja propagandakeskus.",
+    tension: "Matala",
+  },
+  {
+    id: "15-verkko",
+    title: "Verkko",
+    order: 15,
+    description: "Valvontasolmu — kaikkialla läsnä, ei missään näkyvissä.",
+    tension: "Korkea",
+  },
+  {
+    id: "16-ikoni",
+    title: "Ikoni",
+    order: 16,
+    description: "Studio — Kynnyksen mediakeskus ja julkisuuskoneen koti.",
+    tension: "Matala",
+  },
+  {
+    id: "17-poyta",
+    title: "Pöytä",
+    order: 17,
+    description: "Neuvottelu — diplomatian ja sovittelun asema.",
+    tension: "Matala",
+  },
+  {
+    id: "18-siemen",
+    title: "Siemen",
+    order: 18,
+    description: "Hylätty tutkimusasema — jokin kasvaa pimeydessä.",
+    tension: "Matala",
+  },
+  {
+    id: "19-krypta",
+    title: "Krypta",
+    order: 19,
+    description: "Hautausmaa-asema. Kukaan ei kysy, keitä täällä lepää.",
+    tension: "Matala",
+  },
+];
+
+// Connection node helpers
+const seulaSolmuConnections: StationConnectionNode[] = [
+  { title: "Syke", direction: "N" },
+  { title: "Verso", direction: "E" },
+  { title: "Pesä", direction: "NE" },
+  { title: "Kuiskaus", direction: "SE" },
+  { title: "Alasin", direction: "W" },
+  { title: "Louhos", direction: "SW" },
+  { title: "Häkki", direction: "S" },
+  { title: "_marker_nw", direction: "NW", type: "marker", shape: 12 },
+];
+
+const katedraaliConnections: StationConnectionNode[] = [
+  { title: "Syke", direction: "W" },
+  { title: "Akseli", direction: "NW" },
+  { title: "Verkko", direction: "E" },
+  { title: "Pesä", direction: "S" },
+  { title: "Ikoni", direction: "N" },
+  { title: "Pöytä", direction: "SW" },
+];
+
+const kuiskausConnections: StationConnectionNode[] = [
+  { title: "Seula", direction: "NW" },
+  { title: "Verso", direction: "N" },
+  { title: "Siemen", direction: "E" },
+  { title: "Krypta", direction: "S" },
 ];
 
 const meta: Meta<typeof StationConnections> = {
@@ -85,87 +169,48 @@ const meta: Meta<typeof StationConnections> = {
       control: "text",
       description: "Navigointipolun juuri (esim. '/' tai '/world')",
     },
+    currentStationTitle: {
+      control: "text",
+      description: "Nykyisen aseman nimi (ajetaan layoutId-animaatioille)",
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof StationConnections>;
 
-/** Seula — Kynnyksen keskusasema, 7 yhteyttä */
+/** Seula — Kynnyksen keskusasema, 7 yhteyttä + d12-merkki NW:ssä */
 export const Solmupiste: Story = {
   args: {
-    connections: "Syke:N, Verso:E, Pesä:NE, Kuiskaus:SE, Alasin:W, Louhos:SW, Häkki:S",
+    connections: seulaSolmuConnections,
     tension: "Matala",
     currentStationOrder: 1,
+    currentStationTitle: "Seula",
     stations: kynnysSampleStations,
     basePath: "/",
   },
 };
 
-/** Kuiskaus — murtunut asema, vähän yhteyksiä */
+/** Kuiskaus — murtunut asema, 4 yhteyttä */
 export const Murtunut: Story = {
   args: {
-    connections: "Verso, Siemen, Krypta",
+    connections: kuiskausConnections,
     tension: "Murtunut",
     currentStationOrder: 10,
-    stations: [
-      ...kynnysSampleStations,
-      {
-        id: "18-siemen",
-        title: "Siemen",
-        order: 18,
-        description: "Hylätty tutkimusasema — jokin kasvaa pimeydessä.",
-        tension: "Murtunut",
-      },
-      {
-        id: "19-krypta",
-        title: "Krypta",
-        order: 19,
-        description: "Hautausmaa-asema. Kukaan ei kysy, keitä täällä lepää.",
-        tension: "Murtunut",
-      },
-    ],
+    currentStationTitle: "Kuiskaus",
+    stations: kynnysSampleStations,
     basePath: "/",
   },
 };
 
-/** Katedraali — korkea jännite, tiheä verkosto */
+/** Katedraali — matala jännite, tiheä 6-yhteyden verkosto */
 export const Korkea: Story = {
   args: {
-    connections: "Syke, Akseli, Verkko, Pesä, Ikoni, Pöytä",
-    tension: "Korkea",
+    connections: katedraaliConnections,
+    tension: "Matala",
     currentStationOrder: 7,
-    stations: [
-      ...kynnysSampleStations,
-      {
-        id: "06-akseli",
-        title: "Akseli",
-        order: 6,
-        description: "Kiertoradan ylläpito — Kynnyksen orbitaalinen selkäranka.",
-        tension: "Korkea",
-      },
-      {
-        id: "15-verkko",
-        title: "Verkko",
-        order: 15,
-        description: "Valvontasolmu — kaikkialla läsnä, ei missään näkyvissä.",
-        tension: "Korkea",
-      },
-      {
-        id: "16-ikoni",
-        title: "Ikoni",
-        order: 16,
-        description: "Ekklesian pyhäkkö — pilgrimit saapuvat, harvat palaavat.",
-        tension: "Korkea",
-      },
-      {
-        id: "17-poyta",
-        title: "Pöytä",
-        order: 17,
-        description: "Neuvotteluasema — fraktiot kokoontuvat, sopimukset hajoavat.",
-        tension: "Korkea",
-      },
-    ],
+    currentStationTitle: "Katedraali",
+    stations: kynnysSampleStations,
     basePath: "/",
   },
 };
@@ -173,18 +218,11 @@ export const Korkea: Story = {
 /** Yksittäinen yhteys — minimaalinen näkymä */
 export const YksiYhteys: Story = {
   args: {
-    connections: "Siemen",
+    connections: [{ title: "Siemen", direction: "N" }],
     tension: "Murtunut",
     currentStationOrder: 9,
-    stations: [
-      {
-        id: "18-siemen",
-        title: "Siemen",
-        order: 18,
-        description: "Hylätty tutkimusasema — jokin kasvaa pimeydessä.",
-        tension: "Murtunut",
-      },
-    ],
+    currentStationTitle: "Kilpi",
+    stations: kynnysSampleStations,
     basePath: "/",
   },
 };
@@ -196,36 +234,39 @@ export const KaikkiJannitetasot: Story = {
       <div className="grid grid-cols-1 gap-12 bg-[var(--theme-bg)] p-8" data-theme="base">
         <div>
           <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
-            Matala jännite
+            Matala jännite — Seula (7 yhteyttä + d12-merkki)
           </p>
           <StationConnections
-            connections="Syke, Pesä, Verso"
+            connections={seulaSolmuConnections}
             tension="Matala"
             currentStationOrder={1}
+            currentStationTitle="Seula"
             stations={kynnysSampleStations}
             basePath="/"
           />
         </div>
         <div>
           <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
-            Korkea jännite
+            Matala jännite — Katedraali (6 yhteyttä)
           </p>
           <StationConnections
-            connections="Alasin, Louhos, Häkki"
-            tension="Korkea"
-            currentStationOrder={12}
+            connections={katedraaliConnections}
+            tension="Matala"
+            currentStationOrder={7}
+            currentStationTitle="Katedraali"
             stations={kynnysSampleStations}
             basePath="/"
           />
         </div>
         <div>
           <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
-            Murtunut jännite
+            Murtunut jännite — Kuiskaus (4 yhteyttä)
           </p>
           <StationConnections
-            connections="Kuiskaus, Häkki"
+            connections={kuiskausConnections}
             tension="Murtunut"
-            currentStationOrder={19}
+            currentStationOrder={10}
+            currentStationTitle="Kuiskaus"
             stations={kynnysSampleStations}
             basePath="/"
           />

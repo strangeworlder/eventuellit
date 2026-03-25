@@ -3,7 +3,6 @@ title: "Syke"
 order: 2
 description: "Reaktori — Kynnyksen energiakeskus ja luostari."
 category: asema
-connections: "Seula:S, Akseli:W, Katedraali:E"
 tension: "Korkea"
 ---
 

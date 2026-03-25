@@ -3,7 +3,15 @@ import React from "react";
 import { cn } from "./utils";
 import type { Theme } from "./Theme";
 
-export type AnchoredTooltipPlacement = "right" | "left" | "top" | "bottom";
+export type AnchoredTooltipPlacement =
+  | "right"
+  | "left"
+  | "top"
+  | "bottom"
+  | "bottom-left"
+  | "bottom-right"
+  | "top-left"
+  | "top-right";
 export type AnchoredTooltipVariant = "default" | "button-loading" | "station-description";
 
 export interface AnchoredTooltipProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -15,16 +23,87 @@ export interface AnchoredTooltipProps extends React.HTMLAttributes<HTMLSpanEleme
   theme?: Theme;
   /** Explicitly control visibility (ignores hover CSS if provided) */
   isOpen?: boolean;
+  /**
+   * CSS anchor name of the trigger element (e.g. `--station-node-N`).
+   * When provided, uses CSS Anchor Positioning (`anchor(center)` etc.) for
+   * exact centering instead of transform-based hacks. The trigger element must
+   * have a matching `anchor-name` CSS property set.
+   */
+  anchorName?: string;
 }
 
-/* ── Placement: position + slide-in origin ── */
+/* ── Placement: fallback position classes (used when anchorName is NOT provided) ── */
 
 const placementBase: Record<AnchoredTooltipPlacement, string> = {
   right: "left-full top-1/2 -translate-y-1/2 ml-2",
   left: "right-full top-1/2 -translate-y-1/2 mr-2",
   top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
   bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
+  "bottom-left": "top-full right-0 mt-2",
+  "bottom-right": "top-full left-0 mt-2",
+  "top-left": "bottom-full right-0 mb-2",
+  "top-right": "bottom-full left-0 mb-2",
 };
+
+/**
+ * Spacing-only classes used alongside CSS Anchor Positioning inline styles.
+ * These only supply the margin gap; all inset values come from `anchor()`.
+ */
+const anchorPlacementBase: Record<AnchoredTooltipPlacement, string> = {
+  right: "ml-2",
+  left: "mr-2",
+  top: "mb-2",
+  bottom: "mt-2",
+  "bottom-left": "mt-2",
+  "bottom-right": "mt-2",
+  "top-left": "mb-2",
+  "top-right": "mb-2",
+};
+
+/**
+ * Returns inline CSS styles that use CSS Anchor Positioning (`anchor()`) for
+ * precise, transform-free placement. `anchor(center)` ensures cardinal
+ * directions are correctly centred without any translate that would be
+ * accidentally reset by group-hover utilities.
+ *
+ * `w-52` (13 rem = 208 px) is baked into `left: calc(anchor(center) - 6.5rem)`
+ * for top/bottom, matching the `station-description` variant width.
+ */
+function anchorPositionStyle(
+  placement: AnchoredTooltipPlacement,
+  anchorName: string,
+): React.CSSProperties {
+  // position-anchor is not yet in React.CSSProperties; we cast at the call site.
+  const pa = { positionAnchor: anchorName };
+  switch (placement) {
+    // Below, centred on anchor's horizontal midpoint
+    case "bottom":
+      return { ...pa, top: "anchor(bottom)", left: "calc(anchor(center) - 6.5rem)" } as React.CSSProperties;
+    // Above, centred on anchor's horizontal midpoint
+    case "top":
+      return { ...pa, bottom: "anchor(top)", left: "calc(anchor(center) - 6.5rem)" } as React.CSSProperties;
+    // Right of anchor, centred on its vertical midpoint.
+    // translateY uses CSS `transform` (not Tailwind `translate`) so the
+    // group-hover translate-y-0 reset cannot interfere.
+    case "right":
+      return { ...pa, left: "anchor(right)", top: "anchor(center)", transform: "translateY(-50%)" } as React.CSSProperties;
+    // Left of anchor, centred on its vertical midpoint
+    case "left":
+      return { ...pa, right: "anchor(left)", top: "anchor(center)", transform: "translateY(-50%)" } as React.CSSProperties;
+    // Below, right edge of tooltip aligned to right edge of anchor
+    case "bottom-left":
+      return { ...pa, top: "anchor(bottom)", right: "anchor(right)" } as React.CSSProperties;
+    // Below, left edge of tooltip aligned to left edge of anchor
+    case "bottom-right":
+      return { ...pa, top: "anchor(bottom)", left: "anchor(left)" } as React.CSSProperties;
+    // Above, right edge of tooltip aligned to right edge of anchor
+    case "top-left":
+      return { ...pa, bottom: "anchor(top)", right: "anchor(right)" } as React.CSSProperties;
+    // Above, left edge of tooltip aligned to left edge of anchor
+    case "top-right":
+      return { ...pa, bottom: "anchor(top)", left: "anchor(left)" } as React.CSSProperties;
+  }
+}
 
 /** Extra transform applied when the tooltip is *hidden* – resolves to none on show. */
 const placementHiddenShift: Record<AnchoredTooltipPlacement, string> = {
@@ -32,6 +111,10 @@ const placementHiddenShift: Record<AnchoredTooltipPlacement, string> = {
   left: "-translate-x-1.5",
   top: "-translate-y-1.5",
   bottom: "translate-y-1.5",
+  "bottom-left": "translate-y-1.5",
+  "bottom-right": "translate-y-1.5",
+  "top-left": "-translate-y-1.5",
+  "top-right": "-translate-y-1.5",
 };
 
 /* ── Variant styles (aligned with AspectTag aesthetic) ── */
@@ -63,35 +146,53 @@ const variantClasses: Record<AnchoredTooltipVariant, string> = {
 };
 
 /**
- * CSS Anchor Positioned tooltip that auto-binds to its previous sibling.
+ * CSS Anchor Positioned tooltip.
  *
- * Place as a direct next sibling of the element you want to anchor to.
- * The parent element automatically receives `anchor-scope` and the
- * previous sibling receives `anchor-name` via `:has()` CSS rules
- * defined in `styles.css`. The tooltip appears on hover / focus-visible
- * of the previous sibling.
+ * **Basic usage** (sibling-based, parent gets `anchor-scope` via `:has()`):
+ * Place as a direct next sibling of the trigger element. The parent element
+ * automatically receives `anchor-scope` and the previous sibling receives
+ * `anchor-name` via `:has()` CSS rules defined in `styles.css`.
+ *
+ * **Explicit anchor** (`anchorName` prop):
+ * Set `anchor-name` on the trigger via inline style and pass the same name as
+ * `anchorName`. This enables `anchor(center)` centering that is immune to the
+ * group-hover translate reset.
  *
  * @example
  * ```tsx
+ * // Sibling pattern
  * <div>
  *   <button>Hover</button>
  *   <AnchoredTooltip placement="right">Lisätietoja</AnchoredTooltip>
  * </div>
+ *
+ * // Explicit anchor pattern
+ * <button style={{ anchorName: "--my-btn" } as CSSProperties}>Hover</button>
+ * <AnchoredTooltip anchorName="--my-btn" placement="bottom">Info</AnchoredTooltip>
  * ```
  */
 export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltipProps>(
-  ({ placement = "right", variant = "default", className, theme, isOpen, children, ...props }, ref) => {
+  ({ placement = "right", variant = "default", className, theme, isOpen, anchorName, style, children, ...props }, ref) => {
     if (isOpen === false) return null;
 
     const hidden = isOpen !== undefined
       ? !isOpen
       : true; // uncontrolled: hidden by default, shown via group-hover
 
+    const useAnchor = !!anchorName;
+    const positionClasses = useAnchor
+      ? anchorPlacementBase[placement]
+      : placementBase[placement];
+    const anchorStyle = useAnchor
+      ? anchorPositionStyle(placement, anchorName!)
+      : undefined;
+
     return (
       <span
         ref={ref}
         role="tooltip"
         data-theme={theme}
+        style={{ ...anchorStyle, ...style }}
         className={cn(
           // ── Base ──
           "anchored-tooltip absolute z-50 select-none",
@@ -101,7 +202,7 @@ export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltip
             ? "duration-200 ease-in"    // exit: gentle fade-out
             : "duration-150 ease-out",  // enter: snappy pop-in
           variantClasses[variant],
-          placementBase[placement],
+          positionClasses,
 
           // ── Hidden / visible states ──
           hidden && placementHiddenShift[placement],

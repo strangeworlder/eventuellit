@@ -3,7 +3,6 @@ title: "Ikoni"
 order: 16
 description: "Studio — Kynnyksen mediakeskus ja julkisuuskoneen koti."
 category: asema
-connections: "Katedraali:S"
 tension: "Matala"
 ---
 

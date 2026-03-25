@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import { Heading, HeadingLevelProvider } from "./Heading";
 import { Hero } from "./Hero";
-import { Page, PageBody } from "./Page";
+import { Page, PageAside, PageBody } from "./Page";
 
 const meta: Meta<typeof Page> = {
   title: "Suunnittelujarjestelma/Sivupohjat/Page",
@@ -92,6 +92,50 @@ export const WithStackedContent: Story = {
               <CardContent className="h-48 flex items-center justify-center">Grid Item 3</CardContent>
             </Card>
           </div>
+        </PageBody>
+      </Page>
+    </div>
+  ),
+};
+
+export const WithPageAside: Story = {
+  render: () => (
+    <div className="min-h-screen bg-background text-text">
+      <Page>
+        <Hero
+          title="Artikkeli sivupalkin kanssa"
+          description="Hero pysyy täysleveänä. PageAside pysyy mountattuna navigoinnin yli."
+        />
+        <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
+          <HeadingLevelProvider>
+            <div className="space-y-6">
+              <Heading>Pääsisältö</Heading>
+              <p className="text-text/80 leading-relaxed">
+                Tämä sarake sisältää artikkelin pääsisällön. Se uudelleenmountautuu
+                navigoinnin yhteydessä, mikä mahdollistaa sisääntuloanimaatiot.
+              </p>
+              <p className="text-text/80 leading-relaxed">
+                PageBody-gridi luo kaksi saraketta desktop-koossa: 2fr vasemmalle
+                ja 1fr oikealle. Mobiilissa sarakkeet pinotaan.
+              </p>
+            </div>
+          </HeadingLevelProvider>
+
+          <PageAside sticky>
+            <HeadingLevelProvider>
+              <Card variant="outline">
+                <CardHeader>
+                  <CardTitle>Sivupalkki</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-relaxed">
+                    PageAside on semanttinen aside-elementti. Sticky-prop pitää sen
+                    näkyvissä vierittäessä desktop-koossa.
+                  </p>
+                </CardContent>
+              </Card>
+            </HeadingLevelProvider>
+          </PageAside>
         </PageBody>
       </Page>
     </div>

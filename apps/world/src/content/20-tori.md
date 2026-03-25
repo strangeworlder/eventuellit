@@ -3,7 +3,6 @@ title: "Tori"
 order: 20
 description: "Basaari — Kynnyksen musta pörssi ja kierrätyskeskus."
 category: asema
-connections: "Evoluutio:E, Laki:W"
 tension: "Matala"
 ---
 

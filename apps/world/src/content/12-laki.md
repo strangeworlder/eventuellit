@@ -3,7 +3,6 @@ title: "Laki"
 order: 12
 description: "Oikeuslaitos — Kynnyksen sopimuskeskus ja kiistojen areenaa."
 category: asema
-connections: "Alasin:NE, Tori:E, Louhos:N, Vaaka:NW, Häkki:W"
 tension: "Korkea"
 ---
 

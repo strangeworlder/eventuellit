@@ -3,7 +3,6 @@ title: "Pöytä"
 order: 17
 description: "Neuvottelu — diplomatian ja sovittelun asema."
 category: asema
-connections: "Katedraali:NE, Pesä:NW, Kilpi:SE"
 tension: "Matala"
 ---
 

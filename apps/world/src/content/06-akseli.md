@@ -3,7 +3,6 @@ title: "Akseli"
 order: 6
 description: "KW-konsortio HQ — Kynnyksen hallintotorni ja logiikkakeskus."
 category: asema
-connections: "Syke:E, Katedraali:SE, Häkki:S"
 tension: "Matala"
 ---
 

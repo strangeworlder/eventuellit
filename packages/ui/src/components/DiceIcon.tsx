@@ -6,6 +6,8 @@ export interface DiceIconProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number;
   size?: "sm" | "md" | "lg";
   active?: boolean;
+  /** When true, hides the number overlay, showing only the dice shape */
+  hideValue?: boolean;
 }
 
 const DiceSvg = ({
@@ -119,7 +121,7 @@ const DiceSvg = ({
 };
 
 export const DiceIcon = React.forwardRef<HTMLDivElement, DiceIconProps>(
-  ({ className, faces, value, size = "md", active = false, ...props }, ref) => {
+  ({ className, faces, value, size = "md", active = false, hideValue = false, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -144,16 +146,18 @@ export const DiceIcon = React.forwardRef<HTMLDivElement, DiceIconProps>(
               : "drop-shadow-[2px_2px_0px_color-mix(in_srgb,var(--theme-secondary)_40%,transparent)]",
           )}
         />
-        <span
-          className={cn(
-            "relative z-10",
-            active
-              ? "text-[var(--theme-primary-foreground)]"
-              : "text-[var(--theme-secondary-foreground)]",
-          )}
-        >
-          {value ?? faces}
-        </span>
+        {!hideValue && (
+          <span
+            className={cn(
+              "relative z-10",
+              active
+                ? "text-[var(--theme-primary-foreground)]"
+                : "text-[var(--theme-secondary-foreground)]",
+            )}
+          >
+            {value ?? faces}
+          </span>
+        )}
       </div>
     );
   },

@@ -3,7 +3,6 @@ title: "Seula"
 order: 1
 description: "Keskusasema — Kynnyksen kauppasatama ja solmupiste."
 category: asema
-connections: "Syke:N, Verso:E, Pesä:NE, Kuiskaus:SE, Alasin:W, Louhos:SW, Häkki:S"
 tension: "Matala"
 ---
 

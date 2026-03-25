@@ -11,11 +11,15 @@ import {
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { Page, PageBody } from "@repo/ui/components/Page";
+import { Page, PageAside, PageBody } from "@repo/ui/components/Page";
 import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
 import { useEffect, useRef } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { StationConnections } from "@repo/ui/components/StationConnections";
+import {
+  StationConnections,
+  type StationConnectionNode,
+} from "@repo/ui/components/StationConnections";
+import { stationConnections } from "./connections";
 
 const remoteOrigin = new URL(import.meta.url).origin;
 
@@ -77,7 +81,6 @@ export interface WorldEntry {
   content: string;
   description?: string;
   category?: string;
-  connections?: string;
   tension?: string;
   image?: string;
 }
@@ -96,21 +99,28 @@ const entries: WorldEntry[] = Object.entries(modules)
       description: data.description || "",
       content,
       category: data.category || "",
-      connections: data.connections || "",
       tension: data.tension || "",
       image: data.image || "",
     };
   })
   .sort((a, b) => a.order - b.order);
 
-function WorldEntryView({
+/** Builds the StationConnectionNode array for a given station title from the connections data file */
+function buildConnectionNodes(stationTitle: string): StationConnectionNode[] {
+  const connectionMap = stationConnections[stationTitle];
+  if (!connectionMap) return [];
+  return Object.entries(connectionMap).map(([nodeTitle, node]) => ({
+    title: nodeTitle,
+    direction: node.direction,
+    type: node.type,
+    shape: node.shape,
+  }));
+}
+
+function ArticleContent({
   entry,
-  entries,
-  basePath,
 }: {
   entry: WorldEntry;
-  entries: WorldEntry[];
-  basePath: string;
 }) {
   const { pathname } = useLocation();
   const articleRef = useRef<HTMLDivElement>(null);
@@ -198,35 +208,11 @@ function WorldEntryView({
   }, [pathname]);
 
   return (
-    <div className="animate-in fade-in duration-500">
+    <div ref={articleRef} className="animate-in fade-in duration-500 space-y-6">
       <HeadingLevelProvider>
-        <Hero
-          title={entry.title}
-          description={entry.description}
-          backgroundImageSrc={entry.image ? resolveRemoteAssetUrl(entry.image) : undefined}
-        />
-        <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
-          <div ref={articleRef} className="space-y-6">
-            <HeadingLevelProvider>
-              <MarkdownRenderer headingIdPrefix={`world-${entry.id}`}>
-                {entry.content}
-              </MarkdownRenderer>
-            </HeadingLevelProvider>
-          </div>
-          <div className="space-y-8 pt-6">
-            {entry.category === "asema" && entry.connections && (
-              <HeadingLevelProvider>
-                <StationConnections
-                  connections={entry.connections}
-                  tension={entry.tension}
-                  currentStationOrder={entry.order}
-                  stations={entries}
-                  basePath={basePath}
-                />
-              </HeadingLevelProvider>
-            )}
-          </div>
-        </PageBody>
+        <MarkdownRenderer headingIdPrefix={`world-${entry.id}`}>
+          {entry.content}
+        </MarkdownRenderer>
       </HeadingLevelProvider>
     </div>
   );
@@ -245,6 +231,17 @@ function App() {
   const basePath = getBasePath();
   const defaultPath = entries.length > 0 ? entries[0].id : "";
 
+  // Derive current entry from the last URL segment
+  const lastSegment = pathname.split("/").filter(Boolean).pop() ?? "";
+  const currentEntry = entries.find((e) => e.id === lastSegment) ?? entries[0];
+
+  // Build connections for the current station (if it has them)
+  const isStation = currentEntry?.category === "asema";
+  const currentConnections = isStation
+    ? buildConnectionNodes(currentEntry.title)
+    : [];
+  const hasSidebar = isStation && currentConnections.length > 0;
+
   return (
     <Page>
       {entries.length > 0 && (
@@ -260,18 +257,57 @@ function App() {
             ))}
           </TabsList>
 
-          <div>
-            <Routes>
-              <Route path="/" element={<Navigate to={defaultPath} replace />} />
-              {entries.map((entry) => (
-                <Route
-                  key={entry.id}
-                  path={entry.id}
-                  element={<WorldEntryView entry={entry} entries={entries} basePath={basePath} />}
-                />
-              ))}
-            </Routes>
-          </div>
+          {/* Hero: full-width, outside Routes, reacts to URL-derived currentEntry */}
+          <HeadingLevelProvider>
+            <Hero
+              title={currentEntry?.title ?? ""}
+              description={currentEntry?.description}
+              backgroundImageSrc={
+                currentEntry?.image
+                  ? resolveRemoteAssetUrl(currentEntry.image)
+                  : undefined
+              }
+            />
+          </HeadingLevelProvider>
+
+          {/* Two-column body: article left, persistent sidebar right */}
+          <PageBody
+            className={
+              hasSidebar
+                ? "grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8"
+                : undefined
+            }
+          >
+            {/* Article content: inside Routes so navigation/progress tracking works */}
+            <div>
+              <Routes>
+                <Route path="/" element={<Navigate to={defaultPath} replace />} />
+                {entries.map((entry) => (
+                  <Route
+                    key={entry.id}
+                    path={entry.id}
+                    element={<ArticleContent entry={entry} />}
+                  />
+                ))}
+              </Routes>
+            </div>
+
+            {/* Persistent sidebar: outside Routes, stays mounted across station navigations */}
+            {hasSidebar && (
+              <PageAside sticky>
+                <HeadingLevelProvider>
+                  <StationConnections
+                    connections={currentConnections}
+                    tension={currentEntry.tension}
+                    currentStationOrder={currentEntry.order}
+                    currentStationTitle={currentEntry.title}
+                    stations={entries}
+                    basePath={basePath}
+                  />
+                </HeadingLevelProvider>
+              </PageAside>
+            )}
+          </PageBody>
         </Tabs>
       )}
       {entries.length === 0 && (
