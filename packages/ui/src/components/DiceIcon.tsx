@@ -1,6 +1,12 @@
 import React from "react";
 import { cn } from "./utils";
 
+/**
+ * A single decorative or semantic die face icon (d4/d6/d8/d10/d12/d20/swirl).
+ * Use as a visual accent, in dice-pool UI, or as a station-node shape on the game board.
+ *
+ * @summary single die face icon: faces 4/6/8/10/12/20/swirl; size sm/md/lg; active changes fill color
+ */
 export interface DiceIconProps extends React.HTMLAttributes<HTMLDivElement> {
   faces: 4 | 6 | 8 | 10 | 12 | 20 | "swirl";
   value?: number;

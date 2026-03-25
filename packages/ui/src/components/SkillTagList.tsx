@@ -14,6 +14,13 @@ export interface SkillTagItem {
   isCustom?: boolean;
 }
 
+/**
+ * Managed list of skill `AspectTag` items with inline add, rename, and remove.
+ * Use on character sheets where the player can edit their skill list.
+ * For a browsable catalogue view use `SkillMasonry` instead.
+ *
+ * @summary managed skill-tag list with add/rename/remove; use SkillMasonry for a browsable catalogue
+ */
 export interface SkillTagListProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Current list of skills to render */
   items: SkillTagItem[];

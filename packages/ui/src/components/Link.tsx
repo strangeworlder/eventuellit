@@ -8,6 +8,10 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 /**
  * A standardized Link component for the Design System.
+ * Uses React Router `<Link>` for internal navigation; set `external` for `<a target="_blank">`.
+ * For navigation that looks like a button use `<Button>` wrapped in a router link.
+ *
+ * @summary styled anchor; external prop for new-tab links; for button-styled nav use Button in a Link
  */
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ({ className, external, href = "", ...props }, ref) => {

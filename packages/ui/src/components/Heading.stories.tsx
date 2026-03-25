@@ -31,6 +31,7 @@ export const Default: Story = {
 };
 
 export const AllVariants: Story = {
+  tags: ["!manifest"],
   render: () => (
     <div className="flex flex-col gap-8 bg-background text-text p-8 min-h-screen">
       <div>

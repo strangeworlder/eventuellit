@@ -20,6 +20,7 @@
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@storybook/addon-docs": "^10.2.13",
+    "@storybook/addon-mcp": "^0.4.2",
     "@storybook/react": "^10.2.13",
     "@storybook/react-vite": "^10.2.13",
     "@tailwindcss/postcss": "^4.2.1",

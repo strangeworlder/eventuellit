@@ -19,6 +19,12 @@ export interface DiceRollerProps extends React.HTMLAttributes<HTMLDivElement> {
   onRoll?: (result: number[]) => void;
 }
 
+/**
+ * Simple one-click dice-roll widget. Shows the die face and a roll button; fires `onRoll` with results.
+ * Use for quick standalone rolls. For full pool allocation use DicePoolAllocator.
+ *
+ * @summary one-click roll widget; diceType n6/n10/n20, count, onRoll callback; for full pools use DicePoolAllocator
+ */
 export const DiceRoller = React.forwardRef<HTMLDivElement, DiceRollerProps>(
   ({ className, diceType = "n10", count = 1, label, onRoll, ...props }, ref) => {
     const buttonId = React.useId();

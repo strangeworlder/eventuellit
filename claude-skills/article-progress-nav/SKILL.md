@@ -1,83 +1,35 @@
 ---
 name: Article Progress Navigation
-description: Implementation patterns and learnings for the shared article progress navigation rail across host and content MFEs.
+description: Architecture and integration contract for the article progress navigation rail shared between the host app and content MFEs. Use when working on ArticleProgressNavigator, adding a new content MFE, or debugging the progress rail.
 ---
 
 # Article Progress Navigation
 
-## Overview
-
-The article progress navigation is a vertical sticky rail that provides scroll progress visualization and section jumping for long-form markdown content MFEs (ruleset, episodes, world).
-
 ## Architecture
 
-- **Rail rendering** is owned by `apps/host`
-- **Content-state publishing** is owned by consuming MFEs
-- Communication uses a browser `CustomEvent` bridge
+The ownership split is non-obvious and must not be reversed:
 
-### Visual Variants
+- **Rail rendering** is owned by `apps/host` — it renders `ArticleProgressNavigator` in the left lane below the rotated H1.
+- **Section/progress publishing** is owned by each content MFE (`ruleset`, `episodes`, `world`).
+- Communication uses a **browser `CustomEvent` bridge** — MFEs dispatch events; host listens and drives the rail.
 
-`ArticleProgressNavigator` exposes two semantic variants:
-- `default` — Panel rail with always-visible labels
-- `minimal` — Rail-only markers with hover/focus rotated labels anchored to each marker
+The rail fades in only after the host H1 has scrolled past a threshold. It does not render during page load.
 
-## Host-Side Implementation
+## Registering a New Content MFE
 
-### Rail Placement
-- Rendered in host under the real left H1 heading area
-- Mounted inside the host left lane wrapper
-- Starts below the rotated H1 (measured by `getBoundingClientRect().bottom`)
-- Uses measured absolute-to-fixed handoff tied to `#app-scroll-root` scrollTop
+When adding a new long-form article MFE that needs the progress rail:
 
-### Rail Visibility
-- Fades in only after the rotated host H1 has scrolled past a threshold
-- Uses opacity/translate fade — no scroll-in motion animation
-- Avoid updating lane-left position in the scroll handler
-
-### Host Controls Layout
-- Mobile menu toggle, rotated H1, and article rail share one absolute top wrapper
-- Menu toggle and rail are `sticky` inside the wrapper
-- Rotated heading remains normal-flow content
-
-### Event Filtering
-- Accept exact `source` match first
-- Fall back to route prefix matching (`/ruleset`, `/episodes`, `/world`) for deployment-skew tolerance
-
-## MFE-Side Implementation
-
-### Publishing Sections
-- Build rail `sections` and offset maps from rendered `h3[id]` DOM nodes: `querySelectorAll<HTMLElement>("h3[id]")`
-- Do NOT re-parse markdown to generate IDs
-- Use shared markdown/id utilities from `@repo/ui` for consistent heading ID generation
-- Pass explicit per-article prefix (ruleset page ID / episode ID)
-
-### Registering New Content MFEs
-1. Add source name to `ArticleProgressSource` in `packages/ui/src/components/article-progress-events.tsx`
+1. Add the source name to `ArticleProgressSource` in `packages/ui/src/components/article-progress-events.tsx`
 2. Update `activeView` / progress-filter logic in `apps/host/src/App.tsx`
-3. Implement markdown glob loading + frontmatter parsing
-4. Publish progress events + consume jump events
+3. In the MFE: implement markdown glob loading with frontmatter parsing
+4. Build rail sections from **rendered `h3[id]` DOM nodes** — `querySelectorAll<HTMLElement>("h3[id]")` — never re-parse markdown
+5. Generate H3 anchor IDs using shared utilities from `@repo/ui`
+6. Publish `ArticleProgressSource` events; consume `ARTICLE_JUMP_EVENT` for section navigation
 
-## Progress Calculation
+## Marker Positions
 
-### Rail Fill
-- Normalized to host scroll-root: `scrollTop / (scrollHeight - clientHeight)`
-- `0%` at top of page, `100%` at bottom of page
+Markers reflect **real heading Y-offsets** normalized against full scroll height — they are NOT evenly spaced. The last H3 marker can sit before 100% when content continues after it.
 
-### Marker Positions
-- Derived from heading Y-offset normalization against full scroll height: `headingTop / scrollHeight`
-- NOT equal spacing — markers reflect real heading positions
-- Last H3 marker can sit before 100% when content continues after it
+## Event Filtering
 
-### Performance
-- Memoize marker lists in a `React.memo` subcomponent
-- Animate fill via `transform: scaleY(...)` on a full-height element (not repeated `height` changes)
-- Isolate fast-changing fill updates from static marker rendering
-
-## Click Handling
-- Use `onSelectSection` callback when provided
-- Fall back to `document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })` for standalone usage
-- Jump using explicit `scrollRoot.scrollTo(...)` offsets instead of generic `scrollIntoView`
-
-## Safari / Cross-Browser
-- Use `getBoundingClientRect()` for transformed elements (rotated H1)
-- Use typed `querySelectorAll<HTMLElement>` to avoid TypeScript issues
+Host accepts exact `source` match first, then falls back to route prefix matching (`/ruleset`, `/episodes`, `/world`) for deployment-skew tolerance.

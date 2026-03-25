@@ -79,8 +79,11 @@ export interface AttributeCardProps extends React.HTMLAttributes<HTMLDivElement>
 
 /**
  * A composite card component used in character generation.
- * It displays a main stat (StatBlock) and a list of sub-attributes that 
- * can have dice assigned or removed.
+ * It displays a main stat (StatBlock) and a list of sub-attributes that
+ * can have dice assigned or removed. The allocation value is converted to
+ * a tiered d4–d20 dice representation via `getDiceFromValue`.
+ *
+ * @summary character attribute card: shows stat score + sub-attributes with dice allocation controls
  */
 export const AttributeCard = React.forwardRef<HTMLDivElement, AttributeCardProps>(
     ({ className, variant = "surface", label, score, subAttributes, ...props }, ref) => {

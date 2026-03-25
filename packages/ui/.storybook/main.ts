@@ -4,7 +4,19 @@ import type { StorybookConfig } from "@storybook/react-vite";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: [getAbsolutePath("@storybook/addon-docs")],
+  addons: [
+    getAbsolutePath("@storybook/addon-docs"),
+    {
+      name: getAbsolutePath("@storybook/addon-mcp"),
+      options: {
+        toolsets: {
+          dev: true,
+          docs: true,
+          test: false,
+        },
+      },
+    },
+  ],
   framework: {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},

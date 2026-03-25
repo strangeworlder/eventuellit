@@ -19,6 +19,13 @@ interface CardIconContextValue {
 const CardIconContext = React.createContext<CardIconContextValue>({});
 export const useCardIcon = () => React.useContext(CardIconContext);
 
+/**
+ * Primary surface container. Choose `variant` for intent: surface (default, nested theme),
+ * outline, highlight (accent bottom border), subtle, interactive (clickable with hover glow),
+ * callout (left-accented). Supports icon, header, content, and footer sub-components.
+ *
+ * @summary surface container; variant: surface/outline/highlight/subtle/interactive/callout
+ */
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The semantic visual style variant of the card.
    * - `surface` (default): Swaps to a contrasting theme for the surface, ensuring accessible nesting.

@@ -46,6 +46,12 @@ const RadioGroupContext = React.createContext<{
   obscured?: boolean;
 }>({ name: "" });
 
+/**
+ * Single-choice radio group with label, error, and vertical/horizontal orientation.
+ * Compose with `RadioGroupItem` children. For a binary immediate-effect toggle use Switch.
+ *
+ * @summary single-choice radio group; compose with RadioGroupItem; orientation: vertical/horizontal
+ */
 export function RadioGroup({
   name,
   value,

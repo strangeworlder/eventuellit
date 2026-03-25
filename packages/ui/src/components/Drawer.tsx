@@ -21,6 +21,13 @@ export function useDrawer() {
   return context;
 }
 
+/**
+ * Slide-in side panel with expand/collapse. Use for contextual detail views and secondary navigation.
+ * Not for primary navigation (use Sidebar) or focused modal interaction (use Dialog).
+ * `useDrawer()` hook provides controlled expand/collapse state.
+ *
+ * @summary slide-in side panel; for primary nav use Sidebar, for modal interaction use Dialog
+ */
 export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Panel title rendered in the header */
   title: string;

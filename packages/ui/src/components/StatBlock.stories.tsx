@@ -80,6 +80,7 @@ export const Primary: Story = {
 };
 
 export const ThemeShowcase: Story = {
+  tags: ["!manifest"],
   args: {
     label: "Teema",
     value: 0,

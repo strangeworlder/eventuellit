@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "eventuellit-sb": {
+      "url": "http://localhost:6006/mcp"
+    }
+  }
+}

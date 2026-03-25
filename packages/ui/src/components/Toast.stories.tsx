@@ -157,6 +157,7 @@ export const PysyväIlmoitus: Story = {
 };
 
 export const KaikkiVariantit: Story = {
+    tags: ["!manifest"],
     render: () => {
         function Paneeli() {
             const { toast, dismissAll } = useToast();

@@ -14,6 +14,12 @@ export type AnchoredTooltipPlacement =
   | "top-right";
 export type AnchoredTooltipVariant = "default" | "button-loading" | "station-description";
 
+/**
+ * CSS-anchor-positioned tooltip that attaches to a trigger element via the `anchor-name` CSS property.
+ * Use for hover descriptions, station node labels on the game board, and loading-state tooltips on Buttons.
+ *
+ * @summary CSS-anchor tooltip; placement: right/left/top/bottom variants; pairs with anchor-name on trigger
+ */
 export interface AnchoredTooltipProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Sijainti ankkurielementin suhteen */
   placement?: AnchoredTooltipPlacement;

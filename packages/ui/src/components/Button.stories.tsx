@@ -112,6 +112,7 @@ export const Obscured: Story = {
 
 export const ObscuredAllSizes: Story = {
   name: "Piilotettu (koot)",
+  tags: ["!manifest"],
   render: () => (
     <div className="flex flex-wrap items-end gap-4">
       <Button obscured size="sm">Pieni</Button>
@@ -137,6 +138,7 @@ export const Multiline: Story = {
 
 export const MultilineAllVariants: Story = {
   name: "Monirivi (kaikki variantit)",
+  tags: ["!manifest"],
   render: () => (
     <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 max-w-2xl">
       <Button variant="solid">Ensisijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
@@ -192,6 +194,7 @@ export const LoadingLarge: Story = {
 
 export const AllStates: Story = {
   name: "Kaikki tilat",
+  tags: ["!manifest"],
   render: () => (
     <div className="flex flex-col gap-8">
       <div className="space-y-2">
@@ -264,6 +267,7 @@ export const DangerDistinct: Story = {
 
 export const LoadingTooltipByTheme: Story = {
   name: "Latausvihje teemoissa",
+  tags: ["!manifest"],
   parameters: {
     layout: "padded",
   },

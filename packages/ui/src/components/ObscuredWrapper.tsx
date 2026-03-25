@@ -22,12 +22,15 @@ export interface ObscuredWrapperProps {
 
 /**
  * Wraps content in an obscured overlay that blurs and disables interaction.
+ * Use for hidden game content that requires a reveal action (e.g. locked lore, GM-only info).
  *
  * When `revealed` is `false`, all text elements receive a 5.5px blur and all
  * other elements receive a 1.5px blur.  `pointer-events` and `user-select`
  * are also disabled so the section is completely non-interactable.
  *
  * A visually-hidden `<span>` announces "Sisältö piilotettu" to screen readers,
+ *
+ * @summary blur/disable wrapper for hidden content; set revealed={false} to obscure, true to reveal
  * while the blurred visual tree is hidden from AT via `aria-hidden`.
  *
  * Child components that call `useObscured()` will automatically receive the

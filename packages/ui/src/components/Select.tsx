@@ -30,6 +30,12 @@ export interface SelectProps
 const chevronDataUri =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E\")";
 
+/**
+ * Dropdown select control with label, error, placeholder, and obscure support.
+ * Pass `options` as `{ value, label }` array. For multi-select use native HTML.
+ *
+ * @summary dropdown select with label/error; pass options array; supports obscured prop
+ */
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
     { className, label, error, theme, options, placeholder, obscured: obscuredProp, disabled, ...props },

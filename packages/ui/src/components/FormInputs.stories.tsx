@@ -22,6 +22,7 @@ type Story = StoryObj<typeof meta>;
  * for visual harmony verification.
  */
 export const Kaikki: Story = {
+  tags: ["!manifest"],
   render: () => {
     const [radioValue, setRadioValue] = useState("expert");
     const [switchChecked, setSwitchChecked] = useState(false);

@@ -9,6 +9,14 @@ import { useFocusTrap } from "./useFocusTrap";
 
 // ── Dialog ──
 
+/**
+ * Modal dialog with focus trap, title, description, and footer action slot.
+ * Renders via React portal; closes on Escape, backdrop click, or close button.
+ * Use for confirmations, focused forms, and destructive-action prompts.
+ * For slide-in panels use Drawer instead.
+ *
+ * @summary modal dialog with focus trap; for slide-in panels use Drawer
+ */
 export interface DialogProps {
   /** Controls whether the dialog is open */
   open: boolean;

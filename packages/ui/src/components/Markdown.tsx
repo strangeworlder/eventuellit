@@ -16,7 +16,10 @@ export interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivEleme
 
 /**
  * A standardized Markdown renderer that maps Markdown elements
- * to Design System components.
+ * to Design System components (Heading, Text, List, Link, GameTerm, etc.).
+ * Use for user-generated or CMS-authored content strings.
+ *
+ * @summary renders a markdown string using design system components; supports GFM tables and links
  */
 function getNodeText(node: React.ReactNode): string {
   if (typeof node === "string" || typeof node === "number") {

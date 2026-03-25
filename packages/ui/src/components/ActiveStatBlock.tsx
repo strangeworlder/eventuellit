@@ -18,6 +18,13 @@ export interface ActiveStatBlockProps extends React.HTMLAttributes<HTMLDivElemen
   theme?: Theme;
 }
 
+/**
+ * Interactive stat tile with +/− increment/decrement buttons.
+ * Use when the stat value changes during play (e.g. Sisu, HP).
+ * For read-only display use StatBlock instead.
+ *
+ * @summary interactive stat tile with +/− controls; use StatBlock for read-only display
+ */
 export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockProps>(
   (
     {

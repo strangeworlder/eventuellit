@@ -24,6 +24,8 @@ export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
  *
  * **Rule:** `className` on `<Text>` is only for spacing/layout (e.g. `mt-4`, `max-w-prose`).
  * Never use `className` for font properties — create or use an existing variant instead.
+ *
+ * @summary body/UI text with variant scale: body, lead, muted, small, bold, label, caption, node
  */
 export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
     ({ className, variant = "body", theme, ...props }, ref) => {

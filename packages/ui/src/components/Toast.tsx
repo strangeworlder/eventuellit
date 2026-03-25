@@ -140,6 +140,14 @@ const positionClasses: Record<NonNullable<ToastProviderProps["position"]>, strin
   "bottom-center": "bottom-4 left-1/2 -translate-x-1/2 items-center",
 };
 
+/**
+ * Context provider for the toast notification system.
+ * Wrap the app (or page root) with `ToastProvider`, then call `useToast().toast({ message, variant })`
+ * from any descendant. Toasts auto-dismiss after `duration` ms (default varies by variant).
+ * For persistent inline notices use `NoticePanel` instead.
+ *
+ * @summary transient pop-up notifications; wrap root with ToastProvider, trigger via useToast().toast()
+ */
 export function ToastProvider({
   children,
   position = "bottom-right",

@@ -35,6 +35,12 @@ export interface SkillItem {
   selected?: boolean;
 }
 
+/**
+ * Browsable, searchable, obscurable masonry grid of skill items.
+ * Use for the skill catalogue / selection view. For the character sheet skill list use `SkillTagList`.
+ *
+ * @summary browsable skill catalogue in masonry grid layout; use SkillTagList for the character sheet
+ */
 export interface SkillMasonryProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Array of skill items to render */
   skills: SkillItem[];

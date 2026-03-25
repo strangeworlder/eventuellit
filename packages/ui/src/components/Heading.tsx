@@ -125,6 +125,14 @@ export const HeadingLevelProvider: React.FC<{ children: React.ReactNode }> = ({ 
   return <HeadingLevelContext.Provider value={nextLevel}>{children}</HeadingLevelContext.Provider>;
 };
 
+/**
+ * Semantic heading with automatic level management from `HeadingLevelContext`.
+ * Never use raw `<h1>`–`<h6>` elements in the design system — always use this.
+ * Wrap sections in `HeadingLevelProvider` to increment the level automatically.
+ * h1 text gets the ambient flicker/breath animation.
+ *
+ * @summary semantic heading h1–h6 with automatic level tracking; wrap sections in HeadingLevelProvider
+ */
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ className, as, variant, children, ...props }, ref) => {
     const level = React.useContext(HeadingLevelContext);

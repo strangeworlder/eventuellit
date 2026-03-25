@@ -18,6 +18,12 @@ export interface CheckboxProps
   obscured?: boolean;
 }
 
+/**
+ * Single checkbox with label, optional description, and error message.
+ * For grouped single-choice use RadioGroup; for an immediate-effect binary toggle use Switch.
+ *
+ * @summary single checkbox with label/description/error; for single-choice groups use RadioGroup
+ */
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ({ className, label, description, error, theme, id, obscured: obscuredProp, disabled, ...props }, ref) => {
     const generatedId = React.useId();

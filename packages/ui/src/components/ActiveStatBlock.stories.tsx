@@ -102,6 +102,7 @@ export const Primary: Story = {
 };
 
 export const ThemeShowcase: Story = {
+  tags: ["!manifest"],
   render: () => {
     const themes = [
       "base",

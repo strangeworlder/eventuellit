@@ -140,6 +140,13 @@ const decodeSafe = (value: string): string => {
  * Supports responsive <picture> sources and a blur placeholder while loading.
  * If `/images/manifest.json` exists for the image origin, optimization data is auto-applied.
  */
+/**
+ * Themed image with optional caption, lazy loading, and AVIF/WebP source switching.
+ * Use for article images, character portraits, and illustrated content blocks.
+ * Supports an optional full-screen modal expand (`enableModal`).
+ *
+ * @summary themed image with caption and source switching; variant: surface/outline/highlight/thumbnail/inline
+ */
 export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
   (
     {

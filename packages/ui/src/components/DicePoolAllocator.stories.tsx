@@ -82,6 +82,7 @@ export const CustomTheme: Story = {
  * swap produces accessible colour contrast in all combinations.
  */
 export const ThemeShowcase: Story = {
+  tags: ["!manifest"],
   args: { maxDice: 3, axes: [] },
   render: () => {
     const themes = [

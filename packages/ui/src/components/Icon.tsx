@@ -64,6 +64,14 @@ export interface IconProps extends React.SVGAttributes<SVGElement> {
     size?: number;
 }
 
+/**
+ * Lucide icon wrapper. Always use this instead of importing Lucide icons directly —
+ * it enforces a consistent size scale and type-safe `IconName` union.
+ * Available names: alert-triangle, circle-check, circle-x, info, loader2, plus, minus,
+ * trash-2, x, chevron-left/right, menu, settings, map, globe, log-in/out, shield, zap, sparkles, etc.
+ *
+ * @summary Lucide icon wrapper; use IconName type for valid names; size prop in px (default 16)
+ */
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
     ({ name, size = 16, className, ...props }, ref) => {
         const LucideIcon = icons[name];

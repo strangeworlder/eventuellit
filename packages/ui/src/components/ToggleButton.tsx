@@ -11,8 +11,10 @@ export interface ToggleButtonProps extends React.ButtonHTMLAttributes<HTMLButton
 /**
  * A two-state toggle button that communicates its pressed state visually.
  * Uses the secondary colour token when active and a muted outline when inactive.
+ * Sets `aria-pressed` following the WAI-ARIA toggle button pattern.
+ * For a full-width on/off toggle with a label use Switch instead.
  *
- * Follows the WAI-ARIA pattern for toggle buttons by setting `aria-pressed`.
+ * @summary compact pressed/unpressed toggle button with aria-pressed; for labelled toggles use Switch
  */
 export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProps>(
     ({ className, pressed, theme, children, ...props }, ref) => {

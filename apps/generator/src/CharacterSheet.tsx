@@ -58,7 +58,9 @@ export function CharacterSheet({
   const { data: character, isLoading } = useQuery<Character>({
     queryKey: ["character", characterId],
     queryFn: async () => {
+      const token = localStorage.getItem("auth_token");
       const res = await fetch(`${apiBaseUrl}/characters/${characterId}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         credentials: "include",
       });
       if (!res.ok) throw new Error("Character fetch failed");
@@ -68,9 +70,13 @@ export function CharacterSheet({
 
   const { mutate: updateCharacter } = useMutation({
     mutationFn: async (updates: Partial<Character>) => {
+      const token = localStorage.getItem("auth_token");
       const res = await fetch(`${apiBaseUrl}/characters/${characterId}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         credentials: "include",
         body: JSON.stringify(updates),
       });
@@ -98,8 +104,10 @@ export function CharacterSheet({
 
   const { mutate: deleteCharacter, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
+      const token = localStorage.getItem("auth_token");
       const res = await fetch(`${apiBaseUrl}/characters/${characterId}`, {
         method: "DELETE",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         credentials: "include",
       });
       if (!res.ok) throw new Error("Delete failed");

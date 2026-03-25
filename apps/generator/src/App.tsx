@@ -490,7 +490,9 @@ function InnerApp() {
   const { data: characters, isLoading } = useQuery({
     queryKey: ["characters"],
     queryFn: async () => {
+      const token = localStorage.getItem("auth_token");
       const res = await fetch(`${apiBaseUrl}/characters`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         credentials: "include",
       });
       if (!res.ok) throw new Error("Failed to fetch characters");

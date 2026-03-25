@@ -2,6 +2,12 @@ import React from "react";
 import { Button } from "./Button";
 import { cn } from "./utils";
 
+/**
+ * Embedded YouTube player with a call-to-action overlay button.
+ * Use on landing and campaign pages where a video plus a next-step action are needed together.
+ *
+ * @summary YouTube embed with an overlay CTA button; use on landing/campaign pages
+ */
 export interface VideoCtaProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * YouTube video ID

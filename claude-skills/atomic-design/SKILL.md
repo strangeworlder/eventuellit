@@ -1,137 +1,58 @@
 ---
 name: Design System & Atomic Design
-description: Atomic design hierarchy, component classification (atoms/molecules/organisms), shared form primitives, and Storybook organization for the @repo/ui package.
+description: Atomic design hierarchy and component classification rules for the @repo/ui package. Use when creating new components, writing Storybook stories, or deciding where a component belongs.
 ---
 
 # Design System & Atomic Design
 
-## Atomic Design Hierarchy
+## Classification Rules
 
-The design system follows **atomic design** principles. Every component in `@repo/ui` belongs to one classification level. Storybook titles reflect this under the `Suunnittelujarjestelma/` root.
+Every `@repo/ui` component belongs to one level. To find the current component inventory, grep for `title: "Suunnittelujarjestelma/` in `packages/ui/src/components/*.stories.tsx`.
 
-### Perustat (Foundations)
+### Decision guide
 
-Non-component design tokens and reference pages. These are **not** importable React components — they document the raw system.
+1. **Cannot be broken down further?** → **Atomit** (Atom)
+2. **Composes 2+ atoms into a functional group?** → **Molekyylit** (Molecule)
+3. **Self-contained page section with own layout?** → **Organismit** (Organism)
+4. **Game-domain-specific?** → **Pelimekaniikka**
+5. **Page-level layout shell?** → **Sivupohjat**
 
-| Story | Purpose |
-|---|---|
-| Tokens | Spacing, border-radius, and sizing scales |
-| Colors | Color palette and semantic color mappings |
-| Typography | Font families, weights, and heading scales |
-| Icons | Gallery of all available Lucide + custom icons |
-| Themes / Theme | Theme override system and `data-theme` scoping |
+### Atom constraints
 
-### Atomit (Atoms)
+- Must NOT import other `@repo/ui` components (only utilities: `cn`, `obscureString`)
+- Renders a single semantic HTML element or minimal wrapper
 
-The smallest indivisible UI primitives. They accept props but do **not** compose other design-system components internally.
+### Molecule constraints
 
-**General UI:** `Button`, `ToggleButton`, `Badge`, `Icon`, `DiceIcon`, `Link`, `Heading`, `Text`, `GameTerm`, `LoadingState`, `ImageElement`
+- Composes atoms — e.g., form inputs use `FieldLabel` + `FieldError` + `FieldDescription`
 
-**Form primitives:** `FieldLabel`, `FieldError`, `FieldDescription`, `AspectTag`
-
-When creating a new atom:
-- It must NOT import other `@repo/ui` components (only utilities like `cn`, `obscureString`)
-- It should render a single semantic HTML element or a minimal wrapper
-- Classify as `title: "Suunnittelujarjestelma/Atomit/ComponentName"`
-
-### Molekyylit (Molecules)
-
-Compositions of atoms into a functional unit. Molecules import and use atoms.
-
-**Form inputs:** `Input`, `TextArea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `FormInputs`
-
-**Display:** `Tabs`, `AnchoredTooltip`, `TextSection`, `List`, `MarkdownRenderer`, `NoticePanel`, `ObscuredWrapper`, `StatBlock`, `ActiveStatBlock`
-
-When creating a new molecule:
-- It should compose 2+ atoms or have meaningful internal structure
-- Classify as `title: "Suunnittelujarjestelma/Molekyylit/ComponentName"`
-
-### Organismit (Organisms)
-
-Complex, self-contained UI sections with their own layout logic.
-
-`Card`, `Hero`, `Sidebar`, `VideoCta`, `AttributeCard`, `ArticleProgressNavigator`, `StationConnections`, `SkillMasonry`
-
-When creating a new organism:
-- It should represent a distinct section of a page
-- Classify as `title: "Suunnittelujarjestelma/Organismit/ComponentName"`
-
-### Pelimekaniikka (Game Mechanics)
-
-Domain-specific game components that don't fit generic atomic levels.
-
-`DiceRoller`, `DicePoolTracker`, `DicePoolAllocator`, `EnduranceBlock`
-
-### Sivupohjat (Templates)
-
-Page-level layout shells: `Page`
-
-## Shared Form Primitives
-
-All form components (`Input`, `TextArea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`) share extracted atom building blocks:
-
-### `FieldLabel`
-
-```tsx
-import { FieldLabel } from "./FieldLabel";
-
-// In a molecule:
-{label && <FieldLabel obscured={obscured}>{label}</FieldLabel>}
-```
-
-Renders the standardised `text-sm font-black uppercase tracking-widest text-[var(--theme-secondary)]` label with built-in obscured state handling. Accepts optional `htmlFor` to render as `<label>` instead of `<span>`.
-
-### `FieldError`
-
-```tsx
-import { FieldError } from "./FieldError";
-
-{error && <FieldError className="pl-8">{error}</FieldError>}
-```
-
-Renders the `text-sm font-bold uppercase tracking-widest text-[var(--theme-accent)]` error message. Pass `className` for positional adjustments (e.g. `pl-8` for checkbox indent).
-
-### `FieldDescription`
-
-```tsx
-import { FieldDescription } from "./FieldDescription";
-
-{description && (
-  <FieldDescription obscured={obscured} glitchStyle={glitchStyle}>
-    {description}
-  </FieldDescription>
-)}
-```
-
-Helper text under labels. Handles obscured blur, glitch animation, and text scrambling.
-
-### `useObscuredGlitch` Hook
-
-```tsx
-import { useObscuredGlitch } from "./useObscuredGlitch";
-
-const { glitchStyle } = useObscuredGlitch(obscured);
-// Spread glitchStyle onto elements that need the glitch animation
-```
-
-Encapsulates the randomised `glitchDuration` and `glitchDelay` `useMemo` calls. Returns a ready-to-spread `React.CSSProperties` object with `--glitch-delay` and `--glitch-duration` CSS custom properties.
-
-## Storybook Sort Order
-
-The sidebar order is enforced in `packages/ui/.storybook/preview.ts` via `storySort`:
+### Storybook title format
 
 ```
-Perustat → Atomit → Molekyylit → Organismit → Pelimekaniikka → Sivupohjat
+title: "Suunnittelujarjestelma/{FinnishCategory}/{EnglishComponentName}"
 ```
 
-All story titles use **English component names** after the Finnish category prefix (e.g. `Suunnittelujarjestelma/Atomit/Button`, not `Suunnittelujarjestelma/Atomit/Painike`).
+Categories: `Perustat`, `Atomit`, `Molekyylit`, `Organismit`, `Pelimekaniikka`, `Sivupohjat`. Sort order enforced in `packages/ui/.storybook/preview.ts`.
 
-## Classification Decision Guide
+## `index.ts` vs Storybook
 
-When adding a new component, ask:
+The barrel export in `src/index.ts` groups components by API convenience and **differs** from Storybook. **Storybook is the authoritative classification.** Notable differences:
+- `Card` → `index.ts` says Molecule, Storybook says Organism
+- Form inputs (`Checkbox`, `Input`, `Select`, etc.) → `index.ts` says Atom, Storybook says Molecule
+- `AspectTag` → `index.ts` says Molecule, Storybook says Atom
 
-1. **Can it be broken down further?** → If no, it's an **Atom**
-2. **Does it compose 2+ atoms into a functional group?** → **Molecule**
-3. **Is it a distinct, self-contained page section?** → **Organism**
-4. **Is it game-domain-specific?** → **Pelimekaniikka**
-5. **Is it a page-level layout shell?** → **Sivupohjat**
+## Shared Form Patterns
+
+All form molecules (`Input`, `TextArea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`) share:
+- `FieldLabel` / `FieldError` / `FieldDescription` atom composition
+- Optional `theme` prop → `data-theme` on wrapper
+- `useObscured()` context integration (disables when obscured)
+- `border-[var(--theme-border-medium)]` for control borders
+- Error state: `--theme-accent` border + ring
+- `useObscuredGlitch()` for glitch animation timing
+
+When creating a new form input, follow this same pattern — read any existing form component as reference.
+
+## Foundations (Perustat)
+
+Non-component stories documenting raw design tokens: `Tokens`, `Colors`, `Typography`, `Icons`, `Themes`, `Theme`. These are reference pages, not importable components.

@@ -18,6 +18,12 @@ export interface SwitchProps
   obscured?: boolean;
 }
 
+/**
+ * Binary on/off toggle with label and optional description.
+ * Use instead of Checkbox when the action takes immediate effect (no form submit needed).
+ *
+ * @summary immediate-effect binary toggle; use Checkbox when toggle is part of a submitted form
+ */
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
   ({ className, label, description, error, theme, id, checked, obscured: obscuredProp, disabled, ...props }, ref) => {
     const generatedId = React.useId();

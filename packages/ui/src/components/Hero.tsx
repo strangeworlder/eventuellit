@@ -12,6 +12,12 @@ export interface HeroProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "t
     backgroundImageAlt?: string;
 }
 
+/**
+ * Full-width page header section with title, description, optional background image,
+ * and a children slot for CTAs or sub-content. Includes the `HeroCanvas` starfield animation.
+ *
+ * @summary full-width page header with title, description, background image, and CTA slot
+ */
 export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
     ({ title, description, children, className, backgroundImageSrc, backgroundImageAlt = "", ...props }, ref) => {
         return (

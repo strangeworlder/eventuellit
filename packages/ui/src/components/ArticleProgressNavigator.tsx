@@ -5,6 +5,14 @@ import { AnchoredTooltip } from "./AnchoredTooltip";
 import type { ArticleSectionAnchor } from "./article-navigation-utils";
 import { cn } from "./utils";
 
+/**
+ * Vertical progress rail for long-form article content.
+ * Shows section markers at calculated positions along the rail, scroll progress fill,
+ * and an active-section indicator. Used in ruleset and episodes article views.
+ * Pair with `useArticleProgressNavigation` in the host/episodes apps.
+ *
+ * @summary sticky progress rail for long articles; shows section markers and scroll progress
+ */
 export interface ArticleProgressNavigatorProps extends React.HTMLAttributes<HTMLDivElement> {
   sections: ArticleSectionAnchor[];
   progress: number;

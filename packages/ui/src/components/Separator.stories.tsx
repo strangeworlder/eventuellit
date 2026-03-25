@@ -80,6 +80,7 @@ export const Pystysuora: Story = {
 };
 
 export const KaikkiVariantit: Story = {
+    tags: ["!manifest"],
     render: () => (
         <div className="max-w-md space-y-8">
             <div className="space-y-3">

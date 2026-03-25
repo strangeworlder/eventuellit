@@ -1,0 +1,147 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta
+  title="Suunnittelujarjestelma/Perustat/Komponenttiopas"
+  summary="Use-case guide: which component to reach for first in each situation. Read this before calling get-documentation on individual components."
+/>
+
+# Komponenttiopas (Component Guide)
+
+This page groups every `@repo/ui` component by **use-case** rather than atomic level.
+Use it as the entry point to decide which component to look up next.
+
+---
+
+## Pelilogiikka (Gameplay mechanics)
+
+| Component | When to use |
+|-----------|-------------|
+| `StationConnections` | Game board / world map. Renders a compass-rose of connected stations around a central node with animated framer-motion transitions. The most complex component in the library. |
+| `DicePoolAllocator` | Pre-roll phase: let the player distribute a fixed pool of d20s across named action axes. Has an optional attribute die toggle per axis. |
+| `DicePoolTracker` | During / post-roll: display an existing dice pool and let the player toggle individual dice as spent. Groups dice by face count. |
+| `DiceRoller` | Simple one-click dice roll widget. Use for quick rolls when full allocator is not needed. |
+| `DiceIcon` | A single decorative or semantic die face (d4 / d6 / d8 / d10 / d12 / d20 / swirl). Use standalone inside game UI or as a visual accent. |
+| `StatBlock` | Read-only stat display. Shows a label, numeric value, optional max, and an icon. Use for character sheet display. |
+| `ActiveStatBlock` | Interactive stat display with +/− controls. Use when the value can change during play (e.g. HP, Sisu). |
+| `EnduranceBlock` | Composite Kesto (endurance) widget: two sub-attributes with passive dice on the left, an increment/decrement Kesto value on the right. |
+| `AttributeCard` | Character attribute card with dice visualisation. Converts an allocation value into the tiered d4–d20 dice representation. |
+| `AspectTag` | Inline harm or skill tag chip. Use `variant="harm"` for conditions/wounds (healable), `variant="skill"` for acquired skills (removable/custom). |
+| `SkillTagList` | A managed list of `AspectTag` skill items with inline add / rename / remove. Use on character sheets. |
+| `SkillMasonry` | A browsable, searchable, obscurable masonry grid of skill items. Use for the skill catalogue view. |
+| `GameTerm` | Inline typographic emphasis for game terms (e.g. **Kesto**, **Sisu**). Not a chip — purely inline text. |
+
+---
+
+## Lomakkeet ja syötteet (Forms & inputs)
+
+| Component | When to use |
+|-----------|-------------|
+| `Input` | Single-line text input. The standard text field for all forms. |
+| `TextArea` | Multi-line text input. |
+| `Select` | Dropdown/select control. |
+| `Checkbox` | Single checkbox. For grouped choices use a list of these. |
+| `RadioGroup` | Single-choice radio group. |
+| `Switch` | Binary toggle (on/off). Use instead of Checkbox when the action takes immediate effect. |
+| `ToggleButton` | A button that acts as an on/off toggle with pressed-state styling. |
+| `FieldLabel` | Form field label. Pair with any input. |
+| `FieldError` | Form field error message. Pair with any input that can show validation errors. |
+
+---
+
+## Palaute käyttäjälle (User feedback)
+
+| Component | When to use |
+|-----------|-------------|
+| `ToastProvider` / `useToast` | Transient pop-up notifications (success, error, warning, info). Wrap app in `ToastProvider`; call `useToast().toast(...)` to trigger. |
+| `NoticePanel` | Persistent inline callout. Use for success confirmation panels, informational sidebars, or error banners that stay on screen. |
+| `LoadingState` | Full-area loading placeholder shown while async data is fetching. |
+| `Skeleton` / `SkeletonText` / `SkeletonCard` | Inline shimmer placeholders for individual elements. Prefer over `LoadingState` for partial updates. |
+| `AnchoredTooltip` | CSS-anchor-positioned tooltip. Use for hover descriptions, station names on the game board, or loading-state tooltips on buttons. |
+
+---
+
+## Navigaatio ja rakenne (Navigation & structure)
+
+| Component | When to use |
+|-----------|-------------|
+| `Tabs` / `TabsList` / `TabsTrigger` / `TabsLink` / `TabsContent` | Primary page-level tab navigation. `TabsLink` renders as `<a>` for router-linked tabs; `TabsTrigger` for state-only tabs. |
+| `Sidebar` | Collapsible side navigation panel. Contains a `SidebarNav` of `Button` items. Uses `useSidebar()` hook for controlled expand/collapse. |
+| `Drawer` | Slide-in side panel. Use for contextual detail panels, not for primary navigation. `useDrawer()` hook for control. |
+| `Dialog` | Modal dialog with focus trap, title, description, footer actions. Use for confirmations and forms requiring focused interaction. |
+| `ArticleProgressNavigator` | Vertical progress rail for long-form content. Shows section markers and scroll progress. Used in ruleset / episodes articles. |
+| `Link` | Styled anchor / router link. Use instead of `<a>` for all internal navigation. |
+
+---
+
+## Sisältö ja typografia (Content & typography)
+
+| Component | When to use |
+|-----------|-------------|
+| `Heading` | Semantic heading (`h1`–`h6`) with automatic level management via `HeadingLevelProvider`. Never use raw `<h1>`–`<h6>` in the design system. |
+| `Text` | Body and UI text. Supports `variant` (body, lead, muted, small, mono, etc.). |
+| `MarkdownRenderer` | Renders a markdown string as safe, styled HTML. Use for user-generated or CMS-authored content. |
+| `TextSection` | A `<section>` container that optionally renders an auto-levelled heading. Use to group paragraphs in long-form content. |
+| `Code` | Inline or block code with monospace styling. |
+| `List` / `ListItem` | Styled `<ul>` / `<li>` with consistent spacing. |
+| `Badge` | Small status / label chip. Use for tags, counts, and statuses. |
+| `Icon` | Lucide icon wrapper. Always use this instead of importing Lucide icons directly — it enforces a consistent size scale. |
+| `GameTerm` | Inline emphasis for domain-specific game terminology. |
+
+---
+
+## Kortit ja pintaelementit (Cards & surfaces)
+
+| Component | When to use |
+|-----------|-------------|
+| `Card` | The primary surface container. Choose `variant` for intent: `surface` (default), `outline`, `highlight`, `subtle`, `interactive` (clickable), `callout` (left-accented). |
+| `ImageElement` | Themed image with optional caption. Use for article images and character portraits. |
+| `ObscuredWrapper` | Wraps any content in a blur/disabled overlay when `revealed={false}`. Use for hidden game content that requires a reveal action. |
+| `AspectTag` | See Gameplay section — also usable as a generic labelling chip. |
+| `Separator` | Horizontal rule / divider. |
+
+---
+
+## Sivupohjat ja layout (Page templates & layout)
+
+| Component | When to use |
+|-----------|-------------|
+| `Page` | Top-level content wrapper. Sets max-width (1280px), centres content, resets heading levels to `h1`. Always use as the outermost content container inside `TabsContent`. |
+| `PageBody` | Main scrollable content column inside `Page`. |
+| `PageAside` | Sticky aside column inside `Page` (e.g. for the progress navigator). |
+| `Stack` | Flexbox column/row with consistent gap. Use instead of writing raw `flex` wrappers. |
+| `Grid` | CSS grid wrapper. Use for multi-column card grids. |
+| `Container` | Centred max-width wrapper. Lighter than `Page`; use inside sections. |
+| `Hero` | Full-width header section with title, description, optional background image, and children. |
+| `HeroCanvas` | Canvas animation of the starfield used inside `Hero`. Usually auto-included. |
+
+---
+
+## Median ja interaktion erikoiskomponentit (Media & interaction)
+
+| Component | When to use |
+|-----------|-------------|
+| `VideoCta` | Embedded YouTube player with a CTA overlay button. Use on landing / campaign pages. |
+| `Tabs` | See Navigation section. |
+
+---
+
+## Apuvälineet (Utilities — no UI rendered)
+
+| Component | When to use |
+|-----------|-------------|
+| `ThemeContext` / `useCurrentTheme` | Read or override the current CSS theme. |
+| `HeadingLevelProvider` | Override the automatic heading level inside a subtree. |
+| `useFocusTrap` | Hook that traps keyboard focus inside a container (used by Dialog / Drawer). |
+| `useObscured` | Hook that returns `true` if an ancestor `ObscuredWrapper` is hiding content. |
+| `useObscuredGlitch` | Hook providing CSS vars for the glitch animation used in obscured elements. |
+| `cn` | Tailwind class merge utility. Always use this instead of string concatenation for className. |
+| `obscureString` | Replaces a string with visually similar glitch characters. |
+
+---
+
+## Teematietoisuus (Theme awareness)
+
+All components accept an optional `theme?: Theme` prop that scopes `data-theme` to the component root.
+Available themes: `base` | `inverted` | `primary-light` | `primary-dark` | `secondary-light` | `secondary-dark` | `accent-light` | `accent-dark`.
+
+For full theme token documentation, see **Teemajärjestelmä** in the Storybook docs.

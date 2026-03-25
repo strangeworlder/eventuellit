@@ -31,6 +31,8 @@ export interface DicePoolTrackerProps
  * The component groups dice by face count and renders them in ascending order
  * (d4s first, d20s last). Designed for tracking Sisu pools but generic enough
  * for any dice-pool mechanic.
+ *
+ * @summary during/post-roll: track and toggle individual dice as spent; use DicePoolAllocator for allocation phase
  */
 export const DicePoolTracker = React.forwardRef<
   HTMLDivElement,

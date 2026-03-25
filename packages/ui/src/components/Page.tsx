@@ -9,8 +9,11 @@ export interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Page component serves as a layout wrapper for the main content areas within TabsContent.
- * Enforces standardized max-width, min-width, and centering.
+ * Top-level content wrapper for each tab view. Sets max-width (1280px), centres content,
+ * and resets the heading level context to h1. Always use as the outermost content container
+ * inside TabsContent. Compose with PageBody and PageAside for two-column layouts.
+ *
+ * @summary outermost content container inside TabsContent; compose with PageBody and PageAside
  */
 export const Page = React.forwardRef<HTMLDivElement, PageProps>(
   ({ children, className, theme, ...props }, ref) => {

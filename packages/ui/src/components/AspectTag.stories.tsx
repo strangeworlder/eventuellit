@@ -92,6 +92,7 @@ export const TaitoLista: Story = {
 
 /** All variants side-by-side for visual comparison */
 export const KaikkiVariantit: Story = {
+  tags: ["!manifest"],
   render: () => (
     <div className="flex flex-col gap-6 max-w-lg">
       <div>

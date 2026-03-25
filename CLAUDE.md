@@ -30,9 +30,34 @@ Available workspaces: `@eventuellit/host`, `@eventuellit/episodes`, `@eventuelli
 
 ## Additional Skills
 
-Detailed skills are available in the `claude-skills/` directory:
-- `claude-skills/typecheck/SKILL.md` – Full typecheck details
-- `claude-skills/ui-design-system/SKILL.md` – UI design system conventions
+Skills are available in the `claude-skills/` directory:
+- `claude-skills/ui-design-system/SKILL.md` – UI design system rules, theming, tokens
+- `claude-skills/atomic-design/SKILL.md` – Component classification and Storybook hierarchy
+- `claude-skills/project-conventions/SKILL.md` – Naming, security, state management
+- `claude-skills/setup-troubleshooting/SKILL.md` – Environment setup and common error fixes
+- `claude-skills/article-progress-nav/SKILL.md` – Progress rail architecture and MFE integration
+- `claude-skills/content-authoring/SKILL.md` – Markdown content in ruleset/episodes/world
+- `claude-skills/game-mechanics/SKILL.md` – TTRPG domain knowledge (dice, attributes, combat)
+
+## Storybook MCP
+
+When working on UI components in `@repo/ui`, use the `eventuellit-sb` MCP tools to access the live component library. The MCP server runs at `http://localhost:6006/mcp` while `npm run storybook` is active.
+
+**Required workflow before writing any UI code:**
+
+1. Call `list-all-documentation` to get the full component index and the `Komponenttiopas` use-case guide.
+2. Call `get-documentation` for each component you intend to use to verify exact prop names and variants.
+3. Call `get-storybook-story-instructions` before writing or modifying any `.stories.tsx` file.
+
+> [!CAUTION]
+> **NEVER hallucinate component props.** Before using any prop (including common-sounding ones like `shadow`, `color`, `size`, `disabled`), verify it exists via `get-documentation`. Only use props that are explicitly listed.
+
+**Available toolsets (`eventuellit-sb`):**
+- `list-all-documentation` — compact index of all 57 components and docs pages
+- `get-documentation` — full props, variants, and first 3 stories for a component
+- `get-documentation-for-story` — full story source when `get-documentation` is insufficient
+- `get-storybook-story-instructions` — project-specific story-writing conventions
+- `preview-stories` — links to rendered stories at localhost:6006
 
 ## Workflows
 

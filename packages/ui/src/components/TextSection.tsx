@@ -8,7 +8,10 @@ export interface TextSectionProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 /**
- * A reusable container for text sections, optionally rendering a title heading.
+ * A reusable `<section>` container that optionally renders an auto-levelled heading.
+ * Use to group paragraphs in long-form content with consistent vertical rhythm.
+ *
+ * @summary section container with optional auto-levelled heading; use in long-form article content
  */
 export const TextSection = React.forwardRef<HTMLElement, TextSectionProps>(
     ({ className, title, headingClassName = "mb-4", children, ...props }, ref) => {

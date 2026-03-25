@@ -23,6 +23,11 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     | "accent-dark";
 }
 
+/**
+ * Small status or label chip. Use for tags, counts, states, and category labels.
+ *
+ * @summary small label/status chip; variant: solid/outline/highlight/highlight-solid/ghost; optional icon
+ */
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     ({ className, variant = "solid", icon, theme, children, ...props }, ref) => {
         return (

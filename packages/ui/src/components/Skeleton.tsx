@@ -2,6 +2,12 @@ import React from "react";
 import { cn } from "./utils";
 import type { Theme } from "./Theme";
 
+/**
+ * Shimmer loading placeholder for known-shape elements. Prefer this over `LoadingState`
+ * for partial/inline updates. `SkeletonText` and `SkeletonCard` are convenience wrappers.
+ *
+ * @summary shimmer loading placeholder; variant: block/circle/text; use LoadingState for full-area loading
+ */
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Visual shape variant.

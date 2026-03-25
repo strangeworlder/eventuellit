@@ -18,6 +18,13 @@ export function useSidebar() {
   return context;
 }
 
+/**
+ * Collapsible side navigation panel. Contains navigation links rendered as `Button` items.
+ * `useSidebar()` hook for controlled expand/collapse. Use for the primary app navigation rail.
+ * For contextual detail panels use Drawer; for tab-based navigation use Tabs.
+ *
+ * @summary primary collapsible nav panel; use useSidebar() hook; for contextual panels use Drawer
+ */
 export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultExpanded?: boolean;
   expanded?: boolean;

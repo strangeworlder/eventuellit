@@ -12,8 +12,10 @@ export interface GameTermProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 /**
- * A standardized component for emphasizing game terms and creating inline labels 
+ * A standardized component for emphasizing game terms and creating inline labels
  * based on the Design System typography tokens.
+ *
+ * @summary inline typography emphasis for game terms; variant: accent (default), emphasis, label
  */
 export const GameTerm = React.forwardRef<HTMLElement, GameTermProps>(
     ({ className, variant = "default", ...props }, ref) => {

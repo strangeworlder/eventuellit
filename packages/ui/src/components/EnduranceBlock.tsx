@@ -38,6 +38,7 @@ export interface EnduranceBlockProps
  * - Left side: sub-attributes with passive (non-interactive) dice icons
  * - Right side: the Kesto value with increment/decrement controls
  *
+ * @summary Kesto (endurance) widget: sub-attribute dice on left, increment/decrement value on right
  * The right side (Kesto value) is given more visual weight as it is the
  * primary gameplay-relevant value.
  */

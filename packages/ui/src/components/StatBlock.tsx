@@ -14,6 +14,12 @@ export interface StatBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: Theme;
 }
 
+/**
+ * Read-only stat display tile: label, numeric value, optional max, and optional icon.
+ * Use for character sheet display and scoreboards. For interactive increment/decrement use ActiveStatBlock.
+ *
+ * @summary read-only stat tile (label + value); use ActiveStatBlock when the value can change during play
+ */
 export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
   ({ className, label, value, maxValue, icon, variant = "outline", theme, ...props }, ref) => {
     const parentTheme = useCurrentTheme();

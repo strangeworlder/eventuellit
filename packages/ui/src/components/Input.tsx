@@ -14,6 +14,12 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   obscured?: boolean;
 }
 
+/**
+ * Single-line text input with optional label, error message, and obscure support.
+ * The standard text field for all forms. Integrates with ObscuredWrapper context.
+ *
+ * @summary single-line text field with label/error; supports obscured prop for hidden content
+ */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, error, theme, obscured: obscuredProp, disabled, placeholder, value, defaultValue, ...props }, ref) => {
     const obscured = obscuredProp || useObscured();

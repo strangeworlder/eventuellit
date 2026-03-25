@@ -3,6 +3,13 @@ import { cn } from "./utils";
 
 // ── Stack ──
 
+/**
+ * Flexbox column/row wrapper with a consistent gap scale.
+ * Use instead of writing raw `flex flex-col gap-*` wrappers.
+ * For multi-column grids use `Grid`; for max-width centering use `Container`.
+ *
+ * @summary flex column/row with gap scale; direction: column (default) or row; alternatives: Grid, Container
+ */
 export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Direction of the stack.

@@ -8,7 +8,10 @@ export interface LoadingStateProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 /**
- * Standardized loading label for async states across applications.
+ * Standardized full-area loading label for async states across applications.
+ * Use for full-page or full-section loading. For inline element placeholders use Skeleton.
+ *
+ * @summary full-area loading label with pulse animation; for element-level placeholders use Skeleton
  */
 export const LoadingState = React.forwardRef<HTMLDivElement, LoadingStateProps>(
   ({ className, message, size = "default", layout = "inline", ...props }, ref) => (

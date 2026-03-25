@@ -24,6 +24,14 @@ export interface ConnectedStation {
   tension?: string;
 }
 
+/**
+ * The game board / world map component. Renders a compass-rose of connected station nodes
+ * around an animated central die. Each node is clickable and navigates to a station route.
+ * Uses framer-motion for enter/exit animations and CSS Anchor Positioning for tooltips.
+ * The most complex component in the library.
+ *
+ * @summary game board map; renders connected stations around a center die with compass directions
+ */
 export interface StationConnectionsProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Array of connection nodes built from the connections data file */
   connections: StationConnectionNode[];

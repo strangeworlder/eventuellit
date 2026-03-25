@@ -29,6 +29,10 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * A set of layered sections of content—known as tab panels—that display one panel of content at a time.
  * Designed with a physical binder aesthetic and full keyboard accessibility.
+ * Use `TabsLink` for router-linked tabs and `TabsTrigger` for state-only tabs.
+ * Always wrap tab content in `Page` inside each `TabsContent`.
+ *
+ * @summary primary tab navigation; TabsLink for router tabs, TabsTrigger for state tabs, TabsContent for panels
  */
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   ({ value: controlledValue, defaultValue, onValueChange, className, ...props }, ref) => {

@@ -19,6 +19,12 @@ export interface AspectTagProps extends React.HTMLAttributes<HTMLDivElement> {
   readOnly?: boolean;
 }
 
+/**
+ * Inline chip for harm conditions and skill tags. `variant="harm"` shows healable wound tags;
+ * `variant="skill"` shows acquired skills that can be removed or renamed.
+ *
+ * @summary inline chip: harm (healed/not) or skill (removable/custom); use SkillTagList for a managed list
+ */
 export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
   (
     {

@@ -9,7 +9,10 @@ export interface NoticePanelProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Semantic callout panel for success and informational notices.
+ * Persistent inline callout panel for success, info, and error notices.
+ * Use when the message must stay visible on screen. For transient pop-ups use ToastProvider/useToast.
+ *
+ * @summary persistent inline callout (success/info/error); for transient pop-ups use useToast
  */
 export const NoticePanel = React.forwardRef<HTMLDivElement, NoticePanelProps>(
   ({ className, variant = "info", title, actions, children, ...props }, ref) => (

@@ -24,6 +24,8 @@ export interface DicePoolAllocatorProps extends React.HTMLAttributes<HTMLDivElem
  * An interactive dice pool allocation widget. Players distribute a fixed pool of d20s
  * across named action axes, with an optional attribute die toggle per axis.
  *
+ * @summary pre-roll: distribute a d20 pool across action axes; use DicePoolTracker for tracking spent dice
+ *
  * Follows the **primary component** pattern from the design system — it swaps to a
  * contrasting `data-theme` based on its parent theme context (via `primaryThemeMap`),
  * so that all children inherit correct contrast automatically from the CSS theme system.

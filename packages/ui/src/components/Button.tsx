@@ -58,6 +58,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   | "accent-dark";
 }
 
+/**
+ * Primary interaction control for all player actions. Does not navigate.
+ * For navigation use Link instead. Choose `variant` to express intent:
+ * solid (primary), outline (secondary), danger (destructive), ghost-subtle (nav/sidebar).
+ *
+ * @summary for player actions; variant expresses intent (solid/outline/danger/ghost-subtle)
+ */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
