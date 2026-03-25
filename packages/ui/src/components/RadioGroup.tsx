@@ -133,15 +133,15 @@ export function RadioGroupItem({
           data-text={isObscured ? "x" : undefined}
           style={isObscured ? glitchStyle : undefined}
           className={cn(
-            "h-5 w-5 rounded-full border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] transition-all peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-primary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
-            isSelected && "border-[var(--theme-primary)]",
+            "h-5 w-5 rounded-full border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] transition-all peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-secondary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
+            isSelected && "border-[var(--theme-secondary)]",
             isObscured && "blur-[1.5px] obscured-glitch",
           )}
         />
         {isSelected && (
           <span
             className={cn(
-              "absolute h-2.5 w-2.5 rounded-full bg-[var(--theme-primary)] transition-transform scale-100 animate-in zoom-in duration-150",
+              "absolute h-2.5 w-2.5 rounded-full bg-[var(--theme-secondary)] transition-transform scale-100 animate-in zoom-in duration-150",
               isObscured && "blur-[1.5px]",
             )}
           />
@@ -151,7 +151,7 @@ export function RadioGroupItem({
         <span
           data-text={isObscured ? obscureString(label) : undefined}
           className={cn(
-            "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-primary)] transition-colors",
+            "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-secondary)] transition-colors",
             isObscured && "blur-[5.5px] obscured-glitch",
           )}
           style={isObscured ? glitchStyle : undefined}

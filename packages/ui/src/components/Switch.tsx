@@ -62,9 +62,9 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
               className={cn(
                 "block h-6 w-11 rounded-full border-2 transition-colors",
                 checked
-                  ? "bg-[var(--theme-primary)] border-[var(--theme-primary)]"
+                  ? "bg-[var(--theme-secondary)] border-[var(--theme-secondary)]"
                   : "bg-[var(--theme-surface-tint)] border-[var(--theme-border-soft)]",
-                "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-primary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
+                "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-secondary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
                 obscured && "blur-[1.5px] obscured-glitch",
               )}
             />
@@ -82,7 +82,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             <span
               data-text={obscured ? obscureString(label) : undefined}
               className={cn(
-                "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-primary)] transition-colors",
+                "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-secondary)] transition-colors",
                 obscured && "blur-[5.5px] obscured-glitch",
               )}
               style={obscured ? glitchStyle : undefined}
