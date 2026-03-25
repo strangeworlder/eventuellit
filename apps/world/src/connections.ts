@@ -3,7 +3,7 @@ export type CompassDir = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
 export interface ConnectionNode {
   direction: CompassDir;
   type?: "station" | "marker";
-  shape?: 12;
+  shape?: 12 | "swirl";
 }
 
 /**
@@ -65,6 +65,7 @@ export const stationConnections: Record<string, Record<string, ConnectionNode>> 
   Kilpi: {
     Pöytä: { direction: "NW" },
     Siemen: { direction: "N" },
+    _marker_se: { direction: "SE", type: "marker", shape: "swirl" },
   },
   Kuiskaus: {
     Seula: { direction: "NW" },

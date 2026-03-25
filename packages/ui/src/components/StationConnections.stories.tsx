@@ -218,7 +218,10 @@ export const Korkea: Story = {
 /** Yksittäinen yhteys — minimaalinen näkymä */
 export const YksiYhteys: Story = {
   args: {
-    connections: [{ title: "Siemen", direction: "N" }],
+    connections: [
+      { title: "Siemen", direction: "N" },
+      { title: "_marker_se", direction: "SE", type: "marker", shape: "swirl" },
+    ],
     tension: "Murtunut",
     currentStationOrder: 9,
     currentStationTitle: "Kilpi",

@@ -12,7 +12,7 @@ export interface StationConnectionNode {
   title: string;
   direction: CompassDir;
   type?: "station" | "marker";
-  shape?: 4 | 6 | 8 | 10 | 12 | 20;
+  shape?: 4 | 6 | 8 | 10 | 12 | 20 | "swirl";
 }
 
 export interface ConnectedStation {
@@ -208,7 +208,7 @@ export function StationConnections({
         x: CX + RADIUS * Math.cos(angle),
         y: CY + RADIUS * Math.sin(angle),
         isMarker,
-        shape: (shape ?? 20) as 4 | 6 | 8 | 10 | 12 | 20,
+        shape: (shape ?? 20) as 4 | 6 | 8 | 10 | 12 | 20 | "swirl",
         station: isMarker
           ? null
           : (stations.find(
@@ -399,7 +399,7 @@ export function StationConnections({
     if (node.isMarker) {
       return (
         <DiceIcon
-          faces={node.shape as 12}
+          faces={node.shape as 12 | "swirl"}
           size="md"
           hideValue
           style={
