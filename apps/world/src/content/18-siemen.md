@@ -9,14 +9,14 @@ tension: "Matala"
 
 ### Yleiskuvaus
 
-Siemen on Kynnyksen toivo — tai ainakin Kasvattajat haluavat uskoa niin. Yliopiston ja maatilan yhdistelmä on epätavallinen mutta toimiva: oppilaat oppivat sekä kirjoista että pellosta. Kasvattajat uskovat, että tietämys ja ravinto ovat saman asian kaksi puolta.
+Siemen on Kynnyksen toivo — tai ainakin Muotinvalajat haluavat uskoa niin. Yliopiston ja maatilan yhdistelmä on epätavallinen mutta toimiva: oppilaat oppivat sekä kirjoista että pellosta. Muotinvalajat uskovat, että tietämys ja ravinto ovat saman asian kaksi puolta.
 
-Kartoittajat häiritsevät, koska Siemenen arkistot sisältävät geologista ja ekologista tietoa, jota Kartoittajat kaipaavat.
+Heimolaiset häiritsevät, koska Siemenen arkistot sisältävät geologista ja ekologista tietoa, jota Heimolaiset kaipaavat.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Kasvattajat
-- **Häiritsevä faktio:** Kartoittajat
+- **Hallitseva faktio:** Muotinvalajat
+- **Häiritsevä faktio:** Heimolaiset
 - **Jännite:** Matala
 
 ### Palvelut

@@ -11,12 +11,12 @@ tension: "Matala"
 
 Pesä on paikka, johon palataan. Tuhkan puolueen hallitsema asema on Kynnyksen vanhin asuimisto — sokkeloiset käytävät, sukupolvien kerrostumat seinissä, naapurit jotka tuntevat toisensa. Se on täynnä pieniä kahviloita, majataloja ja ihmisiä, joille Kynnys on kotipaikka eikä väliasema.
 
-Täällä ei olla vallankumouksellisia — täällä yritetään pitää se, mitä on. Tuhkan puolue on tässä tehtävässä hyvä.
+Täällä ei olla vallankumouksellisia — täällä yritetään pitää se, mitä on. Tuhkan puolue on tässä tehtävässä hyvä, mutta Erottajat hankaloittavat tilannetta: heidän mielestään puolue on liian passiivinen, ja he pyrkivät juurruttamaan yhteisöön uusia käytäntöjä ja liittoja.
 
 ### Hallinta
 
 - **Hallitseva faktio:** Tuhkan puolue
-- **Häiritsevä faktio:** —
+- **Häiritsevä faktio:** Erottajat
 - **Jännite:** Matala
 
 ### Palvelut

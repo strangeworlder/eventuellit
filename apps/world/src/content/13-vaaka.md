@@ -11,12 +11,12 @@ tension: "Korkea"
 
 Vaaka on kunnia-asema — tai ainakin se esittää sellaista. Ratasvartio pitää sitä hallussaan, ja sen areenat ovat paikka, jossa Kynnyksen kiistoja ratkaistaan terävillä välineillä. Kaksintaistelu on virallisesti tunnustettu riidanratkaisumenetelmä, ja Vaaka on sen temppeli.
 
-Legendan Kertojat häiritsevät: heille Vaaka on draaman näyttämö, ei sodan harjoituskenttä. He haluavat tehdä sen tarinoista.
+Verhonkutojat häiritsevät: heille Vaaka on draaman näyttämö, ei sodan harjoituskenttä. He haluavat tehdä sen tarinoista.
 
 ### Hallinta
 
 - **Hallitseva faktio:** Ratasvartio
-- **Häiritsevä faktio:** Legendan Kertojat
+- **Häiritsevä faktio:** Verhonkutojat
 - **Jännite:** Korkea
 
 ### Palvelut

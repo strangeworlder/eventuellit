@@ -1,7 +1,7 @@
 ---
 title: "Krypta"
 order: 19
-description: "Museo — pyhäkkö, arkisto ja reliikinmetsästäjien koti."
+description: "Museo — pyhäkkö, arkisto ja haaskalintuen koti."
 category: asema
 connections: "Siemen:NE, Kuiskaus:N"
 tension: "Matala"
@@ -9,13 +9,13 @@ tension: "Matala"
 
 ### Yleiskuvaus
 
-Krypta on muisti. Reliikinmetsästäjät ovat keränneet tähän kaiken, mitä Suuresta sodasta ja sitä edeltäneistä ajoista on löytynyt — esineitä, asiakirjoja, hylkyjen osia, tarinoiden jäämistöjä. Asema on osa museo, osa arkisto ja osa pyhäkkö niille, jotka kunnioittavat mennyttä.
+Krypta on muisti. Haaskalinnut ovat keränneet tähän kaiken, mitä Suuresta sodasta ja sitä edeltäneistä ajoista on löytynyt — esineitä, asiakirjoja, hylkyjen osia, tarinoiden jäämistöjä. Asema on osa museo, osa arkisto ja osa pyhäkkö niille, jotka kunnioittavat mennyttä.
 
-Pääsy on teknisesti avoin, mutta Reliikinmetsästäjät tietävät tarkalleen mitä heillä on — ja eivät heti kerro.
+Pääsy on teknisesti avoin, mutta Haaskalinnut tietävät tarkalleen mitä heillä on — ja eivät heti kerro.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Reliikinmetsästäjät
+- **Hallitseva faktio:** Haaskalinnut
 - **Häiritsevä faktio:** —
 - **Jännite:** Matala
 
