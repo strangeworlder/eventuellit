@@ -21,6 +21,10 @@ const config: StorybookConfig = {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
+  features: {
+    experimentalComponentsManifest: true,
+    experimentalCodeExamples: true,
+  },
 };
 export default config;
 
