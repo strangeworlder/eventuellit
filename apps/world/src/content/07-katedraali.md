@@ -10,12 +10,12 @@ tension: "Matala"
 
 Katedraali on kokemus. Ekklesian kotipesä on rakennettu niin, että jokainen sen kulmista huutaa merkityksellisyyttä: korkeat kaaret, jylhä valaistus, musiikki joka kulkee seinissä. Tänne tullaan etsimään jotain suurempaa, ja Ekklesia on valmis tarjoamaan sen.
 
-Kulttuurikeskuksen perintö on edelleen näkyvissä — teatteri, konsertit, rituaalit ja spektaakkelit sekoittuvat uskonnollisiin menoihin niin, että raja on häilyvä tarkoituksella.
+Kulttuurikeskuksen perintö on edelleen näkyvissä — teatteri, konsertit, rituaalit ja spektaakkelit sekoittuvat uskonnollisiin menoihin niin, että raja on häilyvä tarkoituksella. Pyhän Tragedian lapset löytävät Katedraalista täydellisen näyttämön äärimmäisimmille teolleen — heidän julkiset rituaalinsa haastavat Ekklesian auktoriteetin sen omissa tiloissa.
 
 ### Hallinta
 
 - **Hallitseva faktio:** Ekklesia
-- **Häiritsevä faktio:** —
+- **Häiritsevä faktio:** Pyhän Tragedian lapset
 - **Jännite:** Matala
 
 ### Palvelut

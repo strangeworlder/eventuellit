@@ -10,12 +10,12 @@ tension: "Murtunut"
 
 Louhos oli Kynnyksen raaka-aineiden lähde — louhittu, jalostettu, lähetetty eteenpäin. Tuo aika on ohi. Kaivokset ovat puoliksi tyhjennetty tai romahtanut, ja jäljelle jäänyt väki selviytyy niukasti. Neutraalius on enemmänkin hylätyksi tulemista kuin diplomatian tulos.
 
-Reliikinmetsästäjät ovat ottaneet Louhoksen käytännössä omakseen. Vanhojen kaivoskäytävien takaa löytyy enemmän kuin malmia — esivanhempien laitteita, unohdettuja tiloja, asioita joilla on arvo muualla.
+Haaskalinnut ovat ottaneet Louhoksen käytännössä omakseen. Vanhojen kaivoskäytävien takaa löytyy enemmän kuin malmia — esivanhempien laitteita, unohdettuja tiloja, asioita joilla on arvo muualla.
 
 ### Hallinta
 
 - **Hallitseva faktio:** Neutraali
-- **Häiritsevä faktio:** Reliikinmetsästäjät
+- **Häiritsevä faktio:** Haaskalinnut
 - **Jännite:** Murtunut
 
 ### Palvelut

@@ -15,7 +15,7 @@ Seulaa kutsuttiin muinoin Kynnyksen portiksi — se oli ensimmäinen kosketuspis
 ### Hallinta
 
 - **Hallitseva faktio:** Neutraali
-- **Häiritsevä faktio:** Ekklesia
+- **Häiritsevä faktio:** Verhonkutojat
 - **Jännite:** Matala
 
 ### Palvelut

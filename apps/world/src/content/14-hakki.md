@@ -10,12 +10,12 @@ tension: "Korkea"
 
 Häkki on paikka, jonne mennään kun kaikki muut ovet ovat kiinni — tai kun haluaa unohtaa. Pyhän Tragedian lapset on rakentanut vanhan väestönsuojan raunioille kasinon, areenan ja tapahtumateollisuuden, joka ei koskaan nuku. Rahaa liikkuu, verta liikkuu, ihmisiä häviää.
 
-Kartoittajat pitävät Häkkiä silmällä, koska siellä käydyillä peleillä on tapana vaikuttaa muihin asemiin enemmän kuin kukaan haluaisi myöntää.
+Heimolaiset pitävät Häkkiä silmällä, koska siellä käydyillä peleillä on tapana vaikuttaa muihin asemiin enemmän kuin kukaan haluaisi myöntää.
 
 ### Hallinta
 
 - **Hallitseva faktio:** Pyhän Tragedian lapset
-- **Häiritsevä faktio:** Kartoittajat
+- **Häiritsevä faktio:** Heimolaiset
 - **Jännite:** Korkea
 
 ### Palvelut

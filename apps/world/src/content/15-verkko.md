@@ -8,14 +8,14 @@ tension: "Korkea"
 
 ### Yleiskuvaus
 
-Verkko näkee kaiken. Vanhan säänvalvontatornin päältä Kartoittajat ovat rakentaneet sensorijärjestelmän, joka seuraa liikennettä, viestejä ja poikkeavuuksia koko Kynnyksen alueella. Tietoa myydään niille, joilla on varaa — ja pidätetään niiltä, jotka ovat uhka.
+Verkko näkee kaiken. Vanhan säänvalvontatornin päältä Heimolaiset ovat rakentaneet sensorijärjestelmän, joka seuraa liikennettä, viestejä ja poikkeavuuksia koko Kynnyksen alueella. Tietoa myydään niille, joilla on varaa — ja pidätetään niiltä, jotka ovat uhka.
 
-Legendan Kertojat haluavat päästä käsiksi Verkon arkistoihin. Historia on heidän alueensa, ja Verkossa on paljon sellaista historiaa, jota ei ole koskaan julkaistu.
+Deterministit haluavat päästä käsiksi Verkon arkistoihin. Järjestelmien käyttäytyminen on heidän alueensa, ja Verkossa on paljon sellaista dataa, jota ei ole koskaan julkaistu.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Kartoittajat
-- **Häiritsevä faktio:** Legendan Kertojat
+- **Hallitseva faktio:** Heimolaiset
+- **Häiritsevä faktio:** Deterministit
 - **Jännite:** Korkea
 
 ### Palvelut

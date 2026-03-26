@@ -8,14 +8,14 @@ tension: "Murtunut"
 
 ### Yleiskuvaus
 
-Kuiskaus oli Kynnyksen hermojärjestelmä — kaikki data, kaikki viestit, kaikki salaisuudet kulkivat sen kautta. Tuo infrastruktuuri on edelleen paikallaan, mutta rapautuneena ja hallitsemattomana. Argumentaattorit ovat vallanneet sen, koska informaatio on valtaa — ja Kuiskauksen kautta kulkee enemmän tietoa kuin kukaan haluaa myöntää.
+Kuiskaus oli Kynnyksen hermojärjestelmä — kaikki data, kaikki viestit, kaikki salaisuudet kulkivat sen kautta. Tuo infrastruktuuri on edelleen paikallaan, mutta rapautuneena ja hallitsemattomana. Logiikan Inkvisitio on vallannut sen, koska informaatio on valtaa — ja Kuiskauksen kautta kulkee enemmän tietoa kuin kukaan haluaa myöntää.
 
-Sovittelijat yrittävät avata Kuiskausta kaikille, koska heidän mielestään suljettu tieto on kaikkien vaara.
+Erottajat yrittävät avata Kuiskausta kaikille, koska heidän mielestään suljettu tieto on kaikkien vaara.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Argumentaattorit
-- **Häiritsevä faktio:** Sovittelijat
+- **Hallitseva faktio:** Logiikan Inkvisitio
+- **Häiritsevä faktio:** Erottajat
 - **Jännite:** Murtunut
 
 ### Palvelut

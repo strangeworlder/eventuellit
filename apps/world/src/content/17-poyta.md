@@ -8,13 +8,13 @@ tension: "Matala"
 
 ### Yleiskuvaus
 
-Pöytä on paikka, jossa viholliset istuvat ja puhuvat. Sovittelijat ovat rakentaneet tähän vanhan kauppakeskuksen raunioille neutraalin vyöhykkeen, jossa Kynnyksen fraktioiden edustajat voivat kohdata ilman, että aseita tarvitaan heti. Täällä syntyy sopimuksia — ja ne myös rikkoutuvat tässä.
+Pöytä on paikka, jossa viholliset istuvat ja puhuvat. Erottajat ovat rakentaneet tähän vanhan kauppakeskuksen raunioille neutraalin vyöhykkeen, jossa Kynnyksen fraktioiden edustajat voivat kohdata ilman, että aseita tarvitaan heti. Täällä syntyy sopimuksia — ja ne myös rikkoutuvat tässä.
 
 Ratasvartio häiritsee: heille rauha neuvottelemalla on luovutus toisella nimellä.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Sovittelijat
+- **Hallitseva faktio:** Erottajat
 - **Häiritsevä faktio:** Ratasvartio
 - **Jännite:** Matala
 
