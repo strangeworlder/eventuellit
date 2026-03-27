@@ -4,6 +4,8 @@ order: 6
 description: "KW-konsortio HQ — Kynnyksen hallintotorni ja logiikkakeskus."
 category: kynnys
 tension: "Matala"
+ruling_faction: kw-konsortio
+disrupting_factions: logiikan-inkvisitio
 ---
 
 ### Yleiskuvaus

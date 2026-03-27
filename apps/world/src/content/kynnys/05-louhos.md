@@ -4,6 +4,8 @@ order: 5
 description: "Kaivosasema — hajonnut raaka-ainekeskus mustine markkinoineen."
 category: kynnys
 tension: "Murtunut"
+ruling_faction: ""
+disrupting_factions: haaskalinnut
 ---
 
 ### Yleiskuvaus

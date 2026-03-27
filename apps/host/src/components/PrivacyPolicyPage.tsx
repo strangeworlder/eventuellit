@@ -66,17 +66,17 @@ export function PrivacyPolicyPage() {
 
           <section className="space-y-4">
             <Heading>Rekisterinpitäjä</Heading>
-            <Text variant="muted">
+            <Text>
               Eventuellit-roolipelisovelluksen ylläpitäjä. Yhteystiedot: <em>alvancow+eventuellit@gmail.com</em>.
             </Text>
           </section>
 
           <section className="space-y-4">
             <Heading>Kerättävät tiedot</Heading>
-            <Text variant="muted">
+            <Text>
               Keräämme seuraavia henkilötietoja palvelun toiminnan mahdollistamiseksi:
             </Text>
-            <ul className="list-disc pl-6 space-y-2 text-[var(--theme-text)]/80">
+            <ul className="list-disc pl-6 space-y-2">
               <li><strong>Sähköpostiosoite</strong> — käytetään kirjautumiseen magic link -menetelmällä</li>
               <li><strong>Käyttäjänimi</strong> — näytetään sovelluksessa muille pelaajille</li>
               <li><strong>Hahmotiedot</strong> — pelin hahmosi ja niihin liittyvät tiedot (ominaisuudet, taidot, varusteet)</li>
@@ -85,7 +85,7 @@ export function PrivacyPolicyPage() {
 
           <section className="space-y-4">
             <Heading>Tietojen käyttötarkoitus</Heading>
-            <Text variant="muted">
+            <Text>
               Henkilötietoja käytetään ainoastaan palvelun toiminnan mahdollistamiseen:
               kirjautumiseen, hahmojen luontiin ja pelitilanteen ylläpitoon.
               Emme käytä tietojasi markkinointiin, profilointiin tai muuhun tarkoitukseen.
@@ -94,10 +94,10 @@ export function PrivacyPolicyPage() {
 
           <section className="space-y-4">
             <Heading>Evästeet ja paikallinen tallennus</Heading>
-            <Text variant="muted">
+            <Text>
               Sivusto käyttää ainoastaan <strong>välttämättömiä evästeitä</strong> kirjautumisen ylläpitoon:
             </Text>
-            <ul className="list-disc pl-6 space-y-2 text-[var(--theme-text)]/80">
+            <ul className="list-disc pl-6 space-y-2">
               <li>
                 <strong>auth_token</strong> (eväste) — httpOnly-eväste, joka sisältää
                 kirjautumistunnisteen. Voimassa 7 päivää. Ei sisällä henkilötietoja.
@@ -107,7 +107,7 @@ export function PrivacyPolicyPage() {
                 paikallisessa tallennustilassa.
               </li>
             </ul>
-            <Text variant="muted">
+            <Text>
               Emme käytä analytiikka-, mainonta- tai seurantaevästeitä.
               Sivusto ei lataa kolmannen osapuolen seurantapalveluita.
             </Text>
@@ -115,15 +115,15 @@ export function PrivacyPolicyPage() {
 
           <section className="space-y-4">
             <Heading>Oikeutesi</Heading>
-            <Text variant="muted">
+            <Text>
               EU:n yleisen tietosuoja-asetuksen (GDPR) nojalla sinulla on seuraavat oikeudet:
             </Text>
-            <ul className="list-disc pl-6 space-y-2 text-[var(--theme-text)]/80">
+            <ul className="list-disc pl-6 space-y-2">
               <li><strong>Oikeus saada pääsy tietoihisi</strong> — voit ladata kaikki sinusta tallennetut tiedot</li>
               <li><strong>Oikeus tietojen poistamiseen</strong> — voit pyytää tilisi ja tietojesi poistamista</li>
               <li><strong>Oikeus tehdä valitus</strong> — voit tehdä valituksen tietosuojavaltuutetun toimistoon (tietosuoja.fi)</li>
             </ul>
-            <Text variant="muted">
+            <Text>
               Tilin poiston yhteydessä hahmosi siirtyvät pelinjohtajan hallintaan osana pelimaailmaa.
               Henkilötietosi (sähköposti, käyttäjänimi) poistetaan pysyvästi.
             </Text>
@@ -131,7 +131,7 @@ export function PrivacyPolicyPage() {
 
           <section className="space-y-4">
             <Heading>Tietojen säilytys</Heading>
-            <Text variant="muted">
+            <Text>
               Tietojasi säilytetään niin kauan kuin tilisi on aktiivinen.
               Voit poistaa tilisi ja siihen liittyvät henkilötiedot milloin tahansa.
               Kirjautumistunnisteet vanhenevat automaattisesti 7 päivän kuluttua.
@@ -159,7 +159,7 @@ export function PrivacyPolicyPage() {
                   <CardTitle>Lataa tietosi</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Text variant="muted" className="mb-4">
+                  <Text className="mb-4">
                     Lataa kaikki sinusta tallennetut tiedot JSON-tiedostona.
                     Tiedosto sisältää käyttäjätietosi ja hahmosi.
                   </Text>
@@ -179,7 +179,7 @@ export function PrivacyPolicyPage() {
                   <CardTitle>Poista tilisi</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Text variant="muted" className="mb-4">
+                  <Text className="mb-4">
                     Tilisi ja henkilötietosi poistetaan pysyvästi.
                     Hahmosi siirtyvät pelinjohtajan hallintaan.
                     Tätä toimintoa ei voi peruuttaa.

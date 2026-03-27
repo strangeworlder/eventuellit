@@ -4,6 +4,8 @@ order: 1
 description: "Keskusasema — Kynnyksen kauppasatama ja solmupiste."
 category: kynnys
 tension: "Matala"
+ruling_faction: ""
+disrupting_factions: verhonkutojat
 ---
 
 ### Yleiskuvaus

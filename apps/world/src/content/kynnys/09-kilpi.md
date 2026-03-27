@@ -5,6 +5,8 @@ description: "Polttopiste — murtunut vartio Kynnyksen reunalla."
 category: kynnys
 tension: "Murtunut"
 image: /images/09-kilpi.png
+ruling_faction: ""
+disrupting_factions: ratasvartio, pyhan-tragedian-lapset
 ---
 
 ### Yleiskuvaus

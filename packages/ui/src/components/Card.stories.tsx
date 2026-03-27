@@ -10,9 +10,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
  *
  * The Card's `variant` prop controls which **semantic pattern** is used:
  * - **`surface`** (default): Solid `--theme-primary` background with inverted text. Matches the "Primary Component" pattern from the design system themes.
- * - **`outline`**: Transparent background with `--theme-secondary` border and text. Matches the "Secondary Component" pattern.
+ * - **`outline`**: Light bordered surface card with soft border and shadow. For non-semantic grouping.
  * - **`highlight`**: Theme background with `--theme-accent` text and a thick bottom accent border. Matches the "Accent Notifier" pattern.
- * - **`subtle`**: Light bordered surface card for non-semantic grouping.
  * - **`callout`**: Left-accented callout block for game mechanics.
  *
  * > **Note:** `Card` is intended for bounded areas of related content (like character stats, rule blocks, or interactive widgets).
@@ -28,7 +27,7 @@ const meta = {
     argTypes: {
         variant: {
             control: "select",
-            options: ["surface", "outline", "highlight", "subtle", "interactive", "callout"],
+            options: ["surface", "outline", "highlight", "interactive", "callout"],
             description: "Semantic visual style variant of the card.",
         },
     theme: {
@@ -100,17 +99,16 @@ export const Default: Story = {
 };
 
 /**
- * All five semantic visual variants. Each matches a distinct design system pattern:
+ * All semantic visual variants. Each matches a distinct design system pattern:
  * - **Primary**: Solid fill, inverted text — for primary actions and content.
- * - **Secondary**: Outlined, transparent — for secondary/alternative interactions.
+ * - **Outline**: Soft bordered surface — for non-semantic grouping.
  * - **Accent**: Bottom accent border — for highlights, notifications, active states.
- * - **Subtle**: Soft bordered surface — for non-semantic grouping.
  * - **Rule**: Left-accented callout — for game mechanics and rules.
  */
 export const Variants: Story = {
   render: () => (
     <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6 w-full max-w-4xl">
-      {(["surface", "outline", "highlight", "subtle", "interactive", "callout"] as const).map((variant) => (
+      {(["surface", "outline", "highlight", "interactive", "callout"] as const).map((variant) => (
         <Card key={variant} variant={variant}>
           <CardHeader>
             <CardTitle className="capitalize">{variant}</CardTitle>
@@ -159,7 +157,7 @@ export const Interaktiivinen: Story = {
 export const ContentDensity: Story = {
   render: () => (
     <div className="flex flex-col gap-6 w-[350px]">
-      <Card variant="subtle">
+      <Card variant="outline">
         <CardHeader>
           <CardTitle>Oletusvälitys</CardTitle>
         </CardHeader>
@@ -170,7 +168,7 @@ export const ContentDensity: Story = {
         </CardContent>
       </Card>
 
-      <Card variant="subtle">
+      <Card variant="outline">
         <CardHeader>
           <CardTitle>Tiivis välitys</CardTitle>
         </CardHeader>

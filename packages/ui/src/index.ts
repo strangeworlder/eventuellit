@@ -98,6 +98,12 @@ export type {
 
 export { TextSection } from "./components/TextSection";
 
+export { EntityCard } from "./components/EntityCard";
+export type { EntityCardProps } from "./components/EntityCard";
+
+export { FactionBadge, FACTION_COLOR_VARS } from "./components/FactionBadge";
+export type { FactionBadgeProps, FactionColor } from "./components/FactionBadge";
+
 // ── Organisms ──
 export { AnchoredTooltip } from "./components/AnchoredTooltip";
 export type { AnchoredTooltipPlacement } from "./components/AnchoredTooltip";
@@ -149,6 +155,9 @@ export type { ToastItem, ToastVariant, ToastProviderProps, ToastRequestPayload }
 
 export { VideoCta } from "./components/VideoCta";
 export type { VideoCtaProps } from "./components/VideoCta";
+
+export { QuickViewPanel } from "./components/QuickViewPanel";
+export type { QuickViewPanelProps } from "./components/QuickViewPanel";
 
 // ── Layout primitives ──
 export { Stack, Grid, Container } from "./components/Layout";

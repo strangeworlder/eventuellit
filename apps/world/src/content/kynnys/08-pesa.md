@@ -4,6 +4,8 @@ order: 8
 description: "Tuhkan puolueen koti — vanhakaupunki, asuinalue ja turvaverkko."
 category: kynnys
 tension: "Matala"
+ruling_faction: tuhkan-puolue
+disrupting_factions: erottajat
 ---
 
 ### Yleiskuvaus

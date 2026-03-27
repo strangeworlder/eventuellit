@@ -30,7 +30,7 @@ export const Teemakartta: Story = {
     <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
       {themeValues.map((theme) => (
         <ThemeContext.Provider key={theme} value={theme}>
-          <Card theme={theme} variant="subtle">
+          <Card theme={theme} variant="surface">
             <CardHeader>
               <CardTitle>{theme}</CardTitle>
             </CardHeader>

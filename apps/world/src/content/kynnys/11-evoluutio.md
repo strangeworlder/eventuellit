@@ -4,6 +4,8 @@ order: 11
 description: "Polttopiste — hajonnut tutkimuskeskus, klinikka ja kybernetiikan basaari."
 category: kynnys
 tension: "Murtunut"
+ruling_faction: verhonkutojat
+disrupting_factions: muotinvalajat
 ---
 
 ### Yleiskuvaus

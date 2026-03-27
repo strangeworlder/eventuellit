@@ -4,6 +4,8 @@ order: 20
 description: "Basaari — Kynnyksen musta pörssi ja kierrätyskeskus."
 category: kynnys
 tension: "Matala"
+ruling_faction: heimolaiset
+disrupting_factions: haaskalinnut
 ---
 
 ### Yleiskuvaus

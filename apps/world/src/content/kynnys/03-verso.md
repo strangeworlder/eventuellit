@@ -4,6 +4,8 @@ order: 3
 description: "Biodomi — Kynnyksen ruoantuotantoasema, räjähdysherkkä tilanne."
 category: kynnys
 tension: "Korkea"
+ruling_faction: muotinvalajat
+disrupting_factions: deterministit
 ---
 
 ### Yleiskuvaus

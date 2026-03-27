@@ -82,13 +82,13 @@ export const WithStackedContent: Story = {
           </Card>
 
           <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-6">
-            <Card variant="subtle">
+            <Card variant="outline">
               <CardContent className="h-48 flex items-center justify-center">Grid Item 1</CardContent>
             </Card>
-            <Card variant="subtle">
+            <Card variant="outline">
               <CardContent className="h-48 flex items-center justify-center">Grid Item 2</CardContent>
             </Card>
-            <Card variant="subtle">
+            <Card variant="outline">
               <CardContent className="h-48 flex items-center justify-center">Grid Item 3</CardContent>
             </Card>
           </div>

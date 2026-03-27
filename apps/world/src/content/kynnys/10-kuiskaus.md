@@ -4,6 +4,8 @@ order: 10
 description: "Polttopiste — hajonnut viestintäkeskus ja tiedon solmupiste."
 category: kynnys
 tension: "Murtunut"
+ruling_faction: logiikan-inkvisitio
+disrupting_factions: erottajat
 ---
 
 ### Yleiskuvaus

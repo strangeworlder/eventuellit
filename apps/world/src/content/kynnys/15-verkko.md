@@ -4,6 +4,8 @@ order: 15
 description: "Observatorio — Kynnyksen valvontakeskus ja tiedusteluasema."
 category: kynnys
 tension: "Korkea"
+ruling_faction: heimolaiset
+disrupting_factions: deterministit
 ---
 
 ### Yleiskuvaus

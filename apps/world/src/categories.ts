@@ -5,6 +5,11 @@ export interface WorldCategory {
   title: string;
   description: string;
   icon: IconName;
+  /**
+   * When true, the World Hub links to the category index page instead of jumping
+   * straight to the first entry. Use for categories with a rich hub landing (e.g. faktiot).
+   */
+  useHubIndex?: boolean;
 }
 
 /**
@@ -22,5 +27,12 @@ export const worldCategories: WorldCategory[] = [
     title: "Kynnys",
     description: "Avaruusasemaverkosto — 20 asemaa täynnä faktioita, kauppaa ja salaisuuksia.",
     icon: "compass",
+  },
+  {
+    id: "faktiot",
+    title: "Faktiot",
+    description: "Kynnyksen kolme suurvaltaa ja niiden alafaktiot — poliittinen atlas.",
+    icon: "flame",
+    useHubIndex: true,
   },
 ];

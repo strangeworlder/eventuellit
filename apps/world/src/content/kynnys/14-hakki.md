@@ -4,6 +4,8 @@ order: 14
 description: "Pyhän Tragedian lapset — veriurheilun ja uhkapelin asema."
 category: kynnys
 tension: "Korkea"
+ruling_faction: pyhan-tragedian-lapset
+disrupting_factions: heimolaiset
 ---
 
 ### Yleiskuvaus

@@ -4,6 +4,8 @@ order: 16
 description: "Studio — Kynnyksen mediakeskus ja julkisuuskoneen koti."
 category: kynnys
 tension: "Matala"
+ruling_faction: verhonkutojat
+disrupting_factions: logiikan-inkvisitio
 ---
 
 ### Yleiskuvaus

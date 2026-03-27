@@ -49,7 +49,7 @@ export const Default: Story = {
           </Card>
         </TopNavContent>
         <TopNavContent value="visuals">
-          <Card variant="subtle">
+          <Card variant="outline">
             <CardHeader>
               <CardTitle>Ulkoasun tiedot</CardTitle>
             </CardHeader>

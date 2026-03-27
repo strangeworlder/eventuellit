@@ -4,6 +4,8 @@ order: 17
 description: "Neuvottelu — diplomatian ja sovittelun asema."
 category: kynnys
 tension: "Matala"
+ruling_faction: erottajat
+disrupting_factions: ratasvartio
 ---
 
 ### Yleiskuvaus

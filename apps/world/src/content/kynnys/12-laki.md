@@ -4,6 +4,8 @@ order: 12
 description: "Oikeuslaitos — Kynnyksen sopimuskeskus ja kiistojen areenaa."
 category: kynnys
 tension: "Korkea"
+ruling_faction: logiikan-inkvisitio
+disrupting_factions: pyhan-tragedian-lapset
 ---
 
 ### Yleiskuvaus

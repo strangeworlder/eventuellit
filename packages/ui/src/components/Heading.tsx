@@ -1,5 +1,16 @@
 import React from "react";
 import { cn } from "./utils";
+import { hyphenateText, isHyphenationReady, onHyphenationReady } from "./hyphenation";
+
+/** Forces a re-render once the Finnish WASM has loaded. */
+function useHyphenationReady(): boolean {
+  const [ready, setReady] = React.useState(isHyphenationReady);
+  React.useEffect(() => {
+    if (ready) return;
+    return onHyphenationReady(() => setReady(true));
+  }, [ready]);
+  return ready;
+}
 
 /** Re-export cn from utils for backwards compatibility */
 export { cn };
@@ -140,16 +151,20 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       as || (`h${Math.min(Math.max(1, level), 6)}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6");
     const activeVariant = variant || Component;
 
+    const hyphenationReady = useHyphenationReady();
+
     let renderedChildren = children;
     if (activeVariant === "h1") {
       renderedChildren = enhanceChildren(children);
+    } else if (hyphenationReady && typeof children === "string") {
+      renderedChildren = hyphenateText(children);
     }
 
     return (
       <Component
         ref={ref}
         className={cn(
-          "font-bold tracking-tight",
+          "font-bold tracking-tight min-w-0 hyphens-manual break-words",
           {
             "font-black tracking-normal": ["h1", "h2", "h4", "h5"].includes(activeVariant),
             "font-heading text-4xl tablet:text-5xl uppercase text-[var(--theme-primary)]": activeVariant === "h1",

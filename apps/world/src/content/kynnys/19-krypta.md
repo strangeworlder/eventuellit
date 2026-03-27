@@ -4,6 +4,7 @@ order: 19
 description: "Museo — pyhäkkö, arkisto ja haaskalintuen koti."
 category: kynnys
 tension: "Matala"
+ruling_faction: haaskalinnut
 ---
 
 ### Yleiskuvaus

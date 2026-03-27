@@ -4,6 +4,8 @@ order: 2
 description: "Reaktori — Kynnyksen energiakeskus ja luostari."
 category: kynnys
 tension: "Korkea"
+ruling_faction: kw-konsortio
+disrupting_factions: ekklesia
 ---
 
 ### Yleiskuvaus

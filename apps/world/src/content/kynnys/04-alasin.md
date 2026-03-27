@@ -4,6 +4,8 @@ order: 4
 description: "Telakka — Kynnyksen raskaan korjauksen teollisuusasema."
 category: kynnys
 tension: "Matala"
+ruling_faction: kw-konsortio
+disrupting_factions: tuhkan-puolue
 ---
 
 ### Yleiskuvaus

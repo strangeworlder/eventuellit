@@ -4,6 +4,8 @@ order: 18
 description: "Akatemia — Kynnyksen koulutusasema ja maatila."
 category: kynnys
 tension: "Matala"
+ruling_faction: muotinvalajat
+disrupting_factions: heimolaiset
 ---
 
 ### Yleiskuvaus

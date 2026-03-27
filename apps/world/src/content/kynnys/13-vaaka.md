@@ -4,6 +4,8 @@ order: 13
 description: "Areena — Kynnyksen sotilasakatemia ja kaksintaistelujen kenttä."
 category: kynnys
 tension: "Korkea"
+ruling_faction: ratasvartio
+disrupting_factions: verhonkutojat
 ---
 
 ### Yleiskuvaus

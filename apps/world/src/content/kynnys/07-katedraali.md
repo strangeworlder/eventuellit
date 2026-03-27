@@ -4,6 +4,8 @@ order: 7
 description: "Ekklesian sydän — temppeli, teatteri ja propagandakeskus."
 category: kynnys
 tension: "Matala"
+ruling_faction: ekklesia
+disrupting_factions: pyhan-tragedian-lapset
 ---
 
 ### Yleiskuvaus

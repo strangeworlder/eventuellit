@@ -21,21 +21,20 @@ export const useCardIcon = () => React.useContext(CardIconContext);
 
 /**
  * Primary surface container. Choose `variant` for intent: surface (default, nested theme),
- * outline, highlight (accent bottom border), subtle, interactive (clickable with hover glow),
+ * outline, highlight (accent bottom border), interactive (clickable with hover glow),
  * callout (left-accented). Supports icon, header, content, and footer sub-components.
  *
- * @summary surface container; variant: surface/outline/highlight/subtle/interactive/callout
+ * @summary surface container; variant: surface/outline/highlight/interactive/callout
  */
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The semantic visual style variant of the card.
    * - `surface` (default): Swaps to a contrasting theme for the surface, ensuring accessible nesting.
-   * - `outline`: Transparent background with secondary-colored border and text.
+   * - `outline`: Light bordered surface card with soft border and shadow.
    * - `highlight`: Theme background with accent-colored text and a thick bottom accent border.
-   * - `subtle`: Light bordered surface card.
    * - `interactive`: Clickable surface card with hover glow, lift, and pointer cursor.
    * - `callout`: Left-accented callout block.
    */
-  variant?: "surface" | "outline" | "highlight" | "subtle" | "interactive" | "callout";
+  variant?: "surface" | "outline" | "highlight" | "interactive" | "callout";
   /** The theme context to apply, which modifies the component's CSS variables. */
   theme?: Theme;
   /** Optional icon to render in the CardHeader. */
@@ -80,15 +79,12 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
                 // Surface: uses the swapped theme's bg/text via CSS variables
                 "bg-[var(--theme-bg)] text-[var(--theme-text)]":
                   variant === "surface",
-                // Outline: transparent bg, secondary border + text
-                "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
+                // Outline: light bordered surface card with soft border and shadow
+                "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
                   variant === "outline",
                 // Highlight: theme bg, accent text, thick bottom accent border
                 "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
                   variant === "highlight",
-                // Subtle: light bordered surface card
-                "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
-                  variant === "subtle",
                 // Interactive: clickable surface card with hover glow and lift
                 "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md cursor-pointer transition-all duration-500 ease-in hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)] hover:-translate-y-1 hover:border-[var(--theme-border-medium)] hover:duration-300 hover:ease-out active:translate-y-0 active:shadow-sm active:duration-75":
                   variant === "interactive",
@@ -172,7 +168,7 @@ export const CardDescription = React.forwardRef<
   <p
     ref={ref}
     data-theme={theme}
-    className={cn("text-lg font-bold uppercase tracking-wider text-text-muted", className)}
+    className={cn("text-lg font-bold uppercase tracking-wider", className)}
     {...props}
   />
 ));
@@ -194,7 +190,7 @@ export const CardContent = React.forwardRef<
       {
         "gap-6 p-4 pt-4 tablet:p-6 tablet:pt-6": variant === "default",
         "gap-4 p-3 tablet:p-4": variant === "dense",
-        "gap-4 p-4 tablet:p-6 text-text-muted leading-relaxed font-light": variant === "rule",
+        "gap-4 p-4 tablet:p-6 leading-relaxed font-light": variant === "rule",
       },
       className,
     )}

@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "hyphenopoly": "^6.1.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.576.0",
     "react": "^19.2.0",
