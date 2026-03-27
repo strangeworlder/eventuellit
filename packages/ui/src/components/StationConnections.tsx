@@ -121,16 +121,6 @@ function tooltipPlacement(direction: CompassDir): AnchoredTooltipPlacement {
   return map[direction];
 }
 
-function arrowPoints(x: number, y: number, angle: number): string {
-  const len = 8;
-  const spread = Math.PI / 6;
-  const back = angle + Math.PI;
-  const ax = x + len * Math.cos(back - spread);
-  const ay = y + len * Math.sin(back - spread);
-  const bx = x + len * Math.cos(back + spread);
-  const by = y + len * Math.sin(back + spread);
-  return `${ax},${ay} ${x},${y} ${bx},${by}`;
-}
 
 function posStyle(x: number, y: number): React.CSSProperties {
   return {
@@ -290,9 +280,13 @@ export const StationConnections = React.forwardRef<HTMLDivElement, StationConnec
     centerColor: string,
   ) => (
     <defs>
-      {nodes.map(({ title, station, angle }) => {
+      {nodes.map(({ title, station, angle, isMarker, shape }) => {
         const safeId = title.replace(/[^a-zA-Z0-9]/g, "_");
-        const endColor = tensionColor(station?.tension);
+        const endColor = isMarker
+          ? shape === "swirl"
+            ? "var(--theme-text)"
+            : "var(--color-royal-purple-500)"
+          : tensionColor(station?.tension);
         return (
           <linearGradient
             key={title}
@@ -321,80 +315,43 @@ export const StationConnections = React.forwardRef<HTMLDivElement, StationConnec
   ) =>
     nodes
       .filter((n) => n.title !== excludeTitle)
-      .map(({ title, x, y, angle, station, isMarker }) => {
+      .map(({ title, x, y }) => {
         const safeId = title.replace(/[^a-zA-Z0-9]/g, "_");
-        const color = tensionColor(station?.tension);
         return (
-          <React.Fragment key={title}>
-            <line
-              x1={CX}
-              y1={CY}
-              x2={x}
-              y2={y}
-              stroke={
-                isMarker
-                  ? "var(--color-secondary-500)"
-                  : `url(#line-grad-${safeId})`
-              }
-              strokeWidth={1.5}
-              strokeDasharray="5 4"
-              strokeOpacity={isMarker ? 0.15 : 1}
-            />
-            {!isMarker && (
-              <polyline
-                points={arrowPoints(x, y, angle)}
-                fill="none"
-                stroke={color}
-                strokeOpacity={0.5}
-                strokeWidth={1.5}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            )}
-          </React.Fragment>
+          <line
+            key={title}
+            x1={CX}
+            y1={CY}
+            x2={x}
+            y2={y}
+            stroke={`url(#line-grad-${safeId})`}
+            strokeWidth={1.5}
+            strokeDasharray="5 4"
+            strokeOpacity={1}
+          />
         );
       });
 
   /** Animated SVG lines (used in enter phase – fade in staggered). */
   const animatedLines = (nodes: typeof displayNodes) =>
-    nodes.map(({ title, x, y, angle, station, isMarker }, i) => {
+    nodes.map(({ title, x, y }, i) => {
       const safeId = title.replace(/[^a-zA-Z0-9]/g, "_");
-      const color = tensionColor(station?.tension);
       const lt = lineEnterTransition(i);
       return (
-        <React.Fragment key={title}>
-          <motion.line
-            x1={CX}
-            y1={CY}
-            x2={x}
-            y2={y}
-            stroke={
-              isMarker
-                ? "var(--color-secondary-500)"
-                : `url(#line-grad-${safeId})`
-            }
-            strokeWidth={1.5}
-            strokeDasharray="5 4"
-            strokeOpacity={isMarker ? 0.15 : 1}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={lt}
-          />
-          {!isMarker && (
-            <motion.polyline
-              points={arrowPoints(x, y, angle)}
-              fill="none"
-              stroke={color}
-              strokeOpacity={0.5}
-              strokeWidth={1.5}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={lt}
-            />
-          )}
-        </React.Fragment>
+        <motion.line
+          key={title}
+          x1={CX}
+          y1={CY}
+          x2={x}
+          y2={y}
+          stroke={`url(#line-grad-${safeId})`}
+          strokeWidth={1.5}
+          strokeDasharray="5 4"
+          strokeOpacity={1}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={lt}
+        />
       );
     });
 
@@ -408,20 +365,41 @@ export const StationConnections = React.forwardRef<HTMLDivElement, StationConnec
     const placement = tooltipPlacement(node.direction);
 
     if (node.isMarker) {
-      return (
+      const isD12 = node.shape !== "swirl";
+      const markerColor = isD12
+        ? "var(--color-royal-purple-500)"
+        : "var(--theme-text)";
+      const dice = (
         <DiceIcon
           faces={node.shape as 12 | "swirl"}
           size="md"
           hideValue
           style={
             {
-              "--theme-primary": "var(--color-secondary-500)",
-              "--theme-secondary": "var(--color-secondary-500)",
+              "--theme-primary": markerColor,
+              "--theme-secondary": markerColor,
               opacity: 0.95,
             } as React.CSSProperties
           }
         />
       );
+      if (isD12) {
+        return (
+          <motion.div
+            animate={{
+              filter: [
+                "drop-shadow(0 0 2px #9b5de500)",
+                "drop-shadow(0 0 7px #9b5de566)",
+                "drop-shadow(0 0 2px #9b5de500)",
+              ],
+            }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            {dice}
+          </motion.div>
+        );
+      }
+      return dice;
     }
 
     const anchorId = `--station-node-${node.direction}`;

@@ -17,6 +17,7 @@ const colorData = {
     primary: "#cf534a",
     secondary: "#278b86",
     accent: "#5479de",
+    "royal-purple": "#9b5de5",
     background: "#0f0f13",
     text: "#f4f4f0",
   },
@@ -57,11 +58,24 @@ const colorData = {
       "800": "#1b398d",
       "900": "#142a67",
     },
+    "royal-purple": {
+      "50": "#f3edfd",
+      "100": "#e7dbfb",
+      "200": "#d3bdf6",
+      "300": "#c2a3f2",
+      "400": "#ae7eec",
+      "500": "#9b5de5",
+      "600": "#8341d4",
+      "700": "#6b33b2",
+      "800": "#522789",
+      "900": "#3c1d64",
+    },
   },
   foreground: {
     primary: "#0f0f13",
     secondary: "#0f0f13",
     accent: "#0f0f13",
+    "royal-purple": "#0f0f13",
   },
 };
 
@@ -223,6 +237,7 @@ const CrossColorCombinations = () => {
     { name: "Primary (Perus)", hex: colorData.base.primary, group: "Perus" },
     { name: "Secondary (Perus)", hex: colorData.base.secondary, group: "Perus" },
     { name: "Accent (Perus)", hex: colorData.base.accent, group: "Perus" },
+    { name: "Royal Purple (Perus)", hex: colorData.base["royal-purple"], group: "Perus" },
   ];
 
   Object.entries(colorData.scales).forEach(([scaleName, scale]) => {
