@@ -2,7 +2,7 @@
 title: "Pöytä"
 order: 17
 description: "Neuvottelu — diplomatian ja sovittelun asema."
-category: asema
+category: kynnys
 tension: "Matala"
 ---
 

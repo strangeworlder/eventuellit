@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { AspectTag } from "@repo/ui/components/AspectTag";
 import { SkillTagList } from "@repo/ui/components/SkillTagList";
 import { TextArea } from "@repo/ui/components/TextArea";
@@ -47,9 +48,11 @@ interface Character {
 
 export function CharacterSheet({
   characterId,
+  basePath,
   onBack,
 }: {
   characterId: number;
+  basePath: string;
   onBack: () => void;
 }) {
   const queryClient = useQueryClient();
@@ -143,6 +146,15 @@ export function CharacterSheet({
           title={character.name}
           description={character.archetype}
         />
+
+        <PageBody className="pb-0 pt-4">
+          <Breadcrumb
+            items={[
+              { label: "Hahmot", to: `${basePath}/list` },
+              { label: character.name },
+            ]}
+          />
+        </PageBody>
 
         {!canEdit && character.ownerName && (
           <NoticePanel variant="info" title="Katselutila" className="mb-6">

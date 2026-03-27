@@ -2,7 +2,7 @@
 title: "Alasin"
 order: 4
 description: "Telakka — Kynnyksen raskaan korjauksen teollisuusasema."
-category: asema
+category: kynnys
 tension: "Matala"
 ---
 

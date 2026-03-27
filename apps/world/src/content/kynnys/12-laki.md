@@ -2,7 +2,7 @@
 title: "Laki"
 order: 12
 description: "Oikeuslaitos — Kynnyksen sopimuskeskus ja kiistojen areenaa."
-category: asema
+category: kynnys
 tension: "Korkea"
 ---
 

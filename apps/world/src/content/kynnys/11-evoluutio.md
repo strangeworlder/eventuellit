@@ -2,7 +2,7 @@
 title: "Evoluutio"
 order: 11
 description: "Polttopiste — hajonnut tutkimuskeskus, klinikka ja kybernetiikan basaari."
-category: asema
+category: kynnys
 tension: "Murtunut"
 ---
 

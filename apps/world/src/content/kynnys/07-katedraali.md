@@ -2,7 +2,7 @@
 title: "Katedraali"
 order: 7
 description: "Ekklesian sydän — temppeli, teatteri ja propagandakeskus."
-category: asema
+category: kynnys
 tension: "Matala"
 ---
 

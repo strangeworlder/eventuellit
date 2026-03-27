@@ -13,6 +13,7 @@ import { useAuth } from "@repo/auth/use-auth";
 import { Badge } from "@repo/ui/components/Badge";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
+import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Drawer } from "@repo/ui/components/Drawer";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
@@ -21,12 +22,13 @@ import { Link } from "@repo/ui/components/Link";
 import { List, ListItem } from "@repo/ui/components/List";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Page, PageBody } from "@repo/ui/components/Page";
-import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
+import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { Input } from "@repo/ui/components/Input";
 import { Select } from "@repo/ui/components/Select";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { Text } from "@repo/ui/components/Text";
+import { requestToast } from "@repo/ui/components/Toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -196,7 +198,7 @@ function GmToolsPanel({
   );
 }
 
-function EpisodeDetails({ id, onCreateNew }: { id: string; onCreateNew?: () => void }) {
+function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew?: () => void; basePath: string }) {
   const { data: episodes, isLoading: isEpisodesLoading } = useEpisodes();
   const episode = episodes?.find((e) => e.slug === id);
   const { data: fullEpisode, isLoading: isEpisodeLoading } = useEpisode(episode?.id as number);
@@ -340,6 +342,13 @@ function EpisodeDetails({ id, onCreateNew }: { id: string; onCreateNew?: () => v
         )}
 
         <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
+          <Breadcrumb
+            className="col-span-full mb-2"
+            items={[
+              { label: "Jaksot", to: basePath === "/" ? "/" : basePath },
+              { label: fullEpisode.title },
+            ]}
+          />
           <div ref={articleRef} className="space-y-6">
             <HeadingLevelProvider>
               {fullEpisode.content && (
@@ -419,6 +428,18 @@ function EpisodeDetails({ id, onCreateNew }: { id: string; onCreateNew?: () => v
   );
 }
 
+function NotFoundRedirect({ to }: { to: string }) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      requestToast({ message: "Sivua ei löydy. Uudelleenohjattu lähimpään vanhempaan.", variant: "warning", duration: 0 });
+      navigate(to, { replace: true });
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
+
 function EpisodeWrapper() {
   const { pathname } = useLocation();
   const { data: episodes, isLoading } = useEpisodes();
@@ -457,17 +478,17 @@ function EpisodeWrapper() {
       ) : (
         <>
           {episodes && episodes.length > 0 && (
-            <Tabs>
-              <TabsList>
+            <TopNav>
+              <TopNavList>
                 {episodes.map((episode) => (
-                  <TabsLink
+                  <TopNavLink
                     key={episode.id}
                     to={basePath === "/" ? `/${episode.slug}` : `${basePath}/${episode.slug}`}
                   >
                     #{episode.order}: {episode.title}
-                  </TabsLink>
+                  </TopNavLink>
                 ))}
-              </TabsList>
+              </TopNavList>
 
               <div>
                 <Routes>
@@ -476,12 +497,13 @@ function EpisodeWrapper() {
                     <Route
                       key={episode.id}
                       path={episode.slug}
-                      element={<EpisodeDetails id={episode.slug} onCreateNew={() => setIsCreating(true)} />}
+                      element={<EpisodeDetails id={episode.slug} onCreateNew={() => setIsCreating(true)} basePath={basePath} />}
                     />
                   ))}
+                  <Route path="*" element={<NotFoundRedirect to={basePath === "/" ? "/" : basePath} />} />
                 </Routes>
               </div>
-            </Tabs>
+            </TopNav>
           )}
 
           {episodes && episodes.length === 0 && (

@@ -2,7 +2,7 @@
 title: "Krypta"
 order: 19
 description: "Museo — pyhäkkö, arkisto ja haaskalintuen koti."
-category: asema
+category: kynnys
 tension: "Matala"
 ---
 

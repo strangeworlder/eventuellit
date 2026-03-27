@@ -2,7 +2,7 @@
 title: "Siemen"
 order: 18
 description: "Akatemia — Kynnyksen koulutusasema ja maatila."
-category: asema
+category: kynnys
 tension: "Matala"
 ---
 

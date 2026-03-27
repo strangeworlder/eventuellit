@@ -2,7 +2,7 @@
 title: "Kilpi"
 order: 9
 description: "Polttopiste — murtunut vartio Kynnyksen reunalla."
-category: asema
+category: kynnys
 tension: "Murtunut"
 image: /images/09-kilpi.png
 ---

@@ -2,7 +2,7 @@
 title: "Louhos"
 order: 5
 description: "Kaivosasema — hajonnut raaka-ainekeskus mustine markkinoineen."
-category: asema
+category: kynnys
 tension: "Murtunut"
 ---
 

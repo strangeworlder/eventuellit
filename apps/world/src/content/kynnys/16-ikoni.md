@@ -2,7 +2,7 @@
 title: "Ikoni"
 order: 16
 description: "Studio — Kynnyksen mediakeskus ja julkisuuskoneen koti."
-category: asema
+category: kynnys
 tension: "Matala"
 ---
 

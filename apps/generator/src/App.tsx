@@ -12,9 +12,11 @@ import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { ObscuredWrapper } from "@repo/ui/components/ObscuredWrapper";
 import { Page, PageBody } from "@repo/ui/components/Page";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
-import { Tabs, TabsList, TabsLink } from "@repo/ui/components/Tabs";
+import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
+import { TopNav, TopNavList, TopNavLink } from "@repo/ui/components/TopNav";
+import { requestToast } from "@repo/ui/components/Toast";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Routes,
   Route,
@@ -46,7 +48,7 @@ const SEX_OPTIONS = [
   { value: "none", label: "Ei määritelty" },
 ];
 
-function GeneratorForm() {
+function GeneratorForm({ basePath }: { basePath: string }) {
   const { mutate: createCharacter, isPending, isSuccess, reset } = useCreateCharacter();
   const navigate = useNavigate();
 
@@ -210,6 +212,13 @@ function GeneratorForm() {
         <Hero title="Uusi Hahmo" />
         <HeadingLevelProvider>
             <PageBody className="flex flex-col gap-8">
+            <Breadcrumb
+              className="mb-2"
+              items={[
+                { label: "Hahmot", to: `${basePath}/list` },
+                { label: "Uusi Hahmo" },
+              ]}
+            />
             {/* ── Step 1: Episode ── */}
             <div className="space-y-4">
               <div className="border-b-2 border-primary/20 pb-2">
@@ -462,11 +471,23 @@ function GeneratorForm() {
   );
 }
 
-function CharacterSheetRoute() {
+function NotFoundRedirect({ to }: { to: string }) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      requestToast({ message: "Sivua ei löydy. Uudelleenohjattu lähimpään vanhempaan.", variant: "warning", duration: 0 });
+      navigate(to, { replace: true });
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
+
+function CharacterSheetRoute({ basePath }: { basePath: string }) {
   const { id } = useParams();
   const navigate = useNavigate();
   if (!id) return <div>Virheellinen id</div>;
-  return <CharacterSheet characterId={Number(id)} onBack={() => navigate("../list")} />;
+  return <CharacterSheet characterId={Number(id)} basePath={basePath} onBack={() => navigate("../list")} />;
 }
 
 function InnerApp() {
@@ -502,14 +523,14 @@ function InnerApp() {
 
   return (
     <Page>
-      <Tabs>
-        <TabsList>
-          <TabsLink to={`${basePath}/list`}>Hahmoluettelo</TabsLink>
-          <TabsLink to={`${basePath}/new`}>Uusi Hahmo</TabsLink>
+      <TopNav>
+        <TopNavList>
+          <TopNavLink to={`${basePath}/list`}>Hahmoluettelo</TopNavLink>
+          <TopNavLink to={`${basePath}/new`}>Uusi Hahmo</TopNavLink>
           {activeCharId && (
-            <TabsLink to={`${basePath}/character/${activeCharId}`}>Hahmosivu</TabsLink>
+            <TopNavLink to={`${basePath}/character/${activeCharId}`}>Hahmosivu</TopNavLink>
           )}
-        </TabsList>
+        </TopNavList>
         <div className="animate-in fade-in duration-300">
           <Routes>
             <Route path="/" element={<Navigate to="list" replace />} />
@@ -518,8 +539,9 @@ function InnerApp() {
               element={
                 <>
                   <HeadingLevelProvider>
-                    <Hero title="Hahmot" description="Hahmot" />
-                    <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8">
+                  <Hero title="Hahmot" description="Hahmot" />
+                  <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8">
+                    <Breadcrumb className="col-span-full mb-2" items={[{ label: "Hahmot" }]} />
                       {isLoading && <LoadingState message="Ladataan hahmoja..." />}
                       {!isLoading && characters?.length === 0 && (
                         <div className="col-span-full text-center py-12">
@@ -600,11 +622,12 @@ function InnerApp() {
                 </>
               }
             />
-            <Route path="new" element={<GeneratorForm />} />
-            <Route path="character/:id" element={<CharacterSheetRoute />} />
+            <Route path="new" element={<GeneratorForm basePath={basePath} />} />
+            <Route path="character/:id" element={<CharacterSheetRoute basePath={basePath} />} />
+            <Route path="*" element={<NotFoundRedirect to={`${basePath}/list`} />} />
           </Routes>
         </div>
-      </Tabs>
+      </TopNav>
     </Page>
   );
 }

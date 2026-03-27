@@ -21,6 +21,24 @@ export interface ToastItem {
   };
 }
 
+// ── Cross-MFE event bridge ──
+// MFEs cannot share React context with the host (they bundle their own @repo/ui copy).
+// Instead, MFEs dispatch this CustomEvent on window; the host's ToastProvider listens
+// and renders the toast — the same pattern used by article-progress-events.
+
+export const TOAST_REQUEST_EVENT = "ui:toast-request";
+
+export type ToastRequestPayload = Omit<ToastItem, "id">;
+
+/**
+ * Dispatches a toast request via a window CustomEvent.
+ * Use this from any MFE to show a toast managed by the host's ToastProvider.
+ * Falls back gracefully (no-op) when no host listener is present (e.g. standalone dev mode).
+ */
+export function requestToast(payload: ToastRequestPayload): void {
+  window.dispatchEvent(new CustomEvent<ToastRequestPayload>(TOAST_REQUEST_EVENT, { detail: payload }));
+}
+
 // ── Context ──
 
 interface ToastContextValue {
@@ -134,10 +152,10 @@ export interface ToastProviderProps {
 }
 
 const positionClasses: Record<NonNullable<ToastProviderProps["position"]>, string> = {
-  "top-right": "top-4 right-4 items-end",
-  "top-center": "top-4 left-1/2 -translate-x-1/2 items-center",
-  "bottom-right": "bottom-4 right-4 items-end",
-  "bottom-center": "bottom-4 left-1/2 -translate-x-1/2 items-center",
+  "top-right": "top-8 right-8 items-end",
+  "top-center": "top-8 left-1/2 -translate-x-1/2 items-center",
+  "bottom-right": "bottom-8 right-8 items-end",
+  "bottom-center": "bottom-8 left-1/2 -translate-x-1/2 items-center",
 };
 
 /**

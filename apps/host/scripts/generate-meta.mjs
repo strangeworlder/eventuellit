@@ -168,18 +168,23 @@ async function main() {
   for (const source of SOURCES) {
     let files;
     try {
-      files = await fs.readdir(source.contentDir);
+      // Use recursive: true to discover files in subdirectories (e.g. world/content/kynnys/*.md)
+      files = await fs.readdir(source.contentDir, { recursive: true });
     } catch {
       console.warn(`Content directory not found: ${source.contentDir}`);
       continue;
     }
 
-    const mdFiles = files.filter((f) => f.endsWith(".md"));
+    const mdFiles = files
+      .filter((f) => f.endsWith(".md"))
+      // Normalize Windows backslashes to forward slashes
+      .map((f) => f.replace(/\\/g, "/"));
 
     for (const file of mdFiles) {
       const raw = await fs.readFile(path.join(source.contentDir, file), "utf-8");
       const { data, frontmatter } = parseFrontmatter(raw);
 
+      // For nested paths like "kynnys/01-seula.md", produce route "/world/kynnys/01-seula"
       const slug = file.replace(/\.md$/, "").toLowerCase();
       const routePath = `${source.routePrefix}/${slug}`;
 

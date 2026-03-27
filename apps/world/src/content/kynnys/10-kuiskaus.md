@@ -2,7 +2,7 @@
 title: "Kuiskaus"
 order: 10
 description: "Polttopiste — hajonnut viestintäkeskus ja tiedon solmupiste."
-category: asema
+category: kynnys
 tension: "Murtunut"
 ---
 

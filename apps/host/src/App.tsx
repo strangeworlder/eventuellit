@@ -6,6 +6,7 @@ import {
   type ArticleProgressPayload,
   type ArticleProgressSource,
 } from "@repo/ui/components/article-progress-events";
+import { ToastProvider, useToast, TOAST_REQUEST_EVENT, type ToastRequestPayload } from "@repo/ui/components/Toast";
 import { Button } from "@repo/ui/components/Button";
 import { Heading } from "@repo/ui/components/Heading";
 import { LoadingState } from "@repo/ui/components/LoadingState";
@@ -126,6 +127,17 @@ function AppContent() {
       window.removeEventListener(ARTICLE_PROGRESS_EVENT, onArticleProgress as EventListener);
     };
   }, [activeView]);
+
+  // Forward toast requests from MFEs to the host-level ToastProvider
+  const { toast } = useToast();
+  useEffect(() => {
+    const onToastRequest = (event: Event) => {
+      const payload = (event as CustomEvent<ToastRequestPayload>).detail;
+      if (payload) toast(payload);
+    };
+    window.addEventListener(TOAST_REQUEST_EVENT, onToastRequest);
+    return () => window.removeEventListener(TOAST_REQUEST_EVENT, onToastRequest);
+  }, [toast]);
 
   useEffect(() => {
     if (activeView !== "ruleset" && activeView !== "episodes" && activeView !== "world") {
@@ -456,7 +468,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <AppContent />
+        <ToastProvider>
+          <AppContent />
+        </ToastProvider>
       </BrowserRouter>
     </QueryClientProvider>
   );

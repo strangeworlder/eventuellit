@@ -2,7 +2,7 @@
 title: "Häkki"
 order: 14
 description: "Pyhän Tragedian lapset — veriurheilun ja uhkapelin asema."
-category: asema
+category: kynnys
 tension: "Korkea"
 ---
 

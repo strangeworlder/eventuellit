@@ -2,7 +2,7 @@
 title: "Vaaka"
 order: 13
 description: "Areena — Kynnyksen sotilasakatemia ja kaksintaistelujen kenttä."
-category: asema
+category: kynnys
 tension: "Korkea"
 ---
 

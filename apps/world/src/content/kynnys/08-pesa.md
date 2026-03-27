@@ -2,7 +2,7 @@
 title: "Pesä"
 order: 8
 description: "Tuhkan puolueen koti — vanhakaupunki, asuinalue ja turvaverkko."
-category: asema
+category: kynnys
 tension: "Matala"
 ---
 

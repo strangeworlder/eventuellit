@@ -8,15 +8,17 @@ import {
   type ArticleJumpPayload,
   type ArticleProgressPayload,
 } from "@repo/ui/components/article-progress-events";
+import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { ImageElement } from "@repo/ui/components/ImageElement";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Page, PageBody } from "@repo/ui/components/Page";
-import { Tabs, TabsLink, TabsList } from "@repo/ui/components/Tabs";
+import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { useEffect, useMemo, useRef } from "react";
 
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { requestToast } from "@repo/ui/components/Toast";
 
 // Lightweight frontmatter parser to avoid Node 'Buffer' dependency from gray-matter in the browser
 function parseFrontmatter(md: string) {
@@ -188,7 +190,7 @@ const pages: MarkdownPage[] = Object.entries(modules)
   })
   .sort((a, b) => a.order - b.order);
 
-function RulesetArticleView({ page }: { page: MarkdownPage }) {
+function RulesetArticleView({ page, basePath }: { page: MarkdownPage; basePath: string }) {
   const { pathname } = useLocation();
   const heroRef = useRef<HTMLDivElement>(null);
   const articleRef = useRef<HTMLDivElement>(null);
@@ -289,6 +291,13 @@ function RulesetArticleView({ page }: { page: MarkdownPage }) {
         backgroundImageSrc={heroImage ? resolveRemoteAssetUrl(heroImage) : undefined}
       />
       <PageBody>
+        <Breadcrumb
+          className="mb-6"
+          items={[
+            { label: "Säännöt", to: basePath === "/" ? "/" : basePath },
+            { label: page.title },
+          ]}
+        />
         <div ref={articleRef}>
           <HeadingLevelProvider>
             <div className="space-y-8">
@@ -320,7 +329,19 @@ function RulesetArticleView({ page }: { page: MarkdownPage }) {
   );
 }
 
-function App() {
+function NotFoundRedirect({ to }: { to: string }) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      requestToast({ message: "Sivua ei löydy. Uudelleenohjattu lähimpään vanhempaan.", variant: "warning", duration: 0 });
+      navigate(to, { replace: true });
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
+
+function RulesetRoutes() {
   const { pathname } = useLocation();
 
   const defaultPath = pages.length > 0 ? pages[0].id : "";
@@ -340,17 +361,17 @@ function App() {
   return (
     <Page>
       {pages.length > 0 && (
-        <Tabs>
-          <TabsList>
+        <TopNav>
+          <TopNavList>
             {pages.map((page) => (
-              <TabsLink
+              <TopNavLink
                 key={page.id}
                 to={basePath === "/" ? `/${page.id}` : `${basePath}/${page.id}`}
               >
                 {page.title}
-              </TabsLink>
+              </TopNavLink>
             ))}
-          </TabsList>
+          </TopNavList>
 
           <div className="animate-in fade-in duration-300">
             <Routes>
@@ -360,16 +381,21 @@ function App() {
                   <Route
                     key={page.id}
                     path={page.id}
-                    element={<RulesetArticleView page={page} />}
+                    element={<RulesetArticleView page={page} basePath={basePath} />}
                   />
                 );
               })}
+              <Route path="*" element={<NotFoundRedirect to={basePath === "/" ? "/" : basePath} />} />
             </Routes>
           </div>
-        </Tabs>
+        </TopNav>
       )}
     </Page>
   );
+}
+
+function App() {
+  return <RulesetRoutes />;
 }
 
 export default App;

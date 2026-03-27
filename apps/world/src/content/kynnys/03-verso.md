@@ -2,7 +2,7 @@
 title: "Verso"
 order: 3
 description: "Biodomi — Kynnyksen ruoantuotantoasema, räjähdysherkkä tilanne."
-category: asema
+category: kynnys
 tension: "Korkea"
 ---
 

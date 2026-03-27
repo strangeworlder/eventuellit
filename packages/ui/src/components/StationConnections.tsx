@@ -399,7 +399,14 @@ export const StationConnections = React.forwardRef<HTMLDivElement, StationConnec
           </motion.div>
         );
       }
-      return dice;
+      return (
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        >
+          {dice}
+        </motion.div>
+      );
     }
 
     const anchorId = `--station-node-${node.direction}`;

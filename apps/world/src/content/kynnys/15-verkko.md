@@ -2,7 +2,7 @@
 title: "Verkko"
 order: 15
 description: "Observatorio — Kynnyksen valvontakeskus ja tiedusteluasema."
-category: asema
+category: kynnys
 tension: "Korkea"
 ---
 
