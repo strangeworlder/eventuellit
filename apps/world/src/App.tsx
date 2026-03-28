@@ -19,7 +19,6 @@ import { Icon } from "@repo/ui/components/Icon";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageAside, PageBody } from "@repo/ui/components/Page";
-import { StatBlock } from "@repo/ui/components/StatBlock";
 import { TextSection } from "@repo/ui/components/TextSection";
 import { TopNavDropdown, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { Text } from "@repo/ui/components/Text";
@@ -466,7 +465,7 @@ function ArticleContent({
             { label: entry.title },
           ]}
         />
-        <div ref={articleRef} className="animate-in fade-in duration-500 space-y-6">
+        <div ref={articleRef} className={`animate-in fade-in duration-500 space-y-6${hasSidebar ? "" : "mx-auto max-w-3xl"}`}>
           <HeadingLevelProvider>
             <MarkdownRenderer headingIdPrefix={`world-${entry.id}`}>
               {entry.content}
@@ -784,6 +783,7 @@ function FaktiotHub({
 
         {/* Power Triad */}
         <HeadingLevelProvider>
+          <HeadingLevelProvider>
           <TextSection title="Kolme suurvaltaa" className="mb-10">
             <div className="flex flex-col gap-4 max-w-2xl mx-auto mt-4">
               {/* Top: Ekklesia */}
@@ -820,6 +820,7 @@ function FaktiotHub({
             </div>
           </TextSection>
         </HeadingLevelProvider>
+        </HeadingLevelProvider>        
       </PageBody>
     </>
   );
@@ -1002,18 +1003,28 @@ function FactionDetail({
                   <CardTitle>Tilastot</CardTitle>
                 </CardHeader>
                 <CardContent variant="dense">
-                  <HeadingLevelProvider>
-                    <div className="space-y-2">
-                      <StatBlock
-                        label="Hallittuja asemia"
-                        value={controlledStations.length}
-                      />
-                      <StatBlock
-                        label="Häirittyä asemaa"
-                        value={disruptedStations.length}
-                      />
+                  <dl className="space-y-1.5 text-sm">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <dt>
+                        <Text variant="caption" className="uppercase tracking-wider">
+                          Hallittuja asemia
+                        </Text>
+                      </dt>
+                      <dd className="font-heading font-bold text-lg tabular-nums text-[var(--theme-primary)]">
+                        {controlledStations.length}
+                      </dd>
                     </div>
-                  </HeadingLevelProvider>
+                    <div className="flex items-baseline justify-between gap-2">
+                      <dt>
+                        <Text variant="caption" className="uppercase tracking-wider">
+                          Häirittyä asemaa
+                        </Text>
+                      </dt>
+                      <dd className="font-heading font-bold text-lg tabular-nums text-[var(--theme-primary)]">
+                        {disruptedStations.length}
+                      </dd>
+                    </div>
+                  </dl>
                 </CardContent>
               </Card>
 

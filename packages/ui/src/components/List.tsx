@@ -37,7 +37,7 @@ export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
         return (
             <li
                 ref={ref}
-                className={cn("text-[1.05rem] leading-[1.7]", className)}
+                className={cn("text-[length:var(--font-size-base)]", className)}
                 {...props}
             />
         );

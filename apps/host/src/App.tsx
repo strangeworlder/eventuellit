@@ -300,14 +300,14 @@ function AppContent() {
           <SidebarItem
             icon={<Icon name="book" size={20} />}
             active={activeView === "ruleset"}
-            onClick={() => navigate("/ruleset")}
+            onClick={() => navigate("/ruleset/johdanto")}
           >
             Sääntökirja
           </SidebarItem>
           <SidebarItem
             icon={<Icon name="map" size={20} />}
             active={activeView === "episodes"}
-            onClick={() => navigate("/episodes")}
+            onClick={() => navigate("/episodes/latest")}
           >
             Jaksot
           </SidebarItem>

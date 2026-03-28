@@ -167,13 +167,13 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
           "font-bold tracking-tight min-w-0 hyphens-manual break-words",
           {
             "font-black tracking-normal": ["h1", "h2", "h4", "h5"].includes(activeVariant),
-            "font-heading text-4xl tablet:text-5xl uppercase text-[var(--theme-primary)]": activeVariant === "h1",
-            "font-heading text-3xl tablet:text-4xl uppercase text-[var(--theme-text)]": activeVariant === "h2",
-            "font-heading text-2xl tablet:text-3xl uppercase text-[var(--theme-primary)]": activeVariant === "h3",
-            "font-sans text-xl tablet:text-2xl border-l-4 pl-4 border-[var(--theme-primary)] uppercase text-[var(--theme-text)]":
+            "font-heading text-[length:var(--font-size-4xl)] tablet:text-[length:var(--font-size-5xl)] uppercase text-[var(--theme-primary)]": activeVariant === "h1",
+            "font-heading text-[length:var(--font-size-3xl)] tablet:text-[length:var(--font-size-4xl)] uppercase text-[var(--theme-text)]": activeVariant === "h2",
+            "font-heading text-[length:var(--font-size-2xl)] tablet:text-[length:var(--font-size-3xl)] uppercase text-[var(--theme-primary)]": activeVariant === "h3",
+            "font-sans text-[length:var(--font-size-xl)] tablet:text-[length:var(--font-size-2xl)] border-l-4 pl-4 border-[var(--theme-primary)] uppercase text-[var(--theme-text)]":
               activeVariant === "h4",
-            "font-sans text-lg tablet:text-xl uppercase text-[var(--theme-secondary)]": activeVariant === "h5",
-            "border-b-2 border-[var(--theme-primary)] font-sans text-base tablet:text-lg uppercase text-[var(--theme-text)]":
+            "font-sans text-[length:var(--font-size-lg)] tablet:text-[length:var(--font-size-xl)] uppercase text-[var(--theme-secondary)]": activeVariant === "h5",
+            "border-b-2 border-[var(--theme-primary)] font-sans text-[length:var(--font-size-base)] tablet:text-[length:var(--font-size-lg)] uppercase text-[var(--theme-text)]":
               activeVariant === "h6",
           },
           className,

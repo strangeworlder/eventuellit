@@ -1,9 +1,9 @@
 ---
 title: "Deterministit"
-order: 12
+order: 9
 description: "Laskennallinen tiedustelu: tilastollinen optimointi ja inhimillinen tarpeettomuus."
 category: faktiot
-color: accent
+color: secondary
 parent: kw-konsortio
 ---
 Deterministit hoitavat KW-konsortion tiedustelua, mutta he eivät luota vakoojiin vaan puhtaaseen matematiikkaan. Heille Kynnys on valtava laskutoimitus, jossa yksittäisen asukkaan kärsimyksellä tai tavoitteilla ei ole merkitystä. Jos jokin koe tai resurssien siirto toistetaan tarpeeksi monta kertaa, lopputulos vastaa tilastollista todennäköisyyttä, ja se on Deterministien mielestä ainoa totuus. He eivät kuuntele keskusteluja, vaan seuraavat massadataa ja ennustavat väestön liikkeitä hallitsemalla muuttujia.
@@ -16,6 +16,8 @@ Ryhmittymä markkinoi itseään edistyksen airuina ja vapauttajina. He kritisoiv
 
 ### Strateginen manipulointi
 Deterministinen valta on kylmää ja hienovaraista. He siirtelevät ihmisvirtoja manipuloimalla ympäristöä: katkaisemalla veden yhdeltä alueelta tai muuttamalla energian hintaa toisella he saavat aikaan haluamansa muutoksen ilman suoraa pakkoa. Yhden pienen osan muuttaminen aiheuttaa ketjureaktion, joka muuttaa todellisuutta heidän malliensa mukaiseksi. Kulttuuri ja draama ovat heille vain työkaluja tehokkuuden säätelyyn. He eivät ymmärrä yhteisöllisyyden todellista arvoa, koska se on vaikeasti käännettävissä numeeriseksi tiedoksi.
+
+Konkreettisimmin Deterministit operoi Verso-asemalla, jossa heidän automaatio-ohjelmansa haastaa Muotinvalajien otteen biodomen tuotannosta. Verkko-aseman sensoriarkistot ovat heille yhtä tärkeät: sieltä kerätty liikennedata syöttää malleja, joilla ennustetaan väestön käyttäytymistä koko asemakunnassa.
 
 ### Sisäiset jännitteet
 Deterministien radikalismi on uhka jopa KW-konsortion omalle johdolle. He näkevät kaiken, mukaanlukien muut KW:n toimijat vain epätäydellisinä muuttujina, jotka pitäisi lopulta korvata algoritmeilla. Tämä tekee heistä vaarallisen kumppanin, jonka lojaalisuus kestää vain niin kauan kuin se on loogisesti perusteltua.

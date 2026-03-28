@@ -440,6 +440,63 @@ function NotFoundRedirect({ to }: { to: string }) {
   return null;
 }
 
+function EpisodesIndex({ episodes, basePath }: { episodes: Episode[]; basePath: string }) {
+  return (
+    <>
+      <HeadingLevelProvider>
+        <Hero
+          title="Jaksot"
+          description="Kampanjan jaksot — aktiiviset, arkistoidut ja tulevat."
+        />
+      </HeadingLevelProvider>
+      <PageBody>
+        <Breadcrumb
+          className="mb-6"
+          items={[{ label: "Jaksot" }]}
+        />
+        <HeadingLevelProvider>
+          <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
+            {episodes.map((episode) => (
+              <a
+                key={episode.id}
+                href={basePath === "/" ? `/${episode.slug}` : `${basePath}/${episode.slug}`}
+                className="no-underline text-inherit"
+              >
+                <Card variant="interactive" className="h-full cursor-pointer">
+                  <CardHeader>
+                    <div className="flex items-start justify-between gap-2">
+                      <CardTitle>{episode.title}</CardTitle>
+                      <span className="text-xs font-mono shrink-0 mt-0.5">
+                        #{String(episode.order).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    {episode.description && (
+                      <Text className="text-sm mb-2">{episode.description}</Text>
+                    )}
+                    <div className="flex gap-2">
+                      {episode.status === "active" && (
+                        <Badge variant="solid" icon="sparkles">Aktiivinen</Badge>
+                      )}
+                      {episode.status === "completed" && (
+                        <Badge variant="outline">Arkistoitu</Badge>
+                      )}
+                      {episode.status === "planned" && (
+                        <Badge variant="outline">Tulossa</Badge>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            ))}
+          </div>
+        </HeadingLevelProvider>
+      </PageBody>
+    </>
+  );
+}
+
 function EpisodeWrapper() {
   const { pathname } = useLocation();
   const { data: episodes, isLoading } = useEpisodes();
@@ -461,7 +518,22 @@ function EpisodeWrapper() {
   };
 
   const basePath = getBasePath();
-  const defaultPath = episodes && episodes.length > 0 ? episodes[0].slug : "";
+
+  const navEpisodes = (episodes ?? []).filter(
+    (e) => e.status === "active" || e.status === "planned",
+  );
+
+  const activeEpisode =
+    (episodes ?? []).find((e) => e.status === "active") ?? episodes?.[0];
+  const latestPath = activeEpisode
+    ? basePath === "/"
+      ? `/${activeEpisode.slug}`
+      : `${basePath}/${activeEpisode.slug}`
+    : basePath === "/"
+      ? "/"
+      : basePath;
+
+  const listingPath = basePath === "/" ? "/" : basePath;
 
   return (
     <Page>
@@ -480,7 +552,10 @@ function EpisodeWrapper() {
           {episodes && episodes.length > 0 && (
             <TopNav>
               <TopNavList>
-                {episodes.map((episode) => (
+                <TopNavLink variant="parent" to={listingPath}>
+                  Jaksot
+                </TopNavLink>
+                {navEpisodes.map((episode) => (
                   <TopNavLink
                     key={episode.id}
                     to={basePath === "/" ? `/${episode.slug}` : `${basePath}/${episode.slug}`}
@@ -492,7 +567,8 @@ function EpisodeWrapper() {
 
               <div>
                 <Routes>
-                  <Route path="/" element={<Navigate to={defaultPath} replace />} />
+                  <Route path="/" element={<EpisodesIndex episodes={episodes} basePath={basePath} />} />
+                  <Route path="latest" element={<Navigate to={latestPath} replace />} />
                   {episodes.map((episode) => (
                     <Route
                       key={episode.id}
@@ -500,7 +576,7 @@ function EpisodeWrapper() {
                       element={<EpisodeDetails id={episode.slug} onCreateNew={() => setIsCreating(true)} basePath={basePath} />}
                     />
                   ))}
-                  <Route path="*" element={<NotFoundRedirect to={basePath === "/" ? "/" : basePath} />} />
+                  <Route path="*" element={<NotFoundRedirect to={listingPath} />} />
                 </Routes>
               </div>
             </TopNav>

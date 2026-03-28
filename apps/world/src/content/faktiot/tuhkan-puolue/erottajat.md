@@ -18,7 +18,7 @@ Liikkeen oikeutus perustuu historialliseen faktaan, jossa nykyiset asukkaat ovat
 
 ### Vaikutusvalta tänään
 
-Toiminta keskittyy Pöytä-asemalle, vanhan kauppakeskuksen raunioille pystytettyyn neuvottelupaikkaan. Erottajat toimivat siellä portinvartijoina, jotka päättävät, kenellä on asiaa neuvottelupöytään. Sisäänpääsy on etuoikeus, joka myönnetään vain ryhmittymän arvomaailmaan sopiville tahoille. Samaan aikaan kun Pöydässä pelataan poliittista peliä, Kilpi-asemalla harjoitetaan suoraa toimintaa. Jatkuva sabotaasi ja Ratasvartion operaatioiden häiritseminen osoittavat, ettei konsortion ote ole murtumaton.
+Toiminta keskittyy Pöytä-asemalle, vanhan kauppakeskuksen raunioille pystytettyyn neuvottelupaikkaan. Erottajat toimivat siellä portinvartijoina, jotka päättävät, kenellä on asiaa neuvottelupöytään. Sisäänpääsy on etuoikeus, joka myönnetään vain ryhmittymän arvomaailmaan sopiville tahoille. Pöydässä pelattu poliittinen peli on Erottajien tärkein ja ainoa vakavasti otettava vipuvarsi — suoran toiminnan sijaan vaikuttaminen tapahtuu sopimusten, liittoumien ja neuvottelupöydän kautta.
 
 ### Ongelmat
 

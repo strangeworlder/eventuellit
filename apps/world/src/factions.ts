@@ -31,12 +31,12 @@ export const factions: FactionDef[] = [
     // ── KW-konsortio subfactions ──────────────────────────────────────────
     { id: "ratasvartio",         name: "Ratasvartio",          color: "secondary", icon: "shield-alert", parent: "kw-konsortio" },
     { id: "logiikan-inkvisitio", name: "Logiikan Inkvisitio",  color: "secondary", icon: "book",         parent: "kw-konsortio" },
-    { id: "deterministit",       name: "Deterministit",       color: "secondary", icon: "compass",          parent: "ekklesia" },
+    { id: "deterministit",       name: "Deterministit",       color: "secondary", icon: "compass",          parent: "kw-konsortio" },
 
     // ── Ekklesia subfactions ──────────────────────────────────────────────
     { id: "pyhan-tragedian-lapset", name: "Pyh\u00e4n Tragedian lapset", color: "accent", icon: "sparkles",   parent: "ekklesia" },
     { id: "verhonkutojat",          name: "Verhonkutojat",               color: "accent", icon: "map",        parent: "ekklesia" },
-    { id: "haaskalinnut",           name: "Haaskalinnut",                color: "accent", icon: "zap",     parent: "kw-konsortio" },
+    { id: "haaskalinnut",           name: "Haaskalinnut",                color: "accent", icon: "zap",     parent: "ekklesia" },
 ];
 
 export function getFactionById(id: string): FactionDef | undefined {

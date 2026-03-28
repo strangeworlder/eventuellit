@@ -36,15 +36,15 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
                 className={cn(
                     "font-sans text-[var(--theme-text)] tracking-[0.015em]",
                     {
-                        "text-base leading-[1.7] font-normal": variant === "body",
-                        "text-sm leading-snug font-normal": variant === "small",
-                        "text-xl leading-normal font-light": variant === "lead",
-                        "text-base leading-[1.7] text-text-muted": variant === "muted",
-                        "text-base leading-[1.7] font-semibold": variant === "bold",
-                        "text-xs font-black uppercase tracking-widest": variant === "label",
-                        "text-xs leading-snug text-text-subtle": variant === "caption",
-                        "text-xs font-semibold tracking-wide leading-tight": variant === "node",
-                        "text-xs font-semibold tracking-normal leading-tight text-center max-w-16 break-words": variant === "station-node",
+                        "text-[length:var(--font-size-base)] font-normal": variant === "body",
+                        "text-[length:var(--font-size-sm)] leading-snug font-normal": variant === "small",
+                        "text-[length:var(--font-size-xl)] leading-normal font-light": variant === "lead",
+                        "text-[length:var(--font-size-base)] text-[var(--theme-text-muted)]": variant === "muted",
+                        "text-[length:var(--font-size-base)] font-semibold": variant === "bold",
+                        "text-[length:var(--font-size-xs)] font-black uppercase tracking-widest": variant === "label",
+                        "text-[length:var(--font-size-xs)] leading-snug text-[var(--theme-text-subtle)]": variant === "caption",
+                        "text-[length:var(--font-size-xs)] font-semibold tracking-wide leading-tight": variant === "node",
+                        "text-[length:var(--font-size-xs)] font-semibold tracking-normal leading-tight text-center max-w-16 break-words": variant === "station-node",
                     },
                     className
                 )}

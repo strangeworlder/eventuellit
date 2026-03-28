@@ -36,6 +36,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Generated image variants and manifests (rebuilt by optimize-images scripts)
+**/public/images/*-[0-9]*.avif
+**/public/images/*-[0-9]*.webp
+**/public/images/*-[0-9]*.jpg
+**/public/images/manifest.json
+
 # Misc
 .DS_Store
 *.pem

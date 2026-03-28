@@ -78,6 +78,9 @@ export type { SkeletonProps, SkeletonTextProps, SkeletonCardProps } from "./comp
 
 export { StatBlock } from "./components/StatBlock";
 
+export { Table } from "./components/Table";
+export type { TableProps, TableColumn } from "./components/Table";
+
 export {
   TopNav,
   TopNavList,

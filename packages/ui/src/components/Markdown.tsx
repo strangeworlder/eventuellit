@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { createUniqueHeadingId, normalizeHeadingLabel } from "./article-navigation-utils";
+import { extractH3SectionsFromMarkdown, normalizeHeadingLabel, slugifyHeadingLabel } from "./article-navigation-utils";
 import { GameTerm } from "./GameTerm";
 import { cn } from "./utils";
 import { Heading } from "./Heading";
@@ -43,7 +43,16 @@ export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendere
   headingIdPrefix,
   ...props
 }, ref) {
-  const headingUsageMap = new Map<string, number>();
+  // Pre-compute h3 heading IDs from raw markdown so the result is stable
+  // across React strict-mode double-renders (no mutable map during render).
+  const headingIdByLabel = useMemo(() => {
+    const sections = extractH3SectionsFromMarkdown(children, headingIdPrefix);
+    const map = new Map<string, string>();
+    for (const s of sections) {
+      if (!map.has(s.label)) map.set(s.label, s.id);
+    }
+    return map;
+  }, [children, headingIdPrefix]);
 
   return (
     <div ref={ref} className={cn("space-y-4", className)} {...props}>
@@ -61,7 +70,8 @@ export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendere
             const headingId =
               typeof id === "string" && id.length > 0
                 ? id
-                : createUniqueHeadingId(headingLabel, headingUsageMap, headingIdPrefix);
+                : headingIdByLabel.get(headingLabel)
+                  ?? (headingIdPrefix ? `${headingIdPrefix}-${slugifyHeadingLabel(headingLabel)}` : slugifyHeadingLabel(headingLabel));
 
             return (
               <Heading

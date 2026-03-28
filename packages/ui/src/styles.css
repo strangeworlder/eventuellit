@@ -90,9 +90,13 @@
   --font-size-2xs: 0.6rem;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.9rem;
-  --font-size-base: 1.05rem;
-  --font-size-lg: 1.125rem;
+  --font-size-base: 1.125rem;
+  --font-size-lg: 1.2rem;
   --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
 
   /* ── Motion tokens ── */
   --motion-duration-instant: 75ms;
@@ -279,8 +283,8 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 1.05rem;
-    line-height: 1.7;
+    font-size: 1.125rem;
+    line-height: 1.8;
     letter-spacing: 0.015em;
   }
 

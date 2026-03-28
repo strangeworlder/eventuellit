@@ -1,20 +1,25 @@
 import {
     AlertTriangle,
+    BookMarked,
+    BookOpen,
     CircleCheck,
     CircleX,
     Cog,
     Compass,
+    CornerDownLeft,
     ChevronDown,
     Download,
     Drama,
+    FileText,
     Flame,
+    Hash,
     HeartPulse,
     Home,
     Info,
     ShieldAlert,
     Sparkles,
+    Search,
     Dice5,
-    BookOpen,
     ChevronLeft,
     ChevronRight,
     Globe,
@@ -36,8 +41,12 @@ import React from "react";
 
 export const icons = {
     "alert-triangle": AlertTriangle,
+    "book-marked": BookMarked,
     "circle-check": CircleCheck,
     "circle-x": CircleX,
+    "corner-down-left": CornerDownLeft,
+    "file-text": FileText,
+    hash: Hash,
     cog: Cog,
     compass: Compass,
     drama: Drama,
@@ -49,6 +58,7 @@ export const icons = {
     "heart-pulse": HeartPulse,
     "shield-alert": ShieldAlert,
     sparkles: Sparkles,
+    search: Search,
     dice5: Dice5,
     book: BookOpen,
     "chevron-left": ChevronLeft,
@@ -79,8 +89,9 @@ export interface IconProps extends React.SVGAttributes<SVGElement> {
 /**
  * Lucide icon wrapper. Always use this instead of importing Lucide icons directly —
  * it enforces a consistent size scale and type-safe `IconName` union.
- * Available names: alert-triangle, circle-check, circle-x, info, loader2, plus, minus,
- * trash-2, x, chevron-left/right, menu, settings, map, globe, log-in/out, shield, zap, sparkles, etc.
+ * Available names: alert-triangle, book, book-marked, circle-check, circle-x, compass, corner-down-left,
+ * file-text, hash, info, loader2, plus, minus, search, trash-2, x, chevron-left/right, menu, settings,
+ * map, globe, log-in/out, shield, zap, sparkles, etc.
  *
  * @summary Lucide icon wrapper; use IconName type for valid names; size prop in px (default 16)
  */
