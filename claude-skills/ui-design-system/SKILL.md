@@ -92,6 +92,15 @@ The `Button` has five state layers (disabled, loading, focus-visible, active/pre
 
 Danger buttons include a default `alert-triangle` icon via `showDangerIcon` — destructive actions must NOT rely on color alone.
 
+## Compact Size Convention
+
+`size="compact"` is available on `Button` and `Input`. Use it exclusively for:
+
+- **Inline editing** — edit controls that appear inside data rows, table cells, or tight list items where default-sized controls would break the layout rhythm.
+- **GM / admin tools** — the generator app and any other operator-facing surface where screen density matters more than player-facing legibility.
+
+Player-facing surfaces (character sheets, episode views, world articles) MUST use `size="default"` or `size="lg"`. Never use `size="compact"` there.
+
 ## Storybook
 
 - Storybook v10.2+ on Node v22+ with Vite 6.

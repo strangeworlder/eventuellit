@@ -12,6 +12,14 @@ export interface Episode {
   title: string;
   order: number;
   status: string;
+  description: string | null;
+  players: string | null;
+  sessionDates: string | null;
+  location: string | null;
+  locationLink: string | null;
+  image: string | null;
+  imageAlt: string | null;
+  mechanicalAdditions: string | null;
 }
 
 export interface EpisodeSkill {
@@ -31,6 +39,21 @@ export const useActiveEpisodes = () => {
       if (!response.ok) throw new Error("Failed to fetch episodes");
       return response.json();
     },
+  });
+};
+
+export const useEpisode = (episodeId: number | null) => {
+  return useQuery<Episode>({
+    queryKey: ["episode", episodeId],
+    queryFn: async () => {
+      const response = await fetch(`${apiBaseUrl}/episodes/${episodeId}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to fetch episode");
+      return response.json();
+    },
+    enabled: !!episodeId,
   });
 };
 

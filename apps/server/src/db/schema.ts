@@ -1,4 +1,4 @@
-import { integer, jsonb, pgTable, serial, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { boolean, integer, jsonb, pgTable, serial, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -88,4 +88,55 @@ export const characterEpisodes = pgTable("character_episodes", {
   episodeId: integer("episode_id")
     .references(() => episodes.id, { onDelete: "cascade" })
     .notNull(),
+});
+
+export const sessions = pgTable("sessions", {
+  id: serial("id").primaryKey(),
+  episodeId: integer("episode_id")
+    .references(() => episodes.id, { onDelete: "cascade" })
+    .notNull(),
+  sessionNumber: integer("session_number").notNull(),
+  date: timestamp("date"),
+  status: text("status").default("planned").notNull(), // planned | next | played
+  label: text("label"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const episodeReadingItems = pgTable("episode_reading_items", {
+  id: serial("id").primaryKey(),
+  episodeId: integer("episode_id")
+    .references(() => episodes.id, { onDelete: "cascade" })
+    .notNull(),
+  sessionId: integer("session_id")
+    .references(() => sessions.id, { onDelete: "cascade" }),
+  contentType: text("content_type").notNull(), // 'world' | 'ruleset' | 'custom' | 'task'
+  contentRef: text("content_ref"),             // e.g. 'ekklesia', 'mekaniikat'
+  title: text("title").notNull(),
+  description: text("description"),
+  url: text("url"),                            // relative link, e.g. '/world/ekklesia'
+  orderIndex: integer("order_index").default(0).notNull(),
+  autoSuggested: boolean("auto_suggested").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const episodePlayers = pgTable("episode_players", {
+  id: serial("id").primaryKey(),
+  episodeId: integer("episode_id")
+    .references(() => episodes.id, { onDelete: "cascade" })
+    .notNull(),
+  userId: integer("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const playerReadingProgress = pgTable("player_reading_progress", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  readingItemId: integer("reading_item_id")
+    .references(() => episodeReadingItems.id, { onDelete: "cascade" })
+    .notNull(),
+  completedAt: timestamp("completed_at").defaultNow().notNull(),
 });

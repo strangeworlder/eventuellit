@@ -33,7 +33,7 @@ function flattenToString(node: React.ReactNode): string {
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "solid" | "outline" | "danger" | "ghost" | "ghost-subtle";
-  size?: "default" | "sm" | "lg" | "icon" | "nav";
+  size?: "default" | "sm" | "compact" | "lg" | "icon" | "nav";
   /** When true, blurs & disables the button with a glitch effect. Works with any variant. */
   obscured?: boolean;
   justify?: "center" | "start" | "end";
@@ -134,6 +134,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {
             "min-h-[3rem] h-auto px-6 py-2": size === "default",
             "min-h-[2.25rem] h-auto px-3 py-1.5": size === "sm",
+            "min-h-[1.75rem] h-auto px-2.5 py-0.5 text-[length:var(--font-size-xs)] tracking-wider": size === "compact",
             "min-h-[3.5rem] h-auto px-8 py-4 text-xl w-full": size === "lg",
             "h-10 w-10 min-w-[2.5rem] px-0 py-0 text-xl font-black leading-none": size === "icon",
             "w-full p-2 h-auto text-sm normal-case tracking-normal font-normal shadow-none hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100":
@@ -161,7 +162,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {isDanger && (
           <Icon
             name={dangerIcon}
-            size={size === "sm" || size === "icon" ? 30 : size === "lg" ? 52 : 40}
+            size={size === "sm" || size === "icon" || size === "compact" ? 30 : size === "lg" ? 52 : 40}
             className="absolute -right-2 -top-2 opacity-15 pointer-events-none"
             aria-hidden="true"
           />
@@ -171,14 +172,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <Icon
               name="loader2"
               className="animate-spin shrink-0"
-              size={size === "sm" || size === "icon" ? 14 : size === "lg" ? 22 : 18}
+              size={size === "sm" || size === "icon" || size === "compact" ? 14 : size === "lg" ? 22 : 18}
               aria-hidden="true"
             />
           )}
           {shouldRenderDangerIcon && (
             <Icon
               name={dangerIcon}
-              size={size === "sm" || size === "icon" ? 13 : size === "lg" ? 18 : 15}
+              size={size === "sm" || size === "icon" || size === "compact" ? 13 : size === "lg" ? 18 : 15}
               aria-hidden="true"
             />
           )}

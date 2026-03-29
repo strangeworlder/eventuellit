@@ -99,6 +99,7 @@ export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(
               return (
                 <div key={item.id} className="flex flex-col gap-2 w-full">
                   <Input
+                    size="compact"
                     value={draftName}
                     onChange={(e) => setDraftName(e.target.value)}
                     onKeyDown={(e) => {
@@ -116,10 +117,10 @@ export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(
                     />
                   )}
                   <div className="flex items-center gap-3">
-                    <Button size="sm" onClick={saveEditing} disabled={!draftName.trim()}>
+                    <Button size="compact" onClick={saveEditing} disabled={!draftName.trim()}>
                       Tallenna
                     </Button>
-                    <Button size="sm" variant="ghost-subtle" onClick={cancelEditing}>
+                    <Button size="compact" variant="ghost-subtle" onClick={cancelEditing}>
                       Peruuta
                     </Button>
                   </div>
@@ -150,11 +151,12 @@ export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(
         <div className="flex gap-2 items-end">
           <Input
             label={addLabel}
+            size="compact"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAdd()}
           />
-          <Button onClick={handleAdd} disabled={!newName.trim()}>
+          <Button size="compact" onClick={handleAdd} disabled={!newName.trim()}>
             Lisää
           </Button>
         </div>

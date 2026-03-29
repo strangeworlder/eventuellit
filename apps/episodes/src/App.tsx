@@ -44,6 +44,13 @@ import {
   useUpdateEpisode,
   useUpdateEpisodeSkill,
 } from "./api/episodes";
+import { ReadingListEditor } from "./ReadingListEditor";
+import {
+  useDisenrollPlayer,
+  useEnrollPlayer,
+  useEpisodePlayers,
+} from "./api/episode-players";
+import { usePlayerUsers } from "./api/users";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -143,6 +150,63 @@ function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onC
   );
 }
 
+function EpisodePlayersEditor({ episodeId }: { episodeId: number }) {
+  const { data: allPlayers, isLoading: isPlayersLoading } = usePlayerUsers();
+  const { data: enrolled, isLoading: isEnrolledLoading } = useEpisodePlayers(episodeId);
+  const { mutate: enroll, isPending: isEnrolling } = useEnrollPlayer();
+  const { mutate: disenroll, isPending: isDisenrolling } = useDisenrollPlayer();
+
+  const isPending = isEnrolling || isDisenrolling;
+
+  if (isPlayersLoading || isEnrolledLoading) return <LoadingState message="Ladataan pelaajia..." />;
+
+  const enrolledUserIds = new Set((enrolled ?? []).map((e) => e.userId));
+  const enrollmentByUserId = new Map((enrolled ?? []).map((e) => [e.userId, e]));
+
+  return (
+    <div className="space-y-2">
+      <Heading>Pelaajat</Heading>
+      {!allPlayers || allPlayers.length === 0 ? (
+        <Text variant="muted">Ei pelaajatilejä rekisteröity.</Text>
+      ) : (
+        <div className="space-y-1">
+          {allPlayers.map((player) => {
+            const isEnrolled = enrolledUserIds.has(player.id);
+            const enrollment = enrollmentByUserId.get(player.id);
+            return (
+              <div
+                key={player.id}
+                className="flex items-center justify-between gap-2 py-1.5 border-b border-[var(--theme-border-subtle)] last:border-0"
+              >
+                <div className="flex-1 min-w-0">
+                  <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-text)] truncate">
+                    {player.username}
+                  </span>
+                  <p className="text-[10px] text-[var(--theme-text)]/40 truncate">{player.email}</p>
+                </div>
+                <Button
+                  size="compact"
+                  variant={isEnrolled ? "danger" : "outline"}
+                  disabled={isPending}
+                  onClick={() => {
+                    if (isEnrolled && enrollment) {
+                      disenroll({ id: enrollment.id, episodeId });
+                    } else {
+                      enroll({ episodeId, userId: player.id });
+                    }
+                  }}
+                >
+                  {isEnrolled ? "Poista" : "Lisää"}
+                </Button>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function EpisodeSkillsEditor({ episodeId }: { episodeId: number }) {
   const { data: skills, isLoading } = useEpisodeSkills(episodeId);
   const { mutate: addSkill } = useCreateEpisodeSkill();
@@ -186,13 +250,19 @@ function GmToolsPanel({
       <div className="space-y-3">
         <Heading>Toiminnot</Heading>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={onEdit}>Muokkaa Jaksoa</Button>
-          <Button variant="danger" size="sm" onClick={onDelete}>Poista Jakso</Button>
-          <Button size="sm" onClick={onCreateNew}>Luo Uusi Jakso</Button>
+          <Button variant="outline" size="compact" onClick={onEdit}>Muokkaa Jaksoa</Button><br/>
+          <Button variant="danger" size="compact" onClick={onDelete}>Poista Jakso</Button><br/>
+          <Button size="compact" onClick={onCreateNew}>Luo Uusi Jakso</Button>
         </div>
       </div>
       <div className="space-y-3">
         <EpisodeSkillsEditor episodeId={episode.id} />
+      </div>
+      <div className="space-y-3">
+        <EpisodePlayersEditor episodeId={episode.id} />
+      </div>
+      <div className="space-y-3">
+        <ReadingListEditor episodeId={episode.id} />
       </div>
     </Drawer>
   );
@@ -583,8 +653,11 @@ function EpisodeWrapper() {
           )}
 
           {episodes && episodes.length === 0 && (
-            <div className="flex items-center justify-center min-h-[50vh]">
+            <div className="flex flex-col items-center justify-center gap-4 min-h-[50vh]">
               <Text variant="muted">Ei jaksoja löydetty.</Text>
+              {isGm && (
+                <Button onClick={() => setIsCreating(true)}>Luo ensimmäinen jakso</Button>
+              )}
             </div>
           )}
         </>

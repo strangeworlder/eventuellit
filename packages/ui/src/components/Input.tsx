@@ -6,10 +6,11 @@ import type { Theme } from "./Theme";
 import { useObscuredGlitch } from "./useObscuredGlitch";
 import { cn, obscureString } from "./utils";
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   label?: string;
   error?: string;
   theme?: Theme;
+  size?: "default" | "compact";
   /** When true, blurs & disables the input with an obscured visual effect. */
   obscured?: boolean;
 }
@@ -21,7 +22,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
  * @summary single-line text field with label/error; supports obscured prop for hidden content
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, error, theme, obscured: obscuredProp, disabled, placeholder, value, defaultValue, ...props }, ref) => {
+  ({ className, label, error, theme, size = "default", obscured: obscuredProp, disabled, placeholder, value, defaultValue, ...props }, ref) => {
     const obscured = obscuredProp || useObscured();
     const isDisabled = disabled || obscured;
     const { glitchStyle } = useObscuredGlitch(obscured);
@@ -33,7 +34,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div
         className={cn(
-          "flex flex-col w-full gap-2 mt-2",
+          "flex flex-col w-full",
+          size === "compact" ? "gap-1 mt-1" : "gap-2 mt-2",
           obscured && "select-none pointer-events-none",
         )}
         data-theme={theme}
@@ -48,7 +50,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           data-text={obscured ? obscureString(placeholder ?? "") : undefined}
           style={obscured ? glitchStyle : undefined}
           className={cn(
-            "flex h-12 w-full rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] px-4 py-2 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all placeholder:text-text-placeholder focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+            "flex w-full rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] font-bold text-[var(--theme-text)] shadow-sm transition-all placeholder:text-text-placeholder focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+            size === "default" && "h-12 px-4 py-2 text-[length:var(--font-size-lg)]",
+            size === "compact" && "h-7 px-2.5 py-0.5 text-[length:var(--font-size-xs)]",
             error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
             obscured && "blur-[1.5px] obscured-glitch obscured-field",
             className,

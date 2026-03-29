@@ -31,6 +31,7 @@ import { useCreateCharacter } from "./api/characters";
 import { CharacterSheet } from "./CharacterSheet";
 import { useAuth } from "@repo/auth/use-auth";
 import { useActiveEpisodes, useEpisodeSkills } from "./api/episodes";
+import { SessionPrepView } from "./SessionPrepView";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -490,6 +491,12 @@ function CharacterSheetRoute({ basePath }: { basePath: string }) {
   return <CharacterSheet characterId={Number(id)} basePath={basePath} onBack={() => navigate("../list")} />;
 }
 
+function PrepRoute({ basePath }: { basePath: string }) {
+  const { episodeId } = useParams();
+  if (!episodeId || Number.isNaN(Number(episodeId))) return <div>Virheellinen jakso</div>;
+  return <SessionPrepView episodeId={Number(episodeId)} basePath={basePath} />;
+}
+
 function InnerApp() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -498,7 +505,7 @@ function InnerApp() {
   const getBasePath = () => {
     const segments = pathname.split("/").filter(Boolean);
     if (segments.length === 0) return "";
-    if (["list", "new", "character"].includes(segments[0])) return "";
+    if (["list", "new", "character", "prep"].includes(segments[0])) return "";
     return `/${segments[0]}`;
   };
 
@@ -507,6 +514,10 @@ function InnerApp() {
   const characterMatchAbsolute = useMatch(`${basePath}/character/:id`);
   const characterMatchRelative = useMatch(`character/:id`);
   const activeCharId = (characterMatchAbsolute ?? characterMatchRelative)?.params?.id;
+
+  const prepMatchAbsolute = useMatch(`${basePath}/prep/:episodeId`);
+  const prepMatchRelative = useMatch(`prep/:episodeId`);
+  const activePrepEpisodeId = (prepMatchAbsolute ?? prepMatchRelative)?.params?.episodeId;
 
   const { data: characters, isLoading } = useQuery({
     queryKey: ["characters"],
@@ -529,6 +540,9 @@ function InnerApp() {
           <TopNavLink to={`${basePath}/new`}>Uusi Hahmo</TopNavLink>
           {activeCharId && (
             <TopNavLink to={`${basePath}/character/${activeCharId}`}>Hahmosivu</TopNavLink>
+          )}
+          {activePrepEpisodeId && (
+            <TopNavLink to={`${basePath}/prep/${activePrepEpisodeId}`}>Valmistaudu</TopNavLink>
           )}
         </TopNavList>
         <div className="animate-in fade-in duration-300">
@@ -612,6 +626,20 @@ function InnerApp() {
                                       )}
                                     </p>
                                   )}
+                                  {isOwn && char.episodeId && (
+                                    <div className="border-t border-[var(--theme-text)]/10 pt-2 mt-1">
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          navigate(`${basePath}/prep/${char.episodeId}`);
+                                        }}
+                                      >
+                                        Valmistaudu
+                                      </Button>
+                                    </div>
+                                  )}
                                 </div>
                               </CardContent>
                             </Card>
@@ -624,6 +652,7 @@ function InnerApp() {
             />
             <Route path="new" element={<GeneratorForm basePath={basePath} />} />
             <Route path="character/:id" element={<CharacterSheetRoute basePath={basePath} />} />
+            <Route path="prep/:episodeId" element={<PrepRoute basePath={basePath} />} />
             <Route path="*" element={<NotFoundRedirect to={`${basePath}/list`} />} />
           </Routes>
         </div>

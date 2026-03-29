@@ -110,6 +110,37 @@ export const Obscured: Story = {
   },
 };
 
+export const CompactSize: Story = {
+  name: "Tiivis (GM-työkalut)",
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Button size="compact" variant="solid">Tallenna</Button>
+      <Button size="compact" variant="outline">Peruuta</Button>
+      <Button size="compact" variant="danger">Poista</Button>
+      <Button size="compact" variant="ghost-subtle">Lisää</Button>
+    </div>
+  ),
+};
+
+export const CompactVsDefault: Story = {
+  name: "Tiivis vs. oletus",
+  tags: ["!manifest"],
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant="solid">Oletus</Button>
+        <Button size="sm" variant="solid">Pieni</Button>
+        <Button size="compact" variant="solid">Tiivis</Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant="outline">Oletus</Button>
+        <Button size="sm" variant="outline">Pieni</Button>
+        <Button size="compact" variant="outline">Tiivis</Button>
+      </div>
+    </div>
+  ),
+};
+
 export const ObscuredAllSizes: Story = {
   name: "Piilotettu (koot)",
   tags: ["!manifest"],
