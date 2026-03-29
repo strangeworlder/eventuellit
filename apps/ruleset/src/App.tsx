@@ -1,13 +1,7 @@
-import {
-  mapSectionOffsetsToProgressPositions,
-  resolveActiveSectionFromProgress,
-} from "@repo/ui/components/article-navigation-utils";
-import {
-  ARTICLE_JUMP_EVENT,
-  ARTICLE_PROGRESS_EVENT,
-  type ArticleJumpPayload,
-  type ArticleProgressPayload,
-} from "@repo/ui/components/article-progress-events";
+import type { ArticleProgressPayload } from "@repo/ui/components/article-progress-events";
+import { scrollElementIntoScrollRoot } from "@repo/ui/components/article-navigation-utils";
+import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
+import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
@@ -19,11 +13,9 @@ import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Page, PageBody } from "@repo/ui/components/Page";
 import { Text } from "@repo/ui/components/Text";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { requestToast } from "@repo/ui/components/Toast";
-
 import { ChapterNav } from "./ChapterNav";
 import { GlossaryPage } from "./GlossaryPage";
 import { QuickReference } from "./QuickReference";
@@ -203,13 +195,7 @@ const pages: MarkdownPage[] = Object.entries(modules)
 // Known non-markdown routes (treated as valid first segments like page IDs)
 const STATIC_ROUTES = new Set(["sanasto"]);
 
-function RulesetArticleView({
-  page,
-  basePath,
-}: {
-  page: MarkdownPage;
-  basePath: string;
-}) {
+function RulesetArticleView({ page, basePath }: { page: MarkdownPage; basePath: string }) {
   const location = useLocation();
   const { pathname } = location;
   const navigate = useNavigate();
@@ -222,91 +208,18 @@ function RulesetArticleView({
   const [activeSectionId, setActiveSectionId] = useState<string | undefined>();
   const [activeSectionLabel, setActiveSectionLabel] = useState<string | undefined>();
 
-  useEffect(() => {
-    const scrollRoot = document.getElementById("app-scroll-root");
-    if (!scrollRoot) {
-      return;
-    }
+  const onAfterProgressComputed = useCallback((payload: ArticleProgressPayload) => {
+    setActiveSectionId(payload.activeSectionId);
+    const activeSection = payload.sections.find((s) => s.id === payload.activeSectionId);
+    setActiveSectionLabel(activeSection?.label);
+  }, []);
 
-    const getOffsetWithinScrollRoot = (element: HTMLElement) => {
-      const elementRect = element.getBoundingClientRect();
-      const rootRect = scrollRoot.getBoundingClientRect();
-      return elementRect.top - rootRect.top + scrollRoot.scrollTop;
-    };
-
-    const dispatchProgress = (payload: ArticleProgressPayload) => {
-      window.dispatchEvent(
-        new CustomEvent<ArticleProgressPayload>(ARTICLE_PROGRESS_EVENT, { detail: payload }),
-      );
-    };
-
-    const updateScrollState = () => {
-      const scrollY = scrollRoot.scrollTop;
-      const maxScroll = Math.max(scrollRoot.scrollHeight - scrollRoot.clientHeight, 1);
-      const headingElements = Array.from(
-        articleRef.current?.querySelectorAll<HTMLElement>("h3[id]") ?? [],
-      );
-      const renderedSections = headingElements.map((heading) => ({
-        id: heading.id,
-        label: heading.textContent?.trim() ?? heading.id,
-      }));
-
-      const sectionOffsets = headingElements.map((heading) => ({
-        id: heading.id,
-        top: getOffsetWithinScrollRoot(heading),
-      }));
-
-      const nextProgress = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
-      const nextMarkerPositions = mapSectionOffsetsToProgressPositions(
-        sectionOffsets,
-        0,
-        scrollRoot.scrollHeight,
-      );
-      const nextActiveSectionId = resolveActiveSectionFromProgress(
-        nextProgress,
-        renderedSections.map((s) => s.id),
-        nextMarkerPositions,
-      );
-
-      setActiveSectionId(nextActiveSectionId);
-      const activeSection = renderedSections.find((s) => s.id === nextActiveSectionId);
-      setActiveSectionLabel(activeSection?.label);
-
-      dispatchProgress({
-        source: "ruleset",
-        route: pathname,
-        sections: renderedSections,
-        progress: nextProgress,
-        activeSectionId: nextActiveSectionId,
-        markerPositions: nextMarkerPositions,
-      });
-    };
-
-    const onJumpRequested = (event: Event) => {
-      const customEvent = event as CustomEvent<ArticleJumpPayload>;
-      const payload = customEvent.detail;
-      if (!payload || payload.source !== "ruleset") {
-        return;
-      }
-
-      const element = document.getElementById(payload.sectionId);
-      if (element) {
-        const targetTop = Math.max(getOffsetWithinScrollRoot(element) - 96, 0);
-        scrollRoot.scrollTo({ top: targetTop, behavior: "smooth" });
-      }
-    };
-
-    updateScrollState();
-    scrollRoot.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-    window.addEventListener(ARTICLE_JUMP_EVENT, onJumpRequested as EventListener);
-
-    return () => {
-      scrollRoot.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-      window.removeEventListener(ARTICLE_JUMP_EVENT, onJumpRequested as EventListener);
-    };
-  }, [pathname]);
+  useArticleScrollProgress({
+    articleRef,
+    source: "ruleset",
+    route: pathname,
+    onAfterProgressComputed,
+  });
 
   // Reading position memory
   useReadingPosition({
@@ -327,20 +240,14 @@ function RulesetArticleView({
 
     const doScroll = () => {
       if (cancelled) return;
-
-      const scrollRoot = document.getElementById("app-scroll-root");
-      const element = document.getElementById(scrollTarget);
-      if (!element || !scrollRoot) return;
-
-      const elementRect = element.getBoundingClientRect();
-      const rootRect = scrollRoot.getBoundingClientRect();
-      const top = Math.max(elementRect.top - rootRect.top + scrollRoot.scrollTop - 96, 0);
-      scrollRoot.scrollTo({ top, behavior: "smooth" });
+      scrollElementIntoScrollRoot(scrollTarget);
     };
 
     requestAnimationFrame(() => requestAnimationFrame(doScroll));
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [location.state, pathname, navigate]);
 
   const heroImage = page.images[0];
@@ -404,18 +311,6 @@ function RulesetArticleView({
   );
 }
 
-function NotFoundRedirect({ to }: { to: string }) {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      requestToast({ message: "Sivua ei löydy. Uudelleenohjattu lähimpään vanhempaan.", variant: "warning", duration: 0 });
-      navigate(to, { replace: true });
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return null;
-}
-
 function RulesetIndex({ basePath }: { basePath: string }) {
   return (
     <>
@@ -426,10 +321,7 @@ function RulesetIndex({ basePath }: { basePath: string }) {
         />
       </HeadingLevelProvider>
       <PageBody>
-        <Breadcrumb
-          className="mb-6"
-          items={[{ label: "Säännöt" }]}
-        />
+        <Breadcrumb className="mb-6" items={[{ label: "Säännöt" }]} />
         <HeadingLevelProvider>
           <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
             {pages.map((page) => (
@@ -481,9 +373,7 @@ function RulesetRoutes() {
     const handleKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
       const isInInput =
-        target.tagName === "INPUT" ||
-        target.tagName === "TEXTAREA" ||
-        target.isContentEditable;
+        target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable;
 
       // Ctrl+K / Cmd+K — open search
       if ((e.ctrlKey || e.metaKey) && e.key === "k") {
@@ -535,9 +425,7 @@ function RulesetRoutes() {
                   {page.title}
                 </TopNavLink>
               ))}
-              <TopNavLink
-                to={basePath === "/" ? "/sanasto" : `${basePath}/sanasto`}
-              >
+              <TopNavLink to={basePath === "/" ? "/sanasto" : `${basePath}/sanasto`}>
                 Sanasto
               </TopNavLink>
             </TopNavList>
@@ -568,26 +456,28 @@ function RulesetRoutes() {
                   />
                 );
               })}
+              <Route path="sanasto" element={<GlossaryPage basePath={basePath} />} />
               <Route
-                path="sanasto"
-                element={<GlossaryPage basePath={basePath} />}
+                path="*"
+                element={<MfeNotFoundRedirect to={basePath === "/" ? "/" : basePath} />}
               />
-              <Route path="*" element={<NotFoundRedirect to={basePath === "/" ? "/" : basePath} />} />
             </Routes>
           </div>
         </TopNav>
       )}
 
       {/* Quick reference FAB */}
-      <button
+      <Button
         type="button"
+        variant="ghost-subtle"
+        size="icon"
         onClick={() => setQuickRefOpen(true)}
-        className="fixed top-20 right-4 z-40 w-9 h-9 flex items-center justify-center rounded-lg text-text-muted bg-[var(--theme-bg)]/70 backdrop-blur-sm border border-[var(--theme-border-soft)] hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)] hover:border-[var(--theme-border-medium)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2"
+        className="fixed top-20 right-4 z-40 w-9 h-9 rounded-lg text-text-muted bg-black/40 backdrop-blur-sm border border-[var(--theme-border-soft)] hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)] hover:border-[var(--theme-border-medium)]"
         aria-label="Avaa pikaohjeet (?)"
         title="Pikaohjeet (?)"
       >
         <Icon name="book-marked" size={15} aria-hidden="true" />
-      </button>
+      </Button>
 
       {/* Modals */}
       <RulesetSearch

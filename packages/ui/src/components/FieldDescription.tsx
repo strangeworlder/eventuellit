@@ -22,11 +22,7 @@ export function FieldDescription({
 }: FieldDescriptionProps) {
   return (
     <span
-      data-text={
-        obscured && typeof children === "string"
-          ? obscureString(children)
-          : undefined
-      }
+      data-text={obscured && typeof children === "string" ? obscureString(children) : undefined}
       className={cn(
         "text-sm text-text-muted",
         obscured && "blur-[5.5px] obscured-glitch",
@@ -34,9 +30,7 @@ export function FieldDescription({
       )}
       style={obscured ? glitchStyle : undefined}
     >
-      {obscured && typeof children === "string"
-        ? obscureString(children)
-        : children}
+      {obscured && typeof children === "string" ? obscureString(children) : children}
     </span>
   );
 }

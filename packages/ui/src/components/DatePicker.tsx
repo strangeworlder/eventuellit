@@ -10,9 +10,18 @@ import { cn, obscureString } from "./utils";
 // ── Finnish locale helpers ──
 
 const FI_MONTHS = [
-  "Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu",
-  "Toukokuu", "Kesäkuu", "Heinäkuu", "Elokuu",
-  "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu",
+  "Tammikuu",
+  "Helmikuu",
+  "Maaliskuu",
+  "Huhtikuu",
+  "Toukokuu",
+  "Kesäkuu",
+  "Heinäkuu",
+  "Elokuu",
+  "Syyskuu",
+  "Lokakuu",
+  "Marraskuu",
+  "Joulukuu",
 ] as const;
 
 const FI_WEEKDAYS_SHORT = ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"] as const;
@@ -34,9 +43,11 @@ function toIso(date: Date): string {
 }
 
 function isSameDay(a: Date, b: Date): boolean {
-  return a.getFullYear() === b.getFullYear() &&
+  return (
+    a.getFullYear() === b.getFullYear() &&
     a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate();
+    a.getDate() === b.getDate()
+  );
 }
 
 /** Returns the calendar grid rows for a given month.
@@ -131,9 +142,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
     const [viewYear, setViewYear] = React.useState(
       selectedDate?.getFullYear() ?? today.getFullYear(),
     );
-    const [viewMonth, setViewMonth] = React.useState(
-      selectedDate?.getMonth() ?? today.getMonth(),
-    );
+    const [viewMonth, setViewMonth] = React.useState(selectedDate?.getMonth() ?? today.getMonth());
 
     const [focusedDate, setFocusedDate] = React.useState<Date | null>(null);
 
@@ -220,21 +229,23 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       // Move DOM focus to the newly focused day button
       requestAnimationFrame(() => {
         const iso = toIso(next);
-        const btn = calendarRef.current?.querySelector<HTMLButtonElement>(
-          `[data-date="${iso}"]`,
-        );
+        const btn = calendarRef.current?.querySelector<HTMLButtonElement>(`[data-date="${iso}"]`);
         btn?.focus();
       });
     }
 
     function prevMonth() {
-      if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1); }
-      else setViewMonth(m => m - 1);
+      if (viewMonth === 0) {
+        setViewMonth(11);
+        setViewYear((y) => y - 1);
+      } else setViewMonth((m) => m - 1);
     }
 
     function nextMonth() {
-      if (viewMonth === 11) { setViewMonth(0); setViewYear(y => y + 1); }
-      else setViewMonth(m => m + 1);
+      if (viewMonth === 11) {
+        setViewMonth(0);
+        setViewYear((y) => y + 1);
+      } else setViewMonth((m) => m + 1);
     }
 
     const grid = buildCalendarGrid(viewYear, viewMonth);
@@ -259,7 +270,11 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
         )}
         data-theme={theme}
       >
-        {label && <FieldLabel obscured={obscured} htmlFor={inputId}>{label}</FieldLabel>}
+        {label && (
+          <FieldLabel obscured={obscured} htmlFor={inputId}>
+            {label}
+          </FieldLabel>
+        )}
 
         {/* Input row */}
         <div className="relative">
@@ -273,7 +288,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
             aria-controls={calendarId}
             aria-label={label ? undefined : "Valitse päivämäärä"}
             disabled={isDisabled}
-            onClick={() => open ? closeCalendar() : openCalendar()}
+            onClick={() => (open ? closeCalendar() : openCalendar())}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
@@ -288,7 +303,9 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
             style={obscured ? glitchStyle : undefined}
             className={cn(
               "flex w-full items-center justify-between rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] font-bold text-[var(--theme-text)] shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
-              isCompact ? "h-7 px-2.5 py-0.5 text-[length:var(--font-size-xs)]" : "h-12 px-4 py-2 text-[length:var(--font-size-lg)]",
+              isCompact
+                ? "h-7 px-2.5 py-0.5 text-[length:var(--font-size-xs)]"
+                : "h-12 px-4 py-2 text-[length:var(--font-size-lg)]",
               !displayValue && "text-text-placeholder font-normal",
               error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
               obscured && "blur-[1.5px] obscured-glitch obscured-field",
@@ -360,7 +377,9 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                   <div key={ri} role="row" className="grid grid-cols-7">
                     {row.map((day, di) => {
                       if (!day) {
-                        return <div key={di} role="gridcell" aria-disabled="true" className="h-8" />;
+                        return (
+                          <div key={di} role="gridcell" aria-disabled="true" className="h-8" />
+                        );
                       }
                       const iso = toIso(day);
                       const isSelected = selectedDate ? isSameDay(day, selectedDate) : false;
@@ -385,8 +404,8 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                               isSelected
                                 ? "bg-[var(--theme-accent)] text-[var(--theme-accent-foreground)]"
                                 : isToday
-                                ? "border border-[var(--theme-secondary)] text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]"
-                                : "text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]",
+                                  ? "border border-[var(--theme-secondary)] text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]"
+                                  : "text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]",
                               outOfRange && "opacity-40 cursor-not-allowed hover:bg-transparent",
                             )}
                           >

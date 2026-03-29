@@ -14,27 +14,23 @@ export interface FieldLabelProps {
  * Standardised form-field label used across Input, TextArea, Select,
  * RadioGroup, Checkbox and Switch.
  */
-export function FieldLabel({
-  children,
-  obscured,
-  htmlFor,
-  className,
-}: FieldLabelProps) {
-  const Tag = htmlFor ? "label" : "span";
+export const FieldLabel = React.forwardRef<HTMLLabelElement | HTMLSpanElement, FieldLabelProps>(
+  ({ children, obscured, htmlFor, className }, ref) => {
+    const Tag = htmlFor ? "label" : "span";
 
-  return (
-    <Tag
-      htmlFor={htmlFor}
-      className={cn(
-        "text-sm font-black uppercase tracking-widest text-[var(--theme-secondary)]",
-        obscured && "blur-[5.5px]",
-        className,
-      )}
-    >
-      {obscured && typeof children === "string"
-        ? obscureString(children)
-        : children}
-    </Tag>
-  );
-}
+    return (
+      <Tag
+        ref={ref as React.Ref<HTMLLabelElement & HTMLSpanElement>}
+        htmlFor={htmlFor}
+        className={cn(
+          "text-sm font-black uppercase tracking-widest text-[var(--theme-secondary)]",
+          obscured && "blur-[5.5px]",
+          className,
+        )}
+      >
+        {obscured && typeof children === "string" ? obscureString(children) : children}
+      </Tag>
+    );
+  },
+);
 FieldLabel.displayName = "FieldLabel";

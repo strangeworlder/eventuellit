@@ -35,9 +35,7 @@ export const Virhe: Story = {
     variant: "error",
     title: "Tallennus epäonnistui",
     children: "Palvelimeen ei saatu yhteyttä. Tarkista verkkoyhteys ja yritä uudelleen.",
-    actions: (
-      <Button>Yritä uudelleen</Button>
-    ),
+    actions: <Button>Yritä uudelleen</Button>,
   },
 };
 
@@ -45,11 +43,19 @@ export const Tieto: Story = {
   render: () => (
     <NoticePanel variant="info" title="Nopat ja toiminta">
       <p className="text-lg leading-relaxed">
-        Sinulla on <GameTerm variant="accent" className="font-black text-xl">5n20</GameTerm>{" "}
+        Sinulla on{" "}
+        <GameTerm variant="accent" className="font-black text-xl">
+          5n20
+        </GameTerm>{" "}
         oletuksena. Olet ottanut{" "}
-        <GameTerm variant="emphasis" className="font-bold">2 harmia</GameTerm>, joten
-        noppapoolisi koko on{" "}
-        <GameTerm variant="emphasis" className="font-black text-2xl">3</GameTerm>.
+        <GameTerm variant="emphasis" className="font-bold">
+          2 harmia
+        </GameTerm>
+        , joten noppapoolisi koko on{" "}
+        <GameTerm variant="emphasis" className="font-black text-2xl">
+          3
+        </GameTerm>
+        .
       </p>
     </NoticePanel>
   ),

@@ -8,15 +8,16 @@ import { Input } from "@repo/ui/components/Input";
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/RadioGroup";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { LoadingState } from "@repo/ui/components/LoadingState";
+import { SkeletonCard } from "@repo/ui/components/Skeleton";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { ObscuredWrapper } from "@repo/ui/components/ObscuredWrapper";
 import { Page, PageBody } from "@repo/ui/components/Page";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { TopNav, TopNavList, TopNavLink } from "@repo/ui/components/TopNav";
-import { requestToast } from "@repo/ui/components/Toast";
+import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Routes,
   Route,
@@ -124,8 +125,7 @@ function GeneratorForm({ basePath }: { basePath: string }) {
       }));
 
   const taidotFilled =
-    selectedTaidot.every((s) => s !== null) &&
-    (!hasCustomSlot || customSkillText.trim() !== "");
+    selectedTaidot.every((s) => s !== null) && (!hasCustomSlot || customSkillText.trim() !== "");
 
   // ── Step progression gates ──
   const episodeSelected = selectedEpisodeId !== null;
@@ -212,17 +212,14 @@ function GeneratorForm({ basePath }: { basePath: string }) {
       <HeadingLevelProvider>
         <Hero title="Uusi Hahmo" />
         <HeadingLevelProvider>
-            <PageBody className="flex flex-col gap-8">
+          <PageBody className="flex flex-col gap-8">
             <Breadcrumb
               className="mb-2"
-              items={[
-                { label: "Hahmot", to: `${basePath}/list` },
-                { label: "Uusi Hahmo" },
-              ]}
+              items={[{ label: "Hahmot", to: `${basePath}/list` }, { label: "Uusi Hahmo" }]}
             />
             {/* ── Step 1: Episode ── */}
             <div className="space-y-4">
-              <div className="border-b-2 border-primary/20 pb-2">
+              <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
                 <Heading>Jakso</Heading>
               </div>
               {isEpisodesLoading ? (
@@ -235,7 +232,9 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                       variant={selectedEpisodeId === ep.id ? "solid" : "outline"}
                       onClick={() => {
                         setSelectedEpisodeId(ep.id);
-                        setSelectedTaidot(Array(taidotCount || TAIDOT_COUNTS["Sotilas"]).fill(null));
+                        setSelectedTaidot(
+                          Array(taidotCount || TAIDOT_COUNTS["Sotilas"]).fill(null),
+                        );
                         setCustomSkillText("");
                       }}
                     >
@@ -244,9 +243,7 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                   ))}
                 </div>
               ) : (
-                <p className="text-secondary text-sm">
-                  Ei aktiivisia jaksoja saatavilla.
-                </p>
+                <p className="text-text-muted text-sm">Ei aktiivisia jaksoja saatavilla.</p>
               )}
             </div>
 
@@ -258,9 +255,22 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                 value={archetype ?? undefined}
                 onValueChange={(v) => handleArchetypeChange(v)}
               >
-                <RadioGroupItem value="Munkki" label="Munkki" description="Sisu: 3n4, Taidot: 2" obscured />
-                <RadioGroupItem value="Ekspertti" label="Ekspertti" description="Sisu: 3n6, Taidot: 3" />
-                <RadioGroupItem value="Sotilas" label="Sotilas" description="Sisu: 3n8, Taidot: 2" />
+                <RadioGroupItem
+                  value="Munkki"
+                  label="Munkki"
+                  description="Sisu: 3n4, Taidot: 2"
+                  obscured
+                />
+                <RadioGroupItem
+                  value="Ekspertti"
+                  label="Ekspertti"
+                  description="Sisu: 3n6, Taidot: 3"
+                />
+                <RadioGroupItem
+                  value="Sotilas"
+                  label="Sotilas"
+                  description="Sisu: 3n8, Taidot: 2"
+                />
               </RadioGroup>
             </ObscuredWrapper>
 
@@ -294,7 +304,7 @@ function GeneratorForm({ basePath }: { basePath: string }) {
               <div className="space-y-4">
                 <div className="flex justify-between items-center mb-2">
                   <Heading>Ominaisuudet (Kestot)</Heading>
-                  <div className="flex items-center gap-2 text-slate-400 font-mono">
+                  <div className="flex items-center gap-2 text-text-muted font-mono">
                     <span>Noppia jäljellä:</span>
                     <div className="flex gap-1.5">
                       {Array.from({ length: diceRemaining }).map((_, i) => (
@@ -309,16 +319,22 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                     score={kehoScore}
                     subAttributes={[
                       {
-                        name: "Fysiikka", label: "Fysiikka", value: fysiikka,
+                        name: "Fysiikka",
+                        label: "Fysiikka",
+                        value: fysiikka,
                         onAdd: () => handleAssignDie(setFysiikka, fysiikka),
                         onRemove: () => handleRemoveDie(setFysiikka, fysiikka),
-                        canAdd: diceRemaining > 0, canRemove: fysiikka > 0,
+                        canAdd: diceRemaining > 0,
+                        canRemove: fysiikka > 0,
                       },
                       {
-                        name: "Nopeus", label: "Nopeus", value: nopeus,
+                        name: "Nopeus",
+                        label: "Nopeus",
+                        value: nopeus,
                         onAdd: () => handleAssignDie(setNopeus, nopeus),
                         onRemove: () => handleRemoveDie(setNopeus, nopeus),
-                        canAdd: diceRemaining > 0, canRemove: nopeus > 0,
+                        canAdd: diceRemaining > 0,
+                        canRemove: nopeus > 0,
                       },
                     ]}
                   />
@@ -327,16 +343,22 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                     score={mieliScore}
                     subAttributes={[
                       {
-                        name: "Ymmärrys", label: "Ymmärrys", value: ymmarrys,
+                        name: "Ymmärrys",
+                        label: "Ymmärrys",
+                        value: ymmarrys,
                         onAdd: () => handleAssignDie(setYmmarrys, ymmarrys),
                         onRemove: () => handleRemoveDie(setYmmarrys, ymmarrys),
-                        canAdd: diceRemaining > 0, canRemove: ymmarrys > 0,
+                        canAdd: diceRemaining > 0,
+                        canRemove: ymmarrys > 0,
                       },
                       {
-                        name: "Persoona", label: "Persoona", value: persoona,
+                        name: "Persoona",
+                        label: "Persoona",
+                        value: persoona,
                         onAdd: () => handleAssignDie(setPersoona, persoona),
                         onRemove: () => handleRemoveDie(setPersoona, persoona),
-                        canAdd: diceRemaining > 0, canRemove: persoona > 0,
+                        canAdd: diceRemaining > 0,
+                        canRemove: persoona > 0,
                       },
                     ]}
                   />
@@ -345,16 +367,22 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                     score={teraScore}
                     subAttributes={[
                       {
-                        name: "Näkemys", label: "Näkemys", value: nakemys,
+                        name: "Näkemys",
+                        label: "Näkemys",
+                        value: nakemys,
                         onAdd: () => handleAssignDie(setNakemys, nakemys),
                         onRemove: () => handleRemoveDie(setNakemys, nakemys),
-                        canAdd: diceRemaining > 0, canRemove: nakemys > 0,
+                        canAdd: diceRemaining > 0,
+                        canRemove: nakemys > 0,
                       },
                       {
-                        name: "Näppäryys", label: "Näppäryys", value: napparyys,
+                        name: "Näppäryys",
+                        label: "Näppäryys",
+                        value: napparyys,
                         onAdd: () => handleAssignDie(setNapparyys, napparyys),
                         onRemove: () => handleRemoveDie(setNapparyys, napparyys),
-                        canAdd: diceRemaining > 0, canRemove: napparyys > 0,
+                        canAdd: diceRemaining > 0,
+                        canRemove: napparyys > 0,
                       },
                     ]}
                   />
@@ -365,11 +393,11 @@ function GeneratorForm({ basePath }: { basePath: string }) {
             {/* ── Step 6: Taidot ── */}
             <ObscuredWrapper revealed={diceAssigned}>
               <div className="space-y-4">
-                <div className="border-b-2 border-primary/20 pb-2">
+                <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
                   <Heading>Taidot ({taidotCount} valittava)</Heading>
                 </div>
                 {!selectedEpisodeId ? (
-                  <p className="text-secondary text-sm">
+                  <p className="text-text-muted text-sm">
                     Valitse ensin jakso nähdäksesi saatavilla olevat taidot.
                   </p>
                 ) : isSkillsLoading ? (
@@ -387,12 +415,16 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                           <CardContent>
                             <SkillMasonry
                               sort="optimal"
-                              skills={episodeSkills?.map((skill) => ({
-                                id: skill.id,
-                                name: skill.name,
-                                disabled: selectedTaidot.some((s, i) => i !== slotIndex && s === skill.name),
-                                selected: slotValue === skill.name,
-                              })) ?? []}
+                              skills={
+                                episodeSkills?.map((skill) => ({
+                                  id: skill.id,
+                                  name: skill.name,
+                                  disabled: selectedTaidot.some(
+                                    (s, i) => i !== slotIndex && s === skill.name,
+                                  ),
+                                  selected: slotValue === skill.name,
+                                })) ?? []
+                              }
                               onSkillClick={(skill) =>
                                 handleTaidotSelect(
                                   slotIndex,
@@ -402,10 +434,7 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                               showCustomButton={!hasCustomSlot || isCustomSlot}
                               isCustomSelected={isCustomSlot}
                               onCustomClick={() =>
-                                handleTaidotSelect(
-                                  slotIndex,
-                                  isCustomSlot ? null : "custom",
-                                )
+                                handleTaidotSelect(slotIndex, isCustomSlot ? null : "custom")
                               }
                             />
                             {isCustomSlot && (
@@ -416,7 +445,7 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                                   value={customSkillText}
                                   onChange={(e) => setCustomSkillText(e.target.value)}
                                 />
-                                <p className="text-xs text-secondary mt-1">
+                                <p className="text-xs text-text-muted mt-1">
                                   GM tarkastaa omat taidot.
                                 </p>
                               </div>
@@ -433,7 +462,7 @@ function GeneratorForm({ basePath }: { basePath: string }) {
             {/* ── Step 7: Motivation (optional) ── */}
             <ObscuredWrapper revealed={skillsFilled}>
               <div className="space-y-2">
-                <div className="border-b-2 border-primary/20 pb-2">
+                <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
                   <Heading>Motivaatio (valinnainen)</Heading>
                 </div>
                 <TextArea
@@ -448,7 +477,7 @@ function GeneratorForm({ basePath }: { basePath: string }) {
             {/* ── Step 8: Notes (optional) ── */}
             <ObscuredWrapper revealed={skillsFilled}>
               <div className="space-y-2">
-                <div className="border-b-2 border-primary/20 pb-2">
+                <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
                   <Heading>Muistiinpanot (valinnainen)</Heading>
                 </div>
                 <TextArea
@@ -465,30 +494,24 @@ function GeneratorForm({ basePath }: { basePath: string }) {
                 {isPending ? "Tallennetaan..." : "Tallenna Hahmo"}
               </Button>
             </ObscuredWrapper>
-            </PageBody>
+          </PageBody>
         </HeadingLevelProvider>
       </HeadingLevelProvider>
     </div>
   );
 }
 
-function NotFoundRedirect({ to }: { to: string }) {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      requestToast({ message: "Sivua ei löydy. Uudelleenohjattu lähimpään vanhempaan.", variant: "warning", duration: 0 });
-      navigate(to, { replace: true });
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return null;
-}
-
 function CharacterSheetRoute({ basePath }: { basePath: string }) {
   const { id } = useParams();
   const navigate = useNavigate();
   if (!id) return <div>Virheellinen id</div>;
-  return <CharacterSheet characterId={Number(id)} basePath={basePath} onBack={() => navigate("../list")} />;
+  return (
+    <CharacterSheet
+      characterId={Number(id)}
+      basePath={basePath}
+      onBack={() => navigate("../list")}
+    />
+  );
 }
 
 function PrepRoute({ basePath }: { basePath: string }) {
@@ -553,13 +576,19 @@ function InnerApp() {
               element={
                 <>
                   <HeadingLevelProvider>
-                  <Hero title="Hahmot" description="Hahmot" />
-                  <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8">
-                    <Breadcrumb className="col-span-full mb-2" items={[{ label: "Hahmot" }]} />
-                      {isLoading && <LoadingState message="Ladataan hahmoja..." />}
+                    <Hero title="Hahmot" description="Hahmot" />
+                    <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8">
+                      <Breadcrumb className="col-span-full mb-2" items={[{ label: "Hahmot" }]} />
+                      {isLoading && (
+                        <>
+                          <SkeletonCard className="col-span-1" />
+                          <SkeletonCard className="col-span-1" />
+                          <SkeletonCard className="col-span-1" />
+                        </>
+                      )}
                       {!isLoading && characters?.length === 0 && (
                         <div className="col-span-full text-center py-12">
-                          <p className="text-secondary mb-4">Ei hahmoja vielä.</p>
+                          <p className="text-text-muted mb-4">Ei hahmoja vielä.</p>
                           <Button onClick={() => navigate(`${basePath}/new`)}>
                             Luo ensimmäinen hahmosi
                           </Button>
@@ -567,9 +596,16 @@ function InnerApp() {
                       )}
                       {!isLoading &&
                         characters?.map((char: any) => {
-                          const activeHarmit = (char.harmit ?? []).filter((h: { healed: boolean }) => !h.healed).length;
+                          const activeHarmit = (char.harmit ?? []).filter(
+                            (h: { healed: boolean }) => !h.healed,
+                          ).length;
                           const archetypeLabel = char.archetype;
                           const isOwn = user && char.userId === user.id;
+                          const episodes: { id: number; title: string; status: string }[] =
+                            char.episodes ?? [];
+                          const prepEpisode =
+                            episodes.find((e: { status: string }) => e.status === "active") ??
+                            episodes.find((e: { status: string }) => e.status === "planned");
 
                           return (
                             <Card
@@ -585,55 +621,86 @@ function InnerApp() {
                               </CardHeader>
                               <CardContent variant="dense">
                                 <div className="flex flex-col gap-3 w-full">
-                                  {char.episodeTitle && (
-                                    <p className="text-xs text-[var(--theme-text)]/60">
-                                      Jakso: <span className="text-[var(--theme-text)]/80 font-medium">{char.episodeTitle}</span>
+                                  {episodes.length > 0 && (
+                                    <p className="text-xs text-text-muted">
+                                      Jakso:{" "}
+                                      <span className="text-[var(--theme-text)] font-medium">
+                                        {episodes.map((e: { title: string }) => e.title).join(", ")}
+                                      </span>
                                     </p>
                                   )}
                                   <div className="flex justify-between items-center w-full text-sm">
-                                    <span className="text-[var(--theme-text)]/70">
-                                      Harmit: <span className={activeHarmit > 0 ? "font-bold text-[var(--theme-primary)]" : "font-medium text-[var(--theme-text)]/80"}>{activeHarmit} / 5</span>
+                                    <span className="text-text-muted">
+                                      Harmit:{" "}
+                                      <span
+                                        className={
+                                          activeHarmit > 0
+                                            ? "font-bold text-[var(--theme-primary)]"
+                                            : "font-medium text-[var(--theme-text)]"
+                                        }
+                                      >
+                                        {activeHarmit} / 5
+                                      </span>
                                     </span>
-                                    <span className="text-[var(--theme-text)]/70 inline-flex items-center gap-1.5">
+                                    <span className="text-text-muted inline-flex items-center gap-1.5">
                                       Sisu:
                                       {(() => {
-                                        const dice: Array<{ id: string; faces: number }> = char.sisuDice ?? [];
+                                        const dice: Array<{ id: string; faces: number }> =
+                                          char.sisuDice ?? [];
                                         const removed = new Set<string>(char.removedSisuIds ?? []);
                                         const activeByFaces = new Map<number, number>();
                                         for (const d of dice) {
                                           if (!removed.has(d.id)) {
-                                            activeByFaces.set(d.faces, (activeByFaces.get(d.faces) ?? 0) + 1);
+                                            activeByFaces.set(
+                                              d.faces,
+                                              (activeByFaces.get(d.faces) ?? 0) + 1,
+                                            );
                                           }
                                         }
-                                        const sorted = [...activeByFaces.entries()].sort(([a], [b]) => a - b);
-                                        if (sorted.length === 0) return <span className="font-medium text-[var(--theme-text)]/80">0</span>;
+                                        const sorted = [...activeByFaces.entries()].sort(
+                                          ([a], [b]) => a - b,
+                                        );
+                                        if (sorted.length === 0)
+                                          return (
+                                            <span className="font-medium text-[var(--theme-text)]">
+                                              0
+                                            </span>
+                                          );
                                         return sorted.map(([faces, count]) => (
-                                          <span key={faces} className="inline-flex items-center gap-0.5">
-                                            <span className="font-medium text-[var(--theme-text)]/80">{count}×</span>
-                                            <DiceIcon faces={faces as 4 | 6 | 8 | 10 | 12 | 20} size="sm" />
+                                          <span
+                                            key={faces}
+                                            className="inline-flex items-center gap-0.5"
+                                          >
+                                            <span className="font-medium text-[var(--theme-text)]">
+                                              {count}×
+                                            </span>
+                                            <DiceIcon
+                                              faces={faces as 4 | 6 | 8 | 10 | 12 | 20}
+                                              size="sm"
+                                            />
                                           </span>
                                         ));
                                       })()}
                                     </span>
                                   </div>
                                   {char.ownerName && (
-                                    <p className="text-xs text-[var(--theme-text)]/50 border-t border-[var(--theme-text)]/10 pt-2 mt-1">
+                                    <p className="text-xs text-text-subtle border-t border-[var(--theme-border-soft)] pt-2 mt-1">
                                       Pelaaja: {char.ownerName}
                                       {isOwn && (
-                                        <span className="ml-2 text-[10px] font-black tracking-widest text-[var(--theme-secondary)] uppercase">
+                                        <span className="ml-2 text-[length:var(--font-size-2xs)] font-black tracking-widest text-[var(--theme-secondary)] uppercase">
                                           sinun
                                         </span>
                                       )}
                                     </p>
                                   )}
-                                  {isOwn && char.episodeId && (
-                                    <div className="border-t border-[var(--theme-text)]/10 pt-2 mt-1">
+                                  {isOwn && prepEpisode && (
+                                    <div className="border-t border-[var(--theme-border-soft)] pt-2 mt-1">
                                       <Button
                                         variant="outline"
                                         size="sm"
                                         onClick={(e) => {
                                           e.stopPropagation();
-                                          navigate(`${basePath}/prep/${char.episodeId}`);
+                                          navigate(`${basePath}/prep/${prepEpisode.id}`);
                                         }}
                                       >
                                         Valmistaudu
@@ -653,7 +720,7 @@ function InnerApp() {
             <Route path="new" element={<GeneratorForm basePath={basePath} />} />
             <Route path="character/:id" element={<CharacterSheetRoute basePath={basePath} />} />
             <Route path="prep/:episodeId" element={<PrepRoute basePath={basePath} />} />
-            <Route path="*" element={<NotFoundRedirect to={`${basePath}/list`} />} />
+            <Route path="*" element={<MfeNotFoundRedirect to={`${basePath}/list`} />} />
           </Routes>
         </div>
       </TopNav>

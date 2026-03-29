@@ -1,14 +1,5 @@
 import { SkillTagList } from "@repo/ui/components/SkillTagList";
-import {
-  mapSectionOffsetsToProgressPositions,
-  resolveActiveSectionFromProgress,
-} from "@repo/ui/components/article-navigation-utils";
-import {
-  ARTICLE_JUMP_EVENT,
-  ARTICLE_PROGRESS_EVENT,
-  type ArticleJumpPayload,
-  type ArticleProgressPayload,
-} from "@repo/ui/components/article-progress-events";
+import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { useAuth } from "@repo/auth/use-auth";
 import { Badge } from "@repo/ui/components/Badge";
 import { Button } from "@repo/ui/components/Button";
@@ -28,9 +19,11 @@ import { Select } from "@repo/ui/components/Select";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { Text } from "@repo/ui/components/Text";
-import { requestToast } from "@repo/ui/components/Toast";
+import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
+import { EmptyState } from "@repo/ui/components/EmptyState";
+import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import {
   type Episode,
@@ -45,11 +38,7 @@ import {
   useUpdateEpisodeSkill,
 } from "./api/episodes";
 import { ReadingListEditor } from "./ReadingListEditor";
-import {
-  useDisenrollPlayer,
-  useEnrollPlayer,
-  useEpisodePlayers,
-} from "./api/episode-players";
+import { useDisenrollPlayer, useEnrollPlayer, useEpisodePlayers } from "./api/episode-players";
 import { usePlayerUsers } from "./api/users";
 import { useSessions } from "./api/sessions";
 
@@ -61,7 +50,15 @@ const queryClient = new QueryClient({
   },
 });
 
-function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onCancel: () => void; onSave: (data: Partial<Episode>) => void }) {
+function EpisodeEditForm({
+  episode,
+  onCancel,
+  onSave,
+}: {
+  episode?: Episode;
+  onCancel: () => void;
+  onSave: (data: Partial<Episode>) => void;
+}) {
   const [formData, setFormData] = useState<Partial<Episode>>(
     episode || {
       title: "",
@@ -78,10 +75,12 @@ function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onC
       imageAlt: "",
       mechanicalAdditions: "",
       summary: "",
-    }
+    },
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: name === "order" ? parseInt(value) || 0 : value }));
   };
@@ -93,9 +92,25 @@ function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onC
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
-          <Input label="Otsikko" name="title" value={formData.title ?? ""} onChange={handleChange} />
-          <Input label="Slug (URL)" name="slug" value={formData.slug ?? ""} onChange={handleChange} />
-          <Input label="Järjestys" type="number" name="order" value={formData.order?.toString() ?? "99"} onChange={handleChange} />
+          <Input
+            label="Otsikko"
+            name="title"
+            value={formData.title ?? ""}
+            onChange={handleChange}
+          />
+          <Input
+            label="Slug (URL)"
+            name="slug"
+            value={formData.slug ?? ""}
+            onChange={handleChange}
+          />
+          <Input
+            label="Järjestys"
+            type="number"
+            name="order"
+            value={formData.order?.toString() ?? "99"}
+            onChange={handleChange}
+          />
 
           <Select
             label="Tila"
@@ -110,7 +125,12 @@ function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onC
           />
         </div>
 
-        <Input label="Lyhyt Kuvaus" name="description" value={formData.description ?? ""} onChange={handleChange} />
+        <Input
+          label="Lyhyt Kuvaus"
+          name="description"
+          value={formData.description ?? ""}
+          onChange={handleChange}
+        />
 
         <TextArea
           label="Sisältö (Markdown)"
@@ -131,20 +151,56 @@ function EpisodeEditForm({ episode, onCancel, onSave }: { episode?: Episode; onC
         />
 
         <div className="grid grid-cols-2 gap-4">
-          <Input label="Pelaajat" name="players" value={formData.players ?? ""} onChange={handleChange} />
-          <Input label="Sessiot" name="sessionDates" value={formData.sessionDates ?? ""} onChange={handleChange} />
-          <Input label="Sijainti" name="location" value={formData.location ?? ""} onChange={handleChange} />
-          <Input label="Sijainti (Linkki)" name="locationLink" value={formData.locationLink ?? ""} onChange={handleChange} />
-          <Input label="Kuva (URL)" name="image" value={formData.image ?? ""} onChange={handleChange} />
-          <Input label="Kuva (Alt)" name="imageAlt" value={formData.imageAlt ?? ""} onChange={handleChange} />
+          <Input
+            label="Pelaajat"
+            name="players"
+            value={formData.players ?? ""}
+            onChange={handleChange}
+          />
+          <Input
+            label="Sessiot"
+            name="sessionDates"
+            value={formData.sessionDates ?? ""}
+            onChange={handleChange}
+          />
+          <Input
+            label="Sijainti"
+            name="location"
+            value={formData.location ?? ""}
+            onChange={handleChange}
+          />
+          <Input
+            label="Sijainti (Linkki)"
+            name="locationLink"
+            value={formData.locationLink ?? ""}
+            onChange={handleChange}
+          />
+          <Input
+            label="Kuva (URL)"
+            name="image"
+            value={formData.image ?? ""}
+            onChange={handleChange}
+          />
+          <Input
+            label="Kuva (Alt)"
+            name="imageAlt"
+            value={formData.imageAlt ?? ""}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="flex gap-2 justify-end mt-4">
-          <Button variant="outline" onClick={onCancel}>Peruuta</Button>
-          <Button onClick={() => {
-            const { id, gmId, createdAt, updatedAt, ...editableData } = formData as Episode;
-            onSave(editableData);
-          }}>Tallenna</Button>
+          <Button variant="outline" onClick={onCancel}>
+            Peruuta
+          </Button>
+          <Button
+            onClick={() => {
+              const { id, gmId, createdAt, updatedAt, ...editableData } = formData as Episode;
+              onSave(editableData);
+            }}
+          >
+            Tallenna
+          </Button>
         </div>
       </CardContent>
     </Card>
@@ -177,13 +233,15 @@ function EpisodePlayersEditor({ episodeId }: { episodeId: number }) {
             return (
               <div
                 key={player.id}
-                className="flex items-center justify-between gap-2 py-1.5 border-b border-[var(--theme-border-subtle)] last:border-0"
+                className="flex items-center justify-between gap-2 py-1.5 border-b border-[var(--theme-border-soft)] last:border-0"
               >
                 <div className="flex-1 min-w-0">
                   <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-text)] truncate">
                     {player.username}
                   </span>
-                  <p className="text-[10px] text-[var(--theme-text)]/40 truncate">{player.email}</p>
+                  <Text variant="caption" className="truncate block">
+                    {player.email}
+                  </Text>
                 </div>
                 <Button
                   size="compact"
@@ -221,15 +279,9 @@ function EpisodeSkillsEditor({ episodeId }: { episodeId: number }) {
       <Heading>Jakson Taidot</Heading>
       <SkillTagList
         items={(skills ?? []).map((s) => ({ id: s.id, name: s.name }))}
-        onItemEdit={(id, name) =>
-          updateSkill({ episodeId, skillId: id as number, name })
-        }
-        onItemRemove={(id) =>
-          removeSkill({ episodeId, skillId: id as number })
-        }
-        onItemAdd={(name) =>
-          addSkill({ episodeId, name })
-        }
+        onItemEdit={(id, name) => updateSkill({ episodeId, skillId: id as number, name })}
+        onItemRemove={(id) => removeSkill({ episodeId, skillId: id as number })}
+        onItemAdd={(name) => addSkill({ episodeId, name })}
       />
     </div>
   );
@@ -251,9 +303,17 @@ function GmToolsPanel({
       <div className="space-y-3">
         <Heading>Toiminnot</Heading>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="compact" onClick={onEdit}>Muokkaa Jaksoa</Button><br/>
-          <Button variant="danger" size="compact" onClick={onDelete}>Poista Jakso</Button><br/>
-          <Button size="compact" onClick={onCreateNew}>Luo Uusi Jakso</Button>
+          <Button variant="outline" size="compact" onClick={onEdit}>
+            Muokkaa Jaksoa
+          </Button>
+          <br />
+          <Button variant="danger" size="compact" onClick={onDelete}>
+            Poista Jakso
+          </Button>
+          <br />
+          <Button size="compact" onClick={onCreateNew}>
+            Luo Uusi Jakso
+          </Button>
         </div>
       </div>
       <div className="space-y-3">
@@ -269,7 +329,15 @@ function GmToolsPanel({
   );
 }
 
-function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew?: () => void; basePath: string }) {
+function EpisodeDetails({
+  id,
+  onCreateNew,
+  basePath,
+}: {
+  id: string;
+  onCreateNew?: () => void;
+  basePath: string;
+}) {
   const { data: episodes, isLoading: isEpisodesLoading } = useEpisodes();
   const episode = episodes?.find((e) => e.slug === id);
   const { data: fullEpisode, isLoading: isEpisodeLoading } = useEpisode(episode?.id as number);
@@ -284,91 +352,17 @@ function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew
   const articleRef = useRef<HTMLDivElement>(null);
 
   const [isEditing, setIsEditing] = useState(false);
+  const [deleteEpisodeOpen, setDeleteEpisodeOpen] = useState(false);
 
-  useEffect(() => {
-    const scrollRoot = document.getElementById("app-scroll-root");
-    if (!scrollRoot) {
-      return;
-    }
-
-    const getOffsetWithinScrollRoot = (element: HTMLElement) => {
-      const elementRect = element.getBoundingClientRect();
-      const rootRect = scrollRoot.getBoundingClientRect();
-      return elementRect.top - rootRect.top + scrollRoot.scrollTop;
-    };
-
-    const dispatchProgress = (payload: ArticleProgressPayload) => {
-      window.dispatchEvent(
-        new CustomEvent<ArticleProgressPayload>(ARTICLE_PROGRESS_EVENT, { detail: payload }),
-      );
-    };
-
-    const updateScrollState = () => {
-      const scrollY = scrollRoot.scrollTop;
-      const maxScroll = Math.max(scrollRoot.scrollHeight - scrollRoot.clientHeight, 1);
-      const headingElements = Array.from(
-        articleRef.current?.querySelectorAll<HTMLElement>("h3[id]") ?? [],
-      );
-      const renderedSections = headingElements.map((heading) => ({
-        id: heading.id,
-        label: heading.textContent?.trim() ?? heading.id,
-      }));
-
-      const sectionOffsets = headingElements.map((heading) => ({
-        id: heading.id,
-        top: getOffsetWithinScrollRoot(heading),
-      }));
-
-      const nextProgress = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
-      const nextMarkerPositions = mapSectionOffsetsToProgressPositions(
-        sectionOffsets,
-        0,
-        scrollRoot.scrollHeight,
-      );
-      const nextActiveSectionId = resolveActiveSectionFromProgress(
-        nextProgress,
-        renderedSections.map((s) => s.id),
-        nextMarkerPositions,
-      );
-
-      dispatchProgress({
-        source: "episodes",
-        route: pathname,
-        sections: renderedSections,
-        progress: nextProgress,
-        activeSectionId: nextActiveSectionId,
-        markerPositions: nextMarkerPositions,
-      });
-    };
-
-    const onJumpRequested = (event: Event) => {
-      const customEvent = event as CustomEvent<ArticleJumpPayload>;
-      const payload = customEvent.detail;
-      if (!payload || payload.source !== "episodes") {
-        return;
-      }
-
-      const element = document.getElementById(payload.sectionId);
-      if (element) {
-        const targetTop = Math.max(getOffsetWithinScrollRoot(element) - 96, 0);
-        scrollRoot.scrollTo({ top: targetTop, behavior: "smooth" });
-      }
-    };
-
-    updateScrollState();
-    scrollRoot.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-    window.addEventListener(ARTICLE_JUMP_EVENT, onJumpRequested as EventListener);
-
-    return () => {
-      scrollRoot.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-      window.removeEventListener(ARTICLE_JUMP_EVENT, onJumpRequested as EventListener);
-    };
-  }, [pathname]);
+  useArticleScrollProgress({
+    articleRef,
+    source: "episodes",
+    route: pathname,
+  });
 
   if (isEpisodesLoading || isEpisodeLoading) return <LoadingState message="Ladataan jaksoa..." />;
-  if (!episode || !fullEpisode) return <div className="p-8 text-center">Jaksoa ei löytynyt.</div>;
+  if (!episode || !fullEpisode)
+    return <EmptyState title="Jaksoa ei löytynyt." className="min-h-[50vh]" />;
 
   if (isEditing && isGm) {
     return (
@@ -376,9 +370,12 @@ function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew
         episode={fullEpisode}
         onCancel={() => setIsEditing(false)}
         onSave={(data) => {
-          updateEpisode({ ...data, id: fullEpisode.id }, {
-            onSuccess: () => setIsEditing(false)
-          });
+          updateEpisode(
+            { ...data, id: fullEpisode.id },
+            {
+              onSuccess: () => setIsEditing(false),
+            },
+          );
         }}
       />
     );
@@ -400,18 +397,28 @@ function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew
         </Hero>
 
         {isGm && onCreateNew && (
-          <GmToolsPanel
-            episode={fullEpisode}
-            onEdit={() => setIsEditing(true)}
-            onDelete={() => {
-              if (window.confirm("Oletko varma että haluat poistaa jakson?")) {
+          <>
+            <GmToolsPanel
+              episode={fullEpisode}
+              onEdit={() => setIsEditing(true)}
+              onDelete={() => setDeleteEpisodeOpen(true)}
+              onCreateNew={onCreateNew}
+            />
+            <ConfirmDialog
+              open={deleteEpisodeOpen}
+              onOpenChange={setDeleteEpisodeOpen}
+              title="Poista jakso?"
+              description="Jakso poistetaan pysyvästi. Tätä toimintoa ei voi peruuttaa."
+              confirmLabel="Poista jakso"
+              cancelLabel="Peruuta"
+              variant="danger"
+              onConfirm={() => {
                 deleteEpisode(fullEpisode.id, {
-                  onSuccess: () => navigate("/")
+                  onSuccess: () => navigate("/"),
                 });
-              }
-            }}
-            onCreateNew={onCreateNew}
-          />
+              }}
+            />
+          </>
         )}
 
         <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
@@ -469,7 +476,9 @@ function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew
                               : "—";
                             return (
                               <ListItem key={s.id}>
-                                #{String(s.sessionNumber).padStart(2, "0")} {s.label ? `${s.label} ` : ""}{formatted}
+                                #{String(s.sessionNumber).padStart(2, "0")}{" "}
+                                {s.label ? `${s.label} ` : ""}
+                                {formatted}
                               </ListItem>
                             );
                           })}
@@ -479,9 +488,7 @@ function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew
                     {fullEpisode.location && (
                       <>
                         <Heading>Sijainti</Heading>
-                        <Link href={fullEpisode.locationLink || "#"}>
-                          {fullEpisode.location}
-                        </Link>
+                        <Link href={fullEpisode.locationLink || "#"}>{fullEpisode.location}</Link>
                       </>
                     )}
                   </HeadingLevelProvider>
@@ -508,32 +515,14 @@ function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew
   );
 }
 
-function NotFoundRedirect({ to }: { to: string }) {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      requestToast({ message: "Sivua ei löydy. Uudelleenohjattu lähimpään vanhempaan.", variant: "warning", duration: 0 });
-      navigate(to, { replace: true });
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return null;
-}
-
 function EpisodesIndex({ episodes, basePath }: { episodes: Episode[]; basePath: string }) {
   return (
     <>
       <HeadingLevelProvider>
-        <Hero
-          title="Jaksot"
-          description="Kampanjan jaksot — aktiiviset, arkistoidut ja tulevat."
-        />
+        <Hero title="Jaksot" description="Kampanjan jaksot — aktiiviset, arkistoidut ja tulevat." />
       </HeadingLevelProvider>
       <PageBody>
-        <Breadcrumb
-          className="mb-6"
-          items={[{ label: "Jaksot" }]}
-        />
+        <Breadcrumb className="mb-6" items={[{ label: "Jaksot" }]} />
         <HeadingLevelProvider>
           <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
             {episodes.map((episode) => (
@@ -557,14 +546,14 @@ function EpisodesIndex({ episodes, basePath }: { episodes: Episode[]; basePath: 
                     )}
                     <div className="flex gap-2">
                       {episode.status === "active" && (
-                        <Badge variant="solid" icon="sparkles">Aktiivinen</Badge>
+                        <Badge variant="solid" icon="sparkles">
+                          Aktiivinen
+                        </Badge>
                       )}
                       {episode.status === "completed" && (
                         <Badge variant="outline">Arkistoitu</Badge>
                       )}
-                      {episode.status === "planned" && (
-                        <Badge variant="outline">Tulossa</Badge>
-                      )}
+                      {episode.status === "planned" && <Badge variant="outline">Tulossa</Badge>}
                     </div>
                   </CardContent>
                 </Card>
@@ -587,7 +576,11 @@ function EpisodeWrapper() {
   const [isCreating, setIsCreating] = useState(false);
 
   if (isLoading) {
-    return <Page><LoadingState message="Ladataan jaksoja..." /></Page>;
+    return (
+      <Page>
+        <LoadingState message="Ladataan jaksoja..." />
+      </Page>
+    );
   }
 
   const getBasePath = () => {
@@ -603,8 +596,7 @@ function EpisodeWrapper() {
     (e) => e.status === "active" || e.status === "planned",
   );
 
-  const activeEpisode =
-    (episodes ?? []).find((e) => e.status === "active") ?? episodes?.[0];
+  const activeEpisode = (episodes ?? []).find((e) => e.status === "active") ?? episodes?.[0];
   const latestPath = activeEpisode
     ? basePath === "/"
       ? `/${activeEpisode.slug}`
@@ -617,13 +609,12 @@ function EpisodeWrapper() {
 
   return (
     <Page>
-
       {isCreating && isGm ? (
         <EpisodeEditForm
           onCancel={() => setIsCreating(false)}
           onSave={(data) => {
             createEpisode(data, {
-              onSuccess: () => setIsCreating(false)
+              onSuccess: () => setIsCreating(false),
             });
           }}
         />
@@ -647,16 +638,25 @@ function EpisodeWrapper() {
 
               <div>
                 <Routes>
-                  <Route path="/" element={<EpisodesIndex episodes={episodes} basePath={basePath} />} />
+                  <Route
+                    path="/"
+                    element={<EpisodesIndex episodes={episodes} basePath={basePath} />}
+                  />
                   <Route path="latest" element={<Navigate to={latestPath} replace />} />
                   {episodes.map((episode) => (
                     <Route
                       key={episode.id}
                       path={episode.slug}
-                      element={<EpisodeDetails id={episode.slug} onCreateNew={() => setIsCreating(true)} basePath={basePath} />}
+                      element={
+                        <EpisodeDetails
+                          id={episode.slug}
+                          onCreateNew={() => setIsCreating(true)}
+                          basePath={basePath}
+                        />
+                      }
                     />
                   ))}
-                  <Route path="*" element={<NotFoundRedirect to={listingPath} />} />
+                  <Route path="*" element={<MfeNotFoundRedirect to={listingPath} />} />
                 </Routes>
               </div>
             </TopNav>
@@ -665,9 +665,7 @@ function EpisodeWrapper() {
           {episodes && episodes.length === 0 && (
             <div className="flex flex-col items-center justify-center gap-4 min-h-[50vh]">
               <Text variant="muted">Ei jaksoja löydetty.</Text>
-              {isGm && (
-                <Button onClick={() => setIsCreating(true)}>Luo ensimmäinen jakso</Button>
-              )}
+              {isGm && <Button onClick={() => setIsCreating(true)}>Luo ensimmäinen jakso</Button>}
             </div>
           )}
         </>

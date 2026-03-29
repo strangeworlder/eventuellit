@@ -123,4 +123,3 @@ export const SortOptimal: Story = {
     onSkillClick: (skill) => console.log("Clicked:", skill.name),
   },
 };
-

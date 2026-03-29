@@ -52,7 +52,18 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * automatically from the CSS theme system.
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = "surface", theme, iconName, iconVariant = "primary", children, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = "surface",
+      theme,
+      iconName,
+      iconVariant = "primary",
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const parentTheme = useCurrentTheme();
 
     // The effective base theme: explicit prop overrides inherited context
@@ -60,8 +71,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
     // For primary, swap to the mapped contrasting theme.
     // For other variants, only set data-theme if explicitly provided via prop.
-    const resolvedTheme =
-      variant === "surface" ? primaryThemeMap[baseTheme] : theme;
+    const resolvedTheme = variant === "surface" ? primaryThemeMap[baseTheme] : theme;
 
     // Children should see the resolved theme (or inherited base) in context
     const childTheme = resolvedTheme ?? baseTheme;
@@ -77,8 +87,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
               "rounded-xl overflow-visible relative group",
               {
                 // Surface: uses the swapped theme's bg/text via CSS variables
-                "bg-[var(--theme-bg)] text-[var(--theme-text)]":
-                  variant === "surface",
+                "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "surface",
                 // Outline: light bordered surface card with soft border and shadow
                 "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
                   variant === "outline",
@@ -100,7 +109,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
             <HeadingLevelProvider>{children}</HeadingLevelProvider>
           </div>
         </CardIconContext.Provider>
-      </ThemeContext.Provider >
+      </ThemeContext.Provider>
     );
   },
 );
@@ -131,8 +140,9 @@ export const CardHeader = React.forwardRef<
             "w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 ease-in group-hover:duration-300 group-hover:ease-out absolute -top-6 -left-6",
             {
               "border-[var(--theme-bg)] border-2 text-[var(--theme-bg)]": iconVariant === "primary",
-              "border-[var(--theme-border-soft)] border-2 text-text-subtle": iconVariant === "secondary" || iconVariant === "accent",
-            }
+              "border-[var(--theme-border-soft)] border-2 text-text-subtle":
+                iconVariant === "secondary" || iconVariant === "accent",
+            },
           )}
         >
           <Icon name={iconName} size={28} />

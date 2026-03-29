@@ -1,1 +1,14 @@
-import{R as r}from"./iframe-RLsCwdXb.js";const a=r.createContext("base"),t=()=>r.useContext(a),i={base:"primary-dark",inverted:"primary-dark","primary-light":"secondary-dark","primary-dark":"secondary-light","secondary-light":"primary-dark","secondary-dark":"primary-light","accent-light":"primary-dark","accent-dark":"primary-light"};export{a as T,i as p,t as u};
+import { R as r } from "./iframe-RLsCwdXb.js";
+const a = r.createContext("base"),
+  t = () => r.useContext(a),
+  i = {
+    base: "primary-dark",
+    inverted: "primary-dark",
+    "primary-light": "secondary-dark",
+    "primary-dark": "secondary-light",
+    "secondary-light": "primary-dark",
+    "secondary-dark": "primary-light",
+    "accent-light": "primary-dark",
+    "accent-dark": "primary-light",
+  };
+export { a as T, i as p, t as u };

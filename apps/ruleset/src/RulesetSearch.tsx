@@ -1,8 +1,10 @@
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@repo/ui/components/Button";
 import { Dialog } from "@repo/ui/components/Dialog";
 import { GameTerm } from "@repo/ui/components/GameTerm";
 import { Icon } from "@repo/ui/components/Icon";
+import { Input } from "@repo/ui/components/Input";
 import { Text } from "@repo/ui/components/Text";
 import { cn } from "@repo/ui";
 import { glossary } from "./glossary";
@@ -83,14 +85,15 @@ function buildSectionIndex(pages: SearchablePage[]) {
           .replace(/\\([\\`*_{}[\]()#+.!-])/g, "$1")
           .replace(/[`*_~]/g, "")
           .trim();
-        const slug = rawLabel
-          .normalize("NFKD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase()
-          .replace(/[^a-z0-9\s-]/g, "")
-          .replace(/\s+/g, "-")
-          .replace(/-+/g, "-")
-          .replace(/^-|-$/g, "") || "osio";
+        const slug =
+          rawLabel
+            .normalize("NFKD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-")
+            .replace(/^-|-$/g, "") || "osio";
         const count = (usageMap.get(slug) ?? 0) + 1;
         usageMap.set(slug, count);
         const id = count > 1 ? `${page.id}-${slug}-${count}` : `${page.id}-${slug}`;
@@ -114,10 +117,7 @@ function buildSectionIndex(pages: SearchablePage[]) {
   return sections;
 }
 
-function search(
-  query: string,
-  sectionIndex: ReturnType<typeof buildSectionIndex>,
-): SearchResult[] {
+function search(query: string, sectionIndex: ReturnType<typeof buildSectionIndex>): SearchResult[] {
   if (!query.trim()) return [];
 
   const q = query.toLowerCase().trim();
@@ -226,38 +226,37 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      title="Hae säännöistä"
-      size="md"
-      hideCloseButton
-    >
+    <Dialog open={open} onClose={onClose} title="Hae säännöistä" size="md" hideCloseButton>
       <div className="-mx-6 -mt-5">
         {/* Custom search input */}
         <div className="flex items-center gap-3 px-5 py-3 border-b border-[var(--theme-border-soft)]">
           <Icon name="search" size={18} className="text-text-muted shrink-0" aria-hidden="true" />
-          <input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Hae termiä, sääntöä tai osiota..."
-            className="flex-1 bg-transparent text-[var(--theme-text)] placeholder:text-text-placeholder text-base outline-none py-1"
-            aria-label="Hakukenttä"
-            aria-autocomplete="list"
-            aria-activedescendant={results[activeIndex] ? `search-result-${activeIndex}` : undefined}
-          />
+          <div className="flex-1 min-w-0 [&>div]:mt-0 [&>div]:gap-0">
+            <Input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Hae termiä, sääntöä tai osiota..."
+              className="border-0 shadow-none bg-transparent rounded-none h-auto min-h-0 py-1.5 px-0 text-base font-normal focus-visible:ring-0 focus-visible:border-transparent"
+              aria-label="Hakukenttä"
+              aria-autocomplete="list"
+              aria-activedescendant={
+                results[activeIndex] ? `search-result-${activeIndex}` : undefined
+              }
+            />
+          </div>
           {query && (
-            <button
+            <Button
               type="button"
+              variant="ghost-subtle"
+              size="icon"
               onClick={() => setQuery("")}
-              className="text-text-muted hover:text-[var(--theme-text)] transition-colors"
               aria-label="Tyhjennä haku"
             >
               <Icon name="x" size={16} />
-            </button>
+            </Button>
           )}
           <kbd className="hidden mobile:inline-flex items-center gap-1 px-2 py-0.5 text-xs text-text-subtle border border-[var(--theme-border-soft)] rounded font-mono">
             Esc
@@ -274,7 +273,7 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
 
           {!query && (
             <div className="px-5 py-6 text-center">
-              <Text variant="muted" className="text-sm">
+              <Text variant="small" className="text-center">
                 Kirjoita hakusana löytääksesi sääntöjä, termejä ja osioita.
               </Text>
             </div>
@@ -284,15 +283,16 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
             <ul className="py-2">
               {results.map((result, i) => (
                 <li key={`${result.type}-${result.label}-${i}`}>
-                  <button
+                  <Button
                     id={`search-result-${i}`}
                     type="button"
+                    variant="ghost-subtle"
                     role="option"
                     aria-selected={i === activeIndex}
                     onClick={() => handleSelect(result)}
                     onMouseEnter={() => setActiveIndex(i)}
                     className={cn(
-                      "w-full text-left px-5 py-3 flex items-start gap-3 transition-colors duration-150",
+                      "w-full h-auto min-h-0 rounded-none text-left px-5 py-3 flex items-start gap-3 transition-colors duration-150 font-normal justify-start",
                       i === activeIndex
                         ? "bg-[var(--theme-surface-tint)]"
                         : "hover:bg-[var(--theme-surface-tint)]",
@@ -313,17 +313,13 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
                           {result.label}
                         </GameTerm>
                         {result.pageTitle && result.pageTitle !== result.label && (
-                          <Text variant="muted" className="text-xs truncate">
+                          <Text variant="caption" className="truncate">
                             {result.pageTitle}
                           </Text>
                         )}
-                        {result.type === "glossary" && (
-                          <Text variant="muted" className="text-xs">
-                            Sanasto
-                          </Text>
-                        )}
+                        {result.type === "glossary" && <Text variant="caption">Sanasto</Text>}
                       </span>
-                      <Text variant="muted" className="text-sm line-clamp-2 leading-snug">
+                      <Text variant="small" className="text-text-muted line-clamp-2">
                         {result.snippet}
                       </Text>
                     </span>
@@ -336,7 +332,7 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
                       )}
                       aria-hidden="true"
                     />
-                  </button>
+                  </Button>
                 </li>
               ))}
             </ul>
@@ -345,16 +341,22 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
 
         {/* Footer */}
         <div className="border-t border-[var(--theme-border-soft)] px-5 py-2.5 flex items-center gap-4">
-          <Text variant="muted" className="text-xs flex items-center gap-1.5">
-            <kbd className="inline-flex items-center px-1.5 py-0.5 text-xs border border-[var(--theme-border-soft)] rounded font-mono">↑↓</kbd>
+          <Text variant="caption" className="flex items-center gap-1.5">
+            <kbd className="inline-flex items-center px-1.5 py-0.5 text-xs border border-[var(--theme-border-soft)] rounded font-mono">
+              ↑↓
+            </kbd>
             Navigoi
           </Text>
-          <Text variant="muted" className="text-xs flex items-center gap-1.5">
-            <kbd className="inline-flex items-center px-1.5 py-0.5 text-xs border border-[var(--theme-border-soft)] rounded font-mono">↵</kbd>
+          <Text variant="caption" className="flex items-center gap-1.5">
+            <kbd className="inline-flex items-center px-1.5 py-0.5 text-xs border border-[var(--theme-border-soft)] rounded font-mono">
+              ↵
+            </kbd>
             Avaa
           </Text>
-          <Text variant="muted" className="text-xs flex items-center gap-1.5">
-            <kbd className="inline-flex items-center px-1.5 py-0.5 text-xs border border-[var(--theme-border-soft)] rounded font-mono">Esc</kbd>
+          <Text variant="caption" className="flex items-center gap-1.5">
+            <kbd className="inline-flex items-center px-1.5 py-0.5 text-xs border border-[var(--theme-border-soft)] rounded font-mono">
+              Esc
+            </kbd>
             Sulje
           </Text>
         </div>

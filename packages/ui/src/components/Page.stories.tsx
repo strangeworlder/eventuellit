@@ -49,16 +49,16 @@ export const WithHeroAndBody: Story = {
             <section className="space-y-4">
               <Heading>Ensimmäinen osio</Heading>
               <p className="text-text/80 leading-relaxed">
-                PageBody huolehtii vaakasuuntaisesta täytteestä, pystysuuntaisesta tilasta
-                osioiden välillä ja sisääntuloanimaatiosta automaattisesti.
+                PageBody huolehtii vaakasuuntaisesta täytteestä, pystysuuntaisesta tilasta osioiden
+                välillä ja sisääntuloanimaatiosta automaattisesti.
               </p>
             </section>
 
             <section className="space-y-4">
               <Heading>Toinen osio</Heading>
               <p className="text-text/80 leading-relaxed">
-                Ei tarvita manuaalista px-4, space-y-8 tai animate-in fade-in -luokkia.
-                PageBody tarjoaa ne kaikki valmiina.
+                Ei tarvita manuaalista px-4, space-y-8 tai animate-in fade-in -luokkia. PageBody
+                tarjoaa ne kaikki valmiina.
               </p>
             </section>
           </HeadingLevelProvider>
@@ -83,13 +83,19 @@ export const WithStackedContent: Story = {
 
           <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-6">
             <Card variant="outline">
-              <CardContent className="h-48 flex items-center justify-center">Grid Item 1</CardContent>
+              <CardContent className="h-48 flex items-center justify-center">
+                Grid Item 1
+              </CardContent>
             </Card>
             <Card variant="outline">
-              <CardContent className="h-48 flex items-center justify-center">Grid Item 2</CardContent>
+              <CardContent className="h-48 flex items-center justify-center">
+                Grid Item 2
+              </CardContent>
             </Card>
             <Card variant="outline">
-              <CardContent className="h-48 flex items-center justify-center">Grid Item 3</CardContent>
+              <CardContent className="h-48 flex items-center justify-center">
+                Grid Item 3
+              </CardContent>
             </Card>
           </div>
         </PageBody>
@@ -111,12 +117,12 @@ export const WithPageAside: Story = {
             <div className="space-y-6">
               <Heading>Pääsisältö</Heading>
               <p className="text-text/80 leading-relaxed">
-                Tämä sarake sisältää artikkelin pääsisällön. Se uudelleenmountautuu
-                navigoinnin yhteydessä, mikä mahdollistaa sisääntuloanimaatiot.
+                Tämä sarake sisältää artikkelin pääsisällön. Se uudelleenmountautuu navigoinnin
+                yhteydessä, mikä mahdollistaa sisääntuloanimaatiot.
               </p>
               <p className="text-text/80 leading-relaxed">
-                PageBody-gridi luo kaksi saraketta desktop-koossa: 2fr vasemmalle
-                ja 1fr oikealle. Mobiilissa sarakkeet pinotaan.
+                PageBody-gridi luo kaksi saraketta desktop-koossa: 2fr vasemmalle ja 1fr oikealle.
+                Mobiilissa sarakkeet pinotaan.
               </p>
             </div>
           </HeadingLevelProvider>
@@ -129,8 +135,8 @@ export const WithPageAside: Story = {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm leading-relaxed">
-                    PageAside on semanttinen aside-elementti. Sticky-prop pitää sen
-                    näkyvissä vierittäessä desktop-koossa.
+                    PageAside on semanttinen aside-elementti. Sticky-prop pitää sen näkyvissä
+                    vierittäessä desktop-koossa.
                   </p>
                 </CardContent>
               </Card>

@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { AspectTag } from "@repo/ui/components/AspectTag";
 import { SkillTagList } from "@repo/ui/components/SkillTagList";
@@ -13,6 +14,8 @@ import { PageBody } from "@repo/ui/components/Page";
 import { Select } from "@repo/ui/components/Select";
 import { useAuth } from "@repo/auth/use-auth";
 import { Input } from "@repo/ui/components/Input";
+import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
+import { Link } from "@repo/ui/components/Link";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
@@ -22,8 +25,7 @@ interface Character {
   userId: number;
   name: string;
   archetype: string;
-  episodeId: number | null;
-  episodeTitle: string | null;
+  episodes: { id: number; title: string; status: string }[];
   sex: string | null;
   motivation: string | null;
   notes: string | null;
@@ -105,6 +107,8 @@ export function CharacterSheet({
     },
   });
 
+  const [deleteCharacterOpen, setDeleteCharacterOpen] = useState(false);
+
   const { mutate: deleteCharacter, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
       const token = localStorage.getItem("auth_token");
@@ -142,35 +146,30 @@ export function CharacterSheet({
   return (
     <HeadingLevelProvider>
       <div className="animate-in fade-in duration-500">
-        <Hero
-          title={character.name}
-          description={character.archetype}
-        />
+        <Hero title={character.name} description={character.archetype} />
 
         <PageBody className="pb-0 pt-4">
           <Breadcrumb
-            items={[
-              { label: "Hahmot", to: `${basePath}/list` },
-              { label: character.name },
-            ]}
+            items={[{ label: "Hahmot", to: `${basePath}/list` }, { label: character.name }]}
           />
         </PageBody>
 
         {!canEdit && character.ownerName && (
           <NoticePanel variant="info" title="Katselutila" className="mb-6">
-            <p>Tämä on <strong>{character.ownerName}</strong>:n hahmo. Voit katsella hahmosivua, mutta et voi muokata sitä.</p>
+            <p>
+              Tämä on <strong>{character.ownerName}</strong>:n hahmo. Voit katsella hahmosivua,
+              mutta et voi muokata sitä.
+            </p>
           </NoticePanel>
         )}
 
         <PageBody className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <section
-              className="rounded-sm border-l-4 border-[var(--theme-secondary)] bg-[var(--theme-secondary)]/5 p-6 mt-4 shadow-[0_0_12px_color-mix(in_srgb,var(--theme-secondary)_8%,transparent)]"
-            >
-              <HeadingLevelProvider>
-                <Heading className="mb-4">Perustiedot</Heading>
-              </HeadingLevelProvider>
-              <div className="space-y-4">
+            <Card variant="highlight" className="mt-4">
+              <CardHeader>
+                <CardTitle>Perustiedot</CardTitle>
+              </CardHeader>
+              <CardContent className="gap-4">
                 <EditableText
                   label="Arkkityyppi"
                   value={character.archetype}
@@ -179,10 +178,26 @@ export function CharacterSheet({
                   onSave={(v) => updateCharacter({ archetype: v })}
                 />
 
-                {character.episodeTitle && (
-                  <p className="text-sm text-[var(--theme-text)]/70">
-                    Jakso: <span className="font-semibold text-[var(--theme-text)]">{ character.episodeTitle}</span>
-                  </p>
+                {character.episodes?.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-sm text-text-muted">
+                      Jaksot:{" "}
+                      <span className="font-semibold text-[var(--theme-text)]">
+                        {character.episodes.map((e) => e.title).join(", ")}
+                      </span>
+                    </p>
+                    <div className="flex flex-col gap-1.5 items-start">
+                      {character.episodes.map((ep) => (
+                        <Link
+                          key={ep.id}
+                          href={`${basePath}/prep/${ep.id}`}
+                          className="text-sm"
+                        >
+                          Valmistaudu: {ep.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 )}
 
                 <EditableSex
@@ -213,8 +228,8 @@ export function CharacterSheet({
                   placeholder="Ei muistiinpanoja."
                   onSave={(v) => updateCharacter({ notes: v })}
                 />
-              </div>
-            </section>
+              </CardContent>
+            </Card>
           </div>
           <HeadingLevelProvider>
             <div className="space-y-6">
@@ -244,8 +259,16 @@ export function CharacterSheet({
                     { label: "Fysiikka", diceValue: character.fysiikka },
                     { label: "Nopeus", diceValue: character.nopeus },
                   ]}
-                  onIncrement={canEdit ? () => updateCharacter({ currentKeho: character.currentKeho + 1 }) : undefined}
-                  onDecrement={canEdit ? () => updateCharacter({ currentKeho: character.currentKeho - 1 }) : undefined}
+                  onIncrement={
+                    canEdit
+                      ? () => updateCharacter({ currentKeho: character.currentKeho + 1 })
+                      : undefined
+                  }
+                  onDecrement={
+                    canEdit
+                      ? () => updateCharacter({ currentKeho: character.currentKeho - 1 })
+                      : undefined
+                  }
                   {...lockIfReadOnly(character.currentKeho)}
                 />
                 <EnduranceBlock
@@ -256,8 +279,16 @@ export function CharacterSheet({
                     { label: "Ymmärrys", diceValue: character.ymmarrys },
                     { label: "Persoona", diceValue: character.persoona },
                   ]}
-                  onIncrement={canEdit ? () => updateCharacter({ currentMieli: character.currentMieli + 1 }) : undefined}
-                  onDecrement={canEdit ? () => updateCharacter({ currentMieli: character.currentMieli - 1 }) : undefined}
+                  onIncrement={
+                    canEdit
+                      ? () => updateCharacter({ currentMieli: character.currentMieli + 1 })
+                      : undefined
+                  }
+                  onDecrement={
+                    canEdit
+                      ? () => updateCharacter({ currentMieli: character.currentMieli - 1 })
+                      : undefined
+                  }
                   {...lockIfReadOnly(character.currentMieli)}
                 />
                 <EnduranceBlock
@@ -268,8 +299,16 @@ export function CharacterSheet({
                     { label: "Näkemys", diceValue: character.nakemys },
                     { label: "Näppäryys", diceValue: character.napparyys },
                   ]}
-                  onIncrement={canEdit ? () => updateCharacter({ currentTera: character.currentTera + 1 }) : undefined}
-                  onDecrement={canEdit ? () => updateCharacter({ currentTera: character.currentTera - 1 }) : undefined}
+                  onIncrement={
+                    canEdit
+                      ? () => updateCharacter({ currentTera: character.currentTera + 1 })
+                      : undefined
+                  }
+                  onDecrement={
+                    canEdit
+                      ? () => updateCharacter({ currentTera: character.currentTera - 1 })
+                      : undefined
+                  }
                   {...lockIfReadOnly(character.currentTera)}
                 />
               </div>
@@ -279,14 +318,20 @@ export function CharacterSheet({
                   <Button
                     variant="danger"
                     loading={isDeleting}
-                    onClick={() => {
-                      if (confirm(`Haluatko varmasti poistaa hahmon "${character.name}"? Tätä ei voi peruuttaa.`)) {
-                        deleteCharacter();
-                      }
-                    }}
+                    onClick={() => setDeleteCharacterOpen(true)}
                   >
                     Poista hahmo
                   </Button>
+                  <ConfirmDialog
+                    open={deleteCharacterOpen}
+                    onOpenChange={setDeleteCharacterOpen}
+                    title="Poista hahmo?"
+                    description={`Haluatko varmasti poistaa hahmon "${character.name}"? Tätä ei voi peruuttaa.`}
+                    confirmLabel="Poista hahmo"
+                    cancelLabel="Peruuta"
+                    variant="danger"
+                    onConfirm={() => deleteCharacter()}
+                  />
                 </div>
               )}
             </div>
@@ -316,8 +361,8 @@ function EditableTextarea({
   if (!canEdit) {
     return value ? (
       <div>
-        <p className="text-sm text-[var(--theme-text)]/70 font-semibold mb-1">{label}:</p>
-        <p className="text-sm whitespace-pre-wrap text-[var(--theme-text)]/85">{value}</p>
+        <p className="text-sm text-text-muted font-semibold mb-1">{label}:</p>
+        <p className="text-sm whitespace-pre-wrap text-[var(--theme-text)]">{value}</p>
       </div>
     ) : null;
   }
@@ -325,7 +370,7 @@ function EditableTextarea({
   if (editing) {
     return (
       <div className="space-y-2">
-        <p className="text-sm text-[var(--theme-text)]/70 font-semibold">{label}:</p>
+        <p className="text-sm text-text-muted font-semibold">{label}:</p>
         <TextArea
           className="h-20"
           value={draft}
@@ -360,13 +405,13 @@ function EditableTextarea({
 
   return (
     <div>
-      <p className="text-sm text-[var(--theme-text)]/70 font-semibold mb-1">{label}:</p>
+      <p className="text-sm text-text-muted font-semibold mb-1">{label}:</p>
       <p
-        className="text-sm whitespace-pre-wrap cursor-pointer text-[var(--theme-text)]/85 hover:text-[var(--theme-secondary)] transition-colors"
+        className="text-sm whitespace-pre-wrap cursor-pointer text-[var(--theme-text)] hover:text-[var(--theme-secondary)] transition-colors"
         onClick={() => setEditing(true)}
         title="Klikkaa muokataksesi"
       >
-        {value || <span className="italic opacity-50">{placeholder}</span>}
+        {value || <span className="italic text-text-placeholder">{placeholder}</span>}
       </p>
     </div>
   );
@@ -391,8 +436,8 @@ function EditableText({
   if (!canEdit) {
     return value ? (
       <div>
-        <p className="text-sm text-[var(--theme-text)]/70 font-semibold mb-1">{label}:</p>
-        <p className="text-sm text-[var(--theme-text)]/85">{value}</p>
+        <p className="text-sm text-text-muted font-semibold mb-1">{label}:</p>
+        <p className="text-sm text-[var(--theme-text)]">{value}</p>
       </div>
     ) : null;
   }
@@ -400,7 +445,7 @@ function EditableText({
   if (editing) {
     return (
       <div className="space-y-2">
-        <p className="text-sm text-[var(--theme-text)]/70 font-semibold">{label}:</p>
+        <p className="text-sm text-text-muted font-semibold">{label}:</p>
         <Input
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
@@ -440,13 +485,13 @@ function EditableText({
 
   return (
     <div>
-      <p className="text-sm text-[var(--theme-text)]/70 font-semibold mb-1">{label}:</p>
+      <p className="text-sm text-text-muted font-semibold mb-1">{label}:</p>
       <p
-        className="text-sm cursor-pointer text-[var(--theme-text)]/85 hover:text-[var(--theme-secondary)] transition-colors"
+        className="text-sm cursor-pointer text-[var(--theme-text)] hover:text-[var(--theme-secondary)] transition-colors"
         onClick={() => setEditing(true)}
         title="Klikkaa muokataksesi"
       >
-        {value || <span className="italic opacity-50">{placeholder}</span>}
+        {value || <span className="italic text-text-placeholder">{placeholder}</span>}
       </p>
     </div>
   );
@@ -474,11 +519,9 @@ function EditableSex({
 
   if (!canEdit) {
     return value ? (
-      <p className="text-sm text-[var(--theme-text)]/70">
+      <p className="text-sm text-text-muted">
         Sukupuoli:{" "}
-        <span className="font-semibold text-[var(--theme-text)]">
-          {sexLabel[value] ?? value}
-        </span>
+        <span className="font-semibold text-[var(--theme-text)]">{sexLabel[value] ?? value}</span>
       </p>
     ) : null;
   }
@@ -496,11 +539,7 @@ function EditableSex({
           }}
           placeholder="Valitse sukupuoli"
         />
-        <Button
-          size="sm"
-          variant="ghost-subtle"
-          onClick={() => setEditing(false)}
-        >
+        <Button size="sm" variant="ghost-subtle" onClick={() => setEditing(false)}>
           Peruuta
         </Button>
       </div>
@@ -509,13 +548,17 @@ function EditableSex({
 
   return (
     <p
-      className="text-sm text-[var(--theme-text)]/70 cursor-pointer hover:text-[var(--theme-secondary)] transition-colors"
+      className="text-sm text-text-muted cursor-pointer hover:text-[var(--theme-secondary)] transition-colors"
       onClick={() => setEditing(true)}
       title="Klikkaa muokataksesi"
     >
       Sukupuoli:{" "}
       <span className="font-semibold text-[var(--theme-text)]">
-        {value ? (sexLabel[value] ?? value) : <span className="italic opacity-50">Ei valittu</span>}
+        {value ? (
+          (sexLabel[value] ?? value)
+        ) : (
+          <span className="italic text-text-placeholder">Ei valittu</span>
+        )}
       </span>
     </p>
   );
@@ -540,7 +583,7 @@ function SkillsSection({
 
   return (
     <div>
-      <p className="text-sm text-[var(--theme-text)]/70 mb-2">Taidot:</p>
+      <p className="text-sm text-text-muted mb-2">Taidot:</p>
       <SkillTagList
         items={normalizedSkills}
         readOnly={!canEdit}
@@ -588,9 +631,7 @@ function HarmiSection({
   };
 
   const handleToggleHeal = (index: number) => {
-    onUpdate(
-      harmit.map((h, i) => (i === index ? { ...h, healed: !h.healed } : h)),
-    );
+    onUpdate(harmit.map((h, i) => (i === index ? { ...h, healed: !h.healed } : h)));
   };
 
   return (
@@ -638,10 +679,7 @@ function HarmiSection({
             }}
           />
           <div className="mt-2 shrink-0">
-            <Button
-              onClick={handleAdd}
-              disabled={!newHarmiText.trim()}
-            >
+            <Button onClick={handleAdd} disabled={!newHarmiText.trim()}>
               Lisää
             </Button>
           </div>

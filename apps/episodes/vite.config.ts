@@ -5,27 +5,27 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [
-        tailwindcss(),
-        react(),
-        federation({
-            name: "episodes",
-            filename: "entry.js",
-            exposes: {
-                "./App": "./src/App.tsx",
-            },
-            shared: ["react", "react-dom", "react-router-dom", "@tanstack/react-query"],
-        }),
-    ],
-    server: {
-        port: 3004,
-        strictPort: true,
-    },
-    preview: {
-        port: 3004,
-        strictPort: true,
-    },
-    build: {
-        target: "esnext",
-    },
+  plugins: [
+    tailwindcss(),
+    react(),
+    federation({
+      name: "episodes",
+      filename: "entry.js",
+      exposes: {
+        "./App": "./src/App.tsx",
+      },
+      shared: ["react", "react-dom", "react-router-dom", "@tanstack/react-query"],
+    }),
+  ],
+  server: {
+    port: 3004,
+    strictPort: true,
+  },
+  preview: {
+    port: 3004,
+    strictPort: true,
+  },
+  build: {
+    target: "esnext",
+  },
 });

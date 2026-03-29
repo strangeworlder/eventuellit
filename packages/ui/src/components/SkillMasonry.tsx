@@ -24,7 +24,7 @@ function useGlitchSeeds(ids: Array<string | number>): Map<string, React.CSSPrope
     }
     cache.current = next;
     return next;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids.join(",")]);
 }
 
@@ -94,17 +94,20 @@ function optimalOrder<T extends { name: string }>(items: T[]): T[] {
   return result;
 }
 
-export const SkillMasonry = forwardRef<HTMLDivElement, SkillMasonryProps>(function SkillMasonry({
-  skills,
-  onSkillClick,
-  sort = "none",
-  showCustomButton = false,
-  isCustomSelected = false,
-  onCustomClick,
-  customButtonLabel = "Oma taito...",
-  className,
-  ...props
-}, ref) {
+export const SkillMasonry = forwardRef<HTMLDivElement, SkillMasonryProps>(function SkillMasonry(
+  {
+    skills,
+    onSkillClick,
+    sort = "none",
+    showCustomButton = false,
+    isCustomSelected = false,
+    onCustomClick,
+    customButtonLabel = "Oma taito...",
+    className,
+    ...props
+  },
+  ref,
+) {
   const allItems = useMemo(() => {
     let items: Array<SkillItem & { _custom?: true }> = skills.map((s) => ({ ...s }));
 
@@ -147,7 +150,12 @@ export const SkillMasonry = forwardRef<HTMLDivElement, SkillMasonryProps>(functi
             }
             disabled={isCustom ? false : item.disabled}
             className="text-left justify-start"
-            style={{ flexGrow: growTier(item.name), flexBasis: 0, minWidth: "fit-content", ...glitchSeeds.get(String(item.id)) }}
+            style={{
+              flexGrow: growTier(item.name),
+              flexBasis: 0,
+              minWidth: "fit-content",
+              ...glitchSeeds.get(String(item.id)),
+            }}
             onClick={() => {
               if (isCustom) {
                 onCustomClick?.();

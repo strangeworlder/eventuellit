@@ -38,7 +38,17 @@ const chevronDataUri =
  */
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
-    { className, label, error, theme, options, placeholder, obscured: obscuredProp, disabled, ...props },
+    {
+      className,
+      label,
+      error,
+      theme,
+      options,
+      placeholder,
+      obscured: obscuredProp,
+      disabled,
+      ...props
+    },
     ref,
   ) => {
     const obscured = obscuredProp || useObscured();
@@ -60,8 +70,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           data-text={obscured ? obscureString(placeholder ?? options[0]?.label ?? "") : undefined}
           className={cn(
             "flex h-12 w-full appearance-none rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] px-4 py-2 pr-10 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
-            error &&
-              "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
+            error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
             obscured && "blur-[1.5px] obscured-glitch obscured-field",
             className,
           )}
@@ -70,7 +79,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             backgroundRepeat: "no-repeat",
             backgroundPosition: "right 0.75rem center",
             backgroundSize: "1rem",
-            ...(obscured ? glitchStyle ?? {} : {}),
+            ...(obscured ? (glitchStyle ?? {}) : {}),
           }}
           {...props}
         >

@@ -7,14 +7,14 @@ import React from "react";
  * theme tree should use this type for its `theme` prop.
  */
 export type Theme =
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+  | "base"
+  | "inverted"
+  | "primary-light"
+  | "primary-dark"
+  | "secondary-light"
+  | "secondary-dark"
+  | "accent-light"
+  | "accent-dark";
 
 /**
  * React context for tracking the current active theme in the tree.
@@ -33,12 +33,12 @@ export const useCurrentTheme = () => React.useContext(ThemeContext);
  * when resolving its `data-theme` and `ThemeContext.Provider` value.
  */
 export const primaryThemeMap: Record<Theme, Theme> = {
-    base: "primary-dark",
-    inverted: "primary-dark",
-    "primary-light": "secondary-dark",
-    "primary-dark": "secondary-light",
-    "secondary-light": "primary-dark",
-    "secondary-dark": "primary-light",
-    "accent-light": "primary-dark",
-    "accent-dark": "primary-light",
+  base: "primary-dark",
+  inverted: "primary-dark",
+  "primary-light": "secondary-dark",
+  "primary-dark": "secondary-light",
+  "secondary-light": "primary-dark",
+  "secondary-dark": "primary-light",
+  "accent-light": "primary-dark",
+  "accent-dark": "primary-light",
 };

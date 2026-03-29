@@ -14,9 +14,6 @@ const LETTER_OR_DIGIT = /[a-zA-ZäöåÄÖÅ0-9]/g;
 /** Replace letters & digits with case-matched x/X, keep special chars. */
 export function obscureString(str: string): string {
   return str.replace(LETTER_OR_DIGIT, (ch) =>
-    ch >= "A" && ch <= "Z" ||
-      ch === "Ä" || ch === "Ö" || ch === "Å"
-      ? "X"
-      : "x",
+    (ch >= "A" && ch <= "Z") || ch === "Ä" || ch === "Ö" || ch === "Å" ? "X" : "x",
   );
 }

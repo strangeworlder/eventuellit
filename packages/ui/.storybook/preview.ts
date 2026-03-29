@@ -8,14 +8,7 @@ const preview: Preview = {
       storySort: {
         order: [
           "Suunnittelujarjestelma",
-          [
-            "Perustat",
-            "Atomit",
-            "Molekyylit",
-            "Organismit",
-            "Pelimekaniikka",
-            "Sivupohjat",
-          ],
+          ["Perustat", "Atomit", "Molekyylit", "Organismit", "Pelimekaniikka", "Sivupohjat"],
         ],
       },
     },

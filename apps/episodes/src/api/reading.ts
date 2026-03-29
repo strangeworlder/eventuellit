@@ -48,10 +48,10 @@ export const useEpisodeReadingItems = (episodeId: number, sessionId?: number) =>
     queryFn: async () => {
       const params = new URLSearchParams({ episodeId: String(episodeId) });
       if (sessionId !== undefined) params.set("sessionId", String(sessionId));
-      const response = await fetch(
-        `${API_BASE_URL}/reading-items?${params}`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
+      const response = await fetch(`${API_BASE_URL}/reading-items?${params}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to fetch reading items");
       return response.json();
     },
@@ -155,10 +155,10 @@ export const useEpisodeProgress = (episodeId: number) => {
   return useQuery<EpisodeProgressEntry[]>({
     queryKey: ["episodeProgress", episodeId],
     queryFn: async () => {
-      const response = await fetch(
-        `${API_BASE_URL}/reading-progress/episode/${episodeId}`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
+      const response = await fetch(`${API_BASE_URL}/reading-progress/episode/${episodeId}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to fetch episode progress");
       return response.json();
     },

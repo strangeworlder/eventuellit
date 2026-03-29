@@ -48,14 +48,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /** Icon used for danger affordance when variant is danger. */
   dangerIcon?: IconName;
   theme?:
-  | "base"
-  | "inverted"
-  | "primary-light"
-  | "primary-dark"
-  | "secondary-light"
-  | "secondary-dark"
-  | "accent-light"
-  | "accent-dark";
+    | "base"
+    | "inverted"
+    | "primary-light"
+    | "primary-dark"
+    | "secondary-light"
+    | "secondary-dark"
+    | "accent-light"
+    | "accent-dark";
 }
 
 /**
@@ -93,16 +93,25 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const shouldRenderDangerIcon = isDanger && showDangerIcon;
     const shouldRenderLoadingTooltip = loading && showLoadingTooltip;
     const obscuredLabel = isObscured ? obscureString(flattenToString(children)) : undefined;
-    const glitchSeed = React.useMemo(() => isObscured ? Math.random() * 36 : 0, []);
-    const glitchDuration = React.useMemo(() => isObscured ? 25 + Math.random() * 20 : 6, []);
-    const mergedAriaDescribedBy = [ariaDescribedBy, shouldRenderLoadingTooltip ? tooltipId : undefined]
-      .filter(Boolean)
-      .join(" ") || undefined;
+    const glitchSeed = React.useMemo(() => (isObscured ? Math.random() * 36 : 0), []);
+    const glitchDuration = React.useMemo(() => (isObscured ? 25 + Math.random() * 20 : 6), []);
+    const mergedAriaDescribedBy =
+      [ariaDescribedBy, shouldRenderLoadingTooltip ? tooltipId : undefined]
+        .filter(Boolean)
+        .join(" ") || undefined;
 
     const buttonElement = (
       <button
         ref={ref}
-        style={isObscured ? { '--glitch-delay': `-${glitchSeed.toFixed(2)}s`, '--glitch-duration': `${glitchDuration.toFixed(2)}s`, ...props.style } as React.CSSProperties : props.style}
+        style={
+          isObscured
+            ? ({
+                "--glitch-delay": `-${glitchSeed.toFixed(2)}s`,
+                "--glitch-duration": `${glitchDuration.toFixed(2)}s`,
+                ...props.style,
+              } as React.CSSProperties)
+            : props.style
+        }
         data-theme={theme}
         data-text={obscuredLabel}
         disabled={isDisabled}
@@ -119,11 +128,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           // ── Active / Pressed ── tactile feedback
           "active:translate-y-0 active:shadow-sm active:scale-[0.98] active:duration-75",
           // ── Disabled ── flattened, desaturated, no hover/active shift
-          disabled && !loading &&
-          "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",
+          disabled &&
+            !loading &&
+            "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",
           // ── Loading ── disabled interaction, but preserve strong contrast
           loading &&
-          "cursor-wait opacity-100 grayscale-0 shadow-sm hover:shadow-sm hover:-translate-y-0 active:translate-y-0 active:scale-100",
+            "cursor-wait opacity-100 grayscale-0 shadow-sm hover:shadow-sm hover:-translate-y-0 active:translate-y-0 active:scale-100",
           // ── Justify ──
           {
             "justify-center": justify === "center",
@@ -134,7 +144,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {
             "min-h-[3rem] h-auto px-6 py-2": size === "default",
             "min-h-[2.25rem] h-auto px-3 py-1.5": size === "sm",
-            "min-h-[1.75rem] h-auto px-2.5 py-0.5 text-[length:var(--font-size-xs)] tracking-wider": size === "compact",
+            "min-h-[1.75rem] h-auto px-2.5 py-0.5 text-[length:var(--font-size-xs)] tracking-wider":
+              size === "compact",
             "min-h-[3.5rem] h-auto px-8 py-4 text-xl w-full": size === "lg",
             "h-10 w-10 min-w-[2.5rem] px-0 py-0 text-xl font-black leading-none": size === "icon",
             "w-full p-2 h-auto text-sm normal-case tracking-normal font-normal shadow-none hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100":
@@ -162,7 +173,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {isDanger && (
           <Icon
             name={dangerIcon}
-            size={size === "sm" || size === "icon" || size === "compact" ? 30 : size === "lg" ? 52 : 40}
+            size={
+              size === "sm" || size === "icon" || size === "compact" ? 30 : size === "lg" ? 52 : 40
+            }
             className="absolute -right-2 -top-2 opacity-15 pointer-events-none"
             aria-hidden="true"
           />
@@ -172,14 +185,26 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <Icon
               name="loader2"
               className="animate-spin shrink-0"
-              size={size === "sm" || size === "icon" || size === "compact" ? 14 : size === "lg" ? 22 : 18}
+              size={
+                size === "sm" || size === "icon" || size === "compact"
+                  ? 14
+                  : size === "lg"
+                    ? 22
+                    : 18
+              }
               aria-hidden="true"
             />
           )}
           {shouldRenderDangerIcon && (
             <Icon
               name={dangerIcon}
-              size={size === "sm" || size === "icon" || size === "compact" ? 13 : size === "lg" ? 18 : 15}
+              size={
+                size === "sm" || size === "icon" || size === "compact"
+                  ? 13
+                  : size === "lg"
+                    ? 18
+                    : 15
+              }
               aria-hidden="true"
             />
           )}

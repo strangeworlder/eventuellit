@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { cn } from "./utils";
 import { Icon, type IconName } from "./Icon";
 import { Button } from "./Button";
+import type { Theme } from "./Theme";
 
 // ── Types ──
 
@@ -36,7 +37,9 @@ export type ToastRequestPayload = Omit<ToastItem, "id">;
  * Falls back gracefully (no-op) when no host listener is present (e.g. standalone dev mode).
  */
 export function requestToast(payload: ToastRequestPayload): void {
-  window.dispatchEvent(new CustomEvent<ToastRequestPayload>(TOAST_REQUEST_EVENT, { detail: payload }));
+  window.dispatchEvent(
+    new CustomEvent<ToastRequestPayload>(TOAST_REQUEST_EVENT, { detail: payload }),
+  );
 }
 
 // ── Context ──
@@ -66,9 +69,9 @@ const variantIcons: Record<ToastVariant, IconName> = {
 
 const variantClasses: Record<ToastVariant, string> = {
   info: "border-[var(--theme-secondary)] text-[var(--theme-secondary)]",
-  success: "border-secondary-400 text-secondary-400",
+  success: "border-[var(--theme-toast-success)] text-[var(--theme-toast-success)]",
   error: "border-[var(--theme-primary)] text-[var(--theme-primary)]",
-  warning: "border-primary-400 text-primary-400",
+  warning: "border-[var(--theme-toast-warning)] text-[var(--theme-toast-warning)]",
 };
 
 // ── Single Toast UI ──
@@ -107,12 +110,7 @@ const ToastCard = React.memo(function ToastCard({ item, onDismiss }: ToastCardPr
         exiting ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0",
       )}
     >
-      <Icon
-        name={variantIcons[variant]}
-        size={18}
-        className="mt-0.5 shrink-0"
-        aria-hidden="true"
-      />
+      <Icon name={variantIcons[variant]} size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
       <div className="flex-1 min-w-0">
         <p className="text-sm text-[var(--theme-text)] leading-snug">{message}</p>
         {action && (
@@ -149,6 +147,42 @@ export interface ToastProviderProps {
   position?: "top-right" | "top-center" | "bottom-right" | "bottom-center";
   /** Maximum number of toasts visible at once */
   maxVisible?: number;
+  /**
+   * Sets `data-theme` on the portaled toast stack so `--theme-*` tokens match the app.
+   * When omitted, theme is detected from `document.documentElement` or the first `[data-theme]` in the document.
+   */
+  portalTheme?: Theme;
+}
+
+function useToastPortalTheme(forced?: Theme): Theme | undefined {
+  const [detected, setDetected] = React.useState<Theme | undefined>(undefined);
+
+  React.useLayoutEffect(() => {
+    if (forced) return;
+    const read = (): void => {
+      const html = document.documentElement.getAttribute("data-theme") as Theme | null;
+      if (html) {
+        setDetected(html);
+        return;
+      }
+      const first = document
+        .querySelector("[data-theme]")
+        ?.getAttribute("data-theme") as Theme | null;
+      setDetected(first ?? undefined);
+    };
+    read();
+    const obs = new MutationObserver(read);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    obs.observe(document.body, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => obs.disconnect();
+  }, [forced]);
+
+  return forced ?? detected;
 }
 
 const positionClasses: Record<NonNullable<ToastProviderProps["position"]>, string> = {
@@ -170,14 +204,19 @@ export function ToastProvider({
   children,
   position = "bottom-right",
   maxVisible = 5,
+  portalTheme: portalThemeProp,
 }: ToastProviderProps) {
   const [items, setItems] = React.useState<ToastItem[]>([]);
+  const portalTheme = useToastPortalTheme(portalThemeProp);
 
-  const toast = React.useCallback((item: Omit<ToastItem, "id">): string => {
-    const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    setItems((prev) => [...prev.slice(-(maxVisible - 1)), { ...item, id }]);
-    return id;
-  }, [maxVisible]);
+  const toast = React.useCallback(
+    (item: Omit<ToastItem, "id">): string => {
+      const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      setItems((prev) => [...prev.slice(-(maxVisible - 1)), { ...item, id }]);
+      return id;
+    },
+    [maxVisible],
+  );
 
   const dismiss = React.useCallback((id: string) => {
     setItems((prev) => prev.filter((t) => t.id !== id));
@@ -192,6 +231,7 @@ export function ToastProvider({
       ? ReactDOM.createPortal(
           <div
             aria-label="Ilmoitukset"
+            data-theme={portalTheme}
             className={cn(
               "fixed z-[60] flex flex-col gap-2 w-full max-w-sm pointer-events-none",
               positionClasses[position],
@@ -214,3 +254,4 @@ export function ToastProvider({
     </ToastContext.Provider>
   );
 }
+ToastProvider.displayName = "ToastProvider";

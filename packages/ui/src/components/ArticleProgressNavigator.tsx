@@ -93,9 +93,7 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
             style={{ left: "1.5rem", transform: "translateX(-50%)" }}
           />
         </button>
-        <AnchoredTooltip placement="right">
-          {marker.label}
-        </AnchoredTooltip>
+        <AnchoredTooltip placement="right">{marker.label}</AnchoredTooltip>
       </div>
     ) : (
       <button
@@ -130,17 +128,23 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
   );
 });
 
-export const ArticleProgressNavigator = React.forwardRef<HTMLDivElement, ArticleProgressNavigatorProps>(function ArticleProgressNavigator({
-  sections,
-  progress,
-  variant = "default",
-  activeSectionId,
-  markerPositions,
-  railHeight,
-  onSelectSection,
-  className,
-  ...props
-}, ref) {
+export const ArticleProgressNavigator = React.forwardRef<
+  HTMLDivElement,
+  ArticleProgressNavigatorProps
+>(function ArticleProgressNavigator(
+  {
+    sections,
+    progress,
+    variant = "default",
+    activeSectionId,
+    markerPositions,
+    railHeight,
+    onSelectSection,
+    className,
+    ...props
+  },
+  ref,
+) {
   const boundedProgress = Math.min(100, Math.max(0, progress));
   const hasProgressStarted = boundedProgress > 0;
   const isProgressComplete = boundedProgress >= 100;
@@ -162,7 +166,8 @@ export const ArticleProgressNavigator = React.forwardRef<HTMLDivElement, Article
   const markers = useMemo<MarkerModel[]>(
     () =>
       sections.map((section, index) => {
-        const fallbackTopPercent = markerCount <= 1 ? 0 : (index / Math.max(markerCount - 1, 1)) * 100;
+        const fallbackTopPercent =
+          markerCount <= 1 ? 0 : (index / Math.max(markerCount - 1, 1)) * 100;
         const topPercent = markerPositions?.[section.id] ?? fallbackTopPercent;
         const isActive = section.id === activeSectionId;
         const isScrolledPast = !isActive && topPercent < boundedProgress;
@@ -190,7 +195,10 @@ export const ArticleProgressNavigator = React.forwardRef<HTMLDivElement, Article
     >
       <div
         className="relative"
-        style={{ height: typeof resolvedRailHeight === "number" ? `${resolvedRailHeight}px` : resolvedRailHeight }}
+        style={{
+          height:
+            typeof resolvedRailHeight === "number" ? `${resolvedRailHeight}px` : resolvedRailHeight,
+        }}
       >
         <div
           className={cn(

@@ -57,7 +57,7 @@ export function VerifyPage() {
       <PageBody>
         <NoticePanel variant="error" title="Virhe">
           <p className="text-lg">{error || "Kirjautumislinkki on virheellinen tai vanhentunut."}</p>
-          <p className="text-sm text-secondary mt-4">
+          <p className="text-sm text-text-muted mt-4">
             Pyydä uusi kirjautumislinkki, jos ongelma jatkuu.
           </p>
         </NoticePanel>

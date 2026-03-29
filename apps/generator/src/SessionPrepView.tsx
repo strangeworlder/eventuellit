@@ -1,3 +1,8 @@
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@repo/ui/components/Accordion";
 import { Badge } from "@repo/ui/components/Badge";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
@@ -10,25 +15,30 @@ import { List, ListItem } from "@repo/ui/components/List";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { PageBody } from "@repo/ui/components/Page";
 import { Text } from "@repo/ui/components/Text";
-import { useState } from "react";
 import { useEpisode } from "./api/episodes";
 import { useMyEnrollment } from "./api/enrollment";
-import {
-  type ReadingItem,
-  useEpisodeReadingItems,
-  useToggleReadingProgress,
-} from "./api/reading";
+import { type ReadingItem, useEpisodeReadingItems, useToggleReadingProgress } from "./api/reading";
 import { EnrollmentError, type Session, useSessions } from "./api/sessions";
 
 function StatusBadge({ status }: { status: string }) {
-  if (status === "active") return <Badge variant="solid" icon="sparkles">Aktiivinen Jakso</Badge>;
+  if (status === "active")
+    return (
+      <Badge variant="solid" icon="sparkles">
+        Aktiivinen Jakso
+      </Badge>
+    );
   if (status === "completed") return <Badge variant="outline">Arkistoitu</Badge>;
   return <Badge variant="outline">Tulossa</Badge>;
 }
 
 function SessionStatusBadge({ status }: { status: Session["status"] }) {
   if (status === "played") return <Badge variant="outline">Pelattu</Badge>;
-  if (status === "next") return <Badge variant="solid" icon="sparkles">Seuraava</Badge>;
+  if (status === "next")
+    return (
+      <Badge variant="solid" icon="sparkles">
+        Seuraava
+      </Badge>
+    );
   return <Badge variant="ghost">Tulossa</Badge>;
 }
 
@@ -78,12 +88,11 @@ function PracticalInfoCard({
               <Heading>Sessiot</Heading>
               <List variant="unbulleted">
                 {sessions.map((s) => {
-                  const formatted = s.date
-                    ? new Date(s.date).toLocaleDateString("fi-FI")
-                    : "—";
+                  const formatted = s.date ? new Date(s.date).toLocaleDateString("fi-FI") : "—";
                   return (
                     <ListItem key={s.id}>
-                      #{String(s.sessionNumber).padStart(2, "0")} {s.label ? `${s.label} ` : ""}{formatted}
+                      #{String(s.sessionNumber).padStart(2, "0")} {s.label ? `${s.label} ` : ""}
+                      {formatted}
                     </ListItem>
                   );
                 })}
@@ -118,7 +127,7 @@ function ReadingItemRow({
   isPending: boolean;
 }) {
   return (
-    <div className="flex items-start gap-3 py-3 border-b border-[var(--theme-border-subtle)] last:border-0">
+    <div className="flex items-start gap-3 py-3 border-b border-[var(--theme-border-soft)] last:border-0">
       <div className="pt-0.5">
         <Checkbox
           label=""
@@ -132,9 +141,7 @@ function ReadingItemRow({
         <div className="flex items-center gap-2 flex-wrap">
           <span
             className={`text-sm font-bold uppercase tracking-widest transition-colors ${
-              item.completed
-                ? "line-through text-[var(--theme-text)]/40"
-                : "text-[var(--theme-text)]"
+              item.completed ? "line-through text-text-placeholder" : "text-[var(--theme-text)]"
             }`}
           >
             {item.title}
@@ -143,9 +150,7 @@ function ReadingItemRow({
             <Badge variant="ghost">{typeLabel(item.contentType)}</Badge>
           )}
         </div>
-        {item.description && (
-          <p className="text-xs text-[var(--theme-text)]/60 mt-0.5">{item.description}</p>
-        )}
+        {item.description && <p className="text-xs text-text-muted mt-0.5">{item.description}</p>}
       </div>
       {item.url && (
         <div className="shrink-0">
@@ -171,11 +176,13 @@ function SessionProgress({ items }: { items: ReadingItem[] }) {
   const progressPct = Math.round((completedCount / totalCount) * 100);
   return (
     <div className="space-y-1 pt-2">
-      <div className="flex justify-between items-center text-xs text-[var(--theme-text)]/60">
+      <div className="flex justify-between items-center text-xs text-text-muted">
         <span className="font-bold uppercase tracking-widest">Edistyminen</span>
-        <span>{completedCount} / {totalCount} valmis</span>
+        <span>
+          {completedCount} / {totalCount} valmis
+        </span>
       </div>
-      <div className="h-1.5 rounded-full bg-[var(--theme-bg-subtle)] overflow-hidden">
+      <div className="h-1.5 rounded-full bg-[var(--theme-surface-tint)] overflow-hidden">
         <div
           className="h-full rounded-full bg-[var(--theme-secondary)] transition-all duration-500"
           style={{ width: `${progressPct}%` }}
@@ -194,7 +201,6 @@ function SessionPrepSection({
   episodeId: number;
   defaultOpen: boolean;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
   const { data: items, isLoading } = useEpisodeReadingItems(episodeId, session.id);
   const { toggle, isPending } = useToggleReadingProgress();
 
@@ -202,96 +208,84 @@ function SessionPrepSection({
   const taskItems = (items ?? []).filter((i) => i.contentType === "task");
   const allItems = items ?? [];
 
-  const sessionDate = session.date
-    ? new Date(session.date).toLocaleDateString("fi-FI")
-    : null;
+  const sessionDate = session.date ? new Date(session.date).toLocaleDateString("fi-FI") : null;
 
   const isPlayed = session.status === "played";
 
   return (
-    <div className={`rounded-sm border border-[var(--theme-border-subtle)] overflow-hidden ${isPlayed ? "opacity-60" : ""}`}>
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[var(--theme-bg-subtle)] hover:bg-[var(--theme-surface-tint)] transition-colors text-left"
-      >
-        <div className="flex items-center gap-3 min-w-0">
-          <span className="text-xs font-mono text-[var(--theme-text)]/50 shrink-0">
-            #{String(session.sessionNumber).padStart(2, "0")}
-          </span>
-          <span className="font-bold text-sm uppercase tracking-widest text-[var(--theme-text)] truncate">
-            {session.label || `Sessio ${session.sessionNumber}`}
-          </span>
-          {sessionDate && (
-            <span className="text-xs text-[var(--theme-text)]/50 shrink-0 hidden tablet:block">
-              {sessionDate}
+    <AccordionItem
+      defaultOpen={defaultOpen}
+      className={isPlayed ? "bg-[var(--theme-surface-tint)]" : undefined}
+    >
+      <AccordionTrigger>
+        <div className="flex w-full min-w-0 items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="shrink-0 font-mono text-xs text-text-subtle">
+              #{String(session.sessionNumber).padStart(2, "0")}
             </span>
-          )}
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
+            <span
+              className={`truncate text-sm font-bold uppercase tracking-widest ${isPlayed ? "text-text-muted" : "text-[var(--theme-text)]"}`}
+            >
+              {session.label || `Sessio ${session.sessionNumber}`}
+            </span>
+            {sessionDate && (
+              <span className="hidden shrink-0 text-xs text-text-subtle tablet:block">
+                {sessionDate}
+              </span>
+            )}
+          </div>
           <SessionStatusBadge status={session.status} />
-          <svg
-            className={`w-4 h-4 text-[var(--theme-text)]/50 transition-transform ${open ? "rotate-180" : ""}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
         </div>
-      </button>
+      </AccordionTrigger>
 
-      {open && (
-        <div className="p-4 space-y-4">
-          {isLoading ? (
-            <LoadingState message="Ladataan..." />
-          ) : allItems.length === 0 ? (
-            <Text variant="muted">Tälle sessiolle ei ole vielä lukemistoa tai tehtäviä.</Text>
-          ) : (
-            <>
-              {readingItems.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Lukemisto ({readingItems.length})</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0 tablet:pt-0">
-                    {readingItems.map((item) => (
-                      <ReadingItemRow
-                        key={item.id}
-                        item={item}
-                        onToggle={toggle}
-                        isPending={isPending}
-                      />
-                    ))}
-                  </CardContent>
-                </Card>
-              )}
+      <AccordionContent className="space-y-4 p-4">
+        {isLoading ? (
+          <LoadingState message="Ladataan..." />
+        ) : allItems.length === 0 ? (
+          <Text variant="muted">Tälle sessiolle ei ole vielä lukemistoa tai tehtäviä.</Text>
+        ) : (
+          <>
+            {readingItems.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Lukemisto ({readingItems.length})</CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0 tablet:pt-0">
+                  {readingItems.map((item) => (
+                    <ReadingItemRow
+                      key={item.id}
+                      item={item}
+                      onToggle={toggle}
+                      isPending={isPending}
+                    />
+                  ))}
+                </CardContent>
+              </Card>
+            )}
 
-              {taskItems.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Tehtävät ({taskItems.length})</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0 tablet:pt-0">
-                    {taskItems.map((item) => (
-                      <ReadingItemRow
-                        key={item.id}
-                        item={item}
-                        onToggle={toggle}
-                        isPending={isPending}
-                      />
-                    ))}
-                  </CardContent>
-                </Card>
-              )}
+            {taskItems.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Tehtävät ({taskItems.length})</CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0 tablet:pt-0">
+                  {taskItems.map((item) => (
+                    <ReadingItemRow
+                      key={item.id}
+                      item={item}
+                      onToggle={toggle}
+                      isPending={isPending}
+                    />
+                  ))}
+                </CardContent>
+              </Card>
+            )}
 
-              <SessionProgress items={allItems} />
-            </>
-          )}
-        </div>
-      )}
-    </div>
+            <SessionProgress items={allItems} />
+          </>
+        )}
+      </AccordionContent>
+    </AccordionItem>
   );
 }
 
@@ -307,7 +301,7 @@ function EpisodeLevelItems({ episodeId }: { episodeId: number }) {
 
   return (
     <div className="space-y-4">
-      <div className="border-b-2 border-primary/20 pb-2">
+      <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
         <Heading>Yleinen lukemisto</Heading>
       </div>
       {readingItems.length > 0 && (
@@ -338,15 +332,13 @@ function EpisodeLevelItems({ episodeId }: { episodeId: number }) {
   );
 }
 
-export function SessionPrepView({
-  episodeId,
-  basePath,
-}: {
-  episodeId: number;
-  basePath: string;
-}) {
+export function SessionPrepView({ episodeId, basePath }: { episodeId: number; basePath: string }) {
   const { data: episode, isLoading: isEpisodeLoading } = useEpisode(episodeId);
-  const { data: sessions, isLoading: isSessionsLoading, error: sessionsError } = useSessions(episodeId);
+  const {
+    data: sessions,
+    isLoading: isSessionsLoading,
+    error: sessionsError,
+  } = useSessions(episodeId);
   const { data: enrollment } = useMyEnrollment(episodeId);
 
   const isNotEnrolled = sessionsError instanceof EnrollmentError;
@@ -357,7 +349,10 @@ export function SessionPrepView({
   if (isNotEnrolled) {
     return (
       <HeadingLevelProvider>
-        <Hero title={`Valmistaudu: ${episode.title}`} description={episode.description ?? undefined}>
+        <Hero
+          title={`Valmistaudu: ${episode.title}`}
+          description={episode.description ?? undefined}
+        >
           <div className="mt-4">
             <StatusBadge status={episode.status} />
           </div>
@@ -379,9 +374,7 @@ export function SessionPrepView({
     );
   }
 
-  const nextSessionIndex = sessions
-    ? sessions.findIndex((s) => s.status === "next")
-    : -1;
+  const nextSessionIndex = sessions ? sessions.findIndex((s) => s.status === "next") : -1;
 
   return (
     <HeadingLevelProvider>
@@ -405,7 +398,7 @@ export function SessionPrepView({
                 <LoadingState message="Ladataan sessioita..." />
               ) : sessions && sessions.length > 0 ? (
                 <>
-                  <div className="border-b-2 border-primary/20 pb-2">
+                  <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
                     <Heading>Sessiot</Heading>
                   </div>
                   <div className="space-y-3">
@@ -415,8 +408,7 @@ export function SessionPrepView({
                         session={session}
                         episodeId={episodeId}
                         defaultOpen={
-                          session.status === "next" ||
-                          (nextSessionIndex === -1 && index === 0)
+                          session.status === "next" || (nextSessionIndex === -1 && index === 0)
                         }
                       />
                     ))}

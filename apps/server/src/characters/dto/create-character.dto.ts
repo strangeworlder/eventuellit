@@ -1,12 +1,4 @@
-import {
-  ArrayMaxSize,
-  IsArray,
-  IsIn,
-  IsInt,
-  IsOptional,
-  IsString,
-  Min,
-} from "class-validator";
+import { ArrayMaxSize, IsArray, IsIn, IsInt, IsOptional, IsString, Min } from "class-validator";
 
 export class CreateCharacterDto {
   @IsString()

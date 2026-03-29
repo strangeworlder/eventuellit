@@ -62,8 +62,7 @@ export const PrimaryVaihto: Story = {
               </CardHeader>
               <CardContent>
                 <p className="text-sm">
-                  primaryThemeMap tulos:{" "}
-                  <span className="font-bold">{primaryThemeMap[theme]}</span>
+                  primaryThemeMap tulos: <span className="font-bold">{primaryThemeMap[theme]}</span>
                 </p>
               </CardContent>
             </Card>

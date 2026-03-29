@@ -51,13 +51,9 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
             <Heading>{label}</Heading>
           </div>
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl font-heading font-black leading-none">
-              {value}
-            </span>
+            <span className="text-3xl font-heading font-black leading-none">{value}</span>
             {maxValue !== undefined && (
-              <span className="text-lg font-bold text-text-subtle leading-none">
-                / {maxValue}
-              </span>
+              <span className="text-lg font-bold text-text-subtle leading-none">/ {maxValue}</span>
             )}
           </div>
           {icon && <Icon name={icon} size={128} className="-top-6 -left-6 absolute opacity-5" />}

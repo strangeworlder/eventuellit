@@ -2,7 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
-import { TopNav, TopNavContent, TopNavDropdown, TopNavList, TopNavLink, TopNavTrigger } from "./TopNav";
+import {
+  TopNav,
+  TopNavContent,
+  TopNavDropdown,
+  TopNavList,
+  TopNavLink,
+  TopNavTrigger,
+} from "./TopNav";
 
 const meta: Meta<typeof TopNav> = {
   title: "Suunnittelujarjestelma/Molekyylit/TopNav",
@@ -177,8 +184,8 @@ export const MobileDropdown: Story = {
           ]}
         />
         <p className="text-text-subtle text-xs">
-          Yhdistä TopNavList:n kanssa responsiiviisella näkyvyydellä: TopNavList hidden
-          tablet:flex, TopNavDropdown tablet:hidden
+          Yhdistä TopNavList:n kanssa responsiiviisella näkyvyydellä: TopNavList hidden tablet:flex,
+          TopNavDropdown tablet:hidden
         </p>
       </div>
     </MemoryRouter>

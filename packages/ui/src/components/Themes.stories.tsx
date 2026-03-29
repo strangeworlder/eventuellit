@@ -94,9 +94,7 @@ const ThemeShowcase = ({ themeId, themeName }: { themeId: string; themeName: str
           >
             <h3 className="font-heading font-bold text-2xl flex items-center justify-between">
               <span>Korostusilmaisin</span>
-              <Badge variant="highlight-solid">
-                AKTIIVINEN
-              </Badge>
+              <Badge variant="highlight-solid">AKTIIVINEN</Badge>
             </h3>
             <p
               className="opacity-80 text-foreground leading-relaxed"

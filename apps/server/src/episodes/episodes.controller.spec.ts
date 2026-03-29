@@ -58,20 +58,14 @@ describe("EpisodesController", () => {
   });
 
   it("should pass gmId to create", async () => {
-    await controller.create(
-      { slug: "test", title: "Test" },
-      mockGmReq,
-    );
-    expect(service.create).toHaveBeenCalledWith(
-      expect.any(Object),
-      mockGmUser.id,
-    );
+    await controller.create({ slug: "test", title: "Test" }, mockGmReq);
+    expect(service.create).toHaveBeenCalledWith(expect.any(Object), mockGmUser.id);
   });
 
   it("should throw ForbiddenException when player tries to create", async () => {
-    await expect(
-      controller.create({ slug: "test", title: "Test" }, mockPlayerReq),
-    ).rejects.toThrow(ForbiddenException);
+    await expect(controller.create({ slug: "test", title: "Test" }, mockPlayerReq)).rejects.toThrow(
+      ForbiddenException,
+    );
   });
 
   it("should allow GM to update", async () => {
@@ -80,9 +74,9 @@ describe("EpisodesController", () => {
   });
 
   it("should throw when player tries to update", async () => {
-    await expect(
-      controller.update(1, { title: "New" }, mockPlayerReq),
-    ).rejects.toThrow(ForbiddenException);
+    await expect(controller.update(1, { title: "New" }, mockPlayerReq)).rejects.toThrow(
+      ForbiddenException,
+    );
   });
 
   it("should allow GM to delete", async () => {
@@ -96,9 +90,9 @@ describe("EpisodesController", () => {
   });
 
   it("should throw when player tries to add skill", async () => {
-    await expect(
-      controller.addSkill(1, { name: "Pilotti" }, mockPlayerReq),
-    ).rejects.toThrow(ForbiddenException);
+    await expect(controller.addSkill(1, { name: "Pilotti" }, mockPlayerReq)).rejects.toThrow(
+      ForbiddenException,
+    );
   });
 
   it("should allow GM to remove skill", async () => {

@@ -24,12 +24,12 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-    argTypes: {
-        variant: {
-            control: "select",
-            options: ["surface", "outline", "highlight", "interactive", "callout"],
-            description: "Semantic visual style variant of the card.",
-        },
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["surface", "outline", "highlight", "interactive", "callout"],
+      description: "Semantic visual style variant of the card.",
+    },
     theme: {
       control: "select",
       options: [
@@ -134,18 +134,14 @@ export const Interaktiivinen: Story = {
           <CardTitle>Seula</CardTitle>
           <CardDescription>Järjestys 1 — Matala jännite</CardDescription>
         </CardHeader>
-        <CardContent>
-          Kynnyksen kauppasatama ja solmupiste. Vie hiiri päälle.
-        </CardContent>
+        <CardContent>Kynnyksen kauppasatama ja solmupiste. Vie hiiri päälle.</CardContent>
       </Card>
       <Card variant="interactive" className="cursor-pointer">
         <CardHeader>
           <CardTitle>Kuiskaus</CardTitle>
           <CardDescription>Järjestys 10 — Murtunut</CardDescription>
         </CardHeader>
-        <CardContent>
-          Informaatioverkostojen solmukohta — kaikki kulkee tästä.
-        </CardContent>
+        <CardContent>Informaatioverkostojen solmukohta — kaikki kulkee tästä.</CardContent>
       </Card>
     </div>
   ),
@@ -181,8 +177,8 @@ export const ContentDensity: Story = {
 
       <Card variant="callout">
         <CardContent variant="rule">
-          <strong>Sääntö:</strong> CardContent-variantti <code>rule</code> soveltuu peli&shy;mekaniikan
-          korostuksiin — tiheämpi sisäinen välitys, kapiteeli-kirjasintyyli.
+          <strong>Sääntö:</strong> CardContent-variantti <code>rule</code> soveltuu
+          peli&shy;mekaniikan korostuksiin — tiheämpi sisäinen välitys, kapiteeli-kirjasintyyli.
         </CardContent>
       </Card>
     </div>

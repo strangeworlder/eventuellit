@@ -11,7 +11,6 @@ import { exportMyData, deleteMyAccount } from "@repo/auth/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 export function PrivacyPolicyPage() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
@@ -61,25 +60,30 @@ export function PrivacyPolicyPage() {
     <Page>
       <Hero title="Tietosuojaseloste" />
       <HeadingLevelProvider>
-
         <PageBody className="max-w-3xl">
-
           <section className="space-y-4">
             <Heading>Rekisterinpitäjä</Heading>
             <Text>
-              Eventuellit-roolipelisovelluksen ylläpitäjä. Yhteystiedot: <em>alvancow+eventuellit@gmail.com</em>.
+              Eventuellit-roolipelisovelluksen ylläpitäjä. Yhteystiedot:{" "}
+              <em>alvancow+eventuellit@gmail.com</em>.
             </Text>
           </section>
 
           <section className="space-y-4">
             <Heading>Kerättävät tiedot</Heading>
-            <Text>
-              Keräämme seuraavia henkilötietoja palvelun toiminnan mahdollistamiseksi:
-            </Text>
+            <Text>Keräämme seuraavia henkilötietoja palvelun toiminnan mahdollistamiseksi:</Text>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Sähköpostiosoite</strong> — käytetään kirjautumiseen magic link -menetelmällä</li>
-              <li><strong>Käyttäjänimi</strong> — näytetään sovelluksessa muille pelaajille</li>
-              <li><strong>Hahmotiedot</strong> — pelin hahmosi ja niihin liittyvät tiedot (ominaisuudet, taidot, varusteet)</li>
+              <li>
+                <strong>Sähköpostiosoite</strong> — käytetään kirjautumiseen magic link
+                -menetelmällä
+              </li>
+              <li>
+                <strong>Käyttäjänimi</strong> — näytetään sovelluksessa muille pelaajille
+              </li>
+              <li>
+                <strong>Hahmotiedot</strong> — pelin hahmosi ja niihin liittyvät tiedot
+                (ominaisuudet, taidot, varusteet)
+              </li>
             </ul>
           </section>
 
@@ -87,15 +91,16 @@ export function PrivacyPolicyPage() {
             <Heading>Tietojen käyttötarkoitus</Heading>
             <Text>
               Henkilötietoja käytetään ainoastaan palvelun toiminnan mahdollistamiseen:
-              kirjautumiseen, hahmojen luontiin ja pelitilanteen ylläpitoon.
-              Emme käytä tietojasi markkinointiin, profilointiin tai muuhun tarkoitukseen.
+              kirjautumiseen, hahmojen luontiin ja pelitilanteen ylläpitoon. Emme käytä tietojasi
+              markkinointiin, profilointiin tai muuhun tarkoitukseen.
             </Text>
           </section>
 
           <section className="space-y-4">
             <Heading>Evästeet ja paikallinen tallennus</Heading>
             <Text>
-              Sivusto käyttää ainoastaan <strong>välttämättömiä evästeitä</strong> kirjautumisen ylläpitoon:
+              Sivusto käyttää ainoastaan <strong>välttämättömiä evästeitä</strong> kirjautumisen
+              ylläpitoon:
             </Text>
             <ul className="list-disc pl-6 space-y-2">
               <li>
@@ -108,8 +113,8 @@ export function PrivacyPolicyPage() {
               </li>
             </ul>
             <Text>
-              Emme käytä analytiikka-, mainonta- tai seurantaevästeitä.
-              Sivusto ei lataa kolmannen osapuolen seurantapalveluita.
+              Emme käytä analytiikka-, mainonta- tai seurantaevästeitä. Sivusto ei lataa kolmannen
+              osapuolen seurantapalveluita.
             </Text>
           </section>
 
@@ -119,22 +124,31 @@ export function PrivacyPolicyPage() {
               EU:n yleisen tietosuoja-asetuksen (GDPR) nojalla sinulla on seuraavat oikeudet:
             </Text>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Oikeus saada pääsy tietoihisi</strong> — voit ladata kaikki sinusta tallennetut tiedot</li>
-              <li><strong>Oikeus tietojen poistamiseen</strong> — voit pyytää tilisi ja tietojesi poistamista</li>
-              <li><strong>Oikeus tehdä valitus</strong> — voit tehdä valituksen tietosuojavaltuutetun toimistoon (tietosuoja.fi)</li>
+              <li>
+                <strong>Oikeus saada pääsy tietoihisi</strong> — voit ladata kaikki sinusta
+                tallennetut tiedot
+              </li>
+              <li>
+                <strong>Oikeus tietojen poistamiseen</strong> — voit pyytää tilisi ja tietojesi
+                poistamista
+              </li>
+              <li>
+                <strong>Oikeus tehdä valitus</strong> — voit tehdä valituksen tietosuojavaltuutetun
+                toimistoon (tietosuoja.fi)
+              </li>
             </ul>
             <Text>
-              Tilin poiston yhteydessä hahmosi siirtyvät pelinjohtajan hallintaan osana pelimaailmaa.
-              Henkilötietosi (sähköposti, käyttäjänimi) poistetaan pysyvästi.
+              Tilin poiston yhteydessä hahmosi siirtyvät pelinjohtajan hallintaan osana
+              pelimaailmaa. Henkilötietosi (sähköposti, käyttäjänimi) poistetaan pysyvästi.
             </Text>
           </section>
 
           <section className="space-y-4">
             <Heading>Tietojen säilytys</Heading>
             <Text>
-              Tietojasi säilytetään niin kauan kuin tilisi on aktiivinen.
-              Voit poistaa tilisi ja siihen liittyvät henkilötiedot milloin tahansa.
-              Kirjautumistunnisteet vanhenevat automaattisesti 7 päivän kuluttua.
+              Tietojasi säilytetään niin kauan kuin tilisi on aktiivinen. Voit poistaa tilisi ja
+              siihen liittyvät henkilötiedot milloin tahansa. Kirjautumistunnisteet vanhenevat
+              automaattisesti 7 päivän kuluttua.
             </Text>
           </section>
 
@@ -160,14 +174,10 @@ export function PrivacyPolicyPage() {
                 </CardHeader>
                 <CardContent>
                   <Text className="mb-4">
-                    Lataa kaikki sinusta tallennetut tiedot JSON-tiedostona.
-                    Tiedosto sisältää käyttäjätietosi ja hahmosi.
+                    Lataa kaikki sinusta tallennetut tiedot JSON-tiedostona. Tiedosto sisältää
+                    käyttäjätietosi ja hahmosi.
                   </Text>
-                  <Button
-                    onClick={handleExportData}
-                    loading={isExporting}
-                    variant="outline"
-                  >
+                  <Button onClick={handleExportData} loading={isExporting} variant="outline">
                     <Icon name="download" size={16} className="mr-2" />
                     Lataa tietosi
                   </Button>
@@ -180,36 +190,25 @@ export function PrivacyPolicyPage() {
                 </CardHeader>
                 <CardContent>
                   <Text className="mb-4">
-                    Tilisi ja henkilötietosi poistetaan pysyvästi.
-                    Hahmosi siirtyvät pelinjohtajan hallintaan.
-                    Tätä toimintoa ei voi peruuttaa.
+                    Tilisi ja henkilötietosi poistetaan pysyvästi. Hahmosi siirtyvät pelinjohtajan
+                    hallintaan. Tätä toimintoa ei voi peruuttaa.
                   </Text>
                   {!showDeleteConfirm ? (
-                    <Button
-                      onClick={() => setShowDeleteConfirm(true)}
-                      variant="danger"
-                    >
+                    <Button onClick={() => setShowDeleteConfirm(true)} variant="danger">
                       <Icon name="trash-2" size={16} className="mr-2" />
                       Poista tilini
                     </Button>
                   ) : (
                     <div className="space-y-4">
                       <NoticePanel variant="error" title="Oletko varma?">
-                        Tämä poistaa tilisi ja kaikki henkilötietosi pysyvästi.
-                        Hahmosi säilyvät pelinjohtajan hallinnassa.
+                        Tämä poistaa tilisi ja kaikki henkilötietosi pysyvästi. Hahmosi säilyvät
+                        pelinjohtajan hallinnassa.
                       </NoticePanel>
                       <div className="flex gap-4">
-                        <Button
-                          onClick={handleDeleteAccount}
-                          loading={isDeleting}
-                          variant="danger"
-                        >
+                        <Button onClick={handleDeleteAccount} loading={isDeleting} variant="danger">
                           Kyllä, poista tilini
                         </Button>
-                        <Button
-                          onClick={() => setShowDeleteConfirm(false)}
-                          variant="outline"
-                        >
+                        <Button onClick={() => setShowDeleteConfirm(false)} variant="outline">
                           Peruuta
                         </Button>
                       </div>
@@ -224,4 +223,3 @@ export function PrivacyPolicyPage() {
     </Page>
   );
 }
-

@@ -112,7 +112,9 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
    * Responsive column counts. Keys are DS breakpoints.
    * e.g. `{ base: 1, tablet: 2, desktop: 3 }`
    */
-  responsive?: Partial<Record<"base" | "mobile" | "tablet" | "desktop" | "x-wide", 1 | 2 | 3 | 4 | 6 | 12>>;
+  responsive?: Partial<
+    Record<"base" | "mobile" | "tablet" | "desktop" | "x-wide", 1 | 2 | 3 | 4 | 6 | 12>
+  >;
   /** Gap between grid cells using the Tailwind spacing scale */
   gap?: 0 | 2 | 4 | 6 | 8 | 10 | 12;
   /** Render as a different element */
@@ -151,17 +153,7 @@ const responsivePrefixes: Record<string, string> = {
  * Use this instead of raw `div + grid-cols-*` for responsive, token-aligned grids.
  */
 export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
-  (
-    {
-      className,
-      cols = 1,
-      responsive,
-      gap = 4,
-      as: Component = "div",
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, cols = 1, responsive, gap = 4, as: Component = "div", ...props }, ref) => {
     const responsiveClasses = responsive
       ? Object.entries(responsive)
           .map(([bp, c]) => `${responsivePrefixes[bp] ?? ""}grid-cols-${c}`)
@@ -171,13 +163,7 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
     return (
       <Component
         ref={ref}
-        className={cn(
-          "grid",
-          colClasses[cols],
-          responsiveClasses,
-          gridGapClasses[gap],
-          className,
-        )}
+        className={cn("grid", colClasses[cols], responsiveClasses, gridGapClasses[gap], className)}
         {...props}
       />
     );
@@ -214,16 +200,7 @@ const containerSizeClasses: Record<NonNullable<ContainerProps["size"]>, string> 
  * Use this instead of raw `mx-auto max-w-*`.
  */
 export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
-  (
-    {
-      className,
-      size = "page",
-      padded = true,
-      as: Component = "div",
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, size = "page", padded = true, as: Component = "div", ...props }, ref) => {
     return (
       <Component
         ref={ref}

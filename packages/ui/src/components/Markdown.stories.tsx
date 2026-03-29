@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MarkdownRenderer } from "./Markdown";
 
 const meta = {
-    title: "Suunnittelujarjestelma/Molekyylit/MarkdownRenderer",
-    component: MarkdownRenderer,
-    parameters: {
-        layout: "padded",
-    },
-    tags: ["autodocs"],
+  title: "Suunnittelujarjestelma/Molekyylit/MarkdownRenderer",
+  component: MarkdownRenderer,
+  parameters: {
+    layout: "padded",
+  },
+  tags: ["autodocs"],
 } satisfies Meta<typeof MarkdownRenderer>;
 
 export default meta;
@@ -39,7 +39,7 @@ Ja järjestetty lista:
 `;
 
 export const Default: Story = {
-    args: {
-        children: sampleMarkdown,
-    },
+  args: {
+    children: sampleMarkdown,
+  },
 };

@@ -39,8 +39,8 @@ export const Interactive: Story = {
           }}
         />
         <p className="text-sm opacity-80">
-          Klikkaa merkkeja palkissa: aktiivinen osio vaihtuu ja simuloi sticky-tilassa
-          artikkelissa liikkumista.
+          Klikkaa merkkeja palkissa: aktiivinen osio vaihtuu ja simuloi sticky-tilassa artikkelissa
+          liikkumista.
         </p>
       </div>
     );

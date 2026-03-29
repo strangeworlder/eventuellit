@@ -10,8 +10,7 @@ export interface DicePoolDie {
   faces: DiceIconProps["faces"];
 }
 
-export interface DicePoolTrackerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface DicePoolTrackerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** All dice in the pool (full, unspent pool) */
   dice: DicePoolDie[];
   /** IDs of dice that have been removed / spent */
@@ -34,22 +33,8 @@ export interface DicePoolTrackerProps
  *
  * @summary during/post-roll: track and toggle individual dice as spent; use DicePoolAllocator for allocation phase
  */
-export const DicePoolTracker = React.forwardRef<
-  HTMLDivElement,
-  DicePoolTrackerProps
->(
-  (
-    {
-      className,
-      dice,
-      removedIds = [],
-      onDieToggle,
-      readOnly = false,
-      label,
-      ...props
-    },
-    ref,
-  ) => {
+export const DicePoolTracker = React.forwardRef<HTMLDivElement, DicePoolTrackerProps>(
+  ({ className, dice, removedIds = [], onDieToggle, readOnly = false, label, ...props }, ref) => {
     const removedSet = useMemo(() => new Set(removedIds), [removedIds]);
     const activeCount = dice.length - removedSet.size;
 
@@ -96,9 +81,7 @@ export const DicePoolTracker = React.forwardRef<
               <span className="text-4xl text-[var(--theme-text)] font-heading font-black leading-none tabular-nums">
                 {activeCount}
               </span>
-              <span className="text-lg font-bold leading-none">
-                / {dice.length}
-              </span>
+              <span className="text-lg font-bold leading-none">/ {dice.length}</span>
             </div>
           </div>
 
@@ -106,9 +89,7 @@ export const DicePoolTracker = React.forwardRef<
           <div className="flex flex-wrap gap-6 mt-1">
             {grouped.map(([faces, group], groupIdx) => (
               <div key={faces} className="flex items-center gap-1.5">
-                {groupIdx > 0 && (
-                  <div className="w-px h-8 bg-[var(--theme-secondary)]/20 mr-2" />
-                )}
+                {groupIdx > 0 && <div className="w-px h-8 bg-[var(--theme-secondary)]/20 mr-2" />}
 
                 {/* Subtle group label */}
                 <span className="text-xs font-mono text-text-subtle mr-1 select-none">
@@ -125,25 +106,16 @@ export const DicePoolTracker = React.forwardRef<
                       onClick={() => handleClick(die.id)}
                       className={cn(
                         "relative rounded-md p-0.5 transition-all duration-400 ease-in focus-visible:outline-2 focus-visible:outline-[var(--theme-primary)]",
-                        !readOnly && "cursor-pointer hover:scale-110 hover:duration-200 hover:ease-out",
+                        !readOnly &&
+                          "cursor-pointer hover:scale-110 hover:duration-200 hover:ease-out",
                         readOnly && "cursor-default",
                         isRemoved && "opacity-30 scale-90",
                         !isRemoved && "hover:drop-shadow-md",
                       )}
                       aria-label={`d${die.faces}${isRemoved ? " (poistettu)" : " (aktiivinen)"}`}
-                      title={
-                        readOnly
-                          ? undefined
-                          : isRemoved
-                            ? "Palauta noppa"
-                            : "Poista noppa"
-                      }
+                      title={readOnly ? undefined : isRemoved ? "Palauta noppa" : "Poista noppa"}
                     >
-                      <DiceIcon
-                        faces={die.faces}
-                        size="lg"
-                        active={!isRemoved}
-                      />
+                      <DiceIcon faces={die.faces} size="lg" active={!isRemoved} />
                       {isRemoved && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                           <div className="w-[120%] h-0.5 bg-[var(--theme-text)]/50 rotate-[-30deg] rounded-full" />
@@ -158,9 +130,7 @@ export const DicePoolTracker = React.forwardRef<
 
           {/* Empty state */}
           {dice.length === 0 && (
-            <p className="text-sm text-text-subtle italic text-center py-4">
-              — Ei noppia —
-            </p>
+            <p className="text-sm text-text-subtle italic text-center py-4">— Ei noppia —</p>
           )}
 
           {/* All removed state */}

@@ -24,9 +24,7 @@ const meta = {
           </div>
           <Story />
           <div className="p-8">
-            <p className="text-text-muted">
-              Lisää sisältöä drawerin alla.
-            </p>
+            <p className="text-text-muted">Lisää sisältöä drawerin alla.</p>
           </div>
         </HeadingLevelProvider>
       </div>
@@ -58,8 +56,12 @@ export const Default: Story = {
       <div className="space-y-3">
         <Heading>Toiminnot</Heading>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm">Muokkaa</Button>
-          <Button variant="danger" size="sm">Poista</Button>
+          <Button variant="outline" size="sm">
+            Muokkaa
+          </Button>
+          <Button variant="danger" size="sm">
+            Poista
+          </Button>
           <Button size="sm">Luo Uusi</Button>
         </div>
       </div>
@@ -81,8 +83,12 @@ export const Expanded: Story = {
       <div className="space-y-3">
         <Heading>Toiminnot</Heading>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm">Muokkaa</Button>
-          <Button variant="danger" size="sm">Poista</Button>
+          <Button variant="outline" size="sm">
+            Muokkaa
+          </Button>
+          <Button variant="danger" size="sm">
+            Poista
+          </Button>
           <Button size="sm">Luo Uusi</Button>
         </div>
       </div>

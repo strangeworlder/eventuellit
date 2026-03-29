@@ -63,8 +63,7 @@ function injectMetaTags(html, entry, hostOrigin) {
 
   const title = entry.title || "Eventuellit";
   const description =
-    entry.description ||
-    "Pöytäroolipeli kapinasta aurinkokuntaa hallitsevaa tyrannia vastaan.";
+    entry.description || "Pöytäroolipeli kapinasta aurinkokuntaa hallitsevaa tyrannia vastaan.";
   const imageUrl = resolveImageUrl(entry, hostOrigin);
 
   function replaceAttr(tag, attr, newValue) {
@@ -86,13 +85,29 @@ function injectMetaTags(html, entry, hostOrigin) {
   // Replace each meta tag by finding the tag that contains the right name/property,
   // then swapping out its content attribute.
   const metaReplacements = [
-    { selector: /(<meta\s+name="description"[^>]*?)(\s*\/>|>)/, attr: "content", value: description },
+    {
+      selector: /(<meta\s+name="description"[^>]*?)(\s*\/>|>)/,
+      attr: "content",
+      value: description,
+    },
     { selector: /(<meta\s+property="og:title"[^>]*?)(\s*\/>|>)/, attr: "content", value: title },
-    { selector: /(<meta\s+property="og:description"[^>]*?)(\s*\/>|>)/, attr: "content", value: description },
+    {
+      selector: /(<meta\s+property="og:description"[^>]*?)(\s*\/>|>)/,
+      attr: "content",
+      value: description,
+    },
     { selector: /(<meta\s+property="og:image"[^>]*?)(\s*\/>|>)/, attr: "content", value: imageUrl },
     { selector: /(<meta\s+name="twitter:title"[^>]*?)(\s*\/>|>)/, attr: "content", value: title },
-    { selector: /(<meta\s+name="twitter:description"[^>]*?)(\s*\/>|>)/, attr: "content", value: description },
-    { selector: /(<meta\s+name="twitter:image"[^>]*?)(\s*\/>|>)/, attr: "content", value: imageUrl },
+    {
+      selector: /(<meta\s+name="twitter:description"[^>]*?)(\s*\/>|>)/,
+      attr: "content",
+      value: description,
+    },
+    {
+      selector: /(<meta\s+name="twitter:image"[^>]*?)(\s*\/>|>)/,
+      attr: "content",
+      value: imageUrl,
+    },
   ];
 
   for (const { selector, attr, value } of metaReplacements) {
@@ -153,8 +168,7 @@ function handler(req, res) {
   // For HTML navigation requests (browsers and crawlers), inject meta tags
   if (accept.includes("text/html") || accept.includes("*/*") || !accept) {
     const hostOrigin =
-      process.env.BASE_URL ||
-      `${url.protocol}//${req.headers.host || "localhost"}`;
+      process.env.BASE_URL || `${url.protocol}//${req.headers.host || "localhost"}`;
 
     // Look up the manifest for this exact path, then try progressively shorter prefixes
     let entry = metaManifest[pathname];

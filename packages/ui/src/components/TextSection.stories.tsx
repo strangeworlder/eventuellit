@@ -23,8 +23,8 @@ export const Otsikolla: Story = {
     <div className="max-w-2xl">
       <TextSection {...args}>
         <Text>
-          Jakso alkaa tilanteessa, jossa miehisto etsii reittia nestemaisen
-          avaruuden virtauksista pois ennen kuin huoltoaluksen aikaikkuna sulkeutuu.
+          Jakso alkaa tilanteessa, jossa miehisto etsii reittia nestemaisen avaruuden virtauksista
+          pois ennen kuin huoltoaluksen aikaikkuna sulkeutuu.
         </Text>
       </TextSection>
     </div>
@@ -36,8 +36,8 @@ export const IlmanOtsikkoa: Story = {
     <div className="max-w-2xl">
       <TextSection>
         <Text>
-          Tata rakennetta voi kayttaa myos pelkkaan tekstisisaltoon silloin, kun
-          otsikko tulee ylemmalta tasolta.
+          Tata rakennetta voi kayttaa myos pelkkaan tekstisisaltoon silloin, kun otsikko tulee
+          ylemmalta tasolta.
         </Text>
       </TextSection>
     </div>

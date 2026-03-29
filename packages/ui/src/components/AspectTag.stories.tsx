@@ -111,7 +111,13 @@ export const KaikkiVariantit: Story = {
           Harmit (parannettu)
         </p>
         <div className="flex flex-wrap gap-2">
-          <AspectTag text="Haava" variant="harm" healed onRemove={() => {}} onToggleHeal={() => {}} />
+          <AspectTag
+            text="Haava"
+            variant="harm"
+            healed
+            onRemove={() => {}}
+            onToggleHeal={() => {}}
+          />
           <AspectTag text="Nyrjähdys" variant="harm" healed />
         </div>
       </div>

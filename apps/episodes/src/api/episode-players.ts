@@ -21,10 +21,10 @@ export const useEpisodePlayers = (episodeId: number) => {
   return useQuery<EpisodePlayer[]>({
     queryKey: ["episodePlayers", episodeId],
     queryFn: async () => {
-      const response = await fetch(
-        `${API_BASE_URL}/episode-players?episodeId=${episodeId}`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
+      const response = await fetch(`${API_BASE_URL}/episode-players?episodeId=${episodeId}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to fetch episode players");
       return response.json();
     },

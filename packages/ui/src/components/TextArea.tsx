@@ -6,8 +6,7 @@ import type { Theme } from "./Theme";
 import { useObscuredGlitch } from "./useObscuredGlitch";
 import { cn, obscureString } from "./utils";
 
-export interface TextAreaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
   theme?: Theme;
@@ -19,7 +18,19 @@ export interface TextAreaProps
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
-    { className, label, error, theme, variant = "default", obscured: obscuredProp, disabled, placeholder, value, defaultValue, ...props },
+    {
+      className,
+      label,
+      error,
+      theme,
+      variant = "default",
+      obscured: obscuredProp,
+      disabled,
+      placeholder,
+      value,
+      defaultValue,
+      ...props
+    },
     ref,
   ) => {
     const obscured = obscuredProp || useObscured();
@@ -28,7 +39,8 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
 
     const obscuredPlaceholder = obscured && placeholder ? obscureString(placeholder) : placeholder;
     const obscuredValue = obscured && typeof value === "string" ? obscureString(value) : value;
-    const obscuredDefault = obscured && typeof defaultValue === "string" ? obscureString(defaultValue) : defaultValue;
+    const obscuredDefault =
+      obscured && typeof defaultValue === "string" ? obscureString(defaultValue) : defaultValue;
 
     return (
       <div
@@ -50,8 +62,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           className={cn(
             "flex w-full rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] px-4 py-3 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all resize-none placeholder:text-text-placeholder focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
             variant === "monospace" && "font-mono text-sm font-normal",
-            error &&
-              "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
+            error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
             obscured && "blur-[1.5px] obscured-glitch obscured-field",
             className,
           )}

@@ -6,7 +6,14 @@ import {
   type ArticleProgressPayload,
   type ArticleProgressSource,
 } from "@repo/ui/components/article-progress-events";
-import { ToastProvider, useToast, TOAST_REQUEST_EVENT, type ToastRequestPayload } from "@repo/ui/components/Toast";
+import { scrollElementIntoScrollRoot } from "@repo/ui/components/article-navigation-utils";
+import { ErrorBoundary } from "@repo/ui/components/ErrorBoundary";
+import {
+  ToastProvider,
+  useToast,
+  TOAST_REQUEST_EVENT,
+  type ToastRequestPayload,
+} from "@repo/ui/components/Toast";
 import { Button } from "@repo/ui/components/Button";
 import { Heading } from "@repo/ui/components/Heading";
 import { LoadingState } from "@repo/ui/components/LoadingState";
@@ -33,7 +40,6 @@ import { VerifyPage } from "./components/VerifyPage";
 import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
 import { buildDocumentTitle } from "./route-title";
 import { useAuth } from "@repo/auth/use-auth";
-
 
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));
@@ -148,20 +154,14 @@ function AppContent() {
   const effectiveBurgerHeightPx = Math.max(burgerHeightPx, DEFAULT_BURGER_HEIGHT_PX);
   const progressStickyTopPx = BURGER_TOP_OFFSET_PX + effectiveBurgerHeightPx;
   const progressStartOffsetPx = headingVisualBottomPx + PROGRESS_HEADING_GAP_PX;
-  const progressRailHeightPx = Math.max(0, viewportHeightPx - Math.round(effectiveBurgerHeightPx * 2) - 2);
+  const progressRailHeightPx = Math.max(
+    0,
+    viewportHeightPx - Math.round(effectiveBurgerHeightPx * 2) - 2,
+  );
   const progressRailHeight = `${progressRailHeightPx}px`;
 
   const scrollToSectionInScrollRoot = (sectionId: string) => {
-    const scrollRoot = document.getElementById("app-scroll-root");
-    const targetElement = document.getElementById(sectionId);
-    if (!scrollRoot || !targetElement) {
-      return;
-    }
-
-    const rootRect = scrollRoot.getBoundingClientRect();
-    const targetRect = targetElement.getBoundingClientRect();
-    const targetTop = Math.max(targetRect.top - rootRect.top + scrollRoot.scrollTop - 96, 0);
-    scrollRoot.scrollTo({ top: targetTop, behavior: "smooth" });
+    scrollElementIntoScrollRoot(sectionId);
   };
 
   useEffect(() => {
@@ -272,7 +272,7 @@ function AppContent() {
         onExpandedChange={setSidebarOpen}
       >
         <SidebarHeader
-          className="cursor-pointer hover:bg-primary/5 transition-colors group"
+          className="cursor-pointer hover:bg-[var(--theme-surface-tint)] transition-colors group"
           onClick={() => navigate("/")}
         >
           <div className="w-8 h-8 rounded bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -324,7 +324,7 @@ function AppContent() {
           {isLoggedIn ? (
             <>
               {user && (
-                <div className="mb-2 px-2 py-1.5 rounded-md bg-[var(--theme-secondary)]/5 text-[var(--theme-secondary)]/80 text-sm truncate">
+                <div className="mb-2 px-2 py-1.5 rounded-md bg-[var(--theme-surface-tint)] text-text-muted text-sm truncate">
                   <div className="flex items-center gap-2">
                     <Icon name="user-circle" size={16} className="flex-shrink-0" />
                     <span className="truncate">{user.username || user.email}</span>
@@ -374,7 +374,7 @@ function AppContent() {
 
           <header
             ref={headingRef}
-            className="bg-[var(--theme-bg)]/80 px-4 tablet:px-0 absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300"
+            className="bg-[var(--theme-bg)] px-4 tablet:px-0 absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300 shadow-md"
           >
             {activeView === "generator" && (
               <Heading as="h1" className="m-0">
@@ -398,65 +398,68 @@ function AppContent() {
             )}
           </header>
 
-          {(activeView === "ruleset" || activeView === "episodes" || activeView === "world") && articleProgress && (
-            <div
-              className="z-30"
-              style={{
-                position: "fixed",
-                left: `${progressFixedLeftPx}px`,
-                top: `${progressStickyTopPx}px`,
-                opacity: progressIsPinned ? 1 : 0,
-                transform: progressIsPinned ? "translateY(0px)" : "translateY(-8px)",
-                transition: "opacity 180ms ease, transform 180ms ease",
-                pointerEvents: progressIsPinned ? "auto" : "none",
-              }}
-            >
-              <ArticleProgressNavigator
-                variant="minimal"
-                sections={articleProgress.sections}
-                progress={articleProgress.progress}
-                activeSectionId={articleProgress.activeSectionId}
-                markerPositions={articleProgress.markerPositions}
-                railHeight={progressRailHeight}
-                onSelectSection={(sectionId) => {
-                  scrollToSectionInScrollRoot(sectionId);
-                  const payload: ArticleJumpPayload = {
-                    source: activeView,
-                    sectionId,
-                  };
-                  window.dispatchEvent(
-                    new CustomEvent<ArticleJumpPayload>(ARTICLE_JUMP_EVENT, { detail: payload }),
-                  );
+          {(activeView === "ruleset" || activeView === "episodes" || activeView === "world") &&
+            articleProgress && (
+              <div
+                className="z-30"
+                style={{
+                  position: "fixed",
+                  left: `${progressFixedLeftPx}px`,
+                  top: `${progressStickyTopPx}px`,
+                  opacity: progressIsPinned ? 1 : 0,
+                  transform: progressIsPinned ? "translateY(0px)" : "translateY(-8px)",
+                  transition: "opacity 180ms ease, transform 180ms ease",
+                  pointerEvents: progressIsPinned ? "auto" : "none",
                 }}
-              />
-            </div>
-          )}
+              >
+                <ArticleProgressNavigator
+                  variant="minimal"
+                  sections={articleProgress.sections}
+                  progress={articleProgress.progress}
+                  activeSectionId={articleProgress.activeSectionId}
+                  markerPositions={articleProgress.markerPositions}
+                  railHeight={progressRailHeight}
+                  onSelectSection={(sectionId) => {
+                    scrollToSectionInScrollRoot(sectionId);
+                    const payload: ArticleJumpPayload = {
+                      source: activeView,
+                      sectionId,
+                    };
+                    window.dispatchEvent(
+                      new CustomEvent<ArticleJumpPayload>(ARTICLE_JUMP_EVENT, { detail: payload }),
+                    );
+                  }}
+                />
+              </div>
+            )}
         </div>
 
         <div className="pl-16 desktop:pl-24 tablet:pl-32 max-w-7xl mx-auto w-full">
           <Suspense
             fallback={<LoadingState message="Ladataan kohdetta..." size="large" className="mt-6" />}
           >
-            <div className="animate-in fade-in duration-500">
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/kirjaudu" element={<LoginPage />} />
-                <Route path="/auth/vahvista" element={<VerifyPage />} />
-                <Route
-                  path="/generator/*"
-                  element={
-                    <ProtectedRoute>
-                      <GeneratorApp />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/ruleset/*" element={<RulesetApp />} />
-                <Route path="/episodes/*" element={<EpisodesApp />} />
-                <Route path="/world/*" element={<WorldApp />} />
-                <Route path="/tietosuoja" element={<PrivacyPolicyPage />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </div>
+            <ErrorBoundary>
+              <div className="animate-in fade-in duration-500">
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/kirjaudu" element={<LoginPage />} />
+                  <Route path="/auth/vahvista" element={<VerifyPage />} />
+                  <Route
+                    path="/generator/*"
+                    element={
+                      <ProtectedRoute>
+                        <GeneratorApp />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/ruleset/*" element={<RulesetApp />} />
+                  <Route path="/episodes/*" element={<EpisodesApp />} />
+                  <Route path="/world/*" element={<WorldApp />} />
+                  <Route path="/tietosuoja" element={<PrivacyPolicyPage />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </div>
+            </ErrorBoundary>
           </Suspense>
         </div>
       </main>

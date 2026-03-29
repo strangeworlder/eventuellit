@@ -60,17 +60,18 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
           "hover:scale-[1.03] hover:-translate-y-px hover:duration-200 hover:ease-out",
 
           // ── Harm: active ──
-          isHarm && !isHealed && [
-            "border border-[color-mix(in_srgb,var(--theme-primary)_50%,red)]",
-            "bg-[color-mix(in_srgb,var(--theme-primary)_12%,transparent)]",
-            "text-[color-mix(in_srgb,var(--theme-text)_75%,red)]",
-            // embossed inset + glow
-            "shadow-[0_0_8px_color-mix(in_srgb,var(--theme-primary)_20%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary)_15%,transparent)]",
-            // pulse animation
-            "animate-[aspect-pulse_3s_ease-in-out_infinite] transition-all duration-200",
-            // hover lift
-            "hover:shadow-[0_0_16px_color-mix(in_srgb,var(--theme-primary)_35%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary)_25%,transparent)]",
-          ],
+          isHarm &&
+            !isHealed && [
+              "border border-[color-mix(in_srgb,var(--theme-primary)_50%,red)]",
+              "bg-[color-mix(in_srgb,var(--theme-primary)_12%,transparent)]",
+              "text-[color-mix(in_srgb,var(--theme-text)_75%,red)]",
+              // embossed inset + glow
+              "shadow-[0_0_8px_color-mix(in_srgb,var(--theme-primary)_20%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary)_15%,transparent)]",
+              // pulse animation
+              "animate-[aspect-pulse_3s_ease-in-out_infinite] transition-all duration-200",
+              // hover lift
+              "hover:shadow-[0_0_16px_color-mix(in_srgb,var(--theme-primary)_35%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary)_25%,transparent)]",
+            ],
 
           // ── Harm: healed ──
           isHealed && [
@@ -111,11 +112,7 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
         )}
 
         {/* Text */}
-        <span
-          className="leading-tight"
-        >
-          {text}
-        </span>
+        <span className="leading-tight">{text}</span>
 
         {/* Custom skill indicator — mini pill */}
         {!isHarm && isCustom && (
@@ -142,10 +139,7 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
                 )}
                 aria-label={healed ? `Aktivoi harmi: ${text}` : `Paranna harmi: ${text}`}
               >
-                <Icon
-                  name={healed ? "shield-alert" : "heart-pulse"}
-                  size={14}
-                />
+                <Icon name={healed ? "shield-alert" : "heart-pulse"} size={14} />
               </button>
             )}
 

@@ -29,25 +29,16 @@ export const Kaikki: Story = {
 
     return (
       <div className="max-w-2xl mx-auto space-y-8">
-        <h2 className="text-2xl font-heading font-bold mb-6">
-          Lomake-elementit
-        </h2>
+        <h2 className="text-2xl font-heading font-bold mb-6">Lomake-elementit</h2>
 
         {/* Input */}
         <section>
-          <Input
-            label="Tekstikenttä"
-            placeholder="Kirjoita tähän..."
-          />
+          <Input label="Tekstikenttä" placeholder="Kirjoita tähän..." />
         </section>
 
         {/* TextArea */}
         <section>
-          <TextArea
-            label="Tekstialue"
-            placeholder="Pidempi teksti..."
-            className="h-24"
-          />
+          <TextArea label="Tekstialue" placeholder="Pidempi teksti..." className="h-24" />
         </section>
 
         {/* TextArea monospace */}
@@ -75,10 +66,7 @@ export const Kaikki: Story = {
 
         {/* Checkbox */}
         <section>
-          <Checkbox
-            label="Valintaruutu"
-            description="Valinnallinen kuvaus valintaruudulle."
-          />
+          <Checkbox label="Valintaruutu" description="Valinnallinen kuvaus valintaruudulle." />
         </section>
 
         {/* RadioGroup */}
@@ -89,7 +77,11 @@ export const Kaikki: Story = {
             value={radioValue}
             onValueChange={setRadioValue}
           >
-            <RadioGroupItem value="expert" label="Vaihtoehto 1" description="Ensimmäinen vaihtoehto." />
+            <RadioGroupItem
+              value="expert"
+              label="Vaihtoehto 1"
+              description="Ensimmäinen vaihtoehto."
+            />
             <RadioGroupItem value="soldier" label="Vaihtoehto 2" description="Toinen vaihtoehto." />
             <RadioGroupItem value="monk" label="Estetty" disabled />
           </RadioGroup>
@@ -133,7 +125,12 @@ export const Kaikki: Story = {
           </h3>
           <div className="space-y-6">
             <Input label="Tekstikenttä" placeholder="Ei näkyvissä..." obscured />
-            <TextArea label="Tekstialue" placeholder="Pidempi teksti..." className="h-24" obscured />
+            <TextArea
+              label="Tekstialue"
+              placeholder="Pidempi teksti..."
+              className="h-24"
+              obscured
+            />
             <Select
               label="Pudotusvalikko"
               options={[

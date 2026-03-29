@@ -40,128 +40,133 @@ export interface SkillTagListProps extends React.HTMLAttributes<HTMLDivElement> 
   readOnly?: boolean;
 }
 
-export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(function SkillTagList({
-  items,
-  onItemEdit,
-  onItemRemove,
-  onItemAdd,
-  showCustomToggle = false,
-  addLabel = "Uusi taito",
-  emptyMessage = "Ei taitoja määritetty.",
-  readOnly = false,
-  className,
-  ...props
-}, ref) {
-  // ── Inline edit state ──
-  const [editingId, setEditingId] = useState<string | number | null>(null);
-  const [draftName, setDraftName] = useState("");
-  const [draftCustom, setDraftCustom] = useState(false);
+export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(
+  function SkillTagList(
+    {
+      items,
+      onItemEdit,
+      onItemRemove,
+      onItemAdd,
+      showCustomToggle = false,
+      addLabel = "Uusi taito",
+      emptyMessage = "Ei taitoja määritetty.",
+      readOnly = false,
+      className,
+      ...props
+    },
+    ref,
+  ) {
+    // ── Inline edit state ──
+    const [editingId, setEditingId] = useState<string | number | null>(null);
+    const [draftName, setDraftName] = useState("");
+    const [draftCustom, setDraftCustom] = useState(false);
 
-  // ── Add-new state ──
-  const [newName, setNewName] = useState("");
+    // ── Add-new state ──
+    const [newName, setNewName] = useState("");
 
-  const canEdit = !readOnly && !!onItemEdit;
+    const canEdit = !readOnly && !!onItemEdit;
 
-  const startEditing = (item: SkillTagItem) => {
-    if (!canEdit) return;
-    setEditingId(item.id);
-    setDraftName(item.name);
-    setDraftCustom(item.isCustom ?? false);
-  };
+    const startEditing = (item: SkillTagItem) => {
+      if (!canEdit) return;
+      setEditingId(item.id);
+      setDraftName(item.name);
+      setDraftCustom(item.isCustom ?? false);
+    };
 
-  const saveEditing = () => {
-    if (editingId === null || !draftName.trim() || !onItemEdit) return;
-    onItemEdit(editingId, draftName.trim(), showCustomToggle ? draftCustom : undefined);
-    setEditingId(null);
-    setDraftName("");
-    setDraftCustom(false);
-  };
+    const saveEditing = () => {
+      if (editingId === null || !draftName.trim() || !onItemEdit) return;
+      onItemEdit(editingId, draftName.trim(), showCustomToggle ? draftCustom : undefined);
+      setEditingId(null);
+      setDraftName("");
+      setDraftCustom(false);
+    };
 
-  const cancelEditing = () => {
-    setEditingId(null);
-    setDraftName("");
-    setDraftCustom(false);
-  };
+    const cancelEditing = () => {
+      setEditingId(null);
+      setDraftName("");
+      setDraftCustom(false);
+    };
 
-  const handleAdd = () => {
-    if (!newName.trim() || !onItemAdd) return;
-    onItemAdd(newName.trim());
-    setNewName("");
-  };
+    const handleAdd = () => {
+      if (!newName.trim() || !onItemAdd) return;
+      onItemAdd(newName.trim());
+      setNewName("");
+    };
 
-  return (
-    <div ref={ref} className={cn("space-y-3", className)} {...props}>
-      {/* ── Tag list ── */}
-      {items.length > 0 ? (
-        <div className="flex flex-wrap gap-2">
-          {items.map((item) => {
-            if (editingId === item.id) {
-              return (
-                <div key={item.id} className="flex flex-col gap-2 w-full">
-                  <Input
-                    size="compact"
-                    value={draftName}
-                    onChange={(e) => setDraftName(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") saveEditing();
-                      if (e.key === "Escape") cancelEditing();
-                    }}
-                    // biome-ignore lint/a11y/noAutofocus: intentional for edit mode
-                    autoFocus
-                  />
-                  {showCustomToggle && (
-                    <Checkbox
-                      label="Oma taito"
-                      checked={draftCustom}
-                      onChange={(e) => setDraftCustom(e.target.checked)}
+    return (
+      <div ref={ref} className={cn("space-y-3", className)} {...props}>
+        {/* ── Tag list ── */}
+        {items.length > 0 ? (
+          <div className="flex flex-wrap gap-2">
+            {items.map((item) => {
+              if (editingId === item.id) {
+                return (
+                  <div key={item.id} className="flex flex-col gap-2 w-full">
+                    <Input
+                      size="compact"
+                      value={draftName}
+                      onChange={(e) => setDraftName(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") saveEditing();
+                        if (e.key === "Escape") cancelEditing();
+                      }}
+                      // biome-ignore lint/a11y/noAutofocus: intentional for edit mode
+                      autoFocus
                     />
-                  )}
-                  <div className="flex items-center gap-3">
-                    <Button size="compact" onClick={saveEditing} disabled={!draftName.trim()}>
-                      Tallenna
-                    </Button>
-                    <Button size="compact" variant="ghost-subtle" onClick={cancelEditing}>
-                      Peruuta
-                    </Button>
+                    {showCustomToggle && (
+                      <Checkbox
+                        label="Oma taito"
+                        checked={draftCustom}
+                        onChange={(e) => setDraftCustom(e.target.checked)}
+                      />
+                    )}
+                    <div className="flex items-center gap-3">
+                      <Button size="compact" onClick={saveEditing} disabled={!draftName.trim()}>
+                        Tallenna
+                      </Button>
+                      <Button size="compact" variant="ghost-subtle" onClick={cancelEditing}>
+                        Peruuta
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                );
+              }
+              return (
+                <AspectTag
+                  key={item.id}
+                  text={item.name}
+                  variant="skill"
+                  isCustom={item.isCustom ?? false}
+                  readOnly={readOnly || !canEdit}
+                  onClick={canEdit ? () => startEditing(item) : undefined}
+                  onRemove={!readOnly && onItemRemove ? () => onItemRemove(item.id) : undefined}
+                  className={canEdit ? "cursor-pointer" : undefined}
+                  title={canEdit ? "Klikkaa muokataksesi" : undefined}
+                />
               );
-            }
-            return (
-              <AspectTag
-                key={item.id}
-                text={item.name}
-                variant="skill"
-                isCustom={item.isCustom ?? false}
-                readOnly={readOnly || !canEdit}
-                onClick={canEdit ? () => startEditing(item) : undefined}
-                onRemove={!readOnly && onItemRemove ? () => onItemRemove(item.id) : undefined}
-                className={canEdit ? "cursor-pointer" : undefined}
-                title={canEdit ? "Klikkaa muokataksesi" : undefined}
-              />
-            );
-          })}
-        </div>
-      ) : (
-        <p className="text-sm text-text-subtle">{emptyMessage}</p>
-      )}
+            })}
+          </div>
+        ) : (
+          <p className="text-sm text-text-subtle">{emptyMessage}</p>
+        )}
 
-      {/* ── Add-new input ── */}
-      {!readOnly && onItemAdd && (
-        <div className="flex gap-2 items-end">
-          <Input
-            label={addLabel}
-            size="compact"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-          />
-          <Button size="compact" onClick={handleAdd} disabled={!newName.trim()}>
-            Lisää
-          </Button>
-        </div>
-      )}
-    </div>
-  );
-});
+        {/* ── Add-new input ── */}
+        {!readOnly && onItemAdd && (
+          <div className="flex gap-2 items-end">
+            <Input
+              label={addLabel}
+              size="compact"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+            />
+            <Button size="compact" onClick={handleAdd} disabled={!newName.trim()}>
+              Lisää
+            </Button>
+          </div>
+        )}
+      </div>
+    );
+  },
+);
 SkillTagList.displayName = "SkillTagList";

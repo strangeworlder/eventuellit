@@ -11,7 +11,7 @@ const dsRawHtmlRule = [
   {
     selector: "JSXOpeningElement[name.name='p']",
     message:
-      "Avoid raw <p> elements in app code. Use <Text variant=\"...\"> from @repo/ui/components/Text instead.",
+      'Avoid raw <p> elements in app code. Use <Text variant="..."> from @repo/ui/components/Text instead.',
   },
   {
     selector: "JSXOpeningElement[name.name=/^h[1-6]$/]",

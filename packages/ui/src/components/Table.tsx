@@ -43,7 +43,7 @@ export interface TableProps<T extends Record<string, unknown>> {
 }
 
 type TableComponent = <T extends Record<string, unknown>>(
-  props: TableProps<T> & { ref?: React.Ref<HTMLDivElement> }
+  props: TableProps<T> & { ref?: React.Ref<HTMLDivElement> },
 ) => React.ReactElement | null;
 
 /**
@@ -52,9 +52,7 @@ type TableComponent = <T extends Record<string, unknown>>(
  *
  * @summary data-driven table; variant: default/compact; striped rows, sticky header, numeric alignment
  */
-export const Table = React.forwardRef(function TableInner<
-  T extends Record<string, unknown>,
->(
+export const Table = React.forwardRef(function TableInner<T extends Record<string, unknown>>(
   {
     columns,
     data,

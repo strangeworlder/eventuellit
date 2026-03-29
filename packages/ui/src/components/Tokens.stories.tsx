@@ -61,12 +61,20 @@ export const Breakpoints: Story = {
   render: () => (
     <div className="space-y-8 flex flex-col font-sans">
       <div>
-        <Heading as="h2" variant="h2" className="mb-4">Breakpoints</Heading>
+        <Heading as="h2" variant="h2" className="mb-4">
+          Breakpoints
+        </Heading>
         <Text variant="muted" className="mb-6 max-w-prose">
           These are the standard breakpoints defined in our Design System. Use them as prefixes in
           your Tailwind classes to apply responsive styles (e.g.,{" "}
-          <code className="bg-[var(--theme-surface-tint)] px-1 py-0.5 rounded text-[var(--theme-text)]">tablet:text-lg</code>,{" "}
-          <code className="bg-[var(--theme-surface-tint)] px-1 py-0.5 rounded text-[var(--theme-text)]">desktop:flex-row</code>).
+          <code className="bg-[var(--theme-surface-tint)] px-1 py-0.5 rounded text-[var(--theme-text)]">
+            tablet:text-lg
+          </code>
+          ,{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 py-0.5 rounded text-[var(--theme-text)]">
+            desktop:flex-row
+          </code>
+          ).
         </Text>
 
         <div className="border border-[var(--theme-border-soft)] rounded-lg overflow-hidden bg-[var(--theme-bg)]">
@@ -98,7 +106,9 @@ export const Breakpoints: Story = {
       </div>
 
       <div className="mt-8 pt-8 border-t border-[var(--theme-border-soft)]">
-        <Heading as="h3" variant="h3" className="mb-4">Visualizer</Heading>
+        <Heading as="h3" variant="h3" className="mb-4">
+          Visualizer
+        </Heading>
         <Text variant="muted" className="mb-6">
           Resize your browser window to see how the container responds to these breakpoints.
         </Text>
@@ -157,13 +167,24 @@ export const Spacing: Story = {
   render: () => (
     <div className="space-y-4 font-sans">
       <div>
-        <Heading as="h2" variant="h2" className="mb-4">Spacing Scale</Heading>
+        <Heading as="h2" variant="h2" className="mb-4">
+          Spacing Scale
+        </Heading>
         <Text variant="muted" className="mb-6 max-w-prose">
           The spacing scale is used for margins, paddings, gaps, and positioning. It follows a
           predictable progression. Use Tailwind classes like{" "}
-          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">p-4</code>,{" "}
-          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">m-2</code>,{" "}
-          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">gap-8</code>.
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">
+            p-4
+          </code>
+          ,{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">
+            m-2
+          </code>
+          ,{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">
+            gap-8
+          </code>
+          .
         </Text>
 
         <div className="flex flex-col gap-2">
@@ -197,11 +218,19 @@ export const BorderRadius: Story = {
   render: () => (
     <div className="space-y-4 font-sans">
       <div>
-        <Heading as="h2" variant="h2" className="mb-4">Border Radius</Heading>
+        <Heading as="h2" variant="h2" className="mb-4">
+          Border Radius
+        </Heading>
         <Text variant="muted" className="mb-6 max-w-prose">
           The standard border radius scale. Use utility classes like{" "}
-          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">rounded-md</code>,{" "}
-          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">rounded-full</code>.
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">
+            rounded-md
+          </code>
+          ,{" "}
+          <code className="bg-[var(--theme-surface-tint)] px-1 rounded text-[var(--theme-text)]">
+            rounded-full
+          </code>
+          .
         </Text>
 
         <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-6">
@@ -245,7 +274,9 @@ export const Layout: Story = {
   render: () => (
     <div className="space-y-12 font-sans">
       <div>
-        <Heading as="h2" variant="h2" className="mb-4">Layout Tokens</Heading>
+        <Heading as="h2" variant="h2" className="mb-4">
+          Layout Tokens
+        </Heading>
         <Text variant="muted" className="mb-8 max-w-prose">
           These tokens represent standard page structures in our application. They are implemented
           as utility classes rather than components to remain flexible.
@@ -258,7 +289,9 @@ export const Layout: Story = {
                 <code className="text-accent-300 font-bold bg-accent-900/50 px-2 py-1 rounded text-lg">
                   .{token.name}
                 </code>
-                <Text variant="caption" className="italic">{token.description}</Text>
+                <Text variant="caption" className="italic">
+                  {token.description}
+                </Text>
               </div>
 
               <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
@@ -266,23 +299,37 @@ export const Layout: Story = {
                   <Text variant="label">Structure</Text>
                   <p className="font-mono text-sm text-[var(--theme-text)]">{token.structure}</p>
 
-                  <Text variant="label" className="pt-4">Common Usage</Text>
+                  <Text variant="label" className="pt-4">
+                    Common Usage
+                  </Text>
                   <Text variant="small">{token.usage}</Text>
                 </div>
 
                 <div className="relative border border-dashed border-[var(--theme-border-medium)] rounded-lg bg-[var(--theme-surface-tint)] min-h-[200px] overflow-hidden p-2">
-                  <Text variant="caption" className="absolute top-2 right-2 font-mono">Visual Preview</Text>
+                  <Text variant="caption" className="absolute top-2 right-2 font-mono">
+                    Visual Preview
+                  </Text>
 
-                  {key === 'stack' ? (
+                  {key === "stack" ? (
                     <div className="layout-stack py-4 h-full">
-                      <div className="h-8 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">Section 1</div>
-                      <div className="h-24 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">Main Content</div>
-                      <div className="h-12 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">Section 2</div>
+                      <div className="h-8 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">
+                        Section 1
+                      </div>
+                      <div className="h-24 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">
+                        Main Content
+                      </div>
+                      <div className="h-12 bg-primary-500/20 rounded border border-primary-500/30 w-full flex items-center justify-center text-xs">
+                        Section 2
+                      </div>
                     </div>
                   ) : (
                     <div className="layout-split py-4 h-full">
-                      <div className="h-32 bg-secondary-500/20 rounded border border-secondary-500/30 flex items-center justify-center text-xs">Main Column</div>
-                      <div className="h-32 bg-accent-500/20 rounded border border-accent-500/30 flex items-center justify-center text-xs">Sidebar</div>
+                      <div className="h-32 bg-secondary-500/20 rounded border border-secondary-500/30 flex items-center justify-center text-xs">
+                        Main Column
+                      </div>
+                      <div className="h-32 bg-accent-500/20 rounded border border-accent-500/30 flex items-center justify-center text-xs">
+                        Sidebar
+                      </div>
                     </div>
                   )}
                 </div>

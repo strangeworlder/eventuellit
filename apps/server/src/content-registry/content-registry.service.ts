@@ -28,7 +28,11 @@ export class ContentRegistryService {
   }
 
   buildSuggestions(
-    episode: { location?: string | null; content?: string | null; mechanicalAdditions?: string | null },
+    episode: {
+      location?: string | null;
+      content?: string | null;
+      mechanicalAdditions?: string | null;
+    },
     existingRefs: Set<string>,
   ): SuggestedItem[] {
     const suggestions: SuggestedItem[] = [];

@@ -84,18 +84,36 @@ function anchorPositionStyle(
   switch (placement) {
     // Below, centred on anchor's horizontal midpoint
     case "bottom":
-      return { ...pa, top: "anchor(bottom)", left: "calc(anchor(center) - 6.5rem)" } as React.CSSProperties;
+      return {
+        ...pa,
+        top: "anchor(bottom)",
+        left: "calc(anchor(center) - 6.5rem)",
+      } as React.CSSProperties;
     // Above, centred on anchor's horizontal midpoint
     case "top":
-      return { ...pa, bottom: "anchor(top)", left: "calc(anchor(center) - 6.5rem)" } as React.CSSProperties;
+      return {
+        ...pa,
+        bottom: "anchor(top)",
+        left: "calc(anchor(center) - 6.5rem)",
+      } as React.CSSProperties;
     // Right of anchor, centred on its vertical midpoint.
     // translateY uses CSS `transform` (not Tailwind `translate`) so the
     // group-hover translate-y-0 reset cannot interfere.
     case "right":
-      return { ...pa, left: "anchor(right)", top: "anchor(center)", transform: "translateY(-50%)" } as React.CSSProperties;
+      return {
+        ...pa,
+        left: "anchor(right)",
+        top: "anchor(center)",
+        transform: "translateY(-50%)",
+      } as React.CSSProperties;
     // Left of anchor, centred on its vertical midpoint
     case "left":
-      return { ...pa, right: "anchor(left)", top: "anchor(center)", transform: "translateY(-50%)" } as React.CSSProperties;
+      return {
+        ...pa,
+        right: "anchor(left)",
+        top: "anchor(center)",
+        transform: "translateY(-50%)",
+      } as React.CSSProperties;
     // Below, right edge of tooltip aligned to right edge of anchor
     case "bottom-left":
       return { ...pa, top: "anchor(bottom)", right: "anchor(right)" } as React.CSSProperties;
@@ -178,20 +196,27 @@ const variantClasses: Record<AnchoredTooltipVariant, string> = {
  * ```
  */
 export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltipProps>(
-  ({ placement = "right", variant = "default", className, theme, isOpen, anchorName, style, children, ...props }, ref) => {
+  (
+    {
+      placement = "right",
+      variant = "default",
+      className,
+      theme,
+      isOpen,
+      anchorName,
+      style,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     if (isOpen === false) return null;
 
-    const hidden = isOpen !== undefined
-      ? !isOpen
-      : true; // uncontrolled: hidden by default, shown via group-hover
+    const hidden = isOpen !== undefined ? !isOpen : true; // uncontrolled: hidden by default, shown via group-hover
 
     const useAnchor = !!anchorName;
-    const positionClasses = useAnchor
-      ? anchorPlacementBase[placement]
-      : placementBase[placement];
-    const anchorStyle = useAnchor
-      ? anchorPositionStyle(placement, anchorName!)
-      : undefined;
+    const positionClasses = useAnchor ? anchorPlacementBase[placement] : placementBase[placement];
+    const anchorStyle = useAnchor ? anchorPositionStyle(placement, anchorName!) : undefined;
 
     return (
       <span
@@ -205,8 +230,8 @@ export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltip
           "transition-all",
           // ── Asymmetric timing: snappy enter, gentle exit ──
           hidden
-            ? "duration-200 ease-in"    // exit: gentle fade-out
-            : "duration-150 ease-out",  // enter: snappy pop-in
+            ? "duration-200 ease-in" // exit: gentle fade-out
+            : "duration-150 ease-out", // enter: snappy pop-in
           variantClasses[variant],
           positionClasses,
 

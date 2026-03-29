@@ -27,8 +27,7 @@ interface ManifestImageEntry {
 type ImageManifest = Record<string, ManifestImageEntry>;
 const EMPTY_SOURCES: ImageSource[] = [];
 
-export interface ImageElementProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "children"> {
+export interface ImageElementProps extends Omit<React.HTMLAttributes<HTMLElement>, "children"> {
   "data-theme"?: string;
   src: string;
   alt: string;
@@ -46,9 +45,7 @@ export interface ImageElementProps
   enableModal?: boolean;
 }
 
-const resolveNearestDataTheme = (
-  element: HTMLElement | null,
-): string | undefined => {
+const resolveNearestDataTheme = (element: HTMLElement | null): string | undefined => {
   if (!element || typeof document === "undefined") {
     return undefined;
   }
@@ -60,8 +57,7 @@ const resolveNearestDataTheme = (
 const manifestPromiseCache = new Map<string, Promise<ImageManifest | null>>();
 const componentOrigin = new URL(import.meta.url).origin;
 
-const normalizeKey = (value: string): string =>
-  value.toLowerCase().replace(/[^a-z0-9-]/g, "-");
+const normalizeKey = (value: string): string => value.toLowerCase().replace(/[^a-z0-9-]/g, "-");
 
 const resolveAssetUrlFromOrigin = (origin: string, assetPath: string): string => {
   if (
@@ -111,11 +107,7 @@ const loadImageManifest = (manifestUrl: string): Promise<ImageManifest | null> =
 };
 
 const normalizeImageSrc = (src: string): string => {
-  if (
-    src.startsWith("http://") ||
-    src.startsWith("https://") ||
-    src.startsWith("data:")
-  ) {
+  if (src.startsWith("http://") || src.startsWith("https://") || src.startsWith("data:")) {
     return src;
   }
 
@@ -337,46 +329,46 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     const modalContent =
       isModalOpen && typeof document !== "undefined"
         ? ReactDOM.createPortal(
-          <div
-            data-theme={modalDataTheme ?? dataThemeProp ?? childTheme}
-            className="fixed inset-0 z-50 desktop:z-50 max-desktop:z-50 flex items-center justify-center bg-black/80 p-4"
-            onClick={closeModal}
-          >
             <div
-              role="dialog"
-              aria-modal="true"
-              aria-label={`Kuvan tarkastelu: ${safeAlt}`}
-              aria-describedby={caption ? captionId : undefined}
-              className="relative flex max-h-[95vh] w-full max-w-6xl flex-col gap-3 rounded-xl border border-[var(--theme-secondary)] bg-[var(--theme-bg)] p-3 shadow-2xl"
-              onClick={(event) => event.stopPropagation()}
+              data-theme={modalDataTheme ?? dataThemeProp ?? childTheme}
+              className="fixed inset-0 z-50 desktop:z-50 max-desktop:z-50 flex items-center justify-center bg-black/80 p-4"
+              onClick={closeModal}
             >
-              <Button
-                ref={closeButtonRef}
-                type="button"
-                variant="outline"
-                size="icon"
-                onClick={closeModal}
-                className="self-end"
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-label={`Kuvan tarkastelu: ${safeAlt}`}
+                aria-describedby={caption ? captionId : undefined}
+                className="relative flex max-h-[95vh] w-full max-w-6xl flex-col gap-3 rounded-xl border border-[var(--theme-secondary)] bg-[var(--theme-bg)] p-3 shadow-2xl"
+                onClick={(event) => event.stopPropagation()}
               >
-                <Icon name="x" />
-              </Button>
-              <img
-                src={modalSrc}
-                alt={alt}
-                className="max-h-[80vh] w-full rounded-md object-contain"
-              />
-              {caption && (
-                <div
-                  id={captionId}
-                  className="border-t border-[var(--theme-secondary)]/30 pt-2 text-sm text-[var(--theme-secondary)]"
+                <Button
+                  ref={closeButtonRef}
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={closeModal}
+                  className="self-end"
                 >
-                  {caption}
-                </div>
-              )}
-            </div>
-          </div>,
-          document.body,
-        )
+                  <Icon name="x" />
+                </Button>
+                <img
+                  src={modalSrc}
+                  alt={alt}
+                  className="max-h-[80vh] w-full rounded-md object-contain"
+                />
+                {caption && (
+                  <div
+                    id={captionId}
+                    className="border-t border-[var(--theme-secondary)]/30 pt-2 text-sm text-[var(--theme-secondary)]"
+                  >
+                    {caption}
+                  </div>
+                )}
+              </div>
+            </div>,
+            document.body,
+          )
         : null;
 
     const pictureContent = (
@@ -423,8 +415,7 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
             "relative overflow-visible rounded-xl",
             {
               // Surface: mirrors Card/StatBlock semantics — swapped theme surface.
-              "bg-[var(--theme-bg)] text-[var(--theme-text)]":
-                variant === "surface",
+              "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "surface",
               // Outline: supporting component semantics.
               "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
                 variant === "outline" || variant === "inline",
@@ -475,7 +466,12 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
               {pictureContent}
             </button>
           ) : (
-            <div className={cn("rounded-xl overflow-hidden block w-full", variant === "thumbnail" && "h-full w-full rounded-lg")}>
+            <div
+              className={cn(
+                "rounded-xl overflow-hidden block w-full",
+                variant === "thumbnail" && "h-full w-full rounded-lg",
+              )}
+            >
               {pictureContent}
             </div>
           )}

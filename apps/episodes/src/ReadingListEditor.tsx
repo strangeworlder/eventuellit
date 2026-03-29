@@ -1,3 +1,8 @@
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@repo/ui/components/Accordion";
 import { Badge } from "@repo/ui/components/Badge";
 import { Button } from "@repo/ui/components/Button";
 import { DatePicker } from "@repo/ui/components/DatePicker";
@@ -6,6 +11,7 @@ import { Input } from "@repo/ui/components/Input";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { Select } from "@repo/ui/components/Select";
 import { Text } from "@repo/ui/components/Text";
+import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
 import { useState } from "react";
 import {
   type ReadingItem,
@@ -35,9 +41,9 @@ function typeLabel(contentType: string) {
 
 function SectionHeader({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--theme-text)]/40 pt-3 pb-1 border-b border-[var(--theme-border-subtle)]">
+    <Text variant="kicker" className="pt-3 pb-1 border-b border-[var(--theme-border-soft)] block">
       {children}
-    </p>
+    </Text>
   );
 }
 
@@ -50,18 +56,10 @@ function ReadingItemRow({ item, episodeId }: { item: ReadingItem; episodeId: num
 
   if (isEditing) {
     return (
-      <div className="py-2 border-b border-[var(--theme-border-subtle)] last:border-0 space-y-2">
-        <Input
-          label="Otsikko"
-          value={editTitle}
-          onChange={(e) => setEditTitle(e.target.value)}
-        />
+      <div className="py-2 border-b border-[var(--theme-border-soft)] last:border-0 space-y-2">
+        <Input label="Otsikko" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
         {item.contentType !== "task" && (
-          <Input
-            label="Linkki"
-            value={editUrl}
-            onChange={(e) => setEditUrl(e.target.value)}
-          />
+          <Input label="Linkki" value={editUrl} onChange={(e) => setEditUrl(e.target.value)} />
         )}
         <div className="flex gap-2">
           <Button
@@ -85,7 +83,7 @@ function ReadingItemRow({ item, episodeId }: { item: ReadingItem; episodeId: num
   }
 
   return (
-    <div className="gap-2 py-1.5 border-b border-[var(--theme-border-subtle)] last:border-0 group">
+    <div className="gap-2 py-1.5 border-b border-[var(--theme-border-soft)] last:border-0 group">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
           <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-text)] truncate">
@@ -135,7 +133,7 @@ function AddItemForm({
         sessionId,
         contentType,
         title: title.trim(),
-        url: contentType !== "task" ? (url.trim() || undefined) : undefined,
+        url: contentType !== "task" ? url.trim() || undefined : undefined,
         description: description.trim() || undefined,
       },
       {
@@ -150,7 +148,7 @@ function AddItemForm({
   };
 
   return (
-    <div className="space-y-2 pt-3 border-t border-[var(--theme-border-subtle)]">
+    <div className="space-y-2 pt-3 border-t border-[var(--theme-border-soft)]">
       <div className="flex gap-2">
         <div className="w-28 shrink-0">
           <Select
@@ -214,7 +212,7 @@ function SuggestionRow({
   const { mutate: createItem, isPending, isSuccess } = useCreateReadingItem();
 
   return (
-    <div className="flex items-center gap-2 py-1.5 border-b border-[var(--theme-border-subtle)] last:border-0">
+    <div className="flex items-center gap-2 py-1.5 border-b border-[var(--theme-border-soft)] last:border-0">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
           <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-text)] truncate">
@@ -222,7 +220,9 @@ function SuggestionRow({
           </span>
           <Badge variant="ghost">{typeLabel(suggestion.contentType)}</Badge>
         </div>
-        <p className="text-[10px] text-[var(--theme-secondary)]/70 italic truncate">{suggestion.reason}</p>
+        <p className="text-[10px] text-[var(--theme-secondary)]/70 italic truncate">
+          {suggestion.reason}
+        </p>
       </div>
       <Button
         size="compact"
@@ -248,22 +248,14 @@ function SuggestionRow({
   );
 }
 
-function SessionStatusSelect({
-  session,
-  episodeId,
-}: {
-  session: Session;
-  episodeId: number;
-}) {
+function SessionStatusSelect({ session, episodeId }: { session: Session; episodeId: number }) {
   const { mutate: updateSession, isPending } = useUpdateSession();
   return (
     <Select
       label=""
       value={session.status}
       disabled={isPending}
-      onChange={(e) =>
-        updateSession({ id: session.id, episodeId, status: e.target.value })
-      }
+      onChange={(e) => updateSession({ id: session.id, episodeId, status: e.target.value })}
       options={[
         { value: "planned", label: "Tulossa" },
         { value: "next", label: "Seuraava" },
@@ -294,7 +286,7 @@ function AddSessionForm({
   };
 
   return (
-    <div className="space-y-2 pt-3 border-t border-[var(--theme-border-subtle)]">
+    <div className="space-y-2 pt-3 border-t border-[var(--theme-border-soft)]">
       <div className="flex gap-2 items-end">
         <div className="flex-1">
           <Input
@@ -305,12 +297,7 @@ function AddSessionForm({
           />
         </div>
         <div className="w-40 shrink-0">
-          <DatePicker
-            label="Päivämäärä"
-            value={date}
-            onChange={setDate}
-            size="default"
-          />
+          <DatePicker label="Päivämäärä" value={date} onChange={setDate} size="default" />
         </div>
       </div>
       <div className="flex gap-2">
@@ -325,16 +312,11 @@ function AddSessionForm({
   );
 }
 
-function SessionPanel({
-  session,
-  episodeId,
-}: {
-  session: Session;
-  episodeId: number;
-}) {
+function SessionPanel({ session, episodeId }: { session: Session; episodeId: number }) {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isEditingDate, setIsEditingDate] = useState(false);
+  const [deleteSessionOpen, setDeleteSessionOpen] = useState(false);
   const { mutate: deleteSession, isPending: isDeleting } = useDeleteSession();
   const { mutate: updateSession, isPending: isUpdatingDate } = useUpdateSession();
   const { data: items, isLoading } = useEpisodeReadingItems(episodeId, session.id);
@@ -344,26 +326,28 @@ function SessionPanel({
     session.id,
   );
 
-  const sessionDate = session.date
-    ? new Date(session.date).toLocaleDateString("fi-FI")
-    : null;
+  const sessionDate = session.date ? new Date(session.date).toLocaleDateString("fi-FI") : null;
 
   return (
-    <div className="space-y-1 pt-2 border-t border-[var(--theme-border-subtle)]">
+    <div className="space-y-1 pt-2 border-t border-[var(--theme-border-soft)]">
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-[var(--theme-text)]/50">#{String(session.sessionNumber).padStart(2, "0")}</span>
+          <span className="text-xs font-mono text-text-subtle">
+            #{String(session.sessionNumber).padStart(2, "0")}
+          </span>
           <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-text)]">
             {session.label || `Sessio ${session.sessionNumber}`}
           </span>
           {sessionDate && !isEditingDate && (
-            <button
+            <Button
               type="button"
+              variant="ghost-subtle"
+              size="compact"
               onClick={() => setIsEditingDate(true)}
-              className="text-[10px] text-[var(--theme-text)]/40 hover:text-[var(--theme-text)]/70 transition-colors"
+              className="h-auto min-h-0 py-0 px-1 text-[length:var(--font-size-2xs)] font-normal text-text-placeholder hover:text-text-muted"
             >
               {sessionDate}
-            </button>
+            </Button>
           )}
           {isEditingDate && (
             <div className="flex items-center gap-2">
@@ -380,13 +364,18 @@ function SessionPanel({
                   disabled={isUpdatingDate}
                 />
               </div>
-              <button
+              <Button
                 type="button"
+                variant="ghost-subtle"
+                size="icon"
                 onClick={() => setIsEditingDate(false)}
-                className="text-[10px] text-[var(--theme-text)]/50 hover:text-[var(--theme-text)] transition-colors"
+                className="h-6 w-6 min-w-0 shrink-0"
+                aria-label="Peruuta päivämäärän muokkaus"
               >
-                ✕
-              </button>
+                <span className="text-text-subtle text-sm leading-none" aria-hidden>
+                  ✕
+                </span>
+              </Button>
             </div>
           )}
         </div>
@@ -398,29 +387,42 @@ function SessionPanel({
             size="compact"
             variant="danger"
             loading={isDeleting}
-            onClick={() => {
-              if (window.confirm(`Poista sessio ${session.sessionNumber}?`)) {
-                deleteSession({ id: session.id, episodeId });
-              }
-            }}
+            onClick={() => setDeleteSessionOpen(true)}
           >
             Poista
           </Button>
         </div>
       </div>
 
+      <ConfirmDialog
+        open={deleteSessionOpen}
+        onOpenChange={setDeleteSessionOpen}
+        title={`Poista sessio ${session.sessionNumber}?`}
+        description="Sessioon liittyvät lukusuunnitelmat ja edistyminen poistetaan."
+        confirmLabel="Poista sessio"
+        cancelLabel="Peruuta"
+        variant="danger"
+        onConfirm={() => deleteSession({ id: session.id, episodeId })}
+      />
+
       <div className="flex gap-1 pb-1">
         <Button
           size="compact"
           variant="outline"
-          onClick={() => { setShowSuggestions((v) => !v); setShowAddForm(false); }}
+          onClick={() => {
+            setShowSuggestions((v) => !v);
+            setShowAddForm(false);
+          }}
         >
           {showSuggestions ? "Piilota ehdotukset" : "Hae ehdotukset"}
         </Button>
         <Button
           size="compact"
           variant="outline"
-          onClick={() => { setShowAddForm((v) => !v); setShowSuggestions(false); }}
+          onClick={() => {
+            setShowAddForm((v) => !v);
+            setShowSuggestions(false);
+          }}
         >
           {showAddForm ? "Peruuta" : "Lisää kohde"}
         </Button>
@@ -435,7 +437,12 @@ function SessionPanel({
             <Text variant="muted">Ei ehdotuksia.</Text>
           ) : (
             suggestions.map((s) => (
-              <SuggestionRow key={s.contentRef} suggestion={s} episodeId={episodeId} sessionId={session.id} />
+              <SuggestionRow
+                key={s.contentRef}
+                suggestion={s}
+                episodeId={episodeId}
+                sessionId={session.id}
+              />
             ))
           )}
         </>
@@ -447,9 +454,7 @@ function SessionPanel({
       ) : !items || items.length === 0 ? (
         <Text variant="muted">Ei kohteita vielä.</Text>
       ) : (
-        items.map((item) => (
-          <ReadingItemRow key={item.id} item={item} episodeId={episodeId} />
-        ))
+        items.map((item) => <ReadingItemRow key={item.id} item={item} episodeId={episodeId} />)
       )}
       {showAddForm && (
         <AddItemForm
@@ -466,16 +471,15 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
   const { data: sessions, isLoading: isSessionsLoading } = useSessions(episodeId);
   const { mutate: migrateSessionDates, isPending: isMigrating } = useMigrateSessionDates();
   const [showAddSession, setShowAddSession] = useState(false);
-  const [showEpisodeLevelItems, setShowEpisodeLevelItems] = useState(false);
+  const [episodeLevelOpen, setEpisodeLevelOpen] = useState(false);
   const [showEpisodeSuggestions, setShowEpisodeSuggestions] = useState(false);
   const [showEpisodeAddForm, setShowEpisodeAddForm] = useState(false);
 
-  const { data: episodeLevelItems, isLoading: isEpisodeItemsLoading } = useEpisodeReadingItems(episodeId);
+  const { data: episodeLevelItems, isLoading: isEpisodeItemsLoading } =
+    useEpisodeReadingItems(episodeId);
   const unassignedItems = (episodeLevelItems ?? []).filter((i) => i.sessionId === null);
-  const { data: episodeSuggestions, isLoading: isEpisodeSuggestionsLoading } = useReadingSuggestions(
-    episodeId,
-    showEpisodeSuggestions,
-  );
+  const { data: episodeSuggestions, isLoading: isEpisodeSuggestionsLoading } =
+    useReadingSuggestions(episodeId, showEpisodeSuggestions);
 
   const { data: progress, isLoading: isProgressLoading } = useEpisodeProgress(episodeId);
 
@@ -490,7 +494,10 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
           <LoadingState message="Ladataan sessioita..." />
         ) : !sessions || sessions.length === 0 ? (
           <div className="space-y-2 pt-2">
-            <Text variant="muted">Ei sessioita. Voit luoda ne automaattisesti jakson sessiopäivistä tai lisätä manuaalisesti.</Text>
+            <Text variant="muted">
+              Ei sessioita. Voit luoda ne automaattisesti jakson sessiopäivistä tai lisätä
+              manuaalisesti.
+            </Text>
             <div className="flex gap-2 flex-wrap">
               <Button
                 size="compact"
@@ -499,11 +506,7 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
               >
                 Luo sessiopäivistä
               </Button>
-              <Button
-                size="compact"
-                variant="outline"
-                onClick={() => setShowAddSession(true)}
-              >
+              <Button size="compact" variant="outline" onClick={() => setShowAddSession(true)}>
                 Lisää sessio
               </Button>
             </div>
@@ -521,7 +524,7 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
               <SessionPanel key={session.id} session={session} episodeId={episodeId} />
             ))}
 
-            <div className="pt-2 border-t border-[var(--theme-border-subtle)]">
+            <div className="pt-2 border-t border-[var(--theme-border-soft)]">
               {showAddSession ? (
                 <AddSessionForm
                   episodeId={episodeId}
@@ -529,11 +532,7 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
                   onAdded={() => setShowAddSession(false)}
                 />
               ) : (
-                <Button
-                  size="compact"
-                  variant="outline"
-                  onClick={() => setShowAddSession(true)}
-                >
+                <Button size="compact" variant="outline" onClick={() => setShowAddSession(true)}>
                   + Lisää sessio
                 </Button>
               )}
@@ -543,67 +542,83 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
 
         {/* Episode-level (unassigned) items */}
         <div className="pt-2">
-          <button
-            type="button"
-            onClick={() => setShowEpisodeLevelItems((v) => !v)}
-            className="text-[10px] font-black uppercase tracking-widest text-[var(--theme-text)]/40 pt-3 pb-1 border-b border-[var(--theme-border-subtle)] w-full text-left hover:text-[var(--theme-text)]/60 transition-colors"
+          <AccordionItem
+            variant="ghost"
+            open={episodeLevelOpen}
+            onOpenChange={setEpisodeLevelOpen}
           >
-            Jakson yleiset kohteet ({unassignedItems.length}) {showEpisodeLevelItems ? "▲" : "▼"}
-          </button>
-
-          {showEpisodeLevelItems && (
-            <div className="space-y-1">
-              <div className="flex gap-1 pt-1">
-                <Button
-                  size="compact"
-                  variant="outline"
-                  onClick={() => { setShowEpisodeSuggestions((v) => !v); setShowEpisodeAddForm(false); }}
-                >
-                  {showEpisodeSuggestions ? "Piilota ehdotukset" : "Hae ehdotukset"}
-                </Button>
-                <Button
-                  size="compact"
-                  variant="outline"
-                  onClick={() => { setShowEpisodeAddForm((v) => !v); setShowEpisodeSuggestions(false); }}
-                >
-                  {showEpisodeAddForm ? "Peruuta" : "Lisää kohde"}
-                </Button>
-              </div>
-
-              {showEpisodeSuggestions && (
+            <AccordionTrigger>
+              <Text variant="kicker" className="border-0 pt-0 pb-0">
+                Jakson yleiset kohteet ({unassignedItems.length})
+              </Text>
+            </AccordionTrigger>
+            <AccordionContent className="space-y-1 pt-1">
+              {episodeLevelOpen ? (
                 <>
-                  <SectionHeader>Automaattiset ehdotukset</SectionHeader>
-                  {isEpisodeSuggestionsLoading ? (
-                    <LoadingState message="Haetaan..." />
-                  ) : !episodeSuggestions || episodeSuggestions.length === 0 ? (
-                    <Text variant="muted">Ei ehdotuksia.</Text>
+                  <div className="flex gap-1 pt-1">
+                    <Button
+                      size="compact"
+                      variant="outline"
+                      onClick={() => {
+                        setShowEpisodeSuggestions((v) => !v);
+                        setShowEpisodeAddForm(false);
+                      }}
+                    >
+                      {showEpisodeSuggestions ? "Piilota ehdotukset" : "Hae ehdotukset"}
+                    </Button>
+                    <Button
+                      size="compact"
+                      variant="outline"
+                      onClick={() => {
+                        setShowEpisodeAddForm((v) => !v);
+                        setShowEpisodeSuggestions(false);
+                      }}
+                    >
+                      {showEpisodeAddForm ? "Peruuta" : "Lisää kohde"}
+                    </Button>
+                  </div>
+
+                  {showEpisodeSuggestions && (
+                    <>
+                      <SectionHeader>Automaattiset ehdotukset</SectionHeader>
+                      {isEpisodeSuggestionsLoading ? (
+                        <LoadingState message="Haetaan..." />
+                      ) : !episodeSuggestions || episodeSuggestions.length === 0 ? (
+                        <Text variant="muted">Ei ehdotuksia.</Text>
+                      ) : (
+                        episodeSuggestions.map((s) => (
+                          <SuggestionRow
+                            key={s.contentRef}
+                            suggestion={s}
+                            episodeId={episodeId}
+                            sessionId={undefined}
+                          />
+                        ))
+                      )}
+                    </>
+                  )}
+
+                  <SectionHeader>Kohteet ({unassignedItems.length})</SectionHeader>
+                  {isEpisodeItemsLoading ? (
+                    <LoadingState message="Ladataan..." />
+                  ) : unassignedItems.length === 0 ? (
+                    <Text variant="muted">Ei kohteita vielä.</Text>
                   ) : (
-                    episodeSuggestions.map((s) => (
-                      <SuggestionRow key={s.contentRef} suggestion={s} episodeId={episodeId} sessionId={undefined} />
+                    unassignedItems.map((item) => (
+                      <ReadingItemRow key={item.id} item={item} episodeId={episodeId} />
                     ))
                   )}
+                  {showEpisodeAddForm && (
+                    <AddItemForm
+                      episodeId={episodeId}
+                      sessionId={undefined}
+                      onAdded={() => setShowEpisodeAddForm(false)}
+                    />
+                  )}
                 </>
-              )}
-
-              <SectionHeader>Kohteet ({unassignedItems.length})</SectionHeader>
-              {isEpisodeItemsLoading ? (
-                <LoadingState message="Ladataan..." />
-              ) : unassignedItems.length === 0 ? (
-                <Text variant="muted">Ei kohteita vielä.</Text>
-              ) : (
-                unassignedItems.map((item) => (
-                  <ReadingItemRow key={item.id} item={item} episodeId={episodeId} />
-                ))
-              )}
-              {showEpisodeAddForm && (
-                <AddItemForm
-                  episodeId={episodeId}
-                  sessionId={undefined}
-                  onAdded={() => setShowEpisodeAddForm(false)}
-                />
-              )}
-            </div>
-          )}
+              ) : null}
+            </AccordionContent>
+          </AccordionItem>
         </div>
 
         {/* Player progress */}
@@ -615,20 +630,21 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
         ) : (
           <div className="space-y-2">
             {progress.map((entry) => {
-              const pct = entry.totalCount > 0
-                ? Math.round((entry.completedCount / entry.totalCount) * 100)
-                : 0;
+              const pct =
+                entry.totalCount > 0
+                  ? Math.round((entry.completedCount / entry.totalCount) * 100)
+                  : 0;
               return (
                 <div key={entry.userId} className="space-y-0.5">
                   <div className="flex justify-between items-center">
                     <span className="text-xs font-bold text-[var(--theme-text)]">
                       {entry.username ?? `Pelaaja #${entry.userId}`}
                     </span>
-                    <span className="text-[10px] text-[var(--theme-text)]/50">
+                    <span className="text-[length:var(--font-size-2xs)] text-text-subtle">
                       {entry.completedCount}/{entry.totalCount}
                     </span>
                   </div>
-                  <div className="h-1 rounded-full bg-[var(--theme-bg-subtle)] overflow-hidden">
+                  <div className="h-1 rounded-full bg-[var(--theme-surface-tint)] overflow-hidden">
                     <div
                       className="h-full rounded-full bg-[var(--theme-secondary)] transition-all duration-500"
                       style={{ width: `${pct}%` }}

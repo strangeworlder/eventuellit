@@ -105,10 +105,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     if (!open || typeof document === "undefined") return null;
 
     return ReactDOM.createPortal(
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-        aria-hidden={!open}
-      >
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4" aria-hidden={!open}>
         {/* Backdrop */}
         <div
           className="absolute inset-0 bg-black/70 transition-opacity"
@@ -144,7 +141,9 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
           <div className="flex items-start justify-between gap-4 border-b border-[var(--theme-border-soft)] px-6 py-4 shrink-0">
             <HeadingLevelProvider>
               <div className="space-y-1">
-                <Heading id={titleId} variant="h3">{title}</Heading>
+                <Heading id={titleId} variant="h3">
+                  {title}
+                </Heading>
                 {description && (
                   <p id={descriptionId} className="text-sm text-text-muted">
                     {description}
@@ -167,9 +166,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
           </div>
 
           {/* Body */}
-          <div className="flex-1 overflow-y-auto px-6 py-5">
-            {children}
-          </div>
+          <div className="flex-1 overflow-y-auto px-6 py-5">{children}</div>
 
           {/* Footer */}
           {footer && (

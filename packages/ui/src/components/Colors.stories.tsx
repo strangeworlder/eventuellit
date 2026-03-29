@@ -199,9 +199,7 @@ const ColorScale = ({
               borderRadius: "0.25rem",
             }}
           >
-            <p style={{ color: colorData.base.text }}>
-              Tumma tausta ({colorData.base.background})
-            </p>
+            <p style={{ color: colorData.base.text }}>Tumma tausta ({colorData.base.background})</p>
             <p style={{ color: scale["500"], fontWeight: "bold", marginTop: "0.5rem" }}>
               Turvallinen tekstiväri: {name}-500
             </p>

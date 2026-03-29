@@ -12,8 +12,7 @@ import { join, resolve } from "node:path";
 import { episodes, episodeSkills } from "./schema";
 
 const databaseUrl =
-  process.env.DATABASE_URL ||
-  "postgresql://root:password123@localhost:5432/eventuellit";
+  process.env.DATABASE_URL || "postgresql://root:password123@localhost:5432/eventuellit";
 
 function parseFrontmatter(md: string) {
   const match = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
@@ -34,10 +33,7 @@ function parseFrontmatter(md: string) {
 
       if (
         topLevelMatch &&
-        (!isBlock ||
-          (line.trim() !== "" &&
-            !line.startsWith("  ") &&
-            !line.startsWith("\t")))
+        (!isBlock || (line.trim() !== "" && !line.startsWith("  ") && !line.startsWith("\t")))
       ) {
         if (isBlock && currentKey) {
           data[currentKey] = blockLines.join("\n").trim();
@@ -80,9 +76,7 @@ function parseFrontmatter(md: string) {
 }
 
 function extractTaidot(content: string): string[] {
-  const taidotMatch = content.match(
-    /####\s*Taidot\s*\r?\n([\s\S]*?)(?=\r?\n####|\r?\n###|$)/,
-  );
+  const taidotMatch = content.match(/####\s*Taidot\s*\r?\n([\s\S]*?)(?=\r?\n####|\r?\n###|$)/);
   if (!taidotMatch) return [];
 
   return taidotMatch[1]
@@ -96,10 +90,7 @@ async function seed() {
   const db = drizzle(pool);
 
   // Find markdown files - look relative to this script's location
-  const contentDir = resolve(
-    __dirname,
-    "../../../episodes/src/content",
-  );
+  const contentDir = resolve(__dirname, "../../../episodes/src/content");
 
   console.log(`Looking for episode markdown files in: ${contentDir}`);
 
@@ -115,17 +106,13 @@ async function seed() {
   console.log(`Found ${files.length} episode file(s): ${files.join(", ")}`);
 
   // We need a GM user ID. Find the first GM or create a placeholder.
-  const { rows: gmRows } = await pool.query(
-    `SELECT id FROM users WHERE role = 'gm' LIMIT 1`,
-  );
+  const { rows: gmRows } = await pool.query(`SELECT id FROM users WHERE role = 'gm' LIMIT 1`);
   let gmId: number;
   if (gmRows.length > 0) {
     gmId = gmRows[0].id;
     console.log(`Using existing GM user id: ${gmId}`);
   } else {
-    console.error(
-      "No GM user found in the database. Please create a GM user first.",
-    );
+    console.error("No GM user found in the database. Please create a GM user first.");
     process.exit(1);
   }
 
@@ -164,9 +151,9 @@ async function seed() {
 
     // Insert skills
     if (taidot.length > 0) {
-      await db.insert(episodeSkills).values(
-        taidot.map((name) => ({ episodeId: episode.id, name })),
-      );
+      await db
+        .insert(episodeSkills)
+        .values(taidot.map((name) => ({ episodeId: episode.id, name })));
       console.log(`  Inserted ${taidot.length} skill(s)`);
     }
   }

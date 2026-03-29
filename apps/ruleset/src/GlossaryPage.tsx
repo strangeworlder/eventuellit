@@ -11,6 +11,7 @@ import { Link } from "@repo/ui/components/Link";
 import { PageBody } from "@repo/ui/components/Page";
 import { Separator } from "@repo/ui/components/Separator";
 import { Text } from "@repo/ui/components/Text";
+import { scrollElementIntoScrollRoot } from "@repo/ui/components/article-navigation-utils";
 import { glossary, GLOSSARY_CATEGORIES, type GlossaryCategory } from "./glossary";
 
 const CATEGORY_BADGE_VARIANT: Record<
@@ -28,20 +29,17 @@ interface GlossaryPageProps {
   basePath: string;
 }
 
-function scrollToSection(pageId: string, sectionId: string, basePath: string, navigate: ReturnType<typeof useNavigate>) {
+function scrollToSection(
+  pageId: string,
+  sectionId: string,
+  basePath: string,
+  navigate: ReturnType<typeof useNavigate>,
+) {
   const targetPath = basePath === "/" ? `/${pageId}` : `${basePath}/${pageId}`;
   navigate(targetPath);
   setTimeout(() => {
-    const scrollRoot = document.getElementById("app-scroll-root");
-    const element = document.getElementById(sectionId);
-    if (!element) return;
-    if (scrollRoot) {
-      const elementRect = element.getBoundingClientRect();
-      const rootRect = scrollRoot.getBoundingClientRect();
-      const targetTop = Math.max(elementRect.top - rootRect.top + scrollRoot.scrollTop - 96, 0);
-      scrollRoot.scrollTo({ top: targetTop, behavior: "smooth" });
-    } else {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!scrollElementIntoScrollRoot(sectionId)) {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, 300);
 }
@@ -76,10 +74,7 @@ export function GlossaryPage({ basePath }: GlossaryPageProps) {
 
   return (
     <HeadingLevelProvider>
-      <Hero
-        title="Sanasto"
-        description="Pelin keskeiset termit ja käsitteet selityksineen."
-      />
+      <Hero title="Sanasto" description="Pelin keskeiset termit ja käsitteet selityksineen." />
       <PageBody>
         <Breadcrumb
           className="mb-6"
@@ -119,9 +114,7 @@ export function GlossaryPage({ basePath }: GlossaryPageProps) {
                   <Heading id={`category-${category}`} variant="h3">
                     {category}
                   </Heading>
-                  <Badge variant={CATEGORY_BADGE_VARIANT[category]}>
-                    {entries.length}
-                  </Badge>
+                  <Badge variant={CATEGORY_BADGE_VARIANT[category]}>{entries.length}</Badge>
                 </div>
 
                 <Separator variant="medium" className="mb-6" />

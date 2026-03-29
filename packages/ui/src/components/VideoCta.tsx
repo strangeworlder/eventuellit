@@ -27,16 +27,16 @@ export interface VideoCtaProps extends React.HTMLAttributes<HTMLDivElement> {
   onClickCta: () => void;
 }
 
-export const VideoCta = React.forwardRef<HTMLDivElement, VideoCtaProps>(function VideoCta({
-  youtubeId,
-  title = "Videosoitin",
-  ctaText,
-  onClickCta,
-  className,
-  ...props
-}, ref) {
+export const VideoCta = React.forwardRef<HTMLDivElement, VideoCtaProps>(function VideoCta(
+  { youtubeId, title = "Videosoitin", ctaText, onClickCta, className, ...props },
+  ref,
+) {
   return (
-    <div ref={ref} className={cn("w-full flex flex-col items-center gap-6 mobile:gap-8", className)} {...props}>
+    <div
+      ref={ref}
+      className={cn("w-full flex flex-col items-center gap-6 mobile:gap-8", className)}
+      {...props}
+    >
       <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-[var(--theme-text)]/10 bg-[var(--theme-bg)]/50 relative">
         <iframe
           className="absolute inset-0 w-full h-full border-0"

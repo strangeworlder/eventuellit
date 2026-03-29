@@ -71,25 +71,20 @@ export interface SkeletonTextProps {
 /**
  * A block of skeleton text lines, mimicking a paragraph of loading body copy.
  */
-export function SkeletonText({
-  lines = 3,
-  lastLineShort = true,
-  className,
-}: SkeletonTextProps) {
+export function SkeletonText({ lines = 3, lastLineShort = true, className }: SkeletonTextProps) {
   return (
     <div className={cn("space-y-2", className)} aria-hidden="true">
       {Array.from({ length: lines }).map((_, i) => (
         <Skeleton
           key={i}
           variant="text"
-          className={cn(
-            lastLineShort && i === lines - 1 ? "max-w-[55%]" : "max-w-full",
-          )}
+          className={cn(lastLineShort && i === lines - 1 ? "max-w-[55%]" : "max-w-full")}
         />
       ))}
     </div>
   );
 }
+SkeletonText.displayName = "SkeletonText";
 
 export interface SkeletonCardProps {
   /** Include a header skeleton row with avatar + title lines */
@@ -122,3 +117,4 @@ export function SkeletonCard({ withHeader = true, className }: SkeletonCardProps
     </div>
   );
 }
+SkeletonCard.displayName = "SkeletonCard";

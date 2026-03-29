@@ -85,8 +85,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             className={cn(
               "h-full flex flex-col bg-[var(--theme-bg)] desktop:bg-transparent border-r border-[var(--theme-secondary)] transition-all relative text-[var(--theme-secondary)] z-50",
               expanded
-                ? "duration-300 ease-out"   // expand: snappy
-                : "duration-500 ease-in",   // collapse: gentle
+                ? "duration-300 ease-out" // expand: snappy
+                : "duration-500 ease-in", // collapse: gentle
               // Mobile behavior: fixed, off-canvas, slide in
               "max-desktop:fixed max-desktop:top-0 max-desktop:bottom-0 max-desktop:left-0 max-desktop:w-64 max-desktop:z-50",
               !expanded && "max-desktop:-translate-x-full",
@@ -109,7 +109,11 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
               )}
               aria-label={expanded ? "Supista sivupalkki" : "Laajenna sivupalkki"}
             >
-              {expanded ? <Icon name="chevron-left" size={16} /> : <Icon name="chevron-right" size={16} />}
+              {expanded ? (
+                <Icon name="chevron-left" size={16} />
+              ) : (
+                <Icon name="chevron-right" size={16} />
+              )}
             </Button>
           </aside>
         </>
@@ -186,7 +190,6 @@ export const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>
         {icon && <span className={cn("flex-shrink-0", expanded && "mr-3")}>{icon}</span>}
 
         {expanded && <span className="truncate">{children}</span>}
-
       </Button>
     );
   },

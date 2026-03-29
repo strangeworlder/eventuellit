@@ -3,8 +3,8 @@ import { Heading } from "./Heading";
 import { cn } from "./utils";
 
 export interface TextSectionProps extends React.HTMLAttributes<HTMLElement> {
-    title?: string;
-    headingClassName?: string;
+  title?: string;
+  headingClassName?: string;
 }
 
 /**
@@ -14,14 +14,14 @@ export interface TextSectionProps extends React.HTMLAttributes<HTMLElement> {
  * @summary section container with optional auto-levelled heading; use in long-form article content
  */
 export const TextSection = React.forwardRef<HTMLElement, TextSectionProps>(
-    ({ className, title, headingClassName = "mb-4", children, ...props }, ref) => {
-        return (
-            <section ref={ref} className={cn("flex flex-col mt-8", className)} {...props}>
-                {title && <Heading className={headingClassName}>{title}</Heading>}
-                {children}
-            </section>
-        );
-    }
+  ({ className, title, headingClassName = "mb-4", children, ...props }, ref) => {
+    return (
+      <section ref={ref} className={cn("flex flex-col mt-8", className)} {...props}>
+        {title && <Heading className={headingClassName}>{title}</Heading>}
+        {children}
+      </section>
+    );
+  },
 );
 
 TextSection.displayName = "TextSection";

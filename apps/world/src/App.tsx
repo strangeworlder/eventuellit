@@ -1,13 +1,4 @@
-import {
-  mapSectionOffsetsToProgressPositions,
-  resolveActiveSectionFromProgress,
-} from "@repo/ui/components/article-navigation-utils";
-import {
-  ARTICLE_JUMP_EVENT,
-  ARTICLE_PROGRESS_EVENT,
-  type ArticleJumpPayload,
-  type ArticleProgressPayload,
-} from "@repo/ui/components/article-progress-events";
+import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { Badge } from "@repo/ui/components/Badge";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
@@ -23,15 +14,8 @@ import { TextSection } from "@repo/ui/components/TextSection";
 import { TopNavDropdown, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { Text } from "@repo/ui/components/Text";
 import { useEffect, useRef } from "react";
-import {
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-import { requestToast } from "@repo/ui/components/Toast";
+import { Outlet, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
+import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
 import {
   StationConnections,
   type StationConnectionNode,
@@ -177,8 +161,7 @@ function WorldHub({ basePath }: { basePath: string }) {
   const categoryEntryCount = (categoryId: string) =>
     entries.filter((e) => e.category === categoryId).length;
 
-  const categoryFirstStation = (categoryId: string) =>
-    entriesForCategory(categoryId)[0]?.id ?? "";
+  const categoryFirstStation = (categoryId: string) => entriesForCategory(categoryId)[0]?.id ?? "";
 
   return (
     <Page>
@@ -224,9 +207,7 @@ function WorldHub({ basePath }: { basePath: string }) {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <Text className="mb-3">
-                        {category.description}
-                      </Text>
+                      <Text className="mb-3">{category.description}</Text>
                       <Text variant="caption" className="text-sm">
                         {count} {count === 1 ? "artikkeli" : "artikkelia"}
                       </Text>
@@ -309,13 +290,7 @@ function StationFactions({
 // ---------------------------------------------------------------------------
 // Article content — a single entry rendered with progress tracking
 // ---------------------------------------------------------------------------
-function ArticleContent({
-  entry,
-  basePath,
-}: {
-  entry: WorldEntry;
-  basePath: string;
-}) {
+function ArticleContent({ entry, basePath }: { entry: WorldEntry; basePath: string }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const articleRef = useRef<HTMLDivElement>(null);
@@ -350,88 +325,11 @@ function ArticleContent({
     };
   }, [currentIndex, categoryEntries, basePath, entry.category, navigate]);
 
-  // Article progress tracking
-  useEffect(() => {
-    const scrollRoot = document.getElementById("app-scroll-root");
-    if (!scrollRoot) {
-      return;
-    }
-
-    const getOffsetWithinScrollRoot = (element: HTMLElement) => {
-      const elementRect = element.getBoundingClientRect();
-      const rootRect = scrollRoot.getBoundingClientRect();
-      return elementRect.top - rootRect.top + scrollRoot.scrollTop;
-    };
-
-    const dispatchProgress = (payload: ArticleProgressPayload) => {
-      window.dispatchEvent(
-        new CustomEvent<ArticleProgressPayload>(ARTICLE_PROGRESS_EVENT, { detail: payload }),
-      );
-    };
-
-    const updateScrollState = () => {
-      const scrollY = scrollRoot.scrollTop;
-      const maxScroll = Math.max(scrollRoot.scrollHeight - scrollRoot.clientHeight, 1);
-      const headingElements = Array.from(
-        articleRef.current?.querySelectorAll<HTMLElement>("h3[id]") ?? [],
-      );
-      const renderedSections = headingElements.map((heading) => ({
-        id: heading.id,
-        label: heading.textContent?.trim() ?? heading.id,
-      }));
-
-      const sectionOffsets = headingElements.map((heading) => ({
-        id: heading.id,
-        top: getOffsetWithinScrollRoot(heading),
-      }));
-
-      const nextProgress = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
-      const nextMarkerPositions = mapSectionOffsetsToProgressPositions(
-        sectionOffsets,
-        0,
-        scrollRoot.scrollHeight,
-      );
-      const nextActiveSectionId = resolveActiveSectionFromProgress(
-        nextProgress,
-        renderedSections.map((s) => s.id),
-        nextMarkerPositions,
-      );
-
-      dispatchProgress({
-        source: "world",
-        route: pathname,
-        sections: renderedSections,
-        progress: nextProgress,
-        activeSectionId: nextActiveSectionId,
-        markerPositions: nextMarkerPositions,
-      });
-    };
-
-    const onJumpRequested = (event: Event) => {
-      const customEvent = event as CustomEvent<ArticleJumpPayload>;
-      const payload = customEvent.detail;
-      if (!payload || payload.source !== "world") {
-        return;
-      }
-
-      const element = document.getElementById(payload.sectionId);
-      if (element) {
-        const targetTop = Math.max(getOffsetWithinScrollRoot(element) - 96, 0);
-        scrollRoot.scrollTo({ top: targetTop, behavior: "smooth" });
-      }
-    };
-
-    updateScrollState();
-    scrollRoot.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-    window.addEventListener(ARTICLE_JUMP_EVENT, onJumpRequested as EventListener);
-
-    return () => {
-      scrollRoot.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-      window.removeEventListener(ARTICLE_JUMP_EVENT, onJumpRequested as EventListener);
-    };
-  }, [pathname]);
+  useArticleScrollProgress({
+    articleRef,
+    source: "world",
+    route: pathname,
+  });
 
   const connectionNodes = buildConnectionNodes(entry.title);
   const hasFactionData = !!(entry.ruling_faction || entry.disrupting_factions?.length);
@@ -448,11 +346,7 @@ function ArticleContent({
       </HeadingLevelProvider>
 
       <PageBody
-        className={
-          hasSidebar
-            ? "grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8"
-            : undefined
-        }
+        className={hasSidebar ? "grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8" : undefined}
       >
         <Breadcrumb
           className={hasSidebar ? "col-span-full mb-2" : "mb-2"}
@@ -465,7 +359,10 @@ function ArticleContent({
             { label: entry.title },
           ]}
         />
-        <div ref={articleRef} className={`animate-in fade-in duration-500 space-y-6${hasSidebar ? "" : "mx-auto max-w-3xl"}`}>
+        <div
+          ref={articleRef}
+          className={`animate-in fade-in duration-500 space-y-6${hasSidebar ? "" : "mx-auto max-w-3xl"}`}
+        >
           <HeadingLevelProvider>
             <MarkdownRenderer headingIdPrefix={`world-${entry.id}`}>
               {entry.content}
@@ -477,18 +374,16 @@ function ArticleContent({
           <PageAside sticky>
             <HeadingLevelProvider>
               <HeadingLevelProvider>
-              {connectionNodes.length > 0 && (
-                  
-                <StationConnections
-                  connections={connectionNodes}
-                  tension={entry.tension}
-                  currentStationOrder={entry.order}
-                  currentStationTitle={entry.title}
-                  stations={categoryEntries}
-                  basePath={`${basePath}/${entry.category}`}
-                />
-                
-              )}
+                {connectionNodes.length > 0 && (
+                  <StationConnections
+                    connections={connectionNodes}
+                    tension={entry.tension}
+                    currentStationOrder={entry.order}
+                    currentStationTitle={entry.title}
+                    stations={categoryEntries}
+                    basePath={`${basePath}/${entry.category}`}
+                  />
+                )}
                 {hasFactionData && (
                   <StationFactions
                     rulingFaction={entry.ruling_faction}
@@ -506,21 +401,6 @@ function ArticleContent({
 }
 
 // ---------------------------------------------------------------------------
-// 404 redirect with toast
-// ---------------------------------------------------------------------------
-function NotFoundRedirect({ to }: { to: string }) {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      requestToast({ message: "Sivua ei löydy. Uudelleenohjattu lähimpään vanhempaan.", variant: "warning", duration: 0 });
-      navigate(to, { replace: true });
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return null;
-}
-
-// ---------------------------------------------------------------------------
 // Station detail route — reads :stationId param
 // ---------------------------------------------------------------------------
 function StationDetail({
@@ -535,7 +415,7 @@ function StationDetail({
   const categoryId = categoryEntries[0]?.category ?? "";
 
   if (!entry) {
-    return <NotFoundRedirect to={`${basePath}/${categoryId}`} />;
+    return <MfeNotFoundRedirect to={`${basePath}/${categoryId}`} />;
   }
 
   return <ArticleContent entry={entry} basePath={basePath} />;
@@ -559,10 +439,7 @@ function KynnysIndex({
   return (
     <>
       <HeadingLevelProvider>
-        <Hero
-          title={category?.title ?? categoryId}
-          description={category?.description}
-        />
+        <Hero title={category?.title ?? categoryId} description={category?.description} />
       </HeadingLevelProvider>
       <PageBody>
         <Breadcrumb
@@ -573,40 +450,39 @@ function KynnysIndex({
           ]}
         />
         <HeadingLevelProvider>
-        <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
-          {categoryEntries.map((entry) => (
-            <a
-              key={entry.id}
-              href={`${categoryBasePath}/${entry.id}`}
-              className="no-underline text-inherit"
-            >
-              <Card variant="interactive" className="h-full cursor-pointer">
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-2">
-                    <CardTitle>{entry.title}</CardTitle>
-                    <span className="text-xs font-mono shrink-0 mt-0.5">
-                      {String(entry.order).padStart(2, "0")}
-                    </span>
-                  </div>
-                </CardHeader>
-                {(entry.description || entry.tension) && (
-                  <CardContent>
-                    {entry.description && (
-                      <Text className="text-sm">
-                        {entry.description}
-                      </Text>
-                    )}
-                    {entry.tension && (
-                      <Text variant="caption" className="mt-2 text-xs uppercase tracking-widest text-[var(--theme-primary)]">
-                        {entry.tension}
-                      </Text>
-                    )}
-                  </CardContent>
-                )}
-              </Card>
-            </a>
-          ))}
-        </div>
+          <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
+            {categoryEntries.map((entry) => (
+              <a
+                key={entry.id}
+                href={`${categoryBasePath}/${entry.id}`}
+                className="no-underline text-inherit"
+              >
+                <Card variant="interactive" className="h-full cursor-pointer">
+                  <CardHeader>
+                    <div className="flex items-start justify-between gap-2">
+                      <CardTitle>{entry.title}</CardTitle>
+                      <span className="text-xs font-mono shrink-0 mt-0.5">
+                        {String(entry.order).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </CardHeader>
+                  {(entry.description || entry.tension) && (
+                    <CardContent>
+                      {entry.description && <Text className="text-sm">{entry.description}</Text>}
+                      {entry.tension && (
+                        <Text
+                          variant="caption"
+                          className="mt-2 text-xs uppercase tracking-widest text-[var(--theme-primary)]"
+                        >
+                          {entry.tension}
+                        </Text>
+                      )}
+                    </CardContent>
+                  )}
+                </Card>
+              </a>
+            ))}
+          </div>
         </HeadingLevelProvider>
       </PageBody>
     </>
@@ -755,9 +631,7 @@ function FaktiotHub({
       >
         <div className="flex gap-2 mt-1 flex-wrap">
           <Badge variant="ghost">{subCount} alafaktiota</Badge>
-          {stationCount > 0 && (
-            <Badge variant="ghost">{stationCount} asemaa</Badge>
-          )}
+          {stationCount > 0 && <Badge variant="ghost">{stationCount} asemaa</Badge>}
         </div>
       </EntityCard>
     );
@@ -775,52 +649,49 @@ function FaktiotHub({
       <PageBody>
         <Breadcrumb
           className="mb-8"
-          items={[
-            { label: "Maailma", to: basePath || "/world" },
-            { label: "Faktiot" },
-          ]}
+          items={[{ label: "Maailma", to: basePath || "/world" }, { label: "Faktiot" }]}
         />
 
         {/* Power Triad */}
         <HeadingLevelProvider>
           <HeadingLevelProvider>
-          <TextSection title="Kolme suurvaltaa" className="mb-10">
-            <div className="flex flex-col gap-4 max-w-2xl mx-auto mt-4">
-              {/* Top: Ekklesia */}
-              <div className="flex justify-center">
-                {renderMainCard(ekklesiaEntry, "w-full max-w-xs")}
+            <TextSection title="Kolme suurvaltaa" className="mb-10">
+              <div className="flex flex-col gap-4 max-w-2xl mx-auto mt-4">
+                {/* Top: Ekklesia */}
+                <div className="flex justify-center">
+                  {renderMainCard(ekklesiaEntry, "w-full max-w-xs")}
+                </div>
+                {/* Bottom: Tuhkan puolue + KW-konsortio */}
+                <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
+                  {renderMainCard(tuhkanEntry)}
+                  {renderMainCard(kwEntry)}
+                </div>
               </div>
-              {/* Bottom: Tuhkan puolue + KW-konsortio */}
-              <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
-                {renderMainCard(tuhkanEntry)}
-                {renderMainCard(kwEntry)}
-              </div>
-            </div>
-          </TextSection>
+            </TextSection>
 
-          {/* All factions grid */}
-          <TextSection title="Kaikki faktiot">
-            <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-4 mt-4">
-              {factiotEntries.map((entry) => {
-                const def = getFactionById(entry.id);
-                const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
-                return (
-                  <EntityCard
-                    key={entry.id}
-                    name={entry.title}
-                    subtitle={entry.description}
-                    color={def?.color ?? "secondary"}
-                    iconName={def?.icon}
-                    parentLabel={parentDef?.name}
-                    href={`${basePath}/faktiot/${entry.id}`}
-                    variant={entry.parent ? "npc" : "faction"}
-                  />
-                );
-              })}
-            </div>
-          </TextSection>
+            {/* All factions grid */}
+            <TextSection title="Kaikki faktiot">
+              <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-4 mt-4">
+                {factiotEntries.map((entry) => {
+                  const def = getFactionById(entry.id);
+                  const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
+                  return (
+                    <EntityCard
+                      key={entry.id}
+                      name={entry.title}
+                      subtitle={entry.description}
+                      color={def?.color ?? "secondary"}
+                      iconName={def?.icon}
+                      parentLabel={parentDef?.name}
+                      href={`${basePath}/faktiot/${entry.id}`}
+                      variant={entry.parent ? "npc" : "faction"}
+                    />
+                  );
+                })}
+              </div>
+            </TextSection>
+          </HeadingLevelProvider>
         </HeadingLevelProvider>
-        </HeadingLevelProvider>        
       </PageBody>
     </>
   );
@@ -842,21 +713,15 @@ function FactionDetail({
   const entry = factiotEntries.find((e) => e.id === factionId);
 
   if (!entry) {
-    return <NotFoundRedirect to={`${basePath}/faktiot`} />;
+    return <MfeNotFoundRedirect to={`${basePath}/faktiot`} />;
   }
 
   const def = getFactionById(entry.id);
   const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
-  const subEntries = entry.parent
-    ? []
-    : factiotEntries.filter((e) => e.parent === entry.id);
+  const subEntries = entry.parent ? [] : factiotEntries.filter((e) => e.parent === entry.id);
 
-  const controlledStations = stationEntries.filter(
-    (s) => s.ruling_faction === entry.id,
-  );
-  const disruptedStations = stationEntries.filter((s) =>
-    s.disrupting_factions?.includes(entry.id),
-  );
+  const controlledStations = stationEntries.filter((s) => s.ruling_faction === entry.id);
+  const disruptedStations = stationEntries.filter((s) => s.disrupting_factions?.includes(entry.id));
 
   // Factions that control stations this faction disrupts (rivals)
   const rivalIds = Array.from(
@@ -866,7 +731,9 @@ function FactionDetail({
         .map((s) => s.ruling_faction!),
     ),
   );
-  const rivals = rivalIds.map((id) => getFactionById(id)).filter(Boolean) as (typeof factions)[number][];
+  const rivals = rivalIds
+    .map((id) => getFactionById(id))
+    .filter(Boolean) as (typeof factions)[number][];
 
   const accentColor = def?.color ?? "secondary";
 
@@ -879,105 +746,103 @@ function FactionDetail({
           backgroundImageSrc={entry.image ? resolveRemoteAssetUrl(entry.image) : undefined}
         />
 
-      <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
-        <Breadcrumb
-          className="col-span-full mb-2"
-          items={[
-            { label: "Maailma", to: basePath || "/world" },
-            { label: "Faktiot", to: `${basePath}/faktiot` },
-            ...(parentDef
-              ? [{ label: parentDef.name, to: `${basePath}/faktiot/${parentDef.id}` }]
-              : []),
-            { label: entry.title },
-          ]}
-        />
+        <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
+          <Breadcrumb
+            className="col-span-full mb-2"
+            items={[
+              { label: "Maailma", to: basePath || "/world" },
+              { label: "Faktiot", to: `${basePath}/faktiot` },
+              ...(parentDef
+                ? [{ label: parentDef.name, to: `${basePath}/faktiot/${parentDef.id}` }]
+                : []),
+              { label: entry.title },
+            ]}
+          />
 
-        {/* Main content column */}
-        <div className="space-y-8 animate-in fade-in duration-500">
-          {/* Lore */}
-          <MarkdownRenderer headingIdPrefix={`faction-${entry.id}`}>
-            {entry.content}
-          </MarkdownRenderer>
+          {/* Main content column */}
+          <div className="space-y-8 animate-in fade-in duration-500">
+            {/* Lore */}
+            <MarkdownRenderer headingIdPrefix={`faction-${entry.id}`}>
+              {entry.content}
+            </MarkdownRenderer>
 
-          {/* Subfactions (main factions only) */}
-          {subEntries.length > 0 && (
+            {/* Subfactions (main factions only) */}
+            {subEntries.length > 0 && (
+              <HeadingLevelProvider>
+                <TextSection title="Alafaktiot">
+                  <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-4">
+                    {subEntries.map((sub) => {
+                      const subDef = getFactionById(sub.id);
+                      return (
+                        <EntityCard
+                          key={sub.id}
+                          name={sub.title}
+                          subtitle={sub.description}
+                          color={subDef?.color ?? accentColor}
+                          iconName={subDef?.icon}
+                          href={`${basePath}/faktiot/${sub.id}`}
+                          variant="npc"
+                        />
+                      );
+                    })}
+                  </div>
+                </TextSection>
+              </HeadingLevelProvider>
+            )}
+
+            {/* NPCs placeholder */}
             <HeadingLevelProvider>
-              <TextSection title="Alafaktiot">
-                <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-4">
-                  {subEntries.map((sub) => {
-                    const subDef = getFactionById(sub.id);
-                    return (
-                      <EntityCard
-                        key={sub.id}
-                        name={sub.title}
-                        subtitle={sub.description}
-                        color={subDef?.color ?? accentColor}
-                        iconName={subDef?.icon}
-                        href={`${basePath}/faktiot/${sub.id}`}
-                        variant="npc"
-                      />
-                    );
-                  })}
+              <TextSection title="Merkittävät hahmot">
+                <div className="mt-4">
+                  <NoticePanel variant="info">
+                    Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
+                  </NoticePanel>
                 </div>
               </TextSection>
             </HeadingLevelProvider>
-          )}
 
-          {/* NPCs placeholder */}
-          <HeadingLevelProvider>
-            <TextSection title="Merkittävät hahmot">
-              <div className="mt-4">
-                <NoticePanel variant="info">
-                  Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
-                </NoticePanel>
-              </div>
-            </TextSection>
-          </HeadingLevelProvider>
+            {/* Controlled stations */}
+            {controlledStations.length > 0 && (
+              <HeadingLevelProvider>
+                <TextSection title="Hallitut asemat">
+                  <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 mt-4">
+                    {controlledStations.map((station) => (
+                      <a
+                        key={station.id}
+                        href={`${basePath}/kynnys/${station.id}`}
+                        className="no-underline text-inherit"
+                      >
+                        <Card variant="interactive" className="h-full cursor-pointer">
+                          <CardHeader>
+                            <div className="flex items-start justify-between gap-2">
+                              <CardTitle>{station.title}</CardTitle>
+                              {station.tension && (
+                                <Text
+                                  variant="caption"
+                                  className="text-xs uppercase tracking-widest text-[var(--theme-primary)] shrink-0 mt-0.5"
+                                >
+                                  {station.tension}
+                                </Text>
+                              )}
+                            </div>
+                          </CardHeader>
+                          {station.description && (
+                            <CardContent>
+                              <Text className="text-sm">{station.description}</Text>
+                            </CardContent>
+                          )}
+                        </Card>
+                      </a>
+                    ))}
+                  </div>
+                </TextSection>
+              </HeadingLevelProvider>
+            )}
+          </div>
 
-          {/* Controlled stations */}
-          {controlledStations.length > 0 && (
-            <HeadingLevelProvider>
-              <TextSection title="Hallitut asemat">
-              <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 mt-4">
-                  {controlledStations.map((station) => (
-                    <a
-                      key={station.id}
-                      href={`${basePath}/kynnys/${station.id}`}
-                      className="no-underline text-inherit"
-                    >
-                      <Card variant="interactive" className="h-full cursor-pointer">
-                        <CardHeader>
-                          <div className="flex items-start justify-between gap-2">
-                            <CardTitle>{station.title}</CardTitle>
-                            {station.tension && (
-                              <Text
-                                variant="caption"
-                                className="text-xs uppercase tracking-widest text-[var(--theme-primary)] shrink-0 mt-0.5"
-                              >
-                                {station.tension}
-                              </Text>
-                            )}
-                          </div>
-                        </CardHeader>
-                        {station.description && (
-                          <CardContent>
-                            <Text className="text-sm">
-                              {station.description}
-                            </Text>
-                          </CardContent>
-                        )}
-                      </Card>
-                    </a>
-                  ))}
-                </div>
-              </TextSection>
-            </HeadingLevelProvider>
-          )}
-        </div>
-
-        {/* Sidebar */}
-        <PageAside sticky>
-          <div className="space-y-4">
+          {/* Sidebar */}
+          <PageAside sticky>
+            <div className="space-y-4">
               {/* Parent faction link (subfactions only) */}
               {parentDef && (
                 <Card variant="outline">
@@ -1079,8 +944,8 @@ function FactionDetail({
                 </Card>
               )}
             </div>
-        </PageAside>
-      </PageBody>
+          </PageAside>
+        </PageBody>
       </HeadingLevelProvider>
     </>
   );
@@ -1111,10 +976,7 @@ function AppRoutes() {
       <Route
         path="faktiot"
         element={
-          <FaktiotLayout
-            factiotEntries={entriesForCategory("faktiot")}
-            basePath={basePath}
-          />
+          <FaktiotLayout factiotEntries={entriesForCategory("faktiot")} basePath={basePath} />
         }
       >
         <Route
@@ -1169,19 +1031,14 @@ function AppRoutes() {
               />
               <Route
                 path=":stationId"
-                element={
-                  <StationDetail
-                    categoryEntries={categoryEntries}
-                    basePath={basePath}
-                  />
-                }
+                element={<StationDetail categoryEntries={categoryEntries} basePath={basePath} />}
               />
             </Route>
           );
         })}
 
       {/* Fallback */}
-      <Route path="*" element={<NotFoundRedirect to={basePath || "/world"} />} />
+      <Route path="*" element={<MfeNotFoundRedirect to={basePath || "/world"} />} />
     </Routes>
   );
 }

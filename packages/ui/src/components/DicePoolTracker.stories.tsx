@@ -50,9 +50,7 @@ export const Oletuspooli: Story = {
         {...args}
         removedIds={removed}
         onDieToggle={(id) =>
-          setRemoved((prev) =>
-            prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
-          )
+          setRemoved((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
         }
       />
     );
@@ -74,9 +72,7 @@ export const SekoitettuPooli: Story = {
         {...args}
         removedIds={removed}
         onDieToggle={(id) =>
-          setRemoved((prev) =>
-            prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
-          )
+          setRemoved((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
         }
       />
     );

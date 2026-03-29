@@ -45,12 +45,7 @@ export const Default: Story = {
  */
 export const TwoLevels: Story = {
   render: () => (
-    <Breadcrumb
-      items={[
-        { label: "Säännöt", to: "/ruleset" },
-        { label: "Johdanto" },
-      ]}
-    />
+    <Breadcrumb items={[{ label: "Säännöt", to: "/ruleset" }, { label: "Johdanto" }]} />
   ),
 };
 
@@ -58,9 +53,7 @@ export const TwoLevels: Story = {
  * Single-level breadcrumb for the current top-level page — no links, just the current location.
  */
 export const SingleLevel: Story = {
-  render: () => (
-    <Breadcrumb items={[{ label: "Maailma" }]} />
-  ),
+  render: () => <Breadcrumb items={[{ label: "Maailma" }]} />,
 };
 
 /**

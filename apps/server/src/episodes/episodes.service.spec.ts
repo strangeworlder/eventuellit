@@ -74,10 +74,7 @@ describe("EpisodesService", () => {
     const episodeData = { id: 1, title: "New Episode", slug: "new-ep" };
     mockDb.returning.mockResolvedValueOnce([episodeData]);
 
-    const result = await service.create(
-      { slug: "new-ep", title: "New Episode" },
-      1,
-    );
+    const result = await service.create({ slug: "new-ep", title: "New Episode" }, 1);
     expect(mockDb.insert).toHaveBeenCalled();
     expect(result).toEqual(episodeData);
   });
@@ -95,9 +92,7 @@ describe("EpisodesService", () => {
 
   it("should throw when updating non-existent episode", async () => {
     mockDb.where.mockResolvedValueOnce([]);
-    await expect(service.update(999, { title: "X" })).rejects.toThrow(
-      NotFoundException,
-    );
+    await expect(service.update(999, { title: "X" })).rejects.toThrow(NotFoundException);
   });
 
   it("should delete an episode", async () => {
@@ -121,9 +116,7 @@ describe("EpisodesService", () => {
   it("should add a skill to an episode", async () => {
     const episode = { id: 1, title: "Test", slug: "test" };
     mockDb.where.mockResolvedValueOnce([episode]);
-    mockDb.returning.mockResolvedValueOnce([
-      { id: 1, episodeId: 1, name: "Murtovaras" },
-    ]);
+    mockDb.returning.mockResolvedValueOnce([{ id: 1, episodeId: 1, name: "Murtovaras" }]);
 
     const result = await service.addSkill(1, { name: "Murtovaras" });
     expect(result).toEqual({ id: 1, episodeId: 1, name: "Murtovaras" });
@@ -144,9 +137,7 @@ describe("EpisodesService", () => {
   it("should throw when removing skill from wrong episode", async () => {
     const episode = { id: 1, title: "Test", slug: "test" };
     const skill = { id: 5, episodeId: 2, name: "Lääkäri" }; // different episodeId
-    mockDb.where
-      .mockResolvedValueOnce([episode])
-      .mockResolvedValueOnce([skill]);
+    mockDb.where.mockResolvedValueOnce([episode]).mockResolvedValueOnce([skill]);
 
     await expect(service.removeSkill(1, 5)).rejects.toThrow(NotFoundException);
   });

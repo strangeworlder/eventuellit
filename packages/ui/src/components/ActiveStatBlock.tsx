@@ -69,18 +69,13 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
         >
           <HeadingLevelProvider>
             <div
-              className={cn(
-                "flex items-center gap-3 pb-3 border-b border-current/20",
-                {
-                  "border-b-[var(--theme-secondary)]": variant === "outline",
-                  "border-b-[var(--theme-accent)]": variant === "highlight",
-                }
-              )}
+              className={cn("flex items-center gap-3 pb-3 border-b border-current/20", {
+                "border-b-[var(--theme-secondary)]": variant === "outline",
+                "border-b-[var(--theme-accent)]": variant === "highlight",
+              })}
             >
               {icon && <Icon name={icon} size={24} className="shrink-0" />}
-              <Heading>
-                {label}
-              </Heading>
+              <Heading>{label}</Heading>
             </div>
 
             <div className="flex items-center justify-between mt-1">
@@ -99,9 +94,7 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
                   {value}
                 </span>
                 {maxValue !== undefined && (
-                  <span className="text-lg font-bold leading-none">
-                    / {maxValue}
-                  </span>
+                  <span className="text-lg font-bold leading-none">/ {maxValue}</span>
                 )}
               </div>
 

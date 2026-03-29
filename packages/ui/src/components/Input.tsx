@@ -22,14 +22,30 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
  * @summary single-line text field with label/error; supports obscured prop for hidden content
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, error, theme, size = "default", obscured: obscuredProp, disabled, placeholder, value, defaultValue, ...props }, ref) => {
+  (
+    {
+      className,
+      label,
+      error,
+      theme,
+      size = "default",
+      obscured: obscuredProp,
+      disabled,
+      placeholder,
+      value,
+      defaultValue,
+      ...props
+    },
+    ref,
+  ) => {
     const obscured = obscuredProp || useObscured();
     const isDisabled = disabled || obscured;
     const { glitchStyle } = useObscuredGlitch(obscured);
 
     const obscuredPlaceholder = obscured && placeholder ? obscureString(placeholder) : placeholder;
     const obscuredValue = obscured && typeof value === "string" ? obscureString(value) : value;
-    const obscuredDefault = obscured && typeof defaultValue === "string" ? obscureString(defaultValue) : defaultValue;
+    const obscuredDefault =
+      obscured && typeof defaultValue === "string" ? obscureString(defaultValue) : defaultValue;
 
     return (
       <div

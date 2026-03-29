@@ -106,7 +106,11 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
             aria-label={expanded ? "Sulje paneeli" : "Avaa paneeli"}
             aria-expanded={expanded}
           >
-            {expanded ? <Icon name="chevron-right" size={16} /> : <Icon name="chevron-left" size={16} />}
+            {expanded ? (
+              <Icon name="chevron-right" size={16} />
+            ) : (
+              <Icon name="chevron-left" size={16} />
+            )}
           </Button>
 
           <aside

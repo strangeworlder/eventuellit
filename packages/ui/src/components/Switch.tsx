@@ -6,8 +6,7 @@ import type { Theme } from "./Theme";
 import { useObscuredGlitch } from "./useObscuredGlitch";
 import { cn, obscureString } from "./utils";
 
-export interface SwitchProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /** Primary label rendered beside the switch. */
   label: string;
   /** Optional helper text shown beneath the label. */
@@ -25,7 +24,21 @@ export interface SwitchProps
  * @summary immediate-effect binary toggle; use Checkbox when toggle is part of a submitted form
  */
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
-  ({ className, label, description, error, theme, id, checked, obscured: obscuredProp, disabled, ...props }, ref) => {
+  (
+    {
+      className,
+      label,
+      description,
+      error,
+      theme,
+      id,
+      checked,
+      obscured: obscuredProp,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = React.useId();
     const inputId = id ?? generatedId;
     const obscured = obscuredProp || useObscured();
@@ -34,10 +47,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
 
     return (
       <div
-        className={cn(
-          "flex flex-col gap-1 mt-2",
-          obscured && "select-none pointer-events-none",
-        )}
+        className={cn("flex flex-col gap-1 mt-2", obscured && "select-none pointer-events-none")}
         data-theme={theme}
       >
         <label

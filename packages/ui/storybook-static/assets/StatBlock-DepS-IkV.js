@@ -1,8 +1,141 @@
-import{j as e}from"./jsx-runtime-u17CrQMm.js";import{R as y}from"./iframe-RLsCwdXb.js";import{c as f}from"./Button-eGzUney-.js";import{a as b}from"./Heading-DaMVR3YC.js";import{I as i}from"./Icon-dO9IW84r.js";import{u as x,T as g,p as k}from"./Theme-9Lj_OJ7_.js";const m=y.forwardRef(({className:o,label:d,value:c,maxValue:t,icon:r,variant:a="secondary",theme:l,...p},u)=>{const v=x(),n=l??v,s=a==="primary"?k[n]:l,h=s??n;return e.jsx(g.Provider,{value:h,children:e.jsxs("div",{ref:u,"data-theme":s,"data-variant":a,className:f("flex items-center gap-4 align-center justify-between p-6 rounded-xl shadow-sm transition-all duration-200 relative overflow-hidden",{"bg-[var(--theme-bg)] text-[var(--theme-text)]":a==="primary","bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":a==="secondary","bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":a==="accent"},o),...p,children:[e.jsxs("div",{className:"flex items-center gap-3",children:[r&&e.jsx(i,{name:r,size:24,className:"shrink-0"}),e.jsx(b,{children:d})]}),e.jsxs("div",{className:"flex items-baseline gap-1",children:[e.jsx("span",{className:"text-3xl font-heading font-black leading-none",children:c}),t!==void 0&&e.jsxs("span",{className:"text-lg font-bold opacity-50 leading-none",children:["/ ",t]})]}),r&&e.jsx(i,{name:r,size:128,className:"-top-6 -left-6 absolute opacity-5"})]})})});m.displayName="StatBlock";m.__docgenInfo={description:"",methods:[],displayName:"StatBlock",props:{label:{required:!0,tsType:{name:"string"},description:""},value:{required:!0,tsType:{name:"number"},description:""},maxValue:{required:!1,tsType:{name:"number"},description:""},icon:{required:!1,tsType:{name:"union",raw:"keyof typeof icons",elements:[{name:"literal",value:"sparkles"},{name:"literal",value:"dice5"},{name:"literal",value:"book"},{name:"literal",value:'"chevron-left"'},{name:"literal",value:'"chevron-right"'},{name:"literal",value:"minus"},{name:"literal",value:"plus"},{name:"literal",value:"zap"},{name:"literal",value:"shield"},{name:"literal",value:"x"}]},description:""},variant:{required:!1,tsType:{name:"union",raw:'"primary" | "secondary" | "accent"',elements:[{name:"literal",value:'"primary"'},{name:"literal",value:'"secondary"'},{name:"literal",value:'"accent"'}]},description:"",defaultValue:{value:'"secondary"',computed:!1}},theme:{required:!1,tsType:{name:"union",raw:`| "base"\r
+import { j as e } from "./jsx-runtime-u17CrQMm.js";
+import { R as y } from "./iframe-RLsCwdXb.js";
+import { c as f } from "./Button-eGzUney-.js";
+import { a as b } from "./Heading-DaMVR3YC.js";
+import { I as i } from "./Icon-dO9IW84r.js";
+import { u as x, T as g, p as k } from "./Theme-9Lj_OJ7_.js";
+const m = y.forwardRef(
+  (
+    {
+      className: o,
+      label: d,
+      value: c,
+      maxValue: t,
+      icon: r,
+      variant: a = "secondary",
+      theme: l,
+      ...p
+    },
+    u,
+  ) => {
+    const v = x(),
+      n = l ?? v,
+      s = a === "primary" ? k[n] : l,
+      h = s ?? n;
+    return e.jsx(g.Provider, {
+      value: h,
+      children: e.jsxs("div", {
+        ref: u,
+        "data-theme": s,
+        "data-variant": a,
+        className: f(
+          "flex items-center gap-4 align-center justify-between p-6 rounded-xl shadow-sm transition-all duration-200 relative overflow-hidden",
+          {
+            "bg-[var(--theme-bg)] text-[var(--theme-text)]": a === "primary",
+            "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
+              a === "secondary",
+            "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
+              a === "accent",
+          },
+          o,
+        ),
+        ...p,
+        children: [
+          e.jsxs("div", {
+            className: "flex items-center gap-3",
+            children: [
+              r && e.jsx(i, { name: r, size: 24, className: "shrink-0" }),
+              e.jsx(b, { children: d }),
+            ],
+          }),
+          e.jsxs("div", {
+            className: "flex items-baseline gap-1",
+            children: [
+              e.jsx("span", {
+                className: "text-3xl font-heading font-black leading-none",
+                children: c,
+              }),
+              t !== void 0 &&
+                e.jsxs("span", {
+                  className: "text-lg font-bold opacity-50 leading-none",
+                  children: ["/ ", t],
+                }),
+            ],
+          }),
+          r && e.jsx(i, { name: r, size: 128, className: "-top-6 -left-6 absolute opacity-5" }),
+        ],
+      }),
+    });
+  },
+);
+m.displayName = "StatBlock";
+m.__docgenInfo = {
+  description: "",
+  methods: [],
+  displayName: "StatBlock",
+  props: {
+    label: { required: !0, tsType: { name: "string" }, description: "" },
+    value: { required: !0, tsType: { name: "number" }, description: "" },
+    maxValue: { required: !1, tsType: { name: "number" }, description: "" },
+    icon: {
+      required: !1,
+      tsType: {
+        name: "union",
+        raw: "keyof typeof icons",
+        elements: [
+          { name: "literal", value: "sparkles" },
+          { name: "literal", value: "dice5" },
+          { name: "literal", value: "book" },
+          { name: "literal", value: '"chevron-left"' },
+          { name: "literal", value: '"chevron-right"' },
+          { name: "literal", value: "minus" },
+          { name: "literal", value: "plus" },
+          { name: "literal", value: "zap" },
+          { name: "literal", value: "shield" },
+          { name: "literal", value: "x" },
+        ],
+      },
+      description: "",
+    },
+    variant: {
+      required: !1,
+      tsType: {
+        name: "union",
+        raw: '"primary" | "secondary" | "accent"',
+        elements: [
+          { name: "literal", value: '"primary"' },
+          { name: "literal", value: '"secondary"' },
+          { name: "literal", value: '"accent"' },
+        ],
+      },
+      description: "",
+      defaultValue: { value: '"secondary"', computed: !1 },
+    },
+    theme: {
+      required: !1,
+      tsType: {
+        name: "union",
+        raw: `| "base"\r
 | "inverted"\r
 | "primary-light"\r
 | "primary-dark"\r
 | "secondary-light"\r
 | "secondary-dark"\r
 | "accent-light"\r
-| "accent-dark"`,elements:[{name:"literal",value:'"base"'},{name:"literal",value:'"inverted"'},{name:"literal",value:'"primary-light"'},{name:"literal",value:'"primary-dark"'},{name:"literal",value:'"secondary-light"'},{name:"literal",value:'"secondary-dark"'},{name:"literal",value:'"accent-light"'},{name:"literal",value:'"accent-dark"'}]},description:""}}};export{m as S};
+| "accent-dark"`,
+        elements: [
+          { name: "literal", value: '"base"' },
+          { name: "literal", value: '"inverted"' },
+          { name: "literal", value: '"primary-light"' },
+          { name: "literal", value: '"primary-dark"' },
+          { name: "literal", value: '"secondary-light"' },
+          { name: "literal", value: '"secondary-dark"' },
+          { name: "literal", value: '"accent-light"' },
+          { name: "literal", value: '"accent-dark"' },
+        ],
+      },
+      description: "",
+    },
+  },
+};
+export { m as S };

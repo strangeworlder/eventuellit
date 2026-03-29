@@ -3,9 +3,9 @@ import type { Theme } from "./Theme";
 import { cn } from "./utils";
 
 export interface ToggleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    /** Whether the button is currently in the pressed/active state */
-    pressed: boolean;
-    theme?: Theme;
+  /** Whether the button is currently in the pressed/active state */
+  pressed: boolean;
+  theme?: Theme;
 }
 
 /**
@@ -17,26 +17,26 @@ export interface ToggleButtonProps extends React.ButtonHTMLAttributes<HTMLButton
  * @summary compact pressed/unpressed toggle button with aria-pressed; for labelled toggles use Switch
  */
 export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProps>(
-    ({ className, pressed, theme, children, ...props }, ref) => {
-        return (
-            <button
-                ref={ref}
-                data-theme={theme}
-                aria-pressed={pressed}
-                className={cn(
-                    "px-3 py-1 rounded-sm text-xs font-bold transition-colors border-2 cursor-pointer",
-                    "focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none",
-                    pressed
-                        ? "bg-[var(--theme-secondary)] text-[var(--theme-secondary-foreground)] border-[var(--theme-secondary)]"
-                        : "bg-transparent text-text-subtle border-[var(--theme-border-soft)] hover:border-[var(--theme-border-medium)]",
-                    className,
-                )}
-                {...props}
-            >
-                {children}
-            </button>
-        );
-    },
+  ({ className, pressed, theme, children, ...props }, ref) => {
+    return (
+      <button
+        ref={ref}
+        data-theme={theme}
+        aria-pressed={pressed}
+        className={cn(
+          "px-3 py-1 rounded-sm text-xs font-bold transition-colors border-2 cursor-pointer",
+          "focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none",
+          pressed
+            ? "bg-[var(--theme-secondary)] text-[var(--theme-secondary-foreground)] border-[var(--theme-secondary)]"
+            : "bg-transparent text-text-subtle border-[var(--theme-border-soft)] hover:border-[var(--theme-border-medium)]",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  },
 );
 
 ToggleButton.displayName = "ToggleButton";

@@ -1,8 +1,103 @@
-import{j as r}from"./jsx-runtime-u17CrQMm.js";import{t as o,c}from"./bundle-mjs-Ce1ZTWB2.js";import{R as d}from"./iframe-RLsCwdXb.js";import{I as u}from"./Icon-dO9IW84r.js";function p(...a){return o(c(a))}const l=d.forwardRef(({className:a,variant:e="primary",icon:t,theme:n,children:i,...m},s)=>r.jsxs("div",{ref:s,"data-theme":n,className:p("inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold transition-colors",{"bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)]":e==="primary","bg-[var(--theme-bg)] border-2 border-b-[var(--theme-secondary)] text-[var(--theme-secondary)]":e==="secondary","bg-[var(--theme-bg)] border-b-2 border-b-[var(--theme-accent)] text-[var(--theme-accent)]":e==="accent","bg-[var(--theme-accent)] text-[var(--theme-bg)]":e==="accent-solid","bg-transparent border border-[var(--theme-secondary)] text-[var(--theme-secondary)]":e==="outline"},a),...m,children:[t&&r.jsx(u,{name:t,size:16,className:"shrink-0"}),r.jsx("span",{children:i})]}));l.displayName="Badge";l.__docgenInfo={description:"",methods:[],displayName:"Badge",props:{variant:{required:!1,tsType:{name:"union",raw:'"primary" | "secondary" | "accent" | "accent-solid" | "outline"',elements:[{name:"literal",value:'"primary"'},{name:"literal",value:'"secondary"'},{name:"literal",value:'"accent"'},{name:"literal",value:'"accent-solid"'},{name:"literal",value:'"outline"'}]},description:"",defaultValue:{value:'"primary"',computed:!1}},icon:{required:!1,tsType:{name:"union",raw:"keyof typeof icons",elements:[{name:"literal",value:"sparkles"},{name:"literal",value:"dice5"},{name:"literal",value:"book"},{name:"literal",value:'"chevron-left"'},{name:"literal",value:'"chevron-right"'},{name:"literal",value:"minus"},{name:"literal",value:"plus"},{name:"literal",value:"zap"},{name:"literal",value:"shield"},{name:"literal",value:"x"}]},description:""},theme:{required:!1,tsType:{name:"union",raw:`| "base"
+import { j as r } from "./jsx-runtime-u17CrQMm.js";
+import { t as o, c } from "./bundle-mjs-Ce1ZTWB2.js";
+import { R as d } from "./iframe-RLsCwdXb.js";
+import { I as u } from "./Icon-dO9IW84r.js";
+function p(...a) {
+  return o(c(a));
+}
+const l = d.forwardRef(
+  ({ className: a, variant: e = "primary", icon: t, theme: n, children: i, ...m }, s) =>
+    r.jsxs("div", {
+      ref: s,
+      "data-theme": n,
+      className: p(
+        "inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold transition-colors",
+        {
+          "bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)]": e === "primary",
+          "bg-[var(--theme-bg)] border-2 border-b-[var(--theme-secondary)] text-[var(--theme-secondary)]":
+            e === "secondary",
+          "bg-[var(--theme-bg)] border-b-2 border-b-[var(--theme-accent)] text-[var(--theme-accent)]":
+            e === "accent",
+          "bg-[var(--theme-accent)] text-[var(--theme-bg)]": e === "accent-solid",
+          "bg-transparent border border-[var(--theme-secondary)] text-[var(--theme-secondary)]":
+            e === "outline",
+        },
+        a,
+      ),
+      ...m,
+      children: [
+        t && r.jsx(u, { name: t, size: 16, className: "shrink-0" }),
+        r.jsx("span", { children: i }),
+      ],
+    }),
+);
+l.displayName = "Badge";
+l.__docgenInfo = {
+  description: "",
+  methods: [],
+  displayName: "Badge",
+  props: {
+    variant: {
+      required: !1,
+      tsType: {
+        name: "union",
+        raw: '"primary" | "secondary" | "accent" | "accent-solid" | "outline"',
+        elements: [
+          { name: "literal", value: '"primary"' },
+          { name: "literal", value: '"secondary"' },
+          { name: "literal", value: '"accent"' },
+          { name: "literal", value: '"accent-solid"' },
+          { name: "literal", value: '"outline"' },
+        ],
+      },
+      description: "",
+      defaultValue: { value: '"primary"', computed: !1 },
+    },
+    icon: {
+      required: !1,
+      tsType: {
+        name: "union",
+        raw: "keyof typeof icons",
+        elements: [
+          { name: "literal", value: "sparkles" },
+          { name: "literal", value: "dice5" },
+          { name: "literal", value: "book" },
+          { name: "literal", value: '"chevron-left"' },
+          { name: "literal", value: '"chevron-right"' },
+          { name: "literal", value: "minus" },
+          { name: "literal", value: "plus" },
+          { name: "literal", value: "zap" },
+          { name: "literal", value: "shield" },
+          { name: "literal", value: "x" },
+        ],
+      },
+      description: "",
+    },
+    theme: {
+      required: !1,
+      tsType: {
+        name: "union",
+        raw: `| "base"
 | "inverted"
 | "primary-light"
 | "primary-dark"
 | "secondary-light"
 | "secondary-dark"
 | "accent-light"
-| "accent-dark"`,elements:[{name:"literal",value:'"base"'},{name:"literal",value:'"inverted"'},{name:"literal",value:'"primary-light"'},{name:"literal",value:'"primary-dark"'},{name:"literal",value:'"secondary-light"'},{name:"literal",value:'"secondary-dark"'},{name:"literal",value:'"accent-light"'},{name:"literal",value:'"accent-dark"'}]},description:""}}};export{l as B};
+| "accent-dark"`,
+        elements: [
+          { name: "literal", value: '"base"' },
+          { name: "literal", value: '"inverted"' },
+          { name: "literal", value: '"primary-light"' },
+          { name: "literal", value: '"primary-dark"' },
+          { name: "literal", value: '"secondary-light"' },
+          { name: "literal", value: '"secondary-dark"' },
+          { name: "literal", value: '"accent-light"' },
+          { name: "literal", value: '"accent-dark"' },
+        ],
+      },
+      description: "",
+    },
+  },
+};
+export { l as B };

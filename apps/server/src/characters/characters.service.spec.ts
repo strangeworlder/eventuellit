@@ -19,7 +19,9 @@ describe("CharactersService", () => {
       select: vi.fn().mockReturnThis(),
       from: vi.fn().mockReturnThis(),
       leftJoin: vi.fn().mockReturnThis(),
+      innerJoin: vi.fn().mockReturnThis(),
       where: vi.fn().mockReturnThis(),
+      orderBy: vi.fn().mockReturnThis(),
       insert: vi.fn().mockReturnThis(),
       values: vi.fn().mockReturnThis(),
       returning: vi.fn(),
@@ -69,13 +71,13 @@ describe("CharactersService", () => {
     expect(result).toEqual(characterData);
   });
 
-  it("should find all characters with owner join", async () => {
-    mockDb.leftJoin
-      .mockReturnValueOnce(mockDb)  // first leftJoin (users) chains
-      .mockResolvedValueOnce([]);   // second leftJoin (episodes) resolves
+  it("should find all characters with owner join and attach episodes", async () => {
+    const charRow = { id: 1, userId: 2, name: "Hero", ownerName: "player1" };
+    mockDb.leftJoin.mockResolvedValueOnce([charRow]);
+    mockDb.orderBy.mockResolvedValueOnce([]);
     const result = await service.findAll();
     expect(mockDb.select).toHaveBeenCalled();
-    expect(result).toEqual([]);
+    expect(result).toEqual([{ ...charRow, episodes: [] }]);
   });
 
   it("should allow owner to update their character", async () => {
@@ -91,7 +93,10 @@ describe("CharactersService", () => {
   it("should allow gm to update any character", async () => {
     const character = { id: 1, userId: 99 };
     mockDb.query.characters.findFirst.mockResolvedValueOnce(character);
-    const harmit = [{ text: "Murtuma", healed: false }, { text: "Shokki", healed: true }];
+    const harmit = [
+      { text: "Murtuma", healed: false },
+      { text: "Shokki", healed: true },
+    ];
     mockDb.returning.mockResolvedValueOnce([{ ...character, harmit }]);
 
     const result = await service.update(1, { harmit }, 1, "gm");
@@ -102,17 +107,17 @@ describe("CharactersService", () => {
     const character = { id: 1, userId: 99 };
     mockDb.query.characters.findFirst.mockResolvedValueOnce(character);
 
-    await expect(service.update(1, { harmit: [{ text: "Haava", healed: false }] }, 1, "player")).rejects.toThrow(
-      ForbiddenException,
-    );
+    await expect(
+      service.update(1, { harmit: [{ text: "Haava", healed: false }] }, 1, "player"),
+    ).rejects.toThrow(ForbiddenException);
   });
 
   it("should throw NotFoundException when updating non-existent character", async () => {
     mockDb.query.characters.findFirst.mockResolvedValueOnce(undefined);
 
-    await expect(service.update(999, { harmit: [{ text: "Haava", healed: false }] }, 1, "player")).rejects.toThrow(
-      NotFoundException,
-    );
+    await expect(
+      service.update(999, { harmit: [{ text: "Haava", healed: false }] }, 1, "player"),
+    ).rejects.toThrow(NotFoundException);
   });
 
   it("should allow owner to delete their character", async () => {

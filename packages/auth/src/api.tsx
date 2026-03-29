@@ -128,4 +128,3 @@ export async function deleteMyAccount(): Promise<void> {
     throw new Error("Failed to delete account");
   }
 }
-

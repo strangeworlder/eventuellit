@@ -107,22 +107,11 @@ const tasoBadgeVariant = (taso: string) => {
 // ── Stories ──────────────────────────────────────────────────────────────────
 
 export const Default: Story = {
-  render: () => (
-    <Table<SkillRow>
-      columns={skillColumns}
-      data={skillData}
-    />
-  ),
+  render: () => <Table<SkillRow> columns={skillColumns} data={skillData} />,
 };
 
 export const Compact: Story = {
-  render: () => (
-    <Table<SkillRow>
-      columns={skillColumns}
-      data={skillData}
-      variant="compact"
-    />
-  ),
+  render: () => <Table<SkillRow> columns={skillColumns} data={skillData} variant="compact" />,
 };
 
 export const Striped: Story = {
@@ -149,10 +138,7 @@ export const StickyHeader: Story = {
         { key: "pelaajat", header: "Pelaajat", align: "center" },
         { key: "kesto", header: "Kesto", align: "right" },
       ]}
-      data={[
-        ...episodeData,
-        ...episodeData.map((r) => ({ ...r, istunto: r.istunto + " II" })),
-      ]}
+      data={[...episodeData, ...episodeData.map((r) => ({ ...r, istunto: r.istunto + " II" }))]}
       stickyHeader
       striped
       className="max-h-52"

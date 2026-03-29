@@ -45,9 +45,7 @@ export const useEpisodes = (status?: string) => {
   return useQuery<Episode[]>({
     queryKey: ["episodes", status],
     queryFn: async () => {
-      const url = status
-        ? `${API_BASE_URL}/episodes?status=${status}`
-        : `${API_BASE_URL}/episodes`;
+      const url = status ? `${API_BASE_URL}/episodes?status=${status}` : `${API_BASE_URL}/episodes`;
       const response = await fetch(url, {
         headers: getAuthHeaders(),
         credentials: "include",
@@ -147,13 +145,10 @@ export const useEpisodeSkills = (episodeId: number) => {
   return useQuery<EpisodeSkill[]>({
     queryKey: ["episodeSkills", episodeId],
     queryFn: async () => {
-      const response = await fetch(
-        `${API_BASE_URL}/episodes/${episodeId}/skills`,
-        {
-          headers: getAuthHeaders(),
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/episodes/${episodeId}/skills`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch episode skills");
       }
@@ -167,15 +162,12 @@ export const useCreateEpisodeSkill = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ episodeId, name }: { episodeId: number; name: string }) => {
-      const response = await fetch(
-        `${API_BASE_URL}/episodes/${episodeId}/skills`,
-        {
-          method: "POST",
-          headers: getAuthHeaders(),
-          credentials: "include",
-          body: JSON.stringify({ name }),
-        },
-      );
+      const response = await fetch(`${API_BASE_URL}/episodes/${episodeId}/skills`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        credentials: "include",
+        body: JSON.stringify({ name }),
+      });
       if (!response.ok) {
         throw new Error("Failed to create episode skill");
       }
@@ -199,15 +191,12 @@ export const useUpdateEpisodeSkill = () => {
       skillId: number;
       name: string;
     }) => {
-      const response = await fetch(
-        `${API_BASE_URL}/episodes/${episodeId}/skills/${skillId}`,
-        {
-          method: "PATCH",
-          headers: getAuthHeaders(),
-          credentials: "include",
-          body: JSON.stringify({ name }),
-        },
-      );
+      const response = await fetch(`${API_BASE_URL}/episodes/${episodeId}/skills/${skillId}`, {
+        method: "PATCH",
+        headers: getAuthHeaders(),
+        credentials: "include",
+        body: JSON.stringify({ name }),
+      });
       if (!response.ok) {
         throw new Error("Failed to update episode skill");
       }
@@ -222,21 +211,12 @@ export const useUpdateEpisodeSkill = () => {
 export const useDeleteEpisodeSkill = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({
-      episodeId,
-      skillId,
-    }: {
-      episodeId: number;
-      skillId: number;
-    }) => {
-      const response = await fetch(
-        `${API_BASE_URL}/episodes/${episodeId}/skills/${skillId}`,
-        {
-          method: "DELETE",
-          headers: getAuthHeaders(),
-          credentials: "include",
-        },
-      );
+    mutationFn: async ({ episodeId, skillId }: { episodeId: number; skillId: number }) => {
+      const response = await fetch(`${API_BASE_URL}/episodes/${episodeId}/skills/${skillId}`, {
+        method: "DELETE",
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) {
         throw new Error("Failed to delete episode skill");
       }

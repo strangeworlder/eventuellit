@@ -6,8 +6,7 @@ import type { Theme } from "./Theme";
 import { useObscuredGlitch } from "./useObscuredGlitch";
 import { cn, obscureString } from "./utils";
 
-export interface CheckboxProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /** Primary label rendered beside the checkbox. */
   label: string;
   /** Optional helper text shown beneath the label. */
@@ -25,7 +24,10 @@ export interface CheckboxProps
  * @summary single checkbox with label/description/error; for single-choice groups use RadioGroup
  */
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ className, label, description, error, theme, id, obscured: obscuredProp, disabled, ...props }, ref) => {
+  (
+    { className, label, description, error, theme, id, obscured: obscuredProp, disabled, ...props },
+    ref,
+  ) => {
     const generatedId = React.useId();
     const inputId = id ?? generatedId;
     const obscured = obscuredProp || useObscured();
@@ -34,10 +36,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <div
-        className={cn(
-          "flex flex-col gap-1 mt-2",
-          obscured && "select-none pointer-events-none",
-        )}
+        className={cn("flex flex-col gap-1 mt-2", obscured && "select-none pointer-events-none")}
         data-theme={theme}
       >
         <label

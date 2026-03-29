@@ -13,8 +13,7 @@ export interface EnduranceSubAttribute {
   diceValue: number;
 }
 
-export interface EnduranceBlockProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface EnduranceBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Kesto label (e.g. "Keho") */
   label: string;
   /** Current Kesto value */
@@ -42,10 +41,7 @@ export interface EnduranceBlockProps
  * The right side (Kesto value) is given more visual weight as it is the
  * primary gameplay-relevant value.
  */
-export const EnduranceBlock = React.forwardRef<
-  HTMLDivElement,
-  EnduranceBlockProps
->(
+export const EnduranceBlock = React.forwardRef<HTMLDivElement, EnduranceBlockProps>(
   (
     {
       className,
@@ -75,11 +71,7 @@ export const EnduranceBlock = React.forwardRef<
       >
         <HeadingLevelProvider>
           {/* Header */}
-          <div
-            className={cn(
-              "px-6 pt-5 pb-3 border-b border-[var(--theme-border-soft)]",
-            )}
-          >
+          <div className={cn("px-6 pt-5 pb-3 border-b border-[var(--theme-border-soft)]")}>
             <Heading>{label}</Heading>
           </div>
 
@@ -125,9 +117,7 @@ export const EnduranceBlock = React.forwardRef<
                   {value}
                 </span>
                 {maxValue !== undefined && (
-                  <span className="text-lg font-bold leading-none">
-                    / {maxValue}
-                  </span>
+                  <span className="text-lg font-bold leading-none">/ {maxValue}</span>
                 )}
               </div>
 

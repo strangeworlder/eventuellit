@@ -75,10 +75,7 @@ export function RadioGroup({
   return (
     <RadioGroupContext.Provider value={contextValue}>
       <div
-        className={cn(
-          "flex flex-col gap-2 mt-2",
-          obscured && "select-none pointer-events-none",
-        )}
+        className={cn("flex flex-col gap-2 mt-2", obscured && "select-none pointer-events-none")}
         data-theme={theme}
         role="radiogroup"
         aria-label={label}
@@ -122,9 +119,7 @@ export function RadioGroupItem({
         isObscured && "select-none pointer-events-none",
       )}
     >
-      <span
-        className="relative mt-1 flex h-5 w-5 shrink-0 items-center justify-center"
-      >
+      <span className="relative mt-1 flex h-5 w-5 shrink-0 items-center justify-center">
         <input
           id={inputId}
           type="radio"

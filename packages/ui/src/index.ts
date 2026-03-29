@@ -52,14 +52,29 @@ export { ToggleButton } from "./components/ToggleButton";
 export { DatePicker } from "./components/DatePicker";
 export type { DatePickerProps } from "./components/DatePicker";
 
+/** Storybook: Suunnittelujarjestelma/Atomit/AspectTag (grouped here with molecules for API ergonomics). */
 export { AspectTag } from "./components/AspectTag";
 export type { AspectTagProps } from "./components/AspectTag";
 
 export { Breadcrumb } from "./components/Breadcrumb";
 export type { BreadcrumbProps, BreadcrumbItem } from "./components/Breadcrumb";
 
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./components/Accordion";
+export type {
+  AccordionProps,
+  AccordionItemProps,
+  AccordionTriggerProps,
+  AccordionContentProps,
+} from "./components/Accordion";
+
 export { AttributeCard } from "./components/AttributeCard";
 
+/** Storybook: Suunnittelujarjestelma/Organismit/Card */
 export { Card } from "./components/Card";
 export type { CardProps } from "./components/Card";
 
@@ -111,17 +126,31 @@ export { FactionBadge, FACTION_COLOR_VARS } from "./components/FactionBadge";
 export type { FactionBadgeProps, FactionColor } from "./components/FactionBadge";
 
 // ── Organisms ──
+/** Storybook: Suunnittelujarjestelma/Molekyylit/AnchoredTooltip */
 export { AnchoredTooltip } from "./components/AnchoredTooltip";
 export type { AnchoredTooltipPlacement } from "./components/AnchoredTooltip";
 
+/** Storybook: Suunnittelujarjestelma/Molekyylit/ActiveStatBlock */
 export { ActiveStatBlock } from "./components/ActiveStatBlock";
 
 export { ArticleProgressNavigator } from "./components/ArticleProgressNavigator";
 export type { ArticleProgressNavigatorProps } from "./components/ArticleProgressNavigator";
 export type { ArticleSectionAnchor } from "./components/article-navigation-utils";
+export { scrollElementIntoScrollRoot } from "./components/article-navigation-utils";
+
+export { MfeNotFoundRedirect, MFE_NOT_FOUND_TOAST_MESSAGE } from "./components/MfeNotFoundRedirect";
 
 export { Dialog } from "./components/Dialog";
 export type { DialogProps } from "./components/Dialog";
+
+export { ConfirmDialog } from "./components/ConfirmDialog";
+export type { ConfirmDialogProps } from "./components/ConfirmDialog";
+
+export { EmptyState } from "./components/EmptyState";
+export type { EmptyStateProps } from "./components/EmptyState";
+
+export { ErrorBoundary } from "./components/ErrorBoundary";
+export type { ErrorBoundaryProps } from "./components/ErrorBoundary";
 
 export { Drawer, useDrawer } from "./components/Drawer";
 export type { DrawerProps } from "./components/Drawer";
@@ -157,7 +186,12 @@ export type {
 } from "./components/StationConnections";
 
 export { ToastProvider, useToast, requestToast, TOAST_REQUEST_EVENT } from "./components/Toast";
-export type { ToastItem, ToastVariant, ToastProviderProps, ToastRequestPayload } from "./components/Toast";
+export type {
+  ToastItem,
+  ToastVariant,
+  ToastProviderProps,
+  ToastRequestPayload,
+} from "./components/Toast";
 
 export { VideoCta } from "./components/VideoCta";
 export type { VideoCtaProps } from "./components/VideoCta";
@@ -177,3 +211,5 @@ export type { Theme } from "./components/Theme";
 export { cn, obscureString } from "./components/utils";
 export { useFocusTrap } from "./components/useFocusTrap";
 export { useObscuredGlitch } from "./components/useObscuredGlitch";
+export { useArticleScrollProgress } from "./components/useArticleScrollProgress";
+export type { UseArticleScrollProgressOptions } from "./components/useArticleScrollProgress";

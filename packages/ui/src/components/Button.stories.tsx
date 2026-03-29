@@ -114,10 +114,18 @@ export const CompactSize: Story = {
   name: "Tiivis (GM-työkalut)",
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button size="compact" variant="solid">Tallenna</Button>
-      <Button size="compact" variant="outline">Peruuta</Button>
-      <Button size="compact" variant="danger">Poista</Button>
-      <Button size="compact" variant="ghost-subtle">Lisää</Button>
+      <Button size="compact" variant="solid">
+        Tallenna
+      </Button>
+      <Button size="compact" variant="outline">
+        Peruuta
+      </Button>
+      <Button size="compact" variant="danger">
+        Poista
+      </Button>
+      <Button size="compact" variant="ghost-subtle">
+        Lisää
+      </Button>
     </div>
   ),
 };
@@ -128,14 +136,26 @@ export const CompactVsDefault: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3">
-        <Button size="default" variant="solid">Oletus</Button>
-        <Button size="sm" variant="solid">Pieni</Button>
-        <Button size="compact" variant="solid">Tiivis</Button>
+        <Button size="default" variant="solid">
+          Oletus
+        </Button>
+        <Button size="sm" variant="solid">
+          Pieni
+        </Button>
+        <Button size="compact" variant="solid">
+          Tiivis
+        </Button>
       </div>
       <div className="flex flex-wrap items-center gap-3">
-        <Button size="default" variant="outline">Oletus</Button>
-        <Button size="sm" variant="outline">Pieni</Button>
-        <Button size="compact" variant="outline">Tiivis</Button>
+        <Button size="default" variant="outline">
+          Oletus
+        </Button>
+        <Button size="sm" variant="outline">
+          Pieni
+        </Button>
+        <Button size="compact" variant="outline">
+          Tiivis
+        </Button>
       </div>
     </div>
   ),
@@ -146,9 +166,15 @@ export const ObscuredAllSizes: Story = {
   tags: ["!manifest"],
   render: () => (
     <div className="flex flex-wrap items-end gap-4">
-      <Button obscured size="sm">Pieni</Button>
-      <Button obscured size="default">Oletus</Button>
-      <Button obscured size="lg">Suuri painike</Button>
+      <Button obscured size="sm">
+        Pieni
+      </Button>
+      <Button obscured size="default">
+        Oletus
+      </Button>
+      <Button obscured size="lg">
+        Suuri painike
+      </Button>
     </div>
   ),
 };
@@ -162,7 +188,9 @@ export const Multiline: Story = {
       <Button>Lyhyt teksti</Button>
       <Button>Pidempi teksti joka menee kahdelle riville tässä painikkeessa</Button>
       <Button size="sm">Pieni painike jolla on pitkä teksti monella rivillä esimerkkinä</Button>
-      <Button size="lg">Suuri painike jossa on erityisen pitkä teksti joka vaatii useamman rivin näytöllä</Button>
+      <Button size="lg">
+        Suuri painike jossa on erityisen pitkä teksti joka vaatii useamman rivin näytöllä
+      </Button>
     </div>
   ),
 };
@@ -172,10 +200,16 @@ export const MultilineAllVariants: Story = {
   tags: ["!manifest"],
   render: () => (
     <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 max-w-2xl">
-      <Button variant="solid">Ensisijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
-      <Button variant="outline">Toissijainen painike jonka teksti on pitkä ja menee monelle riville</Button>
+      <Button variant="solid">
+        Ensisijainen painike jonka teksti on pitkä ja menee monelle riville
+      </Button>
+      <Button variant="outline">
+        Toissijainen painike jonka teksti on pitkä ja menee monelle riville
+      </Button>
       <Button variant="danger">Vaarapainike jonka teksti on pitkä ja menee monelle riville</Button>
-      <Button variant="ghost-subtle">Haamupainike jonka teksti on pitkä ja menee monelle riville</Button>
+      <Button variant="ghost-subtle">
+        Haamupainike jonka teksti on pitkä ja menee monelle riville
+      </Button>
     </div>
   ),
 };
@@ -244,10 +278,18 @@ export const AllStates: Story = {
           Ei käytössä
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button variant="solid" disabled>Ensisijainen</Button>
-          <Button variant="outline" disabled>Toissijainen</Button>
-          <Button variant="danger" disabled>Vaara</Button>
-          <Button variant="ghost-subtle" disabled>Haamu</Button>
+          <Button variant="solid" disabled>
+            Ensisijainen
+          </Button>
+          <Button variant="outline" disabled>
+            Toissijainen
+          </Button>
+          <Button variant="danger" disabled>
+            Vaara
+          </Button>
+          <Button variant="ghost-subtle" disabled>
+            Haamu
+          </Button>
         </div>
       </div>
       <div className="space-y-2">
@@ -255,10 +297,18 @@ export const AllStates: Story = {
           Ladataan
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button variant="solid" loading>Ensisijainen</Button>
-          <Button variant="outline" loading>Toissijainen</Button>
-          <Button variant="danger" loading>Vaara</Button>
-          <Button variant="ghost-subtle" loading>Haamu</Button>
+          <Button variant="solid" loading>
+            Ensisijainen
+          </Button>
+          <Button variant="outline" loading>
+            Toissijainen
+          </Button>
+          <Button variant="danger" loading>
+            Vaara
+          </Button>
+          <Button variant="ghost-subtle" loading>
+            Haamu
+          </Button>
         </div>
       </div>
       <div className="space-y-2">
@@ -266,10 +316,18 @@ export const AllStates: Story = {
           Piilotettu
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button variant="solid" obscured>Ensisijainen</Button>
-          <Button variant="outline" obscured>Toissijainen</Button>
-          <Button variant="danger" obscured>Vaara</Button>
-          <Button variant="ghost-subtle" obscured>Haamu</Button>
+          <Button variant="solid" obscured>
+            Ensisijainen
+          </Button>
+          <Button variant="outline" obscured>
+            Toissijainen
+          </Button>
+          <Button variant="danger" obscured>
+            Vaara
+          </Button>
+          <Button variant="ghost-subtle" obscured>
+            Haamu
+          </Button>
         </div>
       </div>
     </div>

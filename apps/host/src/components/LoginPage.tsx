@@ -4,6 +4,7 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageBody } from "@repo/ui/components/Page";
+import { Link } from "@repo/ui/components/Link";
 import { Text } from "@repo/ui/components/Text";
 import { requestMagicLink } from "@repo/auth/api";
 import { useState } from "react";
@@ -88,13 +89,7 @@ export function LoginPage() {
         </Card>
         <Text variant="caption" className="max-w-md">
           Kirjautuminen käyttää välttämätöntä evästettä istunnon ylläpitämiseksi.{" "}
-          <button
-            type="button"
-            onClick={() => navigate("/tietosuoja")}
-            className="underline hover:text-[var(--theme-primary)] transition-colors"
-          >
-            Lue tietosuojaselosteemme
-          </button>.
+          <Link href="/tietosuoja">Lue tietosuojaselosteemme</Link>.
         </Text>
       </PageBody>
     </Page>

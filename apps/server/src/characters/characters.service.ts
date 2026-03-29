@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { eq } from "drizzle-orm";
+import { asc, eq, inArray } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
@@ -15,7 +15,6 @@ import { UpdateCharacterDto } from "./dto/update-character.dto";
 const characterWithOwnerColumns = {
   id: characters.id,
   userId: characters.userId,
-  episodeId: characters.episodeId,
   name: characters.name,
   archetype: characters.archetype,
   sex: characters.sex,
@@ -41,8 +40,47 @@ const characterWithOwnerColumns = {
   createdAt: characters.createdAt,
   updatedAt: characters.updatedAt,
   ownerName: users.username,
-  episodeTitle: episodes.title,
 };
+
+type CharacterEpisodeRow = { id: number; title: string; status: string };
+
+async function attachEpisodesForCharacters(
+  db: NodePgDatabase<typeof schema>,
+  rows: Array<Record<string, unknown>>,
+): Promise<
+  Array<
+    Omit<(typeof rows)[number], never> & {
+      episodes: CharacterEpisodeRow[];
+    }
+  >
+> {
+  if (rows.length === 0) {
+    return rows as Array<(typeof rows)[number] & { episodes: CharacterEpisodeRow[] }>;
+  }
+  const characterIds = rows.map((r) => r.id as number);
+  const linkRows = await db
+    .select({
+      characterId: characterEpisodes.characterId,
+      id: episodes.id,
+      title: episodes.title,
+      status: episodes.status,
+    })
+    .from(characterEpisodes)
+    .innerJoin(episodes, eq(characterEpisodes.episodeId, episodes.id))
+    .where(inArray(characterEpisodes.characterId, characterIds))
+    .orderBy(asc(characterEpisodes.characterId), asc(episodes.order));
+
+  const byChar = new Map<number, CharacterEpisodeRow[]>();
+  for (const row of linkRows) {
+    const list = byChar.get(row.characterId) ?? [];
+    list.push({ id: row.id, title: row.title, status: row.status });
+    byChar.set(row.characterId, list);
+  }
+  return rows.map((r) => ({
+    ...r,
+    episodes: byChar.get(r.id as number) ?? [],
+  })) as Array<(typeof rows)[number] & { episodes: CharacterEpisodeRow[] }>;
+}
 
 @Injectable()
 export class CharactersService {
@@ -51,11 +89,11 @@ export class CharactersService {
   ) {}
 
   async findAll() {
-    return this.db
+    const rows = await this.db
       .select(characterWithOwnerColumns)
       .from(characters)
-      .leftJoin(users, eq(characters.userId, users.id))
-      .leftJoin(episodes, eq(characters.episodeId, episodes.id));
+      .leftJoin(users, eq(characters.userId, users.id));
+    return attachEpisodesForCharacters(this.db, rows);
   }
 
   async findOne(id: number) {
@@ -63,9 +101,11 @@ export class CharactersService {
       .select(characterWithOwnerColumns)
       .from(characters)
       .leftJoin(users, eq(characters.userId, users.id))
-      .leftJoin(episodes, eq(characters.episodeId, episodes.id))
       .where(eq(characters.id, id));
-    return rows[0] ?? null;
+    const row = rows[0];
+    if (!row) return null;
+    const withEpisodes = await attachEpisodesForCharacters(this.db, [row]);
+    return withEpisodes[0] ?? null;
   }
 
   async create(data: CreateCharacterDto, userId: number) {

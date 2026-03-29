@@ -48,11 +48,7 @@ export const ObscuredWrapper = React.forwardRef<HTMLDivElement, ObscuredWrapperP
       <ObscuredContext.Provider value={true}>
         {/* Screen-reader announcement: tells AT the section is intentionally hidden */}
         <span className="sr-only">Sisältö piilotettu</span>
-        <div
-          ref={ref}
-          aria-hidden="true"
-          className={cn("obscured-wrapper", className)}
-        >
+        <div ref={ref} aria-hidden="true" className={cn("obscured-wrapper", className)}>
           {children}
         </div>
       </ObscuredContext.Provider>

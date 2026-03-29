@@ -42,9 +42,7 @@ export const Muokattava: Story = {
       <SkillTagList
         items={skills}
         onItemEdit={(id, name) => {
-          setSkills((prev) =>
-            prev.map((s) => (s.id === id ? { ...s, name } : s)),
-          );
+          setSkills((prev) => prev.map((s) => (s.id === id ? { ...s, name } : s)));
         }}
         onItemRemove={(id) => {
           setSkills((prev) => prev.filter((s) => s.id !== id));
@@ -71,9 +69,7 @@ export const MuokkausIlmanLisaysta: Story = {
         showCustomToggle
         onItemEdit={(id, name, isCustom) => {
           setSkills((prev) =>
-            prev.map((s) =>
-              s.id === id ? { ...s, name, isCustom: isCustom ?? s.isCustom } : s,
-            ),
+            prev.map((s) => (s.id === id ? { ...s, name, isCustom: isCustom ?? s.isCustom } : s)),
           );
         }}
       />
@@ -101,9 +97,7 @@ export const TyhjaLisaysmahdollisuudella: Story = {
       <SkillTagList
         items={skills}
         onItemEdit={(id, name) => {
-          setSkills((prev) =>
-            prev.map((s) => (s.id === id ? { ...s, name } : s)),
-          );
+          setSkills((prev) => prev.map((s) => (s.id === id ? { ...s, name } : s)));
         }}
         onItemAdd={(name) => {
           setSkills((prev) => [...prev, { id: ++nextId, name }]);

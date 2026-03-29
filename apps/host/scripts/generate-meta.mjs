@@ -190,7 +190,8 @@ async function main() {
 
       const pageTitle = typeof data.title === "string" ? data.title : slug;
       const title = `${HOST_TITLE}: ${source.sectionTitle} - ${pageTitle}`;
-      const description = typeof data.description === "string" && data.description ? data.description : null;
+      const description =
+        typeof data.description === "string" && data.description ? data.description : null;
 
       let image = null;
       if (source.app === "episodes") {

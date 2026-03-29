@@ -43,7 +43,10 @@ export const DiceRoller = React.forwardRef<HTMLDivElement, DiceRollerProps>(
     return (
       <div ref={ref} className={cn("flex flex-col gap-3 mt-4", className)} {...props}>
         {label && (
-          <label htmlFor={buttonId} className="text-sm font-black text-[var(--theme-secondary)] uppercase tracking-widest">
+          <label
+            htmlFor={buttonId}
+            className="text-sm font-black text-[var(--theme-secondary)] uppercase tracking-widest"
+          >
             {label}
           </label>
         )}

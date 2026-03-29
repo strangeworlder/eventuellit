@@ -28,14 +28,7 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLHRElement> {
  */
 export const Separator = React.forwardRef<HTMLHRElement, SeparatorProps>(
   (
-    {
-      className,
-      variant = "soft",
-      orientation = "horizontal",
-      decorative = true,
-      theme,
-      ...props
-    },
+    { className, variant = "soft", orientation = "horizontal", decorative = true, theme, ...props },
     ref,
   ) => {
     return (

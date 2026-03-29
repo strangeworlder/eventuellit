@@ -27,10 +27,10 @@ export const useMyEnrollment = (episodeId: number | null) => {
     queryKey: ["myEnrollment", episodeId],
     queryFn: async () => {
       if (!episodeId) return [];
-      const response = await fetch(
-        `${apiBaseUrl}/episode-players?episodeId=${episodeId}`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
+      const response = await fetch(`${apiBaseUrl}/episode-players?episodeId=${episodeId}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (response.status === 403) {
         return [];
       }

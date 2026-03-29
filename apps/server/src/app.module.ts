@@ -11,6 +11,17 @@ import { SessionsModule } from "./sessions/sessions.module";
 import { UsersModule } from "./users/users.module";
 
 @Module({
-  imports: [DbModule, AuthModule, CharactersModule, EpisodesModule, ContentRegistryModule, ReadingItemsModule, ReadingProgressModule, SessionsModule, UsersModule, EpisodePlayersModule],
+  imports: [
+    DbModule,
+    AuthModule,
+    CharactersModule,
+    EpisodesModule,
+    ContentRegistryModule,
+    ReadingItemsModule,
+    ReadingProgressModule,
+    SessionsModule,
+    UsersModule,
+    EpisodePlayersModule,
+  ],
 })
 export class AppModule {}

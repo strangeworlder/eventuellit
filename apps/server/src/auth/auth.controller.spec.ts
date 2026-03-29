@@ -74,9 +74,12 @@ describe("AuthController", () => {
       await controller.deleteMyAccount(mockReq, res);
 
       expect(service.deleteUserAccount).toHaveBeenCalledWith(mockUser.id);
-      expect(res.clearCookie).toHaveBeenCalledWith("auth_token", expect.objectContaining({
-        httpOnly: true,
-      }));
+      expect(res.clearCookie).toHaveBeenCalledWith(
+        "auth_token",
+        expect.objectContaining({
+          httpOnly: true,
+        }),
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({ message: "Account deleted successfully" });
     });

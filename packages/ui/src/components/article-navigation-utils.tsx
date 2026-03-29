@@ -106,7 +106,7 @@ export function resolveActiveSectionFromProgress(
 
   // Filter to only sections that have marker positions to avoid data sync issues
   const sectionsWithMarkers = sectionIds.filter((id) => markerPositions[id] !== undefined);
-  
+
   // If no sections have markers, fall back to first section
   if (sectionsWithMarkers.length === 0) {
     return sectionIds[0];
@@ -142,4 +142,29 @@ export function mapSectionOffsetsToProgressPositions(
   }
 
   return positions;
+}
+
+const DEFAULT_ARTICLE_SCROLL_OFFSET_PX = 96;
+const DEFAULT_SCROLL_ROOT_ID = "app-scroll-root";
+
+/**
+ * Scrolls a heading (or any element with `id`) into view inside `#app-scroll-root`,
+ * matching the offset used by article progress / jump events.
+ */
+export function scrollElementIntoScrollRoot(
+  elementId: string,
+  options?: { scrollRootId?: string; offsetPx?: number },
+): boolean {
+  const scrollRootId = options?.scrollRootId ?? DEFAULT_SCROLL_ROOT_ID;
+  const offsetPx = options?.offsetPx ?? DEFAULT_ARTICLE_SCROLL_OFFSET_PX;
+  const scrollRoot = document.getElementById(scrollRootId);
+  const targetElement = document.getElementById(elementId);
+  if (!scrollRoot || !targetElement) {
+    return false;
+  }
+  const rootRect = scrollRoot.getBoundingClientRect();
+  const targetRect = targetElement.getBoundingClientRect();
+  const targetTop = Math.max(targetRect.top - rootRect.top + scrollRoot.scrollTop - offsetPx, 0);
+  scrollRoot.scrollTo({ top: targetTop, behavior: "smooth" });
+  return true;
 }

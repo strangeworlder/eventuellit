@@ -37,10 +37,7 @@ async function writeFormatVariants(imagePath, key, width) {
   await Promise.all([
     resized.clone().avif({ quality: 45 }).toFile(path.join(outputDir, avifName)),
     resized.clone().webp({ quality: 70 }).toFile(path.join(outputDir, webpName)),
-    resized
-      .clone()
-      .jpeg({ quality: 75, mozjpeg: true })
-      .toFile(path.join(outputDir, jpgName)),
+    resized.clone().jpeg({ quality: 75, mozjpeg: true }).toFile(path.join(outputDir, jpgName)),
   ]);
 
   return {

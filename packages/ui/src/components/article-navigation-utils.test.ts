@@ -88,18 +88,26 @@ describe("article navigation utils", () => {
 
   it("resolves active section from progress when before first marker", () => {
     const markers = { alku: 5, keskiosa: 30, loppu: 60 };
-    expect(resolveActiveSectionFromProgress(0, ["alku", "keskiosa", "loppu"], markers)).toBe("alku");
-    expect(resolveActiveSectionFromProgress(3, ["alku", "keskiosa", "loppu"], markers)).toBe("alku");
+    expect(resolveActiveSectionFromProgress(0, ["alku", "keskiosa", "loppu"], markers)).toBe(
+      "alku",
+    );
+    expect(resolveActiveSectionFromProgress(3, ["alku", "keskiosa", "loppu"], markers)).toBe(
+      "alku",
+    );
   });
 
   it("resolves active section from progress when between markers", () => {
     const markers = { alku: 10, keskiosa: 30, loppu: 60 };
-    expect(resolveActiveSectionFromProgress(50, ["alku", "keskiosa", "loppu"], markers)).toBe("keskiosa");
+    expect(resolveActiveSectionFromProgress(50, ["alku", "keskiosa", "loppu"], markers)).toBe(
+      "keskiosa",
+    );
   });
 
   it("resolves last section as active at 100% progress", () => {
     const markers = { alku: 10, keskiosa: 30, loppu: 60 };
-    expect(resolveActiveSectionFromProgress(100, ["alku", "keskiosa", "loppu"], markers)).toBe("loppu");
+    expect(resolveActiveSectionFromProgress(100, ["alku", "keskiosa", "loppu"], markers)).toBe(
+      "loppu",
+    );
   });
 
   it("returns undefined for empty sections", () => {
@@ -109,7 +117,9 @@ describe("article navigation utils", () => {
   it("filters out sections missing from markerPositions", () => {
     const markers = { alku: 10, keskiosa: 30 };
     // "loppu" is in sectionIds but not in markers - should be filtered out
-    expect(resolveActiveSectionFromProgress(100, ["alku", "keskiosa", "loppu"], markers)).toBe("keskiosa");
+    expect(resolveActiveSectionFromProgress(100, ["alku", "keskiosa", "loppu"], markers)).toBe(
+      "keskiosa",
+    );
   });
 
   it("handles sections with missing markers by falling back to first section", () => {

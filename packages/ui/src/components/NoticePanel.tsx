@@ -23,10 +23,8 @@ export const NoticePanel = React.forwardRef<HTMLDivElement, NoticePanelProps>(
         {
           "border-2 border-[var(--theme-border-medium)] bg-[var(--theme-secondary)]/5 shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)]":
             variant === "success",
-          "border-l-4 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10":
-            variant === "info",
-          "border-2 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10":
-            variant === "error",
+          "border-l-4 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10": variant === "info",
+          "border-2 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10": variant === "error",
         },
         className,
       )}

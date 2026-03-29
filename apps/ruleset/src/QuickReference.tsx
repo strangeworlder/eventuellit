@@ -20,26 +20,24 @@ function RefSection({ title, children }: { title: string; children: React.ReactN
   );
 }
 
-function RefTable({
-  rows,
-}: {
-  rows: Array<{ label: string; value: string; note?: string }>;
-}) {
+function RefTable({ rows }: { rows: Array<{ label: string; value: string; note?: string }> }) {
   return (
     <div className="rounded-md overflow-hidden border border-[var(--theme-border-soft)]">
       {rows.map((row, i) => (
         <div
           key={row.label}
           className={`flex items-baseline gap-3 px-3 py-2 text-sm ${
-            i % 2 === 0
-              ? "bg-[var(--theme-bg)]"
-              : "bg-[var(--theme-surface-tint)]"
+            i % 2 === 0 ? "bg-[var(--theme-bg)]" : "bg-[var(--theme-surface-tint)]"
           }`}
         >
           <span className="w-28 shrink-0 text-text-muted font-medium">{row.label}</span>
-          <GameTerm variant="emphasis" className="tabular-nums">{row.value}</GameTerm>
+          <GameTerm variant="emphasis" className="tabular-nums">
+            {row.value}
+          </GameTerm>
           {row.note && (
-            <Text variant="muted" className="text-xs">{row.note}</Text>
+            <Text variant="muted" className="text-xs">
+              {row.note}
+            </Text>
           )}
         </div>
       ))}
@@ -67,7 +65,9 @@ function RefList({ items }: { items: Array<{ term: string; desc: string }> }) {
     <ul className="space-y-1.5">
       {items.map(({ term, desc }) => (
         <li key={term} className="text-sm flex items-start gap-2">
-          <GameTerm variant="label" className="shrink-0 mt-0.5 text-xs">{term}</GameTerm>
+          <GameTerm variant="label" className="shrink-0 mt-0.5 text-xs">
+            {term}
+          </GameTerm>
           <Text className="leading-snug text-sm">{desc}</Text>
         </li>
       ))}
@@ -166,15 +166,11 @@ export function QuickReference({ open, onClose }: QuickReferenceProps) {
             <Text className="text-sm">
               Oletusarvo: <GameTerm variant="emphasis">5n20</GameTerm> per tilanne tai kierros.
             </Text>
+            <Text className="text-sm">Akselin tulos = korkein noppa kyseisellä akselilla.</Text>
+            <Text className="text-sm">Tyhjä akseli = automaattinen epäonnistuminen.</Text>
             <Text className="text-sm">
-              Akselin tulos = korkein noppa kyseisellä akselilla.
-            </Text>
-            <Text className="text-sm">
-              Tyhjä akseli = automaattinen epäonnistuminen.
-            </Text>
-            <Text className="text-sm">
-              Harmi poistaa <GameTerm variant="emphasis">−1n20</GameTerm> pysyvästi.
-              Viides Harmi → hahmo poistuu.
+              Harmi poistaa <GameTerm variant="emphasis">−1n20</GameTerm> pysyvästi. Viides Harmi →
+              hahmo poistuu.
             </Text>
           </div>
         </RefSection>

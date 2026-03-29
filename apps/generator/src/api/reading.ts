@@ -49,10 +49,10 @@ export const useEpisodeReadingItems = (episodeId: number | null, sessionId?: num
       if (!episodeId) return [];
       const params = new URLSearchParams({ episodeId: String(episodeId) });
       if (sessionId !== undefined) params.set("sessionId", String(sessionId));
-      const response = await fetch(
-        `${apiBaseUrl}/reading-items?${params}`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
+      const response = await fetch(`${apiBaseUrl}/reading-items?${params}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to fetch reading items");
       return response.json();
     },
@@ -76,18 +76,16 @@ export const useToggleReadingProgress = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["readingItems"] });
-    },  });
+    },
+  });
 
   const unmarkRead = useMutation({
     mutationFn: async (readingItemId: number) => {
-      const response = await fetch(
-        `${apiBaseUrl}/reading-progress/${readingItemId}`,
-        {
-          method: "DELETE",
-          headers: getAuthHeaders(),
-          credentials: "include",
-        },
-      );
+      const response = await fetch(`${apiBaseUrl}/reading-progress/${readingItemId}`, {
+        method: "DELETE",
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to unmark read");
     },
     onSuccess: () => {
@@ -111,10 +109,10 @@ export const useReadingSuggestions = (episodeId: number | null, enabled: boolean
     queryKey: ["readingSuggestions", episodeId],
     queryFn: async () => {
       if (!episodeId) return [];
-      const response = await fetch(
-        `${apiBaseUrl}/reading-items/suggestions/${episodeId}`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
+      const response = await fetch(`${apiBaseUrl}/reading-items/suggestions/${episodeId}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to fetch suggestions");
       return response.json();
     },
@@ -203,10 +201,10 @@ export const useEpisodeProgress = (episodeId: number | null) => {
     queryKey: ["episodeProgress", episodeId],
     queryFn: async () => {
       if (!episodeId) return [];
-      const response = await fetch(
-        `${apiBaseUrl}/reading-progress/episode/${episodeId}`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
+      const response = await fetch(`${apiBaseUrl}/reading-progress/episode/${episodeId}`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to fetch episode progress");
       return response.json();
     },
