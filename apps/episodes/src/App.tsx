@@ -51,6 +51,7 @@ import {
   useEpisodePlayers,
 } from "./api/episode-players";
 import { usePlayerUsers } from "./api/users";
+import { useSessions } from "./api/sessions";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -276,6 +277,8 @@ function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew
   const isGm = user?.role === "gm";
   const { mutate: updateEpisode } = useUpdateEpisode();
   const { mutate: deleteEpisode } = useDeleteEpisode();
+  const { data: sessions } = useSessions(episode?.id ?? 0);
+  const { data: episodePlayers } = useEpisodePlayers(episode?.id ?? 0);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const articleRef = useRef<HTMLDivElement>(null);
@@ -446,25 +449,32 @@ function EpisodeDetails({ id, onCreateNew, basePath }: { id: string; onCreateNew
                 </CardHeader>
                 <CardContent>
                   <HeadingLevelProvider>
-                    {fullEpisode.players && (
-                      <>
+                    {episodePlayers && episodePlayers.length > 0 && (
+                      <div className="mb-4">
                         <Heading>Pelaajat</Heading>
-                        <p>{fullEpisode.players}</p>
-                      </>
+                        <List variant="unbulleted">
+                          {episodePlayers.map((ep) => (
+                            <ListItem key={ep.id}>{ep.username ?? "—"}</ListItem>
+                          ))}
+                        </List>
+                      </div>
                     )}
-                    {fullEpisode.sessionDates && (
-                      <>
+                    {sessions && sessions.length > 0 && (
+                      <div className="mb-4">
                         <Heading>Sessiot</Heading>
                         <List variant="unbulleted">
-                          {fullEpisode.sessionDates.split(",").map((dateStr) => {
-                            const date = new Date(dateStr.trim());
-                            const formattedDate = Number.isNaN(date.getTime())
-                              ? dateStr.trim()
-                              : date.toLocaleDateString("fi-FI");
-                            return <ListItem key={dateStr.trim()}>{formattedDate}</ListItem>;
+                          {sessions.map((s) => {
+                            const formatted = s.date
+                              ? new Date(s.date).toLocaleDateString("fi-FI")
+                              : "—";
+                            return (
+                              <ListItem key={s.id}>
+                                #{String(s.sessionNumber).padStart(2, "0")} {s.label ? `${s.label} ` : ""}{formatted}
+                              </ListItem>
+                            );
                           })}
                         </List>
-                      </>
+                      </div>
                     )}
                     {fullEpisode.location && (
                       <>

@@ -12,6 +12,7 @@ import { PageBody } from "@repo/ui/components/Page";
 import { Text } from "@repo/ui/components/Text";
 import { useState } from "react";
 import { useEpisode } from "./api/episodes";
+import { useMyEnrollment } from "./api/enrollment";
 import {
   type ReadingItem,
   useEpisodeReadingItems,
@@ -39,21 +40,21 @@ function typeLabel(contentType: string) {
 }
 
 function PracticalInfoCard({
-  players,
-  sessionDates,
+  playerNames,
+  sessions,
   location,
   locationLink,
 }: {
-  players: string | null;
-  sessionDates: string | null;
+  playerNames: string[];
+  sessions: Session[];
   location: string | null;
   locationLink: string | null;
 }) {
-  const hasDates = sessionDates && sessionDates.trim();
+  const hasPlayers = playerNames.length > 0;
+  const hasSessions = sessions.length > 0;
   const hasLocation = location && location.trim();
-  const hasPlayers = players && players.trim();
 
-  if (!hasDates && !hasLocation && !hasPlayers) return null;
+  if (!hasPlayers && !hasSessions && !hasLocation) return null;
 
   return (
     <Card variant="outline">
@@ -65,20 +66,26 @@ function PracticalInfoCard({
           {hasPlayers && (
             <div className="mb-4">
               <Heading>Pelaajat</Heading>
-              <Text>{players}</Text>
+              <List variant="unbulleted">
+                {playerNames.map((name) => (
+                  <ListItem key={name}>{name}</ListItem>
+                ))}
+              </List>
             </div>
           )}
-          {hasDates && (
+          {hasSessions && (
             <div className="mb-4">
-              <Heading>Sessiopäivät</Heading>
+              <Heading>Sessiot</Heading>
               <List variant="unbulleted">
-                {sessionDates!.split(",").map((d) => {
-                  const trimmed = d.trim();
-                  const date = new Date(trimmed);
-                  const formatted = Number.isNaN(date.getTime())
-                    ? trimmed
-                    : date.toLocaleDateString("fi-FI");
-                  return <ListItem key={trimmed}>{formatted}</ListItem>;
+                {sessions.map((s) => {
+                  const formatted = s.date
+                    ? new Date(s.date).toLocaleDateString("fi-FI")
+                    : "—";
+                  return (
+                    <ListItem key={s.id}>
+                      #{String(s.sessionNumber).padStart(2, "0")} {s.label ? `${s.label} ` : ""}{formatted}
+                    </ListItem>
+                  );
                 })}
               </List>
             </div>
@@ -340,6 +347,7 @@ export function SessionPrepView({
 }) {
   const { data: episode, isLoading: isEpisodeLoading } = useEpisode(episodeId);
   const { data: sessions, isLoading: isSessionsLoading, error: sessionsError } = useSessions(episodeId);
+  const { data: enrollment } = useMyEnrollment(episodeId);
 
   const isNotEnrolled = sessionsError instanceof EnrollmentError;
 
@@ -422,8 +430,8 @@ export function SessionPrepView({
 
             <div>
               <PracticalInfoCard
-                players={episode.players}
-                sessionDates={episode.sessionDates}
+                playerNames={(enrollment ?? []).map((e) => e.username ?? "—")}
+                sessions={sessions ?? []}
                 location={episode.location}
                 locationLink={episode.locationLink}
               />
