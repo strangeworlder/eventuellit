@@ -18,12 +18,23 @@ export class SessionsService {
     @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
   ) {}
 
-  async findByEpisode(episodeId: number) {
-    return this.db
+  async findByEpisode(
+    episodeId: number,
+    viewer: { id: number; role: string } | null,
+  ) {
+    const rows = await this.db
       .select()
       .from(sessions)
       .where(eq(sessions.episodeId, episodeId))
       .orderBy(sessions.sessionNumber);
+
+    const isGm = viewer?.role === "gm";
+    return rows.map((row) => {
+      if (!isGm && !row.recapPublished) {
+        return { ...row, gmRecap: null as string | null };
+      }
+      return row;
+    });
   }
 
   async create(data: CreateSessionDto) {
@@ -64,6 +75,13 @@ export class SessionsService {
     if (data.label !== undefined) updateData.label = data.label;
     if (data.date !== undefined) {
       updateData.date = data.date ? new Date(data.date) : null;
+    }
+    if (data.gmRecap !== undefined) updateData.gmRecap = data.gmRecap;
+    if (data.recapPublished !== undefined) {
+      updateData.recapPublished = data.recapPublished;
+      if (data.recapPublished === true && existing[0].status !== "played") {
+        updateData.status = "played";
+      }
     }
 
     const result = await this.db

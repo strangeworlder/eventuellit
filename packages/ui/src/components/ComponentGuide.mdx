@@ -64,7 +64,8 @@ Use it as the entry point to decide which component to look up next.
 
 | Component | When to use |
 |-----------|-------------|
-| `Tabs` / `TabsList` / `TabsTrigger` / `TabsLink` / `TabsContent` | Primary page-level tab navigation. `TabsLink` renders as `<a>` for router-linked tabs; `TabsTrigger` for state-only tabs. |
+| `TopNav` / `TopNavList` / `TopNavLink` / `TopNavDropdown` | Primary horizontal **navigation** (router). Renders a semantic `<nav>`; links use `NavLink` with `aria-current="page"`. Pair `TopNavDropdown` with `TopNavList` for small viewports. |
+| `Tabs` / `TabsList` / `TabsTrigger` / `TabsContent` | **In-page tab panels** (state-driven). Full ARIA tab pattern (arrow keys, `tablist` / `tab` / `tabpanel`). Not for changing routes — use `TopNavLink` for that. |
 | `Sidebar` | Collapsible side navigation panel. Contains a `SidebarNav` of `Button` items. Uses `useSidebar()` hook for controlled expand/collapse. |
 | `Drawer` | Slide-in side panel. Use for contextual detail panels, not for primary navigation. `useDrawer()` hook for control. |
 | `Dialog` | Modal dialog with focus trap, title, description, footer actions. Use for confirmations and forms requiring focused interaction. |
@@ -121,7 +122,7 @@ Use it as the entry point to decide which component to look up next.
 | Component | When to use |
 |-----------|-------------|
 | `VideoCta` | Embedded YouTube player with a CTA overlay button. Use on landing / campaign pages. |
-| `Tabs` | See Navigation section. |
+| `Tabs` | See Navigation & structure — in-page tab panels. |
 
 ---
 

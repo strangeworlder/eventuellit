@@ -6,6 +6,7 @@ import {
   serial,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
 
@@ -43,6 +44,7 @@ export const episodes = pgTable("episodes", {
   imageAlt: text("image_alt"),
   mechanicalAdditions: text("mechanical_additions"), // Markdown content
   summary: text("summary"),
+  tyrannyRoll: integer("tyranny_roll"), // d12 result (1–12), episode-level
   gmId: integer("gm_id")
     .references(() => users.id)
     .notNull(),
@@ -110,8 +112,35 @@ export const sessions = pgTable("sessions", {
   date: timestamp("date"),
   status: text("status").default("planned").notNull(), // planned | next | played
   label: text("label"),
+  gmRecap: text("gm_recap"),
+  recapPublished: boolean("recap_published").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const sessionPlayerRecaps = pgTable(
+  "session_player_recaps",
+  {
+    id: serial("id").primaryKey(),
+    sessionId: integer("session_id")
+      .references(() => sessions.id, { onDelete: "cascade" })
+      .notNull(),
+    userId: integer("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    journal: text("journal"),
+    highlight: text("highlight"),
+    surprise: text("surprise"),
+    mvp: text("mvp"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    sessionUserUniq: uniqueIndex("session_player_recaps_session_user_uniq").on(
+      t.sessionId,
+      t.userId,
+    ),
+  }),
+);
 
 export const episodeReadingItems = pgTable("episode_reading_items", {
   id: serial("id").primaryKey(),

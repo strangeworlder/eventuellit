@@ -14,6 +14,7 @@ import {
 } from "@nestjs/common";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import { OptionalJwtAuthGuard } from "../auth/optional-jwt-auth.guard";
 import { EpisodePlayersService } from "../episode-players/episode-players.service";
 import { SessionsService } from "./sessions.service";
 import { CreateSessionDto } from "./dto/create-session.dto";
@@ -34,15 +35,17 @@ export class SessionsController {
     private readonly episodePlayersService: EpisodePlayersService,
   ) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(OptionalJwtAuthGuard)
   @Get()
   async findByEpisode(
     @Query("episodeId", ParseIntPipe) episodeId: number,
     @Req() req: Request,
   ) {
-    const user = (req as any).user;
-    await this.episodePlayersService.assertEnrolled(episodeId, user.id, user.role);
-    return this.sessionsService.findByEpisode(episodeId);
+    const user: { id: number; role: string } | undefined = (req as any).user;
+    if (user) {
+      await this.episodePlayersService.assertEnrolled(episodeId, user.id, user.role);
+    }
+    return this.sessionsService.findByEpisode(episodeId, user ?? null);
   }
 
   @UseGuards(JwtAuthGuard)

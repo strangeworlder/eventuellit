@@ -99,23 +99,22 @@ export { StatBlock } from "./components/StatBlock";
 export { Table } from "./components/Table";
 export type { TableProps, TableColumn } from "./components/Table";
 
-export {
-  TopNav,
-  TopNavList,
-  TopNavTrigger,
-  TopNavLink,
-  TopNavDropdown,
-  TopNavContent,
-} from "./components/TopNav";
+export { TopNav, TopNavList, TopNavLink, TopNavDropdown } from "./components/TopNav";
 export type {
   TopNavProps,
   TopNavListProps,
-  TopNavTriggerProps,
   TopNavLinkProps,
   TopNavDropdownProps,
   TopNavDropdownItem,
-  TopNavContentProps,
 } from "./components/TopNav";
+
+export { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/Tabs";
+export type {
+  TabsProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+} from "./components/Tabs";
 
 export { TextSection } from "./components/TextSection";
 

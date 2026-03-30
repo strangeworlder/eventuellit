@@ -16,6 +16,8 @@ export interface Session {
   date: string | null;
   status: "planned" | "next" | "played";
   label: string | null;
+  gmRecap?: string | null;
+  recapPublished?: boolean;
   createdAt: string;
 }
 

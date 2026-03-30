@@ -14,6 +14,7 @@ import { List, ListItem } from "@repo/ui/components/List";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { Page, PageBody } from "@repo/ui/components/Page";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/Tabs";
 import { Input } from "@repo/ui/components/Input";
 import { Select } from "@repo/ui/components/Select";
 import { TextArea } from "@repo/ui/components/TextArea";
@@ -41,6 +42,8 @@ import { ReadingListEditor } from "./ReadingListEditor";
 import { useDisenrollPlayer, useEnrollPlayer, useEpisodePlayers } from "./api/episode-players";
 import { usePlayerUsers } from "./api/users";
 import { useSessions } from "./api/sessions";
+import { TyrannyRollBadge } from "./components/TyrannyRollBadge";
+import { EpisodeRecapTab } from "./components/EpisodeRecapTab";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -345,7 +348,7 @@ function EpisodeDetails({
   const isGm = user?.role === "gm";
   const { mutate: updateEpisode } = useUpdateEpisode();
   const { mutate: deleteEpisode } = useDeleteEpisode();
-  const { data: sessions } = useSessions(episode?.id ?? 0);
+  const { data: sessions, isLoading: isSessionsLoading } = useSessions(episode?.id ?? 0);
   const { data: episodePlayers } = useEpisodePlayers(episode?.id ?? 0);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -359,6 +362,11 @@ function EpisodeDetails({
     source: "episodes",
     route: pathname,
   });
+
+  const activeTab = pathname.endsWith("/kertaus") ? "kertaus" : "tiedot";
+
+  const slugBase = basePath === "/" ? `/${id}` : `${basePath}/${id}`;
+  const tabPath = (tab: string) => (tab === "kertaus" ? `${slugBase}/kertaus` : slugBase);
 
   if (isEpisodesLoading || isEpisodeLoading) return <LoadingState message="Ladataan jaksoa..." />;
   if (!episode || !fullEpisode)
@@ -385,7 +393,7 @@ function EpisodeDetails({
     <div className="animate-in fade-in duration-500">
       <HeadingLevelProvider>
         <Hero title={fullEpisode.title} description={fullEpisode.description || ""}>
-          <div className="flex gap-2 mt-4">
+          <div className="flex flex-wrap gap-2 mt-4">
             {fullEpisode.status === "active" && (
               <Badge variant="solid" icon="sparkles">
                 Aktiivinen Jakso
@@ -394,6 +402,11 @@ function EpisodeDetails({
             {fullEpisode.status === "completed" && <Badge variant="outline">Arkistoitu</Badge>}
             {fullEpisode.status === "planned" && <Badge variant="outline">Tulossa</Badge>}
           </div>
+          <TyrannyRollBadge
+            episodeId={fullEpisode.id}
+            tyrannyRoll={fullEpisode.tyrannyRoll}
+            sessions={sessions}
+          />
         </Hero>
 
         {isGm && onCreateNew && (
@@ -421,94 +434,120 @@ function EpisodeDetails({
           </>
         )}
 
-        <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
+        <PageBody>
           <Breadcrumb
-            className="col-span-full mb-2"
+            className="mb-4"
             items={[
               { label: "Jaksot", to: basePath === "/" ? "/" : basePath },
               { label: fullEpisode.title },
             ]}
           />
-          <div ref={articleRef} className="space-y-6">
-            <HeadingLevelProvider>
-              {fullEpisode.content && (
-                <MarkdownRenderer headingIdPrefix={`episode-${fullEpisode.id}`}>
-                  {fullEpisode.content}
-                </MarkdownRenderer>
-              )}
-            </HeadingLevelProvider>
-          </div>
 
-          <div className="space-y-8 pt-6">
-            {fullEpisode.image && (
-              <ImageElement
-                src={fullEpisode.image}
-                sizes="(max-width: 1024px) 100vw, 24rem"
-                alt={fullEpisode.imageAlt || fullEpisode.title}
-                variant="outline"
-              />
-            )}
+          <Tabs
+            value={activeTab}
+            onValueChange={(tab) => navigate(tabPath(tab))}
+            className="mb-8"
+          >
+            <TabsList>
+              <TabsTrigger value="tiedot">Tiedot</TabsTrigger>
+              <TabsTrigger value="kertaus">Kertaus</TabsTrigger>
+            </TabsList>
 
-            <div className="space-y-4">
-              <Card variant="outline" className="gap-2">
-                <CardHeader>
-                  <CardTitle>Tiedot</CardTitle>
-                </CardHeader>
-                <CardContent>
+            <TabsContent value="tiedot" className="pt-8">
+              <div className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
+                <div ref={articleRef} className="space-y-6">
                   <HeadingLevelProvider>
-                    {episodePlayers && episodePlayers.length > 0 && (
-                      <div className="mb-4">
-                        <Heading>Pelaajat</Heading>
-                        <List variant="unbulleted">
-                          {episodePlayers.map((ep) => (
-                            <ListItem key={ep.id}>{ep.username ?? "—"}</ListItem>
-                          ))}
-                        </List>
-                      </div>
-                    )}
-                    {sessions && sessions.length > 0 && (
-                      <div className="mb-4">
-                        <Heading>Sessiot</Heading>
-                        <List variant="unbulleted">
-                          {sessions.map((s) => {
-                            const formatted = s.date
-                              ? new Date(s.date).toLocaleDateString("fi-FI")
-                              : "—";
-                            return (
-                              <ListItem key={s.id}>
-                                #{String(s.sessionNumber).padStart(2, "0")}{" "}
-                                {s.label ? `${s.label} ` : ""}
-                                {formatted}
-                              </ListItem>
-                            );
-                          })}
-                        </List>
-                      </div>
-                    )}
-                    {fullEpisode.location && (
-                      <>
-                        <Heading>Sijainti</Heading>
-                        <Link href={fullEpisode.locationLink || "#"}>{fullEpisode.location}</Link>
-                      </>
+                    {fullEpisode.content && (
+                      <MarkdownRenderer headingIdPrefix={`episode-${fullEpisode.id}`}>
+                        {fullEpisode.content}
+                      </MarkdownRenderer>
                     )}
                   </HeadingLevelProvider>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
 
-            {fullEpisode.mechanicalAdditions && (
-              <div className="desktop:col-span-1 space-y-4">
-                <Card iconName="zap">
-                  <CardHeader>
-                    <CardTitle>Mekaaniset Lisäykset</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0 tablet:pt-0">
-                    <MarkdownRenderer>{fullEpisode.mechanicalAdditions}</MarkdownRenderer>
-                  </CardContent>
-                </Card>
+                <div className="space-y-8 pt-6">
+                  {fullEpisode.image && (
+                    <ImageElement
+                      src={fullEpisode.image}
+                      sizes="(max-width: 1024px) 100vw, 24rem"
+                      alt={fullEpisode.imageAlt || fullEpisode.title}
+                      variant="outline"
+                    />
+                  )}
+
+                  <div className="space-y-4">
+                    <Card variant="outline" className="gap-2">
+                      <CardHeader>
+                        <CardTitle>Tiedot</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <HeadingLevelProvider>
+                          {episodePlayers && episodePlayers.length > 0 && (
+                            <div className="mb-4">
+                              <Heading>Pelaajat</Heading>
+                              <List variant="unbulleted">
+                                {episodePlayers.map((ep) => (
+                                  <ListItem key={ep.id}>{ep.username ?? "—"}</ListItem>
+                                ))}
+                              </List>
+                            </div>
+                          )}
+                          {sessions && sessions.length > 0 && (
+                            <div className="mb-4">
+                              <Heading>Sessiot</Heading>
+                              <List variant="unbulleted">
+                                {sessions.map((s) => {
+                                  const formatted = s.date
+                                    ? new Date(s.date).toLocaleDateString("fi-FI")
+                                    : "—";
+                                  return (
+                                    <ListItem key={s.id}>
+                                      #{String(s.sessionNumber).padStart(2, "0")}{" "}
+                                      {s.label ? `${s.label} ` : ""}
+                                      {formatted}
+                                    </ListItem>
+                                  );
+                                })}
+                              </List>
+                            </div>
+                          )}
+                          {fullEpisode.location && (
+                            <>
+                              <Heading>Sijainti</Heading>
+                              <Link href={fullEpisode.locationLink || "#"}>
+                                {fullEpisode.location}
+                              </Link>
+                            </>
+                          )}
+                        </HeadingLevelProvider>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {fullEpisode.mechanicalAdditions && (
+                    <div className="space-y-4">
+                      <Card iconName="zap">
+                        <CardHeader>
+                          <CardTitle>Mekaaniset Lisäykset</CardTitle>
+                        </CardHeader>
+                        <CardContent className="pt-0 tablet:pt-0">
+                          <MarkdownRenderer>{fullEpisode.mechanicalAdditions}</MarkdownRenderer>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
+            </TabsContent>
+
+            <TabsContent value="kertaus" className="pt-8">
+              <EpisodeRecapTab
+                episode={fullEpisode}
+                sessions={sessions}
+                isLoading={isSessionsLoading}
+              />
+            </TabsContent>
+          </Tabs>
         </PageBody>
       </HeadingLevelProvider>
     </div>
@@ -646,7 +685,7 @@ function EpisodeWrapper() {
                   {episodes.map((episode) => (
                     <Route
                       key={episode.id}
-                      path={episode.slug}
+                      path={`${episode.slug}/*`}
                       element={
                         <EpisodeDetails
                           id={episode.slug}

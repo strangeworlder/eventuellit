@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, IsString, Min } from "class-validator";
+import { IsInt, IsOptional, IsString, Max, Min } from "class-validator";
 
 export class CreateEpisodeDto {
   @IsString()
@@ -55,4 +55,10 @@ export class CreateEpisodeDto {
   @IsOptional()
   @IsString()
   summary?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(12)
+  tyrannyRoll?: number;
 }

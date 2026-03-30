@@ -34,7 +34,8 @@ All theme tokens are pre-verified at WCAG AA. Contrast ratios are documented inl
 | Component | Keyboard behavior |
 |---|---|
 | **Button** | Enter/Space activates, Tab navigates |
-| **Tabs** | Arrow keys move between tabs, Home/End jump to first/last |
+| **TopNav** / **TopNavLink** | Standard link focus order (Tab / Shift+Tab); no roving tabindex |
+| **Tabs** (`TabsList` + `TabsTrigger`) | Arrow keys move between tabs, Home/End jump to first/last |
 | **RadioGroup** | Arrow keys move between options |
 | **Switch** | Space toggles |
 | **Select** | Native browser keyboard support |
@@ -54,6 +55,7 @@ All interactive elements use a visible `focus-visible:ring-2` ring with `--theme
 
 | Component | ARIA roles / attributes |
 |---|---|
+| **TopNav** | Native `<nav>` landmark; optional `aria-label`; active route on `TopNavLink` via `aria-current="page"` (from `NavLink`) |
 | **Tabs** | `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, `aria-controls`, `aria-labelledby` |
 | **Switch** | `role="switch"`, `aria-checked` |
 | **RadioGroup** | `role="radiogroup"`, native inputs with `sr-only` visuals |

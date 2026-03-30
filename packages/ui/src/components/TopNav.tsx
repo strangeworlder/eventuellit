@@ -1,81 +1,48 @@
-import React, { createContext, useCallback, useContext, useRef, useState } from "react";
+import React, { useCallback } from "react";
 import { NavLink, type NavLinkProps, useNavigate } from "react-router-dom";
 import { Icon } from "./Icon";
 import { cn } from "./utils";
+import { usePillIndicator } from "./usePillIndicator";
 
-type TopNavContextValue = {
-  value?: string;
-  onValueChange?: (value: string) => void;
-};
-
-const TopNavContext = createContext<TopNavContextValue | undefined>(undefined);
-
-function useTopNav() {
-  const context = useContext(TopNavContext);
-  if (!context) {
-    throw new Error("TopNav components must be used within a TopNav provider");
-  }
-  return context;
-}
-
-export interface TopNavProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** The controlled value of the item to activate. Should be used in conjunction with `onValueChange`. */
-  value?: string;
-  /** The value of the item that should be active when initially rendered. Use when you do not need to control the state. */
-  defaultValue?: string;
-  /** Event handler called when the value changes. */
-  onValueChange?: (value: string) => void;
+export interface TopNavProps extends React.HTMLAttributes<HTMLElement> {
+  /**
+   * Accessible name for the navigation landmark (recommended when multiple `nav` regions exist).
+   */
+  "aria-label"?: string;
 }
 
 /**
- * Top-level navigation bar for content sections. Designed with a physical binder aesthetic
- * and full keyboard accessibility. Use `TopNavLink` for router-linked items and `TopNavTrigger`
- * for state-only items. Add a `TopNavLink variant="parent"` as the first item to provide
- * hierarchy back-navigation. Use `TopNavDropdown` on mobile as a companion to `TopNavList`.
+ * Top-level navigation bar for content sections. Designed with a physical binder aesthetic.
+ * Use `TopNavLink` for router-linked items. Add `TopNavLink variant="parent"` as the first item
+ * for hierarchy back-navigation. Use `TopNavDropdown` on mobile as a companion to `TopNavList`.
  *
- * @summary top navigation bar; TopNavLink for router items, TopNavTrigger for state items, TopNavDropdown for mobile
+ * For in-page tab panels (state-driven), use `Tabs` / `TabsList` / `TabsTrigger` / `TabsContent`.
+ *
+ * @summary top navigation bar; TopNavLink for router items, TopNavDropdown for mobile
  */
-export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>(
-  ({ value: controlledValue, defaultValue, onValueChange, className, ...props }, ref) => {
-    const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
-    const isControlled = controlledValue !== undefined;
-    const value = isControlled ? controlledValue : uncontrolledValue;
-
-    const handleValueChange = useCallback(
-      (newValue: string) => {
-        if (!isControlled) {
-          setUncontrolledValue(newValue);
-        }
-        onValueChange?.(newValue);
-      },
-      [isControlled, onValueChange],
-    );
-
-    return (
-      <TopNavContext.Provider value={{ value, onValueChange: handleValueChange }}>
-        <div ref={ref} className={cn("flex flex-col", className)} {...props} />
-      </TopNavContext.Provider>
-    );
-  },
-);
+export const TopNav = React.forwardRef<HTMLElement, TopNavProps>(({ className, ...props }, ref) => {
+  return <nav ref={ref} className={cn("flex flex-col", className)} {...props} />;
+});
 TopNav.displayName = "TopNav";
+
+const NAV_ITEM_SELECTOR = "[data-nav-item]";
+
+function isNavItemActive(el: HTMLElement): boolean {
+  return el.getAttribute("aria-current") === "page";
+}
 
 export interface TopNavListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
-  ({ className, onKeyDown, style, ...props }, ref) => {
-    const listRef = useRef<HTMLDivElement>(null);
-    const [tugX, setTugX] = useState(0);
-    const [tugY, setTugY] = useState(0);
-    const [stretchX, setStretchX] = useState(1);
-    const [stretchY, setStretchY] = useState(1);
-    const [tugOriginX, setTugOriginX] = useState("50%");
-    const [tugOriginY, setTugOriginY] = useState("50%");
-    const [isSettling, setIsSettling] = useState(false);
-    const settleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  ({ className, style, ...props }, ref) => {
+    const activeCheck = useCallback((el: HTMLElement) => isNavItemActive(el), []);
+    const { listRef, style: pillStyle, settleClassName, handlers } = usePillIndicator({
+      itemSelector: NAV_ITEM_SELECTOR,
+      activeCheck,
+    });
 
     const setRefs = useCallback(
-      (node: HTMLDivElement) => {
+      (node: HTMLDivElement | null) => {
         listRef.current = node;
         if (typeof ref === "function") {
           ref(node);
@@ -83,235 +50,34 @@ export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
           ref.current = node;
         }
       },
-      [ref],
+      [ref, listRef],
     );
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (!listRef.current) return;
-
-      const targetRole = (e.target as HTMLElement).getAttribute?.("role");
-      if (targetRole !== "tab") return;
-
-      const items = Array.from(
-        listRef.current.querySelectorAll<HTMLElement>('[role="tab"]:not([disabled])'),
-      );
-      if (!items.length) return;
-
-      const currentFocusedIndex = items.findIndex((item) => item === document.activeElement);
-
-      let nextIndex = currentFocusedIndex;
-      let handled = false;
-
-      switch (e.key) {
-        case "ArrowRight":
-          nextIndex = (currentFocusedIndex + 1) % items.length;
-          handled = true;
-          break;
-        case "ArrowLeft":
-          nextIndex = (currentFocusedIndex - 1 + items.length) % items.length;
-          handled = true;
-          break;
-        case "Home":
-          nextIndex = 0;
-          handled = true;
-          break;
-        case "End":
-          nextIndex = items.length - 1;
-          handled = true;
-          break;
-        default:
-          break;
-      }
-
-      if (handled) {
-        e.preventDefault();
-        items[nextIndex]?.focus();
-      }
-
-      onKeyDown?.(e);
-    };
-
-    const triggerSettle = useCallback(() => {
-      if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
-      settleTimerRef.current = setTimeout(() => {
-        setIsSettling(true);
-        setTugX(0);
-        setTugY(0);
-        setStretchX(1);
-        setStretchY(1);
-        setTugOriginX("50%");
-        setTugOriginY("50%");
-        settleTimerRef.current = setTimeout(() => setIsSettling(false), 700);
-      }, 80);
-    }, []);
-
-    const handleMouseOver = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        const target = (e.target as HTMLElement).closest('[role="tab"]') as HTMLElement | null;
-        if (!target || !listRef.current) return;
-
-        const isActive =
-          target.getAttribute("aria-selected") === "true" ||
-          target.getAttribute("aria-current") === "page";
-
-        if (isActive) {
-          triggerSettle();
-          return;
-        }
-
-        if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
-        setIsSettling(false);
-
-        const items = Array.from(listRef.current.querySelectorAll<HTMLElement>('[role="tab"]'));
-        const activeItem = items.find(
-          (t) =>
-            t.getAttribute("aria-selected") === "true" || t.getAttribute("aria-current") === "page",
-        );
-
-        if (!activeItem) return;
-
-        const activeRect = activeItem.getBoundingClientRect();
-        const targetRect = target.getBoundingClientRect();
-
-        // Vector from active tab center to hovered tab center so the tug aims at the hover target
-        // even when tab widths differ (edge deltas can point the wrong way visually).
-        const activeCx = activeRect.left + activeRect.width / 2;
-        const activeCy = activeRect.top + activeRect.height / 2;
-        const targetCx = targetRect.left + targetRect.width / 2;
-        const targetCy = targetRect.top + targetRect.height / 2;
-        const dx = targetCx - activeCx;
-        const dy = targetCy - activeCy;
-
-        const maxPull = 12;
-        const pullX = Math.max(-maxPull, Math.min(maxPull, dx * 0.06));
-        const pullY = Math.max(-maxPull, Math.min(maxPull, dy * 0.06));
-
-        const scaleX = 1 + Math.abs(pullX) / Math.max(activeRect.width, 1);
-        const scaleY = 1 + Math.abs(pullY) / Math.max(activeRect.height, 1);
-
-        // Scale from the edge away from the hover so growth reaches toward the hovered item
-        // (center origin makes the pill bulge both ways, which reads as tugging the wrong way).
-        const edgeEps = 0.5;
-        const originX = dx > edgeEps ? "0%" : dx < -edgeEps ? "100%" : "50%";
-        const originY = dy > edgeEps ? "0%" : dy < -edgeEps ? "100%" : "50%";
-
-        setTugX(pullX);
-        setTugY(pullY);
-        setStretchX(scaleX);
-        setStretchY(scaleY);
-        setTugOriginX(originX);
-        setTugOriginY(originY);
-      },
-      [triggerSettle],
-    );
-
-    const handleMouseLeave = useCallback(() => {
-      if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
-      setIsSettling(true);
-      setTugX(0);
-      setTugY(0);
-      setStretchX(1);
-      setStretchY(1);
-      setTugOriginX("50%");
-      setTugOriginY("50%");
-      settleTimerRef.current = setTimeout(() => setIsSettling(false), 700);
-    }, []);
 
     return (
       <div
         ref={setRefs}
-        role="tablist"
-        aria-orientation="horizontal"
         className={cn(
           "relative flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] mb-0 gap-1 px-4 mobile:px-0",
           "[anchor-scope:--active-tab]",
           "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
           "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
           "after:transition-[left,right,top,bottom] after:duration-500 after:ease-[cubic-bezier(0.23,1,0.32,1)]",
-          isSettling
-            ? "after:[transition:left_500ms_cubic-bezier(0.23,1,0.32,1),right_500ms_cubic-bezier(0.23,1,0.32,1),top_500ms_cubic-bezier(0.23,1,0.32,1),bottom_500ms_cubic-bezier(0.23,1,0.32,1),transform_600ms_cubic-bezier(0.34,1.56,0.64,1)]"
-            : "after:[transition:left_500ms_cubic-bezier(0.23,1,0.32,1),right_500ms_cubic-bezier(0.23,1,0.32,1),top_500ms_cubic-bezier(0.23,1,0.32,1),bottom_500ms_cubic-bezier(0.23,1,0.32,1),transform_200ms_ease-out]",
+          settleClassName,
           "after:[transform-origin:var(--tab-tug-ox,50%)_var(--tab-tug-oy,50%)]",
           "after:[transform:translateX(var(--tab-tug-x,0px))_translateY(var(--tab-tug-y,0px))_scaleX(var(--tab-stretch-x,1))_scaleY(var(--tab-stretch-y,1))]",
           "after:pointer-events-none",
           className,
         )}
-        style={
-          {
-            "--tab-tug-x": `${tugX}px`,
-            "--tab-tug-y": `${tugY}px`,
-            "--tab-tug-ox": tugOriginX,
-            "--tab-tug-oy": tugOriginY,
-            "--tab-stretch-x": stretchX,
-            "--tab-stretch-y": stretchY,
-            ...style,
-          } as React.CSSProperties
-        }
-        onKeyDown={handleKeyDown}
-        onMouseOver={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
-        onClick={(e) => {
-          if ((e.target as HTMLElement).closest('[role="tab"]')) {
-            triggerSettle();
-          }
-        }}
+        style={{ ...pillStyle, ...style } as React.CSSProperties}
+        onMouseOver={handlers.onMouseOver}
+        onMouseLeave={handlers.onMouseLeave}
+        onClick={handlers.onClick}
         {...props}
       />
     );
   },
 );
 TopNavList.displayName = "TopNavList";
-
-export interface TopNavTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  value: string;
-  theme?:
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
-}
-
-export const TopNavTrigger = React.forwardRef<HTMLButtonElement, TopNavTriggerProps>(
-  ({ className, value, theme, onClick, ...props }, ref) => {
-    const context = useTopNav();
-    const isSelected = context.value === value;
-
-    return (
-      <button
-        ref={ref}
-        role="tab"
-        type="button"
-        aria-selected={isSelected}
-        aria-controls={`topnav-panel-${value}`}
-        id={`topnav-item-${value}`}
-        tabIndex={isSelected ? 0 : -1}
-        data-theme={theme}
-        onClick={(e) => {
-          context.onValueChange?.(value);
-          onClick?.(e);
-        }}
-        className={cn(
-          "relative cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
-          "disabled:pointer-events-none disabled:opacity-50",
-          "rounded-t-md",
-          "mb-[-2px]",
-          isSelected && "[anchor-name:--active-tab]",
-          isSelected
-            ? "bg-transparent text-[var(--theme-primary)] z-10 border-2 border-transparent font-bold"
-            : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:[text-shadow:0_0_15px_var(--theme-secondary)] hover:text-[var(--theme-text)] font-semibold",
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
-TopNavTrigger.displayName = "TopNavTrigger";
 
 export interface TopNavLinkProps extends Omit<NavLinkProps, "className"> {
   theme?:
@@ -335,7 +101,7 @@ export interface TopNavLinkProps extends Omit<NavLinkProps, "className"> {
 
 /**
  * A nav item that renders as a `NavLink` for router-based navigation.
- * Active state is determined by the current URL, not by TopNav context.
+ * Active state is determined by the current URL (`aria-current="page"`).
  * Use `variant="parent"` for a visually distinct back-navigation item.
  */
 export const TopNavLink = React.forwardRef<HTMLAnchorElement, TopNavLinkProps>(
@@ -344,18 +110,20 @@ export const TopNavLink = React.forwardRef<HTMLAnchorElement, TopNavLinkProps>(
       return (
         <NavLink
           ref={ref}
-          role="tab"
+          data-nav-item
           data-theme={theme}
-          className={cn(
-            "relative cursor-pointer inline-flex items-center gap-1 whitespace-nowrap px-4 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
-            "rounded-t-md mb-[-2px]",
-            "border-2 border-transparent bg-transparent",
-            "text-[var(--theme-primary)] hover:text-[var(--theme-primary)]",
-            // Thin separator to the right, visually dividing it from sibling content items
-            "after:content-[''] after:absolute after:right-0 after:top-3 after:bottom-3 after:w-px after:bg-[var(--theme-border-soft)]",
-            className,
-          )}
+          className={({ isActive }) =>
+            cn(
+              "relative cursor-pointer inline-flex items-center gap-1 whitespace-nowrap px-4 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
+              "rounded-t-md mb-[-2px]",
+              "border-2 border-transparent bg-transparent",
+              "text-[var(--theme-primary)] hover:text-[var(--theme-primary)]",
+              "after:content-[''] after:absolute after:right-0 after:top-3 after:bottom-3 after:w-px after:bg-[var(--theme-border-soft)]",
+              isActive && "[anchor-name:--active-tab]",
+              className,
+            )
+          }
           {...props}
         >
           <Icon name="chevron-left" size={13} className="flex-shrink-0" aria-hidden="true" />
@@ -367,7 +135,7 @@ export const TopNavLink = React.forwardRef<HTMLAnchorElement, TopNavLinkProps>(
     return (
       <NavLink
         ref={ref}
-        role="tab"
+        data-nav-item
         data-theme={theme}
         className={({ isActive }) =>
           cn(
@@ -472,34 +240,3 @@ export const TopNavDropdown = React.forwardRef<HTMLDivElement, TopNavDropdownPro
   },
 );
 TopNavDropdown.displayName = "TopNavDropdown";
-
-export interface TopNavContentProps extends React.HTMLAttributes<HTMLDivElement> {
-  value: string;
-}
-
-export const TopNavContent = React.forwardRef<HTMLDivElement, TopNavContentProps>(
-  ({ className, value, ...props }, ref) => {
-    const context = useTopNav();
-    const isSelected = context.value === value;
-
-    if (!isSelected) {
-      return null;
-    }
-
-    return (
-      <div
-        ref={ref}
-        role="tabpanel"
-        id={`topnav-panel-${value}`}
-        aria-labelledby={`topnav-item-${value}`}
-        tabIndex={0}
-        className={cn(
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] animate-in fade-in duration-300",
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
-TopNavContent.displayName = "TopNavContent";

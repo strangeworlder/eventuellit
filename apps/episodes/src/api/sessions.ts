@@ -16,10 +16,12 @@ export interface Session {
   date: string | null;
   status: "planned" | "next" | "played";
   label: string | null;
+  gmRecap: string | null;
+  recapPublished: boolean;
   createdAt: string;
 }
 
-export const useSessions = (episodeId: number) => {
+export const useSessions = (episodeId: number, queryEnabled = true) => {
   return useQuery<Session[]>({
     queryKey: ["sessions", episodeId],
     queryFn: async () => {
@@ -30,7 +32,7 @@ export const useSessions = (episodeId: number) => {
       if (!response.ok) throw new Error("Failed to fetch sessions");
       return response.json();
     },
-    enabled: !!episodeId,
+    enabled: !!episodeId && queryEnabled,
   });
 };
 
@@ -71,6 +73,8 @@ export const useUpdateSession = () => {
       date?: string;
       status?: string;
       label?: string;
+      gmRecap?: string;
+      recapPublished?: boolean;
     }) => {
       const response = await fetch(`${API_BASE_URL}/sessions/${id}`, {
         method: "PATCH",
