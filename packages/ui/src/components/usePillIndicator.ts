@@ -16,6 +16,31 @@ const HOVER_TRANSITION =
 /**
  * Shared tug/stretch animation for the binder-style pill indicator under TopNavList / TabsList.
  */
+function resolveItemFromEvent(
+  e: MouseEvent<HTMLDivElement>,
+  listEl: HTMLElement,
+  itemSelector: string,
+): HTMLElement | null {
+  const path = e.nativeEvent.composedPath?.() ?? [];
+  if (path.length === 0) {
+    const el = e.target instanceof Element ? e.target : null;
+    const hit = el?.closest(itemSelector);
+    return hit instanceof HTMLElement && listEl.contains(hit) ? hit : null;
+  }
+  for (const node of path) {
+    if (node === listEl) break;
+    if (!(node instanceof HTMLElement) || !listEl.contains(node)) continue;
+    try {
+      if (node.matches(itemSelector)) {
+        return node;
+      }
+    } catch {
+      break;
+    }
+  }
+  return null;
+}
+
 export function usePillIndicator({ itemSelector, activeCheck }: PillIndicatorConfig) {
   const listRef = useRef<HTMLDivElement | null>(null);
   const [tugX, setTugX] = useState(0);
@@ -43,8 +68,9 @@ export function usePillIndicator({ itemSelector, activeCheck }: PillIndicatorCon
 
   const handleMouseOver = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
-      const target = (e.target as HTMLElement).closest(itemSelector) as HTMLElement | null;
-      if (!target || !listRef.current) return;
+      if (!listRef.current) return;
+      const target = resolveItemFromEvent(e, listRef.current, itemSelector);
+      if (!target) return;
 
       if (activeCheck(target)) {
         triggerSettle();
@@ -106,7 +132,8 @@ export function usePillIndicator({ itemSelector, activeCheck }: PillIndicatorCon
 
   const handleClick = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
-      if ((e.target as HTMLElement).closest(itemSelector)) {
+      if (!listRef.current) return;
+      if (resolveItemFromEvent(e, listRef.current, itemSelector)) {
         triggerSettle();
       }
     },

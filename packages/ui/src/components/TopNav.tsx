@@ -28,7 +28,8 @@ TopNav.displayName = "TopNav";
 const NAV_ITEM_SELECTOR = "[data-nav-item]";
 
 function isNavItemActive(el: HTMLElement): boolean {
-  return el.getAttribute("aria-current") === "page";
+  const c = el.getAttribute("aria-current");
+  return c != null && c !== "false";
 }
 
 export interface TopNavListProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -110,6 +111,7 @@ export const TopNavLink = React.forwardRef<HTMLAnchorElement, TopNavLinkProps>(
       return (
         <NavLink
           ref={ref}
+          end
           data-nav-item
           data-theme={theme}
           className={({ isActive }) =>
