@@ -54,11 +54,7 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
   );
 
   if (markers.length === 0) {
-    return (
-      <p className={cn("text-sm text-text-muted", isMinimalVariant ? "pl-4" : "pl-5")}>
-        Ei osioita
-      </p>
-    );
+    return (null);
   }
 
   return markers.map((marker) =>

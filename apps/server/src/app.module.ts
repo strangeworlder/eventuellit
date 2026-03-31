@@ -2,7 +2,9 @@ import { Module } from "@nestjs/common";
 import { AuthModule } from "./auth/auth.module";
 import { CharactersModule } from "./characters/characters.module";
 import { ContentRegistryModule } from "./content-registry/content-registry.module";
+import { DashboardModule } from "./dashboard/dashboard.module";
 import { DbModule } from "./db/db.module";
+import { EpisodeInvitesModule } from "./episode-invites/episode-invites.module";
 import { EpisodePlayersModule } from "./episode-players/episode-players.module";
 import { EpisodesModule } from "./episodes/episodes.module";
 import { ReadingItemsModule } from "./reading-items/reading-items.module";
@@ -24,6 +26,8 @@ import { UsersModule } from "./users/users.module";
     SessionRecapsModule,
     UsersModule,
     EpisodePlayersModule,
+    EpisodeInvitesModule,
+    DashboardModule,
   ],
 })
 export class AppModule {}

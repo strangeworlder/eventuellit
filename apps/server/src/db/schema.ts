@@ -179,3 +179,20 @@ export const playerReadingProgress = pgTable("player_reading_progress", {
     .notNull(),
   completedAt: timestamp("completed_at").defaultNow().notNull(),
 });
+
+export const episodeInvites = pgTable("episode_invites", {
+  id: serial("id").primaryKey(),
+  episodeId: integer("episode_id")
+    .references(() => episodes.id, { onDelete: "cascade" })
+    .notNull(),
+  userId: integer("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  status: text("status").default("pending").notNull(), // pending | accepted | declined
+  invitedBy: integer("invited_by")
+    .references(() => users.id)
+    .notNull(),
+  message: text("message"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  respondedAt: timestamp("responded_at"),
+});

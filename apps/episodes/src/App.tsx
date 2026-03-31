@@ -40,6 +40,7 @@ import {
 } from "./api/episodes";
 import { ReadingListEditor } from "./ReadingListEditor";
 import { useDisenrollPlayer, useEnrollPlayer, useEpisodePlayers } from "./api/episode-players";
+import { useEpisodeInvites, useSendInvite } from "./api/episode-invites";
 import { usePlayerUsers } from "./api/users";
 import { useSessions } from "./api/sessions";
 import { TyrannyRollBadge } from "./components/TyrannyRollBadge";
@@ -213,15 +214,21 @@ function EpisodeEditForm({
 function EpisodePlayersEditor({ episodeId }: { episodeId: number }) {
   const { data: allPlayers, isLoading: isPlayersLoading } = usePlayerUsers();
   const { data: enrolled, isLoading: isEnrolledLoading } = useEpisodePlayers(episodeId);
+  const { data: invites, isLoading: isInvitesLoading } = useEpisodeInvites(episodeId);
   const { mutate: enroll, isPending: isEnrolling } = useEnrollPlayer();
   const { mutate: disenroll, isPending: isDisenrolling } = useDisenrollPlayer();
+  const { mutate: sendInvite, isPending: isSendingInvite } = useSendInvite();
 
-  const isPending = isEnrolling || isDisenrolling;
+  const isPending = isEnrolling || isDisenrolling || isSendingInvite;
 
-  if (isPlayersLoading || isEnrolledLoading) return <LoadingState message="Ladataan pelaajia..." />;
+  if (isPlayersLoading || isEnrolledLoading || isInvitesLoading)
+    return <LoadingState message="Ladataan pelaajia..." />;
 
   const enrolledUserIds = new Set((enrolled ?? []).map((e) => e.userId));
   const enrollmentByUserId = new Map((enrolled ?? []).map((e) => [e.userId, e]));
+  const pendingInviteUserIds = new Set(
+    (invites ?? []).filter((i) => i.status === "pending").map((i) => i.userId),
+  );
 
   return (
     <div className="space-y-2">
@@ -232,6 +239,7 @@ function EpisodePlayersEditor({ episodeId }: { episodeId: number }) {
         <div className="space-y-1">
           {allPlayers.map((player) => {
             const isEnrolled = enrolledUserIds.has(player.id);
+            const hasPendingInvite = pendingInviteUserIds.has(player.id);
             const enrollment = enrollmentByUserId.get(player.id);
             return (
               <div
@@ -245,21 +253,39 @@ function EpisodePlayersEditor({ episodeId }: { episodeId: number }) {
                   <Text variant="caption" className="truncate block">
                     {player.email}
                   </Text>
+                  {hasPendingInvite && !isEnrolled && (
+                    <Badge variant="highlight" className="mt-0.5">
+                      Kutsu lähetetty
+                    </Badge>
+                  )}
                 </div>
-                <Button
-                  size="compact"
-                  variant={isEnrolled ? "danger" : "outline"}
-                  disabled={isPending}
-                  onClick={() => {
-                    if (isEnrolled && enrollment) {
-                      disenroll({ id: enrollment.id, episodeId });
-                    } else {
-                      enroll({ episodeId, userId: player.id });
-                    }
-                  }}
-                >
-                  {isEnrolled ? "Poista" : "Lisää"}
-                </Button>
+                <div className="flex gap-1 shrink-0">
+                  {!isEnrolled && !hasPendingInvite && (
+                    <Button
+                      size="compact"
+                      variant="ghost"
+                      disabled={isPending}
+                      onClick={() => sendInvite({ episodeId, userId: player.id })}
+                      title="Lähetä kutsu"
+                    >
+                      Kutsu
+                    </Button>
+                  )}
+                  <Button
+                    size="compact"
+                    variant={isEnrolled ? "danger" : "outline"}
+                    disabled={isPending}
+                    onClick={() => {
+                      if (isEnrolled && enrollment) {
+                        disenroll({ id: enrollment.id, episodeId });
+                      } else {
+                        enroll({ episodeId, userId: player.id });
+                      }
+                    }}
+                  >
+                    {isEnrolled ? "Poista" : "Lisää"}
+                  </Button>
+                </div>
               </div>
             );
           })}

@@ -35,6 +35,7 @@ const queryClient = new QueryClient();
 
 import { LandingPage } from "./components/LandingPage";
 import { LoginPage } from "./components/LoginPage";
+import { OmaSivuPage } from "./components/OmaSivuPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyPage } from "./components/VerifyPage";
 import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
@@ -74,7 +75,9 @@ function AppContent() {
         ? "episodes"
         : location.pathname.startsWith("/world")
           ? "world"
-          : "home";
+          : location.pathname.startsWith("/oma-sivu")
+            ? "dashboard"
+            : "home";
 
   useEffect(() => {
     const title = buildDocumentTitle(location.pathname);
@@ -290,6 +293,15 @@ function AppContent() {
         <SidebarContent>
           {isLoggedIn && (
             <SidebarItem
+              icon={<Icon name="list-checks" size={20} />}
+              active={activeView === "dashboard"}
+              onClick={() => navigate("/oma-sivu")}
+            >
+              Oma sivu
+            </SidebarItem>
+          )}
+          {isLoggedIn && (
+            <SidebarItem
               icon={<Icon name="dice5" size={20} />}
               active={activeView === "generator"}
               onClick={() => navigate("/generator")}
@@ -396,6 +408,11 @@ function AppContent() {
                 Eventuellit: Maailma
               </Heading>
             )}
+            {activeView === "dashboard" && (
+              <Heading as="h1" className="m-0">
+                Eventuellit: Oma sivu
+              </Heading>
+            )}
           </header>
 
           {(activeView === "ruleset" || activeView === "episodes" || activeView === "world") &&
@@ -444,6 +461,14 @@ function AppContent() {
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/kirjaudu" element={<LoginPage />} />
                   <Route path="/auth/vahvista" element={<VerifyPage />} />
+                  <Route
+                    path="/oma-sivu"
+                    element={
+                      <ProtectedRoute>
+                        <OmaSivuPage />
+                      </ProtectedRoute>
+                    }
+                  />
                   <Route
                     path="/generator/*"
                     element={
