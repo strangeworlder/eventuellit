@@ -5,6 +5,7 @@ import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Stack } from "@repo/ui/components/Layout";
 import { Text } from "@repo/ui/components/Text";
 import { TextArea } from "@repo/ui/components/TextArea";
+import { ToolButton } from "@repo/ui/components/ToolButton";
 import { useState } from "react";
 import {
   type SessionPlayerRecap,
@@ -85,9 +86,9 @@ function OwnRecapEditor({
     return (
       <Stack gap={3}>
         <PlayerRecapCard recap={existing} isOwn />
-        <Button variant="outline" onClick={() => setEditing(true)}>
+        <ToolButton onClick={() => setEditing(true)}>
           Muokkaa omaa kertausta
-        </Button>
+        </ToolButton>
       </Stack>
     );
   }

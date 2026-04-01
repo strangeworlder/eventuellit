@@ -379,17 +379,26 @@ function EpisodeDetails({
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const articleRef = useRef<HTMLDivElement>(null);
+  const recapRef = useRef<HTMLDivElement>(null);
 
   const [isEditing, setIsEditing] = useState(false);
   const [deleteEpisodeOpen, setDeleteEpisodeOpen] = useState(false);
+
+  const activeTab = pathname.endsWith("/kertaus") ? "kertaus" : "tiedot";
 
   useArticleScrollProgress({
     articleRef,
     source: "episodes",
     route: pathname,
+    enabled: activeTab === "tiedot",
   });
 
-  const activeTab = pathname.endsWith("/kertaus") ? "kertaus" : "tiedot";
+  useArticleScrollProgress({
+    articleRef: recapRef,
+    source: "episodes",
+    route: pathname,
+    enabled: activeTab === "kertaus",
+  });
 
   const slugBase = basePath === "/" ? `/${id}` : `${basePath}/${id}`;
   const tabPath = (tab: string) => (tab === "kertaus" ? `${slugBase}/kertaus` : slugBase);
@@ -567,11 +576,13 @@ function EpisodeDetails({
             </TabsContent>
 
             <TabsContent value="kertaus" className="pt-8">
-              <EpisodeRecapTab
-                episode={fullEpisode}
-                sessions={sessions}
-                isLoading={isSessionsLoading}
-              />
+              <div ref={recapRef} className="max-w-3xl mx-auto">
+                <EpisodeRecapTab
+                  episode={fullEpisode}
+                  sessions={sessions}
+                  isLoading={isSessionsLoading}
+                />
+              </div>
             </TabsContent>
           </Tabs>
         </PageBody>

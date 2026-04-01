@@ -3,6 +3,7 @@ import { Badge } from "@repo/ui/components/Badge";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Stack } from "@repo/ui/components/Layout";
 import { Text } from "@repo/ui/components/Text";
+import { slugifyHeadingLabel } from "@repo/ui/components/article-navigation-utils";
 import type { Session } from "../api/sessions";
 import { GmRecapEditor } from "./GmRecapEditor";
 import { PlayerRecapSection } from "./PlayerRecapSection";
@@ -34,14 +35,14 @@ function SessionBlock({ session, episodeId }: { session: Session; episodeId: num
   const isGm = user?.role === "gm";
   const isPlayed = session.status === "played";
   const hasRecapContent = isPlayed && (session.recapPublished || isGm);
+  const sessionLabel = `Sessio #${String(session.sessionNumber).padStart(2, "0")}${session.label ? ` — ${session.label}` : ""}`;
 
   return (
     <HeadingLevelProvider>
       <Stack gap={4} className={!isPlayed ? "opacity-50" : undefined}>
         <Stack direction="row" align="center" gap={3} wrap>
-          <Heading>
-            Sessio #{String(session.sessionNumber).padStart(2, "0")}
-            {session.label ? ` — ${session.label}` : ""}
+          <Heading id={slugifyHeadingLabel(sessionLabel)}>
+            {sessionLabel}
           </Heading>
           <Badge variant={statusBadgeVariant(session.status)}>
             {statusLabel(session.status)}

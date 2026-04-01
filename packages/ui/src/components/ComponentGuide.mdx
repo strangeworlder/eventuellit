@@ -43,6 +43,7 @@ Use it as the entry point to decide which component to look up next.
 | `RadioGroup` | Single-choice radio group. |
 | `Switch` | Binary toggle (on/off). Use instead of Checkbox when the action takes immediate effect. |
 | `ToggleButton` | A button that acts as an on/off toggle with pressed-state styling. |
+| `ToolButton` | Lightweight utility control for edit/manage actions on content surfaces (Muokkaa, Piilota, Julkaise). Use instead of `Button` when the control is a tool, not a call to action. |
 | `FieldLabel` | Form field label. Pair with any input. |
 | `FieldError` | Form field error message. Pair with any input that can show validation errors. |
 
@@ -81,7 +82,7 @@ Use it as the entry point to decide which component to look up next.
 | `Heading` | Semantic heading (`h1`–`h6`) with automatic level management via `HeadingLevelProvider`. Never use raw `<h1>`–`<h6>` in the design system. |
 | `Text` | Body and UI text. Supports `variant` (body, lead, muted, small, mono, etc.). |
 | `MarkdownRenderer` | Renders a markdown string as safe, styled HTML. Use for user-generated or CMS-authored content. |
-| `TextSection` | A `<section>` container that optionally renders an auto-levelled heading. Use to group paragraphs in long-form content. |
+| `TextSection` | A `<section>` container that optionally renders an auto-levelled heading. Use `variant="bordered"` with the `actions` slot to display article-length content (e.g. recap text) with a visible section boundary and inline utility controls (ToolButtons for edit/publish). Use `variant="default"` to group paragraphs with consistent vertical rhythm only. |
 | `Code` | Inline or block code with monospace styling. |
 | `List` / `ListItem` | Styled `<ul>` / `<li>` with consistent spacing. |
 | `Badge` | Small status / label chip. Use for tags, counts, and statuses. |

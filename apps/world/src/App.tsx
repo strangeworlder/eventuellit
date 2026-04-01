@@ -654,7 +654,6 @@ function FaktiotHub({
 
         {/* Power Triad */}
         <HeadingLevelProvider>
-          <HeadingLevelProvider>
             <TextSection title="Kolme suurvaltaa" className="mb-10">
               <div className="flex flex-col gap-4 max-w-2xl mx-auto mt-4">
                 {/* Top: Ekklesia */}
@@ -690,7 +689,6 @@ function FaktiotHub({
                 })}
               </div>
             </TextSection>
-          </HeadingLevelProvider>
         </HeadingLevelProvider>
       </PageBody>
     </>
@@ -768,8 +766,7 @@ function FactionDetail({
 
             {/* Subfactions (main factions only) */}
             {subEntries.length > 0 && (
-              <HeadingLevelProvider>
-                <TextSection title="Alafaktiot">
+              <TextSection title="Alafaktiot">
                   <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-4">
                     {subEntries.map((sub) => {
                       const subDef = getFactionById(sub.id);
@@ -787,24 +784,20 @@ function FactionDetail({
                     })}
                   </div>
                 </TextSection>
-              </HeadingLevelProvider>
             )}
 
             {/* NPCs placeholder */}
-            <HeadingLevelProvider>
-              <TextSection title="Merkittävät hahmot">
+            <TextSection title="Merkittävät hahmot">
                 <div className="mt-4">
                   <NoticePanel variant="info">
                     Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
                   </NoticePanel>
                 </div>
               </TextSection>
-            </HeadingLevelProvider>
 
             {/* Controlled stations */}
             {controlledStations.length > 0 && (
-              <HeadingLevelProvider>
-                <TextSection title="Hallitut asemat">
+              <TextSection title="Hallitut asemat">
                   <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 mt-4">
                     {controlledStations.map((station) => (
                       <a
@@ -836,7 +829,6 @@ function FactionDetail({
                     ))}
                   </div>
                 </TextSection>
-              </HeadingLevelProvider>
             )}
           </div>
 

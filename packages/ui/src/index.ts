@@ -48,6 +48,9 @@ export { TextArea } from "./components/TextArea";
 
 export { ToggleButton } from "./components/ToggleButton";
 
+export { ToolButton } from "./components/ToolButton";
+export type { ToolButtonProps } from "./components/ToolButton";
+
 // ── Molecules ──
 export { DatePicker } from "./components/DatePicker";
 export type { DatePickerProps } from "./components/DatePicker";
