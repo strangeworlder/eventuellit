@@ -5,6 +5,7 @@ const TOP_LEVEL_ROUTE_TITLES: Record<string, string> = {
   ruleset: "Säännöt",
   episodes: "Jaksot",
   world: "Maailma",
+  muutosloki: "Muutosloki",
 };
 
 const toTitleCase = (value: string) =>

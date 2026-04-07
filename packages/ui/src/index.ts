@@ -1,4 +1,17 @@
 // ── Atoms ──
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./components/Accordion";
+export type {
+  AccordionProps,
+  AccordionItemProps,
+  AccordionTriggerProps,
+  AccordionContentProps,
+} from "./components/Accordion";
+
 export { Button } from "./components/Button";
 export type { ButtonProps } from "./components/Button";
 
@@ -49,6 +62,9 @@ export { TextArea } from "./components/TextArea";
 export { ToggleButton } from "./components/ToggleButton";
 
 // ── Molecules ──
+export { Pagination } from "./components/Pagination";
+export type { PaginationProps } from "./components/Pagination";
+
 export { AspectTag } from "./components/AspectTag";
 export type { AspectTagProps } from "./components/AspectTag";
 

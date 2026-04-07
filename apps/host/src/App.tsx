@@ -29,6 +29,7 @@ import { LandingPage } from "./components/LandingPage";
 import { LoginPage } from "./components/LoginPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyPage } from "./components/VerifyPage";
+import { ChangelogPage } from "./components/ChangelogPage";
 import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
 import { buildDocumentTitle } from "./route-title";
 import { useAuth } from "@repo/auth/use-auth";
@@ -343,6 +344,12 @@ function AppContent() {
           >
             Tietosuoja
           </SidebarItem>
+          <SidebarItem
+            icon={<Icon name="file-text" size={20} />}
+            onClick={() => navigate("/muutosloki")}
+          >
+            Muutosloki
+          </SidebarItem>
         </SidebarFooter>
       </Sidebar>
 
@@ -442,6 +449,7 @@ function AppContent() {
                 <Route path="/episodes/*" element={<EpisodesApp />} />
                 <Route path="/world/*" element={<WorldApp />} />
                 <Route path="/tietosuoja" element={<PrivacyPolicyPage />} />
+                <Route path="/muutosloki" element={<ChangelogPage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
