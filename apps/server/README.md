@@ -1,6 +1,6 @@
 # Eventuellit Server
 
-NestJS backend for the Eventuellit monorepo.
+NestJS backend for the Eventuellit monorepo. Handles auth and such.
 
 ## Purpose
 - Provides REST API endpoints for the TTRPG campaign management platform.
