@@ -24,6 +24,8 @@ function actionIcon(type: DashboardAction["type"]): IconName {
       return "link";
     case "update_character":
       return "pencil";
+    case "update_names":
+      return "pencil";
     case "reading":
       return "book";
     case "task":
@@ -39,6 +41,8 @@ function actionVariant(type: DashboardAction["type"]): "solid" | "outline" | "hi
     case "link_character":
       return "solid";
     case "update_character":
+      return "highlight";
+    case "update_names":
       return "highlight";
     case "reading":
     case "task":

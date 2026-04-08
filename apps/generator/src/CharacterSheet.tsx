@@ -5,6 +5,7 @@ import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
 import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
+import { EditableField } from "@repo/ui/components/EditableField";
 import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
@@ -13,12 +14,11 @@ import { Link } from "@repo/ui/components/Link";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { PageBody } from "@repo/ui/components/Page";
-import { Select } from "@repo/ui/components/Select";
 import { SkillTagList } from "@repo/ui/components/SkillTagList";
-import { TextArea } from "@repo/ui/components/TextArea";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
+import { suggestNames } from "./name-generator";
 
 interface Character {
   id: number;
@@ -46,6 +46,8 @@ interface Character {
   persoona: number;
   nakemys: number;
   napparyys: number;
+  nicknames: string[];
+  inventory?: Array<{ id: string; name: string; description?: string; quantity: number }>;
 }
 
 export function CharacterSheet({
@@ -136,12 +138,6 @@ export function CharacterSheet({
     maxAllowed: canEdit ? undefined : current,
   });
 
-  const sexLabel: Record<string, string> = {
-    male: "Mies",
-    female: "Nainen",
-    "non-binary": "Ei-binäärinen",
-    none: "Ei määritelty",
-  };
 
   return (
     <HeadingLevelProvider>
@@ -170,12 +166,25 @@ export function CharacterSheet({
                 <CardTitle>Perustiedot</CardTitle>
               </CardHeader>
               <CardContent className="gap-4">
-                <EditableText
+                <EditableName
+                  value={character.name}
+                  sex={character.sex ?? "none"}
+                  canEdit={canEdit}
+                  onSave={(v) => updateCharacter({ name: v })}
+                />
+
+                <EditableField
                   label="Arkkityyppi"
                   value={character.archetype}
-                  canEdit={canEdit}
+                  readOnly={!canEdit}
                   placeholder="Ei arkkityyppiä."
                   onSave={(v) => updateCharacter({ archetype: v })}
+                />
+
+                <NicknamesSection
+                  nicknames={character.nicknames ?? []}
+                  canEdit={canEdit}
+                  onUpdate={(nicknames) => updateCharacter({ nicknames })}
                 />
 
                 {character.episodes?.length > 0 && (
@@ -196,10 +205,18 @@ export function CharacterSheet({
                   </div>
                 )}
 
-                <EditableSex
-                  value={character.sex}
-                  canEdit={canEdit}
-                  sexLabel={sexLabel}
+                <EditableField
+                  label="Sukupuoli"
+                  value={character.sex ?? ""}
+                  readOnly={!canEdit}
+                  placeholder="Ei valittu"
+                  options={[
+                    { value: "male", label: "Mies" },
+                    { value: "female", label: "Nainen" },
+                    { value: "non-binary", label: "Ei-binäärinen" },
+                    { value: "none", label: "Ei määritelty" },
+                  ]}
+                  selectPlaceholder="Valitse sukupuoli"
                   onSave={(v) => updateCharacter({ sex: v })}
                 />
 
@@ -209,20 +226,22 @@ export function CharacterSheet({
                   onUpdate={(skills) => updateCharacter({ skills })}
                 />
 
-                <EditableTextarea
+                <EditableField
                   label="Motivaatio"
                   value={character.motivation ?? ""}
-                  canEdit={canEdit}
+                  readOnly={!canEdit}
                   placeholder="Ei motivaatiota kirjattu."
                   onSave={(v) => updateCharacter({ motivation: v })}
+                  multiline
                 />
 
-                <EditableTextarea
+                <EditableField
                   label="Muistiinpanot"
                   value={character.notes ?? ""}
-                  canEdit={canEdit}
+                  readOnly={!canEdit}
                   placeholder="Ei muistiinpanoja."
                   onSave={(v) => updateCharacter({ notes: v })}
+                  multiline
                 />
               </CardContent>
             </Card>
@@ -338,140 +357,94 @@ export function CharacterSheet({
   );
 }
 
-function EditableTextarea({
-  label,
+
+
+function EditableName({
   value,
+  sex,
   canEdit,
-  placeholder,
   onSave,
 }: {
-  label: string;
   value: string;
+  sex: string;
   canEdit: boolean;
-  placeholder: string;
   onSave: (v: string) => void;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(value);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+
+  const handleSave = () => {
+    const trimmed = draft.trim();
+    if (trimmed) {
+      onSave(trimmed);
+      setEditing(false);
+      setSuggestions([]);
+    }
+  };
+
+  const handleCancel = () => {
+    setDraft(value);
+    setEditing(false);
+    setSuggestions([]);
+  };
+
+  const handleSuggest = () => {
+    const excluded = [...suggestions, draft, value].filter(Boolean);
+    setSuggestions(suggestNames(sex, 5, excluded));
+  };
 
   if (!canEdit) {
-    return value ? (
-      <div>
-        <p className="text-sm text-text-muted font-semibold mb-1">{label}:</p>
-        <p className="text-sm whitespace-pre-wrap text-[var(--theme-text)]">{value}</p>
-      </div>
-    ) : null;
-  }
-
-  if (editing) {
     return (
-      <div className="space-y-2">
-        <p className="text-sm text-text-muted font-semibold">{label}:</p>
-        <TextArea
-          className="h-20"
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          // biome-ignore lint/a11y/noAutofocus: intentional for edit mode
-          autoFocus
-        />
-        <div className="flex items-center gap-3 mt-3">
-          <Button
-            size="sm"
-            onClick={() => {
-              onSave(draft);
-              setEditing(false);
-            }}
-          >
-            Tallenna
-          </Button>
-          <Button
-            size="sm"
-            variant="ghost-subtle"
-            onClick={() => {
-              setDraft(value);
-              setEditing(false);
-            }}
-          >
-            Peruuta
-          </Button>
-        </div>
+      <div>
+        <p className="text-sm text-text-muted font-semibold mb-1">Nimi:</p>
+        <p className="text-sm text-[var(--theme-text)]">{value}</p>
       </div>
     );
   }
 
-  return (
-    <div>
-      <p className="text-sm text-text-muted font-semibold mb-1">{label}:</p>
-      <p
-        className="text-sm whitespace-pre-wrap cursor-pointer text-[var(--theme-text)] hover:text-[var(--theme-secondary)] transition-colors"
-        onClick={() => setEditing(true)}
-        title="Klikkaa muokataksesi"
-      >
-        {value || <span className="italic text-text-placeholder">{placeholder}</span>}
-      </p>
-    </div>
-  );
-}
-
-function EditableText({
-  label,
-  value,
-  canEdit,
-  placeholder,
-  onSave,
-}: {
-  label: string;
-  value: string;
-  canEdit: boolean;
-  placeholder: string;
-  onSave: (v: string) => void;
-}) {
-  const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState(value);
-
-  if (!canEdit) {
-    return value ? (
-      <div>
-        <p className="text-sm text-text-muted font-semibold mb-1">{label}:</p>
-        <p className="text-sm text-[var(--theme-text)]">{value}</p>
-      </div>
-    ) : null;
-  }
-
   if (editing) {
     return (
       <div className="space-y-2">
-        <p className="text-sm text-text-muted font-semibold">{label}:</p>
+        <p className="text-sm text-text-muted font-semibold">Nimi:</p>
         <Input
+          size="compact"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              onSave(draft);
-              setEditing(false);
-            }
+            if (e.key === "Enter") handleSave();
+            if (e.key === "Escape") handleCancel();
           }}
           // biome-ignore lint/a11y/noAutofocus: intentional for edit mode
           autoFocus
         />
-        <div className="flex items-center gap-3 mt-3">
-          <Button
-            size="sm"
-            onClick={() => {
-              onSave(draft);
-              setEditing(false);
-            }}
-          >
+
+        <div className="space-y-1.5">
+          <Button size="compact" variant="ghost-subtle" onClick={handleSuggest}>
+            {suggestions.length > 0 ? "Ehdota uudelleen" : "Ehdota nimiä"}
+          </Button>
+          {suggestions.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 animate-in fade-in duration-200">
+              {suggestions.map((name) => (
+                <AspectTag
+                  key={name}
+                  text={name}
+                  variant="name"
+                  onSelect={() => {
+                    setDraft(name);
+                    setSuggestions([]);
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button size="compact" onClick={handleSave} disabled={!draft.trim()}>
             Tallenna
           </Button>
-          <Button
-            size="sm"
-            variant="ghost-subtle"
-            onClick={() => {
-              setDraft(value);
-              setEditing(false);
-            }}
-          >
+          <Button size="compact" variant="ghost-subtle" onClick={handleCancel}>
             Peruuta
           </Button>
         </div>
@@ -481,82 +454,104 @@ function EditableText({
 
   return (
     <div>
-      <p className="text-sm text-text-muted font-semibold mb-1">{label}:</p>
+      <p className="text-sm text-text-muted font-semibold mb-1">Nimi:</p>
       <p
         className="text-sm cursor-pointer text-[var(--theme-text)] hover:text-[var(--theme-secondary)] transition-colors"
-        onClick={() => setEditing(true)}
+        onClick={() => {
+          setDraft(value);
+          setEditing(true);
+        }}
         title="Klikkaa muokataksesi"
       >
-        {value || <span className="italic text-text-placeholder">{placeholder}</span>}
+        {value}
       </p>
     </div>
   );
 }
 
-const sexOptions = [
-  { value: "male", label: "Mies" },
-  { value: "female", label: "Nainen" },
-  { value: "non-binary", label: "Ei-binäärinen" },
-  { value: "none", label: "Ei määritelty" },
-];
 
-function EditableSex({
-  value,
+export function NicknamesSection({
+  nicknames,
   canEdit,
-  sexLabel,
-  onSave,
+  onUpdate,
 }: {
-  value: string | null;
+  nicknames: string[];
   canEdit: boolean;
-  sexLabel: Record<string, string>;
-  onSave: (v: string) => void;
+  onUpdate: (nicknames: string[]) => void;
 }) {
-  const [editing, setEditing] = useState(false);
+  const [newNickname, setNewNickname] = useState("");
+  const [isAdding, setIsAdding] = useState(false);
 
-  if (!canEdit) {
-    return value ? (
-      <p className="text-sm text-text-muted">
-        Sukupuoli:{" "}
-        <span className="font-semibold text-[var(--theme-text)]">{sexLabel[value] ?? value}</span>
-      </p>
-    ) : null;
-  }
+  const handleAdd = () => {
+    const trimmed = newNickname.trim();
+    if (!trimmed || nicknames.includes(trimmed)) return;
+    onUpdate([...nicknames, trimmed]);
+    setNewNickname("");
+    setIsAdding(false);
+  };
 
-  if (editing) {
-    return (
-      <div className="space-y-2">
-        <Select
-          label="Sukupuoli"
-          options={sexOptions}
-          value={value ?? ""}
-          onChange={(e) => {
-            onSave(e.target.value);
-            setEditing(false);
-          }}
-          placeholder="Valitse sukupuoli"
-        />
-        <Button size="sm" variant="ghost-subtle" onClick={() => setEditing(false)}>
-          Peruuta
-        </Button>
-      </div>
-    );
-  }
+  const handleRemove = (index: number) => {
+    onUpdate(nicknames.filter((_, i) => i !== index));
+  };
+
+  if (!canEdit && nicknames.length === 0) return null;
 
   return (
-    <p
-      className="text-sm text-text-muted cursor-pointer hover:text-[var(--theme-secondary)] transition-colors"
-      onClick={() => setEditing(true)}
-      title="Klikkaa muokataksesi"
-    >
-      Sukupuoli:{" "}
-      <span className="font-semibold text-[var(--theme-text)]">
-        {value ? (
-          (sexLabel[value] ?? value)
+    <div className="space-y-3">
+      <p className="text-sm text-text-muted font-semibold">Lempinimet:</p>
+      {nicknames.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {nicknames.map((nick, i) => (
+            <AspectTag
+              key={nick}
+              text={nick}
+              variant="skill"
+              readOnly={!canEdit}
+              onRemove={canEdit ? () => handleRemove(i) : undefined}
+            />
+          ))}
+        </div>
+      )}
+      {canEdit && nicknames.length < 5 &&
+        (isAdding ? (
+          <div>
+            <Input
+              label=""
+              size="compact"
+              placeholder="Kirjoita lempinimi..."
+              value={newNickname}
+              onChange={(e) => setNewNickname(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleAdd();
+              }}
+            />
+            <div className="flex items-center gap-3 mt-2">
+              <Button size="compact" onClick={handleAdd} disabled={!newNickname.trim()}>
+                Tallenna
+              </Button>
+              <Button
+                size="compact"
+                variant="ghost-subtle"
+                onClick={() => {
+                  setIsAdding(false);
+                  setNewNickname("");
+                }}
+              >
+                Peruuta
+              </Button>
+            </div>
+          </div>
         ) : (
-          <span className="italic text-text-placeholder">Ei valittu</span>
-        )}
-      </span>
-    </p>
+          <p
+            className="text-sm cursor-pointer italic text-text-placeholder hover:text-[var(--theme-secondary)] transition-colors"
+            onClick={() => setIsAdding(true)}
+            title="Klikkaa lisätäksesi lempinimi"
+          >
+            {nicknames.length === 0 ? "Ei lempinimiä." : "+ Lisää lempinimi"}
+          </p>
+        ))
+      }
+    </div>
   );
 }
 

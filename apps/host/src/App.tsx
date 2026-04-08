@@ -34,6 +34,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from
 const queryClient = new QueryClient();
 
 import { useAuth } from "@repo/auth/use-auth";
+import { useNotificationCount } from "./api/notifications";
 import { ChangelogPage } from "./components/ChangelogPage";
 import { LandingPage } from "./components/LandingPage";
 import { LoginPage } from "./components/LoginPage";
@@ -56,6 +57,7 @@ function AppContent() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isLoggedIn, user, logout } = useAuth();
+  const { count: notificationCount } = useNotificationCount(isLoggedIn);
   const laneRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
@@ -298,6 +300,7 @@ function AppContent() {
             <SidebarItem
               icon={<Icon name="list-checks" size={20} />}
               active={activeView === "dashboard"}
+              showBadge={notificationCount > 0}
               onClick={() => navigate("/oma-sivu")}
             >
               Oma sivu

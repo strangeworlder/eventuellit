@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
+import { NavButton } from "./NavButton";
 import { cn } from "./utils";
 
 export type SidebarContextType = {
@@ -162,21 +163,23 @@ export const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentPro
 );
 SidebarContent.displayName = "SidebarContent";
 
-export interface SidebarItemProps extends React.ComponentPropsWithoutRef<typeof Button> {
+export interface SidebarItemProps extends React.ComponentPropsWithoutRef<typeof NavButton> {
   icon?: React.ReactNode;
   active?: boolean;
+  showBadge?: boolean;
 }
 
 export const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>(
-  ({ className, icon, active, children, ...props }, ref) => {
+  ({ className, icon, active, showBadge, children, ...props }, ref) => {
     const { expanded } = useSidebar();
 
     return (
-      <Button
+      <NavButton
         ref={ref}
         variant={active ? "ghost" : "ghost-subtle"}
         size="nav"
         justify={expanded ? "start" : "center"}
+        showBadge={showBadge && !expanded}
         className={cn(
           "w-full flex items-center p-2 rounded-md transition-colors text-left group relative",
           active
@@ -189,8 +192,18 @@ export const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>
       >
         {icon && <span className={cn("flex-shrink-0", expanded && "mr-3")}>{icon}</span>}
 
-        {expanded && <span className="truncate">{children}</span>}
-      </Button>
+        {expanded && (
+          <>
+            <span className="truncate">{children}</span>
+            {showBadge && (
+              <span className="ml-auto flex h-2.5 w-2.5 flex-shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--theme-primary)] opacity-50" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--theme-primary)] shadow-sm" />
+              </span>
+            )}
+          </>
+        )}
+      </NavButton>
     );
   },
 );

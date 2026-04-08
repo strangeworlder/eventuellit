@@ -4,6 +4,7 @@ import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
 import { characterEpisodes, characters, episodes, users } from "../db/schema";
+import { NotificationsService } from "../notifications/notifications.service";
 import type { CreateCharacterDto } from "./dto/create-character.dto";
 import type { UpdateCharacterDto } from "./dto/update-character.dto";
 
@@ -15,6 +16,7 @@ const characterWithOwnerColumns = {
   sex: characters.sex,
   motivation: characters.motivation,
   notes: characters.notes,
+  nicknames: characters.nicknames,
   keho: characters.keho,
   currentKeho: characters.currentKeho,
   mieli: characters.mieli,
@@ -79,7 +81,10 @@ async function attachEpisodesForCharacters(
 
 @Injectable()
 export class CharactersService {
-  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
+  constructor(
+    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   async findAll() {
     const rows = await this.db
@@ -109,6 +114,7 @@ export class CharactersService {
       sex: data.sex,
       motivation: data.motivation,
       notes: data.notes,
+      nicknames: data.nicknames ?? [],
       keho: data.keho,
       currentKeho: data.keho,
       mieli: data.mieli,
@@ -171,6 +177,7 @@ export class CharactersService {
       harmit: data.harmit,
       skills: data.skills,
       inventory: data.inventory,
+      nicknames: data.nicknames,
       fysiikka: data.fysiikka,
       nopeus: data.nopeus,
       ymmarrys: data.ymmarrys,
@@ -184,6 +191,12 @@ export class CharactersService {
       .set(updateData)
       .where(eq(characters.id, id))
       .returning();
+
+    // Auto-dismiss update_names notification when nicknames are explicitly set
+    if (data.nicknames !== undefined) {
+      await this.notificationsService.dismissByType(userId, "update_names", String(id));
+    }
+
     return result[0];
   }
 

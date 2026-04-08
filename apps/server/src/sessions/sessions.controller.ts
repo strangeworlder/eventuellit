@@ -16,8 +16,8 @@ import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { OptionalJwtAuthGuard } from "../auth/optional-jwt-auth.guard";
 import { EpisodePlayersService } from "../episode-players/episode-players.service";
-import type { CreateSessionDto } from "./dto/create-session.dto";
-import type { UpdateSessionDto } from "./dto/update-session.dto";
+import { CreateSessionDto } from "./dto/create-session.dto";
+import { UpdateSessionDto } from "./dto/update-session.dto";
 import { SessionsService } from "./sessions.service";
 
 function ensureGm(req: Request) {

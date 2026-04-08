@@ -5,8 +5,8 @@ import { cn } from "./utils";
 export interface AspectTagProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Tag display text */
   text: string;
-  /** Visual variant: harm tags vs skill tags */
-  variant: "harm" | "skill";
+  /** Visual variant: harm tags, skill tags, or name suggestion tags */
+  variant: "harm" | "skill" | "name";
   /** Whether this harm tag has been healed (harm variant only) */
   healed?: boolean;
   /** Whether this is a custom/player-created tag (skill variant only) */
@@ -15,15 +15,19 @@ export interface AspectTagProps extends React.HTMLAttributes<HTMLDivElement> {
   onRemove?: () => void;
   /** Callback to toggle heal state — shows heal/activate button when provided */
   onToggleHeal?: () => void;
+  /** Callback when the tag is clicked to select it (name variant) */
+  onSelect?: () => void;
   /** Disable interactions */
   readOnly?: boolean;
 }
 
 /**
- * Inline chip for harm conditions and skill tags. `variant="harm"` shows healable wound tags;
- * `variant="skill"` shows acquired skills that can be removed or renamed.
+ * Inline chip for harm conditions, skill tags, and name suggestions.
+ * `variant="harm"` shows healable wound tags;
+ * `variant="skill"` shows acquired skills that can be removed or renamed;
+ * `variant="name"` shows clickable name suggestions (readOnly, selectable via onSelect).
  *
- * @summary inline chip: harm (healed/not) or skill (removable/custom); use SkillTagList for a managed list
+ * @summary inline chip: harm (healed/not), skill (removable/custom), or name (clickable selection)
  */
 export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
   (
@@ -35,12 +39,14 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
       isCustom = false,
       onRemove,
       onToggleHeal,
+      onSelect,
       readOnly = false,
       ...props
     },
     ref,
   ) => {
     const isHarm = variant === "harm";
+    const isName = variant === "name";
     const isHealed = isHarm && healed;
 
     const icon: IconName | undefined = isHarm
@@ -83,7 +89,7 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
           ],
 
           // ── Skill ──
-          !isHarm && [
+          !isHarm && !isName && [
             "border border-[var(--theme-border-soft)]",
             "border-l-[3px] border-l-[var(--theme-accent)]",
             "bg-[var(--theme-accent)]/8",
@@ -93,9 +99,39 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
             "hover:border-[var(--theme-border-medium)]",
           ],
 
+          // ── Name ──
+          isName && [
+            "border border-[var(--theme-border-soft)]",
+            "border-l-[3px] border-l-[var(--theme-secondary)]",
+            "bg-[var(--theme-secondary)]/8",
+            "text-[var(--theme-secondary)]",
+            "shadow-sm",
+            onSelect && [
+              "cursor-pointer",
+              "hover:bg-[var(--theme-secondary)]/18",
+              "hover:border-[var(--theme-secondary)]/40",
+              "hover:shadow-[0_0_14px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)]",
+              "active:scale-[0.97]",
+            ],
+          ],
+
           className,
         )}
         {...props}
+        onClick={isName && onSelect ? onSelect : props.onClick}
+        onKeyDown={
+          isName && onSelect
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelect();
+                }
+              }
+            : undefined
+        }
+        role={isName && onSelect ? "button" : undefined}
+        tabIndex={isName && onSelect ? 0 : undefined}
+        aria-label={isName && onSelect ? `Valitse nimi: ${text}` : undefined}
       >
         {/* Icon */}
         {icon && (

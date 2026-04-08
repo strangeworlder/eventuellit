@@ -72,6 +72,7 @@ export const characters = pgTable("characters", {
   sex: text("sex"), // male, female, non-binary, none
   motivation: text("motivation"),
   notes: text("notes"),
+  nicknames: jsonb("nicknames").default([]).notNull(), // string[]
   keho: integer("keho").default(8).notNull(),
   currentKeho: integer("current_keho").default(8).notNull(),
   mieli: integer("mieli").default(8).notNull(),
@@ -178,6 +179,18 @@ export const playerReadingProgress = pgTable("player_reading_progress", {
     .references(() => episodeReadingItems.id, { onDelete: "cascade" })
     .notNull(),
   completedAt: timestamp("completed_at").defaultNow().notNull(),
+});
+
+export const playerNotifications = pgTable("player_notifications", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  type: text("type").notNull(), // e.g. "update_names"
+  referenceId: text("reference_id"), // e.g. character ID — text for flexibility
+  message: text("message"),
+  dismissedAt: timestamp("dismissed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const episodeInvites = pgTable("episode_invites", {

@@ -88,7 +88,9 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
             style={{ left: "1.5rem", transform: "translateX(-50%)" }}
           />
         </button>
-        <AnchoredTooltip placement="right">{marker.label}</AnchoredTooltip>
+        <AnchoredTooltip placement="right" className="min-w-max whitespace-nowrap">
+          {marker.label}
+        </AnchoredTooltip>
       </div>
     ) : (
       <button

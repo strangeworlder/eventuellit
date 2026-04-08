@@ -22,6 +22,12 @@ export class UpdateCharacterDto {
   notes?: string;
 
   @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @ArrayMaxSize(5)
+  nicknames?: string[];
+
+  @IsOptional()
   @IsInt()
   @Min(0)
   keho?: number;

@@ -66,3 +66,6 @@ Agent workflows are in `.agents/workflows/`:
 - `deploy.md` – Deployment
 - `setup.md` – Local environment setup
 - `ui-development.md` – UI component and Storybook development
+- `new-feature.md` – Standard procedure for starting a new feature
+- `learnings-retention.md` – Preserve critical knowledge when trimming learnings
+- `troubleshoot.md` – Troubleshooting common stack and environment errors

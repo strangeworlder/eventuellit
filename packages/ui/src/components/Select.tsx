@@ -12,7 +12,7 @@ export interface SelectOption {
 }
 
 export interface SelectProps
-  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "children"> {
+  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "children" | "size"> {
   label?: string;
   error?: string;
   theme?: Theme;
@@ -21,6 +21,13 @@ export interface SelectProps
   placeholder?: string;
   /** When true, blurs & disables the select with an obscured visual effect. */
   obscured?: boolean;
+  /**
+   * Controls the visual scale of the select.
+   * - `"default"` — full-height (h-12) form select, large text
+   * - `"compact"` — reduced height (h-7) for inline/density contexts, xs text
+   * @default "default"
+   */
+  size?: "default" | "compact";
 }
 
 /**
@@ -33,8 +40,9 @@ const chevronDataUri =
 /**
  * Dropdown select control with label, error, placeholder, and obscure support.
  * Pass `options` as `{ value, label }` array. For multi-select use native HTML.
+ * Use `size="compact"` for inline or density-sensitive contexts.
  *
- * @summary dropdown select with label/error; pass options array; supports obscured prop
+ * @summary dropdown select with label/error/size; pass options array; supports obscured prop; size controls visual scale
  */
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
@@ -47,6 +55,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       placeholder,
       obscured: obscuredProp,
       disabled,
+      size = "default",
       ...props
     },
     ref,
@@ -58,7 +67,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div
         className={cn(
-          "flex flex-col w-full gap-2 mt-2",
+          "flex flex-col w-full",
+          size === "compact" ? "gap-1 mt-1" : "gap-2 mt-2",
           obscured && "select-none pointer-events-none",
         )}
         data-theme={theme}
@@ -69,7 +79,9 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           disabled={isDisabled}
           data-text={obscured ? obscureString(placeholder ?? options[0]?.label ?? "") : undefined}
           className={cn(
-            "flex h-12 w-full appearance-none rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] px-4 py-2 pr-10 text-lg font-bold text-[var(--theme-text)] shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+            "flex w-full appearance-none rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] font-bold text-[var(--theme-text)] shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+            size === "default" && "h-12 px-4 py-2 pr-10 text-lg",
+            size === "compact" && "h-7 px-2.5 py-0.5 pr-8 text-[length:var(--font-size-xs)]",
             error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
             obscured && "blur-[1.5px] obscured-glitch obscured-field",
             className,
@@ -77,8 +89,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           style={{
             backgroundImage: chevronDataUri,
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "right 0.75rem center",
-            backgroundSize: "1rem",
+            backgroundPosition: size === "compact" ? "right 0.5rem center" : "right 0.75rem center",
+            backgroundSize: size === "compact" ? "0.75rem" : "1rem",
             ...(obscured ? (glitchStyle ?? {}) : {}),
           }}
           {...props}

@@ -8,13 +8,13 @@ description: Local development environment setup, prerequisites, and fixes for c
 ## Prerequisites
 
 - **Node v22 (LTS)** required.
-- **NPM** (`npm@9.6.4+`) with traditional workspaces.
+- **NPM** (`npm@10.9.2+`) with traditional workspaces.
 - **Windows** development environment.
 
 ## Initial Setup
 
 ```bash
-npx kill-port 3001 3002 3003  # Kill zombie ports before install
+npx kill-port 3001 3002 3003 3004 3005  # Kill zombie ports before install
 npm install
 npm run dev
 ```
@@ -36,7 +36,7 @@ npm run dev
 **Cause:** `vite dev` uses ES-module streaming (no static bundles); zombie Node processes occupy ports.
 
 **Fix:**
-1. `npx kill-port 3001 3002 3003 3004`
+1. `npx kill-port 3001 3002 3003 3004 3005`
 2. Use `vite build && vite preview` for remotes — never `vite dev`
 3. All remote `vite.config.ts` must set `strictPort: true`
 
@@ -82,6 +82,12 @@ VITE_API_BASE_URL=http://localhost:3000
 | `VITE_API_BASE_URL` | Frontend API origin |
 | `JWT_SECRET` | JWT token signing secret |
 | `MAGIC_LINK_BASE_URL` | Frontend base URL for magic link verification |
+| `PORT` | Server port (defaults to 3000) |
+| `RESEND_API_KEY` | Resend email delivery (optional in dev — links logged to console) |
+| `VITE_GENERATOR_URL` | Generator MFE remote URL (default `http://localhost:3001`) |
+| `VITE_RULESET_URL` | Ruleset MFE remote URL (default `http://localhost:3002`) |
+| `VITE_EPISODES_URL` | Episodes MFE remote URL (default `http://localhost:3004`) |
+| `VITE_WORLD_URL` | World MFE remote URL (default `http://localhost:3005`) |
 
 ## When You Resolve a New Issue
 

@@ -149,6 +149,7 @@ function AddItemForm({
         <div className="w-28 shrink-0">
           <Select
             label="Tyyppi"
+            size="compact"
             value={contentType}
             onChange={(e) => setContentType(e.target.value as typeof contentType)}
             options={[
@@ -249,6 +250,7 @@ function SessionStatusSelect({ session, episodeId }: { session: Session; episode
   return (
     <Select
       label=""
+      size="compact"
       value={session.status}
       disabled={isPending}
       onChange={(e) => updateSession({ id: session.id, episodeId, status: e.target.value })}

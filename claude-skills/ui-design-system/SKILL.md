@@ -82,7 +82,7 @@ All tokens are defined in `packages/ui/src/styles.css`. Read the file directly f
 
 - **Fonts:** `--font-sans` (Inter) for body; `--font-heading` (Outfit) for headings. Custom `--font-size-*` scale — `base` is 1.05rem (larger than Tailwind default).
 - **Breakpoints:** `mobile` (550px), `tablet` (700px), `desktop` (900px), `x-wide` (1200px), `xx-wide` (1500px). Always use these — never Tailwind defaults (`sm`/`md`/`lg`).
-- **Motion:** Duration tokens (`instant` → `enter`) and easing tokens (`default`, `in`, `out`, `spring`).
+- **Motion:** Duration tokens (`instant` → `enter`) and easing tokens (`default`, `in`, `out`, `spring`). Component-level animations use **framer-motion** (`^12.38.0`).
 - **Shadows:** `interactive`, `overlay`, `floating` — increasing depth.
 - **Colors:** Three scales (`primary`/`secondary`/`accent`) with 50–900 steps. Semantic bridge tokens in `@theme` point at `--theme-*` variables.
 
@@ -107,6 +107,18 @@ Player-facing surfaces (character sheets, episode views, world articles) MUST us
 - `tags: ["autodocs"]` set globally. Default background: dark.
 - All stories under `Suunnittelujarjestelma/` root with Finnish category prefixes and English component names.
 - Organized by atomic design hierarchy — see the `atomic-design` skill for classification.
+
+## Heading Hierarchy (`HeadingLevelContext`)
+
+`Heading` auto-renders the correct HTML heading level (H1–H6) based on `HeadingLevelContext`. Wrap sections in `<HeadingLevelProvider>` to set the base depth — child `<Heading>` components increment automatically. **Never use `as` props to force heading levels.** This keeps semantic hierarchy correct across nested layouts, Page/Hero/Card compositions, and MFE boundaries.
+
+## Page Layout Primitives
+
+- `Page` / `PageBody` / `PageAside` — Standard page shell with optional sidebar. Used by all content routes.
+- `UtilityPage` — Centered, narrow-width layout for utility flows (login, verification, error pages). No sidebar.
+- `Hero` — Full-width header section with optional background image and description.
+
+Always use these over custom `div` structures for page-level layout.
 
 ## `Text` Component Rule
 

@@ -24,6 +24,75 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.1.1",
+    date: "2026-04-08",
+    name: "Hahmonimet ja ilmoitukset",
+    features: [
+      {
+        title: "Hahmojen nimeäminen",
+        description:
+          "Hahmogeneraattori ehdottaa kulttuuriin sopivia nimiä automaattisesti. Nimi on muokattavissa myös luomisen jälkeen hahmokirjassa.",
+        link: { label: "Avaa hahmogeneraattori", to: "/generator" },
+      },
+      {
+        title: "Lempinimet",
+        description:
+          "Lisää hahmollesi enintään viisi lempinimeä. Lempinimet näkyvät hahmokirjassa ja ovat muokattavissa tageina.",
+        link: { label: "Avaa hahmogeneraattori", to: "/generator" },
+      },
+      {
+        title: "Ilmoitusjärjestelmä",
+        description:
+          "Uusi ilmoitusjärjestelmä näyttää odottavat toimet hallintapaneelissa. Sivupalkin vilkkuva piste kertoo lukemattomista ilmoituksista.",
+      },
+    ],
+    major: [
+      {
+        title: "Syke — asema-artikkeli uudistettu",
+        description:
+          "Sykkeen asema-artikkeli kirjoitettu kokonaan uudelleen. Uusi sisältö kattaa metastabiilin saariston fysiikan, KW-konsortion ja Ekklesian välisen valtajännitteen, naapuriasemat sekä Sykkeen roolin Kynnyksen ontologisena ankkurina.",
+        link: { label: "Lue Syke-artikkeli", to: "/world/kynnys/02-syke" },
+      },
+    ],
+    minor: [
+      {
+        title: "DTO-tuonnit korjattu",
+        description:
+          "Palvelimen kontrollerit käyttävät nyt arvoimportointia (import) type-importoinnin sijasta, jotta class-validator-dekoraattorit säilyvät ajon aikana.",
+      },
+      {
+        title: "EditableField-komponentti",
+        description:
+          "Uusi EditableField-molekyyli korvaa erilliset EditableText- ja EditableTextarea-komponentit. Tukee yksirivisiä, monirivisiä ja select-variantteja.",
+      },
+      {
+        title: "NavButton-komponentti",
+        description:
+          "Uusi NavButton-komponentti, joka sisältää ilmoituspallon. Sivupalkin navigointipainikkeet käyttävät nyt NavButtonia.",
+      },
+      {
+        title: "Select compact -koko",
+        description:
+          "Select-komponenttiin lisätty compact-kokovariantti tiiviihin asetteluun.",
+      },
+      {
+        title: "AspectTag name -variantti",
+        description:
+          "Uusi name-variantti AspectTag-komponenttiin nimiehdotuksia varten. Klikattava ja saavutettava.",
+      },
+      {
+        title: "Artikkelin etenemisraiteen tooltip-korjaus",
+        description:
+          "ArticleProgressNavigator-tooltipin vähimmäisleveys asetettu tavutusongelmien välttämiseksi.",
+      },
+      {
+        title: "Storybook-tarinat päivitetty",
+        description:
+          "Uudet tarinat EditableField-, AspectTag (name)-, Select (compact)- ja NavButton-komponenteille.",
+      },
+    ],
+  },
+  {
     version: "0.1.0",
     date: "2026-04-08",
     name: "Muutosloki otettu käyttöön",

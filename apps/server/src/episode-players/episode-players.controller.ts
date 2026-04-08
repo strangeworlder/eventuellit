@@ -13,7 +13,7 @@ import {
 } from "@nestjs/common";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
-import type { CreateEpisodePlayerDto } from "./dto/create-episode-player.dto";
+import { CreateEpisodePlayerDto } from "./dto/create-episode-player.dto";
 import { EpisodePlayersService } from "./episode-players.service";
 
 function ensureGm(req: Request) {

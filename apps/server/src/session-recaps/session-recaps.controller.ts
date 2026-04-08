@@ -13,7 +13,7 @@ import {
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { OptionalJwtAuthGuard } from "../auth/optional-jwt-auth.guard";
-import type { UpsertSessionPlayerRecapDto } from "./dto/upsert-session-player-recap.dto";
+import { UpsertSessionPlayerRecapDto } from "./dto/upsert-session-player-recap.dto";
 import { SessionRecapsService } from "./session-recaps.service";
 
 @Controller("session-recaps")

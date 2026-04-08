@@ -34,7 +34,7 @@ All meaningful logic must have Vitest tests. Test-first approach preferred.
 
 ## Security & Dependencies
 
-- **NPM Workspaces:** Use `*` for local package dependencies, NOT `workspace:*`.
+- **NPM Workspaces:** Use `*` for local package dependencies, NOT `workspace:*`. We use `npm@10.9.2+` with traditional workspaces.
 - **Zero runtime vulnerabilities.** Build-time exceptions documented in `docs/learnings.md`.
 - **No hardcoded endpoints.** API hosts, DB URLs, CORS origins come from env vars.
 - **Backend input whitelisting:** Nest controllers use explicit DTO classes with `class-validator`. Global `ValidationPipe` with `whitelist: true` and `forbidNonWhitelisted: true`. No raw Drizzle types in `@Body()`.
@@ -51,3 +51,7 @@ All meaningful logic must have Vitest tests. Test-first approach preferred.
 - `@repo/auth` hooks: `useAuth()`, `useRequireAuth()`.
 - JWT in httpOnly cookies. Protected routes redirect to `/kirjaudu`.
 - Magic link auth with email allowlist. Dev mode logs links to console.
+
+## Changelog
+
+When delivering a new feature or significant change, add a corresponding entry to `apps/host/src/changelog-data.ts`. Don't defer this — update the changelog as part of the feature work, not retroactively. Entries follow the `ChangelogRelease` type: categorized into `features`, `major` (architectural), and `minor` (fixes/improvements), all in Finnish. Link to the relevant route when applicable.

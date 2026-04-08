@@ -6,6 +6,7 @@ export interface DashboardAction {
     | "create_character"
     | "link_character"
     | "update_character"
+    | "update_names"
     | "reading"
     | "task"
     | "write_recap";
@@ -37,6 +38,7 @@ export interface PendingInvite {
 export interface DashboardResponse {
   pendingInvites: PendingInvite[];
   episodes: DashboardEpisode[];
+  notificationCount: number;
 }
 
 export interface GmOverviewPlayer {

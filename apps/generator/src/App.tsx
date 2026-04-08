@@ -1,4 +1,5 @@
 import { useAuth } from "@repo/auth/use-auth";
+import { AspectTag } from "@repo/ui/components/AspectTag";
 import { AttributeCard, getScoreBonusFromValue } from "@repo/ui/components/AttributeCard";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
@@ -18,7 +19,7 @@ import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Navigate,
   Route,
@@ -31,7 +32,8 @@ import {
 import { apiBaseUrl } from "./api/base-url";
 import { useCreateCharacter } from "./api/characters";
 import { useActiveEpisodes, useEpisodeSkills } from "./api/episodes";
-import { CharacterSheet } from "./CharacterSheet";
+import { CharacterSheet, NicknamesSection } from "./CharacterSheet";
+import { suggestNames } from "./name-generator";
 import { SessionPrepView } from "./SessionPrepView";
 
 const queryClient = new QueryClient({
@@ -50,16 +52,18 @@ const SEX_OPTIONS = [
   { value: "none", label: "Ei määritelty" },
 ];
 
-function GeneratorForm({ basePath }: { basePath: string }) {
+function GeneratorForm({ basePath, existingCharacterNames = [] }: { basePath: string; existingCharacterNames?: string[] }) {
   const { mutate: createCharacter, isPending, isSuccess, reset } = useCreateCharacter();
   const navigate = useNavigate();
 
   const [characterName, setCharacterName] = useState("");
+  const [nicknames, setNicknames] = useState<string[]>([]);
   const [archetype, setArchetype] = useState<string | null>(null);
   const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(null);
   const [sex, setSex] = useState("none");
   const [motivation, setMotivation] = useState("");
   const [notes, setNotes] = useState("");
+  const [suggestedNamesList, setSuggestedNamesList] = useState<string[]>([]);
 
   const taidotCount = archetype ? TAIDOT_COUNTS[archetype] : 0;
   const [selectedTaidot, setSelectedTaidot] = useState<Array<string | null>>(
@@ -128,12 +132,26 @@ function GeneratorForm({ basePath }: { basePath: string }) {
     selectedTaidot.every((s) => s !== null) && (!hasCustomSlot || customSkillText.trim() !== "");
 
   // ── Step progression gates ──
+  // New order: Episode → Archetype → Sex → Name → Attributes → Skills
   const episodeSelected = selectedEpisodeId !== null;
   const archetypeSelected = archetype !== null;
+  const sexStepReached = archetypeSelected; // sex is optional, reaching it is enough
   const nameEntered = characterName.trim() !== "";
-  const sexStepReached = nameEntered; // sex is optional, reaching it is enough
   const diceAssigned = diceRemaining === 0;
   const skillsFilled = taidotFilled && archetypeSelected;
+
+  // Collect existing character names for exclusion from suggestions
+  // (passed in from parent which has the characters query)
+
+  const handleSuggestNames = () => {
+    const excluded = [
+      ...existingCharacterNames,
+      ...suggestedNamesList,
+      characterName,
+    ].filter(Boolean);
+    const suggestions = suggestNames(sex, 5, excluded);
+    setSuggestedNamesList(suggestions);
+  };
 
   const canSubmit =
     characterName.trim() !== "" &&
@@ -146,6 +164,7 @@ function GeneratorForm({ basePath }: { basePath: string }) {
     if (!canSubmit || !selectedEpisodeId || !archetype) return;
     createCharacter({
       name: characterName,
+      nicknames: nicknames.length > 0 ? nicknames : undefined,
       archetype,
       episodeId: selectedEpisodeId,
       sex: sex || undefined,
@@ -274,29 +293,69 @@ function GeneratorForm({ basePath }: { basePath: string }) {
               </RadioGroup>
             </ObscuredWrapper>
 
-            {/* ── Step 3: Name ── */}
+            {/* ── Step 3: Sex ── */}
             <ObscuredWrapper revealed={archetypeSelected}>
-              <Input
-                label="Hahmon Nimi"
-                placeholder="Syötä nimi..."
-                value={characterName}
-                onChange={(e) => setCharacterName(e.target.value)}
-              />
-            </ObscuredWrapper>
-
-            {/* ── Step 4: Sex ── */}
-            <ObscuredWrapper revealed={nameEntered}>
               <RadioGroup
                 name="sex"
                 label="Sukupuoli"
                 orientation="horizontal"
                 value={sex || undefined}
-                onValueChange={(v) => setSex(v)}
+                onValueChange={(v) => {
+                  setSex(v);
+                  setSuggestedNamesList([]); // Reset suggestions when sex changes
+                }}
               >
                 {SEX_OPTIONS.map((opt) => (
                   <RadioGroupItem key={opt.value} value={opt.value} label={opt.label} />
                 ))}
               </RadioGroup>
+            </ObscuredWrapper>
+
+            {/* ── Step 4: Name & Nicknames ── */}
+            <ObscuredWrapper revealed={sexStepReached}>
+              <div className="space-y-4">
+                <Input
+                  label="Hahmon Nimi"
+                  placeholder="Syötä nimi tai käytä ehdotuksia..."
+                  value={characterName}
+                  onChange={(e) => setCharacterName(e.target.value)}
+                />
+
+                {/* ── Name Suggestions ── */}
+                <div className="space-y-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSuggestNames}
+                  >
+                    {suggestedNamesList.length > 0 ? "Ehdota uudelleen" : "Ehdota nimiä"}
+                  </Button>
+
+                  {suggestedNamesList.length > 0 && (
+                    <div className="flex flex-wrap gap-2 animate-in fade-in duration-300">
+                      {suggestedNamesList.map((name) => (
+                        <AspectTag
+                          key={name}
+                          text={name}
+                          variant="name"
+                          onSelect={() => {
+                            setCharacterName(name);
+                            setSuggestedNamesList([]);
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {nameEntered && (
+                  <NicknamesSection
+                    nicknames={nicknames}
+                    canEdit={true}
+                    onUpdate={setNicknames}
+                  />
+                )}
+              </div>
             </ObscuredWrapper>
 
             {/* ── Step 5: Attributes ── */}
@@ -542,7 +601,7 @@ function InnerApp() {
   const prepMatchRelative = useMatch(`prep/:episodeId`);
   const activePrepEpisodeId = (prepMatchAbsolute ?? prepMatchRelative)?.params?.episodeId;
 
-  const { data: characters, isLoading } = useQuery({
+  const { data: characters, isLoading, refetch: refetchCharacters } = useQuery<Array<{ id: number; name: string; [key: string]: unknown }>>({
     queryKey: ["characters"],
     queryFn: async () => {
       const token = localStorage.getItem("auth_token");
@@ -554,6 +613,14 @@ function InnerApp() {
       return res.json();
     },
   });
+
+  // Refetch characters whenever the user navigates to the list page
+  const isOnListPage = pathname.endsWith("/list") || pathname === basePath || pathname === `${basePath}/`;
+  useEffect(() => {
+    if (isOnListPage) {
+      refetchCharacters();
+    }
+  }, [pathname]);
 
   return (
     <Page>
@@ -577,7 +644,7 @@ function InnerApp() {
                 <>
                   <HeadingLevelProvider>
                     <Hero title="Hahmot" description="Hahmot" />
-                    <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8">
+                    <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 space-y-0">
                       <Breadcrumb className="col-span-full mb-2" items={[{ label: "Hahmot" }]} />
                       {isLoading && (
                         <>
@@ -717,7 +784,7 @@ function InnerApp() {
                 </>
               }
             />
-            <Route path="new" element={<GeneratorForm basePath={basePath} />} />
+            <Route path="new" element={<GeneratorForm basePath={basePath} existingCharacterNames={(characters ?? []).map((c) => c.name)} />} />
             <Route path="character/:id" element={<CharacterSheetRoute basePath={basePath} />} />
             <Route path="prep/:episodeId" element={<PrepRoute basePath={basePath} />} />
             <Route path="*" element={<MfeNotFoundRedirect to={`${basePath}/list`} />} />

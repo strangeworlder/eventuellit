@@ -23,6 +23,12 @@ export class CreateCharacterDto {
   @IsString()
   notes?: string;
 
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @ArrayMaxSize(5)
+  nicknames?: string[];
+
   @IsInt()
   @Min(0)
   keho!: number;

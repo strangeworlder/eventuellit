@@ -12,7 +12,7 @@ import {
 } from "@nestjs/common";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
-import type { CreateReadingProgressDto } from "./dto/create-reading-progress.dto";
+import { CreateReadingProgressDto } from "./dto/create-reading-progress.dto";
 import { ReadingProgressService } from "./reading-progress.service";
 
 @UseGuards(JwtAuthGuard)

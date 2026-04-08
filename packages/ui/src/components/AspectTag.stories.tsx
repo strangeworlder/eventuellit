@@ -69,6 +69,33 @@ export const PoistettavaTaito: Story = {
   },
 };
 
+export const NimiEhdotus: Story = {
+  args: {
+    text: "Pekablo",
+    variant: "name",
+  },
+};
+
+export const ValittavaNimi: Story = {
+  args: {
+    text: "Marisorja",
+    variant: "name",
+    onSelect: () => {},
+  },
+};
+
+export const NimiEhdotusLista: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-2">
+      <AspectTag text="Villergo" variant="name" onSelect={() => {}} />
+      <AspectTag text="Kaisabell" variant="name" onSelect={() => {}} />
+      <AspectTag text="Haltiago" variant="name" onSelect={() => {}} />
+      <AspectTag text="Annelicia" variant="name" onSelect={() => {}} />
+      <AspectTag text="Inariano" variant="name" onSelect={() => {}} />
+    </div>
+  ),
+};
+
 export const HarmiLista: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
@@ -130,6 +157,17 @@ export const KaikkiVariantit: Story = {
           <AspectTag text="Hakkerointi" variant="skill" />
           <AspectTag text="Lääketiede" variant="skill" onRemove={() => {}} />
           <AspectTag text="Navigointi" variant="skill" isCustom />
+        </div>
+      </div>
+
+      <div>
+        <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2 font-heading">
+          Nimiehdotukset
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <AspectTag text="Villergo" variant="name" onSelect={() => {}} />
+          <AspectTag text="Kaisabell" variant="name" onSelect={() => {}} />
+          <AspectTag text="Haltiago" variant="name" onSelect={() => {}} />
         </div>
       </div>
     </div>

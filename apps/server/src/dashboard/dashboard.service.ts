@@ -15,12 +15,14 @@ import {
   sessions,
   users,
 } from "../db/schema";
+import { NotificationsService } from "../notifications/notifications.service";
 
 export interface DashboardAction {
   type:
     | "create_character"
     | "link_character"
     | "update_character"
+    | "update_names"
     | "reading"
     | "task"
     | "write_recap";
@@ -50,6 +52,7 @@ export interface DashboardResponse {
     createdAt: Date;
   }>;
   episodes: DashboardEpisode[];
+  notificationCount: number;
 }
 
 export interface GmOverviewPlayer {
@@ -64,7 +67,10 @@ export interface GmOverviewPlayer {
 
 @Injectable()
 export class DashboardService {
-  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
+  constructor(
+    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   async getDashboard(userId: number): Promise<DashboardResponse> {
     const pendingInvites = await this.db
@@ -318,7 +324,70 @@ export class DashboardService {
       });
     }
 
-    return { pendingInvites, episodes: episodeResults };
+    // Fetch active notifications and convert to dashboard actions
+    const { notifications, count: notificationCount } =
+      await this.notificationsService.getActiveForUser(userId);
+
+    // Map notification types to dashboard actions
+    const notificationLabelMap: Record<
+      string,
+      {
+        label: string;
+        defaultDescription: string;
+        priority: number;
+        urlFn: (refId?: string | null) => string;
+      }
+    > = {
+      update_names: {
+        label: "Päivitä lempinimet",
+        defaultDescription: "Lisää hahmollesi lempinimet.",
+        priority: 2,
+        urlFn: (refId) => (refId ? `/generator/character/${refId}` : "/generator/list"),
+      },
+    };
+
+    for (const notification of notifications) {
+      const mapping = notificationLabelMap[notification.type];
+      if (!mapping) continue;
+
+      // Find which episode this character belongs to, if any
+      let targetEpisodeResult: DashboardEpisode | undefined;
+      if (notification.referenceId) {
+        const charId = Number(notification.referenceId);
+        for (const ep of episodeResults) {
+          // Check if this character is linked to this episode
+          const linkedChars = await this.db
+            .select({ id: characters.id })
+            .from(characterEpisodes)
+            .innerJoin(characters, eq(characterEpisodes.characterId, characters.id))
+            .where(and(eq(characterEpisodes.episodeId, ep.episodeId), eq(characters.id, charId)));
+          if (linkedChars.length > 0) {
+            targetEpisodeResult = ep;
+            break;
+          }
+        }
+      }
+
+      const action: DashboardAction = {
+        type: notification.type as DashboardAction["type"],
+        label: mapping.label,
+        description: notification.message ?? mapping.defaultDescription,
+        priority: mapping.priority,
+        url: mapping.urlFn(notification.referenceId),
+        meta: { notificationId: notification.id, referenceId: notification.referenceId },
+      };
+
+      if (targetEpisodeResult) {
+        targetEpisodeResult.actions.push(action);
+        targetEpisodeResult.actions.sort((a, b) => a.priority - b.priority);
+      } else if (episodeResults.length > 0) {
+        // Attach to first episode if we can't determine the right one
+        episodeResults[0].actions.push(action);
+        episodeResults[0].actions.sort((a, b) => a.priority - b.priority);
+      }
+    }
+
+    return { pendingInvites, episodes: episodeResults, notificationCount };
   }
 
   async getGmOverview(

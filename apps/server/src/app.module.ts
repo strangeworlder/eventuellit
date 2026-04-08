@@ -7,6 +7,7 @@ import { DbModule } from "./db/db.module";
 import { EpisodeInvitesModule } from "./episode-invites/episode-invites.module";
 import { EpisodePlayersModule } from "./episode-players/episode-players.module";
 import { EpisodesModule } from "./episodes/episodes.module";
+import { NotificationsModule } from "./notifications/notifications.module";
 import { ReadingItemsModule } from "./reading-items/reading-items.module";
 import { ReadingProgressModule } from "./reading-progress/reading-progress.module";
 import { SessionRecapsModule } from "./session-recaps/session-recaps.module";
@@ -28,6 +29,7 @@ import { UsersModule } from "./users/users.module";
     EpisodePlayersModule,
     EpisodeInvitesModule,
     DashboardModule,
+    NotificationsModule,
   ],
 })
 export class AppModule {}
