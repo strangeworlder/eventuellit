@@ -4,7 +4,7 @@ The shared design system for Eventuellit. Built on Tailwind v4, React 19, and St
 
 ---
 
-## Getting Started
+## Getting Started!
 
 ### CSS Setup
 
