@@ -54,4 +54,12 @@ All meaningful logic must have Vitest tests. Test-first approach preferred.
 
 ## Changelog
 
-When delivering a new feature or significant change, add a corresponding entry to `apps/host/src/changelog-data.ts`. Don't defer this — update the changelog as part of the feature work, not retroactively. Entries follow the `ChangelogRelease` type: categorized into `features`, `major` (architectural), and `minor` (fixes/improvements), all in Finnish. Link to the relevant route when applicable.
+When delivering a new feature or significant change, add a corresponding entry to `apps/host/src/changelog-data.ts`. Don't defer this — update the changelog as part of the feature work, not retroactively. Entries follow the `ChangelogRelease` type and are written in Finnish. Link to the relevant route when applicable.
+
+Categorize from the **player's perspective**, not the developer's:
+
+| Category | What goes here | Examples |
+|---|---|---|
+| `features` | New user-facing functionality | Character naming, notification system, new pages |
+| `major` | Lore, world-building, and content updates | Station article rewrites, faction changes, new world content |
+| `minor` | Technical improvements, design system changes, bug fixes | Component refactors, DTO fixes, Storybook updates, CSS tweaks |
