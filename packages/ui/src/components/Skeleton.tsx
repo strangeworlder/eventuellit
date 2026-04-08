@@ -1,6 +1,6 @@
 import React from "react";
-import { cn } from "./utils";
 import type { Theme } from "./Theme";
+import { cn } from "./utils";
 
 /**
  * Shimmer loading placeholder for known-shape elements. Prefer this over `LoadingState`

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 import { Heading, HeadingLevelProvider } from "./Heading";
-import { cn } from "./utils";
+import { Icon } from "./Icon";
 import type { Theme } from "./Theme";
 import { useFocusTrap } from "./useFocusTrap";
+import { cn } from "./utils";
 
 export type DrawerContextType = {
   expanded: boolean;

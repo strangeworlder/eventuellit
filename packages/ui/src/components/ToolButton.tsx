@@ -26,18 +26,7 @@ export interface ToolButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
  * @summary lightweight utility control for content actions (Muokkaa, Piilota, Julkaise)
  */
 export const ToolButton = React.forwardRef<HTMLButtonElement, ToolButtonProps>(
-  (
-    {
-      className,
-      loading = false,
-      loadingMessage,
-      theme,
-      disabled,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, loading = false, loadingMessage, theme, disabled, children, ...props }, ref) => {
     const isDisabled = disabled || loading;
 
     return (
@@ -54,19 +43,13 @@ export const ToolButton = React.forwardRef<HTMLButtonElement, ToolButtonProps>(
           "hover:text-[var(--theme-text)] hover:border-[var(--theme-border-medium)] hover:bg-[var(--theme-surface-tint)]",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
           "active:bg-[var(--theme-surface-tint)] active:text-[var(--theme-text)]",
-          isDisabled &&
-            "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none",
+          isDisabled && "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none",
           className,
         )}
         {...props}
       >
         {loading && (
-          <Icon
-            name="loader2"
-            size={14}
-            className="animate-spin shrink-0"
-            aria-hidden="true"
-          />
+          <Icon name="loader2" size={14} className="animate-spin shrink-0" aria-hidden="true" />
         )}
         {children}
       </button>

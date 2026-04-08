@@ -15,9 +15,9 @@ import {
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { EpisodePlayersService } from "../episode-players/episode-players.service";
+import type { CreateReadingItemDto } from "./dto/create-reading-item.dto";
+import type { UpdateReadingItemDto } from "./dto/update-reading-item.dto";
 import { ReadingItemsService } from "./reading-items.service";
-import { CreateReadingItemDto } from "./dto/create-reading-item.dto";
-import { UpdateReadingItemDto } from "./dto/update-reading-item.dto";
 
 function ensureGm(req: Request) {
   const user = (req as any).user;

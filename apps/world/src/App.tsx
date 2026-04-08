@@ -1,4 +1,3 @@
-import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { Badge } from "@repo/ui/components/Badge";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
@@ -8,21 +7,22 @@ import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { Icon } from "@repo/ui/components/Icon";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
+import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageAside, PageBody } from "@repo/ui/components/Page";
+import {
+  type StationConnectionNode,
+  StationConnections,
+} from "@repo/ui/components/StationConnections";
+import { Text } from "@repo/ui/components/Text";
 import { TextSection } from "@repo/ui/components/TextSection";
 import { TopNavDropdown, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
-import { Text } from "@repo/ui/components/Text";
+import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { useEffect, useRef } from "react";
 import { Outlet, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
-import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
-import {
-  StationConnections,
-  type StationConnectionNode,
-} from "@repo/ui/components/StationConnections";
-import { stationConnections } from "./connections";
 import { worldCategories } from "./categories";
-import { factions, getFactionById } from "./factions";
+import { stationConnections } from "./connections";
+import { type factions, getFactionById } from "./factions";
 
 const remoteOrigin = new URL(import.meta.url).origin;
 
@@ -654,41 +654,41 @@ function FaktiotHub({
 
         {/* Power Triad */}
         <HeadingLevelProvider>
-            <TextSection title="Kolme suurvaltaa" className="mb-10">
-              <div className="flex flex-col gap-4 max-w-2xl mx-auto mt-4">
-                {/* Top: Ekklesia */}
-                <div className="flex justify-center">
-                  {renderMainCard(ekklesiaEntry, "w-full max-w-xs")}
-                </div>
-                {/* Bottom: Tuhkan puolue + KW-konsortio */}
-                <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
-                  {renderMainCard(tuhkanEntry)}
-                  {renderMainCard(kwEntry)}
-                </div>
+          <TextSection title="Kolme suurvaltaa" className="mb-10">
+            <div className="flex flex-col gap-4 max-w-2xl mx-auto mt-4">
+              {/* Top: Ekklesia */}
+              <div className="flex justify-center">
+                {renderMainCard(ekklesiaEntry, "w-full max-w-xs")}
               </div>
-            </TextSection>
+              {/* Bottom: Tuhkan puolue + KW-konsortio */}
+              <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
+                {renderMainCard(tuhkanEntry)}
+                {renderMainCard(kwEntry)}
+              </div>
+            </div>
+          </TextSection>
 
-            {/* All factions grid */}
-            <TextSection title="Kaikki faktiot">
-              <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-4 mt-4">
-                {factiotEntries.map((entry) => {
-                  const def = getFactionById(entry.id);
-                  const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
-                  return (
-                    <EntityCard
-                      key={entry.id}
-                      name={entry.title}
-                      subtitle={entry.description}
-                      color={def?.color ?? "secondary"}
-                      iconName={def?.icon}
-                      parentLabel={parentDef?.name}
-                      href={`${basePath}/faktiot/${entry.id}`}
-                      variant={entry.parent ? "npc" : "faction"}
-                    />
-                  );
-                })}
-              </div>
-            </TextSection>
+          {/* All factions grid */}
+          <TextSection title="Kaikki faktiot">
+            <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-4 mt-4">
+              {factiotEntries.map((entry) => {
+                const def = getFactionById(entry.id);
+                const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
+                return (
+                  <EntityCard
+                    key={entry.id}
+                    name={entry.title}
+                    subtitle={entry.description}
+                    color={def?.color ?? "secondary"}
+                    iconName={def?.icon}
+                    parentLabel={parentDef?.name}
+                    href={`${basePath}/faktiot/${entry.id}`}
+                    variant={entry.parent ? "npc" : "faction"}
+                  />
+                );
+              })}
+            </div>
+          </TextSection>
         </HeadingLevelProvider>
       </PageBody>
     </>
@@ -767,68 +767,68 @@ function FactionDetail({
             {/* Subfactions (main factions only) */}
             {subEntries.length > 0 && (
               <TextSection title="Alafaktiot">
-                  <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-4">
-                    {subEntries.map((sub) => {
-                      const subDef = getFactionById(sub.id);
-                      return (
-                        <EntityCard
-                          key={sub.id}
-                          name={sub.title}
-                          subtitle={sub.description}
-                          color={subDef?.color ?? accentColor}
-                          iconName={subDef?.icon}
-                          href={`${basePath}/faktiot/${sub.id}`}
-                          variant="npc"
-                        />
-                      );
-                    })}
-                  </div>
-                </TextSection>
+                <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-4">
+                  {subEntries.map((sub) => {
+                    const subDef = getFactionById(sub.id);
+                    return (
+                      <EntityCard
+                        key={sub.id}
+                        name={sub.title}
+                        subtitle={sub.description}
+                        color={subDef?.color ?? accentColor}
+                        iconName={subDef?.icon}
+                        href={`${basePath}/faktiot/${sub.id}`}
+                        variant="npc"
+                      />
+                    );
+                  })}
+                </div>
+              </TextSection>
             )}
 
             {/* NPCs placeholder */}
             <TextSection title="Merkittävät hahmot">
-                <div className="mt-4">
-                  <NoticePanel variant="info">
-                    Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
-                  </NoticePanel>
-                </div>
-              </TextSection>
+              <div className="mt-4">
+                <NoticePanel variant="info">
+                  Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
+                </NoticePanel>
+              </div>
+            </TextSection>
 
             {/* Controlled stations */}
             {controlledStations.length > 0 && (
               <TextSection title="Hallitut asemat">
-                  <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 mt-4">
-                    {controlledStations.map((station) => (
-                      <a
-                        key={station.id}
-                        href={`${basePath}/kynnys/${station.id}`}
-                        className="no-underline text-inherit"
-                      >
-                        <Card variant="interactive" className="h-full cursor-pointer">
-                          <CardHeader>
-                            <div className="flex items-start justify-between gap-2">
-                              <CardTitle>{station.title}</CardTitle>
-                              {station.tension && (
-                                <Text
-                                  variant="caption"
-                                  className="text-xs uppercase tracking-widest text-[var(--theme-primary)] shrink-0 mt-0.5"
-                                >
-                                  {station.tension}
-                                </Text>
-                              )}
-                            </div>
-                          </CardHeader>
-                          {station.description && (
-                            <CardContent>
-                              <Text className="text-sm">{station.description}</Text>
-                            </CardContent>
-                          )}
-                        </Card>
-                      </a>
-                    ))}
-                  </div>
-                </TextSection>
+                <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 mt-4">
+                  {controlledStations.map((station) => (
+                    <a
+                      key={station.id}
+                      href={`${basePath}/kynnys/${station.id}`}
+                      className="no-underline text-inherit"
+                    >
+                      <Card variant="interactive" className="h-full cursor-pointer">
+                        <CardHeader>
+                          <div className="flex items-start justify-between gap-2">
+                            <CardTitle>{station.title}</CardTitle>
+                            {station.tension && (
+                              <Text
+                                variant="caption"
+                                className="text-xs uppercase tracking-widest text-[var(--theme-primary)] shrink-0 mt-0.5"
+                              >
+                                {station.tension}
+                              </Text>
+                            )}
+                          </div>
+                        </CardHeader>
+                        {station.description && (
+                          <CardContent>
+                            <Text className="text-sm">{station.description}</Text>
+                          </CardContent>
+                        )}
+                      </Card>
+                    </a>
+                  ))}
+                </div>
+              </TextSection>
             )}
           </div>
 

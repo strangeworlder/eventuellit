@@ -1,4 +1,8 @@
-import { useEffect, useRef, type RefObject } from "react";
+import { type RefObject, useEffect, useRef } from "react";
+import {
+  mapSectionOffsetsToProgressPositions,
+  resolveActiveSectionFromProgress,
+} from "./article-navigation-utils";
 import {
   ARTICLE_JUMP_EVENT,
   ARTICLE_PROGRESS_EVENT,
@@ -6,10 +10,6 @@ import {
   type ArticleProgressPayload,
   type ArticleProgressSource,
 } from "./article-progress-events";
-import {
-  mapSectionOffsetsToProgressPositions,
-  resolveActiveSectionFromProgress,
-} from "./article-navigation-utils";
 
 export interface UseArticleScrollProgressOptions {
   articleRef: RefObject<HTMLElement | null>;

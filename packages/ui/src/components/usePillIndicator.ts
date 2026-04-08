@@ -80,9 +80,7 @@ export function usePillIndicator({ itemSelector, activeCheck }: PillIndicatorCon
       if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
       setIsSettling(false);
 
-      const items = Array.from(
-        listRef.current.querySelectorAll<HTMLElement>(itemSelector),
-      );
+      const items = Array.from(listRef.current.querySelectorAll<HTMLElement>(itemSelector));
       const activeItem = items.find((t) => activeCheck(t));
 
       if (!activeItem) return;

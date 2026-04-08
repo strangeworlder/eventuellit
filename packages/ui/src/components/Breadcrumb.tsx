@@ -1,8 +1,8 @@
 import React from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Icon } from "./Icon";
-import { cn } from "./utils";
 import type { Theme } from "./Theme";
+import { cn } from "./utils";
 
 export interface BreadcrumbItem {
   /** Display label for this breadcrumb segment. */

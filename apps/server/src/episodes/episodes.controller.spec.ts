@@ -1,6 +1,6 @@
+import { ForbiddenException } from "@nestjs/common";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { vi } from "vitest";
-import { ForbiddenException } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { EpisodesController } from "./episodes.controller";
 import { EpisodesService } from "./episodes.service";

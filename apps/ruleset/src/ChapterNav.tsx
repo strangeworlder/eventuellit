@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Icon } from "@repo/ui/components/Icon";
 import { Separator } from "@repo/ui/components/Separator";
 import { Text } from "@repo/ui/components/Text";
+import { useNavigate } from "react-router-dom";
 
 interface ChapterNavEntry {
   id: string;

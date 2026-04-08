@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import {
   FACTIONS,
-  RULESET_CHAPTERS,
-  STATIONS,
   getFactionById,
   getStationByTitle,
+  RULESET_CHAPTERS,
+  STATIONS,
 } from "./content-registry.data";
 
 export interface SuggestedItem {

@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { NavLink, type NavLinkProps, useNavigate } from "react-router-dom";
 import { Icon } from "./Icon";
-import { cn } from "./utils";
 import { usePillIndicator } from "./usePillIndicator";
+import { cn } from "./utils";
 
 export interface TopNavProps extends React.HTMLAttributes<HTMLElement> {
   /**
@@ -37,7 +37,12 @@ export interface TopNavListProps extends React.HTMLAttributes<HTMLDivElement> {}
 export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
   ({ className, style, ...props }, ref) => {
     const activeCheck = useCallback((el: HTMLElement) => isNavItemActive(el), []);
-    const { listRef, style: pillStyle, settleClassName, handlers } = usePillIndicator({
+    const {
+      listRef,
+      style: pillStyle,
+      settleClassName,
+      handlers,
+    } = usePillIndicator({
       itemSelector: NAV_ITEM_SELECTOR,
       activeCheck,
     });

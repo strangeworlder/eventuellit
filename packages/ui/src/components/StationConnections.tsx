@@ -1,6 +1,6 @@
+import { motion, type Transition } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, type Transition } from "framer-motion";
 import { AnchoredTooltip, type AnchoredTooltipPlacement } from "./AnchoredTooltip";
 import { DiceIcon } from "./DiceIcon";
 import { Heading } from "./Heading";

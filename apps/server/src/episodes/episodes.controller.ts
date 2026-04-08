@@ -14,11 +14,11 @@ import {
 } from "@nestjs/common";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import type { CreateEpisodeDto } from "./dto/create-episode.dto";
+import type { CreateEpisodeSkillDto } from "./dto/create-episode-skill.dto";
+import type { UpdateEpisodeDto } from "./dto/update-episode.dto";
+import type { UpdateEpisodeSkillDto } from "./dto/update-episode-skill.dto";
 import { EpisodesService } from "./episodes.service";
-import { CreateEpisodeDto } from "./dto/create-episode.dto";
-import { UpdateEpisodeDto } from "./dto/update-episode.dto";
-import { CreateEpisodeSkillDto } from "./dto/create-episode-skill.dto";
-import { UpdateEpisodeSkillDto } from "./dto/update-episode-skill.dto";
 
 function ensureGm(req: Request) {
   const user = (req as any).user;

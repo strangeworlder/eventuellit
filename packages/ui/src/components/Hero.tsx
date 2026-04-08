@@ -1,9 +1,9 @@
 import React from "react";
 import { Heading } from "./Heading";
+import { HeroCanvas } from "./HeroCanvas";
+import { ImageElement } from "./ImageElement";
 import { Text } from "./Text";
 import { cn } from "./utils";
-import { ImageElement } from "./ImageElement";
-import { HeroCanvas } from "./HeroCanvas";
 
 export interface HeroProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   title: React.ReactNode;

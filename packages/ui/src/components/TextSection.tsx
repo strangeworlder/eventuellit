@@ -29,7 +29,10 @@ export interface TextSectionProps extends React.HTMLAttributes<HTMLElement> {
  * @summary section container with optional auto-levelled heading; use in long-form article content
  */
 export const TextSection = React.forwardRef<HTMLElement, TextSectionProps>(
-  ({ className, title, actions, variant = "default", headingClassName, children, ...props }, ref) => {
+  (
+    { className, title, actions, variant = "default", headingClassName, children, ...props },
+    ref,
+  ) => {
     const hasTitleRow = title || actions;
     return (
       <section ref={ref} className={cn("flex flex-col mt-8 gap-4", className)} {...props}>
@@ -38,13 +41,10 @@ export const TextSection = React.forwardRef<HTMLElement, TextSectionProps>(
             <div
               className={cn(
                 "flex flex-row items-center justify-between gap-3",
-                variant === "bordered" &&
-                  "border-b-2 border-[var(--theme-border-soft)] pb-3",
+                variant === "bordered" && "border-b-2 border-[var(--theme-border-soft)] pb-3",
               )}
             >
-              {title && (
-                <Heading className={cn(headingClassName)}>{title}</Heading>
-              )}
+              {title && <Heading className={cn(headingClassName)}>{title}</Heading>}
               {actions && <div className="flex items-center gap-2 shrink-0">{actions}</div>}
             </div>
           )}

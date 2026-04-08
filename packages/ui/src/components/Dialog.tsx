@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 import { Heading, HeadingLevelProvider } from "./Heading";
-import { cn } from "./utils";
+import { Icon } from "./Icon";
 import type { Theme } from "./Theme";
 import { useFocusTrap } from "./useFocusTrap";
+import { cn } from "./utils";
 
 // ── Dialog ──
 

@@ -144,9 +144,7 @@ export const KaikkiTilat: Story = {
         </div>
       </div>
       <div className="space-y-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-text-subtle">
-          Ei käytössä
-        </p>
+        <p className="text-xs font-bold uppercase tracking-widest text-text-subtle">Ei käytössä</p>
         <div className="flex flex-wrap gap-3">
           <ToolButton disabled>Muokkaa</ToolButton>
           <ToolButton disabled>Piilota</ToolButton>

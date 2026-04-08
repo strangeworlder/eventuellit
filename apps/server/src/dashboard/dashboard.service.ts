@@ -17,7 +17,13 @@ import {
 } from "../db/schema";
 
 export interface DashboardAction {
-  type: "create_character" | "link_character" | "update_character" | "reading" | "task" | "write_recap";
+  type:
+    | "create_character"
+    | "link_character"
+    | "update_character"
+    | "reading"
+    | "task"
+    | "write_recap";
   label: string;
   description: string;
   priority: number;
@@ -58,9 +64,7 @@ export interface GmOverviewPlayer {
 
 @Injectable()
 export class DashboardService {
-  constructor(
-    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
   async getDashboard(userId: number): Promise<DashboardResponse> {
     const pendingInvites = await this.db
@@ -116,12 +120,7 @@ export class DashboardService {
           .select({ id: characters.id, name: characters.name })
           .from(characterEpisodes)
           .innerJoin(characters, eq(characterEpisodes.characterId, characters.id))
-          .where(
-            and(
-              eq(characterEpisodes.episodeId, ep.episodeId),
-              eq(characters.userId, userId),
-            ),
-          );
+          .where(and(eq(characterEpisodes.episodeId, ep.episodeId), eq(characters.userId, userId)));
 
         // Fallback: characters created before the junction table was populated
         // may only have characters.episodeId set without a character_episodes row.
@@ -129,12 +128,7 @@ export class DashboardService {
           const directLinked = await this.db
             .select({ id: characters.id, name: characters.name })
             .from(characters)
-            .where(
-              and(
-                eq(characters.userId, userId),
-                eq(characters.episodeId, ep.episodeId),
-              ),
-            );
+            .where(and(eq(characters.userId, userId), eq(characters.episodeId, ep.episodeId)));
           if (directLinked.length > 0) {
             // Backfill the missing junction table rows so future queries work correctly
             for (const char of directLinked) {
@@ -193,7 +187,10 @@ export class DashboardService {
                 ),
               );
 
-            const allItems = [...sessionItems, ...episodeLevelItems.filter((i) => i.sessionId === null)];
+            const allItems = [
+              ...sessionItems,
+              ...episodeLevelItems.filter((i) => i.sessionId === null),
+            ];
 
             if (allItems.length > 0) {
               const itemIds = allItems.map((i) => i.id);
@@ -231,7 +228,8 @@ export class DashboardService {
               }
 
               if (incompleteReadingItems.length > 0) {
-                const sessionLabel = session.label || `Sessio #${String(session.sessionNumber).padStart(2, "0")}`;
+                const sessionLabel =
+                  session.label || `Sessio #${String(session.sessionNumber).padStart(2, "0")}`;
                 actions.push({
                   type: "reading",
                   label: "Lukemisto kesken",
@@ -240,14 +238,17 @@ export class DashboardService {
                   url: `/generator/prep/${ep.episodeId}`,
                   meta: {
                     sessionId: session.id,
-                    completed: allItems.filter((i) => i.contentType !== "task").length - incompleteReadingItems.length,
+                    completed:
+                      allItems.filter((i) => i.contentType !== "task").length -
+                      incompleteReadingItems.length,
                     total: allItems.filter((i) => i.contentType !== "task").length,
                   },
                 });
               }
 
               if (incompleteOtherTasks.length > 0) {
-                const sessionLabel = session.label || `Sessio #${String(session.sessionNumber).padStart(2, "0")}`;
+                const sessionLabel =
+                  session.label || `Sessio #${String(session.sessionNumber).padStart(2, "0")}`;
                 actions.push({
                   type: "task",
                   label: "Tehtäviä kesken",
@@ -256,8 +257,13 @@ export class DashboardService {
                   url: `/generator/prep/${ep.episodeId}`,
                   meta: {
                     sessionId: session.id,
-                    completed: allItems.filter((i) => i.contentType === "task" && i.contentRef !== "update-character").length - incompleteOtherTasks.length,
-                    total: allItems.filter((i) => i.contentType === "task" && i.contentRef !== "update-character").length,
+                    completed:
+                      allItems.filter(
+                        (i) => i.contentType === "task" && i.contentRef !== "update-character",
+                      ).length - incompleteOtherTasks.length,
+                    total: allItems.filter(
+                      (i) => i.contentType === "task" && i.contentRef !== "update-character",
+                    ).length,
                   },
                 });
               }
@@ -287,7 +293,8 @@ export class DashboardService {
                 ),
               );
             if (!recap[0]) {
-              const sessionLabel = session.label || `Sessio #${String(session.sessionNumber).padStart(2, "0")}`;
+              const sessionLabel =
+                session.label || `Sessio #${String(session.sessionNumber).padStart(2, "0")}`;
               actions.push({
                 type: "write_recap",
                 label: "Kirjoita kertaus",
@@ -314,7 +321,10 @@ export class DashboardService {
     return { pendingInvites, episodes: episodeResults };
   }
 
-  async getGmOverview(episodeId: number, requestingUserRole: string): Promise<{ players: GmOverviewPlayer[] }> {
+  async getGmOverview(
+    episodeId: number,
+    requestingUserRole: string,
+  ): Promise<{ players: GmOverviewPlayer[] }> {
     if (requestingUserRole !== "gm") {
       throw new ForbiddenException("Only GMs can view the overview");
     }
@@ -376,12 +386,7 @@ export class DashboardService {
         .select({ id: characters.id, name: characters.name })
         .from(characterEpisodes)
         .innerJoin(characters, eq(characterEpisodes.characterId, characters.id))
-        .where(
-          and(
-            eq(characterEpisodes.episodeId, episodeId),
-            eq(characters.userId, userId),
-          ),
-        )
+        .where(and(eq(characterEpisodes.episodeId, episodeId), eq(characters.userId, userId)))
         .limit(1);
 
       // Fallback for legacy characters linked only via characters.episodeId
@@ -389,12 +394,7 @@ export class DashboardService {
         linkedChar = await this.db
           .select({ id: characters.id, name: characters.name })
           .from(characters)
-          .where(
-            and(
-              eq(characters.userId, userId),
-              eq(characters.episodeId, episodeId),
-            ),
-          )
+          .where(and(eq(characters.userId, userId), eq(characters.episodeId, episodeId)))
           .limit(1);
       }
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { SkillTagList, type SkillTagItem } from "./SkillTagList";
+import { type SkillTagItem, SkillTagList } from "./SkillTagList";
 
 const meta = {
   title: "Suunnittelujarjestelma/Organismit/SkillTagList",

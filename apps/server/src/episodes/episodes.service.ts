@@ -1,24 +1,17 @@
-import {
-  ForbiddenException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { ForbiddenException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import { episodes, episodeSkills } from "../db/schema";
-import { CreateEpisodeDto } from "./dto/create-episode.dto";
-import { UpdateEpisodeDto } from "./dto/update-episode.dto";
-import { CreateEpisodeSkillDto } from "./dto/create-episode-skill.dto";
-import { UpdateEpisodeSkillDto } from "./dto/update-episode-skill.dto";
+import { episodeSkills, episodes } from "../db/schema";
+import type { CreateEpisodeDto } from "./dto/create-episode.dto";
+import type { CreateEpisodeSkillDto } from "./dto/create-episode-skill.dto";
+import type { UpdateEpisodeDto } from "./dto/update-episode.dto";
+import type { UpdateEpisodeSkillDto } from "./dto/update-episode-skill.dto";
 
 @Injectable()
 export class EpisodesService {
-  constructor(
-    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
   async findAll(status?: string) {
     if (status) {
@@ -32,10 +25,7 @@ export class EpisodesService {
   }
 
   async findOne(id: number) {
-    const rows = await this.db
-      .select()
-      .from(episodes)
-      .where(eq(episodes.id, id));
+    const rows = await this.db.select().from(episodes).where(eq(episodes.id, id));
     if (!rows[0]) {
       throw new NotFoundException("Episode not found");
     }
@@ -89,10 +79,7 @@ export class EpisodesService {
 
   async findSkills(episodeId: number) {
     await this.findOne(episodeId); // throws if episode not found
-    return this.db
-      .select()
-      .from(episodeSkills)
-      .where(eq(episodeSkills.episodeId, episodeId));
+    return this.db.select().from(episodeSkills).where(eq(episodeSkills.episodeId, episodeId));
   }
 
   async addSkill(episodeId: number, data: CreateEpisodeSkillDto) {
@@ -106,10 +93,7 @@ export class EpisodesService {
 
   async updateSkill(episodeId: number, skillId: number, data: UpdateEpisodeSkillDto) {
     await this.findOne(episodeId);
-    const skill = await this.db
-      .select()
-      .from(episodeSkills)
-      .where(eq(episodeSkills.id, skillId));
+    const skill = await this.db.select().from(episodeSkills).where(eq(episodeSkills.id, skillId));
     if (!skill[0] || skill[0].episodeId !== episodeId) {
       throw new NotFoundException("Skill not found for this episode");
     }
@@ -123,10 +107,7 @@ export class EpisodesService {
 
   async removeSkill(episodeId: number, skillId: number) {
     await this.findOne(episodeId);
-    const skill = await this.db
-      .select()
-      .from(episodeSkills)
-      .where(eq(episodeSkills.id, skillId));
+    const skill = await this.db.select().from(episodeSkills).where(eq(episodeSkills.id, skillId));
     if (!skill[0] || skill[0].episodeId !== episodeId) {
       throw new NotFoundException("Skill not found for this episode");
     }

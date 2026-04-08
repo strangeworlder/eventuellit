@@ -1,27 +1,17 @@
-import {
-  ConflictException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { ConflictException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { and, eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
 import { episodes, sessions } from "../db/schema";
-import { CreateSessionDto } from "./dto/create-session.dto";
-import { UpdateSessionDto } from "./dto/update-session.dto";
+import type { CreateSessionDto } from "./dto/create-session.dto";
+import type { UpdateSessionDto } from "./dto/update-session.dto";
 
 @Injectable()
 export class SessionsService {
-  constructor(
-    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
-  async findByEpisode(
-    episodeId: number,
-    viewer: { id: number; role: string } | null,
-  ) {
+  async findByEpisode(episodeId: number, viewer: { id: number; role: string } | null) {
     const rows = await this.db
       .select()
       .from(sessions)
@@ -38,10 +28,7 @@ export class SessionsService {
   }
 
   async create(data: CreateSessionDto) {
-    const episodeRow = await this.db
-      .select()
-      .from(episodes)
-      .where(eq(episodes.id, data.episodeId));
+    const episodeRow = await this.db.select().from(episodes).where(eq(episodes.id, data.episodeId));
     if (!episodeRow[0]) {
       throw new NotFoundException("Episode not found");
     }
@@ -62,10 +49,7 @@ export class SessionsService {
   }
 
   async update(id: number, data: UpdateSessionDto) {
-    const existing = await this.db
-      .select()
-      .from(sessions)
-      .where(eq(sessions.id, id));
+    const existing = await this.db.select().from(sessions).where(eq(sessions.id, id));
     if (!existing[0]) {
       throw new NotFoundException("Session not found");
     }
@@ -93,10 +77,7 @@ export class SessionsService {
   }
 
   async remove(id: number) {
-    const existing = await this.db
-      .select()
-      .from(sessions)
-      .where(eq(sessions.id, id));
+    const existing = await this.db.select().from(sessions).where(eq(sessions.id, id));
     if (!existing[0]) {
       throw new NotFoundException("Session not found");
     }
@@ -104,18 +85,12 @@ export class SessionsService {
   }
 
   async migrateFromEpisodeDates(episodeId: number) {
-    const episodeRow = await this.db
-      .select()
-      .from(episodes)
-      .where(eq(episodes.id, episodeId));
+    const episodeRow = await this.db.select().from(episodes).where(eq(episodes.id, episodeId));
     if (!episodeRow[0]) {
       throw new NotFoundException("Episode not found");
     }
 
-    const existing = await this.db
-      .select()
-      .from(sessions)
-      .where(eq(sessions.episodeId, episodeId));
+    const existing = await this.db.select().from(sessions).where(eq(sessions.episodeId, episodeId));
     if (existing.length > 0) {
       throw new ConflictException("Sessions already exist for this episode");
     }

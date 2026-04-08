@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { EnduranceBlock } from "./EnduranceBlock";
 import { useState } from "react";
+import { EnduranceBlock } from "./EnduranceBlock";
 
 /**
  * `EnduranceBlock` näyttää Keston (Keho, Mieli, Terä) ja sen kaksi

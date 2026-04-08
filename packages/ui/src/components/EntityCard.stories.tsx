@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { EntityCard } from "./EntityCard";
-import { Grid } from "./Layout";
 import { Badge } from "./Badge";
-import { Stack } from "./Layout";
+import { EntityCard } from "./EntityCard";
+import { Grid, Stack } from "./Layout";
 
 const meta: Meta<typeof EntityCard> = {
   title: "Suunnittelujarjestelma/Molekyylit/EntityCard",

@@ -12,8 +12,8 @@ import {
 } from "@nestjs/common";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import type { CreateReadingProgressDto } from "./dto/create-reading-progress.dto";
 import { ReadingProgressService } from "./reading-progress.service";
-import { CreateReadingProgressDto } from "./dto/create-reading-progress.dto";
 
 @UseGuards(JwtAuthGuard)
 @Controller("reading-progress")
@@ -27,19 +27,13 @@ export class ReadingProgressController {
   }
 
   @Delete(":readingItemId")
-  unmarkRead(
-    @Param("readingItemId", ParseIntPipe) readingItemId: number,
-    @Req() req: Request,
-  ) {
+  unmarkRead(@Param("readingItemId", ParseIntPipe) readingItemId: number, @Req() req: Request) {
     const user = (req as any).user;
     return this.readingProgressService.unmarkRead(readingItemId, user.id);
   }
 
   @Get("episode/:episodeId")
-  getEpisodeProgress(
-    @Param("episodeId", ParseIntPipe) episodeId: number,
-    @Req() req: Request,
-  ) {
+  getEpisodeProgress(@Param("episodeId", ParseIntPipe) episodeId: number, @Req() req: Request) {
     const user = (req as any).user;
     if (user.role !== "gm") {
       throw new ForbiddenException("Only GMs can view player progress");

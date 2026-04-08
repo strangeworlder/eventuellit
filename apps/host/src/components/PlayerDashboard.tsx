@@ -1,14 +1,9 @@
 import { Badge } from "@repo/ui/components/Badge";
 import { Button } from "@repo/ui/components/Button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@repo/ui/components/Card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Icon, type IconName } from "@repo/ui/components/Icon";
+import { Stack } from "@repo/ui/components/Layout";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Text } from "@repo/ui/components/Text";
@@ -116,11 +111,7 @@ function EpisodeActionsCard({
         {hasActions ? (
           <div>
             {episode.actions.map((action, i) => (
-              <ActionRow
-                key={`${action.type}-${i}`}
-                action={action}
-                onNavigate={onNavigate}
-              />
+              <ActionRow key={`${action.type}-${i}`} action={action} onNavigate={onNavigate} />
             ))}
           </div>
         ) : (
@@ -190,9 +181,7 @@ function InviteCard({
       }
     >
       <div className="space-y-1">
-        {invite.episodeStatus && (
-          <EpisodeStatusBadge status={invite.episodeStatus} />
-        )}
+        {invite.episodeStatus && <EpisodeStatusBadge status={invite.episodeStatus} />}
         <Text className="text-sm">
           {invite.invitedByUsername
             ? `${invite.invitedByUsername} kutsuu sinut tähän jaksoon.`
@@ -246,11 +235,11 @@ export function PlayerDashboard() {
 
   if (isEmpty) {
     return (
-      <div className="py-24 text-center space-y-3">
-        <Icon name="inbox" size={48} className="mx-auto text-text-placeholder" />
+      <Stack gap={4} align="center" className="py-24">
+        <Icon name="inbox" variant="branded" />
         <Heading>Ei aktiivisia jaksoja</Heading>
         <Text variant="muted">Odota pelinjohtajan kutsua päästäksesi mukaan jaksoon.</Text>
-      </div>
+      </Stack>
     );
   }
 

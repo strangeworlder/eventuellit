@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { DicePoolTracker } from "./DicePoolTracker";
 import { useState } from "react";
+import { DicePoolTracker } from "./DicePoolTracker";
 
 /**
  * `DicePoolTracker` renders a pool of dice visually using `DiceIcon`.

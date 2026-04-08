@@ -1,7 +1,7 @@
 import React from "react";
 import { HeadingLevelContext } from "./Heading";
-import { cn } from "./utils";
 import type { Theme } from "./Theme";
+import { cn } from "./utils";
 
 export interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;

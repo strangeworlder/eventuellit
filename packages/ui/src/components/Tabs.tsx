@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useId, useState } from "react";
-import { cn } from "./utils";
 import { usePillIndicator } from "./usePillIndicator";
+import { cn } from "./utils";
 
 type TabsContextValue = {
   value?: string;
@@ -71,7 +71,12 @@ export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ className, onKeyDown, style, ...props }, ref) => {
     const activeCheck = useCallback((el: HTMLElement) => isTabSelected(el), []);
-    const { listRef, style: pillStyle, settleClassName, handlers } = usePillIndicator({
+    const {
+      listRef,
+      style: pillStyle,
+      settleClassName,
+      handlers,
+    } = usePillIndicator({
       itemSelector: TAB_SELECTOR,
       activeCheck,
     });

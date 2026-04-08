@@ -5,18 +5,22 @@ import {
   Calendar,
   Check,
   CheckSquare,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
   CircleCheck,
   CircleX,
   Clock,
   Cog,
   Compass,
   CornerDownLeft,
-  ChevronDown,
-  ChevronUp,
+  Dice5,
   Download,
   Drama,
   FileText,
   Flame,
+  Globe,
   Hash,
   HeartPulse,
   Home,
@@ -24,24 +28,20 @@ import {
   Info,
   Link,
   ListChecks,
-  Pencil,
-  Send,
-  ShieldAlert,
-  Sparkles,
-  Search,
-  Dice5,
-  ChevronLeft,
-  ChevronRight,
-  Globe,
   Loader2,
   LogIn,
   LogOut,
   Map,
   Menu,
   Minus,
+  Pencil,
   Plus,
+  Search,
+  Send,
   Settings,
   Shield,
+  ShieldAlert,
+  Sparkles,
   Trash2,
   User,
   UserCircle,
@@ -50,6 +50,7 @@ import {
   Zap,
 } from "lucide-react";
 import React from "react";
+import { cn } from "./utils";
 
 export const icons = {
   "alert-triangle": AlertTriangle,
@@ -108,6 +109,14 @@ export type IconName = keyof typeof icons;
 export interface IconProps extends React.SVGAttributes<SVGElement> {
   name: IconName;
   size?: number;
+  /**
+   * Visual variant of the icon.
+   * - `default`: Bare SVG icon (current behavior).
+   * - `branded`: Large icon inside a circular themed container with a subtle glow.
+   *   Used as a visual anchor on utility pages (login, verify, error). Ignores `size` prop
+   *   and uses fixed dimensions.
+   */
+  variant?: "default" | "branded";
 }
 
 /**
@@ -117,12 +126,27 @@ export interface IconProps extends React.SVGAttributes<SVGElement> {
  * file-text, hash, info, loader2, plus, minus, search, trash-2, x, chevron-left/right, menu, settings,
  * map, globe, log-in/out, shield, zap, sparkles, etc.
  *
- * @summary Lucide icon wrapper; use IconName type for valid names; size prop in px (default 16)
+ * Use `variant="branded"` for a large circular icon treatment on utility pages.
+ *
+ * @summary Lucide icon wrapper; use IconName type for valid names; size prop in px (default 16); variant="branded" for hero treatment
  */
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ name, size = 16, className, ...props }, ref) => {
+  ({ name, size = 16, variant = "default", className, ...props }, ref) => {
     const LucideIcon = icons[name];
     if (!LucideIcon) return null;
+
+    if (variant === "branded") {
+      return (
+        <div className="w-20 h-20 rounded-full border-2 border-[var(--theme-border-medium)] flex items-center justify-center shadow-[0_0_30px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)]">
+          <LucideIcon
+            ref={ref}
+            size={36}
+            className={cn("text-[var(--theme-secondary)]", className)}
+            {...props}
+          />
+        </div>
+      );
+    }
 
     return <LucideIcon ref={ref} size={size} className={className} {...props} />;
   },

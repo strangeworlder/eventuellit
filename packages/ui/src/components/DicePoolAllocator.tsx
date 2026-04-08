@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "./Button";
-import { cn } from "./utils";
-import { type Theme, useCurrentTheme, primaryThemeMap } from "./Theme";
 import { DiceIcon } from "./DiceIcon";
 import { Heading, HeadingLevelProvider } from "./Heading";
 import { Icon } from "./Icon";
+import { primaryThemeMap, type Theme, useCurrentTheme } from "./Theme";
 import { ToggleButton } from "./ToggleButton";
+import { cn } from "./utils";
 
 // Re-export Theme for consumers who import from this module
 export type { Theme };

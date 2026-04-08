@@ -1,52 +1,52 @@
 {
-  "name": "@repo/ui",
-  "version": "0.0.0",
-  "private": true,
-  "exports": {
-    ".": "./src/index.ts",
-    "./*": [
-      "./src/*.tsx",
-      "./src/*.ts"
-    ]
-  },
-  "scripts": {
-    "lint": "biome check .",
-    "generate:component": "turbo gen react-component",
-    "check-types": "tsc --noEmit",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
-  "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "@storybook/addon-docs": "^10.2.13",
-    "@storybook/addon-mcp": "^0.4.2",
-    "@storybook/react": "^10.2.13",
-    "@storybook/react-vite": "^10.2.13",
-    "@tailwindcss/postcss": "^4.2.1",
-    "@types/node": "^22.15.3",
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
-    "autoprefixer": "^10.4.27",
-    "eslint": "^9.39.1",
-    "eslint-plugin-storybook": "10.2.13",
-    "jsdom": "^28.1.0",
-    "jsdom-global": "^3.0.2",
-    "postcss": "^8.5.6",
-    "storybook": "^10.2.13",
-    "tailwindcss": "^4.2.1",
-    "typescript": "5.9.2"
-  },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "hyphenopoly": "^6.1.0",
-    "framer-motion": "^12.38.0",
-    "lucide-react": "^0.576.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-markdown": "^10.1.0",
-    "react-router-dom": "^7.13.1",
-    "remark-gfm": "^4.0.1",
-    "tailwind-merge": "^3.5.0"
-  }
+    "name":  "@repo/ui",
+    "version":  "0.1.0",
+    "private":  true,
+    "exports":  {
+                    ".":  "./src/index.ts",
+                    "./*":  [
+                                "./src/*.tsx",
+                                "./src/*.ts"
+                            ]
+                },
+    "scripts":  {
+                    "lint":  "biome check .",
+                    "generate:component":  "turbo gen react-component",
+                    "check-types":  "tsc --noEmit",
+                    "storybook":  "storybook dev -p 6006",
+                    "build-storybook":  "storybook build"
+                },
+    "devDependencies":  {
+                            "@repo/eslint-config":  "*",
+                            "@repo/typescript-config":  "*",
+                            "@storybook/addon-docs":  "^10.2.13",
+                            "@storybook/addon-mcp":  "^0.4.2",
+                            "@storybook/react":  "^10.2.13",
+                            "@storybook/react-vite":  "^10.2.13",
+                            "@tailwindcss/postcss":  "^4.2.1",
+                            "@types/node":  "^22.15.3",
+                            "@types/react":  "19.2.2",
+                            "@types/react-dom":  "19.2.2",
+                            "autoprefixer":  "^10.4.27",
+                            "eslint":  "^9.39.1",
+                            "eslint-plugin-storybook":  "10.2.13",
+                            "jsdom":  "^28.1.0",
+                            "jsdom-global":  "^3.0.2",
+                            "postcss":  "^8.5.6",
+                            "storybook":  "^10.2.13",
+                            "tailwindcss":  "^4.2.1",
+                            "typescript":  "5.9.2"
+                        },
+    "dependencies":  {
+                         "clsx":  "^2.1.1",
+                         "hyphenopoly":  "^6.1.0",
+                         "framer-motion":  "^12.38.0",
+                         "lucide-react":  "^0.576.0",
+                         "react":  "^19.2.0",
+                         "react-dom":  "^19.2.0",
+                         "react-markdown":  "^10.1.0",
+                         "react-router-dom":  "^7.13.1",
+                         "remark-gfm":  "^4.0.1",
+                         "tailwind-merge":  "^3.5.0"
+                     }
 }

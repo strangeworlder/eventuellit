@@ -20,6 +20,10 @@ const meta = {
       control: "select",
       options: iconNames,
     },
+    variant: {
+      control: "select",
+      options: ["default", "branded"],
+    },
   },
 } satisfies Meta<IconProps>;
 
@@ -27,6 +31,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Esikatselu: Story = {};
+
+export const Koristeltu: Story = {
+  args: {
+    name: "log-in",
+    variant: "branded",
+  },
+};
 
 export const KaikkiKuvakkeet: Story = {
   render: () => (

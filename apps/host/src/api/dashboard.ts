@@ -2,7 +2,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiBaseUrl, getAuthHeaders } from "./base-url";
 
 export interface DashboardAction {
-  type: "create_character" | "link_character" | "update_character" | "reading" | "task" | "write_recap";
+  type:
+    | "create_character"
+    | "link_character"
+    | "update_character"
+    | "reading"
+    | "task"
+    | "write_recap";
   label: string;
   description: string;
   priority: number;

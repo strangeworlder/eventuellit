@@ -1,9 +1,8 @@
 import React from "react";
-import { cn } from "./utils";
 import { Heading } from "./Heading";
 import { Icon, type IconName } from "./Icon";
-
-import { type Theme, ThemeContext, primaryThemeMap, useCurrentTheme } from "./Theme";
+import { primaryThemeMap, type Theme, ThemeContext, useCurrentTheme } from "./Theme";
+import { cn } from "./utils";
 
 export interface StatBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;

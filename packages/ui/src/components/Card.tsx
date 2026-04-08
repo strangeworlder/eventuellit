@@ -1,8 +1,8 @@
 import React from "react";
-import { cn } from "./utils";
 import { Heading, HeadingLevelProvider } from "./Heading";
 import { Icon, type IconName } from "./Icon";
-import { type Theme, ThemeContext, primaryThemeMap, useCurrentTheme } from "./Theme";
+import { primaryThemeMap, type Theme, ThemeContext, useCurrentTheme } from "./Theme";
+import { cn } from "./utils";
 
 // Re-export for backward compatibility with consumers importing Theme from Card
 export type { Theme } from "./Theme";

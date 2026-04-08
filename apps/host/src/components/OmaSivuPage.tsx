@@ -1,7 +1,7 @@
+import { useAuth } from "@repo/auth/use-auth";
 import { HeadingLevelContext } from "@repo/ui/components/Heading";
 import { PageBody } from "@repo/ui/components/Page";
 import { Separator } from "@repo/ui/components/Separator";
-import { useAuth } from "@repo/auth/use-auth";
 import { GmOverview } from "./GmOverview";
 import { PlayerDashboard } from "./PlayerDashboard";
 

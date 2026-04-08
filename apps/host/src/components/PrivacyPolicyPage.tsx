@@ -1,3 +1,5 @@
+import { deleteMyAccount, exportMyData } from "@repo/auth/api";
+import { useAuth } from "@repo/auth/use-auth";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
@@ -6,8 +8,6 @@ import { Icon } from "@repo/ui/components/Icon";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageBody } from "@repo/ui/components/Page";
 import { Text } from "@repo/ui/components/Text";
-import { useAuth } from "@repo/auth/use-auth";
-import { exportMyData, deleteMyAccount } from "@repo/auth/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -110,6 +110,11 @@ export function PrivacyPolicyPage() {
               <li>
                 <strong>auth_token</strong> (localStorage) — kirjautumistunniste selaimen
                 paikallisessa tallennustilassa.
+              </li>
+              <li>
+                <strong>magic_link_rate_limit</strong> (localStorage) — estää kirjautumislinkin
+                liian tiheän pyytämisen. Sisältää viimeisimmän pyyntöajan ja pyyntölaskurin. Ei
+                sisällä henkilötietoja.
               </li>
             </ul>
             <Text>

@@ -1,5 +1,4 @@
-import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { scrollElementIntoScrollRoot } from "@repo/ui/components/article-navigation-utils";
 import { Badge } from "@repo/ui/components/Badge";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { GameTerm } from "@repo/ui/components/GameTerm";
@@ -11,8 +10,9 @@ import { Link } from "@repo/ui/components/Link";
 import { PageBody } from "@repo/ui/components/Page";
 import { Separator } from "@repo/ui/components/Separator";
 import { Text } from "@repo/ui/components/Text";
-import { scrollElementIntoScrollRoot } from "@repo/ui/components/article-navigation-utils";
-import { glossary, GLOSSARY_CATEGORIES, type GlossaryCategory } from "./glossary";
+import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { GLOSSARY_CATEGORIES, type GlossaryCategory, glossary } from "./glossary";
 
 const CATEGORY_BADGE_VARIANT: Record<
   GlossaryCategory,

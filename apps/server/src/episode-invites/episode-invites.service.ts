@@ -10,20 +10,15 @@ import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
 import { episodeInvites, episodePlayers, episodes, users } from "../db/schema";
-import { CreateEpisodeInviteDto } from "./dto/create-episode-invite.dto";
-import { RespondEpisodeInviteDto } from "./dto/respond-episode-invite.dto";
+import type { CreateEpisodeInviteDto } from "./dto/create-episode-invite.dto";
+import type { RespondEpisodeInviteDto } from "./dto/respond-episode-invite.dto";
 
 @Injectable()
 export class EpisodeInvitesService {
-  constructor(
-    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
   async create(dto: CreateEpisodeInviteDto, invitedBy: number) {
-    const episodeRow = await this.db
-      .select()
-      .from(episodes)
-      .where(eq(episodes.id, dto.episodeId));
+    const episodeRow = await this.db.select().from(episodes).where(eq(episodes.id, dto.episodeId));
     if (!episodeRow[0]) {
       throw new NotFoundException("Episode not found");
     }
@@ -51,10 +46,7 @@ export class EpisodeInvitesService {
       .select()
       .from(episodePlayers)
       .where(
-        and(
-          eq(episodePlayers.episodeId, dto.episodeId),
-          eq(episodePlayers.userId, dto.userId),
-        ),
+        and(eq(episodePlayers.episodeId, dto.episodeId), eq(episodePlayers.userId, dto.userId)),
       );
     if (alreadyEnrolled[0]) {
       throw new ConflictException("Player is already enrolled in this episode");
@@ -110,10 +102,7 @@ export class EpisodeInvitesService {
   }
 
   async respond(id: number, dto: RespondEpisodeInviteDto, userId: number) {
-    const rows = await this.db
-      .select()
-      .from(episodeInvites)
-      .where(eq(episodeInvites.id, id));
+    const rows = await this.db.select().from(episodeInvites).where(eq(episodeInvites.id, id));
     if (!rows[0]) {
       throw new NotFoundException("Invite not found");
     }

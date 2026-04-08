@@ -1,11 +1,6 @@
 import { Badge } from "@repo/ui/components/Badge";
 import { Button } from "@repo/ui/components/Button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@repo/ui/components/Card";
+import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Icon } from "@repo/ui/components/Icon";
 import { LoadingState } from "@repo/ui/components/LoadingState";
@@ -14,11 +9,7 @@ import { Select } from "@repo/ui/components/Select";
 import { Text } from "@repo/ui/components/Text";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { useState } from "react";
-import {
-  type GmOverviewPlayer,
-  useGmOverview,
-  useSendInvite,
-} from "../api/dashboard";
+import { type GmOverviewPlayer, useGmOverview, useSendInvite } from "../api/dashboard";
 import { useEpisodes } from "../api/episodes";
 import { usePlayerUsers } from "../api/users";
 
@@ -35,19 +26,17 @@ function InviteStatusBadge({ status }: { status: GmOverviewPlayer["inviteStatus"
         Kutsuttu
       </Badge>
     );
-  if (status === "declined")
-    return <Badge variant="ghost">Hylätty</Badge>;
+  if (status === "declined") return <Badge variant="ghost">Hylätty</Badge>;
   return <Badge variant="ghost">Ei kutsuttu</Badge>;
 }
 
-function ReadingProgressBar({
-  completed,
-  total,
-}: {
-  completed: number;
-  total: number;
-}) {
-  if (total === 0) return <Text variant="muted" className="text-xs">Ei lukemistoa</Text>;
+function ReadingProgressBar({ completed, total }: { completed: number; total: number }) {
+  if (total === 0)
+    return (
+      <Text variant="muted" className="text-xs">
+        Ei lukemistoa
+      </Text>
+    );
   const pct = Math.round((completed / total) * 100);
   return (
     <div className="space-y-1">
@@ -135,13 +124,7 @@ function PlayerStatusCard({
   );
 }
 
-function InviteForm({
-  episodeId,
-  onClose,
-}: {
-  episodeId: number;
-  onClose: () => void;
-}) {
+function InviteForm({ episodeId, onClose }: { episodeId: number; onClose: () => void }) {
   const { data: allUsers } = usePlayerUsers();
   const sendInviteMutation = useSendInvite();
   const [selectedUserId, setSelectedUserId] = useState<string>("");
@@ -251,21 +234,14 @@ export function GmOverview() {
       {selectedEpisodeId && (
         <>
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowInviteForm((v) => !v)}
-            >
+            <Button variant="outline" size="sm" onClick={() => setShowInviteForm((v) => !v)}>
               <Icon name="user-circle" size={14} className="mr-1" />
               {showInviteForm ? "Sulje lomake" : "Kutsu pelaaja"}
             </Button>
           </div>
 
           {showInviteForm && (
-            <InviteForm
-              episodeId={selectedEpisodeId}
-              onClose={() => setShowInviteForm(false)}
-            />
+            <InviteForm episodeId={selectedEpisodeId} onClose={() => setShowInviteForm(false)} />
           )}
 
           {isLoading ? (

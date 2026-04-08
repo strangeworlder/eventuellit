@@ -1,8 +1,8 @@
+import { GameTerm } from "@repo/ui/components/GameTerm";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { QuickViewPanel } from "@repo/ui/components/QuickViewPanel";
 import { Separator } from "@repo/ui/components/Separator";
 import { Text } from "@repo/ui/components/Text";
-import { GameTerm } from "@repo/ui/components/GameTerm";
 
 interface QuickReferenceProps {
   open: boolean;

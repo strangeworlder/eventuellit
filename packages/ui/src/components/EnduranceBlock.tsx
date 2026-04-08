@@ -1,10 +1,10 @@
 import React from "react";
-import { Button } from "./Button";
-import { cn } from "./utils";
-import { DiceIcon } from "./DiceIcon";
 import { getDiceFromValue } from "./AttributeCard";
+import { Button } from "./Button";
+import { DiceIcon } from "./DiceIcon";
 import { Heading, HeadingLevelProvider } from "./Heading";
 import { Icon } from "./Icon";
+import { cn } from "./utils";
 
 export interface EnduranceSubAttribute {
   /** Human-readable label (e.g. "Fysiikka") */

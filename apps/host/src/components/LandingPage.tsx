@@ -1,9 +1,9 @@
+import { useAuth } from "@repo/auth/use-auth";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
-import { Stack } from "@repo/ui/components/Layout";
 import { Heading, HeadingLevelContext } from "@repo/ui/components/Heading";
+import { Stack } from "@repo/ui/components/Layout";
 import { Text } from "@repo/ui/components/Text";
 import { VideoCta } from "@repo/ui/components/VideoCta";
-import { useAuth } from "@repo/auth/use-auth";
 
 import { useNavigate } from "react-router-dom";
 

@@ -1,12 +1,15 @@
+import { verifyToken } from "@repo/auth/api";
 import { Button } from "@repo/ui/components/Button";
 import { Hero } from "@repo/ui/components/Hero";
+import { Stack } from "@repo/ui/components/Layout";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageBody } from "@repo/ui/components/Page";
-import { verifyToken } from "@repo/auth/api";
+import { Text } from "@repo/ui/components/Text";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { RATE_LIMIT_KEY } from "./LoginPage";
 
 export function VerifyPage() {
   const [searchParams] = useSearchParams();
@@ -29,6 +32,8 @@ export function VerifyPage() {
         // Invalidate auth query to refresh user state
         queryClient.setQueryData(["auth", "me"], user);
         queryClient.invalidateQueries({ queryKey: ["auth"] });
+        // Clear rate limit so returning users start fresh next time
+        localStorage.removeItem(RATE_LIMIT_KEY);
         // Redirect to generator after successful login
         navigate("/generator");
       } catch (err) {
@@ -56,17 +61,17 @@ export function VerifyPage() {
       <Hero title="Kirjautuminen epäonnistui" />
       <PageBody>
         <NoticePanel variant="error" title="Virhe">
-          <p className="text-lg">{error || "Kirjautumislinkki on virheellinen tai vanhentunut."}</p>
-          <p className="text-sm text-text-muted mt-4">
+          <Text variant="lead">{error || "Kirjautumislinkki on virheellinen tai vanhentunut."}</Text>
+          <Text variant="small" className="mt-4">
             Pyydä uusi kirjautumislinkki, jos ongelma jatkuu.
-          </p>
+          </Text>
         </NoticePanel>
-        <div className="flex gap-4">
+        <Stack direction="row" gap={4}>
           <Button onClick={() => navigate("/kirjaudu")}>Yritä uudelleen</Button>
           <Button variant="outline" onClick={() => navigate("/")}>
             Palaa etusivulle
           </Button>
-        </div>
+        </Stack>
       </PageBody>
     </Page>
   );

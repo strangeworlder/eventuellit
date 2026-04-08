@@ -1,17 +1,13 @@
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@repo/ui/components/Accordion";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/components/Accordion";
 import { Badge } from "@repo/ui/components/Badge";
 import { Button } from "@repo/ui/components/Button";
+import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
 import { DatePicker } from "@repo/ui/components/DatePicker";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Input } from "@repo/ui/components/Input";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { Select } from "@repo/ui/components/Select";
 import { Text } from "@repo/ui/components/Text";
-import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
 import { useState } from "react";
 import {
   type ReadingItem,
@@ -542,11 +538,7 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
 
         {/* Episode-level (unassigned) items */}
         <div className="pt-2">
-          <AccordionItem
-            variant="ghost"
-            open={episodeLevelOpen}
-            onOpenChange={setEpisodeLevelOpen}
-          >
+          <AccordionItem variant="ghost" open={episodeLevelOpen} onOpenChange={setEpisodeLevelOpen}>
             <AccordionTrigger>
               <Text variant="kicker" className="border-0 pt-0 pb-0">
                 Jakson yleiset kohteet ({unassignedItems.length})

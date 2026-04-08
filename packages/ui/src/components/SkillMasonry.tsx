@@ -1,4 +1,5 @@
-import React, { useMemo, useRef, forwardRef } from "react";
+import type React from "react";
+import { forwardRef, useMemo, useRef } from "react";
 import { Button } from "./Button";
 import { cn } from "./utils";
 

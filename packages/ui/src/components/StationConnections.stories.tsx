@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { StationConnections, type StationConnectionNode } from "./StationConnections";
+import { type StationConnectionNode, StationConnections } from "./StationConnections";
 
 // Representative sample of Kynnys stations for stories
 const kynnysSampleStations = [

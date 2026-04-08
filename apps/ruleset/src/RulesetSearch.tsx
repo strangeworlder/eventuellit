@@ -1,12 +1,12 @@
-import { useState, useMemo, useRef, useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { cn } from "@repo/ui";
 import { Button } from "@repo/ui/components/Button";
 import { Dialog } from "@repo/ui/components/Dialog";
 import { GameTerm } from "@repo/ui/components/GameTerm";
 import { Icon } from "@repo/ui/components/Icon";
 import { Input } from "@repo/ui/components/Input";
 import { Text } from "@repo/ui/components/Text";
-import { cn } from "@repo/ui";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { glossary } from "./glossary";
 
 interface SearchablePage {

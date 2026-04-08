@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "./Button";
-import { cn } from "./utils";
 import { DiceIcon } from "./DiceIcon";
+import { cn } from "./utils";
 
 const DICE_FACES: Record<string, 4 | 6 | 8 | 10 | 12 | 20> = {
   n4: 4,

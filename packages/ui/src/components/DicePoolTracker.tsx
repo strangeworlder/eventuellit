@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
-import { cn } from "./utils";
 import { DiceIcon, type DiceIconProps } from "./DiceIcon";
 import { Heading, HeadingLevelProvider } from "./Heading";
+import { cn } from "./utils";
 
 export interface DicePoolDie {
   /** Unique identifier for this die within the pool */

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
-import { ThemeContext, type Theme, primaryThemeMap } from "./Theme";
+import { primaryThemeMap, type Theme, ThemeContext } from "./Theme";
 import "../styles.css";
 
 const themeValues: Theme[] = [

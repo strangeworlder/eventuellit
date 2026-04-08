@@ -213,7 +213,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
 
       e.preventDefault();
       const base = focusedDate ?? selectedDate ?? today;
-      let next = new Date(base);
+      const next = new Date(base);
 
       if (e.key === "ArrowLeft") next.setDate(next.getDate() - 1);
       if (e.key === "ArrowRight") next.setDate(next.getDate() + 1);

@@ -1,7 +1,5 @@
-import type { ArticleProgressPayload } from "@repo/ui/components/article-progress-events";
 import { scrollElementIntoScrollRoot } from "@repo/ui/components/article-navigation-utils";
-import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
-import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
+import type { ArticleProgressPayload } from "@repo/ui/components/article-progress-events";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
@@ -10,9 +8,11 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Icon } from "@repo/ui/components/Icon";
 import { ImageElement } from "@repo/ui/components/ImageElement";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
+import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
 import { Page, PageBody } from "@repo/ui/components/Page";
 import { Text } from "@repo/ui/components/Text";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
+import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";

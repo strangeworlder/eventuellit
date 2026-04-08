@@ -11,7 +11,7 @@ import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
 import { sessionPlayerRecaps, sessions, users } from "../db/schema";
 import { EpisodePlayersService } from "../episode-players/episode-players.service";
-import { UpsertSessionPlayerRecapDto } from "./dto/upsert-session-player-recap.dto";
+import type { UpsertSessionPlayerRecapDto } from "./dto/upsert-session-player-recap.dto";
 
 @Injectable()
 export class SessionRecapsService {
@@ -28,17 +28,10 @@ export class SessionRecapsService {
     return rows[0];
   }
 
-  async findBySession(
-    sessionId: number,
-    viewer: { id: number; role: string } | null,
-  ) {
+  async findBySession(sessionId: number, viewer: { id: number; role: string } | null) {
     const session = await this.getSessionOrThrow(sessionId);
     if (viewer) {
-      await this.episodePlayersService.assertEnrolled(
-        session.episodeId,
-        viewer.id,
-        viewer.role,
-      );
+      await this.episodePlayersService.assertEnrolled(session.episodeId, viewer.id, viewer.role);
     }
 
     const isGm = viewer?.role === "gm";
@@ -78,11 +71,7 @@ export class SessionRecapsService {
     if (session.status !== "played") {
       throw new BadRequestException("Recaps can only be written for played sessions");
     }
-    await this.episodePlayersService.assertEnrolled(
-      session.episodeId,
-      viewer.id,
-      viewer.role,
-    );
+    await this.episodePlayersService.assertEnrolled(session.episodeId, viewer.id, viewer.role);
 
     const now = new Date();
     const values = {
@@ -143,11 +132,7 @@ export class SessionRecapsService {
       throw new NotFoundException("Session not found");
     }
 
-    await this.episodePlayersService.assertEnrolled(
-      session.episodeId,
-      viewer.id,
-      viewer.role,
-    );
+    await this.episodePlayersService.assertEnrolled(session.episodeId, viewer.id, viewer.role);
 
     if (viewer.role !== "gm" && recap.userId !== viewer.id) {
       throw new ForbiddenException("You can only delete your own recap");

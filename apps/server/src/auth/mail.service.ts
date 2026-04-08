@@ -17,9 +17,9 @@ export class MailService {
 
       const resend = new Resend(apiKey);
       const { error } = await resend.emails.send({
-        from: "noreply@eventuell.it",
+        from: "Eventuellit <noreply@eventuell.it>",
         to: email,
-        subject: "Kirjautumislinkki - Eventuellit",
+        subject: "🔑 Kirjautumislinkki - Eventuellit",
         html: `
           <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
             <h2>Kirjaudu sisään Eventuellit-sovellukseen</h2>

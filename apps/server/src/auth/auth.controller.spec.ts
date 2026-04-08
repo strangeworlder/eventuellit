@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { vi } from "vitest";
-import { JwtAuthGuard } from "./auth.guard";
 import { AuthController } from "./auth.controller";
+import { JwtAuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
 
 describe("AuthController", () => {

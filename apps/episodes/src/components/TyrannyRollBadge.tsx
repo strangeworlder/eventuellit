@@ -53,9 +53,7 @@ export function TyrannyRollBadge({
 
       {isGm && (
         <Stack gap={2} className="mt-4">
-          {!firstRecapPublished && (
-            <Badge variant="ghost">Luonnos</Badge>
-          )}
+          {!firstRecapPublished && <Badge variant="ghost">Luonnos</Badge>}
 
           {editing ? (
             <Stack direction="row" align="end" gap={3} wrap>
@@ -69,7 +67,12 @@ export function TyrannyRollBadge({
                 onChange={(e) => setDraft(e.target.value)}
                 className="w-28"
               />
-              <Button size="compact" onClick={save} loading={isPending} loadingMessage="Tallennetaan...">
+              <Button
+                size="compact"
+                onClick={save}
+                loading={isPending}
+                loadingMessage="Tallennetaan..."
+              >
                 Tallenna
               </Button>
               <Button size="compact" variant="outline" onClick={() => setEditing(false)}>

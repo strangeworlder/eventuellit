@@ -11,6 +11,7 @@ describe("buildDocumentTitle", () => {
     expect(buildDocumentTitle("/generator")).toBe("Eventuellit: Hahmopaja");
     expect(buildDocumentTitle("/ruleset")).toBe("Eventuellit: Säännöt");
     expect(buildDocumentTitle("/episodes")).toBe("Eventuellit: Jaksot");
+    expect(buildDocumentTitle("/muutosloki")).toBe("Eventuellit: Muutosloki");
   });
 
   test("appends nested route details for microfrontend paths", () => {

@@ -13,8 +13,8 @@ import {
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { CharactersService } from "./characters.service";
-import { CreateCharacterDto } from "./dto/create-character.dto";
-import { UpdateCharacterDto } from "./dto/update-character.dto";
+import type { CreateCharacterDto } from "./dto/create-character.dto";
+import type { UpdateCharacterDto } from "./dto/update-character.dto";
 
 @UseGuards(JwtAuthGuard)
 @Controller("characters")

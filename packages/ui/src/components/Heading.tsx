@@ -1,6 +1,6 @@
 import React from "react";
-import { cn } from "./utils";
 import { hyphenateText, isHyphenationReady, onHyphenationReady } from "./hyphenation";
+import { cn } from "./utils";
 
 /** Forces a re-render once the Finnish WASM has loaded. */
 function useHyphenationReady(): boolean {
@@ -175,7 +175,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
               activeVariant === "h3",
             "font-sans text-[length:var(--font-size-xl)] tablet:text-[length:var(--font-size-2xl)] border-l-4 pl-4 border-[var(--theme-primary)] uppercase text-[var(--theme-text)]":
               activeVariant === "h4",
-            "font-sans text-[length:var(--font-size-lg)] tablet:text-[length:var(--font-size-xl)] uppercase text-[var(--theme-secondary)]":
+            "font-sans text-[length:var(--font-size-lg)] tablet:text-[length:var(--font-size-xl)] uppercase text-[var(--theme-accent)]":
               activeVariant === "h5",
             "border-b-2 border-[var(--theme-primary)] font-sans text-[length:var(--font-size-base)] tablet:text-[length:var(--font-size-lg)] uppercase text-[var(--theme-text)]":
               activeVariant === "h6",

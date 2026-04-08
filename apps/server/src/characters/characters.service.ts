@@ -1,16 +1,11 @@
-import {
-  ForbiddenException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { ForbiddenException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { asc, eq, inArray } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import { characters, characterEpisodes, users, episodes } from "../db/schema";
-import { CreateCharacterDto } from "./dto/create-character.dto";
-import { UpdateCharacterDto } from "./dto/update-character.dto";
+import { characterEpisodes, characters, episodes, users } from "../db/schema";
+import type { CreateCharacterDto } from "./dto/create-character.dto";
+import type { UpdateCharacterDto } from "./dto/update-character.dto";
 
 const characterWithOwnerColumns = {
   id: characters.id,
@@ -84,9 +79,7 @@ async function attachEpisodesForCharacters(
 
 @Injectable()
 export class CharactersService {
-  constructor(
-    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
   async findAll() {
     const rows = await this.db

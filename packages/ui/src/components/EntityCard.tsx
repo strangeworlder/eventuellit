@@ -1,12 +1,12 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import type { FactionColor } from "./FactionBadge";
+import { FACTION_COLOR_VARS } from "./FactionBadge";
 import { Heading, HeadingLevelProvider } from "./Heading";
 import { Icon, type IconName } from "./Icon";
 import { Text } from "./Text";
-import { cn } from "./utils";
 import type { Theme } from "./Theme";
-import type { FactionColor } from "./FactionBadge";
-import { FACTION_COLOR_VARS } from "./FactionBadge";
+import { cn } from "./utils";
 
 export type { FactionColor } from "./FactionBadge";
 

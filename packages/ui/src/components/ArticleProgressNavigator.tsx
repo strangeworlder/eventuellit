@@ -1,5 +1,4 @@
-import { memo, useCallback, useMemo } from "react";
-import React from "react";
+import React, { memo, useCallback, useMemo } from "react";
 
 import { AnchoredTooltip } from "./AnchoredTooltip";
 import type { ArticleSectionAnchor } from "./article-navigation-utils";
@@ -54,7 +53,7 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
   );
 
   if (markers.length === 0) {
-    return (null);
+    return null;
   }
 
   return markers.map((marker) =>

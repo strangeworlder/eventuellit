@@ -1,5 +1,5 @@
-import { useEffect, useRef, useCallback } from "react";
 import { requestToast } from "@repo/ui/components/Toast";
+import { useCallback, useEffect, useRef } from "react";
 
 const STORAGE_KEY = "ruleset-reading-position";
 const EXPIRY_MS = 7 * 24 * 60 * 60 * 1000; // 7 days

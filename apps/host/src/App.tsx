@@ -1,4 +1,5 @@
 import { ArticleProgressNavigator } from "@repo/ui/components/ArticleProgressNavigator";
+import { scrollElementIntoScrollRoot } from "@repo/ui/components/article-navigation-utils";
 import {
   ARTICLE_JUMP_EVENT,
   ARTICLE_PROGRESS_EVENT,
@@ -6,16 +7,10 @@ import {
   type ArticleProgressPayload,
   type ArticleProgressSource,
 } from "@repo/ui/components/article-progress-events";
-import { scrollElementIntoScrollRoot } from "@repo/ui/components/article-navigation-utils";
-import { ErrorBoundary } from "@repo/ui/components/ErrorBoundary";
-import {
-  ToastProvider,
-  useToast,
-  TOAST_REQUEST_EVENT,
-  type ToastRequestPayload,
-} from "@repo/ui/components/Toast";
 import { Button } from "@repo/ui/components/Button";
+import { ErrorBoundary } from "@repo/ui/components/ErrorBoundary";
 import { Heading } from "@repo/ui/components/Heading";
+import { Icon } from "@repo/ui/components/Icon";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import {
   Sidebar,
@@ -24,8 +19,13 @@ import {
   SidebarHeader,
   SidebarItem,
 } from "@repo/ui/components/Sidebar";
+import {
+  TOAST_REQUEST_EVENT,
+  ToastProvider,
+  type ToastRequestPayload,
+  useToast,
+} from "@repo/ui/components/Toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Icon } from "@repo/ui/components/Icon";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -33,14 +33,15 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from
 // Initialize the global query client for server-state caching
 const queryClient = new QueryClient();
 
+import { useAuth } from "@repo/auth/use-auth";
+import { ChangelogPage } from "./components/ChangelogPage";
 import { LandingPage } from "./components/LandingPage";
 import { LoginPage } from "./components/LoginPage";
 import { OmaSivuPage } from "./components/OmaSivuPage";
+import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyPage } from "./components/VerifyPage";
-import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
 import { buildDocumentTitle } from "./route-title";
-import { useAuth } from "@repo/auth/use-auth";
 
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));
@@ -77,7 +78,9 @@ function AppContent() {
           ? "world"
           : location.pathname.startsWith("/oma-sivu")
             ? "dashboard"
-            : "home";
+            : location.pathname.startsWith("/muutosloki")
+              ? "changelog"
+              : "home";
 
   useEffect(() => {
     const title = buildDocumentTitle(location.pathname);
@@ -335,7 +338,7 @@ function AppContent() {
         <SidebarFooter>
           {isLoggedIn ? (
             <>
-              {user && (
+              {sidebarOpen && user && (
                 <div className="mb-2 px-2 py-1.5 rounded-md bg-[var(--theme-surface-tint)] text-text-muted text-sm truncate">
                   <div className="flex items-center gap-2">
                     <Icon name="user-circle" size={16} className="flex-shrink-0" />
@@ -361,12 +364,23 @@ function AppContent() {
               Kirjaudu sisään
             </SidebarItem>
           )}
-          <SidebarItem
-            icon={<Icon name="shield" size={20} />}
-            onClick={() => navigate("/tietosuoja")}
-          >
-            Tietosuoja
-          </SidebarItem>
+          {sidebarOpen && (
+            <>
+              <SidebarItem
+                icon={<Icon name="file-text" size={20} />}
+                active={activeView === "changelog"}
+                onClick={() => navigate("/muutosloki")}
+              >
+                Muutosloki
+              </SidebarItem>
+              <SidebarItem
+                icon={<Icon name="shield" size={20} />}
+                onClick={() => navigate("/tietosuoja")}
+              >
+                Tietosuoja
+              </SidebarItem>
+            </>
+          )}
         </SidebarFooter>
       </Sidebar>
 
@@ -386,7 +400,7 @@ function AppContent() {
 
           <header
             ref={headingRef}
-            className="bg-[var(--theme-bg)] px-4 tablet:px-0 absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300 shadow-md"
+            className="px-4 tablet:px-0 absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300 shadow-md"
           >
             {activeView === "generator" && (
               <Heading as="h1" className="m-0">
@@ -411,6 +425,11 @@ function AppContent() {
             {activeView === "dashboard" && (
               <Heading as="h1" className="m-0">
                 Eventuellit: Oma sivu
+              </Heading>
+            )}
+            {activeView === "changelog" && (
+              <Heading as="h1" className="m-0">
+                Eventuellit: Muutosloki
               </Heading>
             )}
           </header>
@@ -481,6 +500,7 @@ function AppContent() {
                   <Route path="/episodes/*" element={<EpisodesApp />} />
                   <Route path="/world/*" element={<WorldApp />} />
                   <Route path="/tietosuoja" element={<PrivacyPolicyPage />} />
+                  <Route path="/muutosloki" element={<ChangelogPage />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </div>

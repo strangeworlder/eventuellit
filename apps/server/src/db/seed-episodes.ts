@@ -5,11 +5,12 @@
  *
  * Requires DATABASE_URL env var or defaults to local dev DB.
  */
+
+import { readdirSync, readFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { readFileSync, readdirSync } from "node:fs";
-import { join, resolve } from "node:path";
-import { episodes, episodeSkills } from "./schema";
+import { episodeSkills, episodes } from "./schema";
 
 const databaseUrl =
   process.env.DATABASE_URL || "postgresql://root:password123@localhost:5432/eventuellit";

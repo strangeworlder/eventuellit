@@ -13,8 +13,8 @@ import {
 } from "@nestjs/common";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import type { CreateEpisodePlayerDto } from "./dto/create-episode-player.dto";
 import { EpisodePlayersService } from "./episode-players.service";
-import { CreateEpisodePlayerDto } from "./dto/create-episode-player.dto";
 
 function ensureGm(req: Request) {
   const user = (req as any).user;
@@ -30,10 +30,7 @@ export class EpisodePlayersController {
   constructor(private readonly episodePlayersService: EpisodePlayersService) {}
 
   @Get()
-  findByEpisode(
-    @Query("episodeId", ParseIntPipe) episodeId: number,
-    @Req() req: Request,
-  ) {
+  findByEpisode(@Query("episodeId", ParseIntPipe) episodeId: number, @Req() req: Request) {
     const user = (req as any).user;
     return this.episodePlayersService.findByEpisode(episodeId, user);
   }

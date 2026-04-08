@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
-import { TopNavDropdown, TopNavList, TopNavLink } from "./TopNav";
+import { TopNavDropdown, TopNavLink, TopNavList } from "./TopNav";
 
 const meta: Meta<typeof TopNavList> = {
   title: "Suunnittelujarjestelma/Molekyylit/TopNav",

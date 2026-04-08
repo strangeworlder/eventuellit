@@ -7,9 +7,7 @@ import { users } from "../db/schema";
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
   async findByRole(role: string, requestingUserRole: string) {
     if (requestingUserRole !== "gm") {

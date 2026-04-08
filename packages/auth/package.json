@@ -1,23 +1,23 @@
 {
-  "name": "@repo/auth",
-  "version": "0.0.0",
-  "private": true,
-  "exports": {
-    "./*": "./src/*.tsx"
-  },
-  "scripts": {
-    "lint": "biome check .",
-    "check-types": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@tanstack/react-query": "^5.90.21",
-    "react": "^19.2.0",
-    "react-router-dom": "^7.13.1"
-  },
-  "devDependencies": {
-    "@repo/typescript-config": "*",
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.7",
-    "typescript": "~5.9.3"
-  }
+    "name":  "@repo/auth",
+    "version":  "0.1.0",
+    "private":  true,
+    "exports":  {
+                    "./*":  "./src/*.tsx"
+                },
+    "scripts":  {
+                    "lint":  "biome check .",
+                    "check-types":  "tsc --noEmit"
+                },
+    "dependencies":  {
+                         "@tanstack/react-query":  "^5.90.21",
+                         "react":  "^19.2.0",
+                         "react-router-dom":  "^7.13.1"
+                     },
+    "devDependencies":  {
+                            "@repo/typescript-config":  "*",
+                            "@types/node":  "^24.10.1",
+                            "@types/react":  "^19.2.7",
+                            "typescript":  "~5.9.3"
+                        }
 }

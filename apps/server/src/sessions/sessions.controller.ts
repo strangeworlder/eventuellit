@@ -16,9 +16,9 @@ import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { OptionalJwtAuthGuard } from "../auth/optional-jwt-auth.guard";
 import { EpisodePlayersService } from "../episode-players/episode-players.service";
+import type { CreateSessionDto } from "./dto/create-session.dto";
+import type { UpdateSessionDto } from "./dto/update-session.dto";
 import { SessionsService } from "./sessions.service";
-import { CreateSessionDto } from "./dto/create-session.dto";
-import { UpdateSessionDto } from "./dto/update-session.dto";
 
 function ensureGm(req: Request) {
   const user = (req as any).user;
@@ -37,10 +37,7 @@ export class SessionsController {
 
   @UseGuards(OptionalJwtAuthGuard)
   @Get()
-  async findByEpisode(
-    @Query("episodeId", ParseIntPipe) episodeId: number,
-    @Req() req: Request,
-  ) {
+  async findByEpisode(@Query("episodeId", ParseIntPipe) episodeId: number, @Req() req: Request) {
     const user: { id: number; role: string } | undefined = (req as any).user;
     if (user) {
       await this.episodePlayersService.assertEnrolled(episodeId, user.id, user.role);
@@ -75,10 +72,7 @@ export class SessionsController {
 
   @UseGuards(JwtAuthGuard)
   @Post("migrate/:episodeId")
-  migrate(
-    @Param("episodeId", ParseIntPipe) episodeId: number,
-    @Req() req: Request,
-  ) {
+  migrate(@Param("episodeId", ParseIntPipe) episodeId: number, @Req() req: Request) {
     ensureGm(req);
     return this.sessionsService.migrateFromEpisodeDates(episodeId);
   }

@@ -10,13 +10,11 @@ import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
 import { episodePlayers, episodes, users } from "../db/schema";
-import { CreateEpisodePlayerDto } from "./dto/create-episode-player.dto";
+import type { CreateEpisodePlayerDto } from "./dto/create-episode-player.dto";
 
 @Injectable()
 export class EpisodePlayersService {
-  constructor(
-    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
   async findByEpisode(episodeId: number, requestingUser: { id: number; role: string }) {
     const rows = await this.db
@@ -39,18 +37,12 @@ export class EpisodePlayersService {
   }
 
   async enroll(data: CreateEpisodePlayerDto) {
-    const episodeRow = await this.db
-      .select()
-      .from(episodes)
-      .where(eq(episodes.id, data.episodeId));
+    const episodeRow = await this.db.select().from(episodes).where(eq(episodes.id, data.episodeId));
     if (!episodeRow[0]) {
       throw new NotFoundException("Episode not found");
     }
 
-    const userRow = await this.db
-      .select()
-      .from(users)
-      .where(eq(users.id, data.userId));
+    const userRow = await this.db.select().from(users).where(eq(users.id, data.userId));
     if (!userRow[0]) {
       throw new NotFoundException("User not found");
     }
@@ -59,10 +51,7 @@ export class EpisodePlayersService {
       .select()
       .from(episodePlayers)
       .where(
-        and(
-          eq(episodePlayers.episodeId, data.episodeId),
-          eq(episodePlayers.userId, data.userId),
-        ),
+        and(eq(episodePlayers.episodeId, data.episodeId), eq(episodePlayers.userId, data.userId)),
       );
     if (existing[0]) {
       throw new ConflictException("Player is already enrolled in this episode");
@@ -76,10 +65,7 @@ export class EpisodePlayersService {
   }
 
   async disenroll(id: number) {
-    const existing = await this.db
-      .select()
-      .from(episodePlayers)
-      .where(eq(episodePlayers.id, id));
+    const existing = await this.db.select().from(episodePlayers).where(eq(episodePlayers.id, id));
     if (!existing[0]) {
       throw new NotFoundException("Enrollment not found");
     }
@@ -90,12 +76,7 @@ export class EpisodePlayersService {
     const rows = await this.db
       .select()
       .from(episodePlayers)
-      .where(
-        and(
-          eq(episodePlayers.episodeId, episodeId),
-          eq(episodePlayers.userId, userId),
-        ),
-      );
+      .where(and(eq(episodePlayers.episodeId, episodeId), eq(episodePlayers.userId, userId)));
     return rows.length > 0;
   }
 

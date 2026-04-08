@@ -7,11 +7,11 @@ import {
   slugifyHeadingLabel,
 } from "./article-navigation-utils";
 import { GameTerm } from "./GameTerm";
-import { cn } from "./utils";
 import { Heading } from "./Heading";
 import { Link } from "./Link";
 import { List, ListItem } from "./List";
 import { Text } from "./Text";
+import { cn } from "./utils";
 
 export interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   children: string;

@@ -6,6 +6,7 @@ const TOP_LEVEL_ROUTE_TITLES: Record<string, string> = {
   episodes: "Jaksot",
   world: "Maailma",
   "oma-sivu": "Oma sivu",
+  muutosloki: "Muutosloki",
 };
 
 /** Human-readable titles for world sub-route segments (category ids). */

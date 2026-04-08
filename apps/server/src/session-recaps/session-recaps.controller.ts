@@ -1,11 +1,11 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
   Param,
   ParseIntPipe,
   Put,
-  Body,
   Query,
   Req,
   UseGuards,
@@ -13,7 +13,7 @@ import {
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { OptionalJwtAuthGuard } from "../auth/optional-jwt-auth.guard";
-import { UpsertSessionPlayerRecapDto } from "./dto/upsert-session-player-recap.dto";
+import type { UpsertSessionPlayerRecapDto } from "./dto/upsert-session-player-recap.dto";
 import { SessionRecapsService } from "./session-recaps.service";
 
 @Controller("session-recaps")
@@ -22,10 +22,7 @@ export class SessionRecapsController {
 
   @UseGuards(OptionalJwtAuthGuard)
   @Get()
-  findBySession(
-    @Query("sessionId", ParseIntPipe) sessionId: number,
-    @Req() req: Request,
-  ) {
+  findBySession(@Query("sessionId", ParseIntPipe) sessionId: number, @Req() req: Request) {
     const user: { id: number; role: string } | undefined = (req as any).user;
     return this.sessionRecapsService.findBySession(sessionId, user ?? null);
   }

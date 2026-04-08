@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Post,
   Req,
   Res,
@@ -10,32 +11,36 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import type { Request, Response } from "express";
-import { AuthService } from "./auth.service";
 import { JwtAuthGuard } from "./auth.guard";
+import { AuthService } from "./auth.service";
 import { RequestLinkDto } from "./dto/request-link.dto";
 import { VerifyTokenDto } from "./dto/verify-token.dto";
 
 @Controller("auth")
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
+
   constructor(private readonly authService: AuthService) {}
 
   @Post("request-link")
-  async requestLink(
-    @Body() dto: RequestLinkDto,
-    @Res() res: Response,
-  ): Promise<void> {
-    const baseUrl =
-      process.env.MAGIC_LINK_BASE_URL || "http://localhost:3003";
-    await this.authService.requestMagicLink(dto.email, baseUrl);
+  async requestLink(@Body() dto: RequestLinkDto, @Res() res: Response): Promise<void> {
+    const baseUrl = process.env.MAGIC_LINK_BASE_URL || "http://localhost:3003";
+    try {
+      await this.authService.requestMagicLink(dto.email, baseUrl);
+    } catch (error) {
+      // Log the error server-side so dev can see it, but never reveal it to the client.
+      this.logger.error(
+        `requestMagicLink failed for ${dto.email}: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      );
+    }
     // Always return 200 to prevent email enumeration
     res.status(200).json({ message: "If the email exists, a magic link has been sent" });
   }
 
   @Post("verify")
-  async verify(
-    @Body() dto: VerifyTokenDto,
-    @Res() res: Response,
-  ): Promise<void> {
+  async verify(@Body() dto: VerifyTokenDto, @Res() res: Response): Promise<void> {
     try {
       const { user, jwt } = await this.authService.verifyToken(dto.token);
 
@@ -100,10 +105,7 @@ export class AuthController {
 
   @Delete("my-account")
   @UseGuards(JwtAuthGuard)
-  async deleteMyAccount(
-    @Req() req: Request,
-    @Res() res: Response,
-  ): Promise<void> {
+  async deleteMyAccount(@Req() req: Request, @Res() res: Response): Promise<void> {
     const user = (req as any).user;
     await this.authService.deleteUserAccount(user.id);
 
@@ -116,4 +118,3 @@ export class AuthController {
     res.status(200).json({ message: "Account deleted successfully" });
   }
 }
-

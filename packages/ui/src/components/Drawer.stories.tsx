@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
-import { Heading, HeadingLevelProvider } from "./Heading";
-import { SkillTagList, type SkillTagItem } from "./SkillTagList";
 import { Drawer } from "./Drawer";
+import { Heading, HeadingLevelProvider } from "./Heading";
+import { type SkillTagItem, SkillTagList } from "./SkillTagList";
 
 const meta = {
   title: "Suunnittelujarjestelma/Organismit/Drawer",

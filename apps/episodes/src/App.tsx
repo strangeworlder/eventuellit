@@ -1,31 +1,33 @@
-import { SkillTagList } from "@repo/ui/components/SkillTagList";
-import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { useAuth } from "@repo/auth/use-auth";
 import { Badge } from "@repo/ui/components/Badge";
+import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
-import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
+import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
 import { Drawer } from "@repo/ui/components/Drawer";
+import { EmptyState } from "@repo/ui/components/EmptyState";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { ImageElement } from "@repo/ui/components/ImageElement";
+import { Input } from "@repo/ui/components/Input";
 import { Link } from "@repo/ui/components/Link";
 import { List, ListItem } from "@repo/ui/components/List";
-import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { Page, PageBody } from "@repo/ui/components/Page";
-import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/Tabs";
-import { Input } from "@repo/ui/components/Input";
-import { Select } from "@repo/ui/components/Select";
-import { TextArea } from "@repo/ui/components/TextArea";
 import { LoadingState } from "@repo/ui/components/LoadingState";
-import { Text } from "@repo/ui/components/Text";
-import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
-import { EmptyState } from "@repo/ui/components/EmptyState";
+import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
+import { Page, PageBody } from "@repo/ui/components/Page";
+import { Select } from "@repo/ui/components/Select";
+import { SkillTagList } from "@repo/ui/components/SkillTagList";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/Tabs";
+import { Text } from "@repo/ui/components/Text";
+import { TextArea } from "@repo/ui/components/TextArea";
+import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
+import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useEpisodeInvites, useSendInvite } from "./api/episode-invites";
+import { useDisenrollPlayer, useEnrollPlayer, useEpisodePlayers } from "./api/episode-players";
 import {
   type Episode,
   useCreateEpisode,
@@ -33,18 +35,16 @@ import {
   useDeleteEpisode,
   useDeleteEpisodeSkill,
   useEpisode,
-  useEpisodes,
   useEpisodeSkills,
+  useEpisodes,
   useUpdateEpisode,
   useUpdateEpisodeSkill,
 } from "./api/episodes";
-import { ReadingListEditor } from "./ReadingListEditor";
-import { useDisenrollPlayer, useEnrollPlayer, useEpisodePlayers } from "./api/episode-players";
-import { useEpisodeInvites, useSendInvite } from "./api/episode-invites";
-import { usePlayerUsers } from "./api/users";
 import { useSessions } from "./api/sessions";
-import { TyrannyRollBadge } from "./components/TyrannyRollBadge";
+import { usePlayerUsers } from "./api/users";
 import { EpisodeRecapTab } from "./components/EpisodeRecapTab";
+import { TyrannyRollBadge } from "./components/TyrannyRollBadge";
+import { ReadingListEditor } from "./ReadingListEditor";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -478,11 +478,7 @@ function EpisodeDetails({
             ]}
           />
 
-          <Tabs
-            value={activeTab}
-            onValueChange={(tab) => navigate(tabPath(tab))}
-            className="mb-8"
-          >
+          <Tabs value={activeTab} onValueChange={(tab) => navigate(tabPath(tab))} className="mb-8">
             <TabsList>
               <TabsTrigger value="tiedot">Tiedot</TabsTrigger>
               <TabsTrigger value="kertaus">Kertaus</TabsTrigger>

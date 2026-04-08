@@ -86,9 +86,7 @@ function OwnRecapEditor({
     return (
       <Stack gap={3}>
         <PlayerRecapCard recap={existing} isOwn />
-        <ToolButton onClick={() => setEditing(true)}>
-          Muokkaa omaa kertausta
-        </ToolButton>
+        <ToolButton onClick={() => setEditing(true)}>Muokkaa omaa kertausta</ToolButton>
       </Stack>
     );
   }
@@ -129,11 +127,7 @@ function OwnRecapEditor({
               Tallenna
             </Button>
             {existing && (
-              <Button
-                variant="outline"
-                onClick={() => setEditing(false)}
-                disabled={isPending}
-              >
+              <Button variant="outline" onClick={() => setEditing(false)} disabled={isPending}>
                 Peruuta
               </Button>
             )}

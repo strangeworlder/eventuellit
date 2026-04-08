@@ -1,6 +1,6 @@
 import React from "react";
-import { cn } from "./utils";
 import { Heading, HeadingLevelProvider } from "./Heading";
+import { cn } from "./utils";
 
 export interface NoticePanelProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "success" | "info" | "error";

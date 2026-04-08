@@ -1,15 +1,17 @@
-import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
+import { Inject, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { randomUUID } from "crypto";
 import { eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import { users, magicLinkTokens, characters } from "../db/schema";
+import { characters, magicLinkTokens, users } from "../db/schema";
 import { MailService } from "./mail.service";
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
     private readonly jwtService: JwtService,
@@ -17,13 +19,17 @@ export class AuthService {
   ) {}
 
   async requestMagicLink(email: string, baseUrl: string): Promise<void> {
+    const isDev = process.env.NODE_ENV !== "production";
+    if (isDev) this.logger.log(`[DEV] requestMagicLink called for: ${email}`);
+
     // Check if user exists (email allowlist)
     const user = await this.db.query.users.findFirst({
       where: eq(users.email, email),
     });
 
-    // Always return 200 to prevent email enumeration
+    // Always return early without revealing whether the email exists
     if (!user) {
+      if (isDev) this.logger.log(`[DEV] Email not found in DB — check your users table: ${email}`);
       return;
     }
 
@@ -145,13 +151,9 @@ export class AuthService {
     }
 
     // Delete magic link tokens for this email
-    await this.db
-      .delete(magicLinkTokens)
-      .where(eq(magicLinkTokens.email, user.email));
+    await this.db.delete(magicLinkTokens).where(eq(magicLinkTokens.email, user.email));
 
     // Delete the user record
-    await this.db
-      .delete(users)
-      .where(eq(users.id, userId));
+    await this.db.delete(users).where(eq(users.id, userId));
   }
 }

@@ -83,9 +83,7 @@ export const OtsikollaJaToiminnoilla: Story = {
   args: {
     title: "Jakson yhteenveto",
     variant: "bordered",
-    actions: (
-      <ToolButton>Muokkaa</ToolButton>
-    ),
+    actions: <ToolButton>Muokkaa</ToolButton>,
   },
   render: (args) => (
     <div className="max-w-2xl">

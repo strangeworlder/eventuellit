@@ -14,9 +14,7 @@ export const useEpisodes = (status?: string) => {
   return useQuery<Episode[]>({
     queryKey: ["episodes", status],
     queryFn: async () => {
-      const url = status
-        ? `${apiBaseUrl}/episodes?status=${status}`
-        : `${apiBaseUrl}/episodes`;
+      const url = status ? `${apiBaseUrl}/episodes?status=${status}` : `${apiBaseUrl}/episodes`;
       const response = await fetch(url, {
         headers: getAuthHeaders(),
         credentials: "include",

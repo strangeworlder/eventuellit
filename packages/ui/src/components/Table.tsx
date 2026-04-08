@@ -1,6 +1,6 @@
 import React from "react";
-import { cn } from "./utils";
 import type { Theme } from "./Theme";
+import { cn } from "./utils";
 
 export interface TableColumn<T> {
   /** The data key to read from each row object. */

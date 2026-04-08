@@ -1,6 +1,6 @@
 import React from "react";
-import { cn } from "./utils";
 import { Icon, type IconName } from "./Icon";
+import { cn } from "./utils";
 
 export interface AspectTagProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Tag display text */

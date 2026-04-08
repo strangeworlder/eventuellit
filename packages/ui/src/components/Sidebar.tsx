@@ -1,6 +1,6 @@
-import { Icon } from "./Icon";
 import * as React from "react";
 import { Button } from "./Button";
+import { Icon } from "./Icon";
 import { cn } from "./utils";
 
 export type SidebarContextType = {

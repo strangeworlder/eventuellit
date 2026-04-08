@@ -1,6 +1,6 @@
 import { useAuth } from "@repo/auth/use-auth";
-import { Button } from "@repo/ui/components/Button";
 import { slugifyHeadingLabel } from "@repo/ui/components/article-navigation-utils";
+import { Button } from "@repo/ui/components/Button";
 import { EmptyState } from "@repo/ui/components/EmptyState";
 import { Stack } from "@repo/ui/components/Layout";
 import { LoadingState } from "@repo/ui/components/LoadingState";
@@ -11,14 +11,10 @@ import { TextSection } from "@repo/ui/components/TextSection";
 import { ToolButton } from "@repo/ui/components/ToolButton";
 import { useState } from "react";
 import { type Episode, useUpdateEpisode } from "../api/episodes";
-import { type Session } from "../api/sessions";
+import type { Session } from "../api/sessions";
 import { SessionTimeline } from "./SessionTimeline";
 
-function EpisodeSummarySection({
-  episode,
-}: {
-  episode: Episode;
-}) {
+function EpisodeSummarySection({ episode }: { episode: Episode }) {
   const { user } = useAuth();
   const isGm = user?.role === "gm";
   const { mutate: updateEpisode, isPending } = useUpdateEpisode();
@@ -26,10 +22,7 @@ function EpisodeSummarySection({
   const [draft, setDraft] = useState(episode.summary ?? "");
 
   const save = () => {
-    updateEpisode(
-      { id: episode.id, summary: draft },
-      { onSuccess: () => setEditing(false) },
-    );
+    updateEpisode({ id: episode.id, summary: draft }, { onSuccess: () => setEditing(false) });
   };
 
   if (!isGm && !episode.summary) return null;
@@ -92,26 +85,26 @@ export function EpisodeRecapTab({ episode, sessions, isLoading }: EpisodeRecapTa
   const hasAnyPlayedSession = sessions?.some((s) => s.status === "played") ?? false;
 
   return (
-      <Stack gap={10}>
-        <EpisodeSummarySection episode={episode} />
+    <Stack gap={10}>
+      <EpisodeSummarySection episode={episode} />
 
-        <Stack gap={6}>
-          {!hasSessions ? (
-            <EmptyState
-              title="Sessioita ei löydy"
-              description="Tälle jaksolle ei ole luotu sessioita. GM voi lisätä ne Pelinjohtajan Työkaluista."
-            />
-          ) : !hasAnyPlayedSession ? (
-            <Stack gap={4}>
-              <Text variant="muted">
-                Kertauksia ei ole vielä saatavilla — pelatut sessiot näkyvät täällä julkaisun jälkeen.
-              </Text>
-              <SessionTimeline sessions={sessions!} episodeId={episode.id} />
-            </Stack>
-          ) : (
+      <Stack gap={6}>
+        {!hasSessions ? (
+          <EmptyState
+            title="Sessioita ei löydy"
+            description="Tälle jaksolle ei ole luotu sessioita. GM voi lisätä ne Pelinjohtajan Työkaluista."
+          />
+        ) : !hasAnyPlayedSession ? (
+          <Stack gap={4}>
+            <Text variant="muted">
+              Kertauksia ei ole vielä saatavilla — pelatut sessiot näkyvät täällä julkaisun jälkeen.
+            </Text>
             <SessionTimeline sessions={sessions!} episodeId={episode.id} />
-          )}
-        </Stack>
+          </Stack>
+        ) : (
+          <SessionTimeline sessions={sessions!} episodeId={episode.id} />
+        )}
       </Stack>
+    </Stack>
   );
 }

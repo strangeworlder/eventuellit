@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ObscuredWrapper } from "./ObscuredWrapper";
 import { Button } from "./Button";
 import { Heading, HeadingLevelProvider } from "./Heading";
 import { Input } from "./Input";
+import { ObscuredWrapper } from "./ObscuredWrapper";
 
 const meta: Meta<typeof ObscuredWrapper> = {
   title: "Suunnittelujarjestelma/Molekyylit/ObscuredWrapper",

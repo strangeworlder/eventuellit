@@ -1,24 +1,14 @@
-import {
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { and, eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import {
-  episodeReadingItems,
-  playerReadingProgress,
-  users,
-} from "../db/schema";
-import { CreateReadingProgressDto } from "./dto/create-reading-progress.dto";
+import { episodeReadingItems, playerReadingProgress, users } from "../db/schema";
+import type { CreateReadingProgressDto } from "./dto/create-reading-progress.dto";
 
 @Injectable()
 export class ReadingProgressService {
-  constructor(
-    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
   async markRead(data: CreateReadingProgressDto, userId: number) {
     const item = await this.db
@@ -83,9 +73,7 @@ export class ReadingProgressService {
       .from(playerReadingProgress)
       .leftJoin(users, eq(playerReadingProgress.userId, users.id));
 
-    const relevantProgress = progressRows.filter((r) =>
-      itemIds.includes(r.readingItemId),
-    );
+    const relevantProgress = progressRows.filter((r) => itemIds.includes(r.readingItemId));
 
     const byUser = new Map<
       number,

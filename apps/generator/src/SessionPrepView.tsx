@@ -1,8 +1,4 @@
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@repo/ui/components/Accordion";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/components/Accordion";
 import { Badge } from "@repo/ui/components/Badge";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
@@ -15,8 +11,8 @@ import { List, ListItem } from "@repo/ui/components/List";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { PageBody } from "@repo/ui/components/Page";
 import { Text } from "@repo/ui/components/Text";
-import { useEpisode } from "./api/episodes";
 import { useMyEnrollment } from "./api/enrollment";
+import { useEpisode } from "./api/episodes";
 import { type ReadingItem, useEpisodeReadingItems, useToggleReadingProgress } from "./api/reading";
 import { EnrollmentError, type Session, useSessions } from "./api/sessions";
 

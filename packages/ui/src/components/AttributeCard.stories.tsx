@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import React, { useState } from "react";
 import { AttributeCard, getScoreBonusFromValue } from "./AttributeCard";
 import { Theme } from "./Theme";
-import React, { useState } from "react";
 
 const meta: Meta<typeof AttributeCard> = {
   title: "Suunnittelujarjestelma/Organismit/AttributeCard",

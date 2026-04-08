@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Icon } from "./Icon";
 import { Heading } from "./Heading";
+import { Icon } from "./Icon";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarItem } from "./Sidebar";
 
 const meta = {

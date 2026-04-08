@@ -15,10 +15,7 @@ export class DashboardController {
   }
 
   @Get("gm-overview")
-  getGmOverview(
-    @Query("episodeId", ParseIntPipe) episodeId: number,
-    @Req() req: Request,
-  ) {
+  getGmOverview(@Query("episodeId", ParseIntPipe) episodeId: number, @Req() req: Request) {
     const user = (req as any).user;
     return this.dashboardService.getGmOverview(episodeId, user.role);
   }

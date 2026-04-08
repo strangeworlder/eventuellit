@@ -1,6 +1,6 @@
-import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
+import { type CanActivate, type ExecutionContext, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { Request } from "express";
+import type { Request } from "express";
 import { AuthService } from "./auth.service";
 
 /**

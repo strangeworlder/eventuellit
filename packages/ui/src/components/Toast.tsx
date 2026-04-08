@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { cn } from "./utils";
-import { Icon, type IconName } from "./Icon";
 import { Button } from "./Button";
+import { Icon, type IconName } from "./Icon";
 import type { Theme } from "./Theme";
+import { cn } from "./utils";
 
 // ── Types ──
 

@@ -1,7 +1,7 @@
 import React from "react";
-import { NoticePanel } from "./NoticePanel";
 import { Button } from "./Button";
 import { Stack } from "./Layout";
+import { NoticePanel } from "./NoticePanel";
 
 export interface ErrorBoundaryProps {
   children: React.ReactNode;

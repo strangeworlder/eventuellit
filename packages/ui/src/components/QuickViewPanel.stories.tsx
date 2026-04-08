@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { QuickViewPanel } from "./QuickViewPanel";
+import { Badge } from "./Badge";
 import { Button } from "./Button";
 import { Stack } from "./Layout";
+import { QuickViewPanel } from "./QuickViewPanel";
 import { Text } from "./Text";
-import { Badge } from "./Badge";
 
 const meta: Meta<typeof QuickViewPanel> = {
   title: "Suunnittelujarjestelma/Organismit/QuickViewPanel",

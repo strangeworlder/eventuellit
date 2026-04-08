@@ -1,16 +1,12 @@
-import {
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { and, eq, isNull } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import { ContentRegistryService } from "../content-registry/content-registry.service";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import { episodes, episodeReadingItems, playerReadingProgress } from "../db/schema";
-import { ContentRegistryService } from "../content-registry/content-registry.service";
-import { CreateReadingItemDto } from "./dto/create-reading-item.dto";
-import { UpdateReadingItemDto } from "./dto/update-reading-item.dto";
+import { episodeReadingItems, episodes, playerReadingProgress } from "../db/schema";
+import type { CreateReadingItemDto } from "./dto/create-reading-item.dto";
+import type { UpdateReadingItemDto } from "./dto/update-reading-item.dto";
 
 @Injectable()
 export class ReadingItemsService {
@@ -20,12 +16,13 @@ export class ReadingItemsService {
   ) {}
 
   async findByEpisode(episodeId: number, userId: number, sessionId?: number) {
-    const whereClause = sessionId !== undefined
-      ? and(
-          eq(episodeReadingItems.episodeId, episodeId),
-          eq(episodeReadingItems.sessionId, sessionId),
-        )
-      : eq(episodeReadingItems.episodeId, episodeId);
+    const whereClause =
+      sessionId !== undefined
+        ? and(
+            eq(episodeReadingItems.episodeId, episodeId),
+            eq(episodeReadingItems.sessionId, sessionId),
+          )
+        : eq(episodeReadingItems.episodeId, episodeId);
 
     const items = await this.db
       .select()
@@ -47,23 +44,21 @@ export class ReadingItemsService {
   }
 
   async create(data: CreateReadingItemDto) {
-    const episodeRow = await this.db
-      .select()
-      .from(episodes)
-      .where(eq(episodes.id, data.episodeId));
+    const episodeRow = await this.db.select().from(episodes).where(eq(episodes.id, data.episodeId));
     if (!episodeRow[0]) {
       throw new NotFoundException("Episode not found");
     }
 
-    const scopeWhere = data.sessionId !== undefined
-      ? and(
-          eq(episodeReadingItems.episodeId, data.episodeId),
-          eq(episodeReadingItems.sessionId, data.sessionId),
-        )
-      : and(
-          eq(episodeReadingItems.episodeId, data.episodeId),
-          isNull(episodeReadingItems.sessionId),
-        );
+    const scopeWhere =
+      data.sessionId !== undefined
+        ? and(
+            eq(episodeReadingItems.episodeId, data.episodeId),
+            eq(episodeReadingItems.sessionId, data.sessionId),
+          )
+        : and(
+            eq(episodeReadingItems.episodeId, data.episodeId),
+            isNull(episodeReadingItems.sessionId),
+          );
 
     const existing = await this.db
       .select()
@@ -71,9 +66,7 @@ export class ReadingItemsService {
       .where(scopeWhere)
       .orderBy(episodeReadingItems.orderIndex);
 
-    const nextOrder = existing.length > 0
-      ? Math.max(...existing.map((i) => i.orderIndex)) + 1
-      : 0;
+    const nextOrder = existing.length > 0 ? Math.max(...existing.map((i) => i.orderIndex)) + 1 : 0;
 
     const result = await this.db
       .insert(episodeReadingItems)
@@ -128,27 +121,22 @@ export class ReadingItemsService {
   }
 
   async getSuggestions(episodeId: number, sessionId?: number) {
-    const episodeRow = await this.db
-      .select()
-      .from(episodes)
-      .where(eq(episodes.id, episodeId));
+    const episodeRow = await this.db.select().from(episodes).where(eq(episodes.id, episodeId));
     if (!episodeRow[0]) {
       throw new NotFoundException("Episode not found");
     }
 
     const episode = episodeRow[0];
 
-    const scopeWhere = sessionId !== undefined
-      ? and(
-          eq(episodeReadingItems.episodeId, episodeId),
-          eq(episodeReadingItems.sessionId, sessionId),
-        )
-      : eq(episodeReadingItems.episodeId, episodeId);
+    const scopeWhere =
+      sessionId !== undefined
+        ? and(
+            eq(episodeReadingItems.episodeId, episodeId),
+            eq(episodeReadingItems.sessionId, sessionId),
+          )
+        : eq(episodeReadingItems.episodeId, episodeId);
 
-    const existing = await this.db
-      .select()
-      .from(episodeReadingItems)
-      .where(scopeWhere);
+    const existing = await this.db.select().from(episodeReadingItems).where(scopeWhere);
     const existingRefs = new Set(
       existing.filter((i) => i.contentRef).map((i) => i.contentRef as string),
     );

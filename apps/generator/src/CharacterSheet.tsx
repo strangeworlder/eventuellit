@@ -1,21 +1,21 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
-import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
+import { useAuth } from "@repo/auth/use-auth";
 import { AspectTag } from "@repo/ui/components/AspectTag";
-import { SkillTagList } from "@repo/ui/components/SkillTagList";
-import { TextArea } from "@repo/ui/components/TextArea";
+import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
+import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
 import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
 import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
+import { Input } from "@repo/ui/components/Input";
+import { Link } from "@repo/ui/components/Link";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { PageBody } from "@repo/ui/components/Page";
 import { Select } from "@repo/ui/components/Select";
-import { useAuth } from "@repo/auth/use-auth";
-import { Input } from "@repo/ui/components/Input";
-import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
-import { Link } from "@repo/ui/components/Link";
+import { SkillTagList } from "@repo/ui/components/SkillTagList";
+import { TextArea } from "@repo/ui/components/TextArea";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
@@ -188,11 +188,7 @@ export function CharacterSheet({
                     </p>
                     <div className="flex flex-col gap-1.5 items-start">
                       {character.episodes.map((ep) => (
-                        <Link
-                          key={ep.id}
-                          href={`${basePath}/prep/${ep.id}`}
-                          className="text-sm"
-                        >
+                        <Link key={ep.id} href={`${basePath}/prep/${ep.id}`} className="text-sm">
                           Valmistaudu: {ep.title}
                         </Link>
                       ))}
