@@ -308,29 +308,29 @@ function AppContent() {
           )}
           {isLoggedIn && (
             <SidebarItem
-              icon={<Icon name="dice5" size={20} />}
+              icon={<Icon name="player-character" size={20} />}
               active={activeView === "generator"}
               onClick={() => navigate("/generator")}
             >
-              Hahmopaja
+              Hahmot
             </SidebarItem>
           )}
           <SidebarItem
-            icon={<Icon name="book" size={20} />}
+            icon={<Icon name="rulebook" size={20} />}
             active={activeView === "ruleset"}
             onClick={() => navigate("/ruleset/johdanto")}
           >
             Sääntökirja
           </SidebarItem>
           <SidebarItem
-            icon={<Icon name="map" size={20} />}
+            icon={<Icon name="file-cabinet" size={20} />}
             active={activeView === "episodes"}
             onClick={() => navigate("/episodes/latest")}
           >
             Jaksot
           </SidebarItem>
           <SidebarItem
-            icon={<Icon name="globe" size={20} />}
+            icon={<Icon name="world" size={20} />}
             active={activeView === "world"}
             onClick={() => navigate("/world")}
           >
@@ -350,7 +350,7 @@ function AppContent() {
                 </div>
               )}
               <SidebarItem
-                icon={<Icon name="log-out" size={20} />}
+                icon={<Icon name="logout" size={20} />}
                 onClick={() => {
                   logout();
                   navigate("/");
@@ -361,7 +361,7 @@ function AppContent() {
             </>
           ) : (
             <SidebarItem
-              icon={<Icon name="log-in" size={20} />}
+              icon={<Icon name="login" size={20} />}
               onClick={() => navigate("/kirjaudu")}
             >
               Kirjaudu sisään

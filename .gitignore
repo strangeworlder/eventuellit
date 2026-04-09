@@ -42,6 +42,9 @@ yarn-error.log*
 **/public/images/*-[0-9]*.jpg
 **/public/images/manifest.json
 
+# Auto-generated SVG icon sprite sheet and name union (rebuilt by packages/ui/scripts/build-icons.mjs)
+packages/ui/src/generated/
+
 # Misc
 .DS_Store
 *.pem

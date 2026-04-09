@@ -55,7 +55,7 @@ export const WithoutMax: Story = {
   args: {
     label: "Taso",
     value: 5,
-    icon: "dice5",
+    icon: "player-character",
   },
 };
 

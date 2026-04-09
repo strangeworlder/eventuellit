@@ -42,7 +42,7 @@ export const NavSizeWithBadge: Story = {
     <div className="w-64 space-y-1 p-2 bg-[var(--theme-bg)] rounded-md">
       <NavButton variant="ghost-subtle" size="nav" justify="start">
         <span className="flex items-center gap-3">
-          <Icon name="book" size={20} />
+          <Icon name="rulebook" size={20} />
           <span>Sääntökirja</span>
         </span>
       </NavButton>
@@ -54,7 +54,7 @@ export const NavSizeWithBadge: Story = {
       </NavButton>
       <NavButton variant="ghost-subtle" size="nav" justify="start">
         <span className="flex items-center gap-3">
-          <Icon name="map" size={20} />
+          <Icon name="file-cabinet" size={20} />
           <span>Jaksot</span>
         </span>
       </NavButton>

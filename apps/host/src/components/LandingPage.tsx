@@ -42,7 +42,7 @@ export function LandingPage() {
             <Card
               className="group cursor-pointer hover:border-[var(--theme-border-medium)] transition-all duration-300 hover:shadow-[var(--shadow-floating)] animate-in fade-in slide-in-from-left-8 duration-700 delay-100"
               onClick={() => navigate("/generator")}
-              iconName="dice5"
+              iconName="player-character"
               iconVariant="primary"
             >
               <CardHeader>
@@ -60,7 +60,7 @@ export function LandingPage() {
           <Card
             className="group cursor-pointer hover:border-[var(--theme-border-medium)] transition-all duration-300 hover:shadow-[var(--shadow-floating)] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200"
             onClick={() => navigate("/ruleset")}
-            iconName="book"
+            iconName="rulebook"
             iconVariant="primary"
           >
             <CardHeader>
@@ -94,7 +94,7 @@ export function LandingPage() {
           <Card
             className="group cursor-pointer hover:border-[var(--theme-border-medium)] transition-all duration-300 hover:shadow-[var(--shadow-floating)] animate-in fade-in slide-in-from-right-8 duration-700 delay-300"
             onClick={() => navigate("/world")}
-            iconName="map"
+            iconName="world"
             iconVariant="primary"
           >
             <CardHeader>

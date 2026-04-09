@@ -74,6 +74,8 @@ export type { HeadingProps } from "./components/Heading";
 export { Heading, HeadingLevelContext, HeadingLevelProvider } from "./components/Heading";
 export { Hero } from "./components/Hero";
 export { HeroCanvas } from "./components/HeroCanvas";
+export type { CustomIconProps } from "./components/CustomIcon";
+export { CustomIcon } from "./components/CustomIcon";
 export type { IconName, IconProps } from "./components/Icon";
 export { Icon } from "./components/Icon";
 export type { ImageElementProps, ImageSource } from "./components/ImageElement";

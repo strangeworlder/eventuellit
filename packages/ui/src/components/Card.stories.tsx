@@ -47,7 +47,7 @@ const meta = {
     },
     iconName: {
       control: "select",
-      options: [undefined, "sparkles", "dice5", "book", "chevron-left", "chevron-right"],
+      options: [undefined, "sparkles", "dice5", "rulebook", "chevron-left", "chevron-right"],
       description: "Optional icon to render in the CardHeader.",
     },
     iconVariant: {
@@ -220,7 +220,7 @@ export const Icons: Story = {
         <CardContent>Ensisijainen kuvake (noppa)</CardContent>
       </Card>
 
-      <Card iconName="book" iconVariant="secondary">
+      <Card iconName="rulebook" iconVariant="secondary">
         <CardHeader>
           <CardTitle>Sääntökirja</CardTitle>
         </CardHeader>
@@ -263,7 +263,7 @@ export const Themes: Story = {
         <Card
           key={theme}
           theme={theme}
-          iconName={idx % 2 === 0 ? "dice5" : "book"}
+          iconName={idx % 2 === 0 ? "dice5" : "rulebook"}
           iconVariant={idx % 3 === 0 ? "primary" : idx % 3 === 1 ? "secondary" : "accent"}
         >
           <CardHeader>

@@ -3,14 +3,6 @@ import {
   BookMarked,
   BookOpen,
   Calendar,
-  Check,
-  CheckSquare,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronUp,
-  CircleCheck,
-  CircleX,
   Clock,
   Cog,
   Compass,
@@ -27,7 +19,6 @@ import {
   Inbox,
   Info,
   Link,
-  ListChecks,
   Loader2,
   LogIn,
   LogOut,
@@ -35,7 +26,6 @@ import {
   Menu,
   Minus,
   Pencil,
-  Plus,
   Search,
   Send,
   Settings,
@@ -46,20 +36,20 @@ import {
   User,
   UserCircle,
   UserPlus,
-  X,
   Zap,
 } from "lucide-react";
 import React from "react";
+import { customIconNames, type CustomIconName } from "../generated/custom-icon-names";
+import spriteMarkup from "../generated/icons-custom.svg?raw";
+import { CustomIcon } from "./CustomIcon";
 import { cn } from "./utils";
 
-export const icons = {
+// ── Lucide icon map (custom icons removed from here) ──────────────────────
+
+export const lucideIcons = {
   "alert-triangle": AlertTriangle,
   "book-marked": BookMarked,
   calendar: Calendar,
-  check: Check,
-  "check-square": CheckSquare,
-  "circle-check": CircleCheck,
-  "circle-x": CircleX,
   clock: Clock,
   "corner-down-left": CornerDownLeft,
   "file-text": FileText,
@@ -68,15 +58,12 @@ export const icons = {
   compass: Compass,
   drama: Drama,
   flame: Flame,
-  "chevron-down": ChevronDown,
-  "chevron-up": ChevronUp,
   download: Download,
   home: Home,
   inbox: Inbox,
   info: Info,
   "heart-pulse": HeartPulse,
   link: Link,
-  "list-checks": ListChecks,
   pencil: Pencil,
   send: Send,
   "shield-alert": ShieldAlert,
@@ -84,8 +71,6 @@ export const icons = {
   search: Search,
   dice5: Dice5,
   book: BookOpen,
-  "chevron-left": ChevronLeft,
-  "chevron-right": ChevronRight,
   globe: Globe,
   loader2: Loader2,
   "log-in": LogIn,
@@ -93,25 +78,41 @@ export const icons = {
   map: Map,
   menu: Menu,
   minus: Minus,
-  plus: Plus,
   settings: Settings,
   shield: Shield,
   "trash-2": Trash2,
   user: User,
   "user-circle": UserCircle,
   "user-plus": UserPlus,
-  x: X,
   zap: Zap,
 } as const;
 
-export type IconName = keyof typeof icons;
+// ── Custom icon sentinel ───────────────────────────────────────────────────
+// Built dynamically from the generated name list so adding a new SVG to
+// custom-icons/ and running build:icons is all that's needed — no manual
+// edits to this file required.
+
+const CUSTOM = Symbol("custom");
+
+export const customIconEntries = Object.fromEntries(
+  customIconNames.map((name) => [name, CUSTOM] as const),
+) as Record<CustomIconName, typeof CUSTOM>;
+
+export const icons = {
+  ...lucideIcons,
+  ...customIconEntries,
+} as const;
+
+export type IconName = keyof typeof lucideIcons | CustomIconName;
+
+// ── Props ─────────────────────────────────────────────────────────────────
 
 export interface IconProps extends React.SVGAttributes<SVGElement> {
   name: IconName;
   size?: number;
   /**
    * Visual variant of the icon.
-   * - `default`: Bare SVG icon (current behavior).
+   * - `default`: Bare SVG icon (current behaviour).
    * - `branded`: Large icon inside a circular themed container with a subtle glow.
    *   Used as a visual anchor on utility pages (login, verify, error). Ignores `size` prop
    *   and uses fixed dimensions.
@@ -120,19 +121,52 @@ export interface IconProps extends React.SVGAttributes<SVGElement> {
 }
 
 /**
- * Lucide icon wrapper. Always use this instead of importing Lucide icons directly —
+ * Unified icon component. Routes to the custom SVG sprite for thematic icons
+ * and falls back to Lucide React for all others.
+ *
+ * Always use `Icon` instead of importing Lucide or CustomIcon directly —
  * it enforces a consistent size scale and type-safe `IconName` union.
- * Available names: alert-triangle, book, book-marked, circle-check, circle-x, compass, corner-down-left,
- * file-text, hash, info, loader2, plus, minus, search, trash-2, x, chevron-left/right, menu, settings,
- * map, globe, log-in/out, shield, zap, sparkles, etc.
+ *
+ * Custom icons: x, plus (replaces Lucide X and Plus with thematic SVGs; API unchanged)
+ * Lucide icons: all others (alert-triangle, book, chevron-*, etc.)
  *
  * Use `variant="branded"` for a large circular icon treatment on utility pages.
  *
- * @summary Lucide icon wrapper; use IconName type for valid names; size prop in px (default 16); variant="branded" for hero treatment
+ * @summary Unified icon wrapper; custom + Lucide icons; size prop in px (default 16); variant="branded" for hero treatment
  */
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
   ({ name, size = 16, variant = "default", className, ...props }, ref) => {
-    const LucideIcon = icons[name];
+    // ── Custom icon path ─────────────────────────────────────────────────
+    if (name in customIconEntries) {
+      const customName = name as CustomIconName;
+
+      if (variant === "branded") {
+        return (
+          <div className="w-20 h-20 rounded-full border-2 border-[var(--theme-border-medium)] flex items-center justify-center shadow-[0_0_30px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)]">
+            <CustomIcon
+              name={customName}
+              size={36}
+              className={cn("text-[var(--theme-secondary)]", className)}
+              _spriteMarkup={spriteMarkup}
+            />
+          </div>
+        );
+      }
+
+      return (
+        <CustomIcon
+          ref={ref}
+          name={customName}
+          size={size}
+          className={className}
+          _spriteMarkup={spriteMarkup}
+          {...props}
+        />
+      );
+    }
+
+    // ── Lucide path ──────────────────────────────────────────────────────
+    const LucideIcon = lucideIcons[name as keyof typeof lucideIcons];
     if (!LucideIcon) return null;
 
     if (variant === "branded") {

@@ -27,7 +27,7 @@ function actionIcon(type: DashboardAction["type"]): IconName {
     case "update_names":
       return "pencil";
     case "reading":
-      return "book";
+      return "rulebook";
     case "task":
       return "check-square";
     case "write_recap":

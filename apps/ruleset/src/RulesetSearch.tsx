@@ -300,7 +300,7 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
                   >
                     <span className="mt-0.5 shrink-0 text-text-muted">
                       {result.type === "glossary" ? (
-                        <Icon name="book" size={16} aria-hidden="true" />
+                        <Icon name="rulebook" size={16} aria-hidden="true" />
                       ) : result.sectionId ? (
                         <Icon name="hash" size={16} aria-hidden="true" />
                       ) : (

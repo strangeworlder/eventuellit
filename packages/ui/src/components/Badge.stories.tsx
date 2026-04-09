@@ -42,7 +42,7 @@ export const Secondary: Story = {
   args: {
     variant: "outline",
     children: "Sääntökirja",
-    icon: "book",
+    icon: "rulebook",
   },
 };
 
@@ -50,7 +50,7 @@ export const Accent: Story = {
   args: {
     variant: "highlight",
     children: "Hahmopaja",
-    icon: "dice5",
+    icon: "player-character",
   },
 };
 

@@ -66,7 +66,7 @@ export const NoMaxValue: Story = {
   args: {
     label: "Panssari",
     value: 5,
-    icon: "book",
+    icon: "rulebook",
   },
 };
 

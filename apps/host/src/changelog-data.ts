@@ -24,6 +24,57 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.1.2",
+    date: "2026-04-09",
+    name: "Omat kuvakkeet",
+    features: [
+      {
+        title: "SVG-kuvakesprite",
+        description:
+          "19 temaattista, käsin piirrettyä SVG-kuvaketta korvaavat vastaavat Lucide-kuvakkeet. Kuvakkeet ladataan yhdellä sprite-tiedostolla, mikä parantaa suorituskykyä ja antaa sovellukselle oman visuaalisen identiteetin.",
+      },
+      {
+        title: "Kuvakkeiden automaattinen koontiskripti",
+        description:
+          "Uusi build:icons-skripti generoi SVG-spriten ja TypeScript-tyypit automaattisesti custom-icons-kansiosta. Bézier-käyrien tarkka bounding box -laskenta varmistaa, että jokainen kuvake on täydellisesti keskitetty ja normalisoitu riippumatta alkuperäisestä piirtoalueesta.",
+      },
+    ],
+    major: [
+      {
+        title: "Icon-komponentti uudistettu",
+        description:
+          "Icon-komponentti reitittää automaattisesti omat kuvakkeet sprite-tiedostosta ja muut Lucide Reactista. API pysyy ennallaan — <Icon name=\"...\" /> toimii kuten ennenkin, mutta taustalla käytetään nyt temaattisia kuvakkeita aina kun saatavilla.",
+      },
+      {
+        title: "Navigaatiokuvakkeet vaihdettu",
+        description:
+          "Sivupalkin, aloitussivun ja hallintapaneelin kuvakkeet päivitetty käyttämään temaattisia vastineita: player-character, rulebook, world, file-cabinet, login ja logout.",
+      },
+    ],
+    minor: [
+      {
+        title: "CustomIcon-komponentti",
+        description:
+          "Uusi sisäinen CustomIcon-primitiivi SVG-sprite-viittauksia varten. Injektoi spriten DOM:iin yhdellä kerralla ensimmäisellä renderöinnillä.",
+      },
+      {
+        title: "Icons.stories-galleria laajennettu",
+        description:
+          "Storybook-kuvakegalleriassa nyt erillinen osio temaattisille SVG-kuvakkeille ja Lucide-kuvakkeille. Ohje uusien kuvakkeiden lisäämiseen päivitetty.",
+      },
+      {
+        title: "Storybook-tarinat päivitetty",
+        description:
+          "Sidebar-, Badge-, Card-, NavButton-, StatBlock- ja UtilityPage-tarinat käyttävät nyt uusia temaattisia kuvakenimiä.",
+      },
+      {
+        title: ".gitignore päivitetty",
+        description:
+          "Generoitu kuvake-sprite ja TypeScript-nimiyhteenveto lisätty .gitignore-tiedostoon — vain lähde-SVG:t versioidaan.",
+      },
+    ],
+  },
+  {
     version: "0.1.1",
     date: "2026-04-08",
     name: "Hahmonimet ja ilmoitukset",

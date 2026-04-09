@@ -34,7 +34,7 @@ type Story = StoryObj<typeof UtilityPage>;
 export const Kirjautuminen: Story = {
   render: () => (
     <UtilityPage>
-      <Icon name="log-in" variant="branded" />
+      <Icon name="login" variant="branded" />
       <Heading className="text-center">Kirjaudu sisään</Heading>
       <Card variant="outline" className="w-full">
         <CardContent>

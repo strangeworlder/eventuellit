@@ -42,10 +42,10 @@ export const Default: Story = {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarItem icon={<Icon name="dice5" size={20} />} active>
+        <SidebarItem icon={<Icon name="player-character" size={20} />} active>
           Hahmogeneraattori
         </SidebarItem>
-        <SidebarItem icon={<Icon name="book" size={20} />}>Sääntökirja</SidebarItem>
+        <SidebarItem icon={<Icon name="rulebook" size={20} />}>Sääntökirja</SidebarItem>
         <div className="my-4 border-t border-border mx-2" />
         <SidebarItem icon={<Icon name="user-circle" size={20} />}>Hahmot</SidebarItem>
         <SidebarItem icon={<Icon name="settings" size={20} />}>Asetukset</SidebarItem>
@@ -53,7 +53,7 @@ export const Default: Story = {
 
       <SidebarFooter>
         <SidebarItem
-          icon={<Icon name="log-out" size={20} />}
+          icon={<Icon name="logout" size={20} />}
           className="text-secondary/80 hover:text-secondary hover:bg-secondary/10"
         >
           Kirjaudu ulos
@@ -76,10 +76,10 @@ export const Collapsed: Story = {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarItem icon={<Icon name="dice5" size={20} />} active>
+        <SidebarItem icon={<Icon name="player-character" size={20} />} active>
           Hahmogeneraattori
         </SidebarItem>
-        <SidebarItem icon={<Icon name="book" size={20} />}>Sääntökirja</SidebarItem>
+        <SidebarItem icon={<Icon name="rulebook" size={20} />}>Sääntökirja</SidebarItem>
         <div className="my-4 border-t border-border mx-2" />
         <SidebarItem icon={<Icon name="user-circle" size={20} />}>Hahmot</SidebarItem>
         <SidebarItem icon={<Icon name="settings" size={20} />}>Asetukset</SidebarItem>
@@ -87,7 +87,7 @@ export const Collapsed: Story = {
 
       <SidebarFooter>
         <SidebarItem
-          icon={<Icon name="log-out" size={20} />}
+          icon={<Icon name="logout" size={20} />}
           className="text-secondary/80 hover:text-secondary hover:bg-secondary/10"
         >
           Kirjaudu ulos
