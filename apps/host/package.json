@@ -5,11 +5,11 @@
     "type":  "module",
     "scripts":  {
                     "dev":  "vite",
-                    "build":  "tsc -b \u0026\u0026 vite build \u0026\u0026 node scripts/generate-meta.mjs",
+                    "build":  "npm run build --workspace=@repo/ui \u0026\u0026 tsc -b \u0026\u0026 vite build \u0026\u0026 node scripts/generate-meta.mjs",
                     "start":  "node serve.mjs",
                     "lint":  "eslint .",
                     "preview":  "vite preview",
-                    "check-types":  "tsc -b --noEmit"
+                    "check-types":  "npm run build --workspace=@repo/ui \u0026\u0026 tsc -b --noEmit"
                 },
     "dependencies":  {
                          "@originjs/vite-plugin-federation":  "^1.4.1",

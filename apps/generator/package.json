@@ -5,11 +5,11 @@
     "type":  "module",
     "scripts":  {
                     "dev":  "concurrently \"vite build --watch\" \"vite preview\"",
-                    "build":  "tsc -b \u0026\u0026 vite build",
+                    "build":  "npm run build --workspace=@repo/ui \u0026\u0026 tsc -b \u0026\u0026 vite build",
                     "start":  "node serve.mjs",
                     "lint":  "eslint .",
                     "preview":  "vite preview",
-                    "check-types":  "tsc -b --noEmit"
+                    "check-types":  "npm run build --workspace=@repo/ui \u0026\u0026 tsc -b --noEmit"
                 },
     "dependencies":  {
                          "@originjs/vite-plugin-federation":  "^1.4.1",

@@ -12,7 +12,9 @@
     "scripts": {
         "lint": "biome check .",
         "generate:component": "turbo gen react-component",
-        "check-types": "tsc --noEmit",
+        "build": "node scripts/build-icons.mjs",
+        "prepare": "node scripts/build-icons.mjs",
+        "check-types": "node scripts/build-icons.mjs && tsc --noEmit",
         "build:icons": "node scripts/build-icons.mjs",
         "storybook": "node scripts/build-icons.mjs && storybook dev -p 6006",
         "build-storybook": "node scripts/build-icons.mjs && storybook build"
