@@ -29,17 +29,19 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
     name: "Omat kuvakkeet",
     features: [
       {
-        title: "SVG-kuvakesprite",
+        title: "SVG-kuvakespritet",
         description:
           "19 temaattista, käsin piirrettyä SVG-kuvaketta korvaavat vastaavat Lucide-kuvakkeet. Kuvakkeet ladataan yhdellä sprite-tiedostolla, mikä parantaa suorituskykyä ja antaa sovellukselle oman visuaalisen identiteetin.",
       },
+    ],
+    major: [
+    ],
+    minor: [
       {
         title: "Kuvakkeiden automaattinen koontiskripti",
         description:
           "Uusi build:icons-skripti generoi SVG-spriten ja TypeScript-tyypit automaattisesti custom-icons-kansiosta. Bézier-käyrien tarkka bounding box -laskenta varmistaa, että jokainen kuvake on täydellisesti keskitetty ja normalisoitu riippumatta alkuperäisestä piirtoalueesta.",
       },
-    ],
-    major: [
       {
         title: "Icon-komponentti uudistettu",
         description:
@@ -50,8 +52,6 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
         description:
           "Sivupalkin, aloitussivun ja hallintapaneelin kuvakkeet päivitetty käyttämään temaattisia vastineita: player-character, rulebook, world, file-cabinet, login ja logout.",
       },
-    ],
-    minor: [
       {
         title: "CustomIcon-komponentti",
         description:
