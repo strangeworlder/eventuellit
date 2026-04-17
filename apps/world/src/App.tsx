@@ -19,10 +19,10 @@ import { TextSection } from "@repo/ui/components/TextSection";
 import { TopNavDropdown, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { useEffect, useRef } from "react";
-import { Outlet, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Outlet, Route, Routes, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { worldCategories } from "./categories";
 import { stationConnections } from "./connections";
-import { type factions, getFactionById } from "./factions";
+import { type factions, getFactionById, getHybridFactions } from "./factions";
 
 const remoteOrigin = new URL(import.meta.url).origin;
 
@@ -91,9 +91,16 @@ export interface WorldEntry {
   // Faction entry fields
   parent?: string;
   color?: string;
+  secondary_color?: string;
+  secondary_parent?: string;
   // Station faction fields
-  ruling_faction?: string;
+  ruling_faction?: string[];
   disrupting_factions?: string[];
+  // Version / snapshot fields
+  version_of?: string;     // if set, this is a historical snapshot of that station id
+  episode?: string;        // episode slug (matches episodes app routing)
+  episode_label?: string;  // human-readable label, e.g. "Jakso 1 — Biodomin alkupalo"
+  snapshot_note?: string;  // short editorial context note shown in the banner
 }
 
 /** Parse a comma-separated string field into a trimmed string array. */
@@ -112,6 +119,7 @@ const entries: WorldEntry[] = Object.entries(modules)
     const { data, content } = parseFrontmatter(rawString);
 
     // "./content/kynnys/01-seula.md" -> category: "kynnys", id: "01-seula"
+    // "./content/kynnys/03-verso.jakso-1.md" -> version snapshot, version_of: "03-verso"
     // "./content/faktiot/tuhkan-puolue/muotinvalajat.md" -> category: "faktiot", id: "muotinvalajat"
     const parts = path.replace("./content/", "").split("/");
     const category = parts.length > 1 ? parts[0] : "uncategorized";
@@ -128,18 +136,29 @@ const entries: WorldEntry[] = Object.entries(modules)
       image: data.image || "",
       parent: data.parent || undefined,
       color: data.color || undefined,
-      ruling_faction:
-        data.ruling_faction && data.ruling_faction !== "null" && data.ruling_faction !== ""
-          ? String(data.ruling_faction)
-          : undefined,
+      secondary_color: data.secondary_color || undefined,
+      secondary_parent: data.secondary_parent || undefined,
+      ruling_faction: parseListField(data.ruling_faction),
       disrupting_factions: parseListField(data.disrupting_factions),
+      // Version snapshot fields
+      version_of: data.version_of ? String(data.version_of) : undefined,
+      episode: data.episode ? String(data.episode) : undefined,
+      episode_label: data.episode_label ? String(data.episode_label) : undefined,
+      snapshot_note: data.snapshot_note ? String(data.snapshot_note) : undefined,
     };
   })
   .sort((a, b) => a.order - b.order);
 
-/** All entries for a given category id, in order. */
+/** All canonical (non-version) entries for a given category id, in order. */
 function entriesForCategory(categoryId: string): WorldEntry[] {
-  return entries.filter((e) => e.category === categoryId);
+  return entries.filter((e) => e.category === categoryId && !e.version_of);
+}
+
+/** All historical version snapshots for a given station id, sorted by episode label. */
+function versionsForStation(stationId: string): WorldEntry[] {
+  return entries
+    .filter((e) => e.version_of === stationId)
+    .sort((a, b) => (a.episode_label ?? "").localeCompare(b.episode_label ?? "", "fi"));
 }
 
 /** Builds the StationConnectionNode array for a given station title. */
@@ -227,38 +246,46 @@ function WorldHub({ basePath }: { basePath: string }) {
 // Station faction aside — shows ruling + disrupting factions for a station
 // ---------------------------------------------------------------------------
 function StationFactions({
-  rulingFaction,
+  rulingFactions,
   disruptingFactions,
   basePath,
 }: {
-  rulingFaction?: string;
+  rulingFactions?: string[];
   disruptingFactions?: string[];
   basePath: string;
 }) {
-  const ruling = rulingFaction ? getFactionById(rulingFaction) : null;
+  const ruling = (rulingFactions ?? [])
+    .map((id) => getFactionById(id))
+    .filter(Boolean) as (typeof factions)[number][];
   const disrupting = (disruptingFactions ?? [])
     .map((id) => getFactionById(id))
     .filter(Boolean) as (typeof factions)[number][];
 
-  if (!ruling && disrupting.length === 0) return null;
+  if (ruling.length === 0 && disrupting.length === 0) return null;
 
   return (
     <div className="px-4 tablet:pr-8 tablet:pl-0">
       <Heading className="mb-3">Faktiot</Heading>
       <div className="space-y-3">
-        {ruling && (
+        {ruling.length > 0 && (
           <div>
             <Text variant="label" className="mb-1.5 block">
-              Hallitseva faktio
+              {ruling.length === 1 ? "Hallitseva faktio" : "Hallitsevat faktiot"}
             </Text>
-            <FactionBadge
-              factionName={ruling.name}
-              color={ruling.color}
-              iconName={ruling.icon}
-              href={`${basePath}/faktiot/${ruling.id}`}
-              variant="card"
-              className="w-full"
-            />
+            <div className="space-y-1.5">
+              {ruling.map((f) => (
+                <FactionBadge
+                  key={f.id}
+                  factionName={f.name}
+                  color={f.color}
+                  secondaryColor={f.secondaryColor}
+                  iconName={f.icon}
+                  href={`${basePath}/faktiot/${f.id}`}
+                  variant="card"
+                  className="w-full"
+                />
+              ))}
+            </div>
           </div>
         )}
         {disrupting.length > 0 && (
@@ -272,6 +299,7 @@ function StationFactions({
                   key={f.id}
                   factionName={f.name}
                   color={f.color}
+                  secondaryColor={f.secondaryColor}
                   iconName={f.icon}
                   href={`${basePath}/faktiot/${f.id}`}
                   variant="card"
@@ -288,17 +316,124 @@ function StationFactions({
 }
 
 // ---------------------------------------------------------------------------
+// Station version history — sidebar card listing all historical snapshots
+// ---------------------------------------------------------------------------
+function StationVersionHistory({
+  versions,
+  currentEpisode,
+  stationId,
+  basePath,
+  category,
+}: {
+  versions: WorldEntry[];
+  currentEpisode: string | null;
+  stationId: string;
+  basePath: string;
+  category: string;
+}) {
+  if (versions.length === 0) return null;
+
+  const canonicalHref = `${basePath}/${category}/${stationId}`;
+
+  return (
+    <div className="px-4 tablet:pr-8 tablet:pl-0">
+      <Heading className="mb-3">Versiohistoria</Heading>
+      <div className="space-y-1">
+        {/* Current version entry */}
+        <a
+          href={canonicalHref}
+          className="flex items-center gap-2 py-1.5 px-2 rounded-sm no-underline group"
+          style={{
+            background: !currentEpisode
+              ? "var(--theme-primary)/10"
+              : "transparent",
+          }}
+        >
+          <span
+            className="w-2 h-2 rounded-full shrink-0 transition-colors"
+            style={{
+              background: !currentEpisode
+                ? "var(--theme-primary)"
+                : "var(--theme-border-medium)",
+            }}
+          />
+          <Text
+            variant="label"
+            className="text-xs"
+            style={{
+              color: !currentEpisode
+                ? "var(--theme-primary)"
+                : "var(--theme-text-muted)",
+            }}
+          >
+            Nykytila
+          </Text>
+        </a>
+
+        {/* Historical version entries, oldest first */}
+        {versions.map((v) => {
+          const isActive = currentEpisode === v.episode;
+          const href = `${canonicalHref}?versio=${v.episode}`;
+          return (
+            <a
+              key={v.episode}
+              href={href}
+              className="flex items-start gap-2 py-1.5 px-2 rounded-sm no-underline group"
+              style={{
+                background: isActive ? "var(--theme-accent)/10" : "transparent",
+              }}
+            >
+              <span
+                className="w-2 h-2 rounded-full shrink-0 mt-0.5 transition-colors"
+                style={{
+                  background: isActive
+                    ? "var(--theme-accent)"
+                    : "var(--theme-border-medium)",
+                }}
+              />
+              <Text
+                variant="label"
+                className="text-xs leading-snug"
+                style={{
+                  color: isActive
+                    ? "var(--theme-accent)"
+                    : "var(--theme-text-muted)",
+                }}
+              >
+                {v.episode_label ?? v.episode}
+              </Text>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Article content — a single entry rendered with progress tracking
 // ---------------------------------------------------------------------------
-function ArticleContent({ entry, basePath }: { entry: WorldEntry; basePath: string }) {
+function ArticleContent({
+  entry,
+  versionEntry,
+  basePath,
+}: {
+  entry: WorldEntry;
+  versionEntry?: WorldEntry;
+  basePath: string;
+}) {
+  // The displayed entry is the version snapshot when viewing history, otherwise canonical
+  const displayed = versionEntry ?? entry;
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const articleRef = useRef<HTMLDivElement>(null);
 
   const categoryEntries = entriesForCategory(entry.category);
   const currentIndex = categoryEntries.findIndex((e) => e.id === entry.id);
+  const versions = versionsForStation(entry.id);
 
-  // Swipe navigation between stations (mobile)
+  // Swipe navigation between stations (mobile) — always navigates to canonical (no version param)
   useEffect(() => {
     let startX = 0;
     const onTouchStart = (e: TouchEvent) => {
@@ -332,16 +467,20 @@ function ArticleContent({ entry, basePath }: { entry: WorldEntry; basePath: stri
   });
 
   const connectionNodes = buildConnectionNodes(entry.title);
-  const hasFactionData = !!(entry.ruling_faction || entry.disrupting_factions?.length);
-  const hasSidebar = connectionNodes.length > 0 || hasFactionData;
+  // Faction data comes from the displayed entry (historical factions if viewing a snapshot)
+  const hasFactionData = !!(displayed.ruling_faction?.length || displayed.disrupting_factions?.length);
+  const hasVersions = versions.length > 0;
+  const hasSidebar = connectionNodes.length > 0 || hasFactionData || hasVersions;
+
+  const canonicalHref = `${basePath}/${entry.category}/${entry.id}`;
 
   return (
     <>
       <HeadingLevelProvider>
         <Hero
           title={entry.title}
-          description={entry.description}
-          backgroundImageSrc={entry.image ? resolveRemoteAssetUrl(entry.image) : undefined}
+          description={displayed.description}
+          backgroundImageSrc={displayed.image ? resolveRemoteAssetUrl(displayed.image) : undefined}
         />
       </HeadingLevelProvider>
 
@@ -359,13 +498,37 @@ function ArticleContent({ entry, basePath }: { entry: WorldEntry; basePath: stri
             { label: entry.title },
           ]}
         />
+
+        {/* Historical version banner */}
+        {versionEntry && (
+          <NoticePanel
+            className={hasSidebar ? "col-span-full" : undefined}
+            variant="info"
+            title={versionEntry.episode_label ?? `Versio: ${versionEntry.episode}`}
+            actions={
+              <a
+                href={canonicalHref}
+                className="text-sm font-medium text-[var(--theme-accent)] hover:underline no-underline"
+              >
+                → Palaa nykytilaan
+              </a>
+            }
+          >
+            <Text variant="body" className="text-sm">
+              {versionEntry.snapshot_note
+                ? versionEntry.snapshot_note
+                : "Olet lukemassa tämän aseman historiallista kuvausta."}
+            </Text>
+          </NoticePanel>
+        )}
+
         <div
           ref={articleRef}
           className={`animate-in fade-in duration-500 space-y-6${hasSidebar ? "" : "mx-auto max-w-3xl"}`}
         >
           <HeadingLevelProvider>
             <MarkdownRenderer headingIdPrefix={`world-${entry.id}`}>
-              {entry.content}
+              {displayed.content}
             </MarkdownRenderer>
           </HeadingLevelProvider>
         </div>
@@ -377,7 +540,7 @@ function ArticleContent({ entry, basePath }: { entry: WorldEntry; basePath: stri
                 {connectionNodes.length > 0 && (
                   <StationConnections
                     connections={connectionNodes}
-                    tension={entry.tension}
+                    tension={displayed.tension}
                     currentStationOrder={entry.order}
                     currentStationTitle={entry.title}
                     stations={categoryEntries}
@@ -386,9 +549,18 @@ function ArticleContent({ entry, basePath }: { entry: WorldEntry; basePath: stri
                 )}
                 {hasFactionData && (
                   <StationFactions
-                    rulingFaction={entry.ruling_faction}
-                    disruptingFactions={entry.disrupting_factions}
+                    rulingFactions={displayed.ruling_faction}
+                    disruptingFactions={displayed.disrupting_factions}
                     basePath={basePath}
+                  />
+                )}
+                {hasVersions && (
+                  <StationVersionHistory
+                    versions={versions}
+                    currentEpisode={versionEntry?.episode ?? null}
+                    stationId={entry.id}
+                    basePath={basePath}
+                    category={entry.category}
                   />
                 )}
               </HeadingLevelProvider>
@@ -401,7 +573,7 @@ function ArticleContent({ entry, basePath }: { entry: WorldEntry; basePath: stri
 }
 
 // ---------------------------------------------------------------------------
-// Station detail route — reads :stationId param
+// Station detail route — reads :stationId param and optional ?versio= query param
 // ---------------------------------------------------------------------------
 function StationDetail({
   categoryEntries,
@@ -411,6 +583,7 @@ function StationDetail({
   basePath: string;
 }) {
   const { stationId } = useParams<{ stationId: string }>();
+  const [searchParams] = useSearchParams();
   const entry = categoryEntries.find((e) => e.id === stationId);
   const categoryId = categoryEntries[0]?.category ?? "";
 
@@ -418,7 +591,13 @@ function StationDetail({
     return <MfeNotFoundRedirect to={`${basePath}/${categoryId}`} />;
   }
 
-  return <ArticleContent entry={entry} basePath={basePath} />;
+  // Resolve optional historical version
+  const versioParam = searchParams.get("versio");
+  const versionEntry = versioParam
+    ? versionsForStation(entry.id).find((v) => v.episode === versioParam)
+    : undefined;
+
+  return <ArticleContent entry={entry} versionEntry={versionEntry} basePath={basePath} />;
 }
 
 // ---------------------------------------------------------------------------
@@ -606,10 +785,10 @@ function FaktiotHub({
   basePath: string;
 }) {
   const getStationCount = (factionId: string) =>
-    stationEntries.filter((s) => s.ruling_faction === factionId).length;
+    stationEntries.filter((s) => s.ruling_faction?.includes(factionId)).length;
 
   const getSubfactionCount = (factionId: string) =>
-    factiotEntries.filter((e) => e.parent === factionId).length;
+    factiotEntries.filter((e) => e.parent === factionId || e.secondary_parent === factionId).length;
 
   const ekklesiaEntry = factiotEntries.find((e) => e.id === "ekklesia");
   const tuhkanEntry = factiotEntries.find((e) => e.id === "tuhkan-puolue");
@@ -625,6 +804,7 @@ function FaktiotHub({
         name={entry.title}
         subtitle={entry.description}
         color={def?.color ?? "secondary"}
+        secondaryColor={def?.secondaryColor}
         iconName={def?.icon}
         href={`${basePath}/faktiot/${entry.id}`}
         className={className}
@@ -671,24 +851,64 @@ function FaktiotHub({
           {/* All factions grid */}
           <TextSection title="Kaikki faktiot">
             <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-4 mt-4">
-              {factiotEntries.map((entry) => {
-                const def = getFactionById(entry.id);
-                const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
-                return (
-                  <EntityCard
-                    key={entry.id}
-                    name={entry.title}
-                    subtitle={entry.description}
-                    color={def?.color ?? "secondary"}
-                    iconName={def?.icon}
-                    parentLabel={parentDef?.name}
-                    href={`${basePath}/faktiot/${entry.id}`}
-                    variant={entry.parent ? "npc" : "faction"}
-                  />
-                );
-              })}
+              {factiotEntries
+                .filter((entry) => !getHybridFactions().some((h) => h.id === entry.id))
+                .map((entry) => {
+                  const def = getFactionById(entry.id);
+                  const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
+                  return (
+                    <EntityCard
+                      key={entry.id}
+                      name={entry.title}
+                      subtitle={entry.description}
+                      color={def?.color ?? "secondary"}
+                      iconName={def?.icon}
+                      parentLabel={parentDef?.name}
+                      href={`${basePath}/faktiot/${entry.id}`}
+                      variant={entry.parent ? "npc" : "faction"}
+                    />
+                  );
+                })}
             </div>
           </TextSection>
+
+          {/* Hybrid factions section */}
+          {getHybridFactions().length > 0 && (() => {
+            const hybridEntries = factiotEntries.filter((entry) =>
+              getHybridFactions().some((h) => h.id === entry.id)
+            );
+            if (hybridEntries.length === 0) return null;
+            return (
+              <TextSection title="Hybridifaktiot">
+                <Text variant="body" className="mb-4">
+                  Nämä faktiot yhdistävät kahden suurvallan perinteet ja identiteetit.
+                </Text>
+                <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
+                  {hybridEntries.map((entry) => {
+                    const def = getFactionById(entry.id);
+                    const primaryParentDef = entry.parent ? getFactionById(entry.parent) : undefined;
+                    const secondaryParentDef = entry.secondary_parent ? getFactionById(entry.secondary_parent) : undefined;
+                    const parentLabel = [primaryParentDef?.name, secondaryParentDef?.name]
+                      .filter(Boolean)
+                      .join(" × ");
+                    return (
+                      <EntityCard
+                        key={entry.id}
+                        name={entry.title}
+                        subtitle={entry.description}
+                        color={def?.color ?? "primary"}
+                        secondaryColor={def?.secondaryColor}
+                        iconName={def?.icon}
+                        parentLabel={parentLabel || undefined}
+                        href={`${basePath}/faktiot/${entry.id}`}
+                        variant="faction"
+                      />
+                    );
+                  })}
+                </div>
+              </TextSection>
+            );
+          })()}
         </HeadingLevelProvider>
       </PageBody>
     </>
@@ -716,18 +936,26 @@ function FactionDetail({
 
   const def = getFactionById(entry.id);
   const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
-  const subEntries = entry.parent ? [] : factiotEntries.filter((e) => e.parent === entry.id);
+  const secondaryParentDef = entry.secondary_parent ? getFactionById(entry.secondary_parent) : undefined;
+  const subEntries = entry.parent
+    ? []
+    : factiotEntries.filter((e) => e.parent === entry.id || e.secondary_parent === entry.id);
 
-  const controlledStations = stationEntries.filter((s) => s.ruling_faction === entry.id);
+  const controlledStations = stationEntries.filter((s) => s.ruling_faction?.includes(entry.id));
   const disruptedStations = stationEntries.filter((s) => s.disrupting_factions?.includes(entry.id));
 
-  // Factions that control stations this faction disrupts (rivals)
+  // Rivals: factions whose stations we disrupt, OR factions that disrupt our stations
   const rivalIds = Array.from(
-    new Set(
-      stationEntries
-        .filter((s) => s.disrupting_factions?.includes(entry.id) && s.ruling_faction)
-        .map((s) => s.ruling_faction!),
-    ),
+    new Set([
+      // Factions that co-rule stations we disrupt
+      ...stationEntries
+        .filter((s) => s.disrupting_factions?.includes(entry.id) && s.ruling_faction?.length)
+        .flatMap((s) => s.ruling_faction!),
+      // Factions that disrupt stations we (co-)rule
+      ...stationEntries
+        .filter((s) => s.ruling_faction?.includes(entry.id) && s.disrupting_factions?.length)
+        .flatMap((s) => s.disrupting_factions!),
+    ]),
   );
   const rivals = rivalIds
     .map((id) => getFactionById(id))
@@ -776,6 +1004,7 @@ function FactionDetail({
                         name={sub.title}
                         subtitle={sub.description}
                         color={subDef?.color ?? accentColor}
+                        secondaryColor={subDef?.secondaryColor}
                         iconName={subDef?.icon}
                         href={`${basePath}/faktiot/${sub.id}`}
                         variant="npc"
@@ -836,20 +1065,34 @@ function FactionDetail({
           <PageAside sticky>
             <div className="space-y-4">
               {/* Parent faction link (subfactions only) */}
-              {parentDef && (
+              {(parentDef || secondaryParentDef) && (
                 <Card variant="outline">
                   <CardHeader>
                     <CardTitle>Emofaktio</CardTitle>
                   </CardHeader>
                   <CardContent variant="dense">
-                    <FactionBadge
-                      factionName={parentDef.name}
-                      color={def?.color ?? "secondary"}
-                      iconName={parentDef.icon}
-                      href={`${basePath}/faktiot/${parentDef.id}`}
-                      variant="card"
-                      className="w-full"
-                    />
+                    <div className="space-y-1.5">
+                      {parentDef && (
+                        <FactionBadge
+                          factionName={parentDef.name}
+                          color={parentDef.color}
+                          iconName={parentDef.icon}
+                          href={`${basePath}/faktiot/${parentDef.id}`}
+                          variant="card"
+                          className="w-full"
+                        />
+                      )}
+                      {secondaryParentDef && (
+                        <FactionBadge
+                          factionName={secondaryParentDef.name}
+                          color={secondaryParentDef.color}
+                          iconName={secondaryParentDef.icon}
+                          href={`${basePath}/faktiot/${secondaryParentDef.id}`}
+                          variant="card"
+                          className="w-full"
+                        />
+                      )}
+                    </div>
                   </CardContent>
                 </Card>
               )}
@@ -898,6 +1141,7 @@ function FactionDetail({
                           key={rival.id}
                           factionName={rival.name}
                           color={rival.color}
+                          secondaryColor={rival.secondaryColor}
                           iconName={rival.icon}
                           href={`${basePath}/faktiot/${rival.id}`}
                           variant="card"
@@ -924,6 +1168,7 @@ function FactionDetail({
                             key={sub.id}
                             factionName={sub.title}
                             color={subDef?.color ?? accentColor}
+                            secondaryColor={subDef?.secondaryColor}
                             iconName={subDef?.icon}
                             href={`${basePath}/faktiot/${sub.id}`}
                             variant="card"

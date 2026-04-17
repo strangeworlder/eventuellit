@@ -63,6 +63,20 @@ export const WithImage: Story = {
   },
 };
 
+/** Hybrid faction — diagonal split header gradient with dual identity */
+export const HybridFaction: Story = {
+  args: {
+    name: "Kokemuspuolue",
+    subtitle: "Eletty tieto: yhteisöllinen kokemusliike, joka yhdistää muistin voiman ja merkityksen etsimisen.",
+    color: "primary",
+    secondaryColor: "accent",
+    iconName: "heart-pulse",
+    parentLabel: "Tuhkan puolue × Ekklesia",
+    variant: "faction",
+    href: "/world/faktiot/kokemuspuolue",
+  },
+};
+
 export const WithChildren: Story = {
   args: {
     name: "KW-konsortio",
@@ -197,6 +211,16 @@ export const AllFaktiotGrid: Story = {
           parentLabel="KW-konsortio"
           variant="npc"
           href="/world/faktiot/haaskalinnut"
+        />
+        <EntityCard
+          name="Kokemuspuolue"
+          subtitle="Eletty tieto."
+          color="primary"
+          secondaryColor="accent"
+          iconName="heart-pulse"
+          parentLabel="Tuhkan puolue × Ekklesia"
+          variant="faction"
+          href="/world/faktiot/kokemuspuolue"
         />
       </Grid>
     </MemoryRouter>

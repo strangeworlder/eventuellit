@@ -19,6 +19,12 @@ function getDatabaseUrl() {
       useFactory: () => {
         const pool = new Pool({
           connectionString: getDatabaseUrl(),
+          // Railway Postgres has a 20-connection limit; 5 is safe for this app
+          max: 5,
+          // Release idle connections after 30 s instead of holding them forever
+          idleTimeoutMillis: 30_000,
+          // Fail fast rather than queuing requests indefinitely
+          connectionTimeoutMillis: 5_000,
         });
         return drizzle(pool, { schema });
       },

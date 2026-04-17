@@ -4,18 +4,28 @@ import { Resend } from "resend";
 @Injectable()
 export class MailService {
   private readonly logger = new Logger(MailService.name);
+  private resendClient: Resend | null = null;
+
+  private getResendClient(): Resend {
+    if (!this.resendClient) {
+      const apiKey = process.env.RESEND_API_KEY;
+      if (!apiKey) throw new Error("RESEND_API_KEY is not set");
+      this.resendClient = new Resend(apiKey);
+    }
+    return this.resendClient;
+  }
 
   async sendMagicLink(email: string, link: string): Promise<void> {
     if (process.env.NODE_ENV === "production") {
-      const apiKey = process.env.RESEND_API_KEY;
-
-      if (!apiKey) {
+      let resend: Resend;
+      try {
+        resend = this.getResendClient();
+      } catch {
         this.logger.warn("RESEND_API_KEY is not set. Falling back to console logging.");
         this.logger.log(`[PRODUCTION] Magic link for ${email}: ${link}`);
         return;
       }
 
-      const resend = new Resend(apiKey);
       const { error } = await resend.emails.send({
         from: "Eventuellit <noreply@eventuell.it>",
         to: email,

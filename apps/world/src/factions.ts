@@ -6,8 +6,18 @@ export interface FactionDef {
   name: string;
   color: FactionColor;
   icon: IconName;
-  /** Parent faction id — undefined for the three main factions */
+  /** Primary parent faction id — undefined for the three main factions */
   parent?: string;
+  /**
+   * Secondary color identity for hybrid factions.
+   * When set, this faction visually blends two main faction identities.
+   */
+  secondaryColor?: FactionColor;
+  /**
+   * Secondary parent faction id for hybrid factions.
+   * Combined with `parent`, expresses dual lineage.
+   */
+  secondaryParent?: string;
 }
 
 /**
@@ -16,6 +26,8 @@ export interface FactionDef {
  *   primary (coral)   → Tuhkan puolue and its subfactions
  *   secondary (teal)  → KW-konsortio and its subfactions
  *   accent (blue)     → Ekklesia and its subfactions
+ *
+ * Hybrid factions blend two main faction identities via color + secondaryColor.
  */
 export const factions: FactionDef[] = [
   // ── Main factions ────────────────────────────────────────────────────────
@@ -73,6 +85,17 @@ export const factions: FactionDef[] = [
   },
   { id: "verhonkutojat", name: "Verhonkutojat", color: "accent", icon: "map", parent: "ekklesia" },
   { id: "haaskalinnut", name: "Haaskalinnut", color: "accent", icon: "zap", parent: "ekklesia" },
+
+  // ── Hybrid factions ───────────────────────────────────────────────────
+  {
+    id: "kokemuspuolue",
+    name: "Kokemuspuolue",
+    color: "primary",
+    secondaryColor: "accent",
+    icon: "heart-pulse",
+    parent: "tuhkan-puolue",
+    secondaryParent: "ekklesia",
+  },
 ];
 
 export function getFactionById(id: string): FactionDef | undefined {
@@ -80,9 +103,19 @@ export function getFactionById(id: string): FactionDef | undefined {
 }
 
 export function getMainFactions(): FactionDef[] {
-  return factions.filter((f) => !f.parent);
+  return factions.filter((f) => !f.parent && !f.secondaryColor);
 }
 
 export function getSubfactions(parentId: string): FactionDef[] {
-  return factions.filter((f) => f.parent === parentId);
+  return factions.filter((f) => f.parent === parentId && !f.secondaryColor);
+}
+
+/** Returns all hybrid factions — those with both a primary and secondary color identity. */
+export function getHybridFactions(): FactionDef[] {
+  return factions.filter((f) => !!f.secondaryColor);
+}
+
+/** Returns true if a faction is a hybrid (blends two main faction identities). */
+export function isHybridFaction(def: FactionDef): boolean {
+  return !!def.secondaryColor;
 }

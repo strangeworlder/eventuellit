@@ -74,17 +74,19 @@ export class EpisodePlayersService {
 
   async isEnrolled(episodeId: number, userId: number): Promise<boolean> {
     const rows = await this.db
-      .select()
+      .select({ id: episodePlayers.id })
       .from(episodePlayers)
-      .where(and(eq(episodePlayers.episodeId, episodeId), eq(episodePlayers.userId, userId)));
+      .where(and(eq(episodePlayers.episodeId, episodeId), eq(episodePlayers.userId, userId)))
+      .limit(1);
     return rows.length > 0;
   }
 
   async hasAnyEnrollments(episodeId: number): Promise<boolean> {
     const rows = await this.db
-      .select()
+      .select({ id: episodePlayers.id })
       .from(episodePlayers)
-      .where(eq(episodePlayers.episodeId, episodeId));
+      .where(eq(episodePlayers.episodeId, episodeId))
+      .limit(1);
     return rows.length > 0;
   }
 

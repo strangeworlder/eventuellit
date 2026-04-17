@@ -72,6 +72,29 @@ export const DisruptingFaction: Story = {
   },
 };
 
+/** Hybrid faction — diagonal split dot, dual heritage */
+export const HybridFaction: Story = {
+  args: {
+    factionName: "Kokemuspuolue",
+    parentFactionName: "Tuhkan puolue × Ekklesia",
+    color: "primary",
+    secondaryColor: "accent",
+    variant: "inline",
+  },
+};
+
+/** Hybrid faction card variant — gradient left border */
+export const HybridCardVariant: Story = {
+  args: {
+    factionName: "Kokemuspuolue",
+    color: "primary",
+    secondaryColor: "accent",
+    iconName: "heart-pulse",
+    variant: "card",
+    href: "/world/faktiot/kokemuspuolue",
+  },
+};
+
 export const CardVariant: Story = {
   args: {
     factionName: "Tuhkan puolue",
@@ -113,6 +136,15 @@ export const AllThree: Story = {
         />
         <FactionBadge factionName="Verhonkutojat" parentFactionName="Ekklesia" color="accent" />
       </Stack>
+      {/* Hybrid faction */}
+      <Stack gap={2}>
+        <FactionBadge
+          factionName="Kokemuspuolue"
+          parentFactionName="Tuhkan puolue × Ekklesia"
+          color="primary"
+          secondaryColor="accent"
+        />
+      </Stack>
       <Stack direction="column" gap={2} className="max-w-xs">
         <FactionBadge
           factionName="Tuhkan puolue"
@@ -127,6 +159,14 @@ export const AllThree: Story = {
           variant="card"
           disrupting
           href="/world/faktiot/ratasvartio"
+        />
+        <FactionBadge
+          factionName="Kokemuspuolue"
+          color="primary"
+          secondaryColor="accent"
+          iconName="heart-pulse"
+          variant="card"
+          href="/world/faktiot/kokemuspuolue"
         />
       </Stack>
     </Stack>

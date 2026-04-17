@@ -24,6 +24,91 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.1.3",
+    date: "2026-04-17",
+    name: "Hybridifaktiot ja versiohistoria",
+    features: [
+      {
+        title: "Hybridifaktiot",
+        description:
+          "Maailma tukee nyt faktioita, jotka yhdistävät kahden pääfaktion perinteet. Hybridifaktion nimi, kuvake ja värimaailma heijastavat molempia emofaktioita. Ensimmäinen hybridifaktio — Kokemuspuolue — on lisätty.",
+        link: { label: "Tutustu Kokemuspuolueeseen", to: "/world/faktiot/kokemuspuolue" },
+      },
+      {
+        title: "Asemien versiohistoria",
+        description:
+          "Asemien kuvaukset päivittyvät pelisessioiden myötä. Vanha sisältö arkistoituu versiohistoriaan, jota voi selata sivupalkista. Näet miten asema muuttui kunkin jakson jälkeen.",
+        link: { label: "Katso Verson historia", to: "/world/kynnys/03-verso?versio=jakso-2" },
+      },
+      {
+        title: "Useita hallitsevia faktioita",
+        description:
+          "Asemilla voi nyt olla useampi hallitseva faktio samanaikaisesti. Faktioiden visuaalinen esitys ja rivaalilaskenta päivitetty vastaamaan jaettua hallintaa.",
+      },
+    ],
+    major: [
+      {
+        title: "Häkki — asema-artikkeli uudistettu",
+        description:
+          "Häkin asema-artikkeli kirjoitettu kokonaan uudelleen. Uusi sisältö kattaa aseman klaustrofobisen arkkitehtuurin, Pyhän Tragedian lasten uskonnollisen urheilukultin, Heimolaisten perhekeskeisen vallan, Arven salakuljetusverkon ja aseman roolin Kynnyksen tuomiokoneiston osana.",
+        link: { label: "Lue Häkki-artikkeli", to: "/world/kynnys/14-hakki" },
+      },
+      {
+        title: "Verso — artikkeli päivitetty jakson 2 jälkeen",
+        description:
+          "Verson asema-artikkelia päivitetty vallankumouksen seurauksilla. Uudet hallitsevat faktiot (Tuhkan puolue, Muotinvalajat) ja päivitetyt jännitteet.",
+        link: { label: "Lue Verso-artikkeli", to: "/world/kynnys/03-verso" },
+      },
+      {
+        title: "Palvelimen muistinkäytön optimointi",
+        description:
+          "Tietokantakyselyiden tehokkuutta parannettu merkittävästi. Dashboard-palvelu uudelleenkirjoitettu erähakuilla yksittäisten kyselyjen sijaan. Tietokantayhteyspooli rajoitettu viidelle samanaikaiselle yhteydelle.",
+      },
+    ],
+    minor: [
+      {
+        title: "Symmetrinen faktiorivaalisto",
+        description:
+          "Faktioiden rivaalisto on nyt kaksisuuntainen: jos faktio A häiritsee faktion B asemaa, myös B pitää A:ta kilpailijanaan.",
+      },
+      {
+        title: "FactionBadge — hybridituki",
+        description:
+          "FactionBadge-komponentti tukee nyt kahden värin liukuväritekstiä, diagonaalista väripistettä ja liukuvärireunaviivaa hybridifaktioille.",
+      },
+      {
+        title: "EntityCard — hybridituki",
+        description:
+          "EntityCard-kortin header-gradientti ja aksenttiviiva tukevat nyt hybridifaktioiden kahta väriä.",
+      },
+      {
+        title: "OpenGraph-kuvien valinta korjattu",
+        description:
+          "Episodien og:image valitsee nyt kuvavariantin lähimpänä 1200px leveyttä leveimmän sijaan. Puuttuvan remote origin -muuttujan käsittely korjattu.",
+      },
+      {
+        title: "Resend-sähköpostipalvelun yhteys",
+        description:
+          "Resend API -yhteys luodaan nyt kerran ja välimuistitetaan. Puuttuva API-avain ei kaada palvelinta, vaan kirjaa varoituksen.",
+      },
+      {
+        title: "Tietokantakyselyiden optimointi",
+        description:
+          "Rajoittamattomat select()-kyselyt korvattu kohdennetuilla sarakevalinnoilla ja LIMIT-rajoituksilla. ReadingProgress-palvelun skannaus rajattu WHERE-ehdolla.",
+      },
+      {
+        title: "Storybook-tarinat päivitetty",
+        description:
+          "Uudet tarinat FactionBadge- ja EntityCard-komponenttien hybridifaktiovarianteille.",
+      },
+      {
+        title: "Palvelimen käännösasetukset",
+        description:
+          "Source map -generointi poistettu tuotantokäännöksestä tiedostokoon pienentämiseksi.",
+      },
+    ],
+  },
+  {
     version: "0.1.2",
     date: "2026-04-09",
     name: "Omat kuvakkeet",

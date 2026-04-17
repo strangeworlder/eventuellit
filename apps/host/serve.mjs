@@ -47,8 +47,13 @@ function resolveImageUrl(entry, hostOrigin) {
     const imgPath = entry.image.startsWith("/") ? entry.image : `/${entry.image}`;
     return `${origin}${imgPath}`;
   }
-  if (entry?.image && !entry?.imageOrigin) {
-    // Image path is host-local (e.g. og-default.jpg)
+  if (entry?.image) {
+    // imageOrigin is set but the remote origin env var is missing — fall back to host
+    if (entry.imageOrigin && !remoteOrigins[entry.imageOrigin]) {
+      console.warn(
+        `Missing remote origin env var for "${entry.imageOrigin}" — falling back to host for og:image`,
+      );
+    }
     return `${hostOrigin}${entry.image}`;
   }
   return `${hostOrigin}/images/og-default.jpg`;

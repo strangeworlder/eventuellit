@@ -107,8 +107,11 @@ async function resolveEpisodeImagePath(key, episodesManifest) {
   if (!entry || !entry.variants || entry.variants.length === 0) {
     return `/images/${key}.jpg`;
   }
-  // Pick the widest variant that has a jpg
-  const sorted = [...entry.variants].sort((a, b) => b.width - a.width);
+  // Pick the variant closest to 1200px (ideal og:image width)
+  const OG_TARGET = 1200;
+  const sorted = [...entry.variants].sort(
+    (a, b) => Math.abs(a.width - OG_TARGET) - Math.abs(b.width - OG_TARGET),
+  );
   return sorted[0].jpg ?? `/images/${key}.jpg`;
 }
 

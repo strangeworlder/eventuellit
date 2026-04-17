@@ -24,6 +24,12 @@ export interface EntityCardProps extends React.HTMLAttributes<HTMLDivElement> {
   iconName?: IconName;
   /** Faction color identity — used for header gradient and accent stripe */
   color?: FactionColor;
+  /**
+   * Secondary color for hybrid factions.
+   * When set, the header shows a diagonal split gradient between both faction colors.
+   * The accent stripe becomes a horizontal gradient.
+   */
+  secondaryColor?: FactionColor;
   /** Overlay badge in the card header (e.g. parent faction name) */
   parentLabel?: string;
   /**
@@ -53,6 +59,7 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(
       imageUrl,
       iconName,
       color = "secondary",
+      secondaryColor,
       parentLabel,
       variant = "faction",
       href,
@@ -64,6 +71,7 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(
     ref,
   ) => {
     const c = FACTION_COLOR_VARS[color];
+    const c2 = secondaryColor ? FACTION_COLOR_VARS[secondaryColor] : null;
     const headerCls = variant === "npc" ? "h-20" : "h-24";
 
     return (
@@ -97,7 +105,9 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(
         <div
           className={cn("relative overflow-hidden", headerCls)}
           style={{
-            background: `linear-gradient(135deg, color-mix(in srgb, ${c} 18%, transparent), color-mix(in srgb, ${c} 6%, transparent))`,
+            background: c2
+              ? `linear-gradient(135deg, color-mix(in srgb, ${c} 22%, transparent) 0%, color-mix(in srgb, ${c2} 22%, transparent) 100%)`
+              : `linear-gradient(135deg, color-mix(in srgb, ${c} 18%, transparent), color-mix(in srgb, ${c} 6%, transparent))`,
           }}
         >
           {imageUrl ? (
@@ -141,7 +151,13 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(
           {/* Bottom accent stripe */}
           <div
             className="absolute bottom-0 left-0 right-0 h-px"
-            style={{ backgroundColor: c, opacity: 0.5 }}
+            style={{
+              background: c2
+                ? `linear-gradient(90deg, ${c} 0%, ${c2} 100%)`
+                : c,
+              backgroundColor: c2 ? undefined : c,
+              opacity: 0.5,
+            }}
           />
 
           {/* Parent faction overlay badge */}

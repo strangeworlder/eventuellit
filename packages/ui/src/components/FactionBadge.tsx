@@ -40,6 +40,12 @@ export interface FactionBadgeProps extends React.HTMLAttributes<HTMLDivElement> 
   /** Faction color identity — maps to the global palette */
   color?: FactionColor;
   /**
+   * Secondary color for hybrid factions.
+   * When set, the color indicator shows a diagonal split between primary and secondary colors.
+   * The card border becomes a vertical gradient between the two colors.
+   */
+  secondaryColor?: FactionColor;
+  /**
    * Faction icon. In the card variant replaces the color dot with a recognizable symbol.
    * Ignored in the inline variant (dot is used instead for compactness).
    */
@@ -66,6 +72,7 @@ export const FactionBadge = React.forwardRef<HTMLDivElement, FactionBadgeProps>(
       factionName,
       parentFactionName,
       color = "secondary",
+      secondaryColor,
       iconName,
       href,
       variant = "inline",
@@ -80,6 +87,11 @@ export const FactionBadge = React.forwardRef<HTMLDivElement, FactionBadgeProps>(
     const c = href && hovered ? FACTION_COLOR_HOVER_VARS[color] : FACTION_COLOR_VARS[color];
     const cMuted =
       href && hovered ? FACTION_COLOR_MUTED_HOVER_VARS[color] : FACTION_COLOR_MUTED_VARS[color];
+    const c2 = secondaryColor
+      ? href && hovered
+        ? FACTION_COLOR_HOVER_VARS[secondaryColor]
+        : FACTION_COLOR_VARS[secondaryColor]
+      : null;
 
     const innerCls = cn(
       "inline-flex items-center gap-1.5 font-sans font-semibold",
@@ -90,11 +102,20 @@ export const FactionBadge = React.forwardRef<HTMLDivElement, FactionBadgeProps>(
 
     const cardStyle: React.CSSProperties =
       variant === "card"
-        ? {
-            borderColor: c,
-            backgroundColor: `color-mix(in srgb, ${c} 8%, transparent)`,
-            transition: COLOR_TRANSITION,
-          }
+        ? c2
+          ? {
+              // Hybrid: gradient border-left simulated via background-image on the border side
+              borderColor: "transparent",
+              borderLeftColor: "transparent",
+              borderImage: `linear-gradient(180deg, ${c} 0%, ${c2} 100%) 1`,
+              backgroundColor: `color-mix(in srgb, ${c} 6%, color-mix(in srgb, ${c2} 6%, transparent))`,
+              transition: COLOR_TRANSITION,
+            }
+          : {
+              borderColor: c,
+              backgroundColor: `color-mix(in srgb, ${c} 8%, transparent)`,
+              transition: COLOR_TRANSITION,
+            }
         : {};
 
     const hoverHandlers = href
@@ -118,6 +139,16 @@ export const FactionBadge = React.forwardRef<HTMLDivElement, FactionBadgeProps>(
             }}
             aria-hidden="true"
           />
+        ) : c2 ? (
+          // Hybrid: diagonal split dot
+          <span
+            className={cn("shrink-0 rounded-full block", disrupting ? "w-1.5 h-1.5" : "w-2 h-2")}
+            style={{
+              background: `linear-gradient(135deg, ${c} 50%, ${c2} 50%)`,
+              transition: COLOR_TRANSITION,
+            }}
+            aria-hidden="true"
+          />
         ) : (
           <span
             className={cn("shrink-0 rounded-full block", disrupting ? "w-1.5 h-1.5" : "w-2 h-2")}
@@ -125,14 +156,39 @@ export const FactionBadge = React.forwardRef<HTMLDivElement, FactionBadgeProps>(
             aria-hidden="true"
           />
         )}
-        <span style={{ color: c, transition: COLOR_TRANSITION }}>
-          {parentFactionName && (
-            <span className="text-text-subtle font-normal">
-              {parentFactionName} {"\u203a"}{" "}
+        {c2 ? (
+          <>
+            {parentFactionName && (
+              <span className="text-text-subtle font-normal" style={{ transition: COLOR_TRANSITION }}>
+                {parentFactionName} {"\u203a"}{" "}
+              </span>
+            )}
+            <span
+              style={{
+                // Always use base palette for gradient — hover uses filter:brightness below
+                background: `linear-gradient(135deg, ${FACTION_COLOR_VARS[color]} 30%, ${FACTION_COLOR_VARS[secondaryColor!]} 100%)`,
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                color: "transparent",
+                // filter:brightness transitions smoothly — unlike gradient/color on clipped text
+                filter: href && hovered ? "brightness(1.35)" : "brightness(1)",
+                transition: "filter 180ms ease",
+              }}
+            >
+              {factionName}
             </span>
-          )}
-          {factionName}
-        </span>
+          </>
+        ) : (
+          <span style={{ color: c, transition: COLOR_TRANSITION }}>
+            {parentFactionName && (
+              <span className="text-text-subtle font-normal">
+                {parentFactionName} {"\u203a"}{" "}
+              </span>
+            )}
+            {factionName}
+          </span>
+        )}
         {disrupting && (
           <Icon name="zap" size={10} style={{ color: cMuted, transition: COLOR_TRANSITION }} />
         )}

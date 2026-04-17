@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { and, eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
@@ -71,9 +71,10 @@ export class ReadingProgressService {
         username: users.username,
       })
       .from(playerReadingProgress)
-      .leftJoin(users, eq(playerReadingProgress.userId, users.id));
+      .leftJoin(users, eq(playerReadingProgress.userId, users.id))
+      .where(inArray(playerReadingProgress.readingItemId, itemIds));
 
-    const relevantProgress = progressRows.filter((r) => itemIds.includes(r.readingItemId));
+    const relevantProgress = progressRows;
 
     const byUser = new Map<
       number,
