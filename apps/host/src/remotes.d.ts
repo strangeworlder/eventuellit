@@ -2,3 +2,4 @@ declare module "generator/App";
 declare module "ruleset/App";
 declare module "episodes/App";
 declare module "world/App";
+declare module "ship/App";

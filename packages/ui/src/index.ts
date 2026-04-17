@@ -38,6 +38,9 @@ export { Card } from "./components/Card";
 export { Checkbox } from "./components/Checkbox";
 export type { CodeProps } from "./components/Code";
 export { Code } from "./components/Code";
+export type { ComboboxOption, ComboboxProps } from "./components/Combobox";
+/** Storybook: Suunnittelujarjestelma/Molekyylit/Combobox */
+export { Combobox } from "./components/Combobox";
 export type { ConfirmDialogProps } from "./components/ConfirmDialog";
 export { ConfirmDialog } from "./components/ConfirmDialog";
 export type { DatePickerProps } from "./components/DatePicker";

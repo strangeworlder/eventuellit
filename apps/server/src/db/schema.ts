@@ -209,3 +209,53 @@ export const episodeInvites = pgTable("episode_invites", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   respondedAt: timestamp("responded_at"),
 });
+
+// ─── Ship Manifest ────────────────────────────────────────────────────────────
+
+/** The campaign vessel. One row for the single active campaign. */
+export const ships = pgTable("ships", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull().default("Alus"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+/**
+ * Individual rooms/compartments on the ship.
+ *
+ * Ownership state machine:
+ *   ownerId=null, claimantId=null  → unclaimed (anyone can edit)
+ *   ownerId=null, claimantId=set   → pending claim (frozen, GM must approve/reject)
+ *   ownerId=set                    → owned (only owner can edit)
+ *   isLocked=true                  → GM-locked (only GM can edit)
+ */
+export const shipRooms = pgTable("ship_rooms", {
+  id: serial("id").primaryKey(),
+  shipId: integer("ship_id")
+    .references(() => ships.id, { onDelete: "cascade" })
+    .notNull(),
+  /** Matches the <path id="..."> in the frontend SVG blueprint */
+  svgElementId: text("svg_element_id").notNull(),
+  name: text("name").notNull(),
+  function: text("function"),
+  contents: text("contents"),
+  /** Confirmed owner — set by GM approving a claim */
+  ownerId: integer("owner_id").references(() => users.id),
+  /** Pending claimant — room is frozen until GM approves or rejects */
+  claimantId: integer("claimant_id").references(() => users.id),
+  /** When true, only the GM can edit this room */
+  isLocked: boolean("is_locked").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+/** Maps characters to their current room on the ship. */
+export const roomOccupancies = pgTable("room_occupancies", {
+  id: serial("id").primaryKey(),
+  roomId: integer("room_id")
+    .references(() => shipRooms.id, { onDelete: "cascade" })
+    .notNull(),
+  characterId: integer("character_id")
+    .references(() => characters.id, { onDelete: "cascade" })
+    .notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

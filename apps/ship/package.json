@@ -1,0 +1,43 @@
+{
+    "name": "@eventuellit/ship",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+        "dev": "concurrently \"vite build --watch\" \"vite preview\"",
+        "build": "npm run build --workspace=@repo/ui && tsc -b && vite build",
+        "start": "node serve.mjs",
+        "lint": "eslint .",
+        "preview": "vite preview",
+        "check-types": "npm run build --workspace=@repo/ui && tsc -b --noEmit"
+    },
+    "dependencies": {
+        "@originjs/vite-plugin-federation": "^1.4.1",
+        "@repo/auth": "*",
+        "@repo/ui": "*",
+        "@tanstack/react-query": "^5.90.21",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "react-router-dom": "^7.13.1",
+        "sirv": "^3.0.2"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.1",
+        "@tailwindcss/vite": "^4.2.1",
+        "@types/node": "^24.10.1",
+        "@types/react": "^19.2.7",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^5.1.1",
+        "autoprefixer": "^10.4.27",
+        "concurrently": "^9.1.2",
+        "eslint": "^9.39.1",
+        "eslint-plugin-react-hooks": "^7.0.1",
+        "eslint-plugin-react-refresh": "^0.4.20",
+        "globals": "^16.5.0",
+        "postcss": "^8.5.6",
+        "tailwindcss": "^4.2.1",
+        "typescript": "~5.9.3",
+        "typescript-eslint": "^8.48.0",
+        "vite": "^7.3.1"
+    }
+}

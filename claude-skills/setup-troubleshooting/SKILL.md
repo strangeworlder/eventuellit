@@ -14,7 +14,7 @@ description: Local development environment setup, prerequisites, and fixes for c
 ## Initial Setup
 
 ```bash
-npx kill-port 3001 3002 3003 3004 3005  # Kill zombie ports before install
+npx kill-port 3001 3002 3003 3004 3005 3006  # Kill zombie ports before install
 npm install
 npm run dev
 ```
@@ -88,6 +88,7 @@ VITE_API_BASE_URL=http://localhost:3000
 | `VITE_RULESET_URL` | Ruleset MFE remote URL (default `http://localhost:3002`) |
 | `VITE_EPISODES_URL` | Episodes MFE remote URL (default `http://localhost:3004`) |
 | `VITE_WORLD_URL` | World MFE remote URL (default `http://localhost:3005`) |
+| `VITE_SHIP_URL` | Ship manifest MFE remote URL (default `http://localhost:3006`) |
 
 ## When You Resolve a New Issue
 

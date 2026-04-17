@@ -49,6 +49,7 @@ const GeneratorApp = React.lazy(() => import("generator/App"));
 const RulesetApp = React.lazy(() => import("ruleset/App"));
 const EpisodesApp = React.lazy(() => import("episodes/App"));
 const WorldApp = React.lazy(() => import("world/App"));
+const ShipApp = React.lazy(() => import("ship/App"));
 const DEFAULT_BURGER_HEIGHT_PX = 48;
 const BURGER_TOP_OFFSET_PX = 16;
 const PROGRESS_HEADING_GAP_PX = 12;
@@ -78,11 +79,13 @@ function AppContent() {
         ? "episodes"
         : location.pathname.startsWith("/world")
           ? "world"
-          : location.pathname.startsWith("/oma-sivu")
-            ? "dashboard"
-            : location.pathname.startsWith("/muutosloki")
-              ? "changelog"
-              : "home";
+          : location.pathname.startsWith("/ship")
+            ? "ship"
+            : location.pathname.startsWith("/oma-sivu")
+              ? "dashboard"
+              : location.pathname.startsWith("/muutosloki")
+                ? "changelog"
+                : "home";
 
   useEffect(() => {
     const title = buildDocumentTitle(location.pathname);
@@ -336,6 +339,15 @@ function AppContent() {
           >
             Maailma
           </SidebarItem>
+          {isLoggedIn && (
+            <SidebarItem
+              icon={<Icon name="map" size={20} />}
+              active={activeView === "ship"}
+              onClick={() => navigate("/ship")}
+            >
+              Alus
+            </SidebarItem>
+          )}
         </SidebarContent>
 
         <SidebarFooter>
@@ -435,6 +447,11 @@ function AppContent() {
                 Eventuellit: Muutosloki
               </Heading>
             )}
+            {activeView === "ship" && (
+              <Heading as="h1" className="m-0">
+                Eventuellit: Alus
+              </Heading>
+            )}
           </header>
 
           {(activeView === "ruleset" || activeView === "episodes" || activeView === "world") &&
@@ -502,6 +519,14 @@ function AppContent() {
                   <Route path="/ruleset/*" element={<RulesetApp />} />
                   <Route path="/episodes/*" element={<EpisodesApp />} />
                   <Route path="/world/*" element={<WorldApp />} />
+                  <Route
+                    path="/ship/*"
+                    element={
+                      <ProtectedRoute>
+                        <ShipApp />
+                      </ProtectedRoute>
+                    }
+                  />
                   <Route path="/tietosuoja" element={<PrivacyPolicyPage />} />
                   <Route path="/muutosloki" element={<ChangelogPage />} />
                   <Route path="*" element={<Navigate to="/" replace />} />

@@ -56,6 +56,7 @@ export default defineConfig(({ mode }) => {
           ruleset: `${env.VITE_RULESET_URL || "http://localhost:3002"}/assets/entry.js`,
           episodes: `${env.VITE_EPISODES_URL || "http://localhost:3004"}/assets/entry.js`,
           world: `${env.VITE_WORLD_URL || "http://localhost:3005"}/assets/entry.js`,
+          ship: `${env.VITE_SHIP_URL || "http://localhost:3006"}/assets/entry.js`,
         },
         shared: ["react", "react-dom", "react-router-dom"],
       }),

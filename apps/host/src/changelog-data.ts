@@ -24,6 +24,32 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.1.3",
+    date: "2026-04-13",
+    name: "Aluksen manifesti",
+    features: [
+      {
+        title: "Aluksen manifesti",
+        description:
+          "Uusi Alus-osio tarjoaa interaktiivisen pohjapiirroskartan kampanjan alukselle. Hahmot voidaan sijoittaa huoneisiin, huoneiden käyttötarkoituksia ja sisältöjä voidaan muokata, ja omistajuutta voi ehdottaa pelinjohtajan hyväksyttäväksi.",
+        link: { label: "Avaa alus", to: "/ship" },
+      },
+      {
+        title: "Pelaaja ehdottaa, PJ lukitsee",
+        description:
+          "Huoneen omistajuuden hakeminen luo jäädytetyn odotustilan — kukaan ei voi muokata huonetta ennen kuin pelinjohtaja hyväksyy tai hylkää hakemuksen. PJ voi myös lukita minkä tahansa huoneen kokonaan.",
+      },
+    ],
+    major: [],
+    minor: [
+      {
+        title: "Combobox-komponentti",
+        description:
+          "Uusi Combobox-molekyyli suunnittelujärjestelmässä. Hakemalla suodatettava pudotusvalikko entiteetin valintaa varten. Käytetään hahmojen lisäämiseen huoneisiin.",
+      },
+    ],
+  },
+  {
     version: "0.1.2",
     date: "2026-04-09",
     name: "Omat kuvakkeet",
