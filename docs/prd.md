@@ -96,7 +96,7 @@
 - Harmi tags can be healed through downtime/maintenance procedures between episodes. Healed tags remain on the character but stop affecting the dice pool.
 
 ### Advancement
-- End of episode: add one **n4** to an attribute.
+- Start of a new episode: add one **n4** to an attribute.
 - Two equal dice in the same attribute combine into next die tier (`n4 -> n6 -> n8 -> n10 -> n12`).
 - Choose progression reward:
   - new skill + **+1n6 Sisu**, or

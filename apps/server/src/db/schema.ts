@@ -84,12 +84,14 @@ export const characters = pgTable("characters", {
   harmit: jsonb("harmit").default([]).notNull(),
   skills: jsonb("skills").default([]).notNull(),
   inventory: jsonb("inventory").default([]).notNull(),
+  // Packed base-3 encoding for dice tiers [n4, n6, n8, n10, n12] (0-2 each). Max value 242.
   fysiikka: integer("fysiikka").default(0).notNull(),
   nopeus: integer("nopeus").default(0).notNull(),
   ymmarrys: integer("ymmarrys").default(0).notNull(),
   persoona: integer("persoona").default(0).notNull(),
   nakemys: integer("nakemys").default(0).notNull(),
   napparyys: integer("napparyys").default(0).notNull(),
+  removedFromPlayAt: timestamp("removed_from_play_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -102,6 +104,22 @@ export const characterEpisodes = pgTable("character_episodes", {
   episodeId: integer("episode_id")
     .references(() => episodes.id, { onDelete: "cascade" })
     .notNull(),
+  refreshedAt: timestamp("refreshed_at"),
+  advancedAt: timestamp("advanced_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const characterArcSnapshots = pgTable("character_arc_snapshots", {
+  id: serial("id").primaryKey(),
+  characterId: integer("character_id")
+    .references(() => characters.id, { onDelete: "cascade" })
+    .notNull(),
+  episodeId: integer("episode_id")
+    .references(() => episodes.id, { onDelete: "cascade" })
+    .notNull(),
+  capturedAt: timestamp("captured_at").defaultNow().notNull(),
+  reason: text("reason").default("advancement").notNull(),
+  sheetJson: jsonb("sheet_json").notNull(),
 });
 
 export const sessions = pgTable("sessions", {

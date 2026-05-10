@@ -25,7 +25,13 @@ interface Character {
   userId: number;
   name: string;
   archetype: string;
-  episodes: { id: number; title: string; status: string }[];
+  episodes: {
+    id: number;
+    title: string;
+    status: string;
+    refreshedAt?: string | null;
+    advancedAt?: string | null;
+  }[];
   sex: string | null;
   motivation: string | null;
   notes: string | null;
@@ -48,6 +54,15 @@ interface Character {
   napparyys: number;
   nicknames: string[];
   inventory?: Array<{ id: string; name: string; description?: string; quantity: number }>;
+}
+
+interface CharacterSnapshot {
+  id: number;
+  capturedAt: string;
+  reason: string;
+  episodeId: number;
+  episodeTitle: string | null;
+  sheetJson: Record<string, unknown>;
 }
 
 export function CharacterSheet({
@@ -110,6 +125,20 @@ export function CharacterSheet({
   });
 
   const [deleteCharacterOpen, setDeleteCharacterOpen] = useState(false);
+  const [selectedSnapshotId, setSelectedSnapshotId] = useState<number | null>(null);
+
+  const { data: snapshots = [] } = useQuery<CharacterSnapshot[]>({
+    queryKey: ["character-snapshots", characterId],
+    queryFn: async () => {
+      const token = localStorage.getItem("auth_token");
+      const res = await fetch(`${apiBaseUrl}/characters/${characterId}/snapshots`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Snapshot fetch failed");
+      return res.json();
+    },
+  });
 
   const { mutate: deleteCharacter, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
@@ -137,6 +166,16 @@ export function CharacterSheet({
     minAllowed: canEdit ? 0 : current,
     maxAllowed: canEdit ? undefined : current,
   });
+  const selectedSnapshot = snapshots.find((snapshot) => snapshot.id === selectedSnapshotId) ?? null;
+  const snapshotDiffRows = selectedSnapshot
+    ? ["fysiikka", "nopeus", "ymmarrys", "persoona", "nakemys", "napparyys", "keho", "mieli", "tera"]
+        .map((key) => ({
+          key,
+          before: selectedSnapshot.sheetJson?.[key] as number | undefined,
+          now: (character as unknown as Record<string, unknown>)[key] as number | undefined,
+        }))
+        .filter((row) => row.before !== row.now)
+    : [];
 
 
   return (
@@ -243,6 +282,49 @@ export function CharacterSheet({
                   onSave={(v) => updateCharacter({ notes: v })}
                   multiline
                 />
+                {snapshots.length > 0 && (
+                  <div className="space-y-2 border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                    <p className="text-sm text-text-muted">Arc-snapshotit</p>
+                    <div className="flex flex-wrap gap-2">
+                      {snapshots.map((snapshot) => (
+                        <Button
+                          key={snapshot.id}
+                          variant={selectedSnapshotId === snapshot.id ? "solid" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedSnapshotId(snapshot.id)}
+                        >
+                          {snapshot.episodeTitle ?? `Jakso ${snapshot.episodeId}`}
+                        </Button>
+                      ))}
+                    </div>
+                    {selectedSnapshot && (
+                      <div className="space-y-2">
+                        {snapshotDiffRows.length > 0 ? (
+                          <div className="rounded border border-[var(--theme-border-soft)] p-2">
+                            <p className="text-xs uppercase tracking-widest text-text-muted mb-2">
+                              Erot nykytilaan
+                            </p>
+                            <div className="space-y-1">
+                              {snapshotDiffRows.map((row) => (
+                                <p key={row.key} className="text-xs text-text-muted">
+                                  <span className="font-semibold text-[var(--theme-text)]">
+                                    {row.key}
+                                  </span>
+                                  : {String(row.before ?? "—")} -&gt; {String(row.now ?? "—")}
+                                </p>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-xs text-text-muted">Ei eroja nykyiseen tilaan.</p>
+                        )}
+                        <pre className="max-h-56 overflow-auto rounded border border-[var(--theme-border-soft)] p-2 text-xs text-text-muted">
+                          {JSON.stringify(selectedSnapshot.sheetJson, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>

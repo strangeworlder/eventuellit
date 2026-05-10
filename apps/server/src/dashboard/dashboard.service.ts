@@ -4,6 +4,7 @@ import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
 import {
+  characterArcSnapshots,
   characterEpisodes,
   characters,
   episodeInvites,
@@ -59,7 +60,10 @@ export interface GmOverviewPlayer {
   userId: number;
   username: string | null;
   hasCharacterLinked: boolean;
+  characterId: number | null;
   characterName: string | null;
+  isRemovedFromPlay: boolean;
+  snapshotCount: number;
   readingProgress: { completed: number; total: number };
   pendingRecaps: number;
   inviteStatus: "enrolled" | "pending" | "declined" | null;
@@ -111,11 +115,19 @@ export class DashboardService {
 
     // ── 3. Batch: user characters and episode links ───────────────────────────
     const userCharacters = await this.db
-      .select({ id: characters.id })
+      .select({
+        id: characters.id,
+        removedFromPlayAt: characters.removedFromPlayAt,
+        harmit: characters.harmit,
+      })
       .from(characters)
       .where(eq(characters.userId, userId));
 
-    const hasAnyCharacter = userCharacters.length > 0;
+    const hasAnyCharacter = userCharacters.some(
+      (character) =>
+        !character.removedFromPlayAt &&
+        (!Array.isArray(character.harmit) || character.harmit.length < 5),
+    );
 
     // Characters linked via junction table
     const junctionLinks = await this.db
@@ -564,6 +576,8 @@ export class DashboardService {
         userId: characters.userId,
         characterId: characterEpisodes.characterId,
         characterName: characters.name,
+        removedFromPlayAt: characters.removedFromPlayAt,
+        harmit: characters.harmit,
       })
       .from(characterEpisodes)
       .innerJoin(characters, eq(characterEpisodes.characterId, characters.id))
@@ -575,19 +589,54 @@ export class DashboardService {
       );
 
     const gmLegacyLinks = await this.db
-      .select({ userId: characters.userId, id: characters.id, name: characters.name })
+      .select({
+        userId: characters.userId,
+        id: characters.id,
+        name: characters.name,
+        removedFromPlayAt: characters.removedFromPlayAt,
+        harmit: characters.harmit,
+      })
       .from(characters)
       .where(and(inArray(characters.userId, allUserIds), eq(characters.episodeId, episodeId)));
 
-    const linkedCharByUser = new Map<number, { id: number; name: string }>();
+    const linkedCharByUser = new Map<
+      number,
+      { id: number; name: string; isRemovedFromPlay: boolean }
+    >();
     for (const link of gmJunctionLinks) {
       if (!linkedCharByUser.has(link.userId)) {
-        linkedCharByUser.set(link.userId, { id: link.characterId, name: link.characterName });
+        linkedCharByUser.set(link.userId, {
+          id: link.characterId,
+          name: link.characterName,
+          isRemovedFromPlay:
+            !!link.removedFromPlayAt || (Array.isArray(link.harmit) && link.harmit.length >= 5),
+        });
       }
     }
     for (const legacy of gmLegacyLinks) {
       if (!linkedCharByUser.has(legacy.userId)) {
-        linkedCharByUser.set(legacy.userId, { id: legacy.id, name: legacy.name });
+        linkedCharByUser.set(legacy.userId, {
+          id: legacy.id,
+          name: legacy.name,
+          isRemovedFromPlay:
+            !!legacy.removedFromPlayAt ||
+            (Array.isArray(legacy.harmit) && legacy.harmit.length >= 5),
+        });
+      }
+    }
+
+    const linkedCharacterIds = [...new Set([...linkedCharByUser.values()].map((c) => c.id))];
+    const snapshotCountByCharacter = new Map<number, number>();
+    if (linkedCharacterIds.length > 0) {
+      const snapshotRows = await this.db
+        .select({ characterId: characterArcSnapshots.characterId })
+        .from(characterArcSnapshots)
+        .where(inArray(characterArcSnapshots.characterId, linkedCharacterIds));
+      for (const row of snapshotRows) {
+        snapshotCountByCharacter.set(
+          row.characterId,
+          (snapshotCountByCharacter.get(row.characterId) ?? 0) + 1,
+        );
       }
     }
 
@@ -615,7 +664,10 @@ export class DashboardService {
         userId,
         username: entry.username,
         hasCharacterLinked: !!linkedChar,
+        characterId: linkedChar?.id ?? null,
         characterName: linkedChar?.name ?? null,
+        isRemovedFromPlay: linkedChar?.isRemovedFromPlay ?? false,
+        snapshotCount: linkedChar ? (snapshotCountByCharacter.get(linkedChar.id) ?? 0) : 0,
         readingProgress: { completed: completedCount, total: readingItemIds.length },
         pendingRecaps,
         inviteStatus,

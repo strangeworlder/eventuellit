@@ -16,8 +16,12 @@ describe("CharactersController", () => {
     service = {
       findAll: vi.fn().mockResolvedValue([]),
       findOne: vi.fn().mockResolvedValue(null),
+      listSnapshots: vi.fn().mockResolvedValue([]),
       create: vi.fn().mockResolvedValue({}),
       update: vi.fn().mockResolvedValue({}),
+      linkEpisode: vi.fn().mockResolvedValue({ linked: true, alreadyLinked: false }),
+      refreshForEpisode: vi.fn().mockResolvedValue({ refreshed: true, alreadyRefreshed: false }),
+      advanceForEpisode: vi.fn().mockResolvedValue({ advanced: true, alreadyAdvanced: false }),
       remove: vi.fn().mockResolvedValue(undefined),
     };
 
@@ -44,6 +48,11 @@ describe("CharactersController", () => {
   it("should call findAll", async () => {
     await controller.findAll();
     expect(service.findAll).toHaveBeenCalled();
+  });
+
+  it("should pass user context to listSnapshots", async () => {
+    await controller.listSnapshots(1, mockReq);
+    expect(service.listSnapshots).toHaveBeenCalledWith(1, mockUser.id, mockUser.role);
   });
 
   it("should pass userId to create", async () => {
@@ -76,5 +85,32 @@ describe("CharactersController", () => {
   it("should pass userId and role to remove", async () => {
     await controller.remove(1, mockReq);
     expect(service.remove).toHaveBeenCalledWith(1, mockUser.id, mockUser.role);
+  });
+
+  it("should pass userId to linkEpisode", async () => {
+    await controller.linkEpisode(1, { episodeId: 2 }, mockReq);
+    expect(service.linkEpisode).toHaveBeenCalledWith(1, 2, mockUser.id);
+  });
+
+  it("should pass userId to refresh", async () => {
+    await controller.refresh(1, { episodeId: 2, healedHarmitIndexes: [0] }, mockReq);
+    expect(service.refreshForEpisode).toHaveBeenCalledWith(
+      1,
+      { episodeId: 2, healedHarmitIndexes: [0] },
+      mockUser.id,
+    );
+  });
+
+  it("should pass userId to advance", async () => {
+    await controller.advance(
+      1,
+      { episodeId: 2, attribute: "fysiikka", reward: "skills_plus_n6", newSkills: [] },
+      mockReq,
+    );
+    expect(service.advanceForEpisode).toHaveBeenCalledWith(
+      1,
+      { episodeId: 2, attribute: "fysiikka", reward: "skills_plus_n6", newSkills: [] },
+      mockUser.id,
+    );
   });
 });

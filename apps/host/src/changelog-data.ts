@@ -24,6 +24,73 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.1.4",
+    date: "2026-05-10",
+    name: "Palaavat hahmot",
+    features: [
+      {
+        title: "Hahmon kehitys jaksojen välillä",
+        description:
+          "Palaavat hahmot voivat nyt kehittyä jaksojen välillä. Valitse ominaisuus, johon lisätään n4-noppa (nopat yhdistyvät automaattisesti: 2×n4→n6→n8→…n12), valitse palkkio (2 taitoa + n6 Sisu tai 1 taito + n8 Sisu) ja vahvista. Kehityshistoria tallentuu automaattisesti snapshotiksi.",
+        link: { label: "Avaa hahmogeneraattori", to: "/generator" },
+      },
+      {
+        title: "Hahmon palautus ennen jaksoa",
+        description:
+          "Jakson valmistautumissivulla palaava hahmo voi palauttaa kesto-pisteensä ja merkitä harmeja parantuneiksi. Palautus ja kehitys näkyvät vaiheittaisena prosessina, joka avautuu askel kerrallaan.",
+      },
+      {
+        title: "Hahmon liittäminen jaksoon",
+        description:
+          "Pelaaja voi liittää hahmonsa tulevaan jaksoon hahmoluettelosta. Pelistä poistetut hahmot (5 harmia tai manuaalinen poisto) eivät voi enää liittyä uusiin jaksoihin.",
+      },
+    ],
+    major: [
+      {
+        title: "Jakson valmistautumissivu uudistettu",
+        description:
+          "Jakson valmistautumissivulle lisätty palaavan hahmon työnkulku: kesto-palautus, harmien parantaminen ja ominaisuuskehitys. Sivulla näkyy myös tieto, jos jakso on päättynyt tai hahmoa ei ole liitetty.",
+      },
+      {
+        title: "Pelinjohtajan yleiskatsaus laajennettu",
+        description:
+          "GM-näkymässä näkyy nyt kunkin pelaajan hahmon snapshot-lukumäärä, pelistä-poistettu-tila sekä suora linkki hahmosivulle.",
+      },
+      {
+        title: "Tietokantaskeema — hahmoelinkaari",
+        description:
+          "Uusi character_arc_snapshots-taulu tallentaa hahmon tilan kehityshetkellä. character_episodes-tauluun lisätty refreshed_at- ja advanced_at-sarakkeet. Hahmoille lisätty removed_from_play_at-aikaleima.",
+      },
+    ],
+    minor: [
+      {
+        title: "Noppatierin koodausmoduuli",
+        description:
+          "Uusi attribute-dice-moduuli pakkaa ominaisuusnopat base-3-koodaukseen (n4…n12, 0–2 kutakin). addN4-funktio hoitaa automaattisen yhdistämisen ja carry-ketjun. Yksikkötestit kattavat koodauksen, yhdistämisen ja virherajat.",
+      },
+      {
+        title: "Sääntökirjan mekaniikat päivitetty",
+        description:
+          "Ympäristö ja tilanne -osio selkeytetty: akselit voivat olla positiivisia tai negatiivisia, kesto-kustannus voi muuttua. Aloite- ja liike-akselien kuvaukset tarkennettu.",
+      },
+      {
+        title: "Kehitys siirretty jakson alkuun",
+        description:
+          "PRD päivitetty: hahmon kehitys tapahtuu uuden jakson alussa, ei edellisen lopussa. Tämä mahdollistaa uusien taitojen käytön heti ensimmäisestä sessiosta.",
+      },
+      {
+        title: "Dashboard — pelistä poistetut hahmot",
+        description:
+          "Hallintapaneeli huomioi nyt pelistä poistetut hahmot (5 harmia tai removed_from_play_at). Hahmoa ei lasketa aktiiviseksi, jos se on poistettu pelistä.",
+      },
+      {
+        title: "Hahmoliittämisen linkki parannettu",
+        description:
+          "Pelaajan hallintapaneelin 'link_character'-toiminnon URL sisältää nyt jakson ID:n, jolloin hahmoluettelo osaa avata liitosdialogin suoraan oikealle jaksolle.",
+      },
+    ],
+  },
+  {
     version: "0.1.3",
     date: "2026-04-17",
     name: "Hybridifaktiot ja versiohistoria",

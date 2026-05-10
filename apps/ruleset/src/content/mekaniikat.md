@@ -82,10 +82,12 @@ Valitse hahmonluonnissa kaksi **ominaisuutta**. Saat valintoihisi `+n4-bonusnopa
 * `TAIDOT`: Toimivat pääsykortteina. Taito mahdollistaa siihen liittyvän heiton tekemisen ilman kestohintaa. Ne voivat myös avata uusia akseleita heittoihin.
 * `VARUSTEET`: Toimivat taitojen lailla tarinallisina mahdollistajina. Varusteen käyttöönotto sitoo 1–5 pistettä sopivaa kestoa. Pisteet vapautuvat, kun luovut varusteesta.
   * **ASEET**: Määrittävät vahinkonopan (esim. **1n6**) ja rajoittavat sitä kuinka monta noppaa voit sitoa hyökkäysakseliin, ja kuinka monta hyökkäysakselia sinulla voi olla vuorossa.
-* `KESTOLLA MAKSAMINEN`: Jos taito tai varuste puuttuu, voit yrittää toimintoa maksamalla 1–3 pistettä pelinjohtajan määrittämää kestoa.
-* `YMPÄRISTÖ JA TILANNE`: Ympäristö voi muokkaa haasteen rakennetta:
-  * **Positiivinen ympäristö**: Voi antaa oikeuden heittää noppia ilman **kesto**\-pistekustannusta (Esim. pimeässä piiloutuminen).
-  * **Negatiivinen ympäristö**: Voi luoda uusia pakollisia **akseleita** (esim. *Tasapaino* myrskyssä) tai nostaa olemassa olevien akseleiden onnistumiskynnystä.
+* `KESTOLLA MAKSAMINEN`: Jos taito tai varuste puuttuu, voit silti yrittää toimintoa maksamalla 1–3 pistettä pelinjohtajan määrittämää kestoa.
+* `YMPÄRISTÖ JA TILANNE`: Ympäristö tai tilanne voi muokkaa haasteen rakennetta:
+  * Lisätä akseleita heittoon (positiivisia tai negatiivisia)
+  * Poistaa akseleita heitosta (positiivisia tai negatiivisia)
+  * Vaikuttaa kesto-pistekustannukseen.
+  * Muokata olemassa olevien akselien onnistumiskynnystä.
 
 ### 3\. Konfliktit ja taistelu
 
@@ -97,8 +99,8 @@ Konfliktit etenevät ajastimella, joka laskee korkeimmasta aloitearvosta alaspä
 * `RATKAISU`: Toiminnot tapahtuvat ajastimen järjestyksessä. Tasatilanteessa pelaajat päättävät järjestyksen.
 
 ##### Taistelukierroksen akselit
-* `ALOITE`: Paikkasi ajastimella on joko (5 x aloite-akselin noppien määrä) tai (heitettyjen noppien suurin silmäluku). Valitse suurempi arvo.
-* `LIIKE`: Yksi noppa mahdollistaa liikkumisen yhdeltä vyöhykkeeltä toiselle tai uudelleenasennoinnin vyöhykkeen sisällä.
+* `ALOITE`: Paikkasi ajastimella on joko `5 x aloite-akselin noppien määrä` tai `heitettyjen noppien suurin silmäluku`. Valitse suurempi arvo.
+* `LIIKE`: Yksi noppa antaa liikkua maksimissaan 6 m. Jos liikkeelle ei ole estoa, se ei vaadi heittoa.
 * `PUOLUSTUS`: Jokainen osuma puolustusakselilla poistaa valitsemasi yhden hyökkääjän osuman.
 * `HYÖKKÄYS`: Onnistunut hyökkäys aiheuttaa vauriota. Jos hyökkäys-askeliin on sijoitettu noppia, mutta heitto epäonnistuu, tee silti vaurioheitto käyttäen vain kohteen uhkanoppia.
 * `MUUT TOIMINNOT`: Tilannekohtaiset teot vaativat omat noppansa.

@@ -9,6 +9,7 @@ import { Select } from "@repo/ui/components/Select";
 import { Text } from "@repo/ui/components/Text";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { type GmOverviewPlayer, useGmOverview, useSendInvite } from "../api/dashboard";
 import { useEpisodes } from "../api/episodes";
 import { usePlayerUsers } from "../api/users";
@@ -58,10 +59,11 @@ function ReadingProgressBar({ completed, total }: { completed: number; total: nu
 
 function PlayerStatusCard({
   player,
+  onOpenCharacter,
   onSendInvite,
 }: {
   player: GmOverviewPlayer;
-  episodeId: number;
+  onOpenCharacter: (characterId: number) => void;
   onSendInvite: (userId: number) => void;
 }) {
   const canInvite = player.inviteStatus === null || player.inviteStatus === "declined";
@@ -103,6 +105,18 @@ function PlayerStatusCard({
                 {player.pendingRecaps} kertaus kirjoittamatta
               </span>
             )}
+            {player.hasCharacterLinked && (
+              <span className="flex items-center gap-1 text-text-muted">
+                <Icon name="file-text" size={14} />
+                Snapshotit: {player.snapshotCount}
+              </span>
+            )}
+            {player.isRemovedFromPlay && (
+              <span className="flex items-center gap-1 text-[var(--theme-accent)]">
+                <Icon name="circle-x" size={14} />
+                Poistettu pelistä
+              </span>
+            )}
           </div>
 
           <ReadingProgressBar
@@ -115,6 +129,18 @@ function PlayerStatusCard({
               <Button variant="outline" size="sm" onClick={() => onSendInvite(player.userId)}>
                 <Icon name="send" size={14} className="mr-1" />
                 Lähetä kutsu
+              </Button>
+            </div>
+          )}
+          {player.characterId && (
+            <div className="pt-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onOpenCharacter(player.characterId!)}
+              >
+                <Icon name="file-text" size={14} className="mr-1" />
+                Avaa hahmosivu
               </Button>
             </div>
           )}
@@ -194,6 +220,7 @@ function InviteForm({ episodeId, onClose }: { episodeId: number; onClose: () => 
 }
 
 export function GmOverview() {
+  const navigate = useNavigate();
   const { data: episodes } = useEpisodes();
   const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(null);
   const [showInviteForm, setShowInviteForm] = useState(false);
@@ -257,7 +284,7 @@ export function GmOverview() {
                   <PlayerStatusCard
                     key={player.userId}
                     player={player}
-                    episodeId={selectedEpisodeId}
+                    onOpenCharacter={(characterId) => navigate(`/generator/character/${characterId}`)}
                     onSendInvite={handleSendInvite}
                   />
                 ))}

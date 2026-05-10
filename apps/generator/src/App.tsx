@@ -18,7 +18,7 @@ import { SkeletonCard } from "@repo/ui/components/Skeleton";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import {
   Navigate,
@@ -29,8 +29,12 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { apiBaseUrl } from "./api/base-url";
-import { useCreateCharacter } from "./api/characters";
+import {
+  type CharacterListItem,
+  useCharacters,
+  useCreateCharacter,
+  useLinkCharacterEpisode,
+} from "./api/characters";
 import { useActiveEpisodes, useEpisodeSkills } from "./api/episodes";
 import { CharacterSheet, NicknamesSection } from "./CharacterSheet";
 import { suggestNames } from "./name-generator";
@@ -580,9 +584,10 @@ function PrepRoute({ basePath }: { basePath: string }) {
 }
 
 function InnerApp() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const linkCharacterEpisode = useLinkCharacterEpisode();
 
   const getBasePath = () => {
     const segments = pathname.split("/").filter(Boolean);
@@ -601,21 +606,13 @@ function InnerApp() {
   const prepMatchRelative = useMatch(`prep/:episodeId`);
   const activePrepEpisodeId = (prepMatchAbsolute ?? prepMatchRelative)?.params?.episodeId;
 
-  const { data: characters, isLoading, refetch: refetchCharacters } = useQuery<Array<{ id: number; name: string; [key: string]: unknown }>>({
-    queryKey: ["characters"],
-    queryFn: async () => {
-      const token = localStorage.getItem("auth_token");
-      const res = await fetch(`${apiBaseUrl}/characters`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-        credentials: "include",
-      });
-      if (!res.ok) throw new Error("Failed to fetch characters");
-      return res.json();
-    },
-  });
+  const { data: characters, isLoading, refetch: refetchCharacters } = useCharacters();
 
   // Refetch characters whenever the user navigates to the list page
   const isOnListPage = pathname.endsWith("/list") || pathname === basePath || pathname === `${basePath}/`;
+  const linkEpisodeIdRaw = new URLSearchParams(search).get("linkEpisodeId");
+  const linkEpisodeId =
+    linkEpisodeIdRaw && !Number.isNaN(Number(linkEpisodeIdRaw)) ? Number(linkEpisodeIdRaw) : null;
   useEffect(() => {
     if (isOnListPage) {
       refetchCharacters();
@@ -662,10 +659,12 @@ function InnerApp() {
                         </div>
                       )}
                       {!isLoading &&
-                        characters?.map((char: any) => {
+                        characters?.map((char: CharacterListItem) => {
                           const activeHarmit = (char.harmit ?? []).filter(
                             (h: { healed: boolean }) => !h.healed,
                           ).length;
+                          const totalHarmit = (char.harmit ?? []).length;
+                          const isRemovedFromPlay = Boolean(char.removedFromPlayAt) || totalHarmit >= 5;
                           const archetypeLabel = char.archetype;
                           const isOwn = user && char.userId === user.id;
                           const episodes: { id: number; title: string; status: string }[] =
@@ -701,7 +700,9 @@ function InnerApp() {
                                       Harmit:{" "}
                                       <span
                                         className={
-                                          activeHarmit > 0
+                                          isRemovedFromPlay
+                                            ? "font-bold text-[var(--theme-accent)]"
+                                            : activeHarmit > 0
                                             ? "font-bold text-[var(--theme-primary)]"
                                             : "font-medium text-[var(--theme-text)]"
                                         }
@@ -773,6 +774,36 @@ function InnerApp() {
                                         Valmistaudu
                                       </Button>
                                     </div>
+                                  )}
+                                  {isOwn &&
+                                    linkEpisodeId &&
+                                    !isRemovedFromPlay &&
+                                    !episodes.some((e) => e.id === linkEpisodeId) && (
+                                      <div className="border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                                        <Button
+                                          variant="solid"
+                                          size="sm"
+                                          disabled={linkCharacterEpisode.isPending}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            linkCharacterEpisode.mutate(
+                                              { characterId: char.id, episodeId: linkEpisodeId },
+                                              {
+                                                onSuccess: () => {
+                                                  navigate(`${basePath}/prep/${linkEpisodeId}`);
+                                                },
+                                              },
+                                            );
+                                          }}
+                                        >
+                                          Liitä jaksoon
+                                        </Button>
+                                      </div>
+                                    )}
+                                  {isRemovedFromPlay && (
+                                    <p className="text-xs text-[var(--theme-accent)] border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                                      Hahmo poistettu pelistä, eikä sitä voi liittää uuteen jaksoon.
+                                    </p>
                                   )}
                                 </div>
                               </CardContent>

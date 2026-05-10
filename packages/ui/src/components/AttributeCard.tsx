@@ -6,6 +6,8 @@ import { Icon } from "./Icon";
 import { StatBlock } from "./StatBlock";
 import { cn } from "./utils";
 
+export { addN4 } from "./attribute-dice";
+
 export const DIE_HIERARCHY: (4 | 6 | 8 | 10 | 12 | 20)[] = [4, 6, 8, 10, 12, 20];
 
 /**

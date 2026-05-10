@@ -45,7 +45,10 @@ export interface GmOverviewPlayer {
   userId: number;
   username: string | null;
   hasCharacterLinked: boolean;
+  characterId: number | null;
   characterName: string | null;
+  isRemovedFromPlay: boolean;
+  snapshotCount: number;
   readingProgress: { completed: number; total: number };
   pendingRecaps: number;
   inviteStatus: "enrolled" | "pending" | "declined" | null;

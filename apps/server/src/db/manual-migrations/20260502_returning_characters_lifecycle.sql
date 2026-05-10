@@ -1,0 +1,20 @@
+ALTER TABLE character_episodes
+ADD COLUMN IF NOT EXISTS refreshed_at TIMESTAMPTZ;
+
+ALTER TABLE character_episodes
+ADD COLUMN IF NOT EXISTS advanced_at TIMESTAMPTZ;
+
+ALTER TABLE character_episodes
+ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+ALTER TABLE characters
+ADD COLUMN IF NOT EXISTS removed_from_play_at TIMESTAMPTZ;
+
+CREATE TABLE IF NOT EXISTS character_arc_snapshots (
+  id SERIAL PRIMARY KEY,
+  character_id INTEGER NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+  episode_id INTEGER NOT NULL REFERENCES episodes(id) ON DELETE CASCADE,
+  captured_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  reason TEXT NOT NULL DEFAULT 'advancement',
+  sheet_json JSONB NOT NULL
+);

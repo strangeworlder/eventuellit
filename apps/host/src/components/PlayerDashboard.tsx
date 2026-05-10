@@ -59,6 +59,21 @@ function ActionRow({
   action: DashboardAction;
   onNavigate: (url: string) => void;
 }) {
+  const resolveActionUrl = () => {
+    if (action.type !== "link_character") {
+      return action.url;
+    }
+
+    const episodeId =
+      typeof action.meta?.episodeId === "number" ? String(action.meta.episodeId) : null;
+    if (!episodeId) {
+      return action.url;
+    }
+
+    const separator = action.url.includes("?") ? "&" : "?";
+    return `${action.url}${separator}linkEpisodeId=${episodeId}`;
+  };
+
   return (
     <div className="flex items-start gap-3 py-3 border-b border-[var(--theme-border-soft)] last:border-0">
       <div className="flex-1 min-w-0 space-y-1">
@@ -74,7 +89,7 @@ function ActionRow({
       <Button
         variant="outline"
         size="sm"
-        onClick={() => onNavigate(action.url)}
+        onClick={() => onNavigate(resolveActionUrl())}
         className="shrink-0"
       >
         Siirry
