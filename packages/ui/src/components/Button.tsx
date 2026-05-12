@@ -55,14 +55,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    */
   chevronDirection?: ChevronDirection;
   theme?:
-    | "base"
-    | "inverted"
-    | "primary-light"
-    | "primary-dark"
-    | "secondary-light"
-    | "secondary-dark"
-    | "accent-light"
-    | "accent-dark";
+  | "base"
+  | "inverted"
+  | "primary-light"
+  | "primary-dark"
+  | "secondary-light"
+  | "secondary-dark"
+  | "accent-light"
+  | "accent-dark";
 }
 
 /**
@@ -116,10 +116,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         style={
           isObscured
             ? ({
-                "--glitch-delay": `-${glitchSeed.toFixed(2)}s`,
-                "--glitch-duration": `${glitchDuration.toFixed(2)}s`,
-                ...props.style,
-              } as React.CSSProperties)
+              "--glitch-delay": `-${glitchSeed.toFixed(2)}s`,
+              "--glitch-duration": `${glitchDuration.toFixed(2)}s`,
+              ...props.style,
+            } as React.CSSProperties)
             : props.style
         }
         data-theme={theme}
@@ -139,11 +139,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           "active:translate-y-0 active:shadow-sm active:scale-[0.98] active:duration-75",
           // ── Disabled ── flattened, desaturated, no hover/active shift
           disabled &&
-            !loading &&
-            "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",
+          !loading &&
+          "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",
           // ── Loading ── disabled interaction, but preserve strong contrast
           loading &&
-            "cursor-wait opacity-100 grayscale-0 shadow-sm hover:shadow-sm hover:-translate-y-0 active:translate-y-0 active:scale-100",
+          "cursor-wait opacity-100 grayscale-0 shadow-sm hover:shadow-sm hover:-translate-y-0 active:translate-y-0 active:scale-100",
           // ── Justify ──
           {
             "justify-center": justify === "center",
@@ -223,7 +223,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {isChevron && (
             <Icon
               name={`chevron-${chevronDirection}` as IconName}
-              size={14}
+              size={10}
               aria-hidden="true"
             />
           )}
