@@ -49,6 +49,7 @@ export class EpisodesService {
       mechanicalAdditions: data.mechanicalAdditions,
       summary: data.summary,
       tyrannyRoll: data.tyrannyRoll,
+      mediaId: data.mediaId,
       gmId,
     };
     const result = await this.db.insert(episodes).values(insertData).returning();

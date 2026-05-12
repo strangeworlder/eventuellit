@@ -18,6 +18,7 @@ export interface Episode {
   mechanicalAdditions: string | null;
   summary: string | null;
   tyrannyRoll: number | null;
+  mediaId: number | null;
   gmId: number;
   createdAt: string;
   updatedAt: string;

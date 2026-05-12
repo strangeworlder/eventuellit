@@ -61,4 +61,8 @@ export class CreateEpisodeDto {
   @Min(1)
   @Max(12)
   tyrannyRoll?: number;
+
+  @IsOptional()
+  @IsInt()
+  mediaId?: number;
 }

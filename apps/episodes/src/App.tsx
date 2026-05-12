@@ -9,6 +9,7 @@ import { EmptyState } from "@repo/ui/components/EmptyState";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { ImageElement } from "@repo/ui/components/ImageElement";
+import { ImageField, type MediaItem } from "@repo/ui/components/ImageField";
 import { Input } from "@repo/ui/components/Input";
 import { Link } from "@repo/ui/components/Link";
 import { List, ListItem } from "@repo/ui/components/List";
@@ -40,6 +41,7 @@ import {
   useUpdateEpisode,
   useUpdateEpisodeSkill,
 } from "./api/episodes";
+import { useMediaList, useUploadMedia } from "./api/media";
 import { useSessions } from "./api/sessions";
 import { usePlayerUsers } from "./api/users";
 import { EpisodeRecapTab } from "./components/EpisodeRecapTab";
@@ -81,6 +83,24 @@ function EpisodeEditForm({
       summary: "",
     },
   );
+
+  const { data: mediaRecords, isLoading: mediaLoading } = useMediaList();
+  const uploadMutation = useUploadMedia();
+
+  const mediaItems: MediaItem[] = (mediaRecords ?? []).map((m) => {
+    const slug = m.key.replace("images/", "");
+    const baseUrl = (formData.image ?? "").split("/images/")[0] || "https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev";
+    return {
+      id: m.id,
+      key: m.key,
+      filename: m.filename,
+      width: m.width,
+      height: m.height,
+      context: m.context,
+      thumbnailUrl: `${baseUrl}/images/${slug}-480.jpg`,
+      publicUrl: `${baseUrl}/images/${slug}-${m.width}.jpg`,
+    };
+  });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -179,12 +199,25 @@ function EpisodeEditForm({
             value={formData.locationLink ?? ""}
             onChange={handleChange}
           />
-          <Input
-            label="Kuva (URL)"
-            name="image"
-            value={formData.image ?? ""}
-            onChange={handleChange}
-          />
+        </div>
+        <ImageField
+          label="Jakson kuva"
+          value={formData.image ?? ""}
+          mediaItems={mediaItems}
+          mediaLoading={mediaLoading}
+          uploading={uploadMutation.isPending}
+          onChange={({ url, mediaId }) => {
+            setFormData((prev) => ({ ...prev, image: url, mediaId }));
+          }}
+          onUpload={async (file) => {
+            const result = await uploadMutation.mutateAsync({
+              file,
+              context: "episodes",
+            });
+            return { url: result.publicUrl, mediaId: result.id };
+          }}
+        />
+        <div className="grid grid-cols-2 gap-4">
           <Input
             label="Kuva (Alt)"
             name="imageAlt"
