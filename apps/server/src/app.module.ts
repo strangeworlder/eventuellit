@@ -13,6 +13,7 @@ import { ReadingItemsModule } from "./reading-items/reading-items.module";
 import { ReadingProgressModule } from "./reading-progress/reading-progress.module";
 import { SessionRecapsModule } from "./session-recaps/session-recaps.module";
 import { SessionsModule } from "./sessions/sessions.module";
+import { MissionVotesModule } from "./mission-votes/mission-votes.module";
 import { UsersModule } from "./users/users.module";
 
 @Module({
@@ -32,6 +33,7 @@ import { UsersModule } from "./users/users.module";
     DashboardModule,
     NotificationsModule,
     MediaModule,
+    MissionVotesModule,
   ],
 })
 export class AppModule {}

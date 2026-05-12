@@ -242,3 +242,73 @@ export const episodeInvites = pgTable("episode_invites", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   respondedAt: timestamp("responded_at"),
 });
+
+// ─── Mission Voting ────────────────────────────────────────────────────────────
+
+/** A single voting round, created by the GM. Not tied to an episode — the vote decides what the next episode will be. */
+export const votingRounds = pgTable("voting_rounds", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(), // e.g. "Valitse seuraava operaatio"
+  status: text("status").default("open").notNull(), // open | closed
+  deadline: timestamp("deadline"), // optional GM-set deadline
+  createdBy: integer("created_by")
+    .references(() => users.id)
+    .notNull(),
+  closedAt: timestamp("closed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+/** Individual mission option within a voting round, created by the GM. */
+export const missionOptions = pgTable("mission_options", {
+  id: serial("id").primaryKey(),
+  roundId: integer("round_id")
+    .references(() => votingRounds.id, { onDelete: "cascade" })
+    .notNull(),
+  title: text("title").notNull(),
+  description: text("description"),
+  image: text("image"), // optional R2 image URL
+  urgency: text("urgency").default("normaali").notNull(), // kriittinen | normaali | joustava
+  orderIndex: integer("order_index").default(0).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+/**
+ * One row per player per round. Stores both primary (3 pts) and secondary (1 pt) choices.
+ * Upserting this row changes the player's vote.
+ */
+export const missionVotes = pgTable(
+  "mission_votes",
+  {
+    id: serial("id").primaryKey(),
+    roundId: integer("round_id")
+      .references(() => votingRounds.id, { onDelete: "cascade" })
+      .notNull(),
+    userId: integer("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    primaryOptionId: integer("primary_option_id")
+      .references(() => missionOptions.id, { onDelete: "cascade" })
+      .notNull(),
+    secondaryOptionId: integer("secondary_option_id")
+      .references(() => missionOptions.id, { onDelete: "cascade" }),
+    votedAt: timestamp("voted_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    roundUserUniq: uniqueIndex("mission_votes_round_user_uniq").on(t.roundId, t.userId),
+  }),
+);
+
+/** Flat comment on a specific mission option. Commenter chooses anonymous or named. */
+export const missionComments = pgTable("mission_comments", {
+  id: serial("id").primaryKey(),
+  optionId: integer("option_id")
+    .references(() => missionOptions.id, { onDelete: "cascade" })
+    .notNull(),
+  userId: integer("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  content: text("content").notNull(),
+  anonymous: boolean("anonymous").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
