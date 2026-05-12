@@ -32,8 +32,8 @@ export interface FactionDef {
 export const factions: FactionDef[] = [
   // ── Main factions ────────────────────────────────────────────────────────
   { id: "tuhkan-puolue", name: "Tuhkan puolue", color: "primary", icon: "flame" },
-  { id: "kw-konsortio", name: "KW-konsortio", color: "secondary", icon: "cog" },
-  { id: "ekklesia", name: "Ekklesia", color: "accent", icon: "drama" },
+  { id: "kw-konsortio", name: "KW-konsortio", color: "secondary", icon: "gear" },
+  { id: "ekklesia", name: "Ekklesia", color: "accent", icon: "mask" },
 
   // ── Tuhkan puolue subfactions ─────────────────────────────────────────
   {
@@ -71,7 +71,7 @@ export const factions: FactionDef[] = [
     id: "deterministit",
     name: "Deterministit",
     color: "secondary",
-    icon: "compass",
+    icon: "arrow-right",
     parent: "kw-konsortio",
   },
 

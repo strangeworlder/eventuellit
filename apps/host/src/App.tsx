@@ -334,7 +334,7 @@ function AppContent() {
           </SidebarItem>
           {isLoggedIn && (
             <SidebarItem
-              icon={<Icon name="compass" size={20} />}
+              icon={<Icon name="arrow-right" size={20} />}
               active={activeView === "operaatiot"}
               onClick={() => navigate("/operaatiot")}
             >

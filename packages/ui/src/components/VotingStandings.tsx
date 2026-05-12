@@ -31,7 +31,7 @@ export interface VotingStandingsProps extends React.HTMLAttributes<HTMLDivElemen
 // ── Rank visual config ────────────────────────────────────────────────────────
 // Mirrors the SelectionCard badge language:
 //   1st = alert-triangle + red (--theme-primary)  — critical / primary pick
-//   2nd = compass + teal (--theme-secondary)       — backup heading / secondary pick
+//   2nd = arrow-right + teal (--theme-secondary)       — backup heading / secondary pick
 //   3rd+ = no icon, muted                          — instrument panels fade low-priority rows
 
 interface RankStyle {
@@ -58,7 +58,7 @@ function getRankStyle(index: number): RankStyle {
   }
   if (index === 1) {
     return {
-      icon: "compass",
+      icon: "arrow-right",
       numeral: "text-[var(--theme-accent)]",
       iconColor: "text-[var(--theme-accent)]",
       stripe: "shadow-[inset_3px_0_0_var(--theme-accent)]",
@@ -80,7 +80,7 @@ function getRankStyle(index: number): RankStyle {
 /**
  * Live voting standings panel — an instrument-panel readout of the current
  * ranked mission options. Rank styling mirrors the `SelectionCard` badge
- * language: 1st = alert-triangle / red, 2nd = compass / teal, 3rd+ = muted.
+ * language: 1st = alert-triangle / red, 2nd = arrow-right / teal, 3rd+ = muted.
  *
  * @summary ranked voting standings readout; use inside a HeadingLevelProvider context
  */

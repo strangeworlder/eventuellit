@@ -262,7 +262,7 @@ export const SelectionCardMeta = React.forwardRef<HTMLDivElement, SelectionCardM
           <Badge variant="solid" icon="alert-triangle">Ensisijainen</Badge>
         )}
         {selectionState === "secondary" && (
-          <Badge variant="highlight" icon="compass">Toissijainen</Badge>
+          <Badge variant="highlight" icon="arrow-right">Toissijainen</Badge>
         )}
         {selectionState === "none" && (
           <span className="inline-block h-[1.5rem] w-0" aria-hidden />

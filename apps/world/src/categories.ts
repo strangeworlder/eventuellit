@@ -26,7 +26,7 @@ export const worldCategories: WorldCategory[] = [
     id: "kynnys",
     title: "Kynnys",
     description: "Avaruusasemaverkosto — 20 asemaa täynnä faktioita, kauppaa ja salaisuuksia.",
-    icon: "compass",
+    icon: "arrow-right",
   },
   {
     id: "faktiot",

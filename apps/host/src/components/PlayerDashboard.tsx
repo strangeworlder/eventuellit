@@ -283,7 +283,7 @@ export function PlayerDashboard() {
               <CardHeader>
                 <div className="flex items-center justify-between gap-3 flex-wrap">
                   <CardTitle className="flex items-center gap-2">
-                    <Icon name="compass" size={18} className="text-[var(--theme-secondary)]" />
+                    <Icon name="arrow-right" size={18} className="text-[var(--theme-secondary)]" />
                     Äänestä seuraavasta operaatiosta
                   </CardTitle>
                   <Badge variant="solid">{optionCount} vaihtoehtoa</Badge>
