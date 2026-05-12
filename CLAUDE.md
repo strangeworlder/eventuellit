@@ -1,5 +1,15 @@
 # Eventuellit – Project Instructions for Claude
 
+## Design System First — Mandatory Pre-Flight
+
+> [!CAUTION]
+> **Before building ANY new feature or UI, you MUST complete the design system pre-flight:**
+> 1. Read `claude-skills/visual-identity/SKILL.md` for the retro-space-opera visual identity.
+> 2. Read `claude-skills/ui-design-system/SKILL.md` for token, theming, and component rules.
+> 3. Consult the Storybook MCP (`list-all-documentation`) or read `packages/ui/src/components/ComponentGuide.mdx` to check the component inventory.
+> 4. **Use `@repo/ui` components** (`<Button>`, `<Card>`, `<Input>`, `<Text>`, `<Heading>`, etc.) — NEVER raw HTML elements with Tailwind classes.
+> 5. Include a **"Design System Usage"** section in every implementation plan.
+
 ## TypeScript Type Checking
 
 > [!CAUTION]
@@ -31,6 +41,7 @@ Available workspaces: `@eventuellit/host`, `@eventuellit/episodes`, `@eventuelli
 ## Additional Skills
 
 Skills are available in the `claude-skills/` directory:
+- `claude-skills/visual-identity/SKILL.md` – **Visual identity**: retro-space-opera aesthetic, color philosophy, animation vocabulary, anti-patterns
 - `claude-skills/ui-design-system/SKILL.md` – UI design system rules, theming, tokens
 - `claude-skills/atomic-design/SKILL.md` – Component classification and Storybook hierarchy
 - `claude-skills/project-conventions/SKILL.md` – Naming, security, state management

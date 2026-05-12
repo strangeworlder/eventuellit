@@ -43,6 +43,7 @@ import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyPage } from "./components/VerifyPage";
 import { buildDocumentTitle } from "./route-title";
+import { OperaatiotPage } from "./components/OperaatiotPage";
 
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));
@@ -78,11 +79,13 @@ function AppContent() {
         ? "episodes"
         : location.pathname.startsWith("/world")
           ? "world"
-          : location.pathname.startsWith("/oma-sivu")
-            ? "dashboard"
-            : location.pathname.startsWith("/muutosloki")
-              ? "changelog"
-              : "home";
+          : location.pathname.startsWith("/operaatiot")
+            ? "operaatiot"
+            : location.pathname.startsWith("/oma-sivu")
+              ? "dashboard"
+              : location.pathname.startsWith("/muutosloki")
+                ? "changelog"
+                : "home";
 
   useEffect(() => {
     const title = buildDocumentTitle(location.pathname);
@@ -329,6 +332,15 @@ function AppContent() {
           >
             Jaksot
           </SidebarItem>
+          {isLoggedIn && (
+            <SidebarItem
+              icon={<Icon name="compass" size={20} />}
+              active={activeView === "operaatiot"}
+              onClick={() => navigate("/operaatiot")}
+            >
+              Operaatiot
+            </SidebarItem>
+          )}
           <SidebarItem
             icon={<Icon name="world" size={20} />}
             active={activeView === "world"}
@@ -425,6 +437,11 @@ function AppContent() {
                 Eventuellit: Maailma
               </Heading>
             )}
+            {activeView === "operaatiot" && (
+              <Heading as="h1" className="m-0">
+                Eventuellit: Operaatiot
+              </Heading>
+            )}
             {activeView === "dashboard" && (
               <Heading as="h1" className="m-0">
                 Eventuellit: Oma sivu
@@ -502,6 +519,14 @@ function AppContent() {
                   <Route path="/ruleset/*" element={<RulesetApp />} />
                   <Route path="/episodes/*" element={<EpisodesApp />} />
                   <Route path="/world/*" element={<WorldApp />} />
+                  <Route
+                    path="/operaatiot"
+                    element={
+                      <ProtectedRoute>
+                        <OperaatiotPage />
+                      </ProtectedRoute>
+                    }
+                  />
                   <Route path="/tietosuoja" element={<PrivacyPolicyPage />} />
                   <Route path="/muutosloki" element={<ChangelogPage />} />
                   <Route path="*" element={<Navigate to="/" replace />} />

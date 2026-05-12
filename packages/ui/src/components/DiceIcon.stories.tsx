@@ -90,3 +90,25 @@ export const IlmanArvoa: Story = {
     </div>
   ),
 };
+
+/** All shapes at lg size, active vs inactive side-by-side */
+export const KaikkiTilat: Story = {
+  args: { faces: 20 },
+  render: () => {
+    const allFaces: (4 | 6 | 8 | 10 | 12 | 20 | "swirl")[] = [4, 6, 8, 10, 12, 20, "swirl"];
+    return (
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center gap-6">
+          {allFaces.map((f) => (
+            <DiceIcon key={`active-${f}`} faces={f} size="lg" active />
+          ))}
+        </div>
+        <div className="flex items-center gap-6">
+          {allFaces.map((f) => (
+            <DiceIcon key={`inactive-${f}`} faces={f} size="lg" />
+          ))}
+        </div>
+      </div>
+    );
+  },
+};

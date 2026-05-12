@@ -109,3 +109,37 @@ Every component variant, state, and theme permutation is demonstrated in Storybo
 - **Molekyylit** — composed from atoms (Card, TopNav, Tabs, Input, ImageElement)
 - **Organismit** — complex layout components (Page, Sidebar, Drawer, Dialog)
 - **Pelimekaniikka** — game-specific domain components (DicePoolAllocator, StationConnections, StatBlock)
+
+---
+
+## 8. Operational vs. Informative Density
+
+Components express their **purpose through density**. This is a first-class design axis — not a cosmetic choice.
+
+### Operational (tiivistetty)
+
+Used for **action-oriented surfaces** where the user is making a decision or performing a task. Key signals:
+
+- `rounded-md` border-radius (angular — signals precision, readiness)
+- Tighter padding (`p-3` / `px-3 py-2.5` instead of `p-4 tablet:p-6`)
+- Named CSS grid layout with explicit rows (`meta` / `body`) for cross-card alignment
+- Reduced gap between group items (`gap-3` not `gap-4`)
+- Glows and selection feedback are slightly more contained (smaller shadow spread)
+
+**Examples:** `SelectionCard`, `SelectionCardMeta`, `SelectionCardBody`
+
+### Informative (väljä)
+
+Used for **content surfaces** where the user is reading, exploring, or reviewing. Key signals:
+
+- `rounded-xl` border-radius (softer — signals openness, invitation)
+- Generous padding (`p-4 tablet:p-6` and up)
+- Free-form layout — content drives height, no grid rows imposed
+- Larger gap between group items
+
+**Examples:** `Card` (surface/outline/callout variants), `EntityCard`, `AttributeCard`
+
+### Rule
+
+> **Before adding padding or border-radius to a new component, decide its density tier first.**
+> Operational components must never use `rounded-xl`. Informative components must never use `rounded-sm` or `rounded-none` unless deliberately expressing a brutalist/set-piece intent.

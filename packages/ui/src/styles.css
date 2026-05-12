@@ -497,6 +497,40 @@
   }
 }
 
+/* ── DiceIcon active glow ── */
+
+@keyframes dice-glow {
+
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 2px color-mix(in srgb, var(--dice-glow-color, var(--theme-primary)) 15%, transparent))
+      drop-shadow(2px 2px 0px color-mix(in srgb, var(--dice-glow-color, var(--theme-primary)) 40%, transparent));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 6px color-mix(in srgb, var(--dice-glow-color, var(--theme-primary)) 40%, transparent))
+      drop-shadow(2px 2px 0px color-mix(in srgb, var(--dice-glow-color, var(--theme-primary)) 40%, transparent));
+  }
+}
+
+@keyframes dice-glow-inactive {
+
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 1px color-mix(in srgb, var(--dice-glow-color, var(--theme-secondary)) 8%, transparent))
+      drop-shadow(2px 2px 0px color-mix(in srgb, var(--dice-glow-color, var(--theme-secondary)) 30%, transparent));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 3px color-mix(in srgb, var(--dice-glow-color, var(--theme-secondary)) 20%, transparent))
+      drop-shadow(2px 2px 0px color-mix(in srgb, var(--dice-glow-color, var(--theme-secondary)) 30%, transparent));
+  }
+}
+
 /* ── Obscured glitch effect ── */
 
 @keyframes glitch-paths {

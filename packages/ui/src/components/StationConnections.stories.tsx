@@ -253,48 +253,46 @@ export const YksiYhteys: Story = {
 /** Kaikki jännitystasot näkyvissä yhtä aikaa */
 export const KaikkiJannitetasot: Story = {
   render: () => (
-    <MemoryRouter>
-      <div className="grid grid-cols-1 gap-12 bg-[var(--theme-bg)] p-8" data-theme="base">
-        <div>
-          <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
-            Matala jännite — Seula (7 yhteyttä + d12-merkki)
-          </p>
-          <StationConnections
-            connections={seulaSolmuConnections}
-            tension="Matala"
-            currentStationOrder={1}
-            currentStationTitle="Seula"
-            stations={kynnysSampleStations}
-            basePath="/"
-          />
-        </div>
-        <div>
-          <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
-            Korkea jännite — Syke (5 yhteyttä + d6-merkki)
-          </p>
-          <StationConnections
-            connections={sykeConnections}
-            tension="Korkea"
-            currentStationOrder={2}
-            currentStationTitle="Syke"
-            stations={kynnysSampleStations}
-            basePath="/"
-          />
-        </div>
-        <div>
-          <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
-            Murtunut jännite — Kuiskaus (4 yhteyttä)
-          </p>
-          <StationConnections
-            connections={kuiskausConnections}
-            tension="Murtunut"
-            currentStationOrder={10}
-            currentStationTitle="Kuiskaus"
-            stations={kynnysSampleStations}
-            basePath="/"
-          />
-        </div>
+    <div className="grid grid-cols-1 gap-12">
+      <div>
+        <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
+          Matala jännite — Seula (7 yhteyttä + d12-merkki)
+        </p>
+        <StationConnections
+          connections={seulaSolmuConnections}
+          tension="Matala"
+          currentStationOrder={1}
+          currentStationTitle="Seula"
+          stations={kynnysSampleStations}
+          basePath="/"
+        />
       </div>
-    </MemoryRouter>
+      <div>
+        <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
+          Korkea jännite — Syke (5 yhteyttä + d6-merkki)
+        </p>
+        <StationConnections
+          connections={sykeConnections}
+          tension="Korkea"
+          currentStationOrder={2}
+          currentStationTitle="Syke"
+          stations={kynnysSampleStations}
+          basePath="/"
+        />
+      </div>
+      <div>
+        <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2">
+          Murtunut jännite — Kuiskaus (4 yhteyttä)
+        </p>
+        <StationConnections
+          connections={kuiskausConnections}
+          tension="Murtunut"
+          currentStationOrder={10}
+          currentStationTitle="Kuiskaus"
+          stations={kynnysSampleStations}
+          basePath="/"
+        />
+      </div>
+    </div>
   ),
 };

@@ -15,6 +15,8 @@ import {
   useDashboard,
   useRespondToInvite,
 } from "../api/dashboard";
+import { useActiveVotingRound } from "../api/mission-votes";
+import { CountdownDisplay } from "@repo/ui/components/CountdownDisplay";
 
 function actionIcon(type: DashboardAction["type"]): IconName {
   switch (type) {
@@ -223,6 +225,7 @@ export function PlayerDashboard() {
   const navigate = useNavigate();
   const { data, isLoading, error } = useDashboard();
   const respondMutation = useRespondToInvite();
+  const { data: votingData } = useActiveVotingRound();
 
   const handleNavigate = (url: string) => {
     navigate(url);
@@ -262,8 +265,48 @@ export function PlayerDashboard() {
     );
   }
 
+  const activeRound = votingData?.round ?? null;
+  const myVote = votingData?.myVote ?? null;
+  const optionCount = votingData?.options.length ?? 0;
+  const showVotingCta = !!activeRound && activeRound.status === "open" && !myVote;
+
   return (
     <div className="space-y-10">
+      {/* ── Voting CTA ── */}
+      {showVotingCta && (
+        <section>
+          <HeadingLevelProvider>
+            <div className="border-b-2 border-[var(--theme-border-medium)] pb-2 mb-4">
+              <Heading>Operaatiot</Heading>
+            </div>
+            <Card variant="interactive" onClick={() => navigate("/operaatiot")} className="cursor-pointer">
+              <CardHeader>
+                <div className="flex items-center justify-between gap-3 flex-wrap">
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="compass" size={18} className="text-[var(--theme-secondary)]" />
+                    Äänestä seuraavasta operaatiosta
+                  </CardTitle>
+                  <Badge variant="solid">{optionCount} vaihtoehtoa</Badge>
+                </div>
+              </CardHeader>
+              <CardContent variant="dense">
+                <Text variant="muted" className="text-sm">Valitse ensisijainen ja toissijainen tehtäväsi. Äänestys on anonyymi.</Text>
+                {activeRound.deadline && (
+                  <div className="mt-2">
+                    <CountdownDisplay deadline={activeRound.deadline} size="compact" />
+                  </div>
+                )}
+              </CardContent>
+              <CardFooter>
+                <Button variant="solid" size="sm" onClick={(e) => { e.stopPropagation(); navigate("/operaatiot"); }}>
+                  Siirry äänestämään
+                </Button>
+              </CardFooter>
+            </Card>
+          </HeadingLevelProvider>
+        </section>
+      )}
+
       {hasPendingInvites && (
         <section>
           <HeadingLevelProvider>

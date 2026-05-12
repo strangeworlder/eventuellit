@@ -49,7 +49,7 @@ Small, immediate feedback on state changes. Applied via utility classes.
 |---|---|
 | Button | `hover:-translate-y-0.5`, `active:scale-[0.98]` |
 | Card (interactive) | hover border shift, subtle lift |
-| DiceIcon | `hover:rotate-*`, color transitions |
+| DiceIcon | `hover:scale-[1.08] hover:rotate-[-4deg]`, ambient `dice-glow` pulse (4s active / 6s inactive), edge-lighting SVG gradients |
 | AspectTag | hover scale + translate, harm pulse |
 | TopNav / Tabs pill indicator | slide + stretch via CSS variables (`usePillIndicator`) |
 
@@ -135,6 +135,8 @@ These are defined in `styles.css` and available globally:
 | `breath-glow` | `.breath-char` | Slow glow ripple across heading characters |
 | `fluorescent-flicker` | `.flicker-char` | Neon tube flicker on individual characters |
 | `aspect-pulse` | Applied in `AspectTag.tsx` | Red glow pulse for active harm aspects |
+| `dice-glow` | Applied in `DiceIcon.tsx` | Ambient drop-shadow pulse for active dice (4s cycle) |
+| `dice-glow-inactive` | Applied in `DiceIcon.tsx` | Subtle drop-shadow breath for inactive dice (6s cycle) |
 | `glitch-paths` | `.obscured-glitch > span` | Random clip-path jumping |
 | `glitch-movement` | `.obscured-glitch::before/after` | Positional offset of glitch echoes |
 | `glitch-opacity` | Combined with above | Opacity flickering of glitch layers |

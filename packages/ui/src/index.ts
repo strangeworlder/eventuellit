@@ -38,8 +38,17 @@ export { Card } from "./components/Card";
 export { Checkbox } from "./components/Checkbox";
 export type { CodeProps } from "./components/Code";
 export { Code } from "./components/Code";
+export type { CommentEntryProps } from "./components/CommentEntry";
+/** Storybook: Suunnittelujarjestelma/Komponentit/CommentEntry */
+export { CommentEntry } from "./components/CommentEntry";
+export type { CommentData, CommentThreadProps } from "./components/CommentThread";
+/** Storybook: Suunnittelujarjestelma/Komponentit/CommentThread */
+export { CommentThread } from "./components/CommentThread";
 export type { ConfirmDialogProps } from "./components/ConfirmDialog";
 export { ConfirmDialog } from "./components/ConfirmDialog";
+export type { CountdownDisplayProps } from "./components/CountdownDisplay";
+/** Storybook: Suunnittelujarjestelma/Komponentit/CountdownDisplay */
+export { CountdownDisplay } from "./components/CountdownDisplay";
 export type { DatePickerProps } from "./components/DatePicker";
 // ── Molecules ──
 export { DatePicker } from "./components/DatePicker";
@@ -102,6 +111,9 @@ export { Pagination } from "./components/Pagination";
 export type { QuickViewPanelProps } from "./components/QuickViewPanel";
 export { QuickViewPanel } from "./components/QuickViewPanel";
 export { RadioGroup } from "./components/RadioGroup";
+export type { SelectionCardGroupProps, SelectionCardMetaProps, SelectionCardProps, SelectionState } from "./components/SelectionCard";
+/** Storybook: Suunnittelujarjestelma/Komponentit/SelectionCard */
+export { SelectionCard, SelectionCardBody, SelectionCardGroup, SelectionCardMeta } from "./components/SelectionCard";
 export type { SelectOption, SelectProps } from "./components/Select";
 export { Select } from "./components/Select";
 export type { SeparatorProps } from "./components/Separator";
@@ -160,6 +172,12 @@ export { TopNav, TopNavDropdown, TopNavLink, TopNavList } from "./components/Top
 export type { UtilityPageProps } from "./components/UtilityPage";
 /** Storybook: Suunnittelujarjestelma/Sivupohjat/UtilityPage */
 export { UtilityPage } from "./components/UtilityPage";
+export type { UrgencyIndicatorProps, UrgencyLevel } from "./components/UrgencyIndicator";
+/** Storybook: Suunnittelujarjestelma/Pelimekaniikka/UrgencyIndicator */
+export { UrgencyIndicator } from "./components/UrgencyIndicator";
+export type { VotingStandingsItem, VotingStandingsProps } from "./components/VotingStandings";
+/** Storybook: Suunnittelujarjestelma/Pelimekaniikka/VotingStandings */
+export { VotingStandings } from "./components/VotingStandings";
 export type { UseArticleScrollProgressOptions } from "./components/useArticleScrollProgress";
 export { useArticleScrollProgress } from "./components/useArticleScrollProgress";
 export { useFocusTrap } from "./components/useFocusTrap";

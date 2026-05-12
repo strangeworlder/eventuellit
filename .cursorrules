@@ -1,9 +1,35 @@
 # Global Project Rules
 
+## Design System First — Mandatory Pre-Flight
+
+> **Before building ANY new feature or UI, you MUST:**
+> 1. Read `claude-skills/visual-identity/SKILL.md` for the retro-space-opera visual identity.
+> 2. Read `claude-skills/ui-design-system/SKILL.md` for token, theming, and component rules.
+> 3. Check `packages/ui/src/components/ComponentGuide.mdx` for the full component inventory.
+> 4. **Use `@repo/ui` components** (`<Button>`, `<Card>`, `<Input>`, `<Text>`, `<Heading>`, etc.) — NEVER raw HTML elements with Tailwind classes. If a component lacks a needed variant, **extend it** in `@repo/ui`.
+> 5. Include a **"Design System Usage"** section in every implementation plan listing existing components to be reused and any new components to be created (with justification).
+
+## Context & Documentation
+
 1. Always check `docs/prd.md` before implementing new features to ensure alignment with requirements.
 2. Follow architectural guidelines in `docs/architecture.md`.
 3. Check `docs/rules.md` and `docs/learnings.md` for specific formatting, naming conventions, and to avoid repeating historic project bugs. Treat `docs/rules.md` and `docs/architecture.md` as long-term canonical sources; treat `docs/learnings.md` as a rolling log.
 4. Reference `.agents/workflows/` for standard operational tasks. For any learnings cleanup/purge, follow `.agents/workflows/learnings-retention.md` before deleting or rewriting entries.
-5. **AGENT DIRECTIVE:** When a technical or functional decision is made with the user, YOU MUST update the relevant documentation (`docs/architecture.md`, `docs/prd.md`, `docs/rules.md`, or `docs/learnings.md`) instantly.
+
+## Agent Directives
+
+5. **DECISION RECORDS:** When a technical or functional decision is made with the user, YOU MUST update the relevant documentation (`docs/architecture.md`, `docs/prd.md`, `docs/rules.md`, or `docs/learnings.md`) instantly.
 6. **PROACTIVE CONTINUOUS LEARNING:** Do NOT wait for the user to prompt you. After every complex debugging session or configuration milestone, you MUST proactively summarize the nuances, bugs, and specific fixes in `docs/learnings.md` so that future agents do not repeat the mistakes.
 7. **LEARNINGS PURGE SAFETY:** Never delete critical learnings outright. First promote evergreen constraints to `docs/rules.md`/`docs/architecture.md`, and copy recurring runbooks into `.agents/workflows/` so the behavior survives future purges.
+
+## Skills Reference
+
+Skills are available in the `claude-skills/` directory:
+- `claude-skills/visual-identity/SKILL.md` – **Visual identity**: retro-space-opera aesthetic, color philosophy, animation vocabulary
+- `claude-skills/ui-design-system/SKILL.md` – UI design system rules, theming, tokens
+- `claude-skills/atomic-design/SKILL.md` – Component classification and Storybook hierarchy
+- `claude-skills/project-conventions/SKILL.md` – Naming, security, state management
+- `claude-skills/setup-troubleshooting/SKILL.md` – Environment setup and common error fixes
+- `claude-skills/article-progress-nav/SKILL.md` – Progress rail architecture and MFE integration
+- `claude-skills/content-authoring/SKILL.md` – Markdown content in ruleset/episodes/world
+- `claude-skills/game-mechanics/SKILL.md` – TTRPG domain knowledge (dice, attributes, combat)

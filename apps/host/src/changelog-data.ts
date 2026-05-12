@@ -24,6 +24,94 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.1.6",
+    date: "2026-05-12",
+    name: "Operaatiot — Tehtävääänestys",
+    features: [
+      {
+        title: "Tehtävääänestysjärjestelmä",
+        description:
+          "Pelaajat voivat nyt äänestää seuraavasta operaatiosta. Kukin pelaaja valitsee ensisijaisen (3 pistettä) ja valinnaisen toissijaisen (1 piste) vaihtoehdon. Äänestys on anonyymi ja pelinjohtaja luo ja sulkee äänestyskerrokset.",
+        link: { label: "Siirry operaatioihin", to: "/operaatiot" },
+      },
+      {
+        title: "Operaatiot-sivu",
+        description:
+          "Uusi suojattu sivu, jossa pelaajat näkevät aktiivisen äänestyksen tehtävävaihtoehdot, äänestystulokset reaaliajassa ja mahdollisen aikarajan. Pelinjohtajalle on erillinen hallintapaneeli äänestyskerrosten ja vaihtoehtojen luomiseen.",
+        link: { label: "Avaa Operaatiot", to: "/operaatiot" },
+      },
+      {
+        title: "Äänestys-CTA hallintapaneelissa",
+        description:
+          "Pelaajan hallintapaneelissa näkyy kortti, joka kehottaa äänestämään, kun aktiivinen äänestyskierros on käynnissä ja pelaaja ei ole vielä äänestänyt. Kortti näyttää vaihtoehtojen määrän ja mahdollisen aikarajan.",
+      },
+    ],
+    major: [
+      {
+        title: "MissionVotes-palvelinmoduuli",
+        description:
+          "Uusi NestJS-moduuli (controller, service, 6 DTO:ta) käsittelee äänestyskerrosten, vaihtoehtojen, äänten ja kommenttien CRUD-operaatiot. RESTful API tukee äänestyksen luomista, sulkemista, äänten upsertointia ja anonyymejä kommentteja.",
+      },
+      {
+        title: "Tietokantaskeema — 4 uutta taulua",
+        description:
+          "voting_rounds (äänestyskerrokset), mission_options (tehtävävaihtoehdot), mission_votes (pelaajien äänet) ja mission_comments (anonyymit/nimetyt kommentit). Äänet rajoitettu yksi per pelaaja per kierros uniikkiavaimella.",
+      },
+      {
+        title: "6 uutta suunnittelujärjestelmäkomponenttia",
+        description:
+          "SelectionCard (valintakortti ensisijainen/toissijainen-tilalla ja ryhmähallinnalla), VotingStandings (äänestyspisteet mittaripalkeilla), CountdownDisplay (aikarajanäyttö), UrgencyIndicator (kiireellisyystaso), CommentEntry (yksittäinen kommentti) ja CommentThread (kommenttiketju). Kaikki dokumentoitu Storybook-tarinoin.",
+      },
+    ],
+    minor: [
+      {
+        title: "DiceIcon — visuaalinen uudistus",
+        description:
+          "Noppakuvakkeet käyttävät nyt SVG-gradientteja reunavalaistukseen ja pintavinjettiin. Aktiivinen hehkuanimaatio (4 s sykli) ja hiljainen hengitys (6 s sykli). Hover-mikrointeraktiot: 1.04× skaalaus ja 2° kallistus. Gradientin ID:t sidottu React.useId:iin SVG-ristiriitojen välttämiseksi.",
+      },
+      {
+        title: "Icon-komponentti — Storybook-päivitys",
+        description:
+          "Icon-galleriaan lisätty kaikki 19 temaattista kuvaketta suomenkielisine kuvauksineen. Uudet tarinat: BrandedVariantti ja KokoVertailu. Gallerian automaattinen generointi custom-icon-names-tiedostosta.",
+      },
+      {
+        title: "StationConnections — Storybook-korjaus",
+        description:
+          "Ylimääräinen MemoryRouter-kääre poistettu KaikkiJannitetasot-tarinasta, jossa dekoraattori tarjosi jo reitittimen.",
+      },
+      {
+        title: "OG-kuvat siirretty R2-palvelimelle",
+        description:
+          "OpenGraph-meta-kuvat osoittavat nyt suoraan R2-julkiseen URL:iin paikallisen /images/-polun sijasta.",
+      },
+      {
+        title: "Agenttien työnkulku — DS-esitarkistus",
+        description:
+          "new-feature.md- ja ui-development.md-työnkulkuihin lisätty pakollinen suunnittelujärjestelmän esitarkistusvaihe. CLAUDE.md ja .cursorrules sisältävät saman direktiivin.",
+      },
+      {
+        title: "Visual Identity -taitotiedosto",
+        description:
+          "Uusi claude-skills/visual-identity/SKILL.md dokumentoi projektin retro-avaruusooppera-estetiikan: fluoresoivat otsikot, teal-paletti, tumma konsolipohja ja anti-patterneina pastelli-SaaS-tyylit.",
+      },
+      {
+        title: "Otsikkotasojen kontekstisääntö dokumentoitu",
+        description:
+          "docs/rules.md ja docs/learnings.md päivitetty: otsikkotasot virtaavat HeadingLevelProvider-kontekstista eikä niitä saa ohittaa manuaalisesti.",
+      },
+      {
+        title: "MotionAndAnimation.mdx — noppa-animaatiot",
+        description:
+          "Liikedokumentaatioon lisätty dice-glow ja dice-glow-inactive -animaatiot sekä DiceIconin päivitetyt hover-kuvaukset.",
+      },
+      {
+        title: "Learnings-tiedosto tiivistetty",
+        description:
+          "16 vanhentunutta merkintää poistettu ja 16 uutta lisätty. Purge Ledger päivitetty.",
+      },
+    ],
+  },
+  {
     version: "0.1.5",
     date: "2026-05-12",
     name: "Cloudflare R2 -mediapalvelu",

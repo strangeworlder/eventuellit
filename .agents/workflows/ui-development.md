@@ -5,6 +5,31 @@ description: Building and managing UI components and Storybook
 
 When tasked with building components, prototypes, or styling the app, strictly follow these rules:
 
+## Pre-Flight: Component Inventory & Visual Identity
+
+> **Before writing ANY new component or feature UI, you MUST complete this check.**
+
+1. **Visual language:** Read `claude-skills/visual-identity/SKILL.md` to align with the retro-space-opera aesthetic.
+2. **Component inventory:** Consult the Storybook MCP (`list-all-documentation`, then `get-documentation` for relevant components) to verify what already exists. If MCP is unavailable, read `packages/ui/src/components/ComponentGuide.mdx`.
+3. **Extend, don't duplicate:** New components MUST justify their existence. If an existing component can serve the purpose with a new `variant`, **extend it** — don't create a parallel component.
+4. **No raw HTML:** Never use `<button>`, `<input>`, `<div>` with Tailwind classes when a `@repo/ui` component exists. Use `<Button>`, `<Input>`, `<Card>`, `<Text>`, `<Heading>`, etc.
+5. **Heading levels flow from context — never override manually.** The heading tree is maintained automatically by `Page` (sets level 1), `HeadingLevelProvider` (bumps by 1), and `Hero` (renders the current level). **Never** use `HeadingLevelContext.Provider value={n}` to manually force a level — this breaks the semantic heading tree. The correct page structure is:
+   ```tsx
+   <Page>                        {/* sets context = 1 */}
+     <HeadingLevelProvider>      {/* bumps to 2 */}
+       <Hero title="..." />      {/* renders h2 ✓ */}
+     </HeadingLevelProvider>
+     <HeadingLevelProvider>      {/* bumps to 2 for content */}
+       <PageBody>
+         <HeadingLevelProvider>  {/* bumps to 3 for sections */}
+           ...
+         </HeadingLevelProvider>
+       </PageBody>
+     </HeadingLevelProvider>
+   </Page>
+   ```
+   Reference: `apps/world/src/App.tsx` (`WorldHub`, `ArticleContent`) as the canonical examples.
+
 ## Strict Localization
 - **Rule:** The entire user-facing application MUST be purely in Finnish.
 - **No English:** Do not include English words in UI labels, even in parentheses (e.g., "Hyökkää (Attack)" is forbidden).

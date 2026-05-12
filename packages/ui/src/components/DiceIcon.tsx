@@ -16,108 +16,184 @@ export interface DiceIconProps extends React.HTMLAttributes<HTMLDivElement> {
   hideValue?: boolean;
 }
 
+/**
+ * SVG gradient IDs must be unique per instance because SVG `id` attributes are
+ * global in the DOM. Without scoping, the last DiceIcon rendered wins for all.
+ * We pass a prefix derived from React.useId() to every gradient and reference.
+ */
+interface GradientIds {
+  edgeLight: string;
+  wireframe: string;
+  surfaceFill: string;
+}
+
+const DiceDefs = ({ active, ids }: { active?: boolean; ids: GradientIds }) => (
+  <defs>
+    {/*
+     * Edge-lighting gradient: brightened rim at top → base color at bottom.
+     * The top stop mixes 30% white into the theme color so the rim reads
+     * clearly even on low-contrast teal/blue scales against the dark void.
+     */}
+    <linearGradient id={ids.edgeLight} x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop
+        offset="0%"
+        stopColor={
+          active
+            ? "color-mix(in srgb, var(--theme-primary) 70%, white)"
+            : "color-mix(in srgb, var(--theme-secondary) 70%, white)"
+        }
+        stopOpacity="1"
+      />
+      <stop
+        offset="100%"
+        stopColor={
+          active ? "var(--theme-primary)" : "var(--theme-secondary)"
+        }
+        stopOpacity="0.7"
+      />
+    </linearGradient>
+    {/* Inner wireframe stroke: dimmer version for internal detail lines */}
+    <linearGradient id={ids.wireframe} x1="0.3" y1="0" x2="0.7" y2="1">
+      <stop
+        offset="0%"
+        stopColor={
+          active
+            ? "color-mix(in srgb, var(--theme-primary) 80%, white)"
+            : "color-mix(in srgb, var(--theme-secondary) 80%, white)"
+        }
+        stopOpacity="0.8"
+      />
+      <stop
+        offset="100%"
+        stopColor={
+          active ? "var(--theme-primary)" : "var(--theme-secondary)"
+        }
+        stopOpacity="0.45"
+      />
+    </linearGradient>
+    {/*
+     * Surface fill gradient: theme color at top → slightly darkened at bottom.
+     * Creates a subtle vignette that makes edge-lighting pop by contrast.
+     */}
+    <linearGradient id={ids.surfaceFill} x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop
+        offset="0%"
+        stopColor={
+          active ? "var(--theme-primary)" : "var(--theme-secondary)"
+        }
+        stopOpacity={active ? 0.88 : 0.75}
+      />
+      <stop
+        offset="100%"
+        stopColor={
+          active
+            ? "color-mix(in srgb, var(--theme-primary) 70%, black)"
+            : "color-mix(in srgb, var(--theme-secondary) 70%, black)"
+        }
+        stopOpacity={active ? 0.8 : 0.65}
+      />
+    </linearGradient>
+  </defs>
+);
+
 const DiceSvg = ({
   faces,
   className,
   active,
+  ids,
 }: {
   faces: number | "swirl";
   className?: string;
   active?: boolean;
+  ids: GradientIds;
 }) => {
-  const style: React.CSSProperties = {
-    fill: active ? "var(--theme-primary)" : "var(--theme-secondary)",
-    fillOpacity: 0.8,
-    stroke: active ? "var(--theme-primary)" : "var(--theme-secondary)",
+  const fillStyle: React.CSSProperties = {
+    fill: `url(#${ids.surfaceFill})`,
+  };
+  const outerStrokeStyle: React.CSSProperties = {
+    stroke: `url(#${ids.edgeLight})`,
+    strokeWidth: 6,
+    strokeLinejoin: "round" as const,
+  };
+  const innerStrokeStyle: React.CSSProperties = {
+    fill: "none",
+    stroke: `url(#${ids.wireframe})`,
+    strokeWidth: 4,
+    strokeLinejoin: "round" as const,
   };
 
   switch (faces) {
     case 4:
       return (
-        <svg
-          viewBox="0 0 100 100"
-          strokeWidth="6"
-          strokeLinejoin="round"
-          className={className}
-          style={style}
-        >
-          <polygon points="50,10 90,85 10,85" />
-          <path d="M50 60 L50 10 M50 60 L90 85 M50 60 L10 85" fill="none" />
+        <svg viewBox="0 0 100 100" className={className}>
+          <DiceDefs active={active} ids={ids} />
+          <polygon points="50,10 90,85 10,85" style={{ ...fillStyle, ...outerStrokeStyle }} />
+          <path d="M50 60 L50 10 M50 60 L90 85 M50 60 L10 85" style={innerStrokeStyle} />
         </svg>
       );
     case 6:
       return (
-        <svg
-          viewBox="0 0 100 100"
-          strokeWidth="6"
-          strokeLinejoin="round"
-          className={className}
-          style={style}
-        >
-          <polygon points="50,10 85,30 85,70 50,90 15,70 15,30" />
-          <path d="M50 50 L50 90 M50 50 L15 30 M50 50 L85 30" fill="none" />
+        <svg viewBox="0 0 100 100" className={className}>
+          <DiceDefs active={active} ids={ids} />
+          <polygon
+            points="50,10 85,30 85,70 50,90 15,70 15,30"
+            style={{ ...fillStyle, ...outerStrokeStyle }}
+          />
+          <path d="M50 50 L50 90 M50 50 L15 30 M50 50 L85 30" style={innerStrokeStyle} />
         </svg>
       );
     case 8:
       return (
-        <svg
-          viewBox="0 0 100 100"
-          strokeWidth="6"
-          strokeLinejoin="round"
-          className={className}
-          style={style}
-        >
-          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" />
-          <polygon points="50,5 95,70 5,70" fill="none" />
+        <svg viewBox="0 0 100 100" className={className}>
+          <DiceDefs active={active} ids={ids} />
+          <polygon
+            points="50,5 95,30 95,70 50,95 5,70 5,30"
+            style={{ ...fillStyle, ...outerStrokeStyle }}
+          />
+          <polygon points="50,5 95,70 5,70" style={innerStrokeStyle} />
         </svg>
       );
     case 10:
       return (
-        <svg
-          viewBox="0 0 100 100"
-          strokeWidth="6"
-          strokeLinejoin="round"
-          className={className}
-          style={style}
-        >
-          <polygon points="50,5 90,35 50,95 10,35" />
-          <polyline points="50,5 70,40 50,75 30,40 50,5" fill="none" />
-          <polyline points="70,40 90,35" fill="none" />
-          <polyline points="30,40 10,35" fill="none" />
-          <polyline points="50,75 50,95" fill="none" />
+        <svg viewBox="0 0 100 100" className={className}>
+          <DiceDefs active={active} ids={ids} />
+          <polygon
+            points="50,5 90,35 50,95 10,35"
+            style={{ ...fillStyle, ...outerStrokeStyle }}
+          />
+          <polyline points="50,5 70,40 50,75 30,40 50,5" style={innerStrokeStyle} />
+          <polyline points="70,40 90,35" style={innerStrokeStyle} />
+          <polyline points="30,40 10,35" style={innerStrokeStyle} />
+          <polyline points="50,75 50,95" style={innerStrokeStyle} />
         </svg>
       );
     case 12:
       return (
-        <svg
-          viewBox="0 0 100 100"
-          strokeWidth="6"
-          strokeLinejoin="round"
-          className={className}
-          style={style}
-        >
-          <polygon points="50,5 75,13 93,36 95,64 75,87 50,95 25,87 5,64 7,36 25,13" />
-          <polygon points="38,35 62,35 70,55 50,70 30,55" fill="none" />
+        <svg viewBox="0 0 100 100" className={className}>
+          <DiceDefs active={active} ids={ids} />
+          <polygon
+            points="50,5 75,13 93,36 95,64 75,87 50,95 25,87 5,64 7,36 25,13"
+            style={{ ...fillStyle, ...outerStrokeStyle }}
+          />
+          <polygon points="38,35 62,35 70,55 50,70 30,55" style={innerStrokeStyle} />
           <path
             d="M38 35 L25 13 M62 35 L75 13 M70 55 L95 64 M50 70 L50 95 M30 55 L5 64"
-            fill="none"
+            style={innerStrokeStyle}
           />
         </svg>
       );
     case 20:
       return (
-        <svg
-          viewBox="0 0 100 100"
-          strokeWidth="6"
-          strokeLinejoin="round"
-          className={className}
-          style={style}
-        >
-          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" />
-          <polygon points="30,35 70,35 50,70" fill="none" />
+        <svg viewBox="0 0 100 100" className={className}>
+          <DiceDefs active={active} ids={ids} />
+          <polygon
+            points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
+            style={{ ...fillStyle, ...outerStrokeStyle }}
+          />
+          <polygon points="30,35 70,35 50,70" style={innerStrokeStyle} />
           <path
             d="M30 35 L50 5 M70 35 L50 5 M70 35 L95 27.5 M70 35 L95 72.5 M50 70 L95 72.5 M50 70 L50 95 M50 70 L5 72.5 M30 35 L5 72.5 M30 35 L5 27.5"
-            fill="none"
+            style={innerStrokeStyle}
           />
         </svg>
       );
@@ -130,7 +206,7 @@ const DiceSvg = ({
             r={560}
             style={{
               fill: active ? "var(--theme-primary)" : "var(--theme-secondary)",
-              fillOpacity: 0.8,
+              fillOpacity: active ? 0.85 : 0.7,
             }}
           />
           <path
@@ -151,11 +227,22 @@ const DiceSvg = ({
 
 export const DiceIcon = React.forwardRef<HTMLDivElement, DiceIconProps>(
   ({ className, faces, value, size = "md", active = false, hideValue = false, ...props }, ref) => {
+    const reactId = React.useId();
+    // Strip colons from React.useId() output — they're invalid in SVG id attrs
+    const prefix = reactId.replace(/:/g, "");
+    const ids: GradientIds = {
+      edgeLight: `${prefix}-edge`,
+      wireframe: `${prefix}-wire`,
+      surfaceFill: `${prefix}-fill`,
+    };
+
     return (
       <div
         ref={ref}
         className={cn(
-          "relative flex items-center justify-center font-black transform transition-transform",
+          "dice-icon relative flex items-center justify-center font-black transform",
+          "transition-transform duration-[var(--motion-duration-fast)] ease-[var(--motion-easing-default)]",
+          "hover:scale-[1.04] hover:-rotate-[2deg] hover:duration-[var(--motion-duration-instant)]",
           {
             "w-6 h-6 text-xs": size === "sm",
             "w-8 h-8 text-sm": size === "md",
@@ -168,20 +255,21 @@ export const DiceIcon = React.forwardRef<HTMLDivElement, DiceIconProps>(
         <DiceSvg
           faces={faces}
           active={active}
+          ids={ids}
           className={cn(
-            "absolute inset-0 w-full h-full transition-colors drop-shadow-sm",
+            "absolute inset-0 w-full h-full transition-[filter] duration-[var(--motion-duration-base)]",
             active
-              ? "drop-shadow-[2px_2px_0px_color-mix(in_srgb,var(--theme-primary)_40%,transparent)]"
-              : "drop-shadow-[2px_2px_0px_color-mix(in_srgb,var(--theme-secondary)_40%,transparent)]",
+              ? "animate-[dice-glow_4s_ease-in-out_infinite]"
+              : "animate-[dice-glow-inactive_6s_ease-in-out_infinite]",
           )}
         />
         {!hideValue && faces !== "swirl" && (
           <span
             className={cn(
-              "relative z-10",
+              "relative z-10 transition-colors duration-[var(--motion-duration-fast)]",
               active
-                ? "text-[var(--theme-primary-foreground)]"
-                : "text-[var(--theme-secondary-foreground)]",
+                ? "text-[var(--theme-primary-foreground)] drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+                : "text-[var(--theme-secondary-foreground)] drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]",
             )}
           >
             {value ?? faces}

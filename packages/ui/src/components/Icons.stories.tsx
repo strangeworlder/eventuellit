@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { DiceIcon } from "./DiceIcon";
 import { Icon, icons, lucideIcons } from "./Icon";
+import { customIconNames } from "../generated/custom-icon-names";
 import "../styles.css";
 
 /**
@@ -45,8 +46,25 @@ const kuvakekuvaukset: Record<string, string> = {
 };
 
 const customKuvakekuvaukset: Record<string, string> = {
-  x: "Sulje paneeli, peruuta toiminto tai poista merkintä. (Kustomoitu SVG)",
+  "check-square": "Valintaruutu — vahvista valinta tai merkitse tehdyksi. (Kustomoitu SVG)",
+  check: "Hyväksy toiminto tai merkitse onnistuneeksi. (Kustomoitu SVG)",
+  "chevron-down": "Avaa pudotusvalikko tai laajenna osio alaspäin. (Kustomoitu SVG)",
+  "chevron-left": "Navigoi taaksepäin tai edelliseen kohteeseen. (Kustomoitu SVG)",
+  "chevron-right": "Navigoi eteenpäin tai seuraavaan kohteeseen. (Kustomoitu SVG)",
+  "chevron-up": "Sulje pudotusvalikko tai supista osio ylöspäin. (Kustomoitu SVG)",
+  "circle-check": "Onnistunut toiminto tai vahvistettu tila. (Kustomoitu SVG)",
+  "circle-x": "Epäonnistunut toiminto tai hylätty tila. (Kustomoitu SVG)",
+  "file-cabinet": "Arkisto, tietovarasto tai kokoelma. (Kustomoitu SVG)",
+  "file-text": "Dokumentti, artikkeli tai tekstisisältö. (Kustomoitu SVG)",
+  link: "Hyperlinkki tai ulkoinen viittaus. (Kustomoitu SVG)",
+  "list-checks": "Tehtävälista tai suoritettujen toimien yhteenveto. (Kustomoitu SVG)",
+  login: "Kirjaudu sisään — temaattinen versio. (Kustomoitu SVG)",
+  logout: "Kirjaudu ulos — temaattinen versio. (Kustomoitu SVG)",
+  "player-character": "Pelaajahahmo tai hahmoprofiili. (Kustomoitu SVG)",
   plus: "Lisää arvoa, lisää kohde tai positiivinen muuttuja. (Kustomoitu SVG)",
+  rulebook: "Sääntökirja tai peliohjeet. (Kustomoitu SVG)",
+  world: "Pelimaailma, kampanja tai universumi. (Kustomoitu SVG)",
+  x: "Sulje paneeli, peruuta toiminto tai poista merkintä. (Kustomoitu SVG)",
 };
 
 const lucideIconNames = Object.keys(lucideIcons) as Array<keyof typeof lucideIcons>;
@@ -84,7 +102,7 @@ export const Gallery: Story = {
           </div>
 
           <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 x-wide:grid-cols-4 gap-6">
-            {(["x", "plus"] as const).map((name) => (
+            {customIconNames.map((name) => (
               <div
                 key={name}
                 className="flex flex-col p-6 rounded-2xl bg-primary-500/5 border border-primary-500/20 hover:border-primary-500/50 hover:bg-primary-500/10 transition-all group"
