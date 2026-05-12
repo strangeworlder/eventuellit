@@ -5,7 +5,7 @@ episode: "jakso-2"
 episode_label: "Lähtötilanne ennen jaksoa 2: Kaski"
 snapshot_note: "Tilanne ennen Kaskea."
 description: "Biodomi — Kynnyksen ruoantuotantoasema, räjähdysherkkä tilanne."
-image: /images/03-verso.png
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/03-verso-1584.jpg
 category: kynnys
 tension: "Korkea"
 ruling_faction: muotinvalajat

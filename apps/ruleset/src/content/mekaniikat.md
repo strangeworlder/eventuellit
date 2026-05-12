@@ -2,12 +2,12 @@
 title: Mekaaninen sääntökirja
 order: 1
 images:
-  - /images/Pelipöytäily.png
-  - /images/Pelipöytäily.png
-  - /images/Hahmonluonti.png
-  - /images/Sääntöteksti.png
-  - /images/Vaurioituminen.png
-  - /images/Kehitys.png
+  - https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/pelip-yt-ily-2816.jpg
+  - https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/pelip-yt-ily-2816.jpg
+  - https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/hahmonluonti-2752.jpg
+  - https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/s--nt-teksti-2816.jpg
+  - https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/vaurioituminen-2752.jpg
+  - https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/kehitys-3168.jpg
 ---
 
 Olet kapinallinen aurinkokuntaa hallitsevaa tyrannia vastaan. Peli jakautuu kahden tai kolmen pelikerran mittaisiin **jaksoihin**. Tässä keskeiset mekaniikat.

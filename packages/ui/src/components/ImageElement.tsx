@@ -57,6 +57,27 @@ const resolveNearestDataTheme = (element: HTMLElement | null): string | undefine
 const manifestPromiseCache = new Map<string, Promise<ImageManifest | null>>();
 const componentOrigin = new URL(import.meta.url).origin;
 
+/**
+ * Known external CDN hosts where images are served directly without a manifest.
+ * R2 public URLs, custom domains, and r2.dev subdomains are matched here.
+ */
+const EXTERNAL_CDN_PATTERNS = [
+  /\.r2\.dev$/,
+  /\.r2\.cloudflarestorage\.com$/,
+  // Custom media domain — add yours here or match generously
+  /^media\./,
+];
+
+/** Returns true if the URL host looks like an external CDN (not a local MFE origin). */
+const isExternalCdnUrl = (url: string): boolean => {
+  try {
+    const parsed = new URL(url);
+    return EXTERNAL_CDN_PATTERNS.some((pattern) => pattern.test(parsed.hostname));
+  } catch {
+    return false;
+  }
+};
+
 const normalizeKey = (value: string): string => value.toLowerCase().replace(/[^a-z0-9-]/g, "-");
 
 const resolveAssetUrlFromOrigin = (origin: string, assetPath: string): string => {

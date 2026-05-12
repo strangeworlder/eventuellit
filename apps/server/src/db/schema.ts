@@ -42,6 +42,7 @@ export const episodes = pgTable("episodes", {
   locationLink: text("location_link"),
   image: text("image"),
   imageAlt: text("image_alt"),
+  mediaId: integer("media_id").references(() => media.id),
   mechanicalAdditions: text("mechanical_additions"), // Markdown content
   summary: text("summary"),
   tyrannyRoll: integer("tyranny_roll"), // d12 result (1–12), episode-level
@@ -50,6 +51,20 @@ export const episodes = pgTable("episodes", {
     .notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const media = pgTable("media", {
+  id: serial("id").primaryKey(),
+  key: text("key").unique().notNull(), // R2 object key, e.g. "episodes/jakso-1.png"
+  filename: text("filename").notNull(), // original upload filename
+  alt: text("alt").default("").notNull(), // alt text
+  mimeType: text("mime_type").notNull(), // "image/png", "image/jpeg", etc.
+  sizeBytes: integer("size_bytes").notNull(),
+  width: integer("width"),
+  height: integer("height"),
+  context: text("context").default("general").notNull(), // "episodes", "ruleset", "world", "general"
+  uploadedBy: integer("uploaded_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const episodeSkills = pgTable("episode_skills", {

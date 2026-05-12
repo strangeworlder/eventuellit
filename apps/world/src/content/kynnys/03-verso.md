@@ -4,7 +4,7 @@ order: 3
 description: "Biodomi — Kynnyksen ruoantuotantoasema, vallankumouksen raunioissa."
 category: kynnys
 tension: "Murtunut"
-image: /images/03-verso.png
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/03-verso-1584.jpg
 ruling_faction: tuhkan-puolue, muotinvalajat
 disrupting_factions: kokemuspuolue, deterministit
 ---

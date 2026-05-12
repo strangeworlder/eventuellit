@@ -24,6 +24,52 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.1.5",
+    date: "2026-05-12",
+    name: "Cloudflare R2 -mediapalvelu",
+    features: [
+      {
+        title: "Kuvat siirretty Cloudflare R2 -pilvipalveluun",
+        description:
+          "Kaikki kuvamateriaali (sääntökirja, maailma, jaksot) palvellaan nyt Cloudflare R2 -tallennuspalvelusta. Kuvat optimoidaan automaattisesti AVIF/WebP/JPG-muotoihin neljässä eri resoluutiossa (480px, 768px, 1200px, alkuperäinen). Sivulatausajat paranevat merkittävästi erityisesti hitailla yhteyksillä.",
+      },
+      {
+        title: "Medianhallintarajapinta",
+        description:
+          "Palvelimelle lisätty uusi MediaModule, joka mahdollistaa kuvien lataamisen suoraan R2-pilveen presigned URL -tekniikalla. Pelinjohtaja voi ladata kuvia ilman palvelimen kaistanleveyden käyttöä.",
+      },
+    ],
+    major: [
+      {
+        title: "Media-tietokantataulu",
+        description:
+          "Uusi media-taulu tallentaa kuvatiedostojen metatiedot (tiedostonimi, mitat, alt-teksti, konteksti). Jaksot voivat viitata mediatauluun suoran mediaId-viittauksen kautta.",
+      },
+      {
+        title: "Kuvaoptimointiskripti poistettu MFE-sovelluksista",
+        description:
+          "optimize-images.mjs ja sharp-riippuvuus poistettu kaikista kolmesta MFE:stä (sääntökirja, maailma, jaksot). Kuvien optimointi tapahtuu nyt kertaluontoisena prosessina R2-siirtoskriptissä, ei jokaisessa dev- ja build-ajossa.",
+      },
+    ],
+    minor: [
+      {
+        title: "Binääritiedostot poistettu repositoriosta",
+        description:
+          "Noin 120 Mt kuvatiedostoja (lähde-PNG:t, generoidut variantit ja manifest.json) poistettu Git-seurannasta. Repositorion koko pienenee merkittävästi.",
+      },
+      {
+        title: "ImageElement — CDN-tuki",
+        description:
+          "ImageElement-komponentti hakee manifest.json-tiedoston automaattisesti R2-palvelusta ja käyttää optimoituja AVIF/WebP-variantteja blur-esikatselukuvineen, kuten ennenkin.",
+      },
+      {
+        title: "Ympäristömuuttujat — R2-asetukset",
+        description:
+          "Uudet R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ENDPOINT, R2_BUCKET_NAME ja R2_PUBLIC_URL ympäristömuuttujat dokumentoitu .env.example-tiedostoon.",
+      },
+    ],
+  },
+  {
     version: "0.1.4",
     date: "2026-05-10",
     name: "Palaavat hahmot",
