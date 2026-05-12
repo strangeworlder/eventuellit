@@ -4,6 +4,8 @@ import { Icon, type IconName } from "./Icon";
 import { useObscured } from "./ObscuredWrapper";
 import { cn, obscureString } from "./utils";
 
+export type ChevronDirection = "left" | "right" | "up" | "down";
+
 /** Re-export cn from utils for backwards compatibility */
 export { cn };
 
@@ -32,7 +34,7 @@ function flattenToString(node: React.ReactNode): string {
 }
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "solid" | "outline" | "danger" | "ghost" | "ghost-subtle";
+  variant?: "solid" | "outline" | "danger" | "ghost" | "ghost-subtle" | "chevron";
   size?: "default" | "sm" | "compact" | "lg" | "icon" | "nav";
   /** When true, blurs & disables the button with a glitch effect. Works with any variant. */
   obscured?: boolean;
@@ -47,6 +49,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   showDangerIcon?: boolean;
   /** Icon used for danger affordance when variant is danger. */
   dangerIcon?: IconName;
+  /**
+   * Chevron arrow direction. Only used when `variant="chevron"`.
+   * The variant auto-renders the matching chevron icon — no children needed.
+   */
+  chevronDirection?: ChevronDirection;
   theme?:
     | "base"
     | "inverted"
@@ -70,13 +77,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       className,
       variant = "solid",
-      size = "default",
+      size: sizeProp = "default",
       justify = "center",
       loading = false,
       loadingMessage = "Toiminto on käynnissä",
       showLoadingTooltip = true,
       showDangerIcon = true,
       dangerIcon = "alert-triangle",
+      chevronDirection = "right",
       theme,
       disabled,
       obscured: obscuredProp = false,
@@ -86,6 +94,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
+    const isChevron = variant === "chevron";
+    const size = isChevron ? "icon" as const : sizeProp;
     const isObscured = obscuredProp || useObscured();
     const isDisabled = disabled || loading || isObscured;
     const tooltipId = React.useId();
@@ -163,6 +173,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "ghost",
             "bg-transparent text-text-muted hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)] active:bg-[var(--theme-surface-tint)] active:text-[var(--theme-text)] border-2 border-transparent shadow-none hover:shadow-none active:shadow-none hover:-translate-y-0 active:translate-y-0":
               variant === "ghost-subtle",
+            "rounded-full h-6 w-6 min-w-0 p-0 flex items-center justify-center border-2 border-[var(--theme-secondary)] bg-[var(--theme-bg)] text-[var(--theme-secondary)] hover:bg-[var(--theme-bg)] hover:text-[var(--theme-text)] shadow-none hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-[0.92]":
+              variant === "chevron",
           },
           isObscured && "select-none blur-[1.5px]",
           isObscured && "obscured-glitch",
@@ -205,6 +217,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                     ? 18
                     : 15
               }
+              aria-hidden="true"
+            />
+          )}
+          {isChevron && (
+            <Icon
+              name={`chevron-${chevronDirection}` as IconName}
+              size={14}
               aria-hidden="true"
             />
           )}

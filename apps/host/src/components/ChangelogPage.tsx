@@ -120,7 +120,7 @@ function ReleaseCard({ release }: { release: ChangelogRelease }) {
                 <AccordionItem variant="ghost">
                   <AccordionTrigger className="py-2">
                     <Stack direction="row" gap={2} align="center">
-                      <Icon name="cog" size={14} className="text-[var(--theme-text-subtle)]" />
+                      <Icon name="gear" size={14} className="text-[var(--theme-text-subtle)]" />
                       {/* H4: section heading */}
                       <Heading className="m-0">Korjaukset ({release.minor.length})</Heading>
                     </Stack>

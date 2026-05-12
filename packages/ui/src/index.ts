@@ -30,7 +30,7 @@ export type { BadgeProps } from "./components/Badge";
 export { Badge } from "./components/Badge";
 export type { BreadcrumbItem, BreadcrumbProps } from "./components/Breadcrumb";
 export { Breadcrumb } from "./components/Breadcrumb";
-export type { ButtonProps } from "./components/Button";
+export type { ButtonProps, ChevronDirection } from "./components/Button";
 export { Button } from "./components/Button";
 export type { CardProps } from "./components/Card";
 /** Storybook: Suunnittelujarjestelma/Organismit/Card */

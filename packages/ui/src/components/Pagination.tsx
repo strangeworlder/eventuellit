@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 import type { Theme } from "./Theme";
 import { cn } from "./utils";
 
@@ -68,14 +67,12 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
         {...props}
       >
         <Button
-          variant="ghost"
-          size="icon"
+          variant="chevron"
+          chevronDirection="left"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={!canGoPrev}
           aria-label="Edellinen sivu"
-        >
-          <Icon name="chevron-left" size={16} />
-        </Button>
+        />
 
         {pages.map((page, index) => {
           if (page === "ellipsis") {
@@ -111,14 +108,12 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
         })}
 
         <Button
-          variant="ghost"
-          size="icon"
+          variant="chevron"
+          chevronDirection="right"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={!canGoNext}
           aria-label="Seuraava sivu"
-        >
-          <Icon name="chevron-right" size={16} />
-        </Button>
+        />
       </nav>
     );
   },

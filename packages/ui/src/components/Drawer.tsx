@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Button } from "./Button";
 import { Heading, HeadingLevelProvider } from "./Heading";
-import { Icon } from "./Icon";
 import type { Theme } from "./Theme";
 import { useFocusTrap } from "./useFocusTrap";
 import { cn } from "./utils";
@@ -99,19 +98,13 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
         >
           {/* Edge toggle — always visible */}
           <Button
-            variant="outline"
-            size="icon"
+            variant="chevron"
+            chevronDirection={expanded ? "right" : "left"}
             onClick={() => setExpanded((prev) => !prev)}
-            className="absolute top-2 right-2 x-wide:fixed x-wide:top-4 x-wide:right-4 bg-[var(--theme-bg)] hover:bg-[var(--theme-bg)] rounded-full h-6 w-6 min-w-0 p-0 flex items-center justify-center z-[51] max-x-wide:-rotate-90"
+            className="absolute top-2 right-2 x-wide:fixed x-wide:top-4 x-wide:right-4 z-[51] max-x-wide:-rotate-90"
             aria-label={expanded ? "Sulje paneeli" : "Avaa paneeli"}
             aria-expanded={expanded}
-          >
-            {expanded ? (
-              <Icon name="chevron-right" size={16} />
-            ) : (
-              <Icon name="chevron-left" size={16} />
-            )}
-          </Button>
+          />
 
           <aside
             ref={asideRef}

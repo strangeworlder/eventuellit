@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 import { NavButton } from "./NavButton";
 import { cn } from "./utils";
 
@@ -101,21 +100,15 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
           >
             {children}
             <Button
-              variant="outline"
-              size="icon"
+              variant="chevron"
+              chevronDirection={expanded ? "left" : "right"}
               onClick={() => setExpanded((prev) => !prev)}
               className={cn(
-                "absolute top-4 bg-[var(--theme-bg)] hover:bg-[var(--theme-bg)] rounded-full p-1 opacity-100 z-10 hover:-translate-y-0 h-6 w-6 min-w-0 flex items-center justify-center p-0",
+                "absolute top-4 opacity-100 z-10",
                 expanded ? "-right-3" : "max-desktop:right-0 desktop:-right-3",
               )}
               aria-label={expanded ? "Supista sivupalkki" : "Laajenna sivupalkki"}
-            >
-              {expanded ? (
-                <Icon name="chevron-left" size={16} />
-              ) : (
-                <Icon name="chevron-right" size={16} />
-              )}
-            </Button>
+            />
           </aside>
         </>
       </SidebarContext.Provider>
