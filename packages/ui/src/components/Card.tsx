@@ -139,9 +139,12 @@ export const CardHeader = React.forwardRef<
           className={cn(
             "w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 ease-in group-hover:duration-300 group-hover:ease-out absolute -top-6 -left-6",
             {
-              "border-[var(--theme-bg)] border-2 text-[var(--theme-bg)]": iconVariant === "primary",
-              "border-[var(--theme-border-soft)] border-2 text-text-subtle":
-                iconVariant === "secondary" || iconVariant === "accent",
+              "bg-[var(--theme-primary)] border-[var(--theme-bg)] border-2 text-[var(--theme-primary-foreground)]":
+                iconVariant === "primary",
+              "bg-[var(--theme-secondary)] border-[var(--theme-bg)] border-2 text-[var(--theme-secondary-foreground)]":
+                iconVariant === "secondary",
+              "bg-[var(--theme-accent)] border-[var(--theme-bg)] border-2 text-[var(--theme-accent-foreground)]":
+                iconVariant === "accent",
             },
           )}
         >

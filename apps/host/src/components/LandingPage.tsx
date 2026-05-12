@@ -14,21 +14,21 @@ export function LandingPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] py-12 px-4">
       <HeadingLevelContext.Provider value={1}>
-        <Stack
-          gap={6}
-          align="center"
-          className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700"
-        >
+        <Stack gap={6} align="center" className="text-center mb-16">
           <Heading className="text-3xl mobile:text-5xl tablet:text-7xl font-black tracking-tighter">
             EVENTUELLIT
           </Heading>
           <Text variant="lead" className="max-w-2xl mx-auto">
-            Kaikki mitä tarvitset seuraavaan roolipelisessioosi. Luo hahmoja, tarkista säännöt ja
-            uppoudu tarinaan.
+            Kapina staattisuutta vastaan.
+          </Text>
+          <Text variant="muted" className="max-w-2xl mx-auto">
+            Eventuellit on pöytäroolipeli, jossa pelaajat muokkaavat maailmaa yhdessä.
+            Säännöt painottavat improvisaatiota, vapaata narratiivia ja yhteisiä päätöksiä
+            – ei staattisia taulukoita.
           </Text>
         </Stack>
 
-        <div className="w-full max-w-4xl mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+        <div className="w-full max-w-4xl mb-16">
           <VideoCta
             youtubeId="I6QePHTGGqU"
             title="Eventuellit – Kutsu kapinaan staattisuutta vastaan"
@@ -40,13 +40,31 @@ export function LandingPage() {
         <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 w-full max-w-4xl">
           {isLoggedIn && (
             <Card
-              className="group cursor-pointer hover:border-[var(--theme-border-medium)] transition-all duration-300 hover:shadow-[var(--shadow-floating)] animate-in fade-in slide-in-from-left-8 duration-700 delay-100"
+              variant="interactive"
+              onClick={() => navigate("/oma-sivu")}
+              iconName="list-checks"
+              iconVariant="primary"
+            >
+              <CardHeader>
+                <CardTitle>Oma sivu</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Text>
+                  Ilmoitukset, hahmosi ja ajankohtaiset tapahtumat yhdellä silmäyksellä.
+                </Text>
+              </CardContent>
+            </Card>
+          )}
+
+          {isLoggedIn && (
+            <Card
+              variant="interactive"
               onClick={() => navigate("/generator")}
               iconName="player-character"
               iconVariant="primary"
             >
               <CardHeader>
-                <CardTitle>Hahmopaja</CardTitle>
+                <CardTitle>Hahmot</CardTitle>
               </CardHeader>
               <CardContent>
                 <Text>
@@ -58,8 +76,8 @@ export function LandingPage() {
           )}
 
           <Card
-            className="group cursor-pointer hover:border-[var(--theme-border-medium)] transition-all duration-300 hover:shadow-[var(--shadow-floating)] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200"
-            onClick={() => navigate("/ruleset")}
+            variant="interactive"
+            onClick={() => navigate("/ruleset/johdanto")}
             iconName="rulebook"
             iconVariant="primary"
           >
@@ -68,16 +86,16 @@ export function LandingPage() {
             </CardHeader>
             <CardContent>
               <Text>
-                Tutustu pelin sääntöihin ja maailmaan. Kattava ja helposti selattava opas kaikille
-                pelaajille.
+                Tutustu pelin sääntöihin ja mekaniikkoihin. Kattava ja helposti selattava opas
+                kaikille pelaajille.
               </Text>
             </CardContent>
           </Card>
 
           <Card
-            className="group cursor-pointer hover:border-[var(--theme-border-medium)] transition-all duration-300 hover:shadow-[var(--shadow-floating)] animate-in fade-in slide-in-from-right-8 duration-700 delay-300"
-            onClick={() => navigate("/episodes")}
-            iconName="zap"
+            variant="interactive"
+            onClick={() => navigate("/episodes/latest")}
+            iconName="file-cabinet"
             iconVariant="primary"
           >
             <CardHeader>
@@ -91,8 +109,26 @@ export function LandingPage() {
             </CardContent>
           </Card>
 
+          {isLoggedIn && (
+            <Card
+              variant="interactive"
+              onClick={() => navigate("/operaatiot")}
+              iconName="arrow-right"
+              iconVariant="primary"
+            >
+              <CardHeader>
+                <CardTitle>Operaatiot</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Text>
+                  Äänestä tulevista operaatioista ja vaikuta seuraavan session suuntaan.
+                </Text>
+              </CardContent>
+            </Card>
+          )}
+
           <Card
-            className="group cursor-pointer hover:border-[var(--theme-border-medium)] transition-all duration-300 hover:shadow-[var(--shadow-floating)] animate-in fade-in slide-in-from-right-8 duration-700 delay-300"
+            variant="interactive"
             onClick={() => navigate("/world")}
             iconName="world"
             iconVariant="primary"
@@ -101,7 +137,9 @@ export function LandingPage() {
               <CardTitle>Maailma</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text>Tutustu pelin maailmaan. Tutki eri alueita, kulttuureja ja tapahtumia.</Text>
+              <Text>
+                Tutustu pelin maailmaan ja sen historiaan. Tutki alueita, faktioita ja tapahtumia.
+              </Text>
             </CardContent>
           </Card>
         </div>

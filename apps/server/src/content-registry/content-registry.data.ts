@@ -28,7 +28,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "01-seula",
     title: "Seula",
-    url: "/world/01-seula",
+    url: "/world/kynnys/01-seula",
     contentType: "world",
     subtype: "station",
     description: "Keskusasema – Kynnyksen kauppasatama ja solmupiste.",
@@ -38,7 +38,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "02-syke",
     title: "Syke",
-    url: "/world/02-syke",
+    url: "/world/kynnys/02-syke",
     contentType: "world",
     subtype: "station",
     description: "Reaktori – Kynnyksen energiakeskus ja luostari.",
@@ -48,7 +48,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "03-verso",
     title: "Verso",
-    url: "/world/03-verso",
+    url: "/world/kynnys/03-verso",
     contentType: "world",
     subtype: "station",
     description: "Biodomi – Kynnyksen ruoantuotantoasema.",
@@ -58,7 +58,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "04-alasin",
     title: "Alasin",
-    url: "/world/04-alasin",
+    url: "/world/kynnys/04-alasin",
     contentType: "world",
     subtype: "station",
     description: "Telakka – Kynnyksen raskaan korjauksen teollisuusasema.",
@@ -68,7 +68,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "05-louhos",
     title: "Louhos",
-    url: "/world/05-louhos",
+    url: "/world/kynnys/05-louhos",
     contentType: "world",
     subtype: "station",
     description: "Kaivosasema – hajonnut raaka-ainekeskus.",
@@ -78,7 +78,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "06-akseli",
     title: "Akseli",
-    url: "/world/06-akseli",
+    url: "/world/kynnys/06-akseli",
     contentType: "world",
     subtype: "station",
     description: "KW-konsortio HQ – Kynnyksen hallintotorni ja logiikkakeskus.",
@@ -88,7 +88,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "07-katedraali",
     title: "Katedraali",
-    url: "/world/07-katedraali",
+    url: "/world/kynnys/07-katedraali",
     contentType: "world",
     subtype: "station",
     description: "Ekklesian sydän – temppeli, teatteri ja propagandakeskus.",
@@ -98,7 +98,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "08-pesa",
     title: "Pesä",
-    url: "/world/08-pesa",
+    url: "/world/kynnys/08-pesa",
     contentType: "world",
     subtype: "station",
     description: "Tuhkan puolueen koti – vanhakaupunki ja asuinalue.",
@@ -108,7 +108,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "09-kilpi",
     title: "Kilpi",
-    url: "/world/09-kilpi",
+    url: "/world/kynnys/09-kilpi",
     contentType: "world",
     subtype: "station",
     description: "Polttopiste – murtunut vartio Kynnyksen reunalla.",
@@ -118,7 +118,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "10-kuiskaus",
     title: "Kuiskaus",
-    url: "/world/10-kuiskaus",
+    url: "/world/kynnys/10-kuiskaus",
     contentType: "world",
     subtype: "station",
     description: "Polttopiste – hajonnut viestintäkeskus.",
@@ -128,7 +128,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "11-evoluutio",
     title: "Evoluutio",
-    url: "/world/11-evoluutio",
+    url: "/world/kynnys/11-evoluutio",
     contentType: "world",
     subtype: "station",
     description: "Polttopiste – hajonnut tutkimuskeskus ja kybernetiikan basaari.",
@@ -138,7 +138,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "12-laki",
     title: "Laki",
-    url: "/world/12-laki",
+    url: "/world/kynnys/12-laki",
     contentType: "world",
     subtype: "station",
     description: "Oikeuslaitos – Kynnyksen sopimuskeskus.",
@@ -148,7 +148,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "13-vaaka",
     title: "Vaaka",
-    url: "/world/13-vaaka",
+    url: "/world/kynnys/13-vaaka",
     contentType: "world",
     subtype: "station",
     description: "Areena – Kynnyksen sotilasakatemia ja kaksintaistelujen kenttä.",
@@ -158,7 +158,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "14-hakki",
     title: "Häkki",
-    url: "/world/14-hakki",
+    url: "/world/kynnys/14-hakki",
     contentType: "world",
     subtype: "station",
     description: "Pyhän Tragedian lapset – veriurheilun ja uhkapelin asema.",
@@ -168,7 +168,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "15-verkko",
     title: "Verkko",
-    url: "/world/15-verkko",
+    url: "/world/kynnys/15-verkko",
     contentType: "world",
     subtype: "station",
     description: "Observatorio – Kynnyksen valvontakeskus.",
@@ -178,7 +178,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "16-ikoni",
     title: "Ikoni",
-    url: "/world/16-ikoni",
+    url: "/world/kynnys/16-ikoni",
     contentType: "world",
     subtype: "station",
     description: "Studio – Kynnyksen mediakeskus.",
@@ -188,7 +188,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "17-poyta",
     title: "Pöytä",
-    url: "/world/17-poyta",
+    url: "/world/kynnys/17-poyta",
     contentType: "world",
     subtype: "station",
     description: "Neuvottelu – diplomatian ja sovittelun asema.",
@@ -198,7 +198,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "18-siemen",
     title: "Siemen",
-    url: "/world/18-siemen",
+    url: "/world/kynnys/18-siemen",
     contentType: "world",
     subtype: "station",
     description: "Akatemia – Kynnyksen koulutusasema ja maatila.",
@@ -208,7 +208,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "19-krypta",
     title: "Krypta",
-    url: "/world/19-krypta",
+    url: "/world/kynnys/19-krypta",
     contentType: "world",
     subtype: "station",
     description: "Museo – pyhäkkö, arkisto ja haaskalinnuen koti.",
@@ -218,7 +218,7 @@ export const STATIONS: StationEntry[] = [
   {
     id: "20-tori",
     title: "Tori",
-    url: "/world/20-tori",
+    url: "/world/kynnys/20-tori",
     contentType: "world",
     subtype: "station",
     description: "Basaari – Kynnyksen musta pörssi ja kierrätyskeskus.",
@@ -231,28 +231,28 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "tuhkan-puolue",
     title: "Tuhkan puolue",
-    url: "/world/tuhkan-puolue",
+    url: "/world/faktiot/tuhkan-puolue",
     contentType: "world",
     subtype: "faction",
   },
   {
     id: "kw-konsortio",
     title: "KW-konsortio",
-    url: "/world/kw-konsortio",
+    url: "/world/faktiot/kw-konsortio",
     contentType: "world",
     subtype: "faction",
   },
   {
     id: "ekklesia",
     title: "Ekklesia",
-    url: "/world/ekklesia",
+    url: "/world/faktiot/ekklesia",
     contentType: "world",
     subtype: "faction",
   },
   {
     id: "muotinvalajat",
     title: "Muotinvalajat",
-    url: "/world/muotinvalajat",
+    url: "/world/faktiot/muotinvalajat",
     contentType: "world",
     subtype: "faction",
     parentFaction: "tuhkan-puolue",
@@ -260,7 +260,7 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "heimolaiset",
     title: "Heimolaiset",
-    url: "/world/heimolaiset",
+    url: "/world/faktiot/heimolaiset",
     contentType: "world",
     subtype: "faction",
     parentFaction: "tuhkan-puolue",
@@ -268,7 +268,7 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "erottajat",
     title: "Erottajat",
-    url: "/world/erottajat",
+    url: "/world/faktiot/erottajat",
     contentType: "world",
     subtype: "faction",
     parentFaction: "tuhkan-puolue",
@@ -276,7 +276,7 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "ratasvartio",
     title: "Ratasvartio",
-    url: "/world/ratasvartio",
+    url: "/world/faktiot/ratasvartio",
     contentType: "world",
     subtype: "faction",
     parentFaction: "kw-konsortio",
@@ -284,7 +284,7 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "logiikan-inkvisitio",
     title: "Logiikan Inkvisitio",
-    url: "/world/logiikan-inkvisitio",
+    url: "/world/faktiot/logiikan-inkvisitio",
     contentType: "world",
     subtype: "faction",
     parentFaction: "kw-konsortio",
@@ -292,7 +292,7 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "deterministit",
     title: "Deterministit",
-    url: "/world/deterministit",
+    url: "/world/faktiot/deterministit",
     contentType: "world",
     subtype: "faction",
     parentFaction: "kw-konsortio",
@@ -300,7 +300,7 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "pyhan-tragedian-lapset",
     title: "Pyhän Tragedian lapset",
-    url: "/world/pyhan-tragedian-lapset",
+    url: "/world/faktiot/pyhan-tragedian-lapset",
     contentType: "world",
     subtype: "faction",
     parentFaction: "ekklesia",
@@ -308,7 +308,7 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "verhonkutojat",
     title: "Verhonkutojat",
-    url: "/world/verhonkutojat",
+    url: "/world/faktiot/verhonkutojat",
     contentType: "world",
     subtype: "faction",
     parentFaction: "ekklesia",
@@ -316,7 +316,7 @@ export const FACTIONS: FactionEntry[] = [
   {
     id: "haaskalinnut",
     title: "Haaskalinnut",
-    url: "/world/haaskalinnut",
+    url: "/world/faktiot/haaskalinnut",
     contentType: "world",
     subtype: "faction",
     parentFaction: "ekklesia",
