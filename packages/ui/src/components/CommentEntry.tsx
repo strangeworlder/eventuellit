@@ -1,4 +1,5 @@
 import React from "react";
+import { Text } from "./Text";
 import type { Theme } from "./Theme";
 import { cn } from "./utils";
 
@@ -47,21 +48,21 @@ export const CommentEntry = React.forwardRef<HTMLDivElement, CommentEntryProps>(
         {...props}
       >
         <div className="flex items-center gap-2 flex-wrap">
-          <span
+          <Text
+            variant="label"
             className={cn(
-              "text-xs font-black uppercase tracking-widest font-heading",
               anonymous
                 ? "italic text-[var(--theme-text-subtle)]"
                 : "text-[var(--theme-text-muted)]",
             )}
           >
             {author}
-          </span>
-          <span className="text-[0.65rem] text-[var(--theme-text-subtle)] tabular-nums">
+          </Text>
+          <Text variant="timestamp">
             {formatRelativeTime(timestamp)}
-          </span>
+          </Text>
         </div>
-        <p className="text-sm text-[var(--theme-text)] leading-relaxed">{children}</p>
+        <Text variant="small" className="leading-relaxed">{children}</Text>
       </div>
     );
   },

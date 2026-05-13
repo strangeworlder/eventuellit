@@ -83,7 +83,7 @@ export const CountdownDisplay = React.forwardRef<HTMLDivElement, CountdownDispla
           )}
           {...props}
         >
-          <Icon name="clock" size={size === "compact" ? 12 : 14} aria-hidden />
+          <Icon name="clock" size={size === "compact" ? 16 : 22} aria-hidden />
           <span className="font-heading font-bold uppercase tracking-widest">{expiredLabel}</span>
         </div>
       );
@@ -110,7 +110,7 @@ export const CountdownDisplay = React.forwardRef<HTMLDivElement, CountdownDispla
       >
         <Icon
           name="clock"
-          size={size === "compact" ? 12 : 14}
+          size={size === "compact" ? 16 : 22}
           className="shrink-0"
           aria-hidden
         />

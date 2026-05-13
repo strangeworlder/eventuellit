@@ -3,9 +3,12 @@ import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Icon } from "@repo/ui/components/Icon";
 import { Input } from "@repo/ui/components/Input";
+import { Stack } from "@repo/ui/components/Layout";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
+import { RadioGroup, RadioGroupItem } from "@repo/ui/components/RadioGroup";
 import { Separator } from "@repo/ui/components/Separator";
 import { Text } from "@repo/ui/components/Text";
+import { TextArea } from "@repo/ui/components/TextArea";
 import { useToast } from "@repo/ui/components/Toast";
 import React from "react";
 import {
@@ -80,15 +83,21 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
     );
   }
 
+  const urgencyLabels: Record<typeof optionUrgency, string> = {
+    kriittinen: "Aikakriittinen",
+    normaali: "Normaali",
+    joustava: "Joustava",
+  };
+
   return (
     <HeadingLevelProvider>
-      <div className="flex flex-col gap-6 p-1">
+      <Stack gap={6} className="p-1">
 
         {/* ── No active round: create form ── */}
         {!round && (
           <div>
-            <Heading className="text-sm mb-3">Luo uusi äänestys</Heading>
-            <form onSubmit={handleCreateRound} className="flex flex-col gap-3">
+            <Heading className="mb-3" variant="h6">Luo uusi äänestys</Heading>
+            <Stack as="form" gap={3} onSubmit={handleCreateRound}>
               <Input
                 label="Äänestyksen otsikko"
                 value={newTitle}
@@ -104,7 +113,7 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
               <Button type="submit" variant="solid" loading={createRound.isPending} disabled={!newTitle.trim()}>
                 Luo äänestys
               </Button>
-            </form>
+            </Stack>
           </div>
         )}
 
@@ -112,15 +121,15 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
         {round && (
           <>
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <Heading className="text-sm">Aktiivinen äänestys</Heading>
-                <span className={`text-xs font-heading font-black uppercase tracking-widest ${round.status === "open" ? "text-[var(--theme-secondary)]" : "text-[var(--theme-text-subtle)]"}`}>
+              <Stack direction="row" align="center" justify="between" className="mb-1">
+                <Heading variant="h6">Aktiivinen äänestys</Heading>
+                <Text variant={round.status === "open" ? "overline" : "label"}>
                   {round.status === "open" ? "Avoinna" : "Suljettu"}
-                </span>
-              </div>
-              <Text className="text-sm font-semibold">{round.title}</Text>
+                </Text>
+              </Stack>
+              <Text variant="bold">{round.title}</Text>
               {round.deadline && (
-                <Text variant="muted" className="text-xs mt-0.5">
+                <Text variant="muted" className="mt-0.5">
                   Takaraja: {new Date(round.deadline).toLocaleString("fi-FI")}
                 </Text>
               )}
@@ -131,17 +140,17 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
             {/* Full results (GM-only) */}
             {fullResults && fullResults.length > 0 && (
               <div>
-                <Heading className="text-xs mb-2 text-[var(--theme-text-subtle)]">Täydet tulokset</Heading>
-                <ol className="space-y-1">
+                <Text variant="label" className="mb-2">Täydet tulokset</Text>
+                <Stack gap={1} as="ol">
                   {fullResults.map((r, i) => (
-                    <li key={r.optionId} className="flex items-center justify-between text-sm">
-                      <span className="font-heading font-bold">{i + 1}. {r.title}</span>
-                      <span className="text-[var(--theme-text-subtle)] tabular-nums text-xs">
+                    <Stack key={r.optionId} direction="row" align="center" justify="between" as="li">
+                      <Text variant="bold">{i + 1}. {r.title}</Text>
+                      <Text variant="caption" className="tabular-nums">
                         {r.score} p ({r.primaryCount}×3 + {r.secondaryCount}×1)
-                      </span>
-                    </li>
+                      </Text>
+                    </Stack>
                   ))}
-                </ol>
+                </Stack>
               </div>
             )}
 
@@ -150,61 +159,55 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
             {/* Add option form */}
             {round.status === "open" && (
               <div>
-                <Heading className="text-sm mb-3">Lisää tehtävä</Heading>
-                <form onSubmit={handleAddOption} className="flex flex-col gap-3">
+                <Heading className="mb-3" variant="h6">Lisää tehtävä</Heading>
+                <Stack as="form" gap={3} onSubmit={handleAddOption}>
                   <Input
                     label="Tehtävän nimi"
                     value={optionTitle}
                     onChange={(e) => setOptionTitle(e.target.value)}
                     placeholder="Operaation koodenimi"
                   />
-                  <div className="flex flex-col gap-1">
-                    <label className="text-xs font-black uppercase tracking-widest text-[var(--theme-text-muted)]">
-                      Kuvaus (valinnainen)
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={optionDesc}
-                      onChange={(e) => setOptionDesc(e.target.value)}
-                      placeholder="Lyhyt kuvaus tehtävästä..."
-                      className="resize-none rounded-sm border border-[var(--theme-border-soft)] bg-[var(--theme-surface-tint)] px-3 py-2 text-sm text-[var(--theme-text)] placeholder:text-[var(--theme-text-placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-secondary)] focus:ring-offset-2 focus:ring-offset-[var(--theme-bg)]"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label className="text-xs font-black uppercase tracking-widest text-[var(--theme-text-muted)]">
-                      Kiireellisyys
-                    </label>
-                    <div className="flex gap-2">
-                      {(["kriittinen", "normaali", "joustava"] as const).map((u) => (
-                        <button
-                          key={u}
-                          type="button"
-                          onClick={() => setOptionUrgency(u)}
-                          className={`px-3 py-1 rounded-sm border text-xs font-heading font-bold uppercase tracking-widest transition-colors ${optionUrgency === u ? "border-[var(--theme-secondary)] text-[var(--theme-secondary)] bg-[var(--theme-surface-tint)]" : "border-[var(--theme-border-soft)] text-[var(--theme-text-subtle)]"}`}
-                        >
-                          {u === "kriittinen" ? "aikakriittinen" : u}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                  <TextArea
+                    label="Kuvaus (valinnainen)"
+                    rows={2}
+                    size="compact"
+                    value={optionDesc}
+                    onChange={(e) => setOptionDesc(e.target.value)}
+                    placeholder="Lyhyt kuvaus tehtävästä..."
+                  />
+                  <RadioGroup
+                    name="urgency"
+                    label="Kiireellisyys"
+                    orientation="horizontal"
+                    value={optionUrgency}
+                    onValueChange={(v) => setOptionUrgency(v as typeof optionUrgency)}
+                  >
+                    {(["kriittinen", "normaali", "joustava"] as const).map((u) => (
+                      <RadioGroupItem
+                        key={u}
+                        value={u}
+                        label={urgencyLabels[u]}
+                      />
+                    ))}
+                  </RadioGroup>
                   <Button type="submit" variant="outline" size="sm" loading={addOption.isPending} disabled={!optionTitle.trim()}>
                     <Icon name="plus" size={14} className="mr-1" />
                     Lisää tehtävä
                   </Button>
-                </form>
+                </Stack>
               </div>
             )}
 
             {/* Existing options list */}
             {options.length > 0 && (
               <div>
-                <Heading className="text-xs mb-2 text-[var(--theme-text-subtle)]">
+                <Text variant="label" className="mb-2">
                   Tehtävät ({options.length})
-                </Heading>
-                <ul className="space-y-1">
+                </Text>
+                <Stack gap={1}>
                   {options.map((opt) => (
-                    <li key={opt.id} className="flex items-center justify-between gap-2 py-1 border-b border-[var(--theme-border-soft)] last:border-0">
-                      <span className="text-sm font-semibold truncate">{opt.title}</span>
+                    <Stack key={opt.id} direction="row" align="center" justify="between" gap={2} className="py-1 border-b border-[var(--theme-border-soft)] last:border-0">
+                      <Text variant="bold" className="truncate">{opt.title}</Text>
                       {round.status === "open" && (
                         <Button
                           variant="ghost"
@@ -215,16 +218,16 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
                           <Icon name="trash-2" size={14} />
                         </Button>
                       )}
-                    </li>
+                    </Stack>
                   ))}
-                </ul>
+                </Stack>
               </div>
             )}
 
             <Separator />
 
             {/* Round actions */}
-            <div className="flex flex-col gap-2">
+            <Stack gap={2}>
               {round.status === "open" && (
                 <Button
                   variant="outline"
@@ -247,10 +250,10 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
                 <Icon name="trash-2" size={14} className="mr-1.5" />
                 Poista äänestys
               </Button>
-            </div>
+            </Stack>
           </>
         )}
-      </div>
+      </Stack>
 
       <ConfirmDialog
         open={showCloseConfirm}

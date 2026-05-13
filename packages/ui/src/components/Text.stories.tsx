@@ -27,6 +27,7 @@ const meta = {
         "caption",
         "overline",
         "kicker",
+        "timestamp",
         "body-relaxed",
         "node",
         "station-node",
@@ -54,6 +55,7 @@ export const Variantit: Story = {
       <Text variant="caption">Metatiedot ja alaviitteet, kuten päivämäärä tai lähde.</Text>
       <Text variant="overline">Yläotsikko / kicker</Text>
       <Text variant="kicker">Pieni osion nimi</Text>
+      <Text variant="timestamp">3 min sitten</Text>
       <Text variant="body-relaxed">
         Rentoutunut riviväli sopii pitkiin kappaleisiin ja artikkeleihin, joissa luettavuus on
         tärkeää.
