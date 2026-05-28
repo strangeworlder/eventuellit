@@ -252,7 +252,7 @@ function SessionStatusSelect({ session, episodeId }: { session: Session; episode
       size="compact"
       value={session.status}
       disabled={isPending}
-      onChange={(e) => updateSession({ id: session.id, episodeId, status: e.target.value })}
+      onChange={(e) => updateSession({ id: session.id, episodeId, status: e.target.value as Session["status"] })}
       options={[
         { value: "planned", label: "Tulossa" },
         { value: "next", label: "Seuraava" },

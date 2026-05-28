@@ -13,13 +13,12 @@ import { LoadingState } from "@repo/ui/components/LoadingState";
 import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { PageBody } from "@repo/ui/components/Page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/Tabs";
-import { Text } from "@repo/ui/components/Text";
+
 import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEpisodePlayers } from "../api/episode-players";
 import {
-  type Episode,
   useDeleteEpisode,
   useEpisode,
   useEpisodes,
