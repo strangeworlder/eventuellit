@@ -1,13 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { API_BASE_URL } from "./base-url";
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("auth_token");
-  return {
-    "Content-Type": "application/json",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
+import { apiFetch } from "@repo/auth/client";
+import { queryKeys } from "./query-keys";
 
 export interface Session {
   id: number;
@@ -23,15 +16,8 @@ export interface Session {
 
 export const useSessions = (episodeId: number, queryEnabled = true) => {
   return useQuery<Session[]>({
-    queryKey: ["sessions", episodeId],
-    queryFn: async () => {
-      const response = await fetch(`${API_BASE_URL}/sessions?episodeId=${episodeId}`, {
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch sessions");
-      return response.json();
-    },
+    queryKey: queryKeys.sessions.list(episodeId),
+    queryFn: () => apiFetch<Session[]>(`/sessions?episodeId=${episodeId}`),
     enabled: !!episodeId && queryEnabled,
   });
 };
@@ -39,23 +25,18 @@ export const useSessions = (episodeId: number, queryEnabled = true) => {
 export const useCreateSession = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: {
+    mutationFn: (data: {
       episodeId: number;
       sessionNumber: number;
       date?: string;
       label?: string;
-    }) => {
-      const response = await fetch(`${API_BASE_URL}/sessions`, {
+    }) =>
+      apiFetch<Session>("/sessions", {
         method: "POST",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to create session");
-      return response.json();
-    },
+      }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["sessions", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.sessions.list(variables.episodeId) });
     },
   });
 };
@@ -63,7 +44,7 @@ export const useCreateSession = () => {
 export const useUpdateSession = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({
+    mutationFn: ({
       id,
       episodeId,
       ...data
@@ -71,22 +52,17 @@ export const useUpdateSession = () => {
       id: number;
       episodeId: number;
       date?: string;
-      status?: string;
+      status?: Session["status"];
       label?: string;
       gmRecap?: string;
       recapPublished?: boolean;
-    }) => {
-      const response = await fetch(`${API_BASE_URL}/sessions/${id}`, {
+    }) =>
+      apiFetch<Session>(`/sessions/${id}`, {
         method: "PATCH",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to update session");
-      return response.json();
-    },
+      }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["sessions", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.sessions.list(variables.episodeId) });
     },
   });
 };
@@ -95,33 +71,10 @@ export const useDeleteSession = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id }: { id: number; episodeId: number }) => {
-      const response = await fetch(`${API_BASE_URL}/sessions/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to delete session");
+      await apiFetch(`/sessions/${id}`, { method: "DELETE" });
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["sessions", variables.episodeId] });
-    },
-  });
-};
-
-export const useMigrateSessionDates = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (episodeId: number) => {
-      const response = await fetch(`${API_BASE_URL}/sessions/migrate/${episodeId}`, {
-        method: "POST",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to migrate session dates");
-      return response.json();
-    },
-    onSuccess: (_, episodeId) => {
-      queryClient.invalidateQueries({ queryKey: ["sessions", episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.sessions.list(variables.episodeId) });
     },
   });
 };

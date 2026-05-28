@@ -1,7 +1,8 @@
-import { ForbiddenException } from "@nestjs/common";
 import { Test, type TestingModule } from "@nestjs/testing";
+import { Reflector } from "@nestjs/core";
 import { vi } from "vitest";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import { RolesGuard } from "../auth/roles.guard";
 import { EpisodesController } from "./episodes.controller";
 import { EpisodesService } from "./episodes.service";
 
@@ -9,10 +10,7 @@ describe("EpisodesController", () => {
   let controller: EpisodesController;
   let service: any;
 
-  const mockGmUser = { id: 1, role: "gm" };
-  const mockPlayerUser = { id: 2, role: "player" };
-  const mockGmReq = { user: mockGmUser } as any;
-  const mockPlayerReq = { user: mockPlayerUser } as any;
+  const mockGmUser = { id: 1, email: "gm@test.com", username: "gm", role: "gm" };
 
   beforeEach(async () => {
     service = {
@@ -34,13 +32,16 @@ describe("EpisodesController", () => {
           provide: EpisodesService,
           useValue: service,
         },
+        Reflector,
       ],
     })
       .overrideGuard(JwtAuthGuard)
       .useValue({ canActivate: () => true })
+      .overrideGuard(RolesGuard)
+      .useValue({ canActivate: () => true })
       .compile();
 
-    controller = new EpisodesController(service);
+    controller = module.get<EpisodesController>(EpisodesController);
   });
 
   it("should be defined", () => {
@@ -58,45 +59,27 @@ describe("EpisodesController", () => {
   });
 
   it("should pass gmId to create", async () => {
-    await controller.create({ slug: "test", title: "Test" }, mockGmReq);
+    await controller.create({ slug: "test", title: "Test" } as any, mockGmUser);
     expect(service.create).toHaveBeenCalledWith(expect.any(Object), mockGmUser.id);
   });
 
-  it("should throw ForbiddenException when player tries to create", async () => {
-    await expect(controller.create({ slug: "test", title: "Test" }, mockPlayerReq)).rejects.toThrow(
-      ForbiddenException,
-    );
-  });
-
   it("should allow GM to update", async () => {
-    await controller.update(1, { title: "New" }, mockGmReq);
+    await controller.update(1, { title: "New" } as any);
     expect(service.update).toHaveBeenCalledWith(1, { title: "New" });
   });
 
-  it("should throw when player tries to update", async () => {
-    await expect(controller.update(1, { title: "New" }, mockPlayerReq)).rejects.toThrow(
-      ForbiddenException,
-    );
-  });
-
   it("should allow GM to delete", async () => {
-    await controller.remove(1, mockGmReq);
+    await controller.remove(1);
     expect(service.remove).toHaveBeenCalledWith(1);
   });
 
   it("should allow GM to add skill", async () => {
-    await controller.addSkill(1, { name: "Pilotti" }, mockGmReq);
+    await controller.addSkill(1, { name: "Pilotti" });
     expect(service.addSkill).toHaveBeenCalledWith(1, { name: "Pilotti" });
   });
 
-  it("should throw when player tries to add skill", async () => {
-    await expect(controller.addSkill(1, { name: "Pilotti" }, mockPlayerReq)).rejects.toThrow(
-      ForbiddenException,
-    );
-  });
-
   it("should allow GM to remove skill", async () => {
-    await controller.removeSkill(1, 5, mockGmReq);
+    await controller.removeSkill(1, 5);
     expect(service.removeSkill).toHaveBeenCalledWith(1, 5);
   });
 });

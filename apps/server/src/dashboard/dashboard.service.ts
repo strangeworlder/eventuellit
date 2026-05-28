@@ -145,35 +145,12 @@ export class DashboardService {
         ),
       );
 
-    // Fallback: characters linked only via characters.episodeId (legacy)
-    const legacyLinks = await this.db
-      .select({ id: characters.id, episodeId: characters.episodeId, name: characters.name })
-      .from(characters)
-      .where(
-        and(eq(characters.userId, userId), inArray(characters.episodeId, enrolledEpisodeIds)),
-      );
-
-    // Build episodeId → { id, name } map, backfilling junction rows for legacy links
+    // Build episodeId → { id, name } map
     const linkedCharByEpisode = new Map<number, { id: number; name: string }>();
     for (const link of junctionLinks) {
       if (!linkedCharByEpisode.has(link.episodeId)) {
         linkedCharByEpisode.set(link.episodeId, { id: link.characterId, name: link.name });
       }
-    }
-    const backfillValues: Array<{ characterId: number; episodeId: number }> = [];
-    for (const legacy of legacyLinks) {
-      if (legacy.episodeId && !linkedCharByEpisode.has(legacy.episodeId)) {
-        linkedCharByEpisode.set(legacy.episodeId, { id: legacy.id, name: legacy.name });
-        backfillValues.push({ characterId: legacy.id, episodeId: legacy.episodeId });
-      }
-    }
-    // Backfill missing junction rows fire-and-forget — no await on the hot path
-    if (backfillValues.length > 0) {
-      void this.db
-        .insert(characterEpisodes)
-        .values(backfillValues)
-        .onConflictDoNothing()
-        .catch(() => {});
     }
 
     // ── 4. Batch: next/planned sessions for all enrolled episodes ─────────────
@@ -588,17 +565,6 @@ export class DashboardService {
         ),
       );
 
-    const gmLegacyLinks = await this.db
-      .select({
-        userId: characters.userId,
-        id: characters.id,
-        name: characters.name,
-        removedFromPlayAt: characters.removedFromPlayAt,
-        harmit: characters.harmit,
-      })
-      .from(characters)
-      .where(and(inArray(characters.userId, allUserIds), eq(characters.episodeId, episodeId)));
-
     const linkedCharByUser = new Map<
       number,
       { id: number; name: string; isRemovedFromPlay: boolean }
@@ -610,17 +576,6 @@ export class DashboardService {
           name: link.characterName,
           isRemovedFromPlay:
             !!link.removedFromPlayAt || (Array.isArray(link.harmit) && link.harmit.length >= 5),
-        });
-      }
-    }
-    for (const legacy of gmLegacyLinks) {
-      if (!linkedCharByUser.has(legacy.userId)) {
-        linkedCharByUser.set(legacy.userId, {
-          id: legacy.id,
-          name: legacy.name,
-          isRemovedFromPlay:
-            !!legacy.removedFromPlayAt ||
-            (Array.isArray(legacy.harmit) && legacy.harmit.length >= 5),
         });
       }
     }

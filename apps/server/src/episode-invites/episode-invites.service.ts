@@ -29,7 +29,7 @@ export class EpisodeInvitesService {
     }
 
     const existing = await this.db
-      .select()
+      .select({ id: episodeInvites.id })
       .from(episodeInvites)
       .where(
         and(
@@ -37,17 +37,19 @@ export class EpisodeInvitesService {
           eq(episodeInvites.userId, dto.userId),
           eq(episodeInvites.status, "pending"),
         ),
-      );
+      )
+      .limit(1);
     if (existing[0]) {
       throw new ConflictException("A pending invite already exists for this player");
     }
 
     const alreadyEnrolled = await this.db
-      .select()
+      .select({ id: episodePlayers.id })
       .from(episodePlayers)
       .where(
         and(eq(episodePlayers.episodeId, dto.episodeId), eq(episodePlayers.userId, dto.userId)),
-      );
+      )
+      .limit(1);
     if (alreadyEnrolled[0]) {
       throw new ConflictException("Player is already enrolled in this episode");
     }
@@ -118,26 +120,35 @@ export class EpisodeInvitesService {
 
     const now = new Date();
 
-    await this.db
-      .update(episodeInvites)
-      .set({ status: dto.status, respondedAt: now })
-      .where(eq(episodeInvites.id, id));
-
     if (dto.status === "accepted") {
-      const alreadyEnrolled = await this.db
-        .select()
-        .from(episodePlayers)
-        .where(
-          and(
-            eq(episodePlayers.episodeId, invite.episodeId),
-            eq(episodePlayers.userId, invite.userId),
-          ),
-        );
-      if (!alreadyEnrolled[0]) {
-        await this.db
-          .insert(episodePlayers)
-          .values({ episodeId: invite.episodeId, userId: invite.userId });
-      }
+      // Wrap status update + enrollment in a transaction to prevent partial state
+      await this.db.transaction(async (tx) => {
+        await tx
+          .update(episodeInvites)
+          .set({ status: dto.status, respondedAt: now })
+          .where(eq(episodeInvites.id, id));
+
+        const alreadyEnrolled = await tx
+          .select({ id: episodePlayers.id })
+          .from(episodePlayers)
+          .where(
+            and(
+              eq(episodePlayers.episodeId, invite.episodeId),
+              eq(episodePlayers.userId, invite.userId),
+            ),
+          )
+          .limit(1);
+        if (!alreadyEnrolled[0]) {
+          await tx
+            .insert(episodePlayers)
+            .values({ episodeId: invite.episodeId, userId: invite.userId });
+        }
+      });
+    } else {
+      await this.db
+        .update(episodeInvites)
+        .set({ status: dto.status, respondedAt: now })
+        .where(eq(episodeInvites.id, id));
     }
 
     return { id, status: dto.status };

@@ -7,9 +7,10 @@ export class CreateCharacterDto {
   @IsString()
   archetype!: string;
 
+  @IsOptional()
   @IsInt()
   @Min(0)
-  episodeId!: number;
+  episodeId?: number;
 
   @IsOptional()
   @IsIn(["male", "female", "non-binary", "none"])

@@ -1,7 +1,6 @@
 import { type CanActivate, type ExecutionContext, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import type { Request } from "express";
-import { AuthService } from "./auth.service";
 
 /**
  * Validates a JWT token if one is present and attaches the user to the request.
@@ -10,10 +9,7 @@ import { AuthService } from "./auth.service";
  */
 @Injectable()
 export class OptionalJwtAuthGuard implements CanActivate {
-  constructor(
-    private readonly jwtService: JwtService,
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
@@ -23,10 +19,12 @@ export class OptionalJwtAuthGuard implements CanActivate {
 
     try {
       const payload = this.jwtService.verify(token);
-      const user = await this.authService.validateUser(payload.sub);
-      if (user) {
-        (request as any).user = user;
-      }
+      (request as any).user = {
+        id: payload.sub,
+        email: payload.email,
+        role: payload.role,
+        username: payload.username,
+      };
     } catch {
       // Invalid token — treat as anonymous, don't throw
     }

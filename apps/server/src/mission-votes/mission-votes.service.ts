@@ -5,7 +5,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";

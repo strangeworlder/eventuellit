@@ -1,13 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { API_BASE_URL } from "./base-url";
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("auth_token");
-  return {
-    "Content-Type": "application/json",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
+import { apiFetch } from "@repo/auth/client";
+import { queryKeys } from "./query-keys";
 
 export interface EpisodePlayer {
   id: number;
@@ -19,15 +12,8 @@ export interface EpisodePlayer {
 
 export const useEpisodePlayers = (episodeId: number) => {
   return useQuery<EpisodePlayer[]>({
-    queryKey: ["episodePlayers", episodeId],
-    queryFn: async () => {
-      const response = await fetch(`${API_BASE_URL}/episode-players?episodeId=${episodeId}`, {
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch episode players");
-      return response.json();
-    },
+    queryKey: queryKeys.episodes.players(episodeId),
+    queryFn: () => apiFetch<EpisodePlayer[]>(`/episode-players?episodeId=${episodeId}`),
     enabled: !!episodeId,
   });
 };
@@ -35,18 +21,13 @@ export const useEpisodePlayers = (episodeId: number) => {
 export const useEnrollPlayer = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ episodeId, userId }: { episodeId: number; userId: number }) => {
-      const response = await fetch(`${API_BASE_URL}/episode-players`, {
+    mutationFn: ({ episodeId, userId }: { episodeId: number; userId: number }) =>
+      apiFetch<EpisodePlayer>("/episode-players", {
         method: "POST",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify({ episodeId, userId }),
-      });
-      if (!response.ok) throw new Error("Failed to enroll player");
-      return response.json();
-    },
+      }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["episodePlayers", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.episodes.players(variables.episodeId) });
     },
   });
 };
@@ -55,15 +36,10 @@ export const useDisenrollPlayer = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id }: { id: number; episodeId: number }) => {
-      const response = await fetch(`${API_BASE_URL}/episode-players/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to disenroll player");
+      await apiFetch(`/episode-players/${id}`, { method: "DELETE" });
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["episodePlayers", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.episodes.players(variables.episodeId) });
     },
   });
 };

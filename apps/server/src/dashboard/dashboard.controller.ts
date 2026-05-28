@@ -1,6 +1,7 @@
-import { Controller, Get, ParseIntPipe, Query, Req, UseGuards } from "@nestjs/common";
-import type { Request } from "express";
+import { Controller, Get, Param, ParseIntPipe, Query, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import { type AuthUser, CurrentUser } from "../auth/current-user.decorator";
+import { Roles, RolesGuard } from "../auth/roles.guard";
 import { DashboardService } from "./dashboard.service";
 
 @UseGuards(JwtAuthGuard)
@@ -9,14 +10,17 @@ export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
 
   @Get()
-  getDashboard(@Req() req: Request) {
-    const user = (req as any).user;
+  getDashboard(@CurrentUser() user: AuthUser) {
     return this.dashboardService.getDashboard(user.id);
   }
 
+  @UseGuards(RolesGuard)
+  @Roles("gm")
   @Get("gm-overview")
-  getGmOverview(@Query("episodeId", ParseIntPipe) episodeId: number, @Req() req: Request) {
-    const user = (req as any).user;
+  getGmOverview(
+    @Query("episodeId", ParseIntPipe) episodeId: number,
+    @CurrentUser() user: AuthUser,
+  ) {
     return this.dashboardService.getGmOverview(episodeId, user.role);
   }
 }

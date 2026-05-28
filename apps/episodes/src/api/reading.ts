@@ -1,13 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { API_BASE_URL } from "./base-url";
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("auth_token");
-  return {
-    "Content-Type": "application/json",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
+import { apiFetch } from "@repo/auth/client";
+import { queryKeys } from "./query-keys";
 
 export interface ReadingItem {
   id: number;
@@ -44,16 +37,11 @@ export interface EpisodeProgressEntry {
 
 export const useEpisodeReadingItems = (episodeId: number, sessionId?: number) => {
   return useQuery<ReadingItem[]>({
-    queryKey: ["readingItems", episodeId, sessionId],
-    queryFn: async () => {
+    queryKey: queryKeys.reading.items(episodeId, sessionId),
+    queryFn: () => {
       const params = new URLSearchParams({ episodeId: String(episodeId) });
       if (sessionId !== undefined) params.set("sessionId", String(sessionId));
-      const response = await fetch(`${API_BASE_URL}/reading-items?${params}`, {
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch reading items");
-      return response.json();
+      return apiFetch<ReadingItem[]>(`/reading-items?${params}`);
     },
     enabled: !!episodeId,
   });
@@ -61,15 +49,12 @@ export const useEpisodeReadingItems = (episodeId: number, sessionId?: number) =>
 
 export const useReadingSuggestions = (episodeId: number, enabled: boolean, sessionId?: number) => {
   return useQuery<SuggestedItem[]>({
-    queryKey: ["readingSuggestions", episodeId, sessionId],
-    queryFn: async () => {
-      const params = sessionId !== undefined ? `?sessionId=${sessionId}` : "";
-      const response = await fetch(
-        `${API_BASE_URL}/reading-items/suggestions/${episodeId}${params}`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
-      if (!response.ok) throw new Error("Failed to fetch suggestions");
-      return response.json();
+    queryKey: queryKeys.reading.suggestions(episodeId, sessionId),
+    queryFn: () => {
+      const params = new URLSearchParams();
+      if (sessionId !== undefined) params.set("sessionId", String(sessionId));
+      const qs = params.toString();
+      return apiFetch<SuggestedItem[]>(`/reading-items/suggestions/${episodeId}${qs ? `?${qs}` : ""}`);
     },
     enabled: !!episodeId && enabled,
   });
@@ -78,27 +63,22 @@ export const useReadingSuggestions = (episodeId: number, enabled: boolean, sessi
 export const useCreateReadingItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: {
+    mutationFn: (data: {
       episodeId: number;
       sessionId?: number;
-      contentType: string;
+      contentType: ReadingItem["contentType"];
       contentRef?: string;
       title: string;
       description?: string;
       url?: string;
       autoSuggested?: boolean;
-    }) => {
-      const response = await fetch(`${API_BASE_URL}/reading-items`, {
+    }) =>
+      apiFetch<ReadingItem>("/reading-items", {
         method: "POST",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to create reading item");
-      return response.json();
-    },
+      }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["readingItems", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.reading.items(variables.episodeId) });
     },
   });
 };
@@ -106,7 +86,7 @@ export const useCreateReadingItem = () => {
 export const useUpdateReadingItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({
+    mutationFn: ({
       id,
       episodeId,
       ...data
@@ -118,18 +98,13 @@ export const useUpdateReadingItem = () => {
       description?: string;
       url?: string;
       orderIndex?: number;
-    }) => {
-      const response = await fetch(`${API_BASE_URL}/reading-items/${id}`, {
+    }) =>
+      apiFetch<ReadingItem>(`/reading-items/${id}`, {
         method: "PATCH",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to update reading item");
-      return response.json();
-    },
+      }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["readingItems", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.reading.items(variables.episodeId) });
     },
   });
 };
@@ -138,30 +113,18 @@ export const useDeleteReadingItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id }: { id: number; episodeId: number }) => {
-      const response = await fetch(`${API_BASE_URL}/reading-items/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to delete reading item");
+      await apiFetch(`/reading-items/${id}`, { method: "DELETE" });
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["readingItems", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.reading.items(variables.episodeId) });
     },
   });
 };
 
 export const useEpisodeProgress = (episodeId: number) => {
   return useQuery<EpisodeProgressEntry[]>({
-    queryKey: ["episodeProgress", episodeId],
-    queryFn: async () => {
-      const response = await fetch(`${API_BASE_URL}/reading-progress/episode/${episodeId}`, {
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch episode progress");
-      return response.json();
-    },
+    queryKey: queryKeys.episodes.progress(episodeId),
+    queryFn: () => apiFetch<EpisodeProgressEntry[]>(`/reading-progress/episode/${episodeId}`),
     enabled: !!episodeId,
   });
 };

@@ -13,8 +13,6 @@ export interface Episode {
   order: number;
   status: string;
   description: string | null;
-  players: string | null;
-  sessionDates: string | null;
   location: string | null;
   locationLink: string | null;
   image: string | null;

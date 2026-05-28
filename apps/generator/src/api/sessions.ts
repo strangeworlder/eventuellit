@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { apiBaseUrl } from "./base-url";
 
 const getAuthHeaders = (): Record<string, string> => {
@@ -45,24 +45,6 @@ export const useSessions = (episodeId: number | null) => {
     retry: (failureCount, error) => {
       if (error instanceof EnrollmentError) return false;
       return failureCount < 3;
-    },
-  });
-};
-
-export const useMigrateSessionDates = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (episodeId: number) => {
-      const response = await fetch(`${apiBaseUrl}/sessions/migrate/${episodeId}`, {
-        method: "POST",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to migrate session dates");
-      return response.json();
-    },
-    onSuccess: (_, episodeId) => {
-      queryClient.invalidateQueries({ queryKey: ["sessions", episodeId] });
     },
   });
 };

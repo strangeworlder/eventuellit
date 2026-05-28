@@ -10,7 +10,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { episodeSkills, episodes } from "./schema";
+import { episodeSkills, episodes } from "../src/db/schema";
 
 const databaseUrl =
   process.env.DATABASE_URL || "postgresql://root:password123@localhost:5432/eventuellit";
@@ -136,8 +136,6 @@ async function seed() {
         status: data.status || "planned",
         description: data.description || null,
         content: content,
-        players: data.players ? String(data.players) : null,
-        sessionDates: data.sessionDates ? String(data.sessionDates) : null,
         location: data.location || null,
         locationLink: data.locationLink || null,
         image: data.image || null,

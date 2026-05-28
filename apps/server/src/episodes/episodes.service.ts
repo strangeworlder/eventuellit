@@ -40,8 +40,6 @@ export class EpisodesService {
       status: data.status ?? "planned",
       description: data.description,
       content: data.content,
-      players: data.players,
-      sessionDates: data.sessionDates,
       location: data.location,
       locationLink: data.locationLink,
       image: data.image,

@@ -48,11 +48,12 @@ export class EpisodePlayersService {
     }
 
     const existing = await this.db
-      .select()
+      .select({ id: episodePlayers.id })
       .from(episodePlayers)
       .where(
         and(eq(episodePlayers.episodeId, data.episodeId), eq(episodePlayers.userId, data.userId)),
-      );
+      )
+      .limit(1);
     if (existing[0]) {
       throw new ConflictException("Player is already enrolled in this episode");
     }

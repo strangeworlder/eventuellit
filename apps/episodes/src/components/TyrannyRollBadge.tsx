@@ -4,7 +4,7 @@ import { Button } from "@repo/ui/components/Button";
 import { DiceIcon } from "@repo/ui/components/DiceIcon";
 import { Input } from "@repo/ui/components/Input";
 import { Stack } from "@repo/ui/components/Layout";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useUpdateEpisode } from "../api/episodes";
 import type { Session } from "../api/sessions";
 
@@ -15,6 +15,8 @@ const royalPurpleScope = {
   "--theme-secondary": "var(--color-royal-purple-400)",
   "--theme-secondary-foreground": "var(--color-royal-purple-foreground)",
 } as React.CSSProperties;
+
+const DICE_FACES = 12;
 
 export function TyrannyRollBadge({
   episodeId,
@@ -31,24 +33,27 @@ export function TyrannyRollBadge({
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(String(tyrannyRoll ?? ""));
 
-  const sorted = sessions ? [...sessions].sort((a, b) => a.sessionNumber - b.sessionNumber) : [];
+  const sorted = useMemo(
+    () => (sessions ? [...sessions].sort((a, b) => a.sessionNumber - b.sessionNumber) : []),
+    [sessions],
+  );
   const firstRecapPublished = sorted[0]?.recapPublished === true;
 
   const showToPlayers =
-    firstRecapPublished && tyrannyRoll != null && tyrannyRoll >= 1 && tyrannyRoll <= 12;
+    firstRecapPublished && tyrannyRoll != null && tyrannyRoll >= 1 && tyrannyRoll <= DICE_FACES;
 
   if (!isGm && !showToPlayers) return null;
 
   const save = () => {
     const n = Number.parseInt(draft, 10);
-    if (Number.isNaN(n) || n < 1 || n > 12) return;
+    if (Number.isNaN(n) || n < 1 || n > DICE_FACES) return;
     updateEpisode({ id: episodeId, tyrannyRoll: n }, { onSuccess: () => setEditing(false) });
   };
 
   return (
     <>
       <div style={royalPurpleScope} className="absolute top-6 right-6">
-        <DiceIcon faces={12} value={tyrannyRoll ?? undefined} size="lg" active hideValue={false} />
+        <DiceIcon faces={DICE_FACES} value={tyrannyRoll ?? undefined} size="lg" active hideValue={false} aria-label={`Tyrannian noppa: ${tyrannyRoll ?? "ei heitetty"}`} />
       </div>
 
       {isGm && (

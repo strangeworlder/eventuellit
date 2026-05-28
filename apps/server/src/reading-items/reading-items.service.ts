@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, inArray, isNull } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { ContentRegistryService } from "../content-registry/content-registry.service";
 import { DATABASE_CONNECTION } from "../db/db.module";
@@ -30,10 +30,20 @@ export class ReadingItemsService {
       .where(whereClause)
       .orderBy(episodeReadingItems.orderIndex, episodeReadingItems.createdAt);
 
-    const completedRows = await this.db
-      .select()
-      .from(playerReadingProgress)
-      .where(eq(playerReadingProgress.userId, userId));
+    // Only fetch progress for items belonging to this episode
+    const itemIds = items.map((i) => i.id);
+    const completedRows =
+      itemIds.length > 0
+        ? await this.db
+            .select({ readingItemId: playerReadingProgress.readingItemId })
+            .from(playerReadingProgress)
+            .where(
+              and(
+                eq(playerReadingProgress.userId, userId),
+                inArray(playerReadingProgress.readingItemId, itemIds),
+              ),
+            )
+        : [];
 
     const completedSet = new Set(completedRows.map((r) => r.readingItemId));
 

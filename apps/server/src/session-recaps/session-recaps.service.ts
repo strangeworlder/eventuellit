@@ -83,14 +83,15 @@ export class SessionRecapsService {
     };
 
     const existing = await this.db
-      .select()
+      .select({ id: sessionPlayerRecaps.id })
       .from(sessionPlayerRecaps)
       .where(
         and(
           eq(sessionPlayerRecaps.sessionId, dto.sessionId),
           eq(sessionPlayerRecaps.userId, viewer.id),
         ),
-      );
+      )
+      .limit(1);
 
     if (existing[0]) {
       const result = await this.db

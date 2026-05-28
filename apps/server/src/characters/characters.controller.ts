@@ -1,17 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Req,
-  UseGuards,
-} from "@nestjs/common";
-import type { Request } from "express";
+import { Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Body, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import { type AuthUser, CurrentUser } from "../auth/current-user.decorator";
+import { Roles, RolesGuard } from "../auth/roles.guard";
 import { CharactersService } from "./characters.service";
 import { AdvanceCharacterDto } from "./dto/advance-character.dto";
 import { CreateCharacterDto } from "./dto/create-character.dto";
@@ -25,8 +15,7 @@ export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
   @Post()
-  create(@Body() createCharacterDto: CreateCharacterDto, @Req() req: Request) {
-    const user = (req as any).user;
+  create(@Body() createCharacterDto: CreateCharacterDto, @CurrentUser() user: AuthUser) {
     return this.charactersService.create(createCharacterDto, user.id);
   }
 
@@ -41,8 +30,7 @@ export class CharactersController {
   }
 
   @Get(":id/snapshots")
-  listSnapshots(@Param("id", ParseIntPipe) id: number, @Req() req: Request) {
-    const user = (req as any).user;
+  listSnapshots(@Param("id", ParseIntPipe) id: number, @CurrentUser() user: AuthUser) {
     return this.charactersService.listSnapshots(id, user.id, user.role);
   }
 
@@ -50,9 +38,8 @@ export class CharactersController {
   update(
     @Param("id", ParseIntPipe) id: number,
     @Body() updateCharacterDto: UpdateCharacterDto,
-    @Req() req: Request,
+    @CurrentUser() user: AuthUser,
   ) {
-    const user = (req as any).user;
     return this.charactersService.update(id, updateCharacterDto, user.id, user.role);
   }
 
@@ -60,9 +47,8 @@ export class CharactersController {
   linkEpisode(
     @Param("id", ParseIntPipe) id: number,
     @Body() linkEpisodeDto: LinkEpisodeDto,
-    @Req() req: Request,
+    @CurrentUser() user: AuthUser,
   ) {
-    const user = (req as any).user;
     return this.charactersService.linkEpisode(id, linkEpisodeDto.episodeId, user.id);
   }
 
@@ -70,9 +56,8 @@ export class CharactersController {
   refresh(
     @Param("id", ParseIntPipe) id: number,
     @Body() refreshCharacterDto: RefreshCharacterDto,
-    @Req() req: Request,
+    @CurrentUser() user: AuthUser,
   ) {
-    const user = (req as any).user;
     return this.charactersService.refreshForEpisode(id, refreshCharacterDto, user.id);
   }
 
@@ -80,15 +65,13 @@ export class CharactersController {
   advance(
     @Param("id", ParseIntPipe) id: number,
     @Body() advanceCharacterDto: AdvanceCharacterDto,
-    @Req() req: Request,
+    @CurrentUser() user: AuthUser,
   ) {
-    const user = (req as any).user;
     return this.charactersService.advanceForEpisode(id, advanceCharacterDto, user.id);
   }
 
   @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number, @Req() req: Request) {
-    const user = (req as any).user;
+  remove(@Param("id", ParseIntPipe) id: number, @CurrentUser() user: AuthUser) {
     return this.charactersService.remove(id, user.id, user.role);
   }
 }

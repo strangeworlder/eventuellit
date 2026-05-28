@@ -6,14 +6,10 @@ import {
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import type { Request } from "express";
-import { AuthService } from "./auth.service";
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(
-    private readonly jwtService: JwtService,
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
@@ -25,14 +21,14 @@ export class JwtAuthGuard implements CanActivate {
 
     try {
       const payload = this.jwtService.verify(token);
-      const user = await this.authService.validateUser(payload.sub);
 
-      if (!user) {
-        throw new UnauthorizedException("User not found");
-      }
-
-      // Attach user to request for use in controllers
-      (request as any).user = user;
+      // Trust the JWT payload — it contains id, email, role, and username
+      (request as any).user = {
+        id: payload.sub,
+        email: payload.email,
+        role: payload.role,
+        username: payload.username,
+      };
       return true;
     } catch {
       throw new UnauthorizedException("Invalid token");

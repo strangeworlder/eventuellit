@@ -1,6 +1,7 @@
 import { useAuth } from "@repo/auth/use-auth";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
+import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Stack } from "@repo/ui/components/Layout";
 import { Text } from "@repo/ui/components/Text";
@@ -70,6 +71,7 @@ function OwnRecapEditor({
   const [highlight, setHighlight] = useState(existing?.highlight ?? "");
   const [surprise, setSurprise] = useState(existing?.surprise ?? "");
   const [mvp, setMvp] = useState(existing?.mvp ?? "");
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   const isPending = isUpserting || isDeleting;
 
@@ -132,14 +134,26 @@ function OwnRecapEditor({
               </Button>
             )}
             {existing && (
-              <Button
-                variant="danger"
-                onClick={() => deleteRecap({ id: existing.id, sessionId })}
-                loading={isDeleting}
-                loadingMessage="Poistetaan..."
-              >
-                Poista oma kertaus
-              </Button>
+              <>
+                <Button
+                  variant="danger"
+                  onClick={() => setDeleteOpen(true)}
+                  loading={isDeleting}
+                  loadingMessage="Poistetaan..."
+                >
+                  Poista oma kertaus
+                </Button>
+                <ConfirmDialog
+                  open={deleteOpen}
+                  onOpenChange={setDeleteOpen}
+                  title="Poista oma kertaus?"
+                  description="Kertauksesi poistetaan pysyvästi. Tätä toimintoa ei voi peruuttaa."
+                  confirmLabel="Poista kertaus"
+                  cancelLabel="Peruuta"
+                  variant="danger"
+                  onConfirm={() => deleteRecap({ id: existing.id, sessionId })}
+                />
+              </>
             )}
           </Stack>
         </Stack>

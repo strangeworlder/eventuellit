@@ -2,27 +2,18 @@ import {
   Body,
   Controller,
   Delete,
-  ForbiddenException,
   Get,
   Param,
   ParseIntPipe,
   Post,
   Query,
-  Req,
   UseGuards,
 } from "@nestjs/common";
-import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import { type AuthUser, CurrentUser } from "../auth/current-user.decorator";
+import { Roles, RolesGuard } from "../auth/roles.guard";
 import { CreateEpisodePlayerDto } from "./dto/create-episode-player.dto";
 import { EpisodePlayersService } from "./episode-players.service";
-
-function ensureGm(req: Request) {
-  const user = (req as any).user;
-  if (!user || user.role !== "gm") {
-    throw new ForbiddenException("Only GMs can perform this action");
-  }
-  return user;
-}
 
 @UseGuards(JwtAuthGuard)
 @Controller("episode-players")
@@ -30,20 +21,21 @@ export class EpisodePlayersController {
   constructor(private readonly episodePlayersService: EpisodePlayersService) {}
 
   @Get()
-  findByEpisode(@Query("episodeId", ParseIntPipe) episodeId: number, @Req() req: Request) {
-    const user = (req as any).user;
+  findByEpisode(@Query("episodeId", ParseIntPipe) episodeId: number, @CurrentUser() user: AuthUser) {
     return this.episodePlayersService.findByEpisode(episodeId, user);
   }
 
+  @UseGuards(RolesGuard)
+  @Roles("gm")
   @Post()
-  enroll(@Body() dto: CreateEpisodePlayerDto, @Req() req: Request) {
-    ensureGm(req);
+  enroll(@Body() dto: CreateEpisodePlayerDto) {
     return this.episodePlayersService.enroll(dto);
   }
 
+  @UseGuards(RolesGuard)
+  @Roles("gm")
   @Delete(":id")
-  disenroll(@Param("id", ParseIntPipe) id: number, @Req() req: Request) {
-    ensureGm(req);
+  disenroll(@Param("id", ParseIntPipe) id: number) {
     return this.episodePlayersService.disenroll(id);
   }
 }

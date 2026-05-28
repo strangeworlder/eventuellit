@@ -4,6 +4,7 @@ import { Badge } from "@repo/ui/components/Badge";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Stack } from "@repo/ui/components/Layout";
 import { Text } from "@repo/ui/components/Text";
+import { useMemo } from "react";
 import type { Session } from "../api/sessions";
 import { GmRecapEditor } from "./GmRecapEditor";
 import { PlayerRecapSection } from "./PlayerRecapSection";
@@ -94,7 +95,10 @@ interface SessionTimelineProps {
 }
 
 export function SessionTimeline({ sessions, episodeId }: SessionTimelineProps) {
-  const sorted = [...sessions].sort((a, b) => a.sessionNumber - b.sessionNumber);
+  const sorted = useMemo(
+    () => [...sessions].sort((a, b) => a.sessionNumber - b.sessionNumber),
+    [sessions],
+  );
 
   if (sorted.length === 0) {
     return <Text variant="muted">Tälle jaksolle ei ole luotu sessioita.</Text>;

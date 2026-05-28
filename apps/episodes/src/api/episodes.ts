@@ -1,16 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { API_BASE_URL } from "./base-url";
+import { apiFetch } from "@repo/auth/client";
+import { queryKeys } from "./query-keys";
+
+export type EpisodeStatus = "active" | "completed" | "planned";
 
 export interface Episode {
   id: number;
-  slug: string;
   title: string;
+  slug: string;
   order: number;
-  status: string;
+  status: EpisodeStatus;
   description: string | null;
   content: string | null;
-  players: string | null;
-  sessionDates: string | null;
   location: string | null;
   locationLink: string | null;
   image: string | null;
@@ -18,7 +19,6 @@ export interface Episode {
   mechanicalAdditions: string | null;
   summary: string | null;
   tyrannyRoll: number | null;
-  mediaId: number | null;
   gmId: number;
   createdAt: string;
   updatedAt: string;
@@ -28,51 +28,22 @@ export interface EpisodeSkill {
   id: number;
   episodeId: number;
   name: string;
-  createdAt: string;
 }
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("auth_token");
-  return {
-    "Content-Type": "application/json",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
-
-// ========================
-// EPISODES
-// ========================
 
 export const useEpisodes = (status?: string) => {
   return useQuery<Episode[]>({
-    queryKey: ["episodes", status],
-    queryFn: async () => {
-      const url = status ? `${API_BASE_URL}/episodes?status=${status}` : `${API_BASE_URL}/episodes`;
-      const response = await fetch(url, {
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch episodes");
-      }
-      return response.json();
+    queryKey: queryKeys.episodes.list(status),
+    queryFn: () => {
+      const params = status ? `?status=${status}` : "";
+      return apiFetch<Episode[]>(`/episodes${params}`);
     },
   });
 };
 
 export const useEpisode = (id: number) => {
   return useQuery<Episode>({
-    queryKey: ["episode", id],
-    queryFn: async () => {
-      const response = await fetch(`${API_BASE_URL}/episodes/${id}`, {
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch episode");
-      }
-      return response.json();
-    },
+    queryKey: queryKeys.episodes.detail(id),
+    queryFn: () => apiFetch<Episode>(`/episodes/${id}`),
     enabled: !!id,
   });
 };
@@ -80,20 +51,13 @@ export const useEpisode = (id: number) => {
 export const useCreateEpisode = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Partial<Episode>) => {
-      const response = await fetch(`${API_BASE_URL}/episodes`, {
+    mutationFn: (data: Partial<Episode>) =>
+      apiFetch<Episode>("/episodes", {
         method: "POST",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to create episode");
-      }
-      return response.json();
-    },
+      }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["episodes"] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.episodes.all });
     },
   });
 };
@@ -101,21 +65,13 @@ export const useCreateEpisode = () => {
 export const useUpdateEpisode = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, ...data }: Partial<Episode> & { id: number }) => {
-      const response = await fetch(`${API_BASE_URL}/episodes/${id}`, {
+    mutationFn: ({ id, ...data }: Partial<Episode> & { id: number }) =>
+      apiFetch<Episode>(`/episodes/${id}`, {
         method: "PATCH",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to update episode");
-      }
-      return response.json();
-    },
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["episodes"] });
-      queryClient.invalidateQueries({ queryKey: ["episode", variables.id] });
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.episodes.all });
     },
   });
 };
@@ -123,39 +79,18 @@ export const useUpdateEpisode = () => {
 export const useDeleteEpisode = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (id: number) => {
-      const response = await fetch(`${API_BASE_URL}/episodes/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete episode");
-      }
-    },
+    mutationFn: (id: number) =>
+      apiFetch(`/episodes/${id}`, { method: "DELETE" }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["episodes"] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.episodes.all });
     },
   });
 };
 
-// ========================
-// EPISODE SKILLS
-// ========================
-
 export const useEpisodeSkills = (episodeId: number) => {
   return useQuery<EpisodeSkill[]>({
-    queryKey: ["episodeSkills", episodeId],
-    queryFn: async () => {
-      const response = await fetch(`${API_BASE_URL}/episodes/${episodeId}/skills`, {
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch episode skills");
-      }
-      return response.json();
-    },
+    queryKey: queryKeys.episodes.skills(episodeId),
+    queryFn: () => apiFetch<EpisodeSkill[]>(`/episodes/${episodeId}/skills`),
     enabled: !!episodeId,
   });
 };
@@ -163,20 +98,13 @@ export const useEpisodeSkills = (episodeId: number) => {
 export const useCreateEpisodeSkill = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ episodeId, name }: { episodeId: number; name: string }) => {
-      const response = await fetch(`${API_BASE_URL}/episodes/${episodeId}/skills`, {
+    mutationFn: ({ episodeId, name }: { episodeId: number; name: string }) =>
+      apiFetch<EpisodeSkill>(`/episodes/${episodeId}/skills`, {
         method: "POST",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify({ name }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to create episode skill");
-      }
-      return response.json();
-    },
+      }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["episodeSkills", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.episodes.skills(variables.episodeId) });
     },
   });
 };
@@ -184,28 +112,13 @@ export const useCreateEpisodeSkill = () => {
 export const useUpdateEpisodeSkill = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({
-      episodeId,
-      skillId,
-      name,
-    }: {
-      episodeId: number;
-      skillId: number;
-      name: string;
-    }) => {
-      const response = await fetch(`${API_BASE_URL}/episodes/${episodeId}/skills/${skillId}`, {
+    mutationFn: ({ episodeId, skillId, name }: { episodeId: number; skillId: number; name: string }) =>
+      apiFetch<EpisodeSkill>(`/episodes/${episodeId}/skills/${skillId}`, {
         method: "PATCH",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify({ name }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to update episode skill");
-      }
-      return response.json();
-    },
+      }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["episodeSkills", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.episodes.skills(variables.episodeId) });
     },
   });
 };
@@ -213,18 +126,10 @@ export const useUpdateEpisodeSkill = () => {
 export const useDeleteEpisodeSkill = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ episodeId, skillId }: { episodeId: number; skillId: number }) => {
-      const response = await fetch(`${API_BASE_URL}/episodes/${episodeId}/skills/${skillId}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete episode skill");
-      }
-    },
+    mutationFn: ({ episodeId, skillId }: { episodeId: number; skillId: number }) =>
+      apiFetch(`/episodes/${episodeId}/skills/${skillId}`, { method: "DELETE" }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["episodeSkills", variables.episodeId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.episodes.skills(variables.episodeId) });
     },
   });
 };

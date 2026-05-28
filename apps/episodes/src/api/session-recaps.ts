@@ -1,13 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { API_BASE_URL } from "./base-url";
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("auth_token");
-  return {
-    "Content-Type": "application/json",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
+import { apiFetch } from "@repo/auth/client";
+import { queryKeys } from "./query-keys";
 
 export interface SessionPlayerRecap {
   id: number;
@@ -24,15 +17,8 @@ export interface SessionPlayerRecap {
 
 export const useSessionRecaps = (sessionId: number, enabled = true) => {
   return useQuery<SessionPlayerRecap[]>({
-    queryKey: ["sessionRecaps", sessionId],
-    queryFn: async () => {
-      const response = await fetch(`${API_BASE_URL}/session-recaps?sessionId=${sessionId}`, {
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch session recaps");
-      return response.json();
-    },
+    queryKey: queryKeys.sessions.recaps(sessionId),
+    queryFn: () => apiFetch<SessionPlayerRecap[]>(`/session-recaps?sessionId=${sessionId}`),
     enabled: !!sessionId && enabled,
   });
 };
@@ -40,24 +26,19 @@ export const useSessionRecaps = (sessionId: number, enabled = true) => {
 export const useUpsertSessionRecap = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: {
+    mutationFn: (data: {
       sessionId: number;
       journal?: string;
       highlight?: string;
       surprise?: string;
       mvp?: string;
-    }) => {
-      const response = await fetch(`${API_BASE_URL}/session-recaps`, {
+    }) =>
+      apiFetch<SessionPlayerRecap>("/session-recaps", {
         method: "PUT",
-        headers: getAuthHeaders(),
-        credentials: "include",
         body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to save recap");
-      return response.json();
-    },
+      }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["sessionRecaps", variables.sessionId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.sessions.recaps(variables.sessionId) });
     },
   });
 };
@@ -65,17 +46,11 @@ export const useUpsertSessionRecap = () => {
 export const useDeleteSessionRecap = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, sessionId: _sessionId }: { id: number; sessionId: number }) => {
-      const response = await fetch(`${API_BASE_URL}/session-recaps/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to delete recap");
-      return response.json();
+    mutationFn: async ({ id }: { id: number; sessionId: number }) => {
+      await apiFetch(`/session-recaps/${id}`, { method: "DELETE" });
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["sessionRecaps", variables.sessionId] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.sessions.recaps(variables.sessionId) });
     },
   });
 };

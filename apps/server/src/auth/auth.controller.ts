@@ -10,9 +10,11 @@ import {
   UnauthorizedException,
   UseGuards,
 } from "@nestjs/common";
-import type { Request, Response } from "express";
+import type { Response } from "express";
+import { config } from "../config";
 import { JwtAuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
+import { type AuthUser, CurrentUser } from "./current-user.decorator";
 import { RequestLinkDto } from "./dto/request-link.dto";
 import { VerifyTokenDto } from "./dto/verify-token.dto";
 
@@ -24,9 +26,8 @@ export class AuthController {
 
   @Post("request-link")
   async requestLink(@Body() dto: RequestLinkDto, @Res() res: Response): Promise<void> {
-    const baseUrl = process.env.MAGIC_LINK_BASE_URL || "http://localhost:3003";
     try {
-      await this.authService.requestMagicLink(dto.email, baseUrl);
+      await this.authService.requestMagicLink(dto.email, config.magicLinkBaseUrl);
     } catch (error) {
       // Log the error server-side so dev can see it, but never reveal it to the client.
       this.logger.error(
@@ -45,11 +46,10 @@ export class AuthController {
       const { user, jwt } = await this.authService.verifyToken(dto.token);
 
       // Set httpOnly cookie
-      const isProduction = process.env.NODE_ENV === "production";
       res.cookie("auth_token", jwt, {
         httpOnly: true,
-        sameSite: isProduction ? "none" : "lax",
-        secure: isProduction,
+        sameSite: config.isProduction ? "none" : "lax",
+        secure: config.isProduction,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
@@ -73,47 +73,45 @@ export class AuthController {
 
   @Get("me")
   @UseGuards(JwtAuthGuard)
-  async getMe(@Req() req: Request) {
-    const user = (req as any).user;
+  async getMe(@CurrentUser() user: AuthUser) {
+    // Fetch fresh data from DB for the profile endpoint
+    const fullUser = await this.authService.validateUser(user.id);
+    if (!fullUser) throw new UnauthorizedException("User not found");
     return {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      role: user.role,
-      avatarUrl: user.avatarUrl,
+      id: fullUser.id,
+      email: fullUser.email,
+      username: fullUser.username,
+      role: fullUser.role,
+      avatarUrl: fullUser.avatarUrl,
     };
   }
 
   @Post("logout")
   @UseGuards(JwtAuthGuard)
   async logout(@Res() res: Response): Promise<void> {
-    const isProduction = process.env.NODE_ENV === "production";
     res.clearCookie("auth_token", {
       httpOnly: true,
-      sameSite: isProduction ? "none" : "lax",
-      secure: isProduction,
+      sameSite: config.isProduction ? "none" : "lax",
+      secure: config.isProduction,
     });
     res.status(200).json({ message: "Logged out successfully" });
   }
 
   @Get("my-data")
   @UseGuards(JwtAuthGuard)
-  async exportMyData(@Req() req: Request) {
-    const user = (req as any).user;
+  async exportMyData(@CurrentUser() user: AuthUser) {
     return this.authService.exportUserData(user.id);
   }
 
   @Delete("my-account")
   @UseGuards(JwtAuthGuard)
-  async deleteMyAccount(@Req() req: Request, @Res() res: Response): Promise<void> {
-    const user = (req as any).user;
+  async deleteMyAccount(@CurrentUser() user: AuthUser, @Res() res: Response): Promise<void> {
     await this.authService.deleteUserAccount(user.id);
 
-    const isProduction = process.env.NODE_ENV === "production";
     res.clearCookie("auth_token", {
       httpOnly: true,
-      sameSite: isProduction ? "none" : "lax",
-      secure: isProduction,
+      sameSite: config.isProduction ? "none" : "lax",
+      secure: config.isProduction,
     });
     res.status(200).json({ message: "Account deleted successfully" });
   }

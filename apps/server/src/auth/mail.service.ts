@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Resend } from "resend";
+import { config } from "../config";
 
 @Injectable()
 export class MailService {
@@ -8,15 +9,14 @@ export class MailService {
 
   private getResendClient(): Resend {
     if (!this.resendClient) {
-      const apiKey = process.env.RESEND_API_KEY;
-      if (!apiKey) throw new Error("RESEND_API_KEY is not set");
-      this.resendClient = new Resend(apiKey);
+      if (!config.resendApiKey) throw new Error("RESEND_API_KEY is not set");
+      this.resendClient = new Resend(config.resendApiKey);
     }
     return this.resendClient;
   }
 
   async sendMagicLink(email: string, link: string): Promise<void> {
-    if (process.env.NODE_ENV === "production") {
+    if (config.isProduction) {
       let resend: Resend;
       try {
         resend = this.getResendClient();

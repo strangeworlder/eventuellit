@@ -1,5 +1,6 @@
 import {
   boolean,
+  index,
   integer,
   jsonb,
   pgTable,
@@ -36,8 +37,6 @@ export const episodes = pgTable("episodes", {
   status: text("status").default("planned").notNull(), // active, completed, planned
   description: text("description"),
   content: text("content"), // Main body (markdown)
-  players: text("players"), // Comma-separated player names
-  sessionDates: text("session_dates"), // Comma-separated dates
   location: text("location"),
   locationLink: text("location_link"),
   image: text("image"),
@@ -81,7 +80,6 @@ export const characters = pgTable("characters", {
   userId: integer("user_id")
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
-  episodeId: integer("episode_id").references(() => episodes.id),
   name: text("name").notNull(),
   archetype: text("archetype").notNull().default("soldier"),
   sex: text("sex"), // male, female, non-binary, none
@@ -111,18 +109,27 @@ export const characters = pgTable("characters", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const characterEpisodes = pgTable("character_episodes", {
-  id: serial("id").primaryKey(),
-  characterId: integer("character_id")
-    .references(() => characters.id, { onDelete: "cascade" })
-    .notNull(),
-  episodeId: integer("episode_id")
-    .references(() => episodes.id, { onDelete: "cascade" })
-    .notNull(),
-  refreshedAt: timestamp("refreshed_at"),
-  advancedAt: timestamp("advanced_at"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const characterEpisodes = pgTable(
+  "character_episodes",
+  {
+    id: serial("id").primaryKey(),
+    characterId: integer("character_id")
+      .references(() => characters.id, { onDelete: "cascade" })
+      .notNull(),
+    episodeId: integer("episode_id")
+      .references(() => episodes.id, { onDelete: "cascade" })
+      .notNull(),
+    refreshedAt: timestamp("refreshed_at"),
+    advancedAt: timestamp("advanced_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    charEpisodeUniq: uniqueIndex("character_episodes_char_episode_uniq").on(
+      t.characterId,
+      t.episodeId,
+    ),
+  }),
+);
 
 export const characterArcSnapshots = pgTable("character_arc_snapshots", {
   id: serial("id").primaryKey(),
@@ -137,19 +144,25 @@ export const characterArcSnapshots = pgTable("character_arc_snapshots", {
   sheetJson: jsonb("sheet_json").notNull(),
 });
 
-export const sessions = pgTable("sessions", {
-  id: serial("id").primaryKey(),
-  episodeId: integer("episode_id")
-    .references(() => episodes.id, { onDelete: "cascade" })
-    .notNull(),
-  sessionNumber: integer("session_number").notNull(),
-  date: timestamp("date"),
-  status: text("status").default("planned").notNull(), // planned | next | played
-  label: text("label"),
-  gmRecap: text("gm_recap"),
-  recapPublished: boolean("recap_published").default(false).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const sessions = pgTable(
+  "sessions",
+  {
+    id: serial("id").primaryKey(),
+    episodeId: integer("episode_id")
+      .references(() => episodes.id, { onDelete: "cascade" })
+      .notNull(),
+    sessionNumber: integer("session_number").notNull(),
+    date: timestamp("date"),
+    status: text("status").default("planned").notNull(), // planned | next | played
+    label: text("label"),
+    gmRecap: text("gm_recap"),
+    recapPublished: boolean("recap_published").default(false).notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    episodeStatusIdx: index("sessions_episode_status_idx").on(t.episodeId, t.status),
+  }),
+);
 
 export const sessionPlayerRecaps = pgTable(
   "session_player_recaps",
@@ -192,39 +205,66 @@ export const episodeReadingItems = pgTable("episode_reading_items", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const episodePlayers = pgTable("episode_players", {
-  id: serial("id").primaryKey(),
-  episodeId: integer("episode_id")
-    .references(() => episodes.id, { onDelete: "cascade" })
-    .notNull(),
-  userId: integer("user_id")
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const episodePlayers = pgTable(
+  "episode_players",
+  {
+    id: serial("id").primaryKey(),
+    episodeId: integer("episode_id")
+      .references(() => episodes.id, { onDelete: "cascade" })
+      .notNull(),
+    userId: integer("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    episodeUserUniq: uniqueIndex("episode_players_episode_user_uniq").on(
+      t.episodeId,
+      t.userId,
+    ),
+  }),
+);
 
-export const playerReadingProgress = pgTable("player_reading_progress", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id")
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  readingItemId: integer("reading_item_id")
-    .references(() => episodeReadingItems.id, { onDelete: "cascade" })
-    .notNull(),
-  completedAt: timestamp("completed_at").defaultNow().notNull(),
-});
+export const playerReadingProgress = pgTable(
+  "player_reading_progress",
+  {
+    id: serial("id").primaryKey(),
+    userId: integer("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    readingItemId: integer("reading_item_id")
+      .references(() => episodeReadingItems.id, { onDelete: "cascade" })
+      .notNull(),
+    completedAt: timestamp("completed_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    userItemUniq: uniqueIndex("player_reading_progress_user_item_uniq").on(
+      t.userId,
+      t.readingItemId,
+    ),
+  }),
+);
 
-export const playerNotifications = pgTable("player_notifications", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id")
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  type: text("type").notNull(), // e.g. "update_names"
-  referenceId: text("reference_id"), // e.g. character ID — text for flexibility
-  message: text("message"),
-  dismissedAt: timestamp("dismissed_at"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const playerNotifications = pgTable(
+  "player_notifications",
+  {
+    id: serial("id").primaryKey(),
+    userId: integer("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    type: text("type").notNull(), // e.g. "update_names"
+    referenceId: text("reference_id"), // e.g. character ID — text for flexibility
+    message: text("message"),
+    dismissedAt: timestamp("dismissed_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    userDismissedIdx: index("player_notifications_user_dismissed_idx").on(
+      t.userId,
+      t.dismissedAt,
+    ),
+  }),
+);
 
 export const episodeInvites = pgTable("episode_invites", {
   id: serial("id").primaryKey(),

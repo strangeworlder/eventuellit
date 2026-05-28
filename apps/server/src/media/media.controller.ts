@@ -4,32 +4,23 @@ import {
 	Body,
 	Controller,
 	Delete,
-	ForbiddenException,
 	Get,
 	Param,
 	ParseIntPipe,
 	Post,
 	Query,
-	Req,
 	UploadedFile,
 	UseGuards,
 	UseInterceptors,
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import { type AuthUser, CurrentUser } from "../auth/current-user.decorator";
+import { Roles, RolesGuard } from "../auth/roles.guard";
 import { CreateMediaDto } from "./dto/create-media.dto";
 import { ImageOptimizerService } from "./image-optimizer.service";
 import { RequestUploadDto } from "./dto/request-upload.dto";
 import { MediaService } from "./media.service";
-
-function ensureGm(req: Request) {
-	const user = (req as any).user;
-	if (!user || user.role !== "gm") {
-		throw new ForbiddenException("Only GMs can perform this action");
-	}
-	return user;
-}
 
 @Controller("media")
 export class MediaController {
@@ -53,10 +44,10 @@ export class MediaController {
 	}
 
 	/** Generate a presigned PUT URL for direct R2 upload. GM only. */
-	@UseGuards(JwtAuthGuard)
+	@UseGuards(JwtAuthGuard, RolesGuard)
+	@Roles("gm")
 	@Post("upload-url")
-	async requestUploadUrl(@Body() dto: RequestUploadDto, @Req() req: Request) {
-		ensureGm(req);
+	async requestUploadUrl(@Body() dto: RequestUploadDto) {
 		return this.mediaService.requestUploadUrl(
 			dto.filename,
 			dto.contentType,
@@ -65,10 +56,10 @@ export class MediaController {
 	}
 
 	/** Register a completed upload in the DB. GM only. */
-	@UseGuards(JwtAuthGuard)
+	@UseGuards(JwtAuthGuard, RolesGuard)
+	@Roles("gm")
 	@Post()
-	async create(@Body() dto: CreateMediaDto, @Req() req: Request) {
-		const user = ensureGm(req);
+	async create(@Body() dto: CreateMediaDto, @CurrentUser() user: AuthUser) {
 		return this.mediaService.create(dto, user.id);
 	}
 
@@ -77,16 +68,16 @@ export class MediaController {
 	 * upload variants to R2, update the manifest, and register in DB.
 	 * GM only. Max 15 MB.
 	 */
-	@UseGuards(JwtAuthGuard)
+	@UseGuards(JwtAuthGuard, RolesGuard)
+	@Roles("gm")
 	@Post("upload")
 	@UseInterceptors(FileInterceptor("file", { limits: { fileSize: 15 * 1024 * 1024 } }))
 	async upload(
 		@UploadedFile() file: Express.Multer.File,
 		@Body("context") context: string,
 		@Body("alt") alt: string,
-		@Req() req: Request,
+		@CurrentUser() user: AuthUser,
 	) {
-		const user = ensureGm(req);
 		if (!file) {
 			throw new BadRequestException("No file provided");
 		}
@@ -115,10 +106,10 @@ export class MediaController {
 	}
 
 	/** Delete a media record and its R2 object. GM only. */
-	@UseGuards(JwtAuthGuard)
+	@UseGuards(JwtAuthGuard, RolesGuard)
+	@Roles("gm")
 	@Delete(":id")
-	async remove(@Param("id", ParseIntPipe) id: number, @Req() req: Request) {
-		ensureGm(req);
+	async remove(@Param("id", ParseIntPipe) id: number) {
 		return this.mediaService.remove(id);
 	}
 }

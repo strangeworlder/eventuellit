@@ -23,7 +23,6 @@ import {
   type Session,
   useCreateSession,
   useDeleteSession,
-  useMigrateSessionDates,
   useSessions,
   useUpdateSession,
 } from "./api/sessions";
@@ -217,9 +216,9 @@ function SuggestionRow({
           </span>
           <Badge variant="ghost">{typeLabel(suggestion.contentType)}</Badge>
         </div>
-        <p className="text-[10px] text-[var(--theme-secondary)]/70 italic truncate">
+        <Text variant="caption" className="text-[10px] italic truncate">
           {suggestion.reason}
-        </p>
+        </Text>
       </div>
       <Button
         size="compact"
@@ -467,7 +466,6 @@ function SessionPanel({ session, episodeId }: { session: Session; episodeId: num
 
 export function ReadingListEditor({ episodeId }: { episodeId: number }) {
   const { data: sessions, isLoading: isSessionsLoading } = useSessions(episodeId);
-  const { mutate: migrateSessionDates, isPending: isMigrating } = useMigrateSessionDates();
   const [showAddSession, setShowAddSession] = useState(false);
   const [episodeLevelOpen, setEpisodeLevelOpen] = useState(false);
   const [showEpisodeSuggestions, setShowEpisodeSuggestions] = useState(false);
@@ -493,17 +491,9 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
         ) : !sessions || sessions.length === 0 ? (
           <div className="space-y-2 pt-2">
             <Text variant="muted">
-              Ei sessioita. Voit luoda ne automaattisesti jakson sessiopäivistä tai lisätä
-              manuaalisesti.
+              Ei sessioita. Lisää sessioita manuaalisesti.
             </Text>
             <div className="flex gap-2 flex-wrap">
-              <Button
-                size="compact"
-                loading={isMigrating}
-                onClick={() => migrateSessionDates(episodeId)}
-              >
-                Luo sessiopäivistä
-              </Button>
               <Button size="compact" variant="outline" onClick={() => setShowAddSession(true)}>
                 Lisää sessio
               </Button>

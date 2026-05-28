@@ -1,8 +1,9 @@
 import { Inject, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { randomUUID } from "crypto";
-import { eq } from "drizzle-orm";
+import { and, eq, isNotNull, lt, or } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import { config } from "../config";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
 import { characters, magicLinkTokens, users } from "../db/schema";
@@ -19,7 +20,7 @@ export class AuthService {
   ) {}
 
   async requestMagicLink(email: string, baseUrl: string): Promise<void> {
-    const isDev = process.env.NODE_ENV !== "production";
+    const isDev = !config.isProduction;
     if (isDev) this.logger.log(`[DEV] requestMagicLink called for: ${email}`);
 
     // Check if user exists (email allowlist)
@@ -48,6 +49,9 @@ export class AuthService {
     // Send magic link
     const verifyUrl = `${baseUrl}/auth/vahvista?token=${token}`;
     await this.mailService.sendMagicLink(email, verifyUrl);
+
+    // Cleanup expired/used tokens in the background
+    void this.cleanupExpiredTokens().catch(() => {});
   }
 
   async verifyToken(token: string): Promise<{ user: typeof users.$inferSelect; jwt: string }> {
@@ -85,8 +89,8 @@ export class AuthService {
       throw new UnauthorizedException("User not found");
     }
 
-    // Generate JWT
-    const payload = { sub: user.id, email: user.email, role: user.role };
+    // Generate JWT (include username so guards can populate req.user without DB)
+    const payload = { sub: user.id, email: user.email, role: user.role, username: user.username };
     const jwt = this.jwtService.sign(payload);
 
     return { user, jwt };
@@ -142,18 +146,33 @@ export class AuthService {
       where: eq(users.role, "gm"),
     });
 
-    if (gmUser) {
-      // Transfer characters to GM ownership
-      await this.db
-        .update(characters)
-        .set({ userId: gmUser.id })
-        .where(eq(characters.userId, userId));
-    }
+    // Wrap in transaction to prevent partial state
+    await this.db.transaction(async (tx) => {
+      if (gmUser) {
+        // Transfer characters to GM ownership
+        await tx
+          .update(characters)
+          .set({ userId: gmUser.id })
+          .where(eq(characters.userId, userId));
+      }
 
-    // Delete magic link tokens for this email
-    await this.db.delete(magicLinkTokens).where(eq(magicLinkTokens.email, user.email));
+      // Delete magic link tokens for this email
+      await tx.delete(magicLinkTokens).where(eq(magicLinkTokens.email, user.email));
 
-    // Delete the user record
-    await this.db.delete(users).where(eq(users.id, userId));
+      // Delete the user record
+      await tx.delete(users).where(eq(users.id, userId));
+    });
+  }
+
+  /** Remove expired and used tokens older than 24 hours */
+  private async cleanupExpiredTokens(): Promise<void> {
+    const cutoff = new Date();
+    cutoff.setHours(cutoff.getHours() - 24);
+    await this.db.delete(magicLinkTokens).where(
+      or(
+        lt(magicLinkTokens.expiresAt, new Date()),
+        and(isNotNull(magicLinkTokens.usedAt), lt(magicLinkTokens.usedAt, cutoff)),
+      ),
+    );
   }
 }

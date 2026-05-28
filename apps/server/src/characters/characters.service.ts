@@ -205,7 +205,6 @@ export class CharactersService {
     const insertData: typeof characters.$inferInsert = {
       name: data.name,
       archetype: data.archetype,
-      episodeId: data.episodeId,
       sex: data.sex,
       motivation: data.motivation,
       notes: data.notes,
@@ -228,18 +227,21 @@ export class CharactersService {
       napparyys: data.napparyys ?? 0,
       userId,
     };
-    const result = await this.db.insert(characters).values(insertData).returning();
-    const character = result[0];
 
-    // Also insert into characterEpisodes junction table
-    if (data.episodeId) {
-      await this.db.insert(characterEpisodes).values({
-        characterId: character.id,
-        episodeId: data.episodeId,
-      });
-    }
+    return this.db.transaction(async (tx) => {
+      const result = await tx.insert(characters).values(insertData).returning();
+      const character = result[0];
 
-    return character;
+      // Also insert into characterEpisodes junction table
+      if (data.episodeId) {
+        await tx.insert(characterEpisodes).values({
+          characterId: character.id,
+          episodeId: data.episodeId,
+        });
+      }
+
+      return character;
+    });
   }
 
   async update(id: number, data: UpdateCharacterDto, userId: number, role: string) {
@@ -479,41 +481,43 @@ export class CharactersService {
       skills.push({ name: skill, isCustom: true });
     }
 
-    const updatedRows = await this.db
-      .update(characters)
-      .set({
-        fysiikka: nextFysiikka,
-        nopeus: nextNopeus,
-        ymmarrys: nextYmmarrys,
-        persoona: nextPersoona,
-        nakemys: nextNakemys,
-        napparyys: nextNapparyys,
-        keho: nextKeho,
-        mieli: nextMieli,
-        tera: nextTera,
-        currentKeho: Math.max(character.currentKeho, nextKeho),
-        currentMieli: Math.max(character.currentMieli, nextMieli),
-        currentTera: Math.max(character.currentTera, nextTera),
-        sisuDice,
-        skills,
-        updatedAt: new Date(),
-      })
-      .where(eq(characters.id, characterId))
-      .returning();
-    const updated = updatedRows[0];
+    return this.db.transaction(async (tx) => {
+      const updatedRows = await tx
+        .update(characters)
+        .set({
+          fysiikka: nextFysiikka,
+          nopeus: nextNopeus,
+          ymmarrys: nextYmmarrys,
+          persoona: nextPersoona,
+          nakemys: nextNakemys,
+          napparyys: nextNapparyys,
+          keho: nextKeho,
+          mieli: nextMieli,
+          tera: nextTera,
+          currentKeho: Math.max(character.currentKeho, nextKeho),
+          currentMieli: Math.max(character.currentMieli, nextMieli),
+          currentTera: Math.max(character.currentTera, nextTera),
+          sisuDice,
+          skills,
+          updatedAt: new Date(),
+        })
+        .where(eq(characters.id, characterId))
+        .returning();
+      const updated = updatedRows[0];
 
-    await this.db
-      .update(characterEpisodes)
-      .set({ advancedAt: new Date() })
-      .where(eq(characterEpisodes.id, link.id));
+      await tx
+        .update(characterEpisodes)
+        .set({ advancedAt: new Date() })
+        .where(eq(characterEpisodes.id, link.id));
 
-    await this.db.insert(characterArcSnapshots).values({
-      characterId,
-      episodeId: data.episodeId,
-      reason: "advancement",
-      sheetJson: updated,
+      await tx.insert(characterArcSnapshots).values({
+        characterId,
+        episodeId: data.episodeId,
+        reason: "advancement",
+        sheetJson: updated,
+      });
+
+      return { advanced: true, alreadyAdvanced: false, character: updated };
     });
-
-    return { advanced: true, alreadyAdvanced: false, character: updated };
   }
 }

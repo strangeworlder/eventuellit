@@ -83,44 +83,4 @@ export class SessionsService {
     }
     await this.db.delete(sessions).where(eq(sessions.id, id));
   }
-
-  async migrateFromEpisodeDates(episodeId: number) {
-    const episodeRow = await this.db.select().from(episodes).where(eq(episodes.id, episodeId));
-    if (!episodeRow[0]) {
-      throw new NotFoundException("Episode not found");
-    }
-
-    const existing = await this.db.select().from(sessions).where(eq(sessions.episodeId, episodeId));
-    if (existing.length > 0) {
-      throw new ConflictException("Sessions already exist for this episode");
-    }
-
-    const sessionDates = episodeRow[0].sessionDates;
-    if (!sessionDates || !sessionDates.trim()) {
-      return [];
-    }
-
-    const dates = sessionDates
-      .split(",")
-      .map((d) => d.trim())
-      .filter(Boolean);
-
-    const rows = await Promise.all(
-      dates.map(async (dateStr, index) => {
-        const date = new Date(dateStr);
-        const result = await this.db
-          .insert(sessions)
-          .values({
-            episodeId,
-            sessionNumber: index + 1,
-            date: Number.isNaN(date.getTime()) ? undefined : date,
-            status: "planned",
-          })
-          .returning();
-        return result[0];
-      }),
-    );
-
-    return rows;
-  }
 }

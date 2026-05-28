@@ -6,31 +6,32 @@ import {
 	S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { config } from "../config";
 
 @Injectable()
 export class R2Service {
 	private readonly logger = new Logger(R2Service.name);
 	private readonly client: S3Client;
 	private readonly bucket: string;
-	private readonly publicUrl: string;
+	private readonly _publicUrl: string;
 
 	constructor() {
-		this.bucket = process.env.R2_BUCKET_NAME ?? "eventuellit-media";
-		this.publicUrl = process.env.R2_PUBLIC_URL ?? "";
+		this.bucket = config.r2.bucketName;
+		this._publicUrl = config.r2.publicUrl;
 
 		this.client = new S3Client({
 			region: "auto",
-			endpoint: process.env.R2_ENDPOINT ?? "",
+			endpoint: config.r2.endpoint,
 			credentials: {
-				accessKeyId: process.env.R2_ACCESS_KEY_ID ?? "",
-				secretAccessKey: process.env.R2_SECRET_ACCESS_KEY ?? "",
+				accessKeyId: config.r2.accessKeyId,
+				secretAccessKey: config.r2.secretAccessKey,
 			},
 		});
 	}
 
 	/** Returns true if R2 credentials are configured. */
 	isConfigured(): boolean {
-		return !!(process.env.R2_ENDPOINT && process.env.R2_ACCESS_KEY_ID);
+		return !!(config.r2.endpoint && config.r2.accessKeyId);
 	}
 
 	/** Generate a presigned PUT URL for direct client upload. */
@@ -62,7 +63,7 @@ export class R2Service {
 
 	/** Build a public URL for an R2 object. */
 	getPublicUrl(key: string): string {
-		const base = this.publicUrl.replace(/\/+$/, "");
+		const base = this._publicUrl.replace(/\/+$/, "");
 		return `${base}/${key}`;
 	}
 
