@@ -1,4 +1,10 @@
 import { useAuth } from "@repo/auth/use-auth";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@repo/ui/components/Accordion";
 import { Button } from "@repo/ui/components/Button";
 import { CountdownDisplay } from "@repo/ui/components/CountdownDisplay";
 import { Drawer } from "@repo/ui/components/Drawer";
@@ -10,6 +16,7 @@ import { LoadingState } from "@repo/ui/components/LoadingState";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageBody } from "@repo/ui/components/Page";
 import { SelectionCardGroup } from "@repo/ui/components/SelectionCard";
+import { Separator } from "@repo/ui/components/Separator";
 import { Text } from "@repo/ui/components/Text";
 import { useToast } from "@repo/ui/components/Toast";
 import { VotingStandings } from "@repo/ui/components/VotingStandings";
@@ -17,8 +24,12 @@ import React from "react";
 import {
   useActiveVotingRound,
   useCastVote,
+  useClosedVotingRounds,
   useDeleteVote,
   useVotingResults,
+  type ClosedRoundEntry,
+  type MissionOption,
+  type VotingRound,
 } from "../api/mission-votes";
 import { MissionOptionCard } from "./MissionOptionCard";
 import { VotingRoundManager } from "./VotingRoundManager";
@@ -33,13 +44,33 @@ export function OperaatiotPage() {
   const myVote = data?.myVote ?? null;
 
   const { data: results = [] } = useVotingResults(round?.id ?? null);
+  const { data: closedRounds = [] } = useClosedVotingRounds();
 
   const [selectionValue, setSelectionValue] = React.useState<{
     primary: string | null;
     secondary: string | null;
   }>({ primary: null, secondary: null });
 
+  // ── Drawer state: can show the active round or any closed round ─────────
   const [managerOpen, setManagerOpen] = React.useState(false);
+  const [drawerRound, setDrawerRound] = React.useState<VotingRound | null>(null);
+  const [drawerOptions, setDrawerOptions] = React.useState<MissionOption[]>([]);
+
+  function openDrawerForActive() {
+    setDrawerRound(round);
+    setDrawerOptions(options);
+    setManagerOpen(true);
+  }
+
+  function openDrawerForClosed(entry: ClosedRoundEntry) {
+    setDrawerRound(entry.round);
+    setDrawerOptions(entry.options);
+    setManagerOpen(true);
+  }
+
+  function closeDrawer() {
+    setManagerOpen(false);
+  }
 
   React.useEffect(() => {
     if (myVote) {
@@ -103,7 +134,7 @@ export function OperaatiotPage() {
               <Text variant="overline">Avoinna</Text>
             )}
             {isGm && (
-              <Button variant="outline" size="sm" onClick={() => setManagerOpen(true)}>
+              <Button variant="outline" size="sm" onClick={openDrawerForActive}>
                 <Icon name="settings" size={14} className="mr-1.5" />
                 Hallinnoi
               </Button>
@@ -112,14 +143,14 @@ export function OperaatiotPage() {
         </Hero>
       </HeadingLevelProvider>
 
-      {/* GM Drawer */}
+      {/* GM Drawer — works for any round (active or closed) */}
       {isGm && (
         <Drawer
           title="Äänestyksen hallinta"
           expanded={managerOpen}
           onExpandedChange={setManagerOpen}
         >
-          <VotingRoundManager round={round} options={options} onClose={() => setManagerOpen(false)} />
+          <VotingRoundManager round={drawerRound} options={drawerOptions} onClose={closeDrawer} />
         </Drawer>
       )}
 
@@ -154,7 +185,7 @@ export function OperaatiotPage() {
               <NoticePanel variant="info" title="Ei aktiivista äänestystä">
                 Luo uusi äänestys, jotta pelaajat voivat äänestää seuraavasta operaatiosta.
               </NoticePanel>
-              <Button variant="solid" onClick={() => setManagerOpen(true)}>
+              <Button variant="solid" onClick={openDrawerForActive}>
                 <Icon name="plus" size={14} className="mr-1.5" />
                 Luo äänestys
               </Button>
@@ -235,6 +266,88 @@ export function OperaatiotPage() {
               )}
 
             </Stack>
+          )}
+
+          {/* ── Closed rounds history ── */}
+          {!isLoading && !error && closedRounds.length > 0 && (
+            <>
+              <Separator className="my-8" />
+              <HeadingLevelProvider>
+                <Stack gap={4}>
+                  <Heading>Aiemmat äänestykset</Heading>
+                  <Accordion>
+                    {closedRounds.map((entry) => (
+                      <AccordionItem key={entry.round.id} variant="default" className="mb-3">
+                        <AccordionTrigger>
+                          <Stack gap={0}>
+                            <Text variant="bold">{entry.round.title}</Text>
+                            <Text variant="caption">
+                              Suljettu {entry.round.closedAt
+                                ? new Date(entry.round.closedAt).toLocaleDateString("fi-FI", {
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric",
+                                  })
+                                : ""}
+                              {" · "}
+                              {entry.options.length} tehtävä{entry.options.length !== 1 ? "ä" : ""}
+                            </Text>
+                          </Stack>
+                        </AccordionTrigger>
+                        <AccordionContent className="p-4">
+                          <Stack gap={4}>
+                            {/* Results standings */}
+                            {entry.results.length > 0 && (
+                              <div>
+                                <Text variant="label" className="mb-2">Tulokset</Text>
+                                <Stack gap={1} as="ol">
+                                  {entry.results.map((r, i) => (
+                                    <Stack key={r.optionId} direction="row" align="center" justify="between" as="li">
+                                      <Text variant="bold">{i + 1}. {r.title}</Text>
+                                      <Text variant="caption" className="tabular-nums">
+                                        {r.score} p ({r.primaryCount}×3 + {r.secondaryCount}×1)
+                                      </Text>
+                                    </Stack>
+                                  ))}
+                                </Stack>
+                              </div>
+                            )}
+
+                            {/* Mission option cards — read-only, with comments */}
+                            {entry.options.length > 0 && (
+                              <HeadingLevelProvider>
+                                <div className="grid grid-cols-1 tablet:grid-cols-2 gap-3">
+                                  {entry.options.map((option) => (
+                                    <MissionOptionCard
+                                      key={option.id}
+                                      roundId={entry.round.id}
+                                      option={option}
+                                      selectionState="none"
+                                    />
+                                  ))}
+                                </div>
+                              </HeadingLevelProvider>
+                            )}
+
+                            {/* GM manage button */}
+                            {isGm && (
+                              <Button
+                                variant="outline"
+                                size="compact"
+                                onClick={() => openDrawerForClosed(entry)}
+                              >
+                                <Icon name="settings" size={14} className="mr-1" />
+                                Hallinnoi
+                              </Button>
+                            )}
+                          </Stack>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </Stack>
+              </HeadingLevelProvider>
+            </>
           )}
 
 

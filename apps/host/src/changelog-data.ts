@@ -24,6 +24,59 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.1.7",
+    date: "2026-06-09",
+    name: "Operaatiot — GM-hallinta ja historia",
+    features: [
+      {
+        title: "Suljettujen äänestysten historia",
+        description:
+          "Aiemmat äänestykset eivät enää katoa sulkemisen jälkeen. Kaikki pelaajat näkevät uuden \"Aiemmat äänestykset\" -osion, jossa vanhat äänestystulokset, tehtäväkortit ja keskustelut ovat selailtavissa taitettavina accordioneina.",
+        link: { label: "Siirry operaatioihin", to: "/operaatiot" },
+      },
+      {
+        title: "Äänestyksen muokkaus pelinjohtajalle",
+        description:
+          "Pelinjohtaja voi nyt muokata äänestyksen otsikkoa ja takarajaa suoraan hallintapaneelista. Tehtävävaihtoehtojen nimeä, kuvausta ja kiireellisyyttä voi muokata inline-muokkaustilassa.",
+        link: { label: "Avaa hallintapaneeli", to: "/operaatiot" },
+      },
+      {
+        title: "Tehtävien uudelleenjärjestys",
+        description:
+          "Tehtävävaihtoehdot voi järjestää uudelleen ↑/↓-nuolipainikkeilla hallintapaneelissa. Järjestys tallentuu palvelimelle ja näkyy kaikille pelaajille.",
+      },
+      {
+        title: "Suljetun äänestyksen uudelleenavaaminen",
+        description:
+          "Pelinjohtaja voi avata suljetun äänestyksen uudelleen, jolloin pelaajat voivat jälleen äänestää ja muuttaa valintojaan. Vahvistusikkuna estää tahattoman avaamisen.",
+      },
+    ],
+    major: [
+      {
+        title: "Suljettujen kierrosten palvelinrajapinta",
+        description:
+          "Uusi GET /voting/closed -rajapinta palauttaa kaikki suljetut äänestyskerrokset tuloksineen ja tehtävineen. Rajapinta on kaikkien kirjautuneiden käyttäjien saatavilla.",
+      },
+      {
+        title: "Hallintapaneeli tukee kaikkia äänestyksiä",
+        description:
+          "GM:n hallintapaneeli (Drawer) voi nyt avata minkä tahansa äänestyksen — aktiivisen tai suljetun — muokattavaksi, uudelleenavattavaksi tai poistettavaksi.",
+      },
+    ],
+    minor: [
+      {
+        title: "Painikkeet tiivistetty compact-kokoon",
+        description:
+          "Hallintapaneelin kaikki painikkeet vaihdettu compact-kokoon suunnittelujärjestelmän mukaisesti. Paneeli on nyt tiiviimpi ja mahtuu paremmin sivupaneeliin.",
+      },
+      {
+        title: "Suljettujen tehtäväkorttien visuaalinen korjaus",
+        description:
+          "Suljettujen äänestysten tehtäväkortit näytetään nyt täydellä opasiteetilla ja värikylläisyydellä. Aiemmin SelectionCard-komponentti lisäsi opacity-60 ja grayscale-30% lukittuihin kortteihin.",
+      },
+    ],
+  },
+  {
     version: "0.1.6",
     date: "2026-05-12",
     name: "Operaatiot — Tehtävääänestys",

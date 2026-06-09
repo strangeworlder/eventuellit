@@ -60,6 +60,12 @@ export interface MissionComment {
   author: string | null; // null when anonymous
 }
 
+export interface ClosedRoundEntry {
+  round: VotingRound;
+  options: MissionOption[];
+  results: FullVotingResult[];
+}
+
 // ─── Query Hooks ──────────────────────────────────────────────────────────────
 
 export const useActiveVotingRound = (enabled = true) => {
@@ -76,6 +82,21 @@ export const useActiveVotingRound = (enabled = true) => {
     enabled,
     staleTime: 30_000,
     refetchOnWindowFocus: true,
+  });
+};
+
+export const useClosedVotingRounds = () => {
+  return useQuery<ClosedRoundEntry[]>({
+    queryKey: ["voting", "closed"],
+    queryFn: async () => {
+      const response = await fetch(`${apiBaseUrl}/voting/closed`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to fetch closed voting rounds");
+      return response.json();
+    },
+    staleTime: 60_000,
   });
 };
 

@@ -32,6 +32,12 @@ export class MissionVotesController {
     return this.service.getActiveRound(user.id);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get("closed")
+  getClosedRounds() {
+    return this.service.getClosedRounds();
+  }
+
   // ─── Round management (GM) ─────────────────────────────────────────────────
 
   @UseGuards(JwtAuthGuard, RolesGuard)

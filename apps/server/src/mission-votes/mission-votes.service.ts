@@ -115,6 +115,32 @@ export class MissionVotesService {
     return { deleted: true };
   }
 
+  /**
+   * Returns all closed voting rounds with their options and full results.
+   * Used by the closed-rounds history view.
+   */
+  async getClosedRounds() {
+    const rounds = await this.db
+      .select()
+      .from(votingRounds)
+      .where(eq(votingRounds.status, "closed"))
+      .orderBy(desc(votingRounds.closedAt));
+
+    return Promise.all(
+      rounds.map(async (round) => {
+        const options = await this.db
+          .select()
+          .from(missionOptions)
+          .where(eq(missionOptions.roundId, round.id))
+          .orderBy(missionOptions.orderIndex);
+
+        const results = await this.computeScores(round.id);
+
+        return { round, options, results };
+      }),
+    );
+  }
+
   // ─── Options ───────────────────────────────────────────────────────────────
 
   async addOption(roundId: number, dto: CreateOptionDto) {
