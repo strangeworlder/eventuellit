@@ -41,6 +41,7 @@ export const episodes = pgTable("episodes", {
   locationLink: text("location_link"),
   image: text("image"),
   imageAlt: text("image_alt"),
+  theme: text("theme"),
   mediaId: integer("media_id").references(() => media.id),
   mechanicalAdditions: text("mechanical_additions"), // Markdown content
   summary: text("summary"),

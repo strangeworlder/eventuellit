@@ -44,6 +44,10 @@ export class UpdateEpisodeDto {
 
   @IsOptional()
   @IsString()
+  theme?: string;
+
+  @IsOptional()
+  @IsString()
   mechanicalAdditions?: string;
 
   @IsOptional()

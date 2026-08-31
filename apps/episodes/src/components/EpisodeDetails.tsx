@@ -14,6 +14,7 @@ import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { PageBody } from "@repo/ui/components/Page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/Tabs";
 
+import { PageTheme } from "@repo/ui/components/Theme";
 import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -99,6 +100,8 @@ export function EpisodeDetails({
 
   return (
     <div className="animate-in fade-in duration-500">
+      {/* Set the theme of the page if the episode defines one */}
+      {fullEpisode.theme && <PageTheme theme={fullEpisode.theme as any} />}
       <HeadingLevelProvider>
         <Hero title={fullEpisode.title} description={fullEpisode.description || ""}>
           <div className="flex flex-wrap gap-2 mt-4">

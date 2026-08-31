@@ -31,6 +31,7 @@ export function EpisodeEditForm({
       imageAlt: "",
       mechanicalAdditions: "",
       summary: "",
+      theme: "base",
     },
   );
 
@@ -136,6 +137,24 @@ export function EpisodeEditForm({
             name="locationLink"
             value={formData.locationLink ?? ""}
             onChange={handleChange}
+          />
+          <Select
+            label="Teema (Värit)"
+            name="theme"
+            value={formData.theme || "base"}
+            onChange={handleChange}
+            options={[
+              { value: "base", label: "Oletus (Base)" },
+              { value: "inverted", label: "Vaalea (Inverted)" },
+              { value: "primary-light", label: "Primary Light" },
+              { value: "primary-dark", label: "Primary Dark" },
+              { value: "secondary-light", label: "Secondary Light" },
+              { value: "secondary-dark", label: "Secondary Dark" },
+              { value: "accent-light", label: "Accent Light" },
+              { value: "accent-dark", label: "Accent Dark" },
+              { value: "royal", label: "Royal" },
+              { value: "royal-dark", label: "Royal Dark" },
+            ]}
           />
         </div>
         <ImageField

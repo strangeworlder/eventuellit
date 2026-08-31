@@ -42,6 +42,10 @@ export class CreateEpisodeDto {
 
   @IsOptional()
   @IsString()
+  theme?: string;
+
+  @IsOptional()
+  @IsString()
   mechanicalAdditions?: string;
 
   @IsOptional()

@@ -16,6 +16,7 @@ export interface Episode {
   locationLink: string | null;
   image: string | null;
   imageAlt: string | null;
+  theme: string | null;
   mechanicalAdditions: string | null;
   summary: string | null;
   tyrannyRoll: number | null;
