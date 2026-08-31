@@ -158,7 +158,7 @@ function InviteForm({ episodeId, onClose }: { episodeId: number; onClose: () => 
 
   const userOptions = (allUsers ?? []).map((u) => ({
     value: String(u.id),
-    label: `${u.username} (${u.email})`,
+    label: u.username,
   }));
 
   const handleSubmit = () => {

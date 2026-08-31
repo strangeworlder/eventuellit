@@ -46,9 +46,6 @@ export function EpisodePlayersEditor({ episodeId }: { episodeId: number }) {
                   <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-text)] truncate">
                     {player.username}
                   </span>
-                  <Text variant="caption" className="truncate block">
-                    {player.email}
-                  </Text>
                   {hasPendingInvite && !isEnrolled && (
                     <Badge variant="highlight" className="mt-0.5">
                       Kutsu lähetetty

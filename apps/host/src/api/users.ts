@@ -4,7 +4,6 @@ import { apiBaseUrl, getAuthHeaders } from "./base-url";
 export interface PlayerUser {
   id: number;
   username: string;
-  email: string;
 }
 
 export const usePlayerUsers = () => {

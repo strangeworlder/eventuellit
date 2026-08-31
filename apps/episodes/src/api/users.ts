@@ -5,7 +5,6 @@ import { queryKeys } from "./query-keys";
 export interface PlayerUser {
   id: number;
   username: string;
-  email: string;
 }
 
 export const usePlayerUsers = () => {

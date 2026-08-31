@@ -357,7 +357,7 @@ function AppContent() {
                 <div className="mb-2 px-2 py-1.5 rounded-md bg-[var(--theme-surface-tint)] text-text-muted text-sm truncate">
                   <div className="flex items-center gap-2">
                     <Icon name="user-circle" size={16} className="flex-shrink-0" />
-                    <span className="truncate">{user.username || user.email}</span>
+                    <span className="truncate">{user.username}</span>
                   </div>
                 </div>
               )}

@@ -17,7 +17,6 @@ export class UsersService {
       .select({
         id: users.id,
         username: users.username,
-        email: users.email,
       })
       .from(users)
       .where(eq(users.role, role));
