@@ -23,6 +23,7 @@ const themes = [
   { id: "accent-light", name: "Korostus Vaalea" },
   { id: "accent-dark", name: "Korostus Tumma" },
   { id: "royal", name: "Kuninkaallinen" },
+  { id: "royal-dark", name: "Kuninkaallinen Tumma" },
 ];
 
 const ThemeShowcase = ({ themeId, themeName }: { themeId: string; themeName: string }) => {

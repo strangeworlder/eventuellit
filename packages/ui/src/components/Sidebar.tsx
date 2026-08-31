@@ -38,7 +38,8 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
     | "secondary-dark"
     | "accent-light"
     | "accent-dark"
-    | "royal";
+    | "royal"
+    | "royal-dark";
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(

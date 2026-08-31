@@ -178,7 +178,8 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
     | "secondary-dark"
     | "accent-light"
     | "accent-dark"
-    | "royal";
+    | "royal"
+    | "royal-dark";
 }
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(

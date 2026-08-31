@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useId } from "react";
 
 /**
  * Defines the available theme options for theming components and their children.
@@ -15,7 +15,8 @@ export type Theme =
   | "secondary-dark"
   | "accent-light"
   | "accent-dark"
-  | "royal";
+  | "royal"
+  | "royal-dark";
 
 /**
  * React context for tracking the current active theme in the tree.
@@ -42,5 +43,52 @@ export const primaryThemeMap: Record<Theme, Theme> = {
   "secondary-dark": "primary-light",
   "accent-light": "primary-dark",
   "accent-dark": "primary-light",
-  royal: "primary-dark",
+  royal: "royal-dark",
+  "royal-dark": "royal",
 };
+
+/**
+ * A global stack of requested themes.
+ * Allows multiple nested components to request a theme, and correctly
+ * reverts to the previous requested theme (or "base") when unmounted.
+ */
+const themeStack: { id: string; theme: Theme }[] = [];
+
+function updateBodyTheme() {
+  const lastEntry = themeStack[themeStack.length - 1];
+  const activeTheme = lastEntry ? lastEntry.theme : "base";
+  document.body.setAttribute("data-theme", activeTheme);
+}
+
+/**
+ * Hook to set the `data-theme` attribute on the `body` element.
+ * When the component using this hook unmounts, the theme will automatically
+ * revert to the default ("base") or the next theme in the active stack.
+ */
+export function usePageTheme(theme?: Theme | null) {
+  const id = useId();
+
+  useEffect(() => {
+    if (!theme) return;
+
+    themeStack.push({ id, theme });
+    updateBodyTheme();
+
+    return () => {
+      const index = themeStack.findIndex((t) => t.id === id);
+      if (index !== -1) {
+        themeStack.splice(index, 1);
+        updateBodyTheme();
+      }
+    };
+  }, [theme, id]);
+}
+
+/**
+ * Utility component that declaratively sets the page theme.
+ * Can be placed anywhere in the component tree of a page.
+ */
+export function PageTheme({ theme }: { theme: Theme }) {
+  usePageTheme(theme);
+  return null;
+}
