@@ -341,6 +341,36 @@
     --theme-toast-warning: var(--color-primary-300);
   }
 
+  [data-theme="royal"] {
+    --theme-bg: var(--color-background);
+    --theme-text: var(--color-royal-purple-50);
+    --theme-primary: var(--color-royal-purple-500);
+    --theme-primary-foreground: var(--color-background);
+    /* #0f0f13 on purple-500 */
+    --theme-secondary: #b55898;
+    /* purple-500 + red-500 50/50 mix */
+    --theme-secondary-foreground: var(--color-background);
+    --theme-accent: #786be2;
+    /* purple-500 + blue-500 50/50 mix */
+    --theme-accent-foreground: var(--color-background);
+    /* text hierarchy: bg=#0f0f13 */
+    --theme-text-muted: var(--color-royal-purple-300);
+    /* #c2a3f2, 8.8:1 */
+    --theme-text-subtle: var(--color-royal-purple-500);
+    /* #9b5de5, 4.6:1 */
+    --theme-text-placeholder: var(--color-royal-purple-600);
+    /* #8341d4, 3.3:1 */
+    /* surface & border */
+    --theme-surface-tint: var(--color-royal-purple-800);
+    /* #522789 — deep purple tint on black bg */
+    --theme-border-soft: var(--color-royal-purple-700);
+    /* #6b33b2 */
+    --theme-border-medium: var(--color-royal-purple-500);
+    /* #9b5de5 */
+    --theme-toast-success: var(--color-royal-purple-300);
+    --theme-toast-warning: var(--color-primary-300);
+  }
+
   body {
     background-color: var(--theme-bg);
     color: var(--theme-text);

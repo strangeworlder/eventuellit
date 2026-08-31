@@ -14,7 +14,8 @@ export type Theme =
   | "secondary-light"
   | "secondary-dark"
   | "accent-light"
-  | "accent-dark";
+  | "accent-dark"
+  | "royal";
 
 /**
  * React context for tracking the current active theme in the tree.
@@ -41,4 +42,5 @@ export const primaryThemeMap: Record<Theme, Theme> = {
   "secondary-dark": "primary-light",
   "accent-light": "primary-dark",
   "accent-dark": "primary-light",
+  royal: "primary-dark",
 };

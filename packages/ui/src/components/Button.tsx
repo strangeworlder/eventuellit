@@ -62,7 +62,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   | "secondary-light"
   | "secondary-dark"
   | "accent-light"
-  | "accent-dark";
+  | "accent-dark"
+  | "royal";
 }
 
 /**

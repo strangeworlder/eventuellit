@@ -13,6 +13,7 @@ const themeValues: Theme[] = [
   "secondary-dark",
   "accent-light",
   "accent-dark",
+  "royal",
 ];
 
 const meta = {

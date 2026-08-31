@@ -20,7 +20,8 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     | "secondary-light"
     | "secondary-dark"
     | "accent-light"
-    | "accent-dark";
+    | "accent-dark"
+    | "royal";
 }
 
 /**

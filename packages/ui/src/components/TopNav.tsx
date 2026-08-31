@@ -94,7 +94,8 @@ export interface TopNavLinkProps extends Omit<NavLinkProps, "className"> {
     | "secondary-light"
     | "secondary-dark"
     | "accent-light"
-    | "accent-dark";
+    | "accent-dark"
+    | "royal";
   className?: string;
   /**
    * `"default"` renders a standard nav item.
@@ -187,7 +188,8 @@ export interface TopNavDropdownProps extends React.HTMLAttributes<HTMLDivElement
     | "secondary-light"
     | "secondary-dark"
     | "accent-light"
-    | "accent-dark";
+    | "accent-dark"
+    | "royal";
 }
 
 /**
