@@ -32,23 +32,38 @@ const remoteOrigins = {
   world: process.env.WORLD_URL || process.env.VITE_WORLD_URL || "",
 };
 
+// R2 public base URL — used for the og:image fallback default.
+const R2_PUBLIC_URL = (
+  process.env.R2_PUBLIC_URL || "https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev"
+).replace(/\/$/, "");
+
 // ---------------------------------------------------------------------------
 // Meta injection helpers
 // ---------------------------------------------------------------------------
 
 /**
  * Resolve an og:image to an absolute URL.
- * - If the page has an image with a known origin, prepend that service's URL.
- * - Otherwise fall back to the host-local default image.
+ *
+ * - If the image is already an absolute URL (e.g. a full R2 URL stored in frontmatter),
+ *   return it as-is — do NOT prepend any origin.
+ * - If the image is a relative path and a remote service origin env var is set, prepend that.
+ * - Otherwise fall back to the R2-hosted default og:image (1200px JPG).
  */
 function resolveImageUrl(entry, hostOrigin) {
-  if (entry?.image && entry?.imageOrigin && remoteOrigins[entry.imageOrigin]) {
-    const origin = remoteOrigins[entry.imageOrigin].replace(/\/$/, "");
-    const imgPath = entry.image.startsWith("/") ? entry.image : `/${entry.image}`;
-    return `${origin}${imgPath}`;
-  }
   if (entry?.image) {
-    // imageOrigin is set but the remote origin env var is missing — fall back to host
+    // Already an absolute URL — pass through as-is.
+    if (entry.image.startsWith("http://") || entry.image.startsWith("https://")) {
+      return entry.image;
+    }
+
+    // Relative path: resolve against the remote service origin when available.
+    if (entry.imageOrigin && remoteOrigins[entry.imageOrigin]) {
+      const origin = remoteOrigins[entry.imageOrigin].replace(/\/$/, "");
+      const imgPath = entry.image.startsWith("/") ? entry.image : `/${entry.image}`;
+      return `${origin}${imgPath}`;
+    }
+
+    // Remote origin env var missing — fall back to host origin.
     if (entry.imageOrigin && !remoteOrigins[entry.imageOrigin]) {
       console.warn(
         `Missing remote origin env var for "${entry.imageOrigin}" — falling back to host for og:image`,
@@ -56,14 +71,16 @@ function resolveImageUrl(entry, hostOrigin) {
     }
     return `${hostOrigin}${entry.image}`;
   }
-  return `${hostOrigin}/images/og-default.jpg`;
+
+  // No image for this route — use the R2-hosted default.
+  return `${R2_PUBLIC_URL}/images/og-default-1200.jpg`;
 }
 
 /**
  * Inject per-route Open Graph and Twitter Card meta tags into the HTML template.
  * Replaces the placeholder values placed in index.html at build time.
  */
-function injectMetaTags(html, entry, hostOrigin) {
+function injectMetaTags(html, entry, hostOrigin, pathname) {
   if (!entry) return html;
 
   const title = entry.title || "Eventuellit";
@@ -71,17 +88,17 @@ function injectMetaTags(html, entry, hostOrigin) {
     entry.description || "Pöytäroolipeli kapinasta aurinkokuntaa hallitsevaa tyrannia vastaan.";
   const imageUrl = resolveImageUrl(entry, hostOrigin);
 
-  function replaceAttr(tag, attr, newValue) {
-    // Replace content/href attribute value in the first matching tag
-    return tag.replace(new RegExp(`(${attr}=")[^"]*(")`), `$1${escapeAttr(newValue)}$2`);
-  }
-
   function escapeAttr(str) {
     return String(str)
       .replace(/&/g, "&amp;")
       .replace(/"/g, "&quot;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
+  }
+
+  function replaceAttr(tag, attr, newValue) {
+    // Replace the content/href attribute value in the matching tag
+    return tag.replace(new RegExp(`(${attr}=")[^"]*(")`), `$1${escapeAttr(newValue)}$2`);
   }
 
   // Replace <title>
@@ -121,11 +138,12 @@ function injectMetaTags(html, entry, hostOrigin) {
     });
   }
 
-  // Also set og:url to the canonical absolute path
+  // Set og:url to the canonical absolute URL for this route (origin + pathname)
   if (html.includes('property="og:url"')) {
+    const canonicalUrl = pathname && pathname !== "/" ? `${hostOrigin}${pathname}` : hostOrigin;
     html = html.replace(
       /(<meta\s+property="og:url"[^>]*?)(\s*\/>|>)/,
-      (match, tagOpen, closing) => replaceAttr(tagOpen, "content", hostOrigin) + closing,
+      (match, tagOpen, closing) => replaceAttr(tagOpen, "content", canonicalUrl) + closing,
     );
   }
 
@@ -186,7 +204,7 @@ function handler(req, res) {
       }
     }
 
-    const html = injectMetaTags(htmlTemplate, entry, hostOrigin);
+    const html = injectMetaTags(htmlTemplate, entry, hostOrigin, pathname);
 
     res.writeHead(200, {
       "Content-Type": "text/html; charset=utf-8",

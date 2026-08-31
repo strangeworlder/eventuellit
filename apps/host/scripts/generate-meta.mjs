@@ -11,6 +11,11 @@ import path from "node:path";
 const workspaceRoot = path.resolve(import.meta.dirname, "../../..");
 const hostDistDir = path.resolve(import.meta.dirname, "../dist");
 
+// R2 public base URL — used to build absolute episode og:image URLs.
+const R2_PUBLIC_URL = (
+  process.env.R2_PUBLIC_URL || "https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev"
+).replace(/\/$/, "");
+
 const TOP_LEVEL_ROUTE_TITLES = {
   ruleset: "Säännöt",
   episodes: "Jaksot",
@@ -99,20 +104,27 @@ function parseYamlList(frontmatter, key) {
 
 /**
  * For episodes the image frontmatter value is a bare key (e.g. "jakso-1").
- * We resolve it to the largest jpg variant using the episodes manifest.json.
+ * We resolve it to an absolute R2 URL using the manifest fetched from R2.
+ *
+ * Returns a full https:// URL so serve.mjs recognises it as absolute and
+ * passes it through without any origin prepending.
  */
-async function resolveEpisodeImagePath(key, episodesManifest) {
+function resolveEpisodeImageUrl(key, episodesManifest) {
   if (!key) return null;
   const entry = episodesManifest[key];
   if (!entry || !entry.variants || entry.variants.length === 0) {
-    return `/images/${key}.jpg`;
+    // Fallback: assume the standard R2 naming convention at 1200px
+    return `${R2_PUBLIC_URL}/images/${key}-1200.jpg`;
   }
   // Pick the variant closest to 1200px (ideal og:image width)
   const OG_TARGET = 1200;
   const sorted = [...entry.variants].sort(
     (a, b) => Math.abs(a.width - OG_TARGET) - Math.abs(b.width - OG_TARGET),
   );
-  return sorted[0].jpg ?? `/images/${key}.jpg`;
+  const variant = sorted[0];
+  // variant.jpg is a relative path like "/images/jakso-1-1024.jpg" — prepend R2 base
+  const jpgPath = variant.jpg ?? `/images/${key}-${variant.width}.jpg`;
+  return `${R2_PUBLIC_URL}${jpgPath}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -137,7 +149,7 @@ const SOURCES = [
     contentDir: path.join(workspaceRoot, "apps/episodes/src/content"),
     routePrefix: "/episodes",
     sectionTitle: TOP_LEVEL_ROUTE_TITLES.episodes,
-    getImage: null, // handled separately via manifest
+    getImage: null, // handled separately via R2 manifest
     imageOrigin: "episodes",
   },
   {
@@ -156,16 +168,20 @@ const SOURCES = [
 async function main() {
   const manifest = {};
 
-  // Load episodes image manifest once
+  // Load episodes image manifest from R2 (the local copy was removed with the R2 migration).
+  // Falls back to an empty object if the fetch fails; individual images will use the
+  // R2 naming convention fallback in resolveEpisodeImageUrl.
   let episodesManifest = {};
   try {
-    const raw = await fs.readFile(
-      path.join(workspaceRoot, "apps/episodes/public/images/manifest.json"),
-      "utf-8",
-    );
-    episodesManifest = JSON.parse(raw);
-  } catch {
-    console.warn("Could not read episodes image manifest — episode images will be estimated.");
+    const response = await fetch(`${R2_PUBLIC_URL}/images/manifest.json`);
+    if (response.ok) {
+      episodesManifest = await response.json();
+      console.log(`Loaded episodes manifest from R2 with ${Object.keys(episodesManifest).length} entries.`);
+    } else {
+      console.warn(`Could not fetch episodes manifest from R2 (status ${response.status}) — episode images will use fallback URLs.`);
+    }
+  } catch (err) {
+    console.warn(`Could not fetch episodes manifest from R2 — episode images will use fallback URLs. (${err.message})`);
   }
 
   for (const source of SOURCES) {
@@ -199,7 +215,7 @@ async function main() {
       let image = null;
       if (source.app === "episodes") {
         const key = typeof data.image === "string" ? data.image : null;
-        image = await resolveEpisodeImagePath(key, episodesManifest);
+        image = resolveEpisodeImageUrl(key, episodesManifest);
       } else if (source.getImage) {
         image = source.getImage(data, frontmatter);
       }
@@ -208,6 +224,8 @@ async function main() {
         title,
         description,
         image: image ?? null,
+        // imageOrigin is only relevant for relative image paths (relative to a remote MFE).
+        // Absolute R2 URLs (episodes) and world/ruleset full URLs need no origin prefix.
         imageOrigin: image ? source.imageOrigin : null,
       };
     }

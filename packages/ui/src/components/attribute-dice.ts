@@ -20,17 +20,21 @@ export function decodeAttributeDice(packed: number): AttributeDiceCounts {
 
 export function addN4(packed: number): number {
   const counts = decodeAttributeDice(packed);
-  counts[0] += 1;
+  counts[0] = (counts[0] ?? 0) + 1;
 
   for (let i = 0; i < counts.length; i += 1) {
-    if (counts[i] <= MAX_TIER_COUNT) {
+    const current = counts[i] ?? 0;
+    if (current <= MAX_TIER_COUNT) {
       continue;
     }
     if (i === counts.length - 1) {
       throw new Error("Attribute cannot advance beyond n12");
     }
     counts[i] = 0;
-    counts[i + 1] += 1;
+    const next = counts[i + 1];
+    if (next !== undefined) {
+      counts[i + 1] = next + 1;
+    }
   }
 
   return counts.reduce((sum, count, index) => sum + count * 3 ** index, 0);
