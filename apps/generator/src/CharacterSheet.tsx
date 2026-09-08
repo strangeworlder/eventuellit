@@ -1,9 +1,11 @@
 import { useAuth } from "@repo/auth/use-auth";
 import { AspectTag } from "@repo/ui/components/AspectTag";
+import { Badge } from "@repo/ui/components/Badge";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
+import { Dialog } from "@repo/ui/components/Dialog";
 import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
 import { EditableField } from "@repo/ui/components/EditableField";
 import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
@@ -18,6 +20,9 @@ import { SkillTagList } from "@repo/ui/components/SkillTagList";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
+import { useAdvanceMonk } from "./api/characters";
+import type { MonkPower } from "./api/monk-powers";
+import { MonkPowerPicker } from "./MonkPowerPicker";
 import { suggestNames } from "./name-generator";
 
 interface Character {
@@ -54,6 +59,9 @@ interface Character {
   napparyys: number;
   nicknames: string[];
   inventory?: Array<{ id: string; name: string; description?: string; quantity: number }>;
+  monkAdvancementsAllowed?: number;
+  monkAdvancementsUsed?: number;
+  monkPowers?: MonkPower[];
 }
 
 interface CharacterSnapshot {
@@ -156,6 +164,11 @@ export function CharacterSheet({
     },
   });
 
+  const [monkAdvancementModalOpen, setMonkAdvancementModalOpen] = useState(false);
+  const [selectedMonkPower, setSelectedMonkPower] = useState<MonkPower | null>(null);
+  const [advanceError, setAdvanceError] = useState<string | null>(null);
+  const advanceMonkMutation = useAdvanceMonk();
+
   if (isLoading || !character) {
     return <LoadingState message="Ladataan hahmoa..." size="large" layout="padded" />;
   }
@@ -219,6 +232,56 @@ export function CharacterSheet({
                   placeholder="Ei arkkityyppiä."
                   onSave={(v) => updateCharacter({ archetype: v })}
                 />
+
+                {/* GM Monk Advancement Control */}
+                {user?.role === "gm" && (
+                  <EditableField
+                    label="Munkki-potentiaali (GM)"
+                    value={String(character.monkAdvancementsAllowed ?? 0)}
+                    placeholder="0"
+                    onSave={(v) => {
+                      const parsed = parseInt(v, 10);
+                      if (!isNaN(parsed) && parsed >= 0) {
+                        updateCharacter({ monkAdvancementsAllowed: parsed });
+                      }
+                    }}
+                  />
+                )}
+
+                {/* Monk Advancements Status & Trigger */}
+                {((character.monkAdvancementsAllowed ?? 0) > 0 ||
+                  (character.monkAdvancementsUsed ?? 0) > 0) && (
+                  <div className="space-y-2 rounded-lg border border-[var(--theme-border-soft)] p-3 bg-[var(--theme-bg)]">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs uppercase tracking-wider text-text-muted font-bold">
+                        Munkki-kehitykset:
+                      </span>
+                      <span className="font-mono text-sm font-semibold text-[var(--theme-text)]">
+                        {character.monkAdvancementsUsed ?? 0} / {character.monkAdvancementsAllowed ?? 0} käytetty
+                      </span>
+                    </div>
+
+                    {canEdit &&
+                      (character.monkAdvancementsAllowed ?? 0) >
+                        (character.monkAdvancementsUsed ?? 0) && (
+                        <Button
+                          variant="solid"
+                          size="sm"
+                          className="w-full mt-1"
+                          onClick={() => {
+                            setSelectedMonkPower(null);
+                            setAdvanceError(null);
+                            setMonkAdvancementModalOpen(true);
+                          }}
+                        >
+                          Kehity munkkina (
+                          {(character.monkAdvancementsAllowed ?? 0) -
+                            (character.monkAdvancementsUsed ?? 0)}{" "}
+                          jäljellä)
+                        </Button>
+                      )}
+                  </div>
+                )}
 
                 <NicknamesSection
                   nicknames={character.nicknames ?? []}
@@ -327,6 +390,62 @@ export function CharacterSheet({
                 )}
               </CardContent>
             </Card>
+
+            {/* Voimat Section */}
+            {((character.monkPowers && character.monkPowers.length > 0) ||
+              (character.monkAdvancementsAllowed ?? 0) > 0 ||
+              character.archetype === "Munkki") && (
+              <Card variant="highlight" className="mt-4">
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle>Voimat</CardTitle>
+                  {character.monkPowers && character.monkPowers.length > 0 && (
+                    <Badge variant="outline">{character.monkPowers.length} kpl</Badge>
+                  )}
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {!character.monkPowers || character.monkPowers.length === 0 ? (
+                    <p className="text-xs text-text-muted italic py-1">
+                      Ei vielä valittuja voimia.
+                    </p>
+                  ) : (
+                    <div className="space-y-2.5">
+                      {character.monkPowers.map((power) => (
+                        <div
+                          key={power.id}
+                          className="rounded-lg border border-[var(--theme-border-soft)] bg-[var(--theme-bg)] p-3 space-y-1.5"
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-bold text-sm text-[var(--theme-text)]">
+                              {power.name}
+                            </span>
+                            <Badge variant="solid" className="text-[10px]">
+                              {power.tier}. piiri
+                            </Badge>
+                          </div>
+                          {power.description && (
+                            <p className="text-xs text-text-muted whitespace-pre-wrap">
+                              {power.description}
+                            </p>
+                          )}
+                          {power.properties && Object.keys(power.properties).length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 pt-1">
+                              {Object.entries(power.properties).map(([k, v]) => (
+                                <span
+                                  key={k}
+                                  className="text-[10px] bg-[var(--theme-surface)] border border-[var(--theme-border-soft)] px-1.5 py-0.5 rounded font-mono text-text-muted"
+                                >
+                                  <strong>{k}:</strong> {String(v)}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
           </div>
           <HeadingLevelProvider>
             <div className="space-y-6">
@@ -434,6 +553,62 @@ export function CharacterSheet({
             </div>
           </HeadingLevelProvider>
         </PageBody>
+
+        {/* Monk Advancement Dialog */}
+        <Dialog
+          open={monkAdvancementModalOpen}
+          onClose={() => {
+            if (!advanceMonkMutation.isPending) {
+              setMonkAdvancementModalOpen(false);
+            }
+          }}
+          title="Munkki-kehitys"
+          description="Valitse 1 uusi voima. Kehityksen myötä saat valitun voiman lisäksi yhden d4-sisunopan."
+          size="lg"
+          footer={
+            <>
+              <Button
+                variant="ghost"
+                onClick={() => setMonkAdvancementModalOpen(false)}
+                disabled={advanceMonkMutation.isPending}
+              >
+                Peruuta
+              </Button>
+              <Button
+                variant="solid"
+                disabled={!selectedMonkPower || advanceMonkMutation.isPending}
+                onClick={async () => {
+                  if (!selectedMonkPower) return;
+                  setAdvanceError(null);
+                  try {
+                    await advanceMonkMutation.mutateAsync({
+                      characterId: character.id,
+                      powerId: selectedMonkPower.id,
+                    });
+                    setMonkAdvancementModalOpen(false);
+                  } catch (err: any) {
+                    setAdvanceError(err.message || "Munkki-kehitys epäonnistui");
+                  }
+                }}
+              >
+                {advanceMonkMutation.isPending
+                  ? "Tallennetaan..."
+                  : "Vahvista valinta (+1n4 sisu & voima)"}
+              </Button>
+            </>
+          }
+        >
+          <div className="space-y-4">
+            {advanceError && (
+              <NoticePanel variant="error">{advanceError}</NoticePanel>
+            )}
+            <MonkPowerPicker
+              characterPowers={character.monkPowers ?? []}
+              selectedPowerId={selectedMonkPower?.id ?? null}
+              onSelectPower={setSelectedMonkPower}
+            />
+          </div>
+        </Dialog>
       </div>
     </HeadingLevelProvider>
   );

@@ -9,8 +9,8 @@ describe("CharactersController", () => {
   let controller: CharactersController;
   let service: any;
 
-  const mockUser = { id: 1, role: "player" };
-  const mockReq = { user: mockUser } as any;
+  const mockUser = { id: 1, role: "player", email: "p@test.com", username: "p" };
+  const mockReq = mockUser as any;
 
   beforeEach(async () => {
     service = {
@@ -22,6 +22,7 @@ describe("CharactersController", () => {
       linkEpisode: vi.fn().mockResolvedValue({ linked: true, alreadyLinked: false }),
       refreshForEpisode: vi.fn().mockResolvedValue({ refreshed: true, alreadyRefreshed: false }),
       advanceForEpisode: vi.fn().mockResolvedValue({ advanced: true, alreadyAdvanced: false }),
+      advanceAsMonk: vi.fn().mockResolvedValue({ advanced: true }),
       remove: vi.fn().mockResolvedValue(undefined),
     };
 
@@ -112,5 +113,10 @@ describe("CharactersController", () => {
       { episodeId: 2, attribute: "fysiikka", reward: "skills_plus_n6", newSkills: [] },
       mockUser.id,
     );
+  });
+
+  it("should pass userId and powerId to advanceMonk", async () => {
+    await controller.advanceMonk(1, { powerId: 42 }, mockReq);
+    expect(service.advanceAsMonk).toHaveBeenCalledWith(1, { powerId: 42 }, mockUser.id);
   });
 });

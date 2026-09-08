@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiBaseUrl } from "./base-url";
+import type { MonkPower } from "./monk-powers";
 
 const API_URL = `${apiBaseUrl}/characters`;
 
@@ -43,6 +44,9 @@ export interface CharacterListItem {
   removedSisuIds?: string[];
   episodes?: CharacterEpisodeLink[];
   hasPlayedSessions?: boolean;
+  monkAdvancementsAllowed?: number;
+  monkAdvancementsUsed?: number;
+  monkPowers?: MonkPower[];
   [key: string]: unknown;
 }
 
@@ -196,3 +200,41 @@ export function useAdvanceCharacterForEpisode() {
     },
   });
 }
+
+export function useAdvanceMonk() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      characterId,
+      powerId,
+    }: {
+      characterId: number;
+      powerId: number;
+    }) => {
+      const token = localStorage.getItem("auth_token");
+      const response = await fetch(`${API_URL}/${characterId}/advance-monk`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        credentials: "include",
+        body: JSON.stringify({ powerId }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.message || "Failed to advance character as monk");
+      }
+
+      return response.json();
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["characters"] });
+      queryClient.invalidateQueries({ queryKey: ["character", variables.characterId] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+    },
+  });
+}
+

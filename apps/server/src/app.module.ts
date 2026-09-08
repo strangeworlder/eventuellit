@@ -14,6 +14,7 @@ import { ReadingProgressModule } from "./reading-progress/reading-progress.modul
 import { SessionRecapsModule } from "./session-recaps/session-recaps.module";
 import { SessionsModule } from "./sessions/sessions.module";
 import { MissionVotesModule } from "./mission-votes/mission-votes.module";
+import { MonkPowersModule } from "./monk-powers/monk-powers.module";
 import { UsersModule } from "./users/users.module";
 
 @Module({
@@ -34,6 +35,7 @@ import { UsersModule } from "./users/users.module";
     NotificationsModule,
     MediaModule,
     MissionVotesModule,
+    MonkPowersModule,
   ],
 })
 export class AppModule {}

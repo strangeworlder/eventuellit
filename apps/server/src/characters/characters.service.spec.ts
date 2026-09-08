@@ -19,6 +19,12 @@ describe("CharactersService", () => {
         episodes: {
           findFirst: vi.fn(),
         },
+        monkPowers: {
+          findFirst: vi.fn(),
+        },
+        characterMonkPowers: {
+          findFirst: vi.fn(),
+        },
       },
       select: vi.fn().mockReturnThis(),
       from: vi.fn().mockReturnThis(),
@@ -26,13 +32,14 @@ describe("CharactersService", () => {
       innerJoin: vi.fn().mockReturnThis(),
       where: vi.fn().mockReturnThis(),
       limit: vi.fn().mockReturnThis(),
-      orderBy: vi.fn().mockReturnThis(),
+      orderBy: vi.fn().mockImplementation(() => Promise.resolve([])),
       insert: vi.fn().mockReturnThis(),
       values: vi.fn().mockReturnThis(),
-      returning: vi.fn(),
+      returning: vi.fn().mockResolvedValue([]),
       update: vi.fn().mockReturnThis(),
       set: vi.fn().mockReturnThis(),
       delete: vi.fn().mockReturnThis(),
+      transaction: vi.fn(async (cb) => cb(mockDb)),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -83,17 +90,14 @@ describe("CharactersService", () => {
   it("should find all characters with owner join and attach episodes", async () => {
     const charRow = { id: 1, userId: 2, name: "Hero", ownerName: "player1" };
     mockDb.leftJoin.mockResolvedValueOnce([charRow]);
-    // linkRows query ends with .orderBy; playedRows query also ends with .orderBy
-    mockDb.orderBy.mockResolvedValueOnce([]).mockResolvedValueOnce([]);
     const result = await service.findAll();
     expect(mockDb.select).toHaveBeenCalled();
-    expect(result).toEqual([{ ...charRow, episodes: [], hasPlayedSessions: false }]);
+    expect(result).toEqual([{ ...charRow, episodes: [], monkPowers: [], hasPlayedSessions: false }]);
   });
 
   it("should set hasPlayedSessions=false for a debut character with no played sessions", async () => {
     const charRow = { id: 5, userId: 3, name: "Rookie", ownerName: "newplayer" };
     mockDb.leftJoin.mockResolvedValueOnce([charRow]);
-    mockDb.orderBy.mockResolvedValueOnce([]).mockResolvedValueOnce([]); // no played sessions
     const result = await service.findAll();
     expect(result[0].hasPlayedSessions).toBe(false);
   });
@@ -101,8 +105,11 @@ describe("CharactersService", () => {
   it("should set hasPlayedSessions=true for a character with at least one played session", async () => {
     const charRow = { id: 7, userId: 4, name: "Veteran", ownerName: "veteran" };
     mockDb.leftJoin.mockResolvedValueOnce([charRow]);
-    // linkRows empty, playedRows returns a match for characterId 7
-    mockDb.orderBy.mockResolvedValueOnce([]).mockResolvedValueOnce([{ characterId: 7 }]);
+    // linkRows empty, playedRows returns a match for characterId 7, monkPowers empty
+    mockDb.orderBy
+      .mockResolvedValueOnce([])
+      .mockResolvedValueOnce([{ characterId: 7 }])
+      .mockResolvedValueOnce([]);
     const result = await service.findAll();
     expect(result[0].hasPlayedSessions).toBe(true);
   });
@@ -280,5 +287,123 @@ describe("CharactersService", () => {
     expect(mockDb.insert).toHaveBeenCalled();
     expect(result.advanced).toBe(true);
     expect(result.alreadyAdvanced).toBe(false);
+  });
+
+  describe("advanceAsMonk", () => {
+    it("should throw NotFoundException if character not found", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce(null);
+      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+
+    it("should throw ForbiddenException if user does not own the character", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 1, userId: 99 });
+      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(
+        ForbiddenException,
+      );
+    });
+
+    it("should throw BadRequestException if no monk advancements available", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 1,
+        userId: 1,
+        monkAdvancementsAllowed: 1,
+        monkAdvancementsUsed: 1,
+      });
+      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(
+        "No monk advancements available",
+      );
+    });
+
+    it("should throw NotFoundException if power not found", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 1,
+        userId: 1,
+        monkAdvancementsAllowed: 2,
+        monkAdvancementsUsed: 0,
+      });
+      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce(null);
+      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+
+    it("should throw BadRequestException if character already has the power", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 1,
+        userId: 1,
+        monkAdvancementsAllowed: 2,
+        monkAdvancementsUsed: 0,
+      });
+      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce({ id: 10, name: "Meditaatio", tier: 1 });
+      mockDb.query.characterMonkPowers.findFirst.mockResolvedValueOnce({ characterId: 1, powerId: 10 });
+      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(
+        "Character already has this power",
+      );
+    });
+
+    it("should throw BadRequestException if tier pyramid requirement is not met", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 1,
+        userId: 1,
+        monkAdvancementsAllowed: 2,
+        monkAdvancementsUsed: 0,
+      });
+      // Tier 2 power
+      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce({ id: 20, name: "Levitaatio", tier: 2 });
+      mockDb.query.characterMonkPowers.findFirst.mockResolvedValueOnce(null);
+      // Hahmolla vain 1 tier 1 voima (tarvitaan 2)
+      mockDb.where.mockResolvedValueOnce([{ tier: 1 }]);
+
+      await expect(service.advanceAsMonk(1, { powerId: 20 }, 1)).rejects.toThrow(
+        /Pyramid requirement not met/,
+      );
+    });
+
+    it("should succeed when adding tier 1 power, add d4 sisu die and increment used counter", async () => {
+      const char = {
+        id: 1,
+        userId: 1,
+        monkAdvancementsAllowed: 2,
+        monkAdvancementsUsed: 0,
+        sisuDice: [{ id: "sisu-1", faces: 8 }],
+        episodeId: 5,
+      };
+      mockDb.query.characters.findFirst.mockResolvedValueOnce(char);
+      const power = { id: 10, name: "Varjoharppaus", tier: 1 };
+      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce(power);
+      mockDb.query.characterMonkPowers.findFirst.mockResolvedValueOnce(null);
+      mockDb.where.mockResolvedValueOnce([]); // no existing powers
+      mockDb.returning.mockResolvedValueOnce([{ ...char, monkAdvancementsUsed: 1 }]);
+
+      const result = await service.advanceAsMonk(1, { powerId: 10 }, 1);
+      expect(result.advanced).toBe(true);
+      expect(result.power).toEqual(power);
+      expect(mockDb.update).toHaveBeenCalled();
+      expect(mockDb.insert).toHaveBeenCalledTimes(2); // characterMonkPowers and characterArcSnapshots
+    });
+
+    it("should succeed when adding tier 2 power with 2 tier 1 powers", async () => {
+      const char = {
+        id: 1,
+        userId: 1,
+        monkAdvancementsAllowed: 3,
+        monkAdvancementsUsed: 2,
+        sisuDice: [],
+        episodeId: null,
+      };
+      mockDb.query.characters.findFirst.mockResolvedValueOnce(char);
+      const power = { id: 20, name: "Mielenrauha", tier: 2 };
+      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce(power);
+      mockDb.query.characterMonkPowers.findFirst.mockResolvedValueOnce(null);
+      // 2 tier 1 powers already owned
+      mockDb.where.mockResolvedValueOnce([{ tier: 1 }, { tier: 1 }]);
+      mockDb.returning.mockResolvedValueOnce([{ ...char, monkAdvancementsUsed: 3 }]);
+
+      const result = await service.advanceAsMonk(1, { powerId: 20 }, 1);
+      expect(result.advanced).toBe(true);
+      expect(result.power).toEqual(power);
+    });
   });
 });

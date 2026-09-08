@@ -108,6 +108,8 @@ export const characters = pgTable("characters", {
   nakemys: integer("nakemys").default(0).notNull(),
   napparyys: integer("napparyys").default(0).notNull(),
   episodeId: integer("episode_id").references(() => episodes.id),
+  monkAdvancementsAllowed: integer("monk_advancements_allowed").default(0).notNull(),
+  monkAdvancementsUsed: integer("monk_advancements_used").default(0).notNull(),
   removedFromPlayAt: timestamp("removed_from_play_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -140,9 +142,7 @@ export const characterArcSnapshots = pgTable("character_arc_snapshots", {
   characterId: integer("character_id")
     .references(() => characters.id, { onDelete: "cascade" })
     .notNull(),
-  episodeId: integer("episode_id")
-    .references(() => episodes.id, { onDelete: "cascade" })
-    .notNull(),
+  episodeId: integer("episode_id").references(() => episodes.id, { onDelete: "cascade" }),
   capturedAt: timestamp("captured_at").defaultNow().notNull(),
   reason: text("reason").default("advancement").notNull(),
   sheetJson: jsonb("sheet_json").notNull(),
@@ -350,3 +350,36 @@ export const missionComments = pgTable("mission_comments", {
   anonymous: boolean("anonymous").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+// ─── Monk Powers System ───────────────────────────────────────────────────────
+
+export const monkPowers = pgTable("monk_powers", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  tier: integer("tier").notNull(), // 1 - 8
+  description: text("description"),
+  properties: jsonb("properties").default({}).notNull(), // arbitrary key-values / tuples
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const characterMonkPowers = pgTable(
+  "character_monk_powers",
+  {
+    id: serial("id").primaryKey(),
+    characterId: integer("character_id")
+      .references(() => characters.id, { onDelete: "cascade" })
+      .notNull(),
+    powerId: integer("power_id")
+      .references(() => monkPowers.id, { onDelete: "cascade" })
+      .notNull(),
+    acquiredAt: timestamp("acquired_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    charPowerUniq: uniqueIndex("character_monk_powers_char_power_uniq").on(
+      t.characterId,
+      t.powerId,
+    ),
+  }),
+);
+

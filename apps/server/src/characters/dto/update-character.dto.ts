@@ -111,4 +111,9 @@ export class UpdateCharacterDto {
   @IsInt()
   @Min(0)
   napparyys?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  monkAdvancementsAllowed?: number;
 }

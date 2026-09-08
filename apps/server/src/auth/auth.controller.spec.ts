@@ -10,7 +10,7 @@ describe("AuthController", () => {
   let service: any;
 
   const mockUser = { id: 1, email: "test@test.fi", username: "testuser", role: "player" };
-  const mockReq = { user: mockUser } as any;
+  const mockReq = mockUser as any;
 
   const mockRes = () => {
     const res = {

@@ -38,6 +38,10 @@ Jos säännöt vaativat tai pelinjohtaja pyytää sinua laskemaan **osumia** onn
 
 Jos onnistut akselilla ja vähintään kaksi sille heitettyä noppaa näyttää samaa silmälukua, saavutat **kriittisen onnistumisen**. Saat lisätietoa, teet enemmän vauriota tai luot merkittävän edun. Pelinjohtaja voi päättää, että kriittinen onnistuminen kompensoi epäonnistumista heiton toisella akselilla. Samaa silmälukua näyttävien noppien ei tarvitse ylittää onnistumiskynnystä, mutta heiton itsessään on onnistuttava.
 
+##### 26+ -tulokset
+
+Jos nopan tulos on 26 tai suurempi, se lasketaan kahdeksi onnistumiseksi yhden sijaan.
+
 #### Avustaminen
 
 Yksi hahmo voi auttaa toista suorituksessa pelinjohtajan suostumuksella. Avustaja tekee heiton sopivalla akselilla. Onnistunut heitto antaa pääsuorittajan noppakouraan yhden nopan (`+1n20`) tämän seuraavaan heittoon. Maksimissaan yksi noppa lisää per heitto.

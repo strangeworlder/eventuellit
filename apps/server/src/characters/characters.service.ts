@@ -13,15 +13,18 @@ import type * as schema from "../db/schema";
 import {
   characterArcSnapshots,
   characterEpisodes,
+  characterMonkPowers,
   characters,
   episodePlayers,
   episodes,
+  monkPowers,
   sessions,
   users,
 } from "../db/schema";
 import { NotificationsService } from "../notifications/notifications.service";
 import { addN4, kestoBonusFromPackedAttribute } from "./attribute-dice";
 import type { AdvanceCharacterDto } from "./dto/advance-character.dto";
+import type { AdvanceMonkDto } from "./dto/advance-monk.dto";
 import type { CreateCharacterDto } from "./dto/create-character.dto";
 import type { RefreshCharacterDto } from "./dto/refresh-character.dto";
 import type { UpdateCharacterDto } from "./dto/update-character.dto";
@@ -52,6 +55,8 @@ const characterWithOwnerColumns = {
   persoona: characters.persoona,
   nakemys: characters.nakemys,
   napparyys: characters.napparyys,
+  monkAdvancementsAllowed: characters.monkAdvancementsAllowed,
+  monkAdvancementsUsed: characters.monkAdvancementsUsed,
   removedFromPlayAt: characters.removedFromPlayAt,
   createdAt: characters.createdAt,
   updatedAt: characters.updatedAt,
@@ -137,6 +142,59 @@ async function attachEpisodesForCharacters(
   >;
 }
 
+export type MonkPowerWithAcquired = {
+  id: number;
+  name: string;
+  tier: number;
+  description: string | null;
+  properties: Record<string, unknown>;
+  acquiredAt: Date;
+};
+
+async function attachMonkPowersForCharacters(
+  db: NodePgDatabase<typeof schema>,
+  rows: Array<Record<string, unknown>>,
+): Promise<Array<Record<string, unknown> & { monkPowers: MonkPowerWithAcquired[] }>> {
+  if (rows.length === 0) {
+    return rows as Array<Record<string, unknown> & { monkPowers: MonkPowerWithAcquired[] }>;
+  }
+  const characterIds = rows.map((r) => r.id as number);
+
+  const powerRows = await db
+    .select({
+      characterId: characterMonkPowers.characterId,
+      id: monkPowers.id,
+      name: monkPowers.name,
+      tier: monkPowers.tier,
+      description: monkPowers.description,
+      properties: monkPowers.properties,
+      acquiredAt: characterMonkPowers.acquiredAt,
+    })
+    .from(characterMonkPowers)
+    .innerJoin(monkPowers, eq(characterMonkPowers.powerId, monkPowers.id))
+    .where(inArray(characterMonkPowers.characterId, characterIds))
+    .orderBy(asc(monkPowers.tier), asc(monkPowers.name));
+
+  const byChar = new Map<number, MonkPowerWithAcquired[]>();
+  for (const row of powerRows) {
+    const list = byChar.get(row.characterId) ?? [];
+    list.push({
+      id: row.id,
+      name: row.name,
+      tier: row.tier,
+      description: row.description,
+      properties: (row.properties ?? {}) as Record<string, unknown>,
+      acquiredAt: row.acquiredAt,
+    });
+    byChar.set(row.characterId, list);
+  }
+
+  return rows.map((r) => ({
+    ...r,
+    monkPowers: byChar.get(r.id as number) ?? [],
+  })) as Array<Record<string, unknown> & { monkPowers: MonkPowerWithAcquired[] }>;
+}
+
 @Injectable()
 export class CharactersService {
   constructor(
@@ -186,7 +244,8 @@ export class CharactersService {
       .select(characterWithOwnerColumns)
       .from(characters)
       .leftJoin(users, eq(characters.userId, users.id));
-    return attachEpisodesForCharacters(this.db, rows);
+    const withEpisodes = await attachEpisodesForCharacters(this.db, rows);
+    return attachMonkPowersForCharacters(this.db, withEpisodes);
   }
 
   async findOne(id: number) {
@@ -198,7 +257,8 @@ export class CharactersService {
     const row = rows[0];
     if (!row) return null;
     const withEpisodes = await attachEpisodesForCharacters(this.db, [row]);
-    return withEpisodes[0] ?? null;
+    const withPowers = await attachMonkPowersForCharacters(this.db, withEpisodes);
+    return withPowers[0] ?? null;
   }
 
   async create(data: CreateCharacterDto, userId: number) {
@@ -283,6 +343,9 @@ export class CharactersService {
       persoona: data.persoona,
       nakemys: data.nakemys,
       napparyys: data.napparyys,
+      ...(role === "gm" && data.monkAdvancementsAllowed !== undefined && {
+        monkAdvancementsAllowed: data.monkAdvancementsAllowed,
+      }),
       removedFromPlayAt: shouldMarkRemoved
         ? (character.removedFromPlayAt ?? new Date())
         : data.harmit
@@ -518,6 +581,96 @@ export class CharactersService {
       });
 
       return { advanced: true, alreadyAdvanced: false, character: updated };
+    });
+  }
+
+  async advanceAsMonk(characterId: number, data: AdvanceMonkDto, userId: number) {
+    const character = await this.db.query.characters.findFirst({
+      where: eq(characters.id, characterId),
+    });
+    if (!character) {
+      throw new NotFoundException("Character not found");
+    }
+    if (character.userId !== userId) {
+      throw new ForbiddenException("You do not have permission to advance this character");
+    }
+
+    if (character.monkAdvancementsUsed >= character.monkAdvancementsAllowed) {
+      throw new BadRequestException("No monk advancements available");
+    }
+
+    const power = await this.db.query.monkPowers.findFirst({
+      where: eq(monkPowers.id, data.powerId),
+    });
+    if (!power) {
+      throw new NotFoundException("Monk power not found");
+    }
+
+    const existingLink = await this.db.query.characterMonkPowers.findFirst({
+      where: and(
+        eq(characterMonkPowers.characterId, characterId),
+        eq(characterMonkPowers.powerId, data.powerId),
+      ),
+    });
+    if (existingLink) {
+      throw new BadRequestException("Character already has this power");
+    }
+
+    const currentPowers = await this.db
+      .select({
+        tier: monkPowers.tier,
+      })
+      .from(characterMonkPowers)
+      .innerJoin(monkPowers, eq(characterMonkPowers.powerId, monkPowers.id))
+      .where(eq(characterMonkPowers.characterId, characterId));
+
+    const tierCounts = new Map<number, number>();
+    for (const p of currentPowers) {
+      tierCounts.set(p.tier, (tierCounts.get(p.tier) ?? 0) + 1);
+    }
+
+    if (power.tier > 1) {
+      const lowerTier = power.tier - 1;
+      const lowerCount = tierCounts.get(lowerTier) ?? 0;
+      const currentTargetCount = tierCounts.get(power.tier) ?? 0;
+      const requiredLowerCount = currentTargetCount + 2;
+      if (lowerCount < requiredLowerCount) {
+        throw new BadRequestException(
+          `Pyramid requirement not met for tier ${power.tier}. Need at least ${requiredLowerCount} powers of tier ${lowerTier}, but currently have ${lowerCount}.`,
+        );
+      }
+    }
+
+    const sisuDice = Array.isArray(character.sisuDice)
+      ? [...(character.sisuDice as Array<{ id: string; faces: number }>)]
+      : [];
+    sisuDice.push({ id: `sisu-${randomUUID()}`, faces: 4 });
+
+    return this.db.transaction(async (tx) => {
+      const updatedRows = await tx
+        .update(characters)
+        .set({
+          sisuDice,
+          monkAdvancementsUsed: character.monkAdvancementsUsed + 1,
+          updatedAt: new Date(),
+        })
+        .where(eq(characters.id, characterId))
+        .returning();
+      const updated = updatedRows[0];
+
+      await tx.insert(characterMonkPowers).values({
+        characterId,
+        powerId: data.powerId,
+      });
+
+      await tx.insert(characterArcSnapshots).values({
+        characterId,
+        episodeId: character.episodeId ?? null,
+        reason: "monk_advancement",
+        sheetJson: updated,
+      });
+
+      return { advanced: true, character: updated, power };
     });
   }
 }

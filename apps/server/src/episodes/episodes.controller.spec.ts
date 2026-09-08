@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { Reflector } from "@nestjs/core";
 import { vi } from "vitest";
@@ -41,7 +42,7 @@ describe("EpisodesController", () => {
       .useValue({ canActivate: () => true })
       .compile();
 
-    controller = module.get<EpisodesController>(EpisodesController);
+    controller = new EpisodesController(service);
   });
 
   it("should be defined", () => {

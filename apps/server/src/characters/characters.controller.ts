@@ -4,6 +4,7 @@ import { type AuthUser, CurrentUser } from "../auth/current-user.decorator";
 import { Roles, RolesGuard } from "../auth/roles.guard";
 import { CharactersService } from "./characters.service";
 import { AdvanceCharacterDto } from "./dto/advance-character.dto";
+import { AdvanceMonkDto } from "./dto/advance-monk.dto";
 import { CreateCharacterDto } from "./dto/create-character.dto";
 import { LinkEpisodeDto } from "./dto/link-episode.dto";
 import { RefreshCharacterDto } from "./dto/refresh-character.dto";
@@ -68,6 +69,15 @@ export class CharactersController {
     @CurrentUser() user: AuthUser,
   ) {
     return this.charactersService.advanceForEpisode(id, advanceCharacterDto, user.id);
+  }
+
+  @Post(":id/advance-monk")
+  advanceMonk(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() advanceMonkDto: AdvanceMonkDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.charactersService.advanceAsMonk(id, advanceMonkDto, user.id);
   }
 
   @Delete(":id")
