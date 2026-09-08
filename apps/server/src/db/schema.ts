@@ -42,6 +42,8 @@ export const episodes = pgTable("episodes", {
   image: text("image"),
   imageAlt: text("image_alt"),
   theme: text("theme"),
+  players: text("players"),
+  sessionDates: text("session_dates"),
   mediaId: integer("media_id").references(() => media.id),
   mechanicalAdditions: text("mechanical_additions"), // Markdown content
   summary: text("summary"),
@@ -105,6 +107,7 @@ export const characters = pgTable("characters", {
   persoona: integer("persoona").default(0).notNull(),
   nakemys: integer("nakemys").default(0).notNull(),
   napparyys: integer("napparyys").default(0).notNull(),
+  episodeId: integer("episode_id").references(() => episodes.id),
   removedFromPlayAt: timestamp("removed_from_play_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -219,10 +222,7 @@ export const episodePlayers = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => ({
-    episodeUserUniq: uniqueIndex("episode_players_episode_user_uniq").on(
-      t.episodeId,
-      t.userId,
-    ),
+    episodeUserUniq: uniqueIndex("episode_players_episode_user_uniq").on(t.episodeId, t.userId),
   }),
 );
 
@@ -260,10 +260,7 @@ export const playerNotifications = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => ({
-    userDismissedIdx: index("player_notifications_user_dismissed_idx").on(
-      t.userId,
-      t.dismissedAt,
-    ),
+    userDismissedIdx: index("player_notifications_user_dismissed_idx").on(t.userId, t.dismissedAt),
   }),
 );
 
@@ -330,8 +327,9 @@ export const missionVotes = pgTable(
     primaryOptionId: integer("primary_option_id")
       .references(() => missionOptions.id, { onDelete: "cascade" })
       .notNull(),
-    secondaryOptionId: integer("secondary_option_id")
-      .references(() => missionOptions.id, { onDelete: "cascade" }),
+    secondaryOptionId: integer("secondary_option_id").references(() => missionOptions.id, {
+      onDelete: "cascade",
+    }),
     votedAt: timestamp("voted_at").defaultNow().notNull(),
   },
   (t) => ({
@@ -352,4 +350,3 @@ export const missionComments = pgTable("mission_comments", {
   anonymous: boolean("anonymous").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
-
