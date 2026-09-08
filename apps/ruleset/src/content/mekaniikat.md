@@ -38,9 +38,13 @@ Jos säännöt vaativat tai pelinjohtaja pyytää sinua laskemaan **osumia** onn
 
 Jos onnistut akselilla ja vähintään kaksi sille heitettyä noppaa näyttää samaa silmälukua, saavutat **kriittisen onnistumisen**. Saat lisätietoa, teet enemmän vauriota tai luot merkittävän edun. Pelinjohtaja voi päättää, että kriittinen onnistuminen kompensoi epäonnistumista heiton toisella akselilla. Samaa silmälukua näyttävien noppien ei tarvitse ylittää onnistumiskynnystä, mutta heiton itsessään on onnistuttava.
 
-##### 26+ -tulokset
+##### Moninkertaiset onnistumiset
 
-Jos nopan tulos on 26 tai suurempi, se lasketaan kahdeksi onnistumiseksi yhden sijaan.
+Jos nopan tulos saavuttaa onnistumiskynnyksen kaksinkertaisesti tai suuremmin, heitto lasketaan kahdeksi onnistumiseksi. Jos tulos on kolminkertainen onnistumiskynnykseen nähden, lasketaan kolme onnistumista ja niin edespäin.
+
+#### Useamman onnistumisen vaatiminen akselilla
+
+Akseli saattaa olla vaativa ja vaatii tällöin useamman kuin yhden onnistumisen sillä, jotta akseli on onnistunut.
 
 #### Avustaminen
 
@@ -48,7 +52,7 @@ Yksi hahmo voi auttaa toista suorituksessa pelinjohtajan suostumuksella. Avustaj
 
 #### Ryhmätoiminta
 
-Kun koko ryhmä toimii yhdessä (esim. pako tai joukkohiippailu), kaikki osallistujat jakavat noppansa yhteisille akseleille. Akselit vaativat tietyn määrän onnistumisia ryhmältä (yleensä jotain yhden ja yrittävien hahmojen määrän välillä), että koko akseli on onnistuminen.
+Kun koko ryhmä toimii yhdessä (esim. pako tai joukkohiippailu), kaikki osallistujat jakavat noppansa yhteisille akseleille. Akselit tällöin joko vaativat tietyn määrän onnistumisia ryhmältä (yleensä jotain yhden ja yrittävien hahmojen määrän välillä), että koko akseli on onnistuminen tai yhden tai useamman onnistumisen per hahmo, jotta hahmo välttyy kyseisen akselin esittämiltä riskeiltä.
 
 ### 2\. Hahmo ja ominaisuudet
 
