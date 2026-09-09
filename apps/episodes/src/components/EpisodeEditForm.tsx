@@ -189,8 +189,44 @@ export function EpisodeEditForm({
           </Button>
           <Button
             onClick={() => {
-              const { id, gmId, createdAt, updatedAt, ...editableData } = formData as Episode;
-              onSave(editableData);
+              const {
+                title,
+                slug,
+                order,
+                status,
+                description,
+                content,
+                mechanicalAdditions,
+                location,
+                locationLink,
+                theme,
+                image,
+                imageAlt,
+                mediaId,
+                summary,
+                tyrannyRoll,
+                players,
+                sessionDates,
+              } = formData;
+              onSave({
+                title,
+                slug,
+                order,
+                status,
+                description,
+                content,
+                mechanicalAdditions,
+                location,
+                locationLink,
+                theme,
+                image,
+                imageAlt,
+                mediaId,
+                summary,
+                tyrannyRoll,
+                players,
+                sessionDates,
+              });
             }}
           >
             Tallenna

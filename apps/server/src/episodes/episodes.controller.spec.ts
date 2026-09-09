@@ -1,9 +1,12 @@
 import "reflect-metadata";
+import { ValidationPipe } from "@nestjs/common";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { Reflector } from "@nestjs/core";
 import { vi } from "vitest";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { RolesGuard } from "../auth/roles.guard";
+import { CreateEpisodeDto } from "./dto/create-episode.dto";
+import { UpdateEpisodeDto } from "./dto/update-episode.dto";
 import { EpisodesController } from "./episodes.controller";
 import { EpisodesService } from "./episodes.service";
 
@@ -82,5 +85,42 @@ describe("EpisodesController", () => {
   it("should allow GM to remove skill", async () => {
     await controller.removeSkill(1, 5);
     expect(service.removeSkill).toHaveBeenCalledWith(1, 5);
+  });
+
+  describe("ValidationPipe with UpdateEpisodeDto and CreateEpisodeDto", () => {
+    const pipe = new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
+
+    it("should allow players, sessionDates, and theme in update payload", async () => {
+      const payload = {
+        title: "Painajainen",
+        theme: "base",
+        players: "Player 1, Player 2",
+        sessionDates: "2026-09-01",
+      };
+      const result = await pipe.transform(payload, {
+        type: "body",
+        metatype: UpdateEpisodeDto,
+      });
+      expect(result).toMatchObject(payload);
+    });
+
+    it("should allow players and sessionDates in create payload", async () => {
+      const payload = {
+        slug: "jakso-7",
+        title: "Painajainen",
+        theme: "royal",
+        players: "Player 1",
+        sessionDates: "2026-09-01",
+      };
+      const result = await pipe.transform(payload, {
+        type: "body",
+        metatype: CreateEpisodeDto,
+      });
+      expect(result).toMatchObject(payload);
+    });
   });
 });

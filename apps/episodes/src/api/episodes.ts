@@ -17,6 +17,9 @@ export interface Episode {
   image: string | null;
   imageAlt: string | null;
   theme: string | null;
+  players: string | null;
+  sessionDates: string | null;
+  mediaId: number | null;
   mechanicalAdditions: string | null;
   summary: string | null;
   tyrannyRoll: number | null;

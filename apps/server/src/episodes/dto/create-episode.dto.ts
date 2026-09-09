@@ -46,6 +46,14 @@ export class CreateEpisodeDto {
 
   @IsOptional()
   @IsString()
+  players?: string;
+
+  @IsOptional()
+  @IsString()
+  sessionDates?: string;
+
+  @IsOptional()
+  @IsString()
   mechanicalAdditions?: string;
 
   @IsOptional()

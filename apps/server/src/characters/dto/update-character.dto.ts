@@ -116,4 +116,18 @@ export class UpdateCharacterDto {
   @IsInt()
   @Min(0)
   monkAdvancementsAllowed?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  monkAdvancementsUsed?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  episodeId?: number;
+
+  @IsOptional()
+  @IsString()
+  removedFromPlayAt?: string;
 }
