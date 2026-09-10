@@ -112,9 +112,7 @@ export const VotingStandings = React.forwardRef<HTMLDivElement, VotingStandingsP
         <HeadingLevelProvider>
           {/* ── Panel header — clean uppercase label, no icon ── */}
           <div className="px-4 py-3 border-b border-[var(--theme-border-soft)]">
-            <Heading>
-              {label}
-            </Heading>
+            <Heading>{label}</Heading>
           </div>
 
           {/* ── Rankings ── */}
@@ -146,10 +144,7 @@ export const VotingStandings = React.forwardRef<HTMLDivElement, VotingStandingsP
                   {/* Title */}
                   <Text
                     variant={style.textVariant}
-                    className={cn(
-                      "flex-1 min-w-0 truncate",
-                      style.bold && "font-semibold",
-                    )}
+                    className={cn("flex-1 min-w-0 truncate", style.bold && "font-semibold")}
                   >
                     {item.title}
                   </Text>

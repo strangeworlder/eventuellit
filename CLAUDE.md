@@ -10,12 +10,29 @@
 > 4. **Use `@repo/ui` components** (`<Button>`, `<Card>`, `<Input>`, `<Text>`, `<Heading>`, etc.) — NEVER raw HTML elements with Tailwind classes.
 > 5. Include a **"Design System Usage"** section in every implementation plan.
 
-## TypeScript Type Checking
+## Code Quality & Verification (TypeScript & Biome)
+
+> [!IMPORTANT]
+> **Before marking ANY task, feature, or refactor complete, you MUST verify your changes:**
+>
+> Run the verification macro:
+> ```bash
+> npm run verify
+> ```
+> This runs `npm run check-types` (Turborepo type check) and `npm run lint` (Biome check) in sequence.
+>
+> In addition, when logic, hooks, or components were modified, run tests:
+> ```bash
+> npm test
+> ```
+> (Runs Vitest in single-run mode non-interactively.)
+
+### TypeScript Type Checking
 
 > [!CAUTION]
 > **NEVER run bare `npx tsc` or `npx tsc --noEmit` from any location in this project.** There is no root `tsconfig.json`, so bare `tsc` produces garbage output and wastes time.
 
-### The correct command
+#### The correct command
 
 ```bash
 npm run check-types
@@ -23,7 +40,7 @@ npm run check-types
 
 This uses Turborepo to execute the correct `check-types` script in every workspace.
 
-### Per-workspace checks
+#### Per-workspace checks
 
 ```bash
 npm run check-types -w <workspace-name>
@@ -31,12 +48,46 @@ npm run check-types -w <workspace-name>
 
 Available workspaces: `@eventuellit/host`, `@eventuellit/episodes`, `@eventuellit/generator`, `@eventuellit/world`, `@eventuellit/ruleset`, `@eventuellit/server`, `@repo/ui`, `@repo/auth`.
 
-### Why bare tsc doesn't work
+#### Why bare tsc doesn't work
 
 - Vite frontend apps use `tsc -b --noEmit` (composite project references).
 - The NestJS server uses `tsc --noEmit` with a flat tsconfig.
 - Shared packages use `tsc --noEmit` with configs extending `@repo/typescript-config`.
 - Running bare `tsc` or `tsc -p <path>` misses project references and cross-workspace types.
+
+### Biome Linting & Formatting
+
+We use **Biome exclusively** for linting and code formatting across the monorepo. Never run ESLint or Prettier.
+
+#### Check linting and formatting
+
+```bash
+npm run lint
+```
+
+This executes `biome check .` across all workspaces. Must exit cleanly with 0 errors.
+
+#### Auto-fix formatting and safe lint fixes
+
+```bash
+npm run lint:fix
+```
+
+Or for formatting only:
+
+```bash
+npm run format
+```
+
+#### Agent Formatting & Code Conventions
+
+To keep code clean and prevent Biome errors:
+- **Double quotes**: Always use `"double quotes"` for strings and JSX attributes (never single quotes).
+- **Organized imports**: Biome strictly enforces sorted imports. Whenever you add or modify imports, run `npm run lint:fix` to let Biome organize them instantly.
+- **No `any`**: Avoid `any` (`lint/suspicious/noExplicitAny`). Use `unknown`, proper DTO/types, or type narrowing.
+- **No non-null assertions**: Avoid `value!` (`lint/style/noNonNullAssertion`). Use optional chaining (`?.`) or runtime guards.
+- **Hook dependencies**: Always declare all dependencies in `useMemo` / `useEffect` / `useCallback` arrays. Wrap callbacks in `useCallback` when passed as dependencies.
+- **Line Endings**: LF (`\n`) exclusively.
 
 ## Additional Skills
 
@@ -73,6 +124,7 @@ When working on UI components in `@repo/ui`, use the `eventuellit-sb` MCP tools 
 ## Workflows
 
 Agent workflows are in `.agents/workflows/`:
+- `verify.md` – Full verification (TypeScript, Biome linting, and tests)
 - `typecheck.md` – Type checking steps
 - `deploy.md` – Deployment
 - `setup.md` – Local environment setup

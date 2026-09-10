@@ -284,7 +284,9 @@ export function GmOverview() {
                   <PlayerStatusCard
                     key={player.userId}
                     player={player}
-                    onOpenCharacter={(characterId) => navigate(`/generator/character/${characterId}`)}
+                    onOpenCharacter={(characterId) =>
+                      navigate(`/generator/character/${characterId}`)
+                    }
                     onSendInvite={handleSendInvite}
                   />
                 ))}

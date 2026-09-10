@@ -39,13 +39,13 @@ function PlayerRecapCard({ recap, isOwn }: { recap: SessionPlayerRecap; isOwn: b
           <Stack gap={4}>
             {recap.journal && (
               <Stack gap={1}>
-                <Heading>Päiväkirja</Heading>
+                <Heading>Hahmon näkökulmasta muistiinpanoja</Heading>
                 <Text variant="body-relaxed">{recap.journal}</Text>
               </Stack>
             )}
-            <RecapField label="Kohokohta" value={recap.highlight} />
-            <RecapField label="Yllätys" value={recap.surprise} />
-            <RecapField label="MVP" value={recap.mvp} />
+            <RecapField label="Mitä jäi mieleen?" value={recap.highlight} />
+            <RecapField label="Meta-pohdintaa / muistiinpanoja" value={recap.surprise} />
+            <RecapField label="Kehu kaveria" value={recap.mvp} />
             {!recap.journal && !recap.highlight && !recap.surprise && !recap.mvp && (
               <Text variant="muted">Tyhjä kertaus.</Text>
             )}
@@ -101,25 +101,25 @@ function OwnRecapEditor({
       <CardContent>
         <Stack gap={4}>
           <TextArea
-            label="Päiväkirja (hahmon näkökulmasta)"
+            label="Hahmon näkökulmasta muistiinpanoja"
             className="h-32"
             value={journal}
             onChange={(e) => setJournal(e.target.value)}
           />
           <TextArea
-            label="Kohokohta"
+            label="Mitä jäi mieleen?"
             className="h-20"
             value={highlight}
             onChange={(e) => setHighlight(e.target.value)}
           />
           <TextArea
-            label="Yllätys"
+            label="Meta-pohdintaa / muistiinpanoja"
             className="h-20"
             value={surprise}
             onChange={(e) => setSurprise(e.target.value)}
           />
           <TextArea
-            label="MVP"
+            label="Kehu kaveria"
             className="h-20"
             value={mvp}
             onChange={(e) => setMvp(e.target.value)}

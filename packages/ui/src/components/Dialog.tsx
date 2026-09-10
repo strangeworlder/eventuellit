@@ -107,6 +107,8 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     return ReactDOM.createPortal(
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4" aria-hidden={!open}>
         {/* Backdrop */}
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: backdrop click closes dialog; Escape key is handled via window listener */}
+        {/* biome-ignore lint/a11y/noStaticElementInteractions: backdrop click closes dialog */}
         <div
           className="absolute inset-0 bg-black/70 transition-opacity"
           onClick={onClose}
@@ -114,6 +116,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
         />
 
         {/* Panel */}
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation prevents backdrop close when clicking dialog panel */}
         <div
           ref={(node) => {
             panelRef.current = node;

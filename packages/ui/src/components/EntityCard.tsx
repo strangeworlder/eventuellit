@@ -152,9 +152,7 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(
           <div
             className="absolute bottom-0 left-0 right-0 h-px"
             style={{
-              background: c2
-                ? `linear-gradient(90deg, ${c} 0%, ${c2} 100%)`
-                : c,
+              background: c2 ? `linear-gradient(90deg, ${c} 0%, ${c2} 100%)` : c,
               backgroundColor: c2 ? undefined : c,
               opacity: 0.5,
             }}

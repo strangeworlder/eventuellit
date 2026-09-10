@@ -56,6 +56,8 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
       : undefined;
 
     return (
+      // biome-ignore lint/a11y/noStaticElementInteractions: role and onClick are dynamically applied when onSelect is provided
+      // biome-ignore lint/a11y/useAriaPropsSupportedByRole: aria-label is conditionally applied when role="button" is active
       <div
         ref={ref}
         className={cn(
@@ -89,15 +91,16 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
           ],
 
           // ── Skill ──
-          !isHarm && !isName && [
-            "border border-[var(--theme-border-soft)]",
-            "border-l-[3px] border-l-[var(--theme-accent)]",
-            "bg-[var(--theme-accent)]/8",
-            "text-[var(--theme-accent)]",
-            "shadow-sm",
-            "hover:shadow-[0_0_12px_color-mix(in_srgb,var(--theme-accent)_20%,transparent)]",
-            "hover:border-[var(--theme-border-medium)]",
-          ],
+          !isHarm &&
+            !isName && [
+              "border border-[var(--theme-border-soft)]",
+              "border-l-[3px] border-l-[var(--theme-accent)]",
+              "bg-[var(--theme-accent)]/8",
+              "text-[var(--theme-accent)]",
+              "shadow-sm",
+              "hover:shadow-[0_0_12px_color-mix(in_srgb,var(--theme-accent)_20%,transparent)]",
+              "hover:border-[var(--theme-border-medium)]",
+            ],
 
           // ── Name ──
           isName && [

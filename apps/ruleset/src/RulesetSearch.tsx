@@ -182,6 +182,7 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
   const sectionIndex = useMemo(() => buildSectionIndex(pages), [pages]);
   const results = useMemo(() => search(query, sectionIndex), [query, sectionIndex]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset active index when search results change
   useEffect(() => {
     setActiveIndex(0);
   }, [results.length]);

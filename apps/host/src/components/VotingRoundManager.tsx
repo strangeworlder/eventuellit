@@ -12,6 +12,8 @@ import { TextArea } from "@repo/ui/components/TextArea";
 import { useToast } from "@repo/ui/components/Toast";
 import React from "react";
 import {
+  type MissionOption,
+  type UrgencyLevel,
   useAddMissionOption,
   useCreateVotingRound,
   useDeleteMissionOption,
@@ -19,8 +21,6 @@ import {
   useUpdateMissionOption,
   useUpdateVotingRound,
   useVotingResultsFull,
-  type MissionOption,
-  type UrgencyLevel,
   type VotingRound,
 } from "../api/mission-votes";
 
@@ -208,11 +208,12 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
   return (
     <HeadingLevelProvider>
       <Stack gap={6} className="p-1">
-
         {/* ── No active round: create form ── */}
         {!round && (
           <div>
-            <Heading className="mb-3" variant="h6">Luo uusi äänestys</Heading>
+            <Heading className="mb-3" variant="h6">
+              Luo uusi äänestys
+            </Heading>
             <Stack as="form" gap={3} onSubmit={handleCreateRound}>
               <Input
                 label="Äänestyksen otsikko"
@@ -226,7 +227,13 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
                 value={newDeadline}
                 onChange={(e) => setNewDeadline(e.target.value)}
               />
-              <Button type="submit" variant="solid" size="compact" loading={createRound.isPending} disabled={!newTitle.trim()}>
+              <Button
+                type="submit"
+                variant="solid"
+                size="compact"
+                loading={createRound.isPending}
+                disabled={!newTitle.trim()}
+              >
                 Luo äänestys
               </Button>
             </Stack>
@@ -301,11 +308,21 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
             {/* Full results (GM-only) */}
             {fullResults && fullResults.length > 0 && (
               <div>
-                <Text variant="label" className="mb-2">Täydet tulokset</Text>
+                <Text variant="label" className="mb-2">
+                  Täydet tulokset
+                </Text>
                 <Stack gap={1} as="ol">
                   {fullResults.map((r, i) => (
-                    <Stack key={r.optionId} direction="row" align="center" justify="between" as="li">
-                      <Text variant="bold">{i + 1}. {r.title}</Text>
+                    <Stack
+                      key={r.optionId}
+                      direction="row"
+                      align="center"
+                      justify="between"
+                      as="li"
+                    >
+                      <Text variant="bold">
+                        {i + 1}. {r.title}
+                      </Text>
                       <Text variant="caption" className="tabular-nums">
                         {r.score} p ({r.primaryCount}×3 + {r.secondaryCount}×1)
                       </Text>
@@ -320,7 +337,9 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
             {/* Add option form */}
             {round.status === "open" && (
               <div>
-                <Heading className="mb-3" variant="h6">Lisää tehtävä</Heading>
+                <Heading className="mb-3" variant="h6">
+                  Lisää tehtävä
+                </Heading>
                 <Stack as="form" gap={3} onSubmit={handleAddOption}>
                   <Input
                     label="Tehtävän nimi"
@@ -344,14 +363,16 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
                     onValueChange={(v) => setOptionUrgency(v as UrgencyLevel)}
                   >
                     {(["kriittinen", "normaali", "joustava"] as const).map((u) => (
-                      <RadioGroupItem
-                        key={u}
-                        value={u}
-                        label={urgencyLabels[u]}
-                      />
+                      <RadioGroupItem key={u} value={u} label={urgencyLabels[u]} />
                     ))}
                   </RadioGroup>
-                  <Button type="submit" variant="outline" size="compact" loading={addOption.isPending} disabled={!optionTitle.trim()}>
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    size="compact"
+                    loading={addOption.isPending}
+                    disabled={!optionTitle.trim()}
+                  >
                     <Icon name="plus" size={14} className="mr-1" />
                     Lisää tehtävä
                   </Button>
@@ -396,11 +417,7 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
                             onValueChange={(v) => setEditOptUrgency(v as UrgencyLevel)}
                           >
                             {(["kriittinen", "normaali", "joustava"] as const).map((u) => (
-                              <RadioGroupItem
-                                key={u}
-                                value={u}
-                                label={urgencyLabels[u]}
-                              />
+                              <RadioGroupItem key={u} value={u} label={urgencyLabels[u]} />
                             ))}
                           </RadioGroup>
                           <Stack direction="row" gap={2}>
@@ -432,9 +449,13 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
                         className="py-1 border-b border-[var(--theme-border-soft)] last:border-0"
                       >
                         <Stack gap={0} className="min-w-0 flex-1">
-                          <Text variant="bold" className="truncate">{opt.title}</Text>
+                          <Text variant="bold" className="truncate">
+                            {opt.title}
+                          </Text>
                           {opt.description && (
-                            <Text variant="muted" className="text-xs truncate">{opt.description}</Text>
+                            <Text variant="muted" className="text-xs truncate">
+                              {opt.description}
+                            </Text>
                           )}
                         </Stack>
                         <Stack direction="row" gap={0} align="center" className="shrink-0">
@@ -474,7 +495,9 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
                             <Button
                               variant="ghost"
                               size="compact"
-                              onClick={() => deleteOption.mutate({ roundId: round.id, optionId: opt.id })}
+                              onClick={() =>
+                                deleteOption.mutate({ roundId: round.id, optionId: opt.id })
+                              }
                               loading={deleteOption.isPending}
                             >
                               <Icon name="trash-2" size={14} />
@@ -493,11 +516,7 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
             {/* Round actions */}
             <Stack gap={2}>
               {round.status === "open" && (
-                <Button
-                  variant="outline"
-                  size="compact"
-                  onClick={() => setShowCloseConfirm(true)}
-                >
+                <Button variant="outline" size="compact" onClick={() => setShowCloseConfirm(true)}>
                   <Icon name="shield" size={14} className="mr-1.5" />
                   Sulje äänestys
                 </Button>
@@ -517,11 +536,7 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
                   </Button>
                 </>
               )}
-              <Button
-                variant="danger"
-                size="compact"
-                onClick={() => setShowDeleteConfirm(true)}
-              >
+              <Button variant="danger" size="compact" onClick={() => setShowDeleteConfirm(true)}>
                 <Icon name="trash-2" size={14} className="mr-1.5" />
                 Poista äänestys
               </Button>
@@ -537,13 +552,14 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
         description="Pelaajat eivät voi enää äänestää sulkemisen jälkeen. Äänestyksen voi avata uudelleen tarvittaessa."
         confirmLabel="Sulje äänestys"
         onConfirm={() => {
-          if (round) updateRound.mutate(
-            { roundId: round.id, status: "closed" },
-            {
-              onSuccess: () => toast({ message: "Äänestys suljettu.", variant: "info" }),
-              onError: () => toast({ message: "Sulkeminen epäonnistui.", variant: "error" }),
-            },
-          );
+          if (round)
+            updateRound.mutate(
+              { roundId: round.id, status: "closed" },
+              {
+                onSuccess: () => toast({ message: "Äänestys suljettu.", variant: "info" }),
+                onError: () => toast({ message: "Sulkeminen epäonnistui.", variant: "error" }),
+              },
+            );
         }}
       />
       <ConfirmDialog
@@ -553,13 +569,15 @@ export function VotingRoundManager({ round, options, onClose }: VotingRoundManag
         description="Pelaajat voivat jälleen äänestää ja muuttaa valintojaan."
         confirmLabel="Avaa uudelleen"
         onConfirm={() => {
-          if (round) updateRound.mutate(
-            { roundId: round.id, status: "open" },
-            {
-              onSuccess: () => toast({ message: "Äänestys avattu uudelleen.", variant: "success" }),
-              onError: () => toast({ message: "Avaaminen epäonnistui.", variant: "error" }),
-            },
-          );
+          if (round)
+            updateRound.mutate(
+              { roundId: round.id, status: "open" },
+              {
+                onSuccess: () =>
+                  toast({ message: "Äänestys avattu uudelleen.", variant: "success" }),
+                onError: () => toast({ message: "Avaaminen epäonnistui.", variant: "error" }),
+              },
+            );
         }}
       />
       <ConfirmDialog

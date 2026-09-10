@@ -60,7 +60,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref,
   ) => {
-    const obscured = obscuredProp || useObscured();
+    const contextObscured = useObscured();
+    const obscured = Boolean(obscuredProp || contextObscured);
     const isDisabled = disabled || obscured;
     const { glitchStyle } = useObscuredGlitch(obscured);
 

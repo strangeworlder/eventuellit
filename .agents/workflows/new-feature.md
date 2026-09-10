@@ -41,4 +41,24 @@ Propose an `implementation_plan.md` to the user before writing any code. The pla
 - **Structural Tokens & Breakpoints**: Always use the custom responsive breakpoints (`mobile`, `tablet`, `desktop`, `x-wide`) instead of Tailwind defaults (`md`, `lg`). Strictly use predefined spacing and radius from `Tokens.stories.tsx` rather than arbitrary pixel values.
 - **Tailwind v4 Setup**: If initializing Tailwind v4 in a new application, ensure `src/index.css` contains `@import "tailwindcss";` followed by strictly relative imports to the ui package's `styles.css` and `@source` paths to ensure mono-repo graph resolution.
 - **TDD Requirement**: Build logic using a Test-Driven Development (TDD) approach with Vitest.
-- **Code Quality**: Code must pass Biome linting and formatting (`npm run lint` and `npm run format`) before marking a feature as complete.
+- **Code Quality**: Code must pass Biome linting, formatting, and TypeScript checking (`npm run lint` and `npm run check-types`) before marking a feature as complete.
+
+## 5. Mandatory Verification Checklist
+
+Before marking any feature complete or handing over to the user:
+
+1. **All-in-One Verification**:
+   ```bash
+   npm run verify
+   ```
+   Runs both `npm run check-types` and `npm run lint`. Must pass with 0 errors.
+   - If lint/formatting errors occur, auto-fix with: `npm run lint:fix` or `npm run format`.
+2. **Automated Tests**:
+   ```bash
+   npm test
+   ```
+   All test suites must pass.
+3. **Changelog**:
+   Add a user-facing entry in Finnish to `apps/host/src/changelog-data.ts`.
+
+

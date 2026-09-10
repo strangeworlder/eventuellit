@@ -19,10 +19,7 @@ export class MonkPowersService {
         .where(eq(monkPowers.tier, tier))
         .orderBy(asc(monkPowers.tier), asc(monkPowers.name));
     }
-    return this.db
-      .select()
-      .from(monkPowers)
-      .orderBy(asc(monkPowers.tier), asc(monkPowers.name));
+    return this.db.select().from(monkPowers).orderBy(asc(monkPowers.tier), asc(monkPowers.name));
   }
 
   async findOne(id: number) {

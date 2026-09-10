@@ -1,6 +1,6 @@
-import { AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/components/Accordion";
 import { useAuth } from "@repo/auth/use-auth";
-import { addN4, AttributeCard, getScoreBonusFromValue } from "@repo/ui/components/AttributeCard";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/components/Accordion";
+import { AttributeCard, addN4, getScoreBonusFromValue } from "@repo/ui/components/AttributeCard";
 import { Badge } from "@repo/ui/components/Badge";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
@@ -27,8 +27,10 @@ import {
 } from "./api/characters";
 import { useMyEnrollment } from "./api/enrollment";
 import { useEpisode, useEpisodeSkills } from "./api/episodes";
+import type { MonkPower } from "./api/monk-powers";
 import { type ReadingItem, useEpisodeReadingItems, useToggleReadingProgress } from "./api/reading";
 import { EnrollmentError, type Session, useSessions } from "./api/sessions";
+import { MonkPowerPicker } from "./MonkPowerPicker";
 
 function StatusBadge({ status }: { status: string }) {
   if (status === "active")
@@ -358,19 +360,31 @@ function ReturningCharacterPrep({
   const { data: episodeSkills, isLoading: isSkillsLoading } = useEpisodeSkills(episodeId);
 
   const [selectedHarmit, setSelectedHarmit] = useState<number[]>([]);
-  const [reward, setReward] = useState<"skills_plus_n6" | "skill_plus_n8" | null>(null);
+  const [reward, setReward] = useState<"skills_plus_n6" | "skill_plus_n8" | "munkki" | null>(null);
   const [selectedAttribute, setSelectedAttribute] = useState<string | null>(null);
   const [selectedTaidot, setSelectedTaidot] = useState<Array<string | null>>([null]);
   const [customSkillText, setCustomSkillText] = useState("");
+  const [selectedMonkPower, setSelectedMonkPower] = useState<MonkPower | null>(null);
 
   const rewardSelected = reward !== null;
   const attributeAssigned = selectedAttribute !== null;
-  const taidotCount = reward === "skills_plus_n6" ? 2 : 1;
+  const taidotCount = reward === "munkki" ? 0 : reward === "skills_plus_n6" ? 2 : 1;
+
+  const currentMonkPowersCount =
+    character.monkPowers?.length ?? character.monkAdvancementsUsed ?? 0;
+  const monkAllowed = character.monkAdvancementsAllowed ?? 0;
+  const hasMonkPotential = monkAllowed > currentMonkPowersCount;
 
   const handleRewardChange = (v: string) => {
-    if (v !== "skills_plus_n6" && v !== "skill_plus_n8") return;
-    setReward(v);
-    setSelectedTaidot(Array(v === "skills_plus_n6" ? 2 : 1).fill(null));
+    if (v !== "skills_plus_n6" && v !== "skill_plus_n8" && v !== "munkki") return;
+    setReward(v as "skills_plus_n6" | "skill_plus_n8" | "munkki");
+    if (v === "munkki") {
+      setSelectedTaidot([]);
+      setSelectedMonkPower(null);
+    } else {
+      setSelectedTaidot(Array(v === "skills_plus_n6" ? 2 : 1).fill(null));
+      setSelectedMonkPower(null);
+    }
     setCustomSkillText("");
   };
 
@@ -385,8 +399,7 @@ function ReturningCharacterPrep({
 
   const hasCustomSlot = selectedTaidot.includes("custom");
   const taidotFilled =
-    selectedTaidot.every((s) => s !== null) &&
-    (!hasCustomSlot || customSkillText.trim() !== "");
+    selectedTaidot.every((s) => s !== null) && (!hasCustomSlot || customSkillText.trim() !== "");
 
   const diceRemaining = selectedAttribute === null ? 1 : 0;
 
@@ -397,16 +410,16 @@ function ReturningCharacterPrep({
     const packed = Number(stored ?? 0);
     return selectedAttribute === attr ? addN4(packed) : packed;
   };
-  const fysiikkaVal  = advVal("fysiikka",  character.fysiikka);
-  const nopeusVal    = advVal("nopeus",    character.nopeus);
-  const ymmarrysVal  = advVal("ymmarrys",  character.ymmarrys);
-  const persoonaVal  = advVal("persoona",  character.persoona);
-  const nakemysVal   = advVal("nakemys",   character.nakemys);
+  const fysiikkaVal = advVal("fysiikka", character.fysiikka);
+  const nopeusVal = advVal("nopeus", character.nopeus);
+  const ymmarrysVal = advVal("ymmarrys", character.ymmarrys);
+  const persoonaVal = advVal("persoona", character.persoona);
+  const nakemysVal = advVal("nakemys", character.nakemys);
   const napparyysVal = advVal("napparyys", character.napparyys);
 
-  const kehoScore  = 8 + getScoreBonusFromValue(fysiikkaVal)  + getScoreBonusFromValue(nopeusVal);
-  const mieliScore = 8 + getScoreBonusFromValue(ymmarrysVal)  + getScoreBonusFromValue(persoonaVal);
-  const teraScore  = 8 + getScoreBonusFromValue(nakemysVal)   + getScoreBonusFromValue(napparyysVal);
+  const kehoScore = 8 + getScoreBonusFromValue(fysiikkaVal) + getScoreBonusFromValue(nopeusVal);
+  const mieliScore = 8 + getScoreBonusFromValue(ymmarrysVal) + getScoreBonusFromValue(persoonaVal);
+  const teraScore = 8 + getScoreBonusFromValue(nakemysVal) + getScoreBonusFromValue(napparyysVal);
 
   const buildNewSkills = () =>
     selectedTaidot
@@ -418,7 +431,10 @@ function ReturningCharacterPrep({
     .map((h: { text: string; healed: boolean }, index: number) => ({ ...h, index }))
     .filter((h: { healed: boolean }) => !h.healed);
 
-  const canSubmit = reward !== null && selectedAttribute !== null && taidotFilled;
+  const canSubmit =
+    reward !== null &&
+    selectedAttribute !== null &&
+    (reward === "munkki" ? selectedMonkPower !== null : taidotFilled);
 
   return (
     <Card variant="outline">
@@ -485,7 +501,12 @@ function ReturningCharacterPrep({
               value={reward ?? undefined}
               onValueChange={handleRewardChange}
             >
-              <RadioGroupItem value="munkki" label="Munkki" description="Sisu: 3n4, Taidot: 2" obscured />
+              <RadioGroupItem
+                value="munkki"
+                label="Munkki"
+                description="1 voima + 1n4 sisu (ei taitoja)"
+                obscured={!hasMonkPotential}
+              />
               <RadioGroupItem
                 value="skills_plus_n6"
                 label="Ekspertti"
@@ -589,70 +610,88 @@ function ReturningCharacterPrep({
               </div>
             </ObscuredWrapper>
 
-            {/* Step 3: Skills — SkillMasonry per slot, mirrors taidot step in character creation */}
-            <ObscuredWrapper revealed={attributeAssigned}>
-              <div className="space-y-4">
-                <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
-                  <Heading>Taidot ({taidotCount} valittava)</Heading>
-                </div>
-                {isSkillsLoading ? (
-                  <LoadingState message="Ladataan taitoja..." />
-                ) : (
-                  <div className="space-y-4">
-                    {Array.from({ length: taidotCount }).map((_, slotIndex) => {
-                      const slotValue = selectedTaidot[slotIndex] ?? null;
-                      const isCustomSlot = slotValue === "custom";
-                      return (
-                        <Card key={slotIndex} variant="outline">
-                          <CardHeader>
-                            <CardTitle>Taito {slotIndex + 1}</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <SkillMasonry
-                              sort="optimal"
-                              skills={
-                                episodeSkills?.map((skill) => ({
-                                  id: skill.id,
-                                  name: skill.name,
-                                  disabled: selectedTaidot.some(
-                                    (s, i) => i !== slotIndex && s === skill.name,
-                                  ),
-                                  selected: slotValue === skill.name,
-                                })) ?? []
-                              }
-                              onSkillClick={(skill) =>
-                                handleTaidotSelect(
-                                  slotIndex,
-                                  slotValue === skill.name ? null : skill.name,
-                                )
-                              }
-                              showCustomButton={!hasCustomSlot || isCustomSlot}
-                              isCustomSelected={isCustomSlot}
-                              onCustomClick={() =>
-                                handleTaidotSelect(slotIndex, isCustomSlot ? null : "custom")
-                              }
-                            />
-                            {isCustomSlot && (
-                              <div className="mt-3">
-                                <Input
-                                  label="Kirjoita oma taito"
-                                  placeholder="Esim. Hakkerointi"
-                                  value={customSkillText}
-                                  onChange={(e) => setCustomSkillText(e.target.value)}
-                                />
-                                <p className="text-xs text-text-muted mt-1">
-                                  GM tarkastaa omat taidot.
-                                </p>
-                              </div>
-                            )}
-                          </CardContent>
-                        </Card>
-                      );
-                    })}
+            {/* Step 3: Monk Power Picker (if monk) */}
+            {reward === "munkki" && (
+              <ObscuredWrapper revealed={attributeAssigned}>
+                <div className="space-y-4">
+                  <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
+                    <Heading>Munkin voima (1 valittava)</Heading>
                   </div>
-                )}
-              </div>
-            </ObscuredWrapper>
+                  <MonkPowerPicker
+                    characterPowers={character.monkPowers ?? []}
+                    selectedPowerId={selectedMonkPower?.id ?? null}
+                    onSelectPower={setSelectedMonkPower}
+                  />
+                </div>
+              </ObscuredWrapper>
+            )}
+
+            {/* Step 3: Skills — SkillMasonry per slot, mirrors taidot step in character creation */}
+            {reward !== "munkki" && (
+              <ObscuredWrapper revealed={attributeAssigned}>
+                <div className="space-y-4">
+                  <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
+                    <Heading>Taidot ({taidotCount} valittava)</Heading>
+                  </div>
+                  {isSkillsLoading ? (
+                    <LoadingState message="Ladataan taitoja..." />
+                  ) : (
+                    <div className="space-y-4">
+                      {Array.from({ length: taidotCount }).map((_, slotIndex) => {
+                        const slotValue = selectedTaidot[slotIndex] ?? null;
+                        const isCustomSlot = slotValue === "custom";
+                        return (
+                          <Card key={slotIndex} variant="outline">
+                            <CardHeader>
+                              <CardTitle>Taito {slotIndex + 1}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <SkillMasonry
+                                sort="optimal"
+                                skills={
+                                  episodeSkills?.map((skill) => ({
+                                    id: skill.id,
+                                    name: skill.name,
+                                    disabled: selectedTaidot.some(
+                                      (s, i) => i !== slotIndex && s === skill.name,
+                                    ),
+                                    selected: slotValue === skill.name,
+                                  })) ?? []
+                                }
+                                onSkillClick={(skill) =>
+                                  handleTaidotSelect(
+                                    slotIndex,
+                                    slotValue === skill.name ? null : skill.name,
+                                  )
+                                }
+                                showCustomButton={!hasCustomSlot || isCustomSlot}
+                                isCustomSelected={isCustomSlot}
+                                onCustomClick={() =>
+                                  handleTaidotSelect(slotIndex, isCustomSlot ? null : "custom")
+                                }
+                              />
+                              {isCustomSlot && (
+                                <div className="mt-3">
+                                  <Input
+                                    label="Kirjoita oma taito"
+                                    placeholder="Esim. Hakkerointi"
+                                    value={customSkillText}
+                                    onChange={(e) => setCustomSkillText(e.target.value)}
+                                  />
+                                  <p className="text-xs text-text-muted mt-1">
+                                    GM tarkastaa omat taidot.
+                                  </p>
+                                </div>
+                              )}
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              </ObscuredWrapper>
+            )}
 
             {/* Confirm — only revealed once all choices are made */}
             <ObscuredWrapper revealed={canSubmit}>
@@ -670,7 +709,8 @@ function ReturningCharacterPrep({
                       | "nakemys"
                       | "napparyys",
                     reward,
-                    newSkills: buildNewSkills(),
+                    newSkills: reward === "munkki" ? [] : buildNewSkills(),
+                    powerId: reward === "munkki" ? selectedMonkPower?.id : undefined,
                   });
                 }}
                 loading={advanceMutation.isPending}

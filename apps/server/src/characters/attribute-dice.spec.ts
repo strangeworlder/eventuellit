@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { addN4, decodeAttributeDice, encodeAttributeDice, kestoBonusFromPackedAttribute } from "./attribute-dice";
+import {
+  addN4,
+  decodeAttributeDice,
+  encodeAttributeDice,
+  kestoBonusFromPackedAttribute,
+} from "./attribute-dice";
 
 describe("attribute-dice", () => {
   it("encodes and decodes packed values", () => {

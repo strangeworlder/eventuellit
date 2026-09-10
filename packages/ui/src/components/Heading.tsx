@@ -96,7 +96,7 @@ const FlickeringText = ({ text }: { text: string }) => {
         const isFlickering = flickerIndex === index;
         return (
           <span
-            key={index}
+            key={`${char}-${index}`}
             className={cn(
               isFlickering ? "flicker-char" : "",
               breathState.toggle ? "breath-char" : "",

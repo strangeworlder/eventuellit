@@ -1,6 +1,7 @@
 import { Badge } from "@repo/ui/components/Badge";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@repo/ui/components/Card";
+import { CountdownDisplay } from "@repo/ui/components/CountdownDisplay";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Icon, type IconName } from "@repo/ui/components/Icon";
 import { Stack } from "@repo/ui/components/Layout";
@@ -16,7 +17,6 @@ import {
   useRespondToInvite,
 } from "../api/dashboard";
 import { useActiveVotingRound } from "../api/mission-votes";
-import { CountdownDisplay } from "@repo/ui/components/CountdownDisplay";
 
 function actionIcon(type: DashboardAction["type"]): IconName {
   switch (type) {
@@ -279,7 +279,11 @@ export function PlayerDashboard() {
             <div className="border-b-2 border-[var(--theme-border-medium)] pb-2 mb-4">
               <Heading>Operaatiot</Heading>
             </div>
-            <Card variant="interactive" onClick={() => navigate("/operaatiot")} className="cursor-pointer">
+            <Card
+              variant="interactive"
+              onClick={() => navigate("/operaatiot")}
+              className="cursor-pointer"
+            >
               <CardHeader>
                 <div className="flex items-center justify-between gap-3 flex-wrap">
                   <CardTitle className="flex items-center gap-2">
@@ -290,7 +294,9 @@ export function PlayerDashboard() {
                 </div>
               </CardHeader>
               <CardContent variant="dense">
-                <Text variant="muted" className="text-sm">Valitse ensisijainen ja toissijainen tehtäväsi. Äänestys on anonyymi.</Text>
+                <Text variant="muted" className="text-sm">
+                  Valitse ensisijainen ja toissijainen tehtäväsi. Äänestys on anonyymi.
+                </Text>
                 {activeRound.deadline && (
                   <div className="mt-2">
                     <CountdownDisplay deadline={activeRound.deadline} size="compact" />
@@ -298,7 +304,14 @@ export function PlayerDashboard() {
                 )}
               </CardContent>
               <CardFooter>
-                <Button variant="solid" size="sm" onClick={(e) => { e.stopPropagation(); navigate("/operaatiot"); }}>
+                <Button
+                  variant="solid"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/operaatiot");
+                  }}
+                >
                   Siirry äänestämään
                 </Button>
               </CardFooter>

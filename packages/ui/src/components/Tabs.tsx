@@ -243,6 +243,7 @@ export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
         role="tabpanel"
         id={panelId}
         aria-labelledby={triggerId}
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: W3C APG tabpanel pattern specifies tabindex 0 for keyboard navigation
         tabIndex={0}
         className={cn(
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] animate-in fade-in duration-300",

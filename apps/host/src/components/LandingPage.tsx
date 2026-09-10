@@ -22,9 +22,9 @@ export function LandingPage() {
             Kapina staattisuutta vastaan.
           </Text>
           <Text variant="muted" className="max-w-2xl mx-auto">
-            Eventuellit on pöytäroolipeli, jossa pelaajat muokkaavat maailmaa yhdessä.
-            Säännöt painottavat improvisaatiota, vapaata narratiivia ja yhteisiä päätöksiä
-            – ei staattisia taulukoita.
+            Eventuellit on pöytäroolipeli, jossa pelaajat muokkaavat maailmaa yhdessä. Säännöt
+            painottavat improvisaatiota, vapaata narratiivia ja yhteisiä päätöksiä – ei staattisia
+            taulukoita.
           </Text>
         </Stack>
 
@@ -49,9 +49,7 @@ export function LandingPage() {
                 <CardTitle>Oma sivu</CardTitle>
               </CardHeader>
               <CardContent>
-                <Text>
-                  Ilmoitukset, hahmosi ja ajankohtaiset tapahtumat yhdellä silmäyksellä.
-                </Text>
+                <Text>Ilmoitukset, hahmosi ja ajankohtaiset tapahtumat yhdellä silmäyksellä.</Text>
               </CardContent>
             </Card>
           )}
@@ -120,9 +118,7 @@ export function LandingPage() {
                 <CardTitle>Operaatiot</CardTitle>
               </CardHeader>
               <CardContent>
-                <Text>
-                  Äänestä tulevista operaatioista ja vaikuta seuraavan session suuntaan.
-                </Text>
+                <Text>Äänestä tulevista operaatioista ja vaikuta seuraavan session suuntaan.</Text>
               </CardContent>
             </Card>
           )}

@@ -5,7 +5,6 @@ import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
-import { Dialog } from "@repo/ui/components/Dialog";
 import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
 import { EditableField } from "@repo/ui/components/EditableField";
 import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
@@ -20,9 +19,7 @@ import { SkillTagList } from "@repo/ui/components/SkillTagList";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
-import { useAdvanceMonk } from "./api/characters";
 import type { MonkPower } from "./api/monk-powers";
-import { MonkPowerPicker } from "./MonkPowerPicker";
 import { suggestNames } from "./name-generator";
 
 interface Character {
@@ -164,11 +161,6 @@ export function CharacterSheet({
     },
   });
 
-  const [monkAdvancementModalOpen, setMonkAdvancementModalOpen] = useState(false);
-  const [selectedMonkPower, setSelectedMonkPower] = useState<MonkPower | null>(null);
-  const [advanceError, setAdvanceError] = useState<string | null>(null);
-  const advanceMonkMutation = useAdvanceMonk();
-
   if (isLoading || !character) {
     return <LoadingState message="Ladataan hahmoa..." size="large" layout="padded" />;
   }
@@ -181,7 +173,17 @@ export function CharacterSheet({
   });
   const selectedSnapshot = snapshots.find((snapshot) => snapshot.id === selectedSnapshotId) ?? null;
   const snapshotDiffRows = selectedSnapshot
-    ? ["fysiikka", "nopeus", "ymmarrys", "persoona", "nakemys", "napparyys", "keho", "mieli", "tera"]
+    ? [
+        "fysiikka",
+        "nopeus",
+        "ymmarrys",
+        "persoona",
+        "nakemys",
+        "napparyys",
+        "keho",
+        "mieli",
+        "tera",
+      ]
         .map((key) => ({
           key,
           before: selectedSnapshot.sheetJson?.[key] as number | undefined,
@@ -189,7 +191,6 @@ export function CharacterSheet({
         }))
         .filter((row) => row.before !== row.now)
     : [];
-
 
   return (
     <HeadingLevelProvider>
@@ -248,38 +249,19 @@ export function CharacterSheet({
                   />
                 )}
 
-                {/* Monk Advancements Status & Trigger */}
+                {/* Monk Advancements Status */}
                 {((character.monkAdvancementsAllowed ?? 0) > 0 ||
                   (character.monkAdvancementsUsed ?? 0) > 0) && (
-                  <div className="space-y-2 rounded-lg border border-[var(--theme-border-soft)] p-3 bg-[var(--theme-bg)]">
+                  <div className="space-y-1 rounded-lg border border-[var(--theme-border-soft)] p-3 bg-[var(--theme-bg)]">
                     <div className="flex items-center justify-between">
                       <span className="text-xs uppercase tracking-wider text-text-muted font-bold">
                         Munkki-kehitykset:
                       </span>
                       <span className="font-mono text-sm font-semibold text-[var(--theme-text)]">
-                        {character.monkAdvancementsUsed ?? 0} / {character.monkAdvancementsAllowed ?? 0} käytetty
+                        {character.monkPowers?.length ?? character.monkAdvancementsUsed ?? 0} /{" "}
+                        {character.monkAdvancementsAllowed ?? 0} valittu
                       </span>
                     </div>
-
-                    {canEdit &&
-                      (character.monkAdvancementsAllowed ?? 0) >
-                        (character.monkAdvancementsUsed ?? 0) && (
-                        <Button
-                          variant="solid"
-                          size="sm"
-                          className="w-full mt-1"
-                          onClick={() => {
-                            setSelectedMonkPower(null);
-                            setAdvanceError(null);
-                            setMonkAdvancementModalOpen(true);
-                          }}
-                        >
-                          Kehity munkkina (
-                          {(character.monkAdvancementsAllowed ?? 0) -
-                            (character.monkAdvancementsUsed ?? 0)}{" "}
-                          jäljellä)
-                        </Button>
-                      )}
                   </div>
                 )}
 
@@ -553,68 +535,10 @@ export function CharacterSheet({
             </div>
           </HeadingLevelProvider>
         </PageBody>
-
-        {/* Monk Advancement Dialog */}
-        <Dialog
-          open={monkAdvancementModalOpen}
-          onClose={() => {
-            if (!advanceMonkMutation.isPending) {
-              setMonkAdvancementModalOpen(false);
-            }
-          }}
-          title="Munkki-kehitys"
-          description="Valitse 1 uusi voima. Kehityksen myötä saat valitun voiman lisäksi yhden d4-sisunopan."
-          size="lg"
-          footer={
-            <>
-              <Button
-                variant="ghost"
-                onClick={() => setMonkAdvancementModalOpen(false)}
-                disabled={advanceMonkMutation.isPending}
-              >
-                Peruuta
-              </Button>
-              <Button
-                variant="solid"
-                disabled={!selectedMonkPower || advanceMonkMutation.isPending}
-                onClick={async () => {
-                  if (!selectedMonkPower) return;
-                  setAdvanceError(null);
-                  try {
-                    await advanceMonkMutation.mutateAsync({
-                      characterId: character.id,
-                      powerId: selectedMonkPower.id,
-                    });
-                    setMonkAdvancementModalOpen(false);
-                  } catch (err: any) {
-                    setAdvanceError(err.message || "Munkki-kehitys epäonnistui");
-                  }
-                }}
-              >
-                {advanceMonkMutation.isPending
-                  ? "Tallennetaan..."
-                  : "Vahvista valinta (+1n4 sisu & voima)"}
-              </Button>
-            </>
-          }
-        >
-          <div className="space-y-4">
-            {advanceError && (
-              <NoticePanel variant="error">{advanceError}</NoticePanel>
-            )}
-            <MonkPowerPicker
-              characterPowers={character.monkPowers ?? []}
-              selectedPowerId={selectedMonkPower?.id ?? null}
-              onSelectPower={setSelectedMonkPower}
-            />
-          </div>
-        </Dialog>
       </div>
     </HeadingLevelProvider>
   );
 }
-
-
 
 function EditableName({
   value,
@@ -712,8 +636,9 @@ function EditableName({
   return (
     <div>
       <p className="text-sm text-text-muted font-semibold mb-1">Nimi:</p>
-      <p
-        className="text-sm cursor-pointer text-[var(--theme-text)] hover:text-[var(--theme-secondary)] transition-colors"
+      <button
+        type="button"
+        className="text-left text-sm cursor-pointer text-[var(--theme-text)] hover:text-[var(--theme-secondary)] transition-colors p-0 bg-transparent border-0 font-normal"
         onClick={() => {
           setDraft(value);
           setEditing(true);
@@ -721,11 +646,10 @@ function EditableName({
         title="Klikkaa muokataksesi"
       >
         {value}
-      </p>
+      </button>
     </div>
   );
 }
-
 
 export function NicknamesSection({
   nicknames,
@@ -769,7 +693,8 @@ export function NicknamesSection({
           ))}
         </div>
       )}
-      {canEdit && nicknames.length < 5 &&
+      {canEdit &&
+        nicknames.length < 5 &&
         (isAdding ? (
           <div>
             <Input
@@ -799,15 +724,15 @@ export function NicknamesSection({
             </div>
           </div>
         ) : (
-          <p
-            className="text-sm cursor-pointer italic text-text-placeholder hover:text-[var(--theme-secondary)] transition-colors"
+          <button
+            type="button"
+            className="text-left text-sm cursor-pointer italic text-text-placeholder hover:text-[var(--theme-secondary)] transition-colors p-0 bg-transparent border-0"
             onClick={() => setIsAdding(true)}
             title="Klikkaa lisätäksesi lempinimi"
           >
             {nicknames.length === 0 ? "Ei lempinimiä." : "+ Lisää lempinimi"}
-          </p>
-        ))
-      }
+          </button>
+        ))}
     </div>
   );
 }

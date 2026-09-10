@@ -60,3 +60,11 @@ When tasked with building components, prototypes, or styling the app, strictly f
 ## Design Tokens and Layout
 - **Rule:** Do not use default Tailwind breakpoints (`sm`, `md`, `lg`) or arbitrary values (`w-[300px]`, `p-[18px]`).
 - **Implementation:** Always use our custom semantic breakpoints (`mobile`, `tablet`, `desktop`, `x-wide`) for responsive utilities (e.g., `tablet:w-1/2`, `max-desktop:hidden`). Stick strictly to the spacing and border-radius scales documented in `Tokens.stories.tsx` in Storybook.
+
+## Verification Checklist
+
+Before completing UI work:
+1. `npm run check-types` — verify TypeScript props and types across packages
+2. `npm run lint` — verify Biome linting and formatting (0 errors)
+3. If stories or tests were added/modified, verify they pass.
+

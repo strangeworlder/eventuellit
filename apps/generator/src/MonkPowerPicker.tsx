@@ -19,10 +19,7 @@ export function MonkPowerPicker({
   const { data: allPowers, isLoading, error } = useMonkPowers();
   const [selectedTierFilter, setSelectedTierFilter] = useState<number | "all">("all");
 
-  const ownedPowerIds = useMemo(
-    () => new Set(characterPowers.map((p) => p.id)),
-    [characterPowers],
-  );
+  const ownedPowerIds = useMemo(() => new Set(characterPowers.map((p) => p.id)), [characterPowers]);
 
   const tierCounts = useMemo(() => {
     const counts = new Map<number, number>();
@@ -46,16 +43,15 @@ export function MonkPowerPicker({
     return max;
   }, [tierCounts]);
 
-  const canAcquirePower = (power: MonkPower) => {
-    if (ownedPowerIds.has(power.id)) return false;
-    if (power.tier === 1) return true;
-    const lowerCount = tierCounts.get(power.tier - 1) ?? 0;
-    const targetCount = tierCounts.get(power.tier) ?? 0;
-    return lowerCount >= targetCount + 2;
-  };
-
   const availablePowers = useMemo(() => {
     if (!allPowers) return [];
+    const canAcquirePower = (power: MonkPower) => {
+      if (ownedPowerIds.has(power.id)) return false;
+      if (power.tier === 1) return true;
+      const lowerCount = tierCounts.get(power.tier - 1) ?? 0;
+      const targetCount = tierCounts.get(power.tier) ?? 0;
+      return lowerCount >= targetCount + 2;
+    };
     return allPowers.filter((p) => {
       if (ownedPowerIds.has(p.id)) return false;
       if (!canAcquirePower(p)) return false;
@@ -118,12 +114,14 @@ export function MonkPowerPicker({
           ))}
         </div>
         <span className="text-xs text-text-muted">
-          Korkein avoin piiri: <strong className="text-[var(--theme-text)]">{maxAvailableTier}. piiri</strong>
+          Korkein avoin piiri:{" "}
+          <strong className="text-[var(--theme-text)]">{maxAvailableTier}. piiri</strong>
         </span>
       </div>
 
       <div className="text-xs text-text-muted italic">
-        Pyramidisääntö: piiriltä N voi ottaa voiman vain, jos alemmalta piiriltä N-1 on riittävästi voimia.
+        Pyramidisääntö: piiriltä N voi ottaa voiman vain, jos alemmalta piiriltä N-1 on riittävästi
+        voimia.
       </div>
 
       {availablePowers.length === 0 ? (
@@ -151,9 +149,7 @@ export function MonkPowerPicker({
                     <CardTitle className="text-base font-bold">{power.name}</CardTitle>
                     <Badge variant="outline">{power.tier}. piiri</Badge>
                   </div>
-                  {isSelected && (
-                    <Badge variant="highlight-solid">Valittu</Badge>
-                  )}
+                  {isSelected && <Badge variant="highlight-solid">Valittu</Badge>}
                 </CardHeader>
                 <CardContent className="py-2 px-4 space-y-2">
                   {power.description && (

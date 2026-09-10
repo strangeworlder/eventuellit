@@ -41,13 +41,10 @@ export const VainLukuTyhja: Story = {
   render: (args) => (
     <div className="space-y-3">
       <p className="text-sm text-text-muted">
-        Vain luku -tilassa tyhjä kenttä ei renderöi mitään. Alla oleva kenttä
-        on tyhjä:
+        Vain luku -tilassa tyhjä kenttä ei renderöi mitään. Alla oleva kenttä on tyhjä:
       </p>
       <EditableField {...args} readOnly />
-      <p className="text-sm italic text-text-placeholder">
-        (ei renderöintiä — null)
-      </p>
+      <p className="text-sm italic text-text-placeholder">(ei renderöintiä — null)</p>
     </div>
   ),
 };
@@ -73,8 +70,7 @@ export const MuokattavaMonirivi: Story = {
   name: "Muokattava — monirivi",
   args: {
     label: "Motivaatio",
-    value:
-      "Löytää kadonneen sisarensa ennen kuin kaupunki suljetaan lopullisesti.",
+    value: "Löytää kadonneen sisarensa ennen kuin kaupunki suljetaan lopullisesti.",
     placeholder: "Ei motivaatiota kirjattu.",
     multiline: true,
   },
@@ -152,9 +148,7 @@ export const ValintaModeVainLukuTyhja: Story = {
   },
   render: (args) => (
     <div className="space-y-3">
-      <p className="text-sm text-text-muted">
-        Tyhjä vain luku -kenttä ei renderöi mitään:
-      </p>
+      <p className="text-sm text-text-muted">Tyhjä vain luku -kenttä ei renderöi mitään:</p>
       <EditableField {...args} />
       <p className="text-sm italic text-text-placeholder">(ei renderöintiä — null)</p>
     </div>

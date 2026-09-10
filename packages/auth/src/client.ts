@@ -27,10 +27,7 @@ function getAuthHeaders(includeContentType = true): Record<string, string> {
   return headers;
 }
 
-export async function apiFetch<T>(
-  path: string,
-  options: RequestInit = {},
-): Promise<T> {
+export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const url = `${getApiBaseUrl()}${path}`;
   const response = await fetch(url, {
     ...options,
@@ -39,18 +36,14 @@ export async function apiFetch<T>(
   });
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
-    const msg =
-      (body as { message?: string }).message || `Request failed: ${response.status}`;
+    const msg = (body as { message?: string }).message || `Request failed: ${response.status}`;
     throw new ApiError(msg, response.status, body);
   }
   const text = await response.text();
   return text ? JSON.parse(text) : (undefined as T);
 }
 
-export async function apiUpload<T>(
-  path: string,
-  formData: FormData,
-): Promise<T> {
+export async function apiUpload<T>(path: string, formData: FormData): Promise<T> {
   const url = `${getApiBaseUrl()}${path}`;
   const response = await fetch(url, {
     method: "POST",

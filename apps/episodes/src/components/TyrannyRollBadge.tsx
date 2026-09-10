@@ -53,7 +53,14 @@ export function TyrannyRollBadge({
   return (
     <>
       <div style={royalPurpleScope} className="absolute top-6 right-6">
-        <DiceIcon faces={DICE_FACES} value={tyrannyRoll ?? undefined} size="lg" active hideValue={false} aria-label={`Tyrannian noppa: ${tyrannyRoll ?? "ei heitetty"}`} />
+        <DiceIcon
+          faces={DICE_FACES}
+          value={tyrannyRoll ?? undefined}
+          size="lg"
+          active
+          hideValue={false}
+          aria-label={`Tyrannian noppa: ${tyrannyRoll ?? "ei heitetty"}`}
+        />
       </div>
 
       {isGm && (

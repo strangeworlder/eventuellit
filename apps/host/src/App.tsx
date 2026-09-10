@@ -39,11 +39,11 @@ import { ChangelogPage } from "./components/ChangelogPage";
 import { LandingPage } from "./components/LandingPage";
 import { LoginPage } from "./components/LoginPage";
 import { OmaSivuPage } from "./components/OmaSivuPage";
+import { OperaatiotPage } from "./components/OperaatiotPage";
 import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyPage } from "./components/VerifyPage";
 import { buildDocumentTitle } from "./route-title";
-import { OperaatiotPage } from "./components/OperaatiotPage";
 
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));
@@ -102,6 +102,7 @@ function AppContent() {
 
   // Close the mobile sidebar on route change so it doesn't stay open while the
   // page transitions in the background. Desktop sidebar stays unaffected.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: trigger on route change
   useEffect(() => {
     const DESKTOP_BREAKPOINT = 1024;
     if (window.innerWidth < DESKTOP_BREAKPOINT) {
@@ -210,6 +211,7 @@ function AppContent() {
     };
   }, [progressStartOffsetPx, progressStickyTopPx]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recalculate lane metrics when layout triggers change
   useEffect(() => {
     const updateLaneMetrics = () => {
       const laneElement = laneRef.current;

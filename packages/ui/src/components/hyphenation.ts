@@ -27,7 +27,9 @@ const queue: Array<() => void> = [];
 )
   .then((fn) => {
     cached = fn;
-    queue.splice(0).forEach((cb) => cb());
+    queue.splice(0).forEach((cb) => {
+      cb();
+    });
   })
   .catch((err: unknown) => {
     console.warn("[Hyphenopoly] Failed to load Finnish patterns:", err);

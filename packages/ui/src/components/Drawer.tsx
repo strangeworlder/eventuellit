@@ -83,6 +83,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
       <DrawerContext.Provider value={{ expanded, setExpanded }}>
         {/* Backdrop — x-wide only */}
         {expanded && (
+          // biome-ignore lint/a11y/noStaticElementInteractions: backdrop click handler
           <div
             className="hidden x-wide:block fixed inset-0 z-40 bg-black/50 transition-opacity"
             onClick={() => setExpanded(false)}

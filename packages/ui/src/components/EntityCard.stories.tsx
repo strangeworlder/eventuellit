@@ -67,7 +67,8 @@ export const WithImage: Story = {
 export const HybridFaction: Story = {
   args: {
     name: "Kokemuspuolue",
-    subtitle: "Eletty tieto: yhteisöllinen kokemusliike, joka yhdistää muistin voiman ja merkityksen etsimisen.",
+    subtitle:
+      "Eletty tieto: yhteisöllinen kokemusliike, joka yhdistää muistin voiman ja merkityksen etsimisen.",
     color: "primary",
     secondaryColor: "accent",
     iconName: "heart-pulse",

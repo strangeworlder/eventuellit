@@ -61,7 +61,9 @@ export function VerifyPage() {
       <Hero title="Kirjautuminen epäonnistui" />
       <PageBody>
         <NoticePanel variant="error" title="Virhe">
-          <Text variant="lead">{error || "Kirjautumislinkki on virheellinen tai vanhentunut."}</Text>
+          <Text variant="lead">
+            {error || "Kirjautumislinkki on virheellinen tai vanhentunut."}
+          </Text>
           <Text variant="small" className="mt-4">
             Pyydä uusi kirjautumislinkki, jos ongelma jatkuu.
           </Text>

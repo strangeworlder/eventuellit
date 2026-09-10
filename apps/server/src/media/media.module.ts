@@ -6,9 +6,9 @@ import { MediaService } from "./media.service";
 import { R2Service } from "./r2.service";
 
 @Module({
-	imports: [AuthModule],
-	controllers: [MediaController],
-	providers: [ImageOptimizerService, MediaService, R2Service],
-	exports: [MediaService, R2Service],
+  imports: [AuthModule],
+  controllers: [MediaController],
+  providers: [ImageOptimizerService, MediaService, R2Service],
+  exports: [MediaService, R2Service],
 })
 export class MediaModule {}

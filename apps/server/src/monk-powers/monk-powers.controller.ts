@@ -23,9 +23,7 @@ export class MonkPowersController {
   @Get()
   findAll(@Query("tier") tier?: string) {
     const parsedTier = tier !== undefined && tier !== "" ? Number.parseInt(tier, 10) : undefined;
-    return this.monkPowersService.findAll(
-      Number.isNaN(parsedTier) ? undefined : parsedTier,
-    );
+    return this.monkPowersService.findAll(Number.isNaN(parsedTier) ? undefined : parsedTier);
   }
 
   @Get(":id")

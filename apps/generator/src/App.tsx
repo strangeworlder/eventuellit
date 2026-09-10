@@ -37,6 +37,7 @@ import {
 } from "./api/characters";
 import { useActiveEpisodes, useEpisodeSkills } from "./api/episodes";
 import { CharacterSheet, NicknamesSection } from "./CharacterSheet";
+import { MonkPowersAdmin } from "./MonkPowersAdmin";
 import { suggestNames } from "./name-generator";
 import { SessionPrepView } from "./SessionPrepView";
 
@@ -56,7 +57,13 @@ const SEX_OPTIONS = [
   { value: "none", label: "Ei määritelty" },
 ];
 
-function GeneratorForm({ basePath, existingCharacterNames = [] }: { basePath: string; existingCharacterNames?: string[] }) {
+function GeneratorForm({
+  basePath,
+  existingCharacterNames = [],
+}: {
+  basePath: string;
+  existingCharacterNames?: string[];
+}) {
   const { mutate: createCharacter, isPending, isSuccess, reset } = useCreateCharacter();
   const navigate = useNavigate();
 
@@ -148,11 +155,9 @@ function GeneratorForm({ basePath, existingCharacterNames = [] }: { basePath: st
   // (passed in from parent which has the characters query)
 
   const handleSuggestNames = () => {
-    const excluded = [
-      ...existingCharacterNames,
-      ...suggestedNamesList,
-      characterName,
-    ].filter(Boolean);
+    const excluded = [...existingCharacterNames, ...suggestedNamesList, characterName].filter(
+      Boolean,
+    );
     const suggestions = suggestNames(sex, 5, excluded);
     setSuggestedNamesList(suggestions);
   };
@@ -327,11 +332,7 @@ function GeneratorForm({ basePath, existingCharacterNames = [] }: { basePath: st
 
                 {/* ── Name Suggestions ── */}
                 <div className="space-y-3">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleSuggestNames}
-                  >
+                  <Button variant="outline" size="sm" onClick={handleSuggestNames}>
                     {suggestedNamesList.length > 0 ? "Ehdota uudelleen" : "Ehdota nimiä"}
                   </Button>
 
@@ -353,11 +354,7 @@ function GeneratorForm({ basePath, existingCharacterNames = [] }: { basePath: st
                 </div>
 
                 {nameEntered && (
-                  <NicknamesSection
-                    nicknames={nicknames}
-                    canEdit={true}
-                    onUpdate={setNicknames}
-                  />
+                  <NicknamesSection nicknames={nicknames} canEdit={true} onUpdate={setNicknames} />
                 )}
               </div>
             </ObscuredWrapper>
@@ -592,7 +589,7 @@ function InnerApp() {
   const getBasePath = () => {
     const segments = pathname.split("/").filter(Boolean);
     if (segments.length === 0) return "";
-    if (["list", "new", "character", "prep"].includes(segments[0])) return "";
+    if (["list", "new", "character", "prep", "monk-powers"].includes(segments[0])) return "";
     return `/${segments[0]}`;
   };
 
@@ -609,7 +606,8 @@ function InnerApp() {
   const { data: characters, isLoading, refetch: refetchCharacters } = useCharacters();
 
   // Refetch characters whenever the user navigates to the list page
-  const isOnListPage = pathname.endsWith("/list") || pathname === basePath || pathname === `${basePath}/`;
+  const isOnListPage =
+    pathname.endsWith("/list") || pathname === basePath || pathname === `${basePath}/`;
   const linkEpisodeIdRaw = new URLSearchParams(search).get("linkEpisodeId");
   const linkEpisodeId =
     linkEpisodeIdRaw && !Number.isNaN(Number(linkEpisodeIdRaw)) ? Number(linkEpisodeIdRaw) : null;
@@ -617,7 +615,7 @@ function InnerApp() {
     if (isOnListPage) {
       refetchCharacters();
     }
-  }, [pathname]);
+  }, [isOnListPage, refetchCharacters]);
 
   return (
     <Page>
@@ -630,6 +628,9 @@ function InnerApp() {
           )}
           {activePrepEpisodeId && (
             <TopNavLink to={`${basePath}/prep/${activePrepEpisodeId}`}>Valmistaudu</TopNavLink>
+          )}
+          {user?.role === "gm" && (
+            <TopNavLink to={`${basePath}/monk-powers`}>Munkin voimat</TopNavLink>
           )}
         </TopNavList>
         <div className="animate-in fade-in duration-300">
@@ -664,7 +665,8 @@ function InnerApp() {
                             (h: { healed: boolean }) => !h.healed,
                           ).length;
                           const totalHarmit = (char.harmit ?? []).length;
-                          const isRemovedFromPlay = Boolean(char.removedFromPlayAt) || totalHarmit >= 5;
+                          const isRemovedFromPlay =
+                            Boolean(char.removedFromPlayAt) || totalHarmit >= 5;
                           const archetypeLabel = char.archetype;
                           const isOwn = user && char.userId === user.id;
                           const episodes: { id: number; title: string; status: string }[] =
@@ -703,8 +705,8 @@ function InnerApp() {
                                           isRemovedFromPlay
                                             ? "font-bold text-[var(--theme-accent)]"
                                             : activeHarmit > 0
-                                            ? "font-bold text-[var(--theme-primary)]"
-                                            : "font-medium text-[var(--theme-text)]"
+                                              ? "font-bold text-[var(--theme-primary)]"
+                                              : "font-medium text-[var(--theme-text)]"
                                         }
                                       >
                                         {activeHarmit} / 5
@@ -815,9 +817,27 @@ function InnerApp() {
                 </>
               }
             />
-            <Route path="new" element={<GeneratorForm basePath={basePath} existingCharacterNames={(characters ?? []).map((c) => c.name)} />} />
+            <Route
+              path="new"
+              element={
+                <GeneratorForm
+                  basePath={basePath}
+                  existingCharacterNames={(characters ?? []).map((c) => c.name)}
+                />
+              }
+            />
             <Route path="character/:id" element={<CharacterSheetRoute basePath={basePath} />} />
             <Route path="prep/:episodeId" element={<PrepRoute basePath={basePath} />} />
+            <Route
+              path="monk-powers"
+              element={
+                user?.role === "gm" ? (
+                  <MonkPowersAdmin basePath={basePath} />
+                ) : (
+                  <Navigate to={`${basePath}/list`} replace />
+                )
+              }
+            />
             <Route path="*" element={<MfeNotFoundRedirect to={`${basePath}/list`} />} />
           </Routes>
         </div>

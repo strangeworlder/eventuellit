@@ -12,7 +12,6 @@
 
 // ─── Types ───────────────────────────────────────────────────────────────
 
-
 interface NamePair {
   a: string;
   b: string;
@@ -328,33 +327,121 @@ const ALL_CATEGORIES: FusionCategory[] = [
 
 const KNOWN_NAMES = new Set([
   // Finnish-Latin examples
-  "Pekablo", "Marisorja", "Aarniel", "Villergo", "Kaisabell",
-  "Tuuligo", "Sepolito", "Niolita", "Ranicco", "Manuenti",
-  "Maijinez", "Haltiago", "Ju'ovier", "Sannluz", "Marimar",
-  "Heico", "Tiirita", "Solisari", "Mikelllo", "Raijita",
-  "Inariano", "Eerikuez", "Annelicia", "Talvigo",
+  "Pekablo",
+  "Marisorja",
+  "Aarniel",
+  "Villergo",
+  "Kaisabell",
+  "Tuuligo",
+  "Sepolito",
+  "Niolita",
+  "Ranicco",
+  "Manuenti",
+  "Maijinez",
+  "Haltiago",
+  "Ju'ovier",
+  "Sannluz",
+  "Marimar",
+  "Heico",
+  "Tiirita",
+  "Solisari",
+  "Mikelllo",
+  "Raijita",
+  "Inariano",
+  "Eerikuez",
+  "Annelicia",
+  "Talvigo",
   // Germanic-Indian examples
-  "Kurtish", "Anishani", "Krishans", "Wolfvick", "Gretapriya",
-  "Arjulf", "Hansarjun", "Brijitgan", "Suryatton", "Karlashish",
-  "Helgaviram", "Induvic", "Ottoshay", "Annalakshi", "Kiranulf",
-  "Rajulf", "Minadevi", "Janavich", "Deepakarl", "Ulvishni",
-  "Nilsson", "Dieterpal", "Himalga", "Vickar",
+  "Kurtish",
+  "Anishani",
+  "Krishans",
+  "Wolfvick",
+  "Gretapriya",
+  "Arjulf",
+  "Hansarjun",
+  "Brijitgan",
+  "Suryatton",
+  "Karlashish",
+  "Helgaviram",
+  "Induvic",
+  "Ottoshay",
+  "Annalakshi",
+  "Kiranulf",
+  "Rajulf",
+  "Minadevi",
+  "Janavich",
+  "Deepakarl",
+  "Ulvishni",
+  "Nilsson",
+  "Dieterpal",
+  "Himalga",
+  "Vickar",
   // Italo-Korean examples
-  "Giovanho", "Lucahana", "Alessin", "Mattesun", "Eleniwon",
-  "Mikaos", "Marcoseon", "Sofidahye", "Junio", "Beatrim-ho",
-  "Luciamoon", "Hikary", "Paolohide", "Franceskae", "Soranzo",
-  "Kenjarth", "Yukinico", "Riomin", "Hirodavid", "Sakuremy",
-  "Kimio", "Riccardoo", "Naminon", "Yushin",
+  "Giovanho",
+  "Lucahana",
+  "Alessin",
+  "Mattesun",
+  "Eleniwon",
+  "Mikaos",
+  "Marcoseon",
+  "Sofidahye",
+  "Junio",
+  "Beatrim-ho",
+  "Luciamoon",
+  "Hikary",
+  "Paolohide",
+  "Franceskae",
+  "Soranzo",
+  "Kenjarth",
+  "Yukinico",
+  "Riomin",
+  "Hirodavid",
+  "Sakuremy",
+  "Kimio",
+  "Riccardoo",
+  "Naminon",
+  "Yushin",
   // Anglo-Slavic examples
-  "Jackimir", "Willianna", "Stanlynn", "Borissav", "Katyerin",
-  "Sashamuel", "Henrivan", "Oliviaris", "Milaura", "Arthuroslav",
-  "Elizabohdan", "Yurijane", "Viktorian", "Sarahnina", "Nikolace",
-  "Olegary", "Natashaly", "Valery", "Yurijack", "Annikaov",
-  "Mischael", "Mikhailis", "Larison", "Danyas",
+  "Jackimir",
+  "Willianna",
+  "Stanlynn",
+  "Borissav",
+  "Katyerin",
+  "Sashamuel",
+  "Henrivan",
+  "Oliviaris",
+  "Milaura",
+  "Arthuroslav",
+  "Elizabohdan",
+  "Yurijane",
+  "Viktorian",
+  "Sarahnina",
+  "Nikolace",
+  "Olegary",
+  "Natashaly",
+  "Valery",
+  "Yurijack",
+  "Annikaov",
+  "Mischael",
+  "Mikhailis",
+  "Larison",
+  "Danyas",
   // French-African examples
-  "Amadieu", "Jeandara", "Clarimba", "Thébault", "Malicette",
-  "Akinault", "Bakarise", "Lucina", "Zandrine", "Kofier",
-  "Marivonne", "Indirace", "Pascalou", "Elokina", "Yaramar",
+  "Amadieu",
+  "Jeandara",
+  "Clarimba",
+  "Thébault",
+  "Malicette",
+  "Akinault",
+  "Bakarise",
+  "Lucina",
+  "Zandrine",
+  "Kofier",
+  "Marivonne",
+  "Indirace",
+  "Pascalou",
+  "Elokina",
+  "Yaramar",
 ]);
 
 // ─── Phonetic Utilities ──────────────────────────────────────────────────
@@ -384,7 +471,12 @@ function findSyllableBoundaries(name: string): number[] {
       boundaries.push(i);
     }
     // Boundary between two consonants where the next char is a vowel (CCV)
-    else if (isConsonant(prev) && isConsonant(curr) && i + 1 < name.length && isVowel(name[i + 1])) {
+    else if (
+      isConsonant(prev) &&
+      isConsonant(curr) &&
+      i + 1 < name.length &&
+      isVowel(name[i + 1])
+    ) {
       boundaries.push(i);
     }
   }
@@ -439,7 +531,10 @@ function smoothJoin(first: string, second: string): string {
     // Insert a bridging vowel between the halves
     const bridgeVowels = ["a", "i", "e", "o"];
     // Try to pick a vowel that harmonizes with the surrounding vowels
-    const nearbyVowel = [...first].reverse().find((c) => isVowel(c))?.toLowerCase();
+    const nearbyVowel = [...first]
+      .reverse()
+      .find((c) => isVowel(c))
+      ?.toLowerCase();
     const bridge = nearbyVowel && bridgeVowels.includes(nearbyVowel) ? nearbyVowel : "a";
     result = first + bridge + second;
   }
@@ -527,7 +622,6 @@ function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-
 /**
  * Generate a single fused name from a random category and pair.
  * Can optionally cross-fuse: take nameA from one pair and nameB from another.
@@ -547,7 +641,7 @@ function generateOne(sex: string): string {
   // 15% chance: reverse fuse (b→a for different sound profile)
   const roll = Math.random();
 
-  if (roll < 0.60) {
+  if (roll < 0.6) {
     const pair = pickRandom(pool);
     return fuseNames(pair.a, pair.b);
   } else if (roll < 0.85) {
@@ -568,16 +662,12 @@ function generateOne(sex: string): string {
  * @param exclude - Names to exclude (existing character names, etc.)
  * @returns Array of unique suggested names
  */
-export function suggestNames(
-  sex: string,
-  count = 5,
-  exclude: string[] = [],
-): string[] {
+export function suggestNames(sex: string, count = 5, exclude: string[] = []): string[] {
   // Map non-binary and none to the neutral pool
   const mappedSex = sex === "non-binary" || sex === "none" ? "neutral" : sex;
 
   const excludeSet = new Set([
-    ...Array.from(KNOWN_NAMES),
+    ...Array.from(KNOWN_NAMES, (n) => n.toLowerCase()),
     ...exclude.map((n) => n.toLowerCase()),
   ]);
 
@@ -591,10 +681,7 @@ export function suggestNames(
     const lowerName = name.toLowerCase();
 
     // Check uniqueness and exclusion
-    if (
-      !excludeSet.has(lowerName) &&
-      !results.some((r) => r.toLowerCase() === lowerName)
-    ) {
+    if (!excludeSet.has(lowerName) && !results.some((r) => r.toLowerCase() === lowerName)) {
       results.push(name);
       excludeSet.add(lowerName); // Prevent duplicates within this batch
     }

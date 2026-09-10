@@ -55,16 +55,16 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    */
   chevronDirection?: ChevronDirection;
   theme?:
-  | "base"
-  | "inverted"
-  | "primary-light"
-  | "primary-dark"
-  | "secondary-light"
-  | "secondary-dark"
-  | "accent-light"
-  | "accent-dark"
-  | "royal"
-  | "royal-dark";
+    | "base"
+    | "inverted"
+    | "primary-light"
+    | "primary-dark"
+    | "secondary-light"
+    | "secondary-dark"
+    | "accent-light"
+    | "accent-dark"
+    | "royal"
+    | "royal-dark";
 }
 
 /**
@@ -97,16 +97,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const isChevron = variant === "chevron";
-    const size = isChevron ? "icon" as const : sizeProp;
-    const isObscured = obscuredProp || useObscured();
+    const size = isChevron ? ("icon" as const) : sizeProp;
+    const contextObscured = useObscured();
+    const isObscured = Boolean(obscuredProp || contextObscured);
     const isDisabled = disabled || loading || isObscured;
     const tooltipId = React.useId();
     const isDanger = variant === "danger";
     const shouldRenderDangerIcon = isDanger && showDangerIcon;
     const shouldRenderLoadingTooltip = loading && showLoadingTooltip;
     const obscuredLabel = isObscured ? obscureString(flattenToString(children)) : undefined;
-    const glitchSeed = React.useMemo(() => (isObscured ? Math.random() * 36 : 0), []);
-    const glitchDuration = React.useMemo(() => (isObscured ? 25 + Math.random() * 20 : 6), []);
+    const glitchSeed = React.useMemo(() => (isObscured ? Math.random() * 36 : 0), [isObscured]);
+    const glitchDuration = React.useMemo(
+      () => (isObscured ? 25 + Math.random() * 20 : 6),
+      [isObscured],
+    );
     const mergedAriaDescribedBy =
       [ariaDescribedBy, shouldRenderLoadingTooltip ? tooltipId : undefined]
         .filter(Boolean)
@@ -118,10 +122,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         style={
           isObscured
             ? ({
-              "--glitch-delay": `-${glitchSeed.toFixed(2)}s`,
-              "--glitch-duration": `${glitchDuration.toFixed(2)}s`,
-              ...props.style,
-            } as React.CSSProperties)
+                "--glitch-delay": `-${glitchSeed.toFixed(2)}s`,
+                "--glitch-duration": `${glitchDuration.toFixed(2)}s`,
+                ...props.style,
+              } as React.CSSProperties)
             : props.style
         }
         data-theme={theme}
@@ -141,11 +145,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           "active:translate-y-0 active:shadow-sm active:scale-[0.98] active:duration-75",
           // ── Disabled ── flattened, desaturated, no hover/active shift
           disabled &&
-          !loading &&
-          "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",
+            !loading &&
+            "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none translate-y-0 scale-100 hover:shadow-none hover:-translate-y-0 active:translate-y-0 active:scale-100",
           // ── Loading ── disabled interaction, but preserve strong contrast
           loading &&
-          "cursor-wait opacity-100 grayscale-0 shadow-sm hover:shadow-sm hover:-translate-y-0 active:translate-y-0 active:scale-100",
+            "cursor-wait opacity-100 grayscale-0 shadow-sm hover:shadow-sm hover:-translate-y-0 active:translate-y-0 active:scale-100",
           // ── Justify ──
           {
             "justify-center": justify === "center",
@@ -223,11 +227,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             />
           )}
           {isChevron && (
-            <Icon
-              name={`chevron-${chevronDirection}` as IconName}
-              size={10}
-              aria-hidden="true"
-            />
+            <Icon name={`chevron-${chevronDirection}` as IconName} size={10} aria-hidden="true" />
           )}
           {isObscured ? <span className="blur-[5.5px]">{obscureText(children)}</span> : children}
         </span>
@@ -241,6 +241,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <span data-theme={theme} className="relative inline-flex">
         <span
+          // biome-ignore lint/a11y/noNoninteractiveTabindex: wrapper allows keyboard focus for tooltip when button is disabled/loading
           tabIndex={0}
           className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]"
         >

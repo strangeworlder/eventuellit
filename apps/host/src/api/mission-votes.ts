@@ -137,10 +137,10 @@ export const useMissionComments = (roundId: number | null, optionId: number | nu
   return useQuery<MissionComment[]>({
     queryKey: ["voting", "comments", roundId, optionId],
     queryFn: async () => {
-      const response = await fetch(
-        `${apiBaseUrl}/voting/${roundId}/options/${optionId}/comments`,
-        { headers: getAuthHeaders(), credentials: "include" },
-      );
+      const response = await fetch(`${apiBaseUrl}/voting/${roundId}/options/${optionId}/comments`, {
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
       if (!response.ok) throw new Error("Failed to fetch comments");
       return response.json();
     },

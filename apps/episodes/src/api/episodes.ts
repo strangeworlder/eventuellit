@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiFetch } from "@repo/auth/client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "./query-keys";
 
 export type EpisodeStatus = "active" | "completed" | "planned";
@@ -83,8 +83,7 @@ export const useUpdateEpisode = () => {
 export const useDeleteEpisode = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: number) =>
-      apiFetch(`/episodes/${id}`, { method: "DELETE" }),
+    mutationFn: (id: number) => apiFetch(`/episodes/${id}`, { method: "DELETE" }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.episodes.all });
     },
@@ -116,7 +115,15 @@ export const useCreateEpisodeSkill = () => {
 export const useUpdateEpisodeSkill = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ episodeId, skillId, name }: { episodeId: number; skillId: number; name: string }) =>
+    mutationFn: ({
+      episodeId,
+      skillId,
+      name,
+    }: {
+      episodeId: number;
+      skillId: number;
+      name: string;
+    }) =>
       apiFetch<EpisodeSkill>(`/episodes/${episodeId}/skills/${skillId}`, {
         method: "PATCH",
         body: JSON.stringify({ name }),

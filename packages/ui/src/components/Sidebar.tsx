@@ -75,6 +75,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         <>
           {/* Mobile Backdrop */}
           {expanded && (
+            // biome-ignore lint/a11y/noStaticElementInteractions: backdrop click handler
             <div
               className="desktop:hidden fixed inset-0 z-40 bg-black/50 transition-opacity"
               onClick={() => setExpanded(false)}

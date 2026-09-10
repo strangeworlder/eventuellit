@@ -30,7 +30,6 @@ const meta: Meta<typeof UtilityPage> = {
 export default meta;
 type Story = StoryObj<typeof UtilityPage>;
 
-
 export const Kirjautuminen: Story = {
   render: () => (
     <UtilityPage>
@@ -61,8 +60,8 @@ export const Onnistuminen: Story = {
       <Heading className="text-center">Tarkista sähköpostisi</Heading>
       <NoticePanel variant="success" title="Linkki lähetetty">
         <Text variant="lead">
-          Jos sähköpostiosoite on järjestelmässämme, olemme lähettäneet sinulle
-          kirjautumislinkin. Tarkista sähköpostisi.
+          Jos sähköpostiosoite on järjestelmässämme, olemme lähettäneet sinulle kirjautumislinkin.
+          Tarkista sähköpostisi.
         </Text>
       </NoticePanel>
       <Link href="/">Palaa etusivulle</Link>

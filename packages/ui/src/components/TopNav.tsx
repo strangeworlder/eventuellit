@@ -60,6 +60,8 @@ export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
     );
 
     return (
+      // biome-ignore lint/a11y/noStaticElementInteractions: TopNavList uses event delegation to animate the active indicator pill
+      // biome-ignore lint/a11y/useKeyWithClickEvents: TopNavList uses event delegation to animate the active indicator pill
       <div
         ref={setRefs}
         className={cn(

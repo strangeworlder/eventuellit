@@ -53,7 +53,9 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
     // Track how many n20s are allocated per axis
     const [allocation, setAllocation] = useState<Record<string, number>>(() => {
       const initial: Record<string, number> = {};
-      axes.forEach((axis) => (initial[axis] = 0));
+      for (const axis of axes) {
+        initial[axis] = 0;
+      }
       return initial;
     });
 
@@ -133,7 +135,7 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
                     <div className="flex flex-wrap gap-2 items-center flex-1 min-h-[40px]">
                       {Array.from({ length: allocation[axis] || 0 }).map((_, i) => (
                         <DiceIcon
-                          key={i}
+                          key={`${axis}-dice-${i}`}
                           faces={20}
                           size="md"
                           active={true}

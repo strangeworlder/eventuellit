@@ -22,13 +22,13 @@ import { useToast } from "@repo/ui/components/Toast";
 import { VotingStandings } from "@repo/ui/components/VotingStandings";
 import React from "react";
 import {
+  type ClosedRoundEntry,
+  type MissionOption,
   useActiveVotingRound,
   useCastVote,
   useClosedVotingRounds,
   useDeleteVote,
   useVotingResults,
-  type ClosedRoundEntry,
-  type MissionOption,
   type VotingRound,
 } from "../api/mission-votes";
 import { MissionOptionCard } from "./MissionOptionCard";
@@ -108,7 +108,8 @@ export function OperaatiotPage() {
       },
       {
         onSuccess: () => toast({ message: "Äänesi on rekisteröity.", variant: "success" }),
-        onError: () => toast({ message: "Äänestäminen epäonnistui. Yritä uudelleen.", variant: "error" }),
+        onError: () =>
+          toast({ message: "Äänestäminen epäonnistui. Yritä uudelleen.", variant: "error" }),
       },
     );
   }
@@ -116,10 +117,7 @@ export function OperaatiotPage() {
   // ── Hero title: round name when active, generic fallback ──────────────────
 
   const heroTitle = round?.title ?? "Operaatiot";
-  const heroDescription =
-    round?.status === "closed"
-      ? "Äänestys on suljettu"
-      : undefined;
+  const heroDescription = round?.status === "closed" ? "Äänestys on suljettu" : undefined;
 
   return (
     <Page>
@@ -130,9 +128,7 @@ export function OperaatiotPage() {
             {round?.status === "open" && round.deadline && (
               <CountdownDisplay deadline={round.deadline} size="compact" />
             )}
-            {round?.status === "open" && !round.deadline && (
-              <Text variant="overline">Avoinna</Text>
-            )}
+            {round?.status === "open" && !round.deadline && <Text variant="overline">Avoinna</Text>}
             {isGm && (
               <Button variant="outline" size="sm" onClick={openDrawerForActive}>
                 <Icon name="settings" size={14} className="mr-1.5" />
@@ -157,7 +153,6 @@ export function OperaatiotPage() {
       {/* Content — HeadingLevelProvider bumps to h2 → h3 for sections */}
       <HeadingLevelProvider>
         <PageBody>
-
           {isLoading && (
             <LoadingState message="Ladataan operaatioita..." size="large" className="mt-8" />
           )}
@@ -174,7 +169,8 @@ export function OperaatiotPage() {
               <Icon name="inbox" variant="branded" />
               <Heading>Ei aktiivista äänestystä</Heading>
               <Text variant="muted">
-                Odota pelinjohtajan seuraavaa tehtäväjakoa. Pääset äänestämään täällä heti, kun äänestys avautuu.
+                Odota pelinjohtajan seuraavaa tehtäväjakoa. Pääset äänestämään täällä heti, kun
+                äänestys avautuu.
               </Text>
             </Stack>
           )}
@@ -195,7 +191,6 @@ export function OperaatiotPage() {
           {/* Active round */}
           {!isLoading && !error && round && (
             <Stack gap={6}>
-
               {isVotingClosed && (
                 <NoticePanel variant="info" title="Äänestys suljettu">
                   Pelinjohtaja päättää seuraavasta operaatiosta tulosten perusteella.
@@ -204,9 +199,7 @@ export function OperaatiotPage() {
 
               {/* Current standings — shown before the cards so players can see the race */}
               {results.length > 0 && (
-                <VotingStandings
-                  items={results.map((r) => ({ id: r.optionId, title: r.title }))}
-                />
+                <VotingStandings items={results.map((r) => ({ id: r.optionId, title: r.title }))} />
               )}
 
               {/* Empty options */}
@@ -228,7 +221,10 @@ export function OperaatiotPage() {
                   <Stack gap={2}>
                     <Heading>Tehtävä</Heading>
                     <Text variant="muted">
-                      Valitse ensisijainen tehtäväsi (3 pistettä) napauttamalla. Napauta uudelleen lisätäksesi toissijainen valinta (1 piste). Eniten ääniä saanut operaatio käynnistyy täysimittaisena episodina. Toiseksi tullut ratkaistaan nopanheitolla.
+                      Valitse ensisijainen tehtäväsi (3 pistettä) napauttamalla. Napauta uudelleen
+                      lisätäksesi toissijainen valinta (1 piste). Eniten ääniä saanut operaatio
+                      käynnistyy täysimittaisena episodina. Toiseksi tullut ratkaistaan
+                      nopanheitolla.
                     </Text>
                   </Stack>
                   <SelectionCardGroup
@@ -264,7 +260,6 @@ export function OperaatiotPage() {
                   )}
                 </HeadingLevelProvider>
               )}
-
             </Stack>
           )}
 
@@ -282,7 +277,8 @@ export function OperaatiotPage() {
                           <Stack gap={0}>
                             <Text variant="bold">{entry.round.title}</Text>
                             <Text variant="caption">
-                              Suljettu {entry.round.closedAt
+                              Suljettu{" "}
+                              {entry.round.closedAt
                                 ? new Date(entry.round.closedAt).toLocaleDateString("fi-FI", {
                                     day: "numeric",
                                     month: "long",
@@ -299,11 +295,21 @@ export function OperaatiotPage() {
                             {/* Results standings */}
                             {entry.results.length > 0 && (
                               <div>
-                                <Text variant="label" className="mb-2">Tulokset</Text>
+                                <Text variant="label" className="mb-2">
+                                  Tulokset
+                                </Text>
                                 <Stack gap={1} as="ol">
                                   {entry.results.map((r, i) => (
-                                    <Stack key={r.optionId} direction="row" align="center" justify="between" as="li">
-                                      <Text variant="bold">{i + 1}. {r.title}</Text>
+                                    <Stack
+                                      key={r.optionId}
+                                      direction="row"
+                                      align="center"
+                                      justify="between"
+                                      as="li"
+                                    >
+                                      <Text variant="bold">
+                                        {i + 1}. {r.title}
+                                      </Text>
                                       <Text variant="caption" className="tabular-nums">
                                         {r.score} p ({r.primaryCount}×3 + {r.secondaryCount}×1)
                                       </Text>
@@ -349,8 +355,6 @@ export function OperaatiotPage() {
               </HeadingLevelProvider>
             </>
           )}
-
-
         </PageBody>
       </HeadingLevelProvider>
     </Page>

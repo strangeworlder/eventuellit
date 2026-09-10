@@ -36,7 +36,7 @@ function setRateLimitState(state: RateLimitState): void {
 
 function getCooldownSeconds(attemptCount: number): number {
   // 30s, 60s, 120s, 240s, ...
-  return BASE_COOLDOWN_SECONDS * Math.pow(2, Math.max(0, attemptCount - 1));
+  return BASE_COOLDOWN_SECONDS * 2 ** Math.max(0, attemptCount - 1);
 }
 
 function getRemainingCooldown(state: RateLimitState | null): number {
@@ -120,13 +120,16 @@ export function LoginPage() {
     return (
       <UtilityPage>
         <Icon name="circle-check" variant="branded" />
-        <Heading className="text-center">Tarkista<br />sähköpostisi</Heading>
+        <Heading className="text-center">
+          Tarkista
+          <br />
+          sähköpostisi
+        </Heading>
 
         <NoticePanel variant="success" title="Linkki lähetetty">
           <Text variant="lead">
-            Jos sähköpostiosoite on järjestelmässämme, olemme lähettäneet sinulle
-            kirjautumislinkin. Tarkista sähköpostisi ja klikkaa linkkiä
-            kirjautuaksesi sisään.
+            Jos sähköpostiosoite on järjestelmässämme, olemme lähettäneet sinulle kirjautumislinkin.
+            Tarkista sähköpostisi ja klikkaa linkkiä kirjautuaksesi sisään.
           </Text>
           <Text variant="small" className="mt-4">
             Linkki on voimassa 15 minuuttia. Tarkista myös roskapostikansio.
@@ -158,14 +161,12 @@ export function LoginPage() {
               />
               {isTampered && (
                 <NoticePanel variant="error" title="Istunto vanhentunut">
-                  Selaimen tallennustila on muuttunut. Päivitä sivu ja yritä
-                  uudelleen.
+                  Selaimen tallennustila on muuttunut. Päivitä sivu ja yritä uudelleen.
                 </NoticePanel>
               )}
               {!isTampered && cooldownRemaining > 0 && (
                 <NoticePanel variant="info" title="Odota hetki">
-                  Voit pyytää uuden linkin {cooldownRemaining} sekunnin
-                  kuluttua.
+                  Voit pyytää uuden linkin {cooldownRemaining} sekunnin kuluttua.
                 </NoticePanel>
               )}
               <Button
@@ -186,8 +187,7 @@ export function LoginPage() {
 
       <Stack gap={2} align="center">
         <Text variant="caption" className="text-center max-w-md">
-          Kirjautuminen käyttää välttämätöntä evästettä istunnon
-          ylläpitämiseksi.{" "}
+          Kirjautuminen käyttää välttämätöntä evästettä istunnon ylläpitämiseksi.{" "}
           <Link href="/tietosuoja">Lue tietosuojaselosteemme</Link>.
         </Text>
         <Link href="/">Palaa etusivulle</Link>

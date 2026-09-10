@@ -159,7 +159,10 @@ export const FactionBadge = React.forwardRef<HTMLDivElement, FactionBadgeProps>(
         {c2 ? (
           <>
             {parentFactionName && (
-              <span className="text-text-subtle font-normal" style={{ transition: COLOR_TRANSITION }}>
+              <span
+                className="text-text-subtle font-normal"
+                style={{ transition: COLOR_TRANSITION }}
+              >
                 {parentFactionName} {"\u203a"}{" "}
               </span>
             )}

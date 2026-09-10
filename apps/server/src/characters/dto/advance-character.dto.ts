@@ -1,6 +1,13 @@
 import { ArrayMaxSize, IsArray, IsIn, IsInt, IsOptional, IsString, Min } from "class-validator";
 
-const ATTRIBUTE_KEYS = ["fysiikka", "nopeus", "ymmarrys", "persoona", "nakemys", "napparyys"] as const;
+const ATTRIBUTE_KEYS = [
+  "fysiikka",
+  "nopeus",
+  "ymmarrys",
+  "persoona",
+  "nakemys",
+  "napparyys",
+] as const;
 
 export class AdvanceCharacterDto {
   @IsInt()
@@ -10,12 +17,17 @@ export class AdvanceCharacterDto {
   @IsIn(ATTRIBUTE_KEYS)
   attribute!: (typeof ATTRIBUTE_KEYS)[number];
 
-  @IsIn(["skills_plus_n6", "skill_plus_n8"])
-  reward!: "skills_plus_n6" | "skill_plus_n8";
+  @IsIn(["skills_plus_n6", "skill_plus_n8", "munkki"])
+  reward!: "skills_plus_n6" | "skill_plus_n8" | "munkki";
 
   @IsOptional()
   @IsArray()
   @ArrayMaxSize(2)
   @IsString({ each: true })
   newSkills?: string[];
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  powerId?: number;
 }

@@ -230,6 +230,7 @@ export function ToastProvider({
     typeof document !== "undefined"
       ? ReactDOM.createPortal(
           <div
+            role="region"
             aria-label="Ilmoitukset"
             data-theme={portalTheme}
             className={cn(

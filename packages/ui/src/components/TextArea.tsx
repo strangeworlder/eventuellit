@@ -36,7 +36,8 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
     },
     ref,
   ) => {
-    const obscured = obscuredProp || useObscured();
+    const contextObscured = useObscured();
+    const obscured = Boolean(obscuredProp || contextObscured);
     const isDisabled = disabled || obscured;
     const { glitchStyle } = useObscuredGlitch(obscured);
 

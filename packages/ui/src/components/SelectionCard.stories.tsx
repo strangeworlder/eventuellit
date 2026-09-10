@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import { SelectionCard, SelectionCardBody, SelectionCardGroup, SelectionCardMeta } from "./SelectionCard";
+import {
+  SelectionCard,
+  SelectionCardBody,
+  SelectionCardGroup,
+  SelectionCardMeta,
+} from "./SelectionCard";
 import { Text } from "./Text";
 import { UrgencyIndicator } from "./UrgencyIndicator";
 
@@ -47,8 +52,12 @@ function SampleCardContent({
 
       {/* body row: title + description */}
       <SelectionCardBody>
-        <Text variant="label" className="font-bold">{title}</Text>
-        <Text variant="muted" className="text-sm">{description}</Text>
+        <Text variant="label" className="font-bold">
+          {title}
+        </Text>
+        <Text variant="muted" className="text-sm">
+          {description}
+        </Text>
       </SelectionCardBody>
     </>
   );
@@ -97,9 +106,24 @@ function GroupDemo() {
   });
 
   const options = [
-    { id: "op-1", title: "Operaatio Havannapalo", urgency: "kriittinen" as const, description: "Tunkeutuminen Syntetiikan valvontaasemalle." },
-    { id: "op-2", title: "Operaatio Harmaasumu", urgency: "normaali" as const, description: "Salainen tapaaminen Kynnys-asemalla." },
-    { id: "op-3", title: "Operaatio Rautaverho", urgency: "joustava" as const, description: "Pitkän aikavälin tiedustelutehtävä." },
+    {
+      id: "op-1",
+      title: "Operaatio Havannapalo",
+      urgency: "kriittinen" as const,
+      description: "Tunkeutuminen Syntetiikan valvontaasemalle.",
+    },
+    {
+      id: "op-2",
+      title: "Operaatio Harmaasumu",
+      urgency: "normaali" as const,
+      description: "Salainen tapaaminen Kynnys-asemalla.",
+    },
+    {
+      id: "op-3",
+      title: "Operaatio Rautaverho",
+      urgency: "joustava" as const,
+      description: "Pitkän aikavälin tiedustelutehtävä.",
+    },
   ];
 
   const getState = (id: string): "primary" | "secondary" | "none" =>
@@ -117,8 +141,12 @@ function GroupDemo() {
               <UrgencyIndicator urgency={opt.urgency} size="compact" />
             </SelectionCardMeta>
             <SelectionCardBody>
-              <Text variant="label" className="font-bold">{opt.title}</Text>
-              <Text variant="muted" className="text-sm">{opt.description}</Text>
+              <Text variant="label" className="font-bold">
+                {opt.title}
+              </Text>
+              <Text variant="muted" className="text-sm">
+                {opt.description}
+              </Text>
             </SelectionCardBody>
           </SelectionCard>
         ))}
@@ -146,7 +174,9 @@ export const RyhmaLukittu: Story = {
             <UrgencyIndicator urgency={i === 0 ? "kriittinen" : "normaali"} size="compact" />
           </SelectionCardMeta>
           <SelectionCardBody>
-            <Text variant="label" className="font-bold">Operaatio {i + 1}</Text>
+            <Text variant="label" className="font-bold">
+              Operaatio {i + 1}
+            </Text>
           </SelectionCardBody>
         </SelectionCard>
       ))}

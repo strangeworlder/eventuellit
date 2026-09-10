@@ -1,11 +1,15 @@
 import { CommentThread } from "@repo/ui/components/CommentThread";
 import { ImageElement } from "@repo/ui/components/ImageElement";
-import { SelectionCard, SelectionCardBody, SelectionCardMeta } from "@repo/ui/components/SelectionCard";
-import { Text } from "@repo/ui/components/Text";
-import { UrgencyIndicator } from "@repo/ui/components/UrgencyIndicator";
 import type { SelectionState } from "@repo/ui/components/SelectionCard";
+import {
+  SelectionCard,
+  SelectionCardBody,
+  SelectionCardMeta,
+} from "@repo/ui/components/SelectionCard";
+import { Text } from "@repo/ui/components/Text";
 import { useToast } from "@repo/ui/components/Toast";
-import { useAddComment, useMissionComments, type MissionOption } from "../api/mission-votes";
+import { UrgencyIndicator } from "@repo/ui/components/UrgencyIndicator";
+import { type MissionOption, useAddComment, useMissionComments } from "../api/mission-votes";
 
 interface MissionOptionCardProps {
   roundId: number;
@@ -25,11 +29,7 @@ export function MissionOptionCard({
   const { toast } = useToast();
 
   return (
-    <SelectionCard
-      cardId={String(option.id)}
-      selectionState={selectionState}
-      locked={votingClosed}
-    >
+    <SelectionCard cardId={String(option.id)} selectionState={selectionState} locked={votingClosed}>
       {/* Hero image: spans outside the named grid rows, placed before meta */}
       {option.image && (
         <div className="relative h-36 overflow-hidden rounded-t-[calc(theme(borderRadius.md)-2px)] col-span-full row-start-1 row-end-1 [grid-area:auto]">
@@ -69,6 +69,7 @@ export function MissionOptionCard({
         )}
 
         {/* Comment thread — stop click propagation so it doesn't trigger card selection */}
+        {/* biome-ignore lint/a11y/noStaticElementInteractions: stops propagation to parent selection card */}
         <div
           className="mt-1"
           onClick={(e) => e.stopPropagation()}
@@ -86,8 +87,10 @@ export function MissionOptionCard({
               addComment.mutate(
                 { roundId, optionId: option.id, content, anonymous },
                 {
-                  onSuccess: () => toast({ message: "Kommenttisi on lähetetty.", variant: "success" }),
-                  onError: () => toast({ message: "Kommentin lähettäminen epäonnistui.", variant: "error" }),
+                  onSuccess: () =>
+                    toast({ message: "Kommenttisi on lähetetty.", variant: "success" }),
+                  onError: () =>
+                    toast({ message: "Kommentin lähettäminen epäonnistui.", variant: "error" }),
                 },
               );
             }}

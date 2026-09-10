@@ -64,7 +64,8 @@ export function RadioGroup({
   obscured: obscuredProp,
   children,
 }: RadioGroupProps) {
-  const obscured = obscuredProp || useObscured();
+  const contextObscured = useObscured();
+  const obscured = Boolean(obscuredProp || contextObscured);
   const isDisabled = disabled || obscured;
 
   const contextValue = React.useMemo(

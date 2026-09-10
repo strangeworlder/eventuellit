@@ -25,7 +25,10 @@ export class ReadingProgressController {
   }
 
   @Delete(":readingItemId")
-  unmarkRead(@Param("readingItemId", ParseIntPipe) readingItemId: number, @CurrentUser() user: AuthUser) {
+  unmarkRead(
+    @Param("readingItemId", ParseIntPipe) readingItemId: number,
+    @CurrentUser() user: AuthUser,
+  ) {
     return this.readingProgressService.unmarkRead(readingItemId, user.id);
   }
 

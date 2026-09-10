@@ -16,7 +16,7 @@ import {
   Loader2,
   LogIn,
   LogOut,
-  Map,
+  Map as LucideMap,
   Menu,
   Minus,
   Pencil,
@@ -33,7 +33,7 @@ import {
   Zap,
 } from "lucide-react";
 import React from "react";
-import { customIconNames, type CustomIconName } from "../generated/custom-icon-names";
+import { type CustomIconName, customIconNames } from "../generated/custom-icon-names";
 import spriteMarkup from "../generated/icons-custom.svg?raw";
 import { CustomIcon } from "./CustomIcon";
 import { cn } from "./utils";
@@ -62,7 +62,7 @@ export const lucideIcons = {
   loader2: Loader2,
   "log-in": LogIn,
   "log-out": LogOut,
-  map: Map,
+  map: LucideMap,
   menu: Menu,
   minus: Minus,
   settings: Settings,

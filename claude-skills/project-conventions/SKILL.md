@@ -24,9 +24,15 @@ Everything the end-user or designer sees MUST be in Finnish. No English translat
 | React Components | `PascalCase` | |
 | Functions/Hooks | `camelCase` | |
 
-## Linting & Formatting
+## Linting, Formatting & Verification
 
-**Biome** exclusively. No ESLint, no Prettier. Code must pass `npm run lint` and `npm run format`.
+**Biome** exclusively. No ESLint, no Prettier.
+- **All-in-one verification:** `npm run verify` (runs `check-types` and `lint`)
+- **Lint check:** `npm run lint` (runs `biome check .`, must pass with 0 errors)
+- **Auto-fix safe lint & format:** `npm run lint:fix`
+- **Format only:** `npm run format`
+- **Unit tests:** `npm test`
+Code must pass `npm run verify` before any task or feature is considered complete.
 
 ## Testing
 

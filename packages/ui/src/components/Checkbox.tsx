@@ -30,7 +30,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ) => {
     const generatedId = React.useId();
     const inputId = id ?? generatedId;
-    const obscured = obscuredProp || useObscured();
+    const contextObscured = useObscured();
+    const obscured = Boolean(obscuredProp || contextObscured);
     const isDisabled = disabled || obscured;
     const { glitchStyle } = useObscuredGlitch(obscured);
 

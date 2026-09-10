@@ -46,9 +46,7 @@ const DiceDefs = ({ active, ids }: { active?: boolean; ids: GradientIds }) => (
       />
       <stop
         offset="100%"
-        stopColor={
-          active ? "var(--theme-primary)" : "var(--theme-secondary)"
-        }
+        stopColor={active ? "var(--theme-primary)" : "var(--theme-secondary)"}
         stopOpacity="0.7"
       />
     </linearGradient>
@@ -65,9 +63,7 @@ const DiceDefs = ({ active, ids }: { active?: boolean; ids: GradientIds }) => (
       />
       <stop
         offset="100%"
-        stopColor={
-          active ? "var(--theme-primary)" : "var(--theme-secondary)"
-        }
+        stopColor={active ? "var(--theme-primary)" : "var(--theme-secondary)"}
         stopOpacity="0.45"
       />
     </linearGradient>
@@ -78,9 +74,7 @@ const DiceDefs = ({ active, ids }: { active?: boolean; ids: GradientIds }) => (
     <linearGradient id={ids.surfaceFill} x1="0.5" y1="0" x2="0.5" y2="1">
       <stop
         offset="0%"
-        stopColor={
-          active ? "var(--theme-primary)" : "var(--theme-secondary)"
-        }
+        stopColor={active ? "var(--theme-primary)" : "var(--theme-secondary)"}
         stopOpacity={active ? 0.88 : 0.75}
       />
       <stop
@@ -125,7 +119,7 @@ const DiceSvg = ({
   switch (faces) {
     case 4:
       return (
-        <svg viewBox="0 0 100 100" className={className}>
+        <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
           <DiceDefs active={active} ids={ids} />
           <polygon points="50,10 90,85 10,85" style={{ ...fillStyle, ...outerStrokeStyle }} />
           <path d="M50 60 L50 10 M50 60 L90 85 M50 60 L10 85" style={innerStrokeStyle} />
@@ -133,7 +127,7 @@ const DiceSvg = ({
       );
     case 6:
       return (
-        <svg viewBox="0 0 100 100" className={className}>
+        <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
           <DiceDefs active={active} ids={ids} />
           <polygon
             points="50,10 85,30 85,70 50,90 15,70 15,30"
@@ -144,7 +138,7 @@ const DiceSvg = ({
       );
     case 8:
       return (
-        <svg viewBox="0 0 100 100" className={className}>
+        <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
           <DiceDefs active={active} ids={ids} />
           <polygon
             points="50,5 95,30 95,70 50,95 5,70 5,30"
@@ -155,12 +149,9 @@ const DiceSvg = ({
       );
     case 10:
       return (
-        <svg viewBox="0 0 100 100" className={className}>
+        <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
           <DiceDefs active={active} ids={ids} />
-          <polygon
-            points="50,5 90,35 50,95 10,35"
-            style={{ ...fillStyle, ...outerStrokeStyle }}
-          />
+          <polygon points="50,5 90,35 50,95 10,35" style={{ ...fillStyle, ...outerStrokeStyle }} />
           <polyline points="50,5 70,40 50,75 30,40 50,5" style={innerStrokeStyle} />
           <polyline points="70,40 90,35" style={innerStrokeStyle} />
           <polyline points="30,40 10,35" style={innerStrokeStyle} />
@@ -169,7 +160,7 @@ const DiceSvg = ({
       );
     case 12:
       return (
-        <svg viewBox="0 0 100 100" className={className}>
+        <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
           <DiceDefs active={active} ids={ids} />
           <polygon
             points="50,5 75,13 93,36 95,64 75,87 50,95 25,87 5,64 7,36 25,13"
@@ -184,7 +175,7 @@ const DiceSvg = ({
       );
     case 20:
       return (
-        <svg viewBox="0 0 100 100" className={className}>
+        <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
           <DiceDefs active={active} ids={ids} />
           <polygon
             points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
@@ -199,7 +190,7 @@ const DiceSvg = ({
       );
     case "swirl":
       return (
-        <svg viewBox="0 0 1200 1200" className={className}>
+        <svg viewBox="0 0 1200 1200" className={className} aria-hidden="true">
           <circle
             cx={600}
             cy={600}

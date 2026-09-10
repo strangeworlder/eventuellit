@@ -55,10 +55,7 @@ export function SelectionCardGroup({
 
   return (
     <SelectionCardGroupCtx.Provider value={ctx}>
-      <div
-        role="group"
-        className={cn("grid grid-cols-1 tablet:grid-cols-2 gap-3", className)}
-      >
+      <div role="group" className={cn("grid grid-cols-1 tablet:grid-cols-2 gap-3", className)}>
         {children}
       </div>
     </SelectionCardGroupCtx.Provider>
@@ -121,13 +118,14 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
     const group = useSelectionCardGroup();
 
     // Derive state from group context if available
-    const selectionState: SelectionState = group && cardId
-      ? group.value.primary === cardId
-        ? "primary"
-        : group.value.secondary === cardId
-          ? "secondary"
-          : "none"
-      : (selectionStateProp ?? "none");
+    const selectionState: SelectionState =
+      group && cardId
+        ? group.value.primary === cardId
+          ? "primary"
+          : group.value.secondary === cardId
+            ? "secondary"
+            : "none"
+        : (selectionStateProp ?? "none");
 
     const isDisabled = locked || (group?.disabled ?? false);
 
@@ -162,8 +160,10 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
       } else {
         // Standalone cycling
         const next: SelectionState =
-          selectionState === "none" ? "primary"
-            : selectionState === "primary" ? "secondary"
+          selectionState === "none"
+            ? "primary"
+            : selectionState === "primary"
+              ? "secondary"
               : "none";
         onSelectionChange?.(next);
       }
@@ -201,10 +201,11 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
           // ── Interactive cursor when not locked ────────────────────────────
           !isDisabled && "cursor-pointer",
           // ── Selection states ──────────────────────────────────────────────
-          selectionState === "none" && !isDisabled && [
-            "border-[var(--theme-border-soft)] shadow-md",
-            "hover:border-[var(--theme-border-medium)] hover:shadow-[0_0_14px_color-mix(in_srgb,var(--theme-secondary)_18%,transparent)] hover:-translate-y-0.5 hover:duration-200 hover:ease-out",
-          ],
+          selectionState === "none" &&
+            !isDisabled && [
+              "border-[var(--theme-border-soft)] shadow-md",
+              "hover:border-[var(--theme-border-medium)] hover:shadow-[0_0_14px_color-mix(in_srgb,var(--theme-secondary)_18%,transparent)] hover:-translate-y-0.5 hover:duration-200 hover:ease-out",
+            ],
           selectionState === "primary" && [
             "border-[var(--theme-primary)] shadow-[0_0_18px_color-mix(in_srgb,var(--theme-primary)_28%,transparent)]",
             "bg-[color-mix(in_srgb,var(--theme-primary)_6%,var(--theme-bg))]",
@@ -252,21 +253,21 @@ export const SelectionCardMeta = React.forwardRef<HTMLDivElement, SelectionCardM
       {...props}
     >
       {/* start column: urgency chip or any left-side meta */}
-      <div className="flex items-center gap-1.5 min-w-0">
-        {children}
-      </div>
+      <div className="flex items-center gap-1.5 min-w-0">{children}</div>
 
       {/* end column: selection state badge — always rendered to keep row height stable */}
       <div className="shrink-0">
         {selectionState === "primary" && (
-          <Badge variant="solid" icon="alert-triangle">Ensisijainen</Badge>
+          <Badge variant="solid" icon="alert-triangle">
+            Ensisijainen
+          </Badge>
         )}
         {selectionState === "secondary" && (
-          <Badge variant="highlight" icon="arrow-right">Toissijainen</Badge>
+          <Badge variant="highlight" icon="arrow-right">
+            Toissijainen
+          </Badge>
         )}
-        {selectionState === "none" && (
-          <span className="inline-block h-[1.5rem] w-0" aria-hidden />
-        )}
+        {selectionState === "none" && <span className="inline-block h-[1.5rem] w-0" aria-hidden />}
       </div>
     </div>
   ),
@@ -287,10 +288,7 @@ export const SelectionCardBody = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(
-      "[grid-area:body] flex flex-col gap-1.5 px-3 py-2.5",
-      className,
-    )}
+    className={cn("[grid-area:body] flex flex-col gap-1.5 px-3 py-2.5", className)}
     {...props}
   >
     {children}

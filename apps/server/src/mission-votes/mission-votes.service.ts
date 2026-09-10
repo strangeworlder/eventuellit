@@ -9,13 +9,7 @@ import { and, desc, eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import {
-  missionComments,
-  missionOptions,
-  missionVotes,
-  users,
-  votingRounds,
-} from "../db/schema";
+import { missionComments, missionOptions, missionVotes, users, votingRounds } from "../db/schema";
 import type { CastVoteDto } from "./dto/cast-vote.dto";
 import type { CreateCommentDto } from "./dto/create-comment.dto";
 import type { CreateOptionDto } from "./dto/create-option.dto";
@@ -93,8 +87,7 @@ export class MissionVotesService {
 
     const updates: Partial<typeof votingRounds.$inferInsert> = {};
     if (dto.title !== undefined) updates.title = dto.title;
-    if (dto.deadline !== undefined)
-      updates.deadline = dto.deadline ? new Date(dto.deadline) : null;
+    if (dto.deadline !== undefined) updates.deadline = dto.deadline ? new Date(dto.deadline) : null;
     if (dto.status !== undefined) {
       updates.status = dto.status;
       if (dto.status === "closed") updates.closedAt = new Date();
@@ -198,9 +191,7 @@ export class MissionVotesService {
     await this.requireOption(roundId, dto.primaryOptionId);
     if (dto.secondaryOptionId !== undefined) {
       if (dto.secondaryOptionId === dto.primaryOptionId) {
-        throw new BadRequestException(
-          "Primary and secondary choices must be different options.",
-        );
+        throw new BadRequestException("Primary and secondary choices must be different options.");
       }
       await this.requireOption(roundId, dto.secondaryOptionId);
     }
@@ -343,8 +334,7 @@ export class MissionVotesService {
       .from(missionOptions)
       .where(and(eq(missionOptions.id, optionId), eq(missionOptions.roundId, roundId)))
       .limit(1);
-    if (!rows[0])
-      throw new NotFoundException(`Option ${optionId} not found in round ${roundId}`);
+    if (!rows[0]) throw new NotFoundException(`Option ${optionId} not found in round ${roundId}`);
     return rows[0];
   }
 }

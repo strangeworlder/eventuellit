@@ -124,7 +124,8 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
     },
     ref,
   ) => {
-    const obscured = obscuredProp || useObscured();
+    const contextObscured = useObscured();
+    const obscured = Boolean(obscuredProp || contextObscured);
     const isDisabled = disabledProp || obscured;
     const { glitchStyle } = useObscuredGlitch(obscured);
 
@@ -357,66 +358,76 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                 </button>
               </div>
 
-              {/* Weekday headers */}
-              <div role="grid" aria-label={`${FI_MONTHS[viewMonth]} ${viewYear}`}>
-                <div role="row" className="grid grid-cols-7 mb-1">
-                  {FI_WEEKDAYS_SHORT.map((wd) => (
-                    <div
-                      key={wd}
-                      role="columnheader"
-                      aria-label={wd}
-                      className="flex h-8 items-center justify-center text-xs font-bold text-text-muted uppercase"
-                    >
-                      {wd}
-                    </div>
-                  ))}
-                </div>
+              {/* Weekday headers and calendar table */}
+              <table
+                className="w-full border-collapse"
+                aria-label={`${FI_MONTHS[viewMonth]} ${viewYear}`}
+              >
+                <thead>
+                  <tr className="grid grid-cols-7 mb-1">
+                    {FI_WEEKDAYS_SHORT.map((wd) => (
+                      <th
+                        key={wd}
+                        scope="col"
+                        aria-label={wd}
+                        className="flex h-8 items-center justify-center text-xs font-bold text-text-muted uppercase"
+                      >
+                        {wd}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
 
                 {/* Day rows */}
-                {grid.map((row, ri) => (
-                  <div key={ri} role="row" className="grid grid-cols-7">
-                    {row.map((day, di) => {
-                      if (!day) {
-                        return (
-                          <div key={di} role="gridcell" aria-disabled="true" className="h-8" />
-                        );
-                      }
-                      const iso = toIso(day);
-                      const isSelected = selectedDate ? isSameDay(day, selectedDate) : false;
-                      const isToday = isSameDay(day, today);
-                      const isFocused = focusedDate ? isSameDay(day, focusedDate) : false;
-                      const outOfRange = isOutOfRange(day);
+                <tbody>
+                  {grid.map((row, ri) => (
+                    <tr key={`week-${viewYear}-${viewMonth}-${ri}`} className="grid grid-cols-7">
+                      {row.map((day, di) => {
+                        if (!day) {
+                          return (
+                            <td
+                              key={`empty-${viewYear}-${viewMonth}-${ri}-${di}`}
+                              aria-disabled="true"
+                              className="h-8"
+                            />
+                          );
+                        }
+                        const iso = toIso(day);
+                        const isSelected = selectedDate ? isSameDay(day, selectedDate) : false;
+                        const isToday = isSameDay(day, today);
+                        const isFocused = focusedDate ? isSameDay(day, focusedDate) : false;
+                        const outOfRange = isOutOfRange(day);
 
-                      return (
-                        <div key={di} role="gridcell">
-                          <button
-                            type="button"
-                            data-date={iso}
-                            tabIndex={isFocused || (!focusedDate && isToday) ? 0 : -1}
-                            aria-selected={isSelected}
-                            aria-current={isToday ? "date" : undefined}
-                            aria-disabled={outOfRange}
-                            disabled={outOfRange}
-                            onClick={() => selectDate(day)}
-                            onFocus={() => setFocusedDate(day)}
-                            className={cn(
-                              "flex h-8 w-full items-center justify-center rounded-sm text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)]",
-                              isSelected
-                                ? "bg-[var(--theme-accent)] text-[var(--theme-accent-foreground)]"
-                                : isToday
-                                  ? "border border-[var(--theme-secondary)] text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]"
-                                  : "text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]",
-                              outOfRange && "opacity-40 cursor-not-allowed hover:bg-transparent",
-                            )}
-                          >
-                            {day.getDate()}
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ))}
-              </div>
+                        return (
+                          <td key={iso}>
+                            <button
+                              type="button"
+                              data-date={iso}
+                              tabIndex={isFocused || (!focusedDate && isToday) ? 0 : -1}
+                              aria-pressed={isSelected}
+                              aria-current={isToday ? "date" : undefined}
+                              disabled={outOfRange}
+                              onClick={() => selectDate(day)}
+                              onFocus={() => setFocusedDate(day)}
+                              className={cn(
+                                "flex h-8 w-full items-center justify-center rounded-sm text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)]",
+                                isSelected
+                                  ? "bg-[var(--theme-accent)] text-[var(--theme-accent-foreground)]"
+                                  : isToday
+                                    ? "border border-[var(--theme-secondary)] text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]"
+                                    : "text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]",
+                                outOfRange && "opacity-40 cursor-not-allowed hover:bg-transparent",
+                              )}
+                            >
+                              {day.getDate()}
+                            </button>
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>

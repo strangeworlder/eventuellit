@@ -24,8 +24,16 @@ describe("suggestNames", () => {
   it("never returns known example names", () => {
     // Generate a large batch and check none are in the known set
     const knownExamples = [
-      "Pekablo", "Marisorja", "Kurtish", "Giovanho", "Jackimir",
-      "Amadieu", "Aarniel", "Heico", "Wolfvick", "Lucahana",
+      "Pekablo",
+      "Marisorja",
+      "Kurtish",
+      "Giovanho",
+      "Jackimir",
+      "Amadieu",
+      "Aarniel",
+      "Heico",
+      "Wolfvick",
+      "Lucahana",
     ];
     const names = suggestNames("male", 50);
     for (const name of names) {

@@ -19,7 +19,15 @@ import { TextSection } from "@repo/ui/components/TextSection";
 import { TopNavDropdown, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
 import { useEffect, useRef } from "react";
-import { Outlet, Route, Routes, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { worldCategories } from "./categories";
 import { stationConnections } from "./connections";
 import { type factions, getFactionById, getHybridFactions } from "./factions";
@@ -97,10 +105,10 @@ export interface WorldEntry {
   ruling_faction?: string[];
   disrupting_factions?: string[];
   // Version / snapshot fields
-  version_of?: string;     // if set, this is a historical snapshot of that station id
-  episode?: string;        // episode slug (matches episodes app routing)
-  episode_label?: string;  // human-readable label, e.g. "Jakso 1 — Biodomin alkupalo"
-  snapshot_note?: string;  // short editorial context note shown in the banner
+  version_of?: string; // if set, this is a historical snapshot of that station id
+  episode?: string; // episode slug (matches episodes app routing)
+  episode_label?: string; // human-readable label, e.g. "Jakso 1 — Biodomin alkupalo"
+  snapshot_note?: string; // short editorial context note shown in the banner
 }
 
 /** Parse a comma-separated string field into a trimmed string array. */
@@ -344,26 +352,20 @@ function StationVersionHistory({
           href={canonicalHref}
           className="flex items-center gap-2 py-1.5 px-2 rounded-sm no-underline group"
           style={{
-            background: !currentEpisode
-              ? "var(--theme-primary)/10"
-              : "transparent",
+            background: !currentEpisode ? "var(--theme-primary)/10" : "transparent",
           }}
         >
           <span
             className="w-2 h-2 rounded-full shrink-0 transition-colors"
             style={{
-              background: !currentEpisode
-                ? "var(--theme-primary)"
-                : "var(--theme-border-medium)",
+              background: !currentEpisode ? "var(--theme-primary)" : "var(--theme-border-medium)",
             }}
           />
           <Text
             variant="label"
             className="text-xs"
             style={{
-              color: !currentEpisode
-                ? "var(--theme-primary)"
-                : "var(--theme-text-muted)",
+              color: !currentEpisode ? "var(--theme-primary)" : "var(--theme-text-muted)",
             }}
           >
             Nykytila
@@ -386,18 +388,14 @@ function StationVersionHistory({
               <span
                 className="w-2 h-2 rounded-full shrink-0 mt-0.5 transition-colors"
                 style={{
-                  background: isActive
-                    ? "var(--theme-accent)"
-                    : "var(--theme-border-medium)",
+                  background: isActive ? "var(--theme-accent)" : "var(--theme-border-medium)",
                 }}
               />
               <Text
                 variant="label"
                 className="text-xs leading-snug"
                 style={{
-                  color: isActive
-                    ? "var(--theme-accent)"
-                    : "var(--theme-text-muted)",
+                  color: isActive ? "var(--theme-accent)" : "var(--theme-text-muted)",
                 }}
               >
                 {v.episode_label ?? v.episode}
@@ -468,7 +466,9 @@ function ArticleContent({
 
   const connectionNodes = buildConnectionNodes(entry.title);
   // Faction data comes from the displayed entry (historical factions if viewing a snapshot)
-  const hasFactionData = !!(displayed.ruling_faction?.length || displayed.disrupting_factions?.length);
+  const hasFactionData = !!(
+    displayed.ruling_faction?.length || displayed.disrupting_factions?.length
+  );
   const hasVersions = versions.length > 0;
   const hasSidebar = connectionNodes.length > 0 || hasFactionData || hasVersions;
 
@@ -873,42 +873,47 @@ function FaktiotHub({
           </TextSection>
 
           {/* Hybrid factions section */}
-          {getHybridFactions().length > 0 && (() => {
-            const hybridEntries = factiotEntries.filter((entry) =>
-              getHybridFactions().some((h) => h.id === entry.id)
-            );
-            if (hybridEntries.length === 0) return null;
-            return (
-              <TextSection title="Hybridifaktiot">
-                <Text variant="body" className="mb-4">
-                  Nämä faktiot yhdistävät kahden suurvallan perinteet ja identiteetit.
-                </Text>
-                <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
-                  {hybridEntries.map((entry) => {
-                    const def = getFactionById(entry.id);
-                    const primaryParentDef = entry.parent ? getFactionById(entry.parent) : undefined;
-                    const secondaryParentDef = entry.secondary_parent ? getFactionById(entry.secondary_parent) : undefined;
-                    const parentLabel = [primaryParentDef?.name, secondaryParentDef?.name]
-                      .filter(Boolean)
-                      .join(" × ");
-                    return (
-                      <EntityCard
-                        key={entry.id}
-                        name={entry.title}
-                        subtitle={entry.description}
-                        color={def?.color ?? "primary"}
-                        secondaryColor={def?.secondaryColor}
-                        iconName={def?.icon}
-                        parentLabel={parentLabel || undefined}
-                        href={`${basePath}/faktiot/${entry.id}`}
-                        variant="faction"
-                      />
-                    );
-                  })}
-                </div>
-              </TextSection>
-            );
-          })()}
+          {getHybridFactions().length > 0 &&
+            (() => {
+              const hybridEntries = factiotEntries.filter((entry) =>
+                getHybridFactions().some((h) => h.id === entry.id),
+              );
+              if (hybridEntries.length === 0) return null;
+              return (
+                <TextSection title="Hybridifaktiot">
+                  <Text variant="body" className="mb-4">
+                    Nämä faktiot yhdistävät kahden suurvallan perinteet ja identiteetit.
+                  </Text>
+                  <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
+                    {hybridEntries.map((entry) => {
+                      const def = getFactionById(entry.id);
+                      const primaryParentDef = entry.parent
+                        ? getFactionById(entry.parent)
+                        : undefined;
+                      const secondaryParentDef = entry.secondary_parent
+                        ? getFactionById(entry.secondary_parent)
+                        : undefined;
+                      const parentLabel = [primaryParentDef?.name, secondaryParentDef?.name]
+                        .filter(Boolean)
+                        .join(" × ");
+                      return (
+                        <EntityCard
+                          key={entry.id}
+                          name={entry.title}
+                          subtitle={entry.description}
+                          color={def?.color ?? "primary"}
+                          secondaryColor={def?.secondaryColor}
+                          iconName={def?.icon}
+                          parentLabel={parentLabel || undefined}
+                          href={`${basePath}/faktiot/${entry.id}`}
+                          variant="faction"
+                        />
+                      );
+                    })}
+                  </div>
+                </TextSection>
+              );
+            })()}
         </HeadingLevelProvider>
       </PageBody>
     </>
@@ -936,7 +941,9 @@ function FactionDetail({
 
   const def = getFactionById(entry.id);
   const parentDef = entry.parent ? getFactionById(entry.parent) : undefined;
-  const secondaryParentDef = entry.secondary_parent ? getFactionById(entry.secondary_parent) : undefined;
+  const secondaryParentDef = entry.secondary_parent
+    ? getFactionById(entry.secondary_parent)
+    : undefined;
   const subEntries = entry.parent
     ? []
     : factiotEntries.filter((e) => e.parent === entry.id || e.secondary_parent === entry.id);

@@ -50,10 +50,7 @@ export class MissionVotesController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles("gm")
   @Patch(":roundId")
-  updateRound(
-    @Param("roundId", ParseIntPipe) roundId: number,
-    @Body() dto: UpdateRoundDto,
-  ) {
+  updateRound(@Param("roundId", ParseIntPipe) roundId: number, @Body() dto: UpdateRoundDto) {
     return this.service.updateRound(roundId, dto);
   }
 
@@ -69,10 +66,7 @@ export class MissionVotesController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles("gm")
   @Post(":roundId/options")
-  addOption(
-    @Param("roundId", ParseIntPipe) roundId: number,
-    @Body() dto: CreateOptionDto,
-  ) {
+  addOption(@Param("roundId", ParseIntPipe) roundId: number, @Body() dto: CreateOptionDto) {
     return this.service.addOption(roundId, dto);
   }
 

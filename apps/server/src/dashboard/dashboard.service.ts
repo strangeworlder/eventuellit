@@ -429,9 +429,7 @@ export class DashboardService {
       };
 
       const charId = notification.referenceId ? Number(notification.referenceId) : Number.NaN;
-      const targetEpisodeId = !Number.isNaN(charId)
-        ? notifCharEpisodeMap.get(charId)
-        : undefined;
+      const targetEpisodeId = !Number.isNaN(charId) ? notifCharEpisodeMap.get(charId) : undefined;
       const targetEp = targetEpisodeId ? episodeResultMap.get(targetEpisodeId) : episodeResults[0];
 
       if (targetEp) {
@@ -538,7 +536,12 @@ export class DashboardService {
           userId: sessionPlayerRecaps.userId,
         })
         .from(sessionPlayerRecaps)
-        .where(inArray(sessionPlayerRecaps.sessionId, playedSessions.map((s) => s.id)));
+        .where(
+          inArray(
+            sessionPlayerRecaps.sessionId,
+            playedSessions.map((s) => s.id),
+          ),
+        );
 
       for (const r of recaps) {
         const set = writtenRecapsByUser.get(r.userId) ?? new Set<number>();
@@ -559,10 +562,7 @@ export class DashboardService {
       .from(characterEpisodes)
       .innerJoin(characters, eq(characterEpisodes.characterId, characters.id))
       .where(
-        and(
-          eq(characterEpisodes.episodeId, episodeId),
-          inArray(characters.userId, allUserIds),
-        ),
+        and(eq(characterEpisodes.episodeId, episodeId), inArray(characters.userId, allUserIds)),
       );
 
     const linkedCharByUser = new Map<

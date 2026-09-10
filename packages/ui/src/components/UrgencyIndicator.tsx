@@ -46,7 +46,10 @@ const URGENCY_CONFIG = {
       "bg-transparent",
     ],
   },
-} satisfies Record<UrgencyLevel, { label: string; tooltip: string; icon: "alert-triangle" | "clock" | "minus"; classes: string[] }>;
+} satisfies Record<
+  UrgencyLevel,
+  { label: string; tooltip: string; icon: "alert-triangle" | "clock" | "minus"; classes: string[] }
+>;
 
 /**
  * Semantic urgency tier indicator for time-sensitive game elements.
@@ -72,7 +75,12 @@ export const UrgencyIndicator = React.forwardRef<HTMLDivElement, UrgencyIndicato
         )}
         {...props}
       >
-        <Icon name={config.icon} size={size === "compact" ? 12 : 14} className="shrink-0" aria-hidden />
+        <Icon
+          name={config.icon}
+          size={size === "compact" ? 12 : 14}
+          className="shrink-0"
+          aria-hidden
+        />
         <span>{displayLabel}</span>
         <AnchoredTooltip placement="top">{config.tooltip}</AnchoredTooltip>
       </div>

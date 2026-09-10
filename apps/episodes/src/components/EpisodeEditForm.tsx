@@ -40,7 +40,9 @@ export function EpisodeEditForm({
 
   const mediaItems: MediaItem[] = (mediaRecords ?? []).map((m) => {
     const slug = m.key.replace("images/", "");
-    const baseUrl = (formData.image ?? "").split("/images/")[0] || "https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev";
+    const baseUrl =
+      (formData.image ?? "").split("/images/")[0] ||
+      "https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev";
     return {
       id: m.id,
       key: m.key,

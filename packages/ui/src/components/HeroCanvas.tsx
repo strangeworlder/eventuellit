@@ -216,6 +216,7 @@ export const HeroCanvas = React.forwardRef<HTMLCanvasElement, HeroCanvasProps>(
       <canvas
         ref={canvasRef}
         aria-hidden="true"
+        tabIndex={-1}
         className={className}
         style={{ display: "block", width: "100%", height: "100%" }}
       />

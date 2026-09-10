@@ -68,8 +68,7 @@ export const CountdownDisplay = React.forwardRef<HTMLDivElement, CountdownDispla
     }, [deadline]);
 
     const isExpired = timeLeft.totalMs === 0;
-    const isUrgent =
-      !isExpired && timeLeft.totalMs < urgentThresholdHours * 3_600_000;
+    const isUrgent = !isExpired && timeLeft.totalMs < urgentThresholdHours * 3_600_000;
 
     if (isExpired) {
       return (
@@ -108,12 +107,7 @@ export const CountdownDisplay = React.forwardRef<HTMLDivElement, CountdownDispla
         )}
         {...props}
       >
-        <Icon
-          name="clock"
-          size={size === "compact" ? 16 : 22}
-          className="shrink-0"
-          aria-hidden
-        />
+        <Icon name="clock" size={size === "compact" ? 16 : 22} className="shrink-0" aria-hidden />
         <span className="inline-flex items-baseline gap-1">
           {segments.map(({ value, label }) => (
             <span key={label} className="inline-flex items-baseline gap-0.5">

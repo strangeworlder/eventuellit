@@ -6,6 +6,7 @@ import { cn } from "./utils";
 /** Returns a stable map of item-id → glitch CSS vars, seeded once per unique id. */
 function useGlitchSeeds(ids: Array<string | number>): Map<string, React.CSSProperties> {
   const cache = useRef(new Map<string, React.CSSProperties>());
+  // biome-ignore lint/correctness/useExhaustiveDependencies: ids.join(",") prevents unnecessary recomputation from new array references
   return useMemo(() => {
     const next = new Map<string, React.CSSProperties>();
     for (const id of ids) {
@@ -25,7 +26,6 @@ function useGlitchSeeds(ids: Array<string | number>): Map<string, React.CSSPrope
     }
     cache.current = next;
     return next;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids.join(",")]);
 }
 

@@ -21,7 +21,10 @@ export class EpisodePlayersController {
   constructor(private readonly episodePlayersService: EpisodePlayersService) {}
 
   @Get()
-  findByEpisode(@Query("episodeId", ParseIntPipe) episodeId: number, @CurrentUser() user: AuthUser) {
+  findByEpisode(
+    @Query("episodeId", ParseIntPipe) episodeId: number,
+    @CurrentUser() user: AuthUser,
+  ) {
     return this.episodePlayersService.findByEpisode(episodeId, user);
   }
 

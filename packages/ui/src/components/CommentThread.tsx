@@ -1,16 +1,11 @@
 import React from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./Accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./Accordion";
 import { Button } from "./Button";
-import { TextArea } from "./TextArea";
 import { CommentEntry } from "./CommentEntry";
 import { Icon } from "./Icon";
 import { Switch } from "./Switch";
 import { Text } from "./Text";
+import { TextArea } from "./TextArea";
 import type { Theme } from "./Theme";
 import { cn } from "./utils";
 
@@ -61,11 +56,7 @@ export const CommentThread = React.forwardRef<HTMLDivElement, CommentThreadProps
     const [anonymous, setAnonymous] = React.useState(false);
     const count = comments.length;
     const label =
-      count === 0
-        ? "Ei kommentteja"
-        : count === 1
-          ? "1 kommentti"
-          : `${count} kommenttia`;
+      count === 0 ? "Ei kommentteja" : count === 1 ? "1 kommentti" : `${count} kommenttia`;
 
     function handleSubmit(e: React.FormEvent) {
       e.preventDefault();
@@ -75,12 +66,7 @@ export const CommentThread = React.forwardRef<HTMLDivElement, CommentThreadProps
     }
 
     return (
-      <div
-        ref={ref}
-        data-theme={theme}
-        className={cn("font-sans", className)}
-        {...props}
-      >
+      <div ref={ref} data-theme={theme} className={cn("font-sans", className)} {...props}>
         <Accordion>
           <AccordionItem defaultOpen={defaultOpen} variant="ghost">
             <AccordionTrigger className="text-xs text-[var(--theme-text-subtle)] font-black uppercase tracking-widest">
@@ -94,10 +80,7 @@ export const CommentThread = React.forwardRef<HTMLDivElement, CommentThreadProps
               <div className="pt-1 pb-2">
                 {/* Comment list */}
                 {count === 0 ? (
-                  <Text
-                    variant="muted"
-                    className="py-3 text-sm"
-                  >
+                  <Text variant="muted" className="py-3 text-sm">
                     Ole ensimmäinen, joka kommentoi tätä tehtävää.
                   </Text>
                 ) : (

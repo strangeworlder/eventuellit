@@ -252,7 +252,9 @@ function SessionStatusSelect({ session, episodeId }: { session: Session; episode
       size="compact"
       value={session.status}
       disabled={isPending}
-      onChange={(e) => updateSession({ id: session.id, episodeId, status: e.target.value as Session["status"] })}
+      onChange={(e) =>
+        updateSession({ id: session.id, episodeId, status: e.target.value as Session["status"] })
+      }
       options={[
         { value: "planned", label: "Tulossa" },
         { value: "next", label: "Seuraava" },
@@ -490,9 +492,7 @@ export function ReadingListEditor({ episodeId }: { episodeId: number }) {
           <LoadingState message="Ladataan sessioita..." />
         ) : !sessions || sessions.length === 0 ? (
           <div className="space-y-2 pt-2">
-            <Text variant="muted">
-              Ei sessioita. Lisää sessioita manuaalisesti.
-            </Text>
+            <Text variant="muted">Ei sessioita. Lisää sessioita manuaalisesti.</Text>
             <div className="flex gap-2 flex-wrap">
               <Button size="compact" variant="outline" onClick={() => setShowAddSession(true)}>
                 Lisää sessio

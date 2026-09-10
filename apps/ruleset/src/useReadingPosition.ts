@@ -115,5 +115,5 @@ export function useReadingPosition({
     toastShownRef.current = false;
     const timer = setTimeout(offerResume, 800);
     return () => clearTimeout(timer);
-  }, [pageId]); // reset on page change
+  }, [offerResume]); // reset on page change
 }

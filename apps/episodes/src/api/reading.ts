@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiFetch } from "@repo/auth/client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "./query-keys";
 
 export interface ReadingItem {
@@ -54,7 +54,9 @@ export const useReadingSuggestions = (episodeId: number, enabled: boolean, sessi
       const params = new URLSearchParams();
       if (sessionId !== undefined) params.set("sessionId", String(sessionId));
       const qs = params.toString();
-      return apiFetch<SuggestedItem[]>(`/reading-items/suggestions/${episodeId}${qs ? `?${qs}` : ""}`);
+      return apiFetch<SuggestedItem[]>(
+        `/reading-items/suggestions/${episodeId}${qs ? `?${qs}` : ""}`,
+      );
     },
     enabled: !!episodeId && enabled,
   });

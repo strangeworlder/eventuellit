@@ -125,7 +125,7 @@ export const Table = React.forwardRef(function TableInner<T extends Record<strin
             return (
               <tr
                 // Row objects may lack a stable id; index is acceptable for static tables
-                // eslint-disable-next-line react/no-array-index-key
+                // biome-ignore lint/suspicious/noArrayIndexKey: generic static table rows may lack a unique identifier
                 key={rowIndex}
                 className={cn(
                   "transition-colors hover:bg-[var(--theme-surface-tint)]",

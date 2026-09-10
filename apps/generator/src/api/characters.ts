@@ -170,12 +170,14 @@ export function useAdvanceCharacterForEpisode() {
       attribute,
       reward,
       newSkills,
+      powerId,
     }: {
       characterId: number;
       episodeId: number;
       attribute: "fysiikka" | "nopeus" | "ymmarrys" | "persoona" | "nakemys" | "napparyys";
-      reward: "skills_plus_n6" | "skill_plus_n8";
-      newSkills: string[];
+      reward: "skills_plus_n6" | "skill_plus_n8" | "munkki";
+      newSkills?: string[];
+      powerId?: number;
     }) => {
       const token = localStorage.getItem("auth_token");
       const response = await fetch(`${API_URL}/${characterId}/advance`, {
@@ -185,11 +187,12 @@ export function useAdvanceCharacterForEpisode() {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         credentials: "include",
-        body: JSON.stringify({ episodeId, attribute, reward, newSkills }),
+        body: JSON.stringify({ episodeId, attribute, reward, newSkills, powerId }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to advance character");
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.message || "Failed to advance character");
       }
 
       return response.json();
@@ -205,13 +208,7 @@ export function useAdvanceMonk() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      characterId,
-      powerId,
-    }: {
-      characterId: number;
-      powerId: number;
-    }) => {
+    mutationFn: async ({ characterId, powerId }: { characterId: number; powerId: number }) => {
       const token = localStorage.getItem("auth_token");
       const response = await fetch(`${API_URL}/${characterId}/advance-monk`, {
         method: "POST",
@@ -237,4 +234,3 @@ export function useAdvanceMonk() {
     },
   });
 }
-

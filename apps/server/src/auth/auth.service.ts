@@ -150,10 +150,7 @@ export class AuthService {
     await this.db.transaction(async (tx) => {
       if (gmUser) {
         // Transfer characters to GM ownership
-        await tx
-          .update(characters)
-          .set({ userId: gmUser.id })
-          .where(eq(characters.userId, userId));
+        await tx.update(characters).set({ userId: gmUser.id }).where(eq(characters.userId, userId));
       }
 
       // Delete magic link tokens for this email
@@ -168,11 +165,13 @@ export class AuthService {
   private async cleanupExpiredTokens(): Promise<void> {
     const cutoff = new Date();
     cutoff.setHours(cutoff.getHours() - 24);
-    await this.db.delete(magicLinkTokens).where(
-      or(
-        lt(magicLinkTokens.expiresAt, new Date()),
-        and(isNotNull(magicLinkTokens.usedAt), lt(magicLinkTokens.usedAt, cutoff)),
-      ),
-    );
+    await this.db
+      .delete(magicLinkTokens)
+      .where(
+        or(
+          lt(magicLinkTokens.expiresAt, new Date()),
+          and(isNotNull(magicLinkTokens.usedAt), lt(magicLinkTokens.usedAt, cutoff)),
+        ),
+      );
   }
 }

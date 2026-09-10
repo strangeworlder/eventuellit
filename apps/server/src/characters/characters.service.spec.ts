@@ -92,7 +92,9 @@ describe("CharactersService", () => {
     mockDb.leftJoin.mockResolvedValueOnce([charRow]);
     const result = await service.findAll();
     expect(mockDb.select).toHaveBeenCalled();
-    expect(result).toEqual([{ ...charRow, episodes: [], monkPowers: [], hasPlayedSessions: false }]);
+    expect(result).toEqual([
+      { ...charRow, episodes: [], monkPowers: [], hasPlayedSessions: false },
+    ]);
   });
 
   it("should set hasPlayedSessions=false for a debut character with no played sessions", async () => {
@@ -289,12 +291,52 @@ describe("CharactersService", () => {
     expect(result.alreadyAdvanced).toBe(false);
   });
 
+  it("should advance linked character as monk with power selection", async () => {
+    mockDb.query.characters.findFirst.mockResolvedValueOnce({
+      id: 1,
+      userId: 1,
+      keho: 8,
+      currentKeho: 8,
+      mieli: 8,
+      currentMieli: 8,
+      tera: 8,
+      currentTera: 8,
+      sisuDice: [],
+      skills: [],
+      fysiikka: 0,
+      nopeus: 0,
+      ymmarrys: 0,
+      persoona: 0,
+      nakemys: 0,
+      napparyys: 0,
+      monkAdvancementsAllowed: 1,
+      monkAdvancementsUsed: 0,
+    });
+    mockDb.limit.mockResolvedValueOnce([{ id: 123, refreshedAt: new Date(), advancedAt: null }]);
+    // In advanceForEpisode when reward === 'munkki', the query is:
+    // await this.db.select(...).from(characterMonkPowers).innerJoin(...).where(...)
+    // Here where terminates the chain (await where(...))
+    mockDb.where.mockImplementationOnce(() => mockDb); // for assertOwnedLinkedCharacter .where(...).limit(1)
+    mockDb.where.mockResolvedValueOnce([]); // for currentPowers .where(...) -> resolves to empty array []
+    const power = { id: 10, name: "Varjoharppaus", tier: 1 };
+    mockDb.query.monkPowers.findFirst.mockResolvedValueOnce(power);
+    mockDb.returning.mockResolvedValueOnce([{ id: 1, name: "Hero", monkAdvancementsUsed: 1 }]);
+
+    const result = await service.advanceForEpisode(
+      1,
+      { episodeId: 2, attribute: "fysiikka", reward: "munkki", powerId: 10 },
+      1,
+    );
+
+    expect(result.advanced).toBe(true);
+    expect(result.alreadyAdvanced).toBe(false);
+    expect(mockDb.insert).toHaveBeenCalled();
+  });
+
   describe("advanceAsMonk", () => {
     it("should throw NotFoundException if character not found", async () => {
       mockDb.query.characters.findFirst.mockResolvedValueOnce(null);
-      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(NotFoundException);
     });
 
     it("should throw ForbiddenException if user does not own the character", async () => {
@@ -324,9 +366,7 @@ describe("CharactersService", () => {
         monkAdvancementsUsed: 0,
       });
       mockDb.query.monkPowers.findFirst.mockResolvedValueOnce(null);
-      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(NotFoundException);
     });
 
     it("should throw BadRequestException if character already has the power", async () => {
@@ -336,8 +376,15 @@ describe("CharactersService", () => {
         monkAdvancementsAllowed: 2,
         monkAdvancementsUsed: 0,
       });
-      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce({ id: 10, name: "Meditaatio", tier: 1 });
-      mockDb.query.characterMonkPowers.findFirst.mockResolvedValueOnce({ characterId: 1, powerId: 10 });
+      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce({
+        id: 10,
+        name: "Meditaatio",
+        tier: 1,
+      });
+      mockDb.query.characterMonkPowers.findFirst.mockResolvedValueOnce({
+        characterId: 1,
+        powerId: 10,
+      });
       await expect(service.advanceAsMonk(1, { powerId: 10 }, 1)).rejects.toThrow(
         "Character already has this power",
       );
@@ -351,7 +398,11 @@ describe("CharactersService", () => {
         monkAdvancementsUsed: 0,
       });
       // Tier 2 power
-      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce({ id: 20, name: "Levitaatio", tier: 2 });
+      mockDb.query.monkPowers.findFirst.mockResolvedValueOnce({
+        id: 20,
+        name: "Levitaatio",
+        tier: 2,
+      });
       mockDb.query.characterMonkPowers.findFirst.mockResolvedValueOnce(null);
       // Hahmolla vain 1 tier 1 voima (tarvitaan 2)
       mockDb.where.mockResolvedValueOnce([{ tier: 1 }]);

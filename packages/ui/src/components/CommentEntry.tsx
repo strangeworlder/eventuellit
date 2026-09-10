@@ -58,11 +58,11 @@ export const CommentEntry = React.forwardRef<HTMLDivElement, CommentEntryProps>(
           >
             {author}
           </Text>
-          <Text variant="timestamp">
-            {formatRelativeTime(timestamp)}
-          </Text>
+          <Text variant="timestamp">{formatRelativeTime(timestamp)}</Text>
         </div>
-        <Text variant="small" className="leading-relaxed">{children}</Text>
+        <Text variant="small" className="leading-relaxed">
+          {children}
+        </Text>
       </div>
     );
   },

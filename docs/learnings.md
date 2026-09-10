@@ -20,6 +20,41 @@ For purge operations, follow `.agents/workflows/learnings-retention.md`.
 
 ## Active Learnings
 
+### Tooling, Biome & Linting
+
+#### 1) Windows CRLF vs Biome LF Line Endings
+**Date:** 2026-09-09
+**Issue:** On Windows with `core.autocrlf true`, Git checkouts converted repo files (stored as LF) to CRLF in the working tree. Because `biome.json` specifies `"lineEnding": "lf"`, `biome check` flagged formatting errors across dozens of files on every Windows checkout.
+**Action:** Added `.gitattributes` with `* text=auto eol=lf` to enforce LF normalization across Windows, macOS, and Linux. Ran `git add --renormalize .` and `npm run format`.
+
+#### 2) React Hook Conditional Short-Circuiting (`useHookAtTopLevel`)
+**Date:** 2026-09-09
+**Issue:** In 9 `@repo/ui` components, `useObscured()` was called conditionally via `const isObscured = obscuredProp || useObscured()`. If `obscuredProp` is truthy, the hook call is skipped, violating React's Rules of Hooks.
+**Action:** Always call hooks unconditionally at the component top level:
+```tsx
+const contextObscured = useObscured();
+const isObscured = Boolean(obscuredProp || contextObscured);
+```
+
+#### 3) Monorepo Workspace Lint Script Unification
+**Date:** 2026-09-09
+**Issue:** While `docs/rules.md` mandated Biome exclusively, `apps/episodes`, `apps/generator`, `apps/host`, `apps/ruleset`, and `apps/world` still had `"lint": "eslint ."` in `package.json`, causing Turborepo `turbo run lint` to fail and diverge from root `npm run lint`.
+**Action:** Updated all workspace `package.json` lint scripts to `"biome check ."`.
+
+#### 4) Biome Suppression Comment Placement
+**Date:** 2026-09-09
+**Issue:** Biome suppression comments fail if misplaced. Inside JSX, `{/* biome-ignore */}` before an element can be treated as child content rather than an attribute suppression. For React hooks, placing the comment inside the callback body before the closing array does not suppress hook-level rules.
+**Action:** Place hook suppressions (`// biome-ignore lint/correctness/useExhaustiveDependencies: ...`) directly above `useMemo`/`useEffect`. For JSX attributes, place the comment inside the element opening tag directly above the attribute.
+
+#### 5) Editor & Agent Alignment for Biome
+**Date:** 2026-09-10
+**Issue:** Frequent lint errors occurred because: (1) the repository lacked `.editorconfig` and `.vscode/settings.json`, causing IDEs to miss format-on-save and LF line endings; (2) AI agents naturally generated single quotes and unsorted imports; and (3) pre-completion checklists only emphasized `check-types`.
+**Action:**
+1. Created `.editorconfig` (LF, 2 spaces, 100 max line length) and `.vscode/settings.json` (Biome default formatter, formatOnSave, organizeImports on save).
+2. Added `"verify": "npm run check-types && npm run lint"` and `"lint:fix": "biome check --write ."` macros to root `package.json`.
+3. Updated `CLAUDE.md`, `.agents/workflows/verify.md`, `new-feature.md`, and `project-conventions/SKILL.md` to mandate `npm run verify` before completion and guide agents on Biome conventions (double quotes, `npm run lint:fix`).
+
+
 ### Design System & UI
 
 #### 1) Color Tokens Must Be Pre-Computed Solid Values — Never Opacity Modifiers

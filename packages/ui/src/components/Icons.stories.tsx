@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import { DiceIcon } from "./DiceIcon";
-import { Icon, icons, lucideIcons } from "./Icon";
 import { customIconNames } from "../generated/custom-icon-names";
+import { DiceIcon } from "./DiceIcon";
+import { Icon, type icons, lucideIcons } from "./Icon";
 import "../styles.css";
 
 /**
@@ -80,7 +80,7 @@ export const Gallery: Story = {
         <p className="text-xl max-w-3xl opacity-80 leading-relaxed">
           Kuvakkeisto koostuu kahdesta tasosta: temaattiset kustomoidut SVG-kuvakkeet
           (sprite-pohjainen) ja Lucide React -kuvakkeet perusnavigointiin. Molempia käytetään
-          identtisesti <code className="text-accent-300">{"<Icon name=\"...\" />"}</code>
+          identtisesti <code className="text-accent-300">{'<Icon name="..." />'}</code>
           -komponentilla.
         </p>
       </div>
@@ -243,8 +243,9 @@ export const Gallery: Story = {
           <p className="opacity-80 mb-6">
             Lisää SVG-tiedosto{" "}
             <code className="text-accent-300">packages/ui/src/custom-icons/</code>-kansioon ja aja{" "}
-            <code className="text-accent-300">npm run build:icons -w @repo/ui</code>. Sprite-tiedosto
-            ja TypeScript-tyyppi generoidaan automaattisesti. Kuvake on heti käytettävissä.
+            <code className="text-accent-300">npm run build:icons -w @repo/ui</code>.
+            Sprite-tiedosto ja TypeScript-tyyppi generoidaan automaattisesti. Kuvake on heti
+            käytettävissä.
           </p>
           <div className="bg-black/40 p-4 rounded-lg font-mono text-sm overflow-x-auto">
             <pre className="text-blue-300">

@@ -3,10 +3,10 @@ import { Button } from "./Button";
 import { FieldLabel } from "./FieldLabel";
 import { Input } from "./Input";
 import { useObscured } from "./ObscuredWrapper";
-import { Select } from "./Select";
 import type { SelectOption } from "./Select";
-import { TextArea } from "./TextArea";
+import { Select } from "./Select";
 import { Text } from "./Text";
+import { TextArea } from "./TextArea";
 import type { Theme } from "./Theme";
 import { useObscuredGlitch } from "./useObscuredGlitch";
 import { cn, obscureString } from "./utils";
@@ -108,7 +108,8 @@ export const EditableField = React.forwardRef<HTMLDivElement, EditableFieldProps
     },
     ref,
   ) {
-    const isObscured = obscuredProp || useObscured();
+    const contextObscured = useObscured();
+    const isObscured = Boolean(obscuredProp || contextObscured);
     const { glitchStyle } = useObscuredGlitch(isObscured);
 
     const [editing, setEditing] = React.useState(false);
@@ -288,7 +289,9 @@ export const EditableField = React.forwardRef<HTMLDivElement, EditableFieldProps
               openEdit();
             }
           }}
-          data-text={isObscured ? obscureString(displayValue || displayPlaceholder || "") : undefined}
+          data-text={
+            isObscured ? obscureString(displayValue || displayPlaceholder || "") : undefined
+          }
           style={isObscured ? glitchStyle : undefined}
           className={cn(
             "text-[length:var(--font-size-sm)] text-[var(--theme-text)] cursor-pointer",

@@ -8,16 +8,8 @@ import React from "react";
  * Returns a stable `style` object ready to spread onto the element.
  */
 export function useObscuredGlitch(obscured: boolean) {
-  const glitchDuration = React.useMemo(
-    () => (obscured ? 4 + Math.random() * 5 : 6),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
-  const glitchDelay = React.useMemo(
-    () => (obscured ? Math.random() * 6 : 0),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
+  const glitchDuration = React.useMemo(() => (obscured ? 4 + Math.random() * 5 : 6), [obscured]);
+  const glitchDelay = React.useMemo(() => (obscured ? Math.random() * 6 : 0), [obscured]);
 
   const glitchStyle: React.CSSProperties | undefined = obscured
     ? ({

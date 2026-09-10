@@ -57,8 +57,6 @@ const resolveNearestDataTheme = (element: HTMLElement | null): string | undefine
 const manifestPromiseCache = new Map<string, Promise<ImageManifest | null>>();
 const componentOrigin = new URL(import.meta.url).origin;
 
-
-
 const normalizeKey = (value: string): string => value.toLowerCase().replace(/[^a-z0-9-]/g, "-");
 
 const resolveAssetUrlFromOrigin = (origin: string, assetPath: string): string => {
@@ -237,10 +235,12 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
       setIsModalOpen(false);
     }, []);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: reset loaded state when src changes
     React.useEffect(() => {
       setIsLoaded(false);
     }, [resolvedSrc, resolvedSourcesKey]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: re-check if new src is already cached
     React.useEffect(() => {
       if (imgRef.current?.complete) {
         setIsLoaded(true);
@@ -331,11 +331,14 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     const modalContent =
       isModalOpen && typeof document !== "undefined"
         ? ReactDOM.createPortal(
+            // biome-ignore lint/a11y/useKeyWithClickEvents: backdrop click closes modal, keyboard Escape is handled globally
+            // biome-ignore lint/a11y/noStaticElementInteractions: backdrop click handler
             <div
               data-theme={modalDataTheme ?? dataThemeProp ?? childTheme}
               className="fixed inset-0 z-50 desktop:z-50 max-desktop:z-50 flex items-center justify-center bg-black/80 p-4"
               onClick={closeModal}
             >
+              {/* biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation prevents backdrop close when clicking inside dialog */}
               <div
                 role="dialog"
                 aria-modal="true"

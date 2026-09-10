@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import { apiFetch } from "@repo/auth/client";
+import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "./query-keys";
 
 export interface PlayerUser {

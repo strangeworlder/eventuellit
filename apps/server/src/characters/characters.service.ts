@@ -109,10 +109,7 @@ async function attachEpisodesForCharacters(
       .from(characterEpisodes)
       .innerJoin(
         sessions,
-        and(
-          eq(sessions.episodeId, characterEpisodes.episodeId),
-          eq(sessions.status, "played"),
-        ),
+        and(eq(sessions.episodeId, characterEpisodes.episodeId), eq(sessions.status, "played")),
       )
       .where(inArray(characterEpisodes.characterId, characterIds))
       .orderBy(asc(characterEpisodes.characterId)),
@@ -343,9 +340,10 @@ export class CharactersService {
       persoona: data.persoona,
       nakemys: data.nakemys,
       napparyys: data.napparyys,
-      ...(role === "gm" && data.monkAdvancementsAllowed !== undefined && {
-        monkAdvancementsAllowed: data.monkAdvancementsAllowed,
-      }),
+      ...(role === "gm" &&
+        data.monkAdvancementsAllowed !== undefined && {
+          monkAdvancementsAllowed: data.monkAdvancementsAllowed,
+        }),
       removedFromPlayAt: shouldMarkRemoved
         ? (character.removedFromPlayAt ?? new Date())
         : data.harmit
@@ -458,7 +456,11 @@ export class CharactersService {
   }
 
   async refreshForEpisode(characterId: number, data: RefreshCharacterDto, userId: number) {
-    const { character, link } = await this.assertOwnedLinkedCharacter(characterId, data.episodeId, userId);
+    const { character, link } = await this.assertOwnedLinkedCharacter(
+      characterId,
+      data.episodeId,
+      userId,
+    );
     if (link.refreshedAt) {
       return { refreshed: true, alreadyRefreshed: true };
     }
@@ -504,7 +506,11 @@ export class CharactersService {
   }
 
   async advanceForEpisode(characterId: number, data: AdvanceCharacterDto, userId: number) {
-    const { character, link } = await this.assertOwnedLinkedCharacter(characterId, data.episodeId, userId);
+    const { character, link } = await this.assertOwnedLinkedCharacter(
+      characterId,
+      data.episodeId,
+      userId,
+    );
     if (link.advancedAt) {
       return { advanced: true, alreadyAdvanced: true };
     }
@@ -522,7 +528,8 @@ export class CharactersService {
     const nextNakemys = data.attribute === "nakemys" ? nextPacked : character.nakemys;
     const nextNapparyys = data.attribute === "napparyys" ? nextPacked : character.napparyys;
 
-    const nextKeho = 8 + kestoBonusFromPackedAttribute(nextFysiikka) + kestoBonusFromPackedAttribute(nextNopeus);
+    const nextKeho =
+      8 + kestoBonusFromPackedAttribute(nextFysiikka) + kestoBonusFromPackedAttribute(nextNopeus);
     const nextMieli =
       8 + kestoBonusFromPackedAttribute(nextYmmarrys) + kestoBonusFromPackedAttribute(nextPersoona);
     const nextTera =
@@ -531,13 +538,67 @@ export class CharactersService {
     const sisuDice = Array.isArray(character.sisuDice)
       ? [...(character.sisuDice as Array<{ id: string; faces: number }>)]
       : [];
-    if (data.reward === "skills_plus_n6") {
+
+    let monkPowerToLink: typeof monkPowers.$inferSelect | null = null;
+    let nextMonkAdvancementsUsed = character.monkAdvancementsUsed ?? 0;
+
+    if (data.reward === "munkki") {
+      if (!data.powerId) {
+        throw new BadRequestException("Monk advancement requires a powerId");
+      }
+
+      // Check monk powers count vs allowed
+      const currentPowers = await this.db
+        .select({
+          powerId: characterMonkPowers.powerId,
+          tier: monkPowers.tier,
+        })
+        .from(characterMonkPowers)
+        .innerJoin(monkPowers, eq(characterMonkPowers.powerId, monkPowers.id))
+        .where(eq(characterMonkPowers.characterId, characterId));
+
+      if (currentPowers.length >= (character.monkAdvancementsAllowed ?? 0)) {
+        throw new BadRequestException("No monk advancements available");
+      }
+
+      const power = await this.db.query.monkPowers.findFirst({
+        where: eq(monkPowers.id, data.powerId),
+      });
+      if (!power) {
+        throw new NotFoundException("Monk power not found");
+      }
+
+      if (currentPowers.some((p) => p.powerId === data.powerId)) {
+        throw new BadRequestException("Character already has this power");
+      }
+
+      const tierCounts = new Map<number, number>();
+      for (const p of currentPowers) {
+        tierCounts.set(p.tier, (tierCounts.get(p.tier) ?? 0) + 1);
+      }
+
+      if (power.tier > 1) {
+        const lowerTier = power.tier - 1;
+        const lowerCount = tierCounts.get(lowerTier) ?? 0;
+        const currentTargetCount = tierCounts.get(power.tier) ?? 0;
+        const requiredLowerCount = currentTargetCount + 2;
+        if (lowerCount < requiredLowerCount) {
+          throw new BadRequestException(
+            `Pyramid requirement not met for tier ${power.tier}. Need at least ${requiredLowerCount} powers of tier ${lowerTier}, but currently have ${lowerCount}.`,
+          );
+        }
+      }
+
+      monkPowerToLink = power;
+      nextMonkAdvancementsUsed += 1;
+      sisuDice.push({ id: `sisu-${randomUUID()}`, faces: 4 });
+    } else if (data.reward === "skills_plus_n6") {
       sisuDice.push({ id: `sisu-${randomUUID()}`, faces: 6 });
     } else {
       sisuDice.push({ id: `sisu-${randomUUID()}`, faces: 8 });
     }
 
-    const skillCap = data.reward === "skills_plus_n6" ? 2 : 1;
+    const skillCap = data.reward === "munkki" ? 0 : data.reward === "skills_plus_n6" ? 2 : 1;
     const appendedSkills = (data.newSkills ?? []).slice(0, skillCap);
     const skills = Array.isArray(character.skills) ? [...character.skills] : [];
     for (const skill of appendedSkills) {
@@ -562,11 +623,19 @@ export class CharactersService {
           currentTera: Math.max(character.currentTera, nextTera),
           sisuDice,
           skills,
+          monkAdvancementsUsed: nextMonkAdvancementsUsed,
           updatedAt: new Date(),
         })
         .where(eq(characters.id, characterId))
         .returning();
       const updated = updatedRows[0];
+
+      if (monkPowerToLink) {
+        await tx.insert(characterMonkPowers).values({
+          characterId,
+          powerId: monkPowerToLink.id,
+        });
+      }
 
       await tx
         .update(characterEpisodes)

@@ -246,7 +246,9 @@ const CrossColorCombinations = () => {
 
   // Remove duplicates based on hex (e.g. Primary Base == Primary 500)
   const uniqueColorsMap = new Map<string, (typeof allColors)[0]>();
-  allColors.forEach((c) => uniqueColorsMap.set(c.hex, c));
+  for (const c of allColors) {
+    uniqueColorsMap.set(c.hex, c);
+  }
   const uniqueColors = Array.from(uniqueColorsMap.values());
 
   return (

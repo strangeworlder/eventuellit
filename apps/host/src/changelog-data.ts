@@ -31,7 +31,7 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
       {
         title: "Suljettujen äänestysten historia",
         description:
-          "Aiemmat äänestykset eivät enää katoa sulkemisen jälkeen. Kaikki pelaajat näkevät uuden \"Aiemmat äänestykset\" -osion, jossa vanhat äänestystulokset, tehtäväkortit ja keskustelut ovat selailtavissa taitettavina accordioneina.",
+          'Aiemmat äänestykset eivät enää katoa sulkemisen jälkeen. Kaikki pelaajat näkevät uuden "Aiemmat äänestykset" -osion, jossa vanhat äänestystulokset, tehtäväkortit ja keskustelut ovat selailtavissa taitettavina accordioneina.',
         link: { label: "Siirry operaatioihin", to: "/operaatiot" },
       },
       {
@@ -64,6 +64,11 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
       },
     ],
     minor: [
+      {
+        title: "Biome-linter ja rivinvaihtojen normalisointi",
+        description:
+          "Kaikkien työtilojen lint-skriptit yhdistetty Biomeen, rivinvaihdot normalisoitu LF-muotoon (.gitattributes) ja React-hookien sääntörikkomukset korjattu komponenttikirjastossa.",
+      },
       {
         title: "Painikkeet tiivistetty compact-kokoon",
         description:
@@ -373,8 +378,7 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
           "19 temaattista, käsin piirrettyä SVG-kuvaketta korvaavat vastaavat Lucide-kuvakkeet. Kuvakkeet ladataan yhdellä sprite-tiedostolla, mikä parantaa suorituskykyä ja antaa sovellukselle oman visuaalisen identiteetin.",
       },
     ],
-    major: [
-    ],
+    major: [],
     minor: [
       {
         title: "Kuvakkeiden automaattinen koontiskripti",
@@ -384,7 +388,7 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
       {
         title: "Icon-komponentti uudistettu",
         description:
-          "Icon-komponentti reitittää automaattisesti omat kuvakkeet sprite-tiedostosta ja muut Lucide Reactista. API pysyy ennallaan — <Icon name=\"...\" /> toimii kuten ennenkin, mutta taustalla käytetään nyt temaattisia kuvakkeita aina kun saatavilla.",
+          'Icon-komponentti reitittää automaattisesti omat kuvakkeet sprite-tiedostosta ja muut Lucide Reactista. API pysyy ennallaan — <Icon name="..." /> toimii kuten ennenkin, mutta taustalla käytetään nyt temaattisia kuvakkeita aina kun saatavilla.',
       },
       {
         title: "Navigaatiokuvakkeet vaihdettu",
@@ -462,8 +466,7 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
       },
       {
         title: "Select compact -koko",
-        description:
-          "Select-komponenttiin lisätty compact-kokovariantti tiiviihin asetteluun.",
+        description: "Select-komponenttiin lisätty compact-kokovariantti tiiviihin asetteluun.",
       },
       {
         title: "AspectTag name -variantti",
