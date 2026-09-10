@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 
 const meta = {
   title: "Suunnittelujarjestelma/Perustat/Colors",
@@ -82,21 +81,22 @@ const colorData = {
 // Accessibility Contrast Helpers
 function hexToRgb(hex: string) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1]!, 16),
-        g: parseInt(result[2]!, 16),
-        b: parseInt(result[3]!, 16),
-      }
-    : { r: 0, g: 0, b: 0 };
+  if (!result || !result[1] || !result[2] || !result[3]) {
+    return { r: 0, g: 0, b: 0 };
+  }
+  return {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16),
+  };
 }
 
 function getLuminance(r: number, g: number, b: number) {
-  const a = [r, g, b].map((v) => {
-    v /= 255;
-    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  const [lr = 0, lg = 0, lb = 0] = [r, g, b].map((v) => {
+    const norm = v / 255;
+    return norm <= 0.03928 ? norm / 12.92 : ((norm + 0.055) / 1.055) ** 2.4;
   });
-  return a[0]! * 0.2126 + a[1]! * 0.7152 + a[2]! * 0.0722;
+  return lr * 0.2126 + lg * 0.7152 + lb * 0.0722;
 }
 
 function getContrast(hex1: string, hex2: string) {
@@ -152,7 +152,7 @@ const ColorScale = ({
   // Utility for text color on scales. Lighter colors get dark text, darker colors get light text.
   // We already know middle gets dark text due to our generation rules.
   const getTextForWeight = (weight: string) =>
-    parseInt(weight) < 500 ? "#0f0f13" : foregroundColor;
+    parseInt(weight, 10) < 500 ? "#0f0f13" : foregroundColor;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "3rem" }}>
@@ -409,7 +409,7 @@ export const Chart: Story = {
           key={name}
           name={name}
           scale={scale}
-          foregroundColor={(colorData.foreground as any)[name]}
+          foregroundColor={(colorData.foreground as Record<string, string>)[name] ?? ""}
         />
       ))}
 

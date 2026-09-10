@@ -4,9 +4,22 @@ import { vi } from "vitest";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import { MonkPowersService } from "./monk-powers.service";
 
+type MockDb = {
+  select: ReturnType<typeof vi.fn>;
+  from: ReturnType<typeof vi.fn>;
+  where: ReturnType<typeof vi.fn>;
+  orderBy: ReturnType<typeof vi.fn>;
+  insert: ReturnType<typeof vi.fn>;
+  values: ReturnType<typeof vi.fn>;
+  returning: ReturnType<typeof vi.fn>;
+  update: ReturnType<typeof vi.fn>;
+  set: ReturnType<typeof vi.fn>;
+  delete: ReturnType<typeof vi.fn>;
+};
+
 describe("MonkPowersService", () => {
   let service: MonkPowersService;
-  let mockDb: any;
+  let mockDb: MockDb;
 
   beforeEach(async () => {
     mockDb = {

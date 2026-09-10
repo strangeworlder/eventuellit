@@ -191,7 +191,7 @@ export const Spacing: Story = {
           {Object.entries(spacingScale).map(([name, value]) => {
             // Calculate pixel value solely for visualizing the bar width
             const pxMatch = value.match(/(\d+)px/);
-            const pxValue = pxMatch ? parseInt(pxMatch[1]!, 10) : name === "0" ? 0 : 1;
+            const pxValue = pxMatch?.[1] ? parseInt(pxMatch[1], 10) : name === "0" ? 0 : 1;
 
             return (
               <div key={name} className="flex items-center gap-4 text-sm">

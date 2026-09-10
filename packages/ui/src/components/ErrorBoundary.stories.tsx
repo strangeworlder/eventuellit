@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "./Button";
 import { ErrorBoundary } from "./ErrorBoundary";
 

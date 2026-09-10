@@ -85,8 +85,6 @@ export const QuickViewPanel = React.forwardRef<HTMLDivElement, QuickViewPanelPro
     return ReactDOM.createPortal(
       <div className="fixed inset-0 z-50 flex items-stretch justify-end" aria-hidden={!open}>
         {/* Backdrop */}
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: backdrop click closes panel; Escape is handled via window listener */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: backdrop click closes panel */}
         <div
           className="absolute inset-0 bg-black/60 transition-opacity"
           onClick={onClose}
@@ -94,7 +92,6 @@ export const QuickViewPanel = React.forwardRef<HTMLDivElement, QuickViewPanelPro
         />
 
         {/* Panel */}
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation prevents backdrop close when clicking panel */}
         <div
           ref={(node) => {
             panelRef.current = node;
@@ -112,7 +109,6 @@ export const QuickViewPanel = React.forwardRef<HTMLDivElement, QuickViewPanelPro
             "shadow-[var(--shadow-floating)]",
             sizeClasses[size],
           )}
-          onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <div className="flex items-start justify-between gap-4 border-b border-[var(--theme-border-soft)] px-6 py-4 shrink-0">

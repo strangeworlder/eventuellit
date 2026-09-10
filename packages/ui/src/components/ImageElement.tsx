@@ -235,16 +235,12 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
       setIsModalOpen(false);
     }, []);
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: reset loaded state when src changes
     React.useEffect(() => {
       setIsLoaded(false);
-    }, [resolvedSrc, resolvedSourcesKey]);
-
-    // biome-ignore lint/correctness/useExhaustiveDependencies: re-check if new src is already cached
-    React.useEffect(() => {
       if (imgRef.current?.complete) {
         setIsLoaded(true);
       }
+      void (resolvedSrc && resolvedSourcesKey);
     }, [resolvedSrc, resolvedSourcesKey]);
 
     React.useEffect(() => {
@@ -331,21 +327,22 @@ export const ImageElement = React.forwardRef<HTMLElement, ImageElementProps>(
     const modalContent =
       isModalOpen && typeof document !== "undefined"
         ? ReactDOM.createPortal(
-            // biome-ignore lint/a11y/useKeyWithClickEvents: backdrop click closes modal, keyboard Escape is handled globally
-            // biome-ignore lint/a11y/noStaticElementInteractions: backdrop click handler
             <div
               data-theme={modalDataTheme ?? dataThemeProp ?? childTheme}
-              className="fixed inset-0 z-50 desktop:z-50 max-desktop:z-50 flex items-center justify-center bg-black/80 p-4"
-              onClick={closeModal}
+              className="fixed inset-0 z-50 desktop:z-50 max-desktop:z-50 flex items-center justify-center p-4"
             >
-              {/* biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation prevents backdrop close when clicking inside dialog */}
+              <button
+                type="button"
+                aria-label="Sulje kuva"
+                className="fixed inset-0 bg-black/80 border-none cursor-pointer"
+                onClick={closeModal}
+              />
               <div
                 role="dialog"
                 aria-modal="true"
                 aria-label={`Kuvan tarkastelu: ${safeAlt}`}
                 aria-describedby={caption ? captionId : undefined}
-                className="relative flex max-h-[95vh] w-full max-w-6xl flex-col gap-3 rounded-xl border border-[var(--theme-secondary)] bg-[var(--theme-bg)] p-3 shadow-2xl"
-                onClick={(event) => event.stopPropagation()}
+                className="relative z-10 flex max-h-[95vh] w-full max-w-6xl flex-col gap-3 rounded-xl border border-[var(--theme-secondary)] bg-[var(--theme-bg)] p-3 shadow-2xl"
               >
                 <Button
                   ref={closeButtonRef}

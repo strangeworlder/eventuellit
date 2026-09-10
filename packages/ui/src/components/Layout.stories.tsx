@@ -65,8 +65,8 @@ export const PinoKeskitetty: Story = {
 export const Ruudukko: Story = {
   render: () => (
     <Grid cols={3} gap={4} className="max-w-lg">
-      {Array.from({ length: 6 }, (_, i) => (
-        <Boksi key={i}>Solu {i + 1}</Boksi>
+      {["Solu 1", "Solu 2", "Solu 3", "Solu 4", "Solu 5", "Solu 6"].map((solu) => (
+        <Boksi key={solu}>{solu}</Boksi>
       ))}
     </Grid>
   ),

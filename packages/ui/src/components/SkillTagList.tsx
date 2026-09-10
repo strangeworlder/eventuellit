@@ -110,7 +110,6 @@ export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(
                         if (e.key === "Enter") saveEditing();
                         if (e.key === "Escape") cancelEditing();
                       }}
-                      // biome-ignore lint/a11y/noAutofocus: intentional for edit mode
                       autoFocus
                     />
                     {showCustomToggle && (

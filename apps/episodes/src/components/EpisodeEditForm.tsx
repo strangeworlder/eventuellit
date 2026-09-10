@@ -59,7 +59,10 @@ export function EpisodeEditForm({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: name === "order" ? parseInt(value) || 0 : value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "order" ? parseInt(value, 10) || 0 : value,
+    }));
   };
 
   return (

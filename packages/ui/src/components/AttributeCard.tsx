@@ -19,18 +19,23 @@ export function getDiceFromValue(value: number): (4 | 6 | 8 | 10 | 12 | 20)[] {
   let remainder = value;
 
   for (let i = 0; i < DIE_HIERARCHY.length; i++) {
+    const die = DIE_HIERARCHY[i];
+    if (die === undefined) break;
     const count = remainder % 3;
     for (let j = 0; j < count; j++) {
-      dice.push(DIE_HIERARCHY[i]!);
+      dice.push(die);
     }
     remainder = Math.floor(remainder / 3);
     if (remainder === 0) break;
   }
 
   // Any excess flows into the highest die type (d20)
-  while (remainder > 0) {
-    dice.push(DIE_HIERARCHY[DIE_HIERARCHY.length - 1]!);
-    remainder--;
+  const highestDie = DIE_HIERARCHY[DIE_HIERARCHY.length - 1];
+  if (highestDie !== undefined) {
+    while (remainder > 0) {
+      dice.push(highestDie);
+      remainder--;
+    }
   }
 
   // Sort descending to show larger dice first (common RPG convention)

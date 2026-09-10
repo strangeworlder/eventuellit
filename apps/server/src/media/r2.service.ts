@@ -89,8 +89,9 @@ export class R2Service {
         chunks.push(chunk);
       }
       return Buffer.concat(chunks);
-    } catch (err: any) {
-      if (err?.name === "NoSuchKey" || err?.$metadata?.httpStatusCode === 404) {
+    } catch (err) {
+      const awsErr = err as { name?: string; $metadata?: { httpStatusCode?: number } };
+      if (awsErr?.name === "NoSuchKey" || awsErr?.$metadata?.httpStatusCode === 404) {
         return null;
       }
       throw err;

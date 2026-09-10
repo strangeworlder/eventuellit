@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs";
 

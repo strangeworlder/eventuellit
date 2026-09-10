@@ -130,7 +130,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }
         data-theme={theme}
         data-text={obscuredLabel}
-        disabled={isDisabled}
+        disabled={shouldRenderLoadingTooltip ? undefined : isDisabled}
         aria-disabled={isDisabled || undefined}
         aria-busy={loading || undefined}
         aria-describedby={mergedAriaDescribedBy}
@@ -240,13 +240,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <span data-theme={theme} className="relative inline-flex">
-        <span
-          // biome-ignore lint/a11y/noNoninteractiveTabindex: wrapper allows keyboard focus for tooltip when button is disabled/loading
-          tabIndex={0}
-          className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]"
-        >
-          {buttonElement}
-        </span>
+        {buttonElement}
         <AnchoredTooltip id={tooltipId} variant="button-loading" placement="top">
           {loadingMessage}
         </AnchoredTooltip>

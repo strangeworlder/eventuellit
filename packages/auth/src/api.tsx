@@ -49,7 +49,7 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
   const token = localStorage.getItem("auth_token");
   const headers: Record<string, string> = {};
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+    headers.Authorization = `Bearer ${token}`;
   }
 
   const response = await fetch(`${getApiBaseUrl()}/auth/me`, {
@@ -73,7 +73,7 @@ export async function logout(): Promise<void> {
   const token = localStorage.getItem("auth_token");
   const headers: Record<string, string> = {};
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+    headers.Authorization = `Bearer ${token}`;
   }
 
   const response = await fetch(`${getApiBaseUrl()}/auth/logout`, {
@@ -93,7 +93,7 @@ export async function exportMyData(): Promise<unknown> {
   const token = localStorage.getItem("auth_token");
   const headers: Record<string, string> = {};
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+    headers.Authorization = `Bearer ${token}`;
   }
 
   const response = await fetch(`${getApiBaseUrl()}/auth/my-data`, {
@@ -113,7 +113,7 @@ export async function deleteMyAccount(): Promise<void> {
   const token = localStorage.getItem("auth_token");
   const headers: Record<string, string> = {};
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+    headers.Authorization = `Bearer ${token}`;
   }
 
   const response = await fetch(`${getApiBaseUrl()}/auth/my-account`, {

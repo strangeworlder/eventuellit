@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import { ActiveStatBlock } from "./ActiveStatBlock";
+import type { Theme } from "./Theme";
 
 const meta = {
   title: "Suunnittelujarjestelma/Molekyylit/ActiveStatBlock",
@@ -18,12 +19,16 @@ const meta = {
       control: "select",
       options: [
         "base",
-        "inverted",
-        "primary-light",
+        "red",
+        "blue",
+        "green",
+        "yellow",
+        "purple",
+        "primary",
+        "secondary",
+        "accent",
         "primary-dark",
-        "secondary-light",
         "secondary-dark",
-        "accent-light",
         "accent-dark",
       ],
     },
@@ -38,7 +43,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Interactive wrapper for Storybook
-const InteractiveStatBlock = (props: any) => {
+const InteractiveStatBlock = (props: React.ComponentProps<typeof ActiveStatBlock>) => {
   const [value, setValue] = useState(props.value || 0);
 
   return (
@@ -120,7 +125,7 @@ export const ThemeShowcase: Story = {
         {themes.map((theme) => (
           <InteractiveStatBlock
             key={theme}
-            theme={theme as any}
+            theme={theme as Theme}
             label={theme}
             value={10}
             maxValue={20}

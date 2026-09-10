@@ -6,7 +6,6 @@ import { cn } from "./utils";
 /** Returns a stable map of item-id → glitch CSS vars, seeded once per unique id. */
 function useGlitchSeeds(ids: Array<string | number>): Map<string, React.CSSProperties> {
   const cache = useRef(new Map<string, React.CSSProperties>());
-  // biome-ignore lint/correctness/useExhaustiveDependencies: ids.join(",") prevents unnecessary recomputation from new array references
   return useMemo(() => {
     const next = new Map<string, React.CSSProperties>();
     for (const id of ids) {
@@ -26,7 +25,7 @@ function useGlitchSeeds(ids: Array<string | number>): Map<string, React.CSSPrope
     }
     cache.current = next;
     return next;
-  }, [ids.join(",")]);
+  }, [ids]);
 }
 
 export interface SkillItem {
@@ -89,7 +88,10 @@ function optimalOrder<T extends { name: string }>(items: T[]): T[] {
   let hi = sorted.length - 1;
   let pickLong = true;
   while (lo <= hi) {
-    result.push(pickLong ? sorted[hi--]! : sorted[lo++]!);
+    const item = pickLong ? sorted[hi--] : sorted[lo++];
+    if (item) {
+      result.push(item);
+    }
     pickLong = !pickLong;
   }
   return result;

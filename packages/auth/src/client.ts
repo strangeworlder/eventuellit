@@ -22,7 +22,7 @@ export class ApiError extends Error {
 function getAuthHeaders(includeContentType = true): Record<string, string> {
   const headers: Record<string, string> = {};
   const token = localStorage.getItem(AUTH_TOKEN_KEY);
-  if (token) headers["Authorization"] = `Bearer ${token}`;
+  if (token) headers.Authorization = `Bearer ${token}`;
   if (includeContentType) headers["Content-Type"] = "application/json";
   return headers;
 }

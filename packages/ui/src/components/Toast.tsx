@@ -229,8 +229,7 @@ export function ToastProvider({
   const portal =
     typeof document !== "undefined"
       ? ReactDOM.createPortal(
-          <div
-            role="region"
+          <section
             aria-label="Ilmoitukset"
             data-theme={portalTheme}
             className={cn(
@@ -243,7 +242,7 @@ export function ToastProvider({
                 <ToastCard item={item} onDismiss={dismiss} />
               </div>
             ))}
-          </div>,
+          </section>,
           document.body,
         )
       : null;

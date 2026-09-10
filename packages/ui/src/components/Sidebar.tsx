@@ -72,48 +72,46 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     return (
       <SidebarContext.Provider value={{ expanded, setExpanded }}>
-        <>
-          {/* Mobile Backdrop */}
-          {expanded && (
-            // biome-ignore lint/a11y/noStaticElementInteractions: backdrop click handler
-            <div
-              className="desktop:hidden fixed inset-0 z-40 bg-black/50 transition-opacity"
-              onClick={() => setExpanded(false)}
-              onKeyDown={(e) => e.key === "Escape" && setExpanded(false)}
-            />
+        {/* Mobile Backdrop */}
+        {expanded && (
+          <button
+            type="button"
+            aria-label="Sulje valikko"
+            className="desktop:hidden fixed inset-0 z-40 bg-black/50 transition-opacity border-none cursor-pointer"
+            onClick={() => setExpanded(false)}
+          />
+        )}
+        <aside
+          ref={ref}
+          data-theme={theme}
+          className={cn(
+            "h-full flex flex-col bg-[var(--theme-bg)] desktop:bg-transparent border-r border-[var(--theme-secondary)] transition-all relative text-[var(--theme-secondary)] z-50",
+            expanded
+              ? "duration-300 ease-out" // expand: snappy
+              : "duration-500 ease-in", // collapse: gentle
+            // Mobile behavior: fixed, off-canvas, slide in
+            "max-desktop:fixed max-desktop:top-0 max-desktop:bottom-0 max-desktop:left-0 max-desktop:w-64 max-desktop:z-50",
+            !expanded && "max-desktop:-translate-x-full",
+            expanded && "max-desktop:translate-x-0 max-desktop:shadow-2xl",
+            // Desktop behavior
+            !expanded && "desktop:w-16",
+            expanded && "desktop:w-64",
+            className,
           )}
-          <aside
-            ref={ref}
-            data-theme={theme}
+          {...props}
+        >
+          {children}
+          <Button
+            variant="chevron"
+            chevronDirection={expanded ? "left" : "right"}
+            onClick={() => setExpanded((prev) => !prev)}
             className={cn(
-              "h-full flex flex-col bg-[var(--theme-bg)] desktop:bg-transparent border-r border-[var(--theme-secondary)] transition-all relative text-[var(--theme-secondary)] z-50",
-              expanded
-                ? "duration-300 ease-out" // expand: snappy
-                : "duration-500 ease-in", // collapse: gentle
-              // Mobile behavior: fixed, off-canvas, slide in
-              "max-desktop:fixed max-desktop:top-0 max-desktop:bottom-0 max-desktop:left-0 max-desktop:w-64 max-desktop:z-50",
-              !expanded && "max-desktop:-translate-x-full",
-              expanded && "max-desktop:translate-x-0 max-desktop:shadow-2xl",
-              // Desktop behavior
-              !expanded && "desktop:w-16",
-              expanded && "desktop:w-64",
-              className,
+              "absolute top-4 opacity-100 z-10",
+              expanded ? "-right-3" : "max-desktop:right-0 desktop:-right-3",
             )}
-            {...props}
-          >
-            {children}
-            <Button
-              variant="chevron"
-              chevronDirection={expanded ? "left" : "right"}
-              onClick={() => setExpanded((prev) => !prev)}
-              className={cn(
-                "absolute top-4 opacity-100 z-10",
-                expanded ? "-right-3" : "max-desktop:right-0 desktop:-right-3",
-              )}
-              aria-label={expanded ? "Supista sivupalkki" : "Laajenna sivupalkki"}
-            />
-          </aside>
-        </>
+            aria-label={expanded ? "Supista sivupalkki" : "Laajenna sivupalkki"}
+          />
+        </aside>
       </SidebarContext.Provider>
     );
   },

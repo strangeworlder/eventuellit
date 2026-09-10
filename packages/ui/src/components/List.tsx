@@ -11,20 +11,28 @@ export interface ListProps extends React.HTMLAttributes<HTMLUListElement | HTMLO
  */
 export const List = React.forwardRef<HTMLUListElement | HTMLOListElement, ListProps>(
   ({ className, as: Component = "ul", variant = "default", ...props }, ref) => {
+    const listClasses = cn(
+      "text-[var(--theme-text)] space-y-2 mb-4",
+      {
+        "list-disc ml-6": Component === "ul" && variant === "default",
+        "list-decimal ml-6": Component === "ol" && variant === "default",
+        "list-none ml-0": variant === "unbulleted",
+      },
+      className,
+    );
+
+    if (Component === "ol") {
+      return (
+        <ol
+          ref={ref as React.ForwardedRef<HTMLOListElement>}
+          className={listClasses}
+          {...(props as React.OlHTMLAttributes<HTMLOListElement>)}
+        />
+      );
+    }
+
     return (
-      <Component
-        ref={ref as React.Ref<any>}
-        className={cn(
-          "text-[var(--theme-text)] space-y-2 mb-4",
-          {
-            "list-disc ml-6": Component === "ul" && variant === "default",
-            "list-decimal ml-6": Component === "ol" && variant === "default",
-            "list-none ml-0": variant === "unbulleted",
-          },
-          className,
-        )}
-        {...props}
-      />
+      <ul ref={ref as React.ForwardedRef<HTMLUListElement>} className={listClasses} {...props} />
     );
   },
 );

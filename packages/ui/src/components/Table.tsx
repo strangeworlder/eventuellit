@@ -24,6 +24,8 @@ export interface TableProps<T extends Record<string, unknown>> {
   columns: TableColumn<T>[];
   /** Row data. Each object must contain at least the keys referenced by `columns`. */
   data: T[];
+  /** Optional function or property name to extract a unique key for each row. */
+  rowKey?: ((row: T) => React.Key) | (keyof T & string);
   /** Accessible caption rendered below the table. */
   caption?: string;
   /**
@@ -56,6 +58,7 @@ export const Table = React.forwardRef(function TableInner<T extends Record<strin
   {
     columns,
     data,
+    rowKey,
     caption,
     variant = "default",
     striped = false,
@@ -69,6 +72,23 @@ export const Table = React.forwardRef(function TableInner<T extends Record<strin
   const cellPx = isCompact ? "px-3" : "px-4";
   const cellPy = isCompact ? "py-1.5" : "py-3";
   const headPy = isCompact ? "py-2" : "py-3";
+
+  const getRowKey = (row: T, index: number): React.Key => {
+    if (rowKey) {
+      return typeof rowKey === "function" ? rowKey(row) : String(row[rowKey]);
+    }
+    if ("id" in row && (typeof row.id === "string" || typeof row.id === "number")) {
+      return row.id;
+    }
+    if ("key" in row && (typeof row.key === "string" || typeof row.key === "number")) {
+      return row.key;
+    }
+    const firstCol = columns[0]?.key;
+    if (firstCol && (typeof row[firstCol] === "string" || typeof row[firstCol] === "number")) {
+      return `row-${row[firstCol]}`;
+    }
+    return `table-row-${index}`;
+  };
 
   return (
     <div
@@ -124,9 +144,7 @@ export const Table = React.forwardRef(function TableInner<T extends Record<strin
             const isLastRow = rowIndex === data.length - 1;
             return (
               <tr
-                // Row objects may lack a stable id; index is acceptable for static tables
-                // biome-ignore lint/suspicious/noArrayIndexKey: generic static table rows may lack a unique identifier
-                key={rowIndex}
+                key={getRowKey(row, rowIndex)}
                 className={cn(
                   "transition-colors hover:bg-[var(--theme-surface-tint)]",
                   striped && rowIndex % 2 === 1

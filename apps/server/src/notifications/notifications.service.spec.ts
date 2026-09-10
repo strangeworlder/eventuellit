@@ -21,8 +21,7 @@ function createMockDb(overrides: Record<string, unknown> = {}) {
   }
   if (overrides.returning) chain.returning = overrides.returning;
   if (overrides.where) chain.where = overrides.where;
-  // biome-ignore lint/suspicious/noExplicitAny: test mock requires any for Drizzle DB type
-  return chain as any;
+  return chain as unknown as ConstructorParameters<typeof NotificationsService>[0];
 }
 
 describe("NotificationsService", () => {

@@ -133,15 +133,17 @@ export const DicePoolAllocator = React.forwardRef<HTMLDivElement, DicePoolAlloca
 
                     {/* Allocated dice tokens */}
                     <div className="flex flex-wrap gap-2 items-center flex-1 min-h-[40px]">
-                      {Array.from({ length: allocation[axis] || 0 }).map((_, i) => (
-                        <DiceIcon
-                          key={`${axis}-dice-${i}`}
-                          faces={20}
-                          size="md"
-                          active={true}
-                          className="-rotate-3 hover:rotate-0 transition-transform"
-                        />
-                      ))}
+                      {Array.from({ length: 50 }, (_, n) => `${axis}-token-${n + 1}`)
+                        .slice(0, allocation[axis] || 0)
+                        .map((tokenKey) => (
+                          <DiceIcon
+                            key={tokenKey}
+                            faces={20}
+                            size="md"
+                            active={true}
+                            className="-rotate-3 hover:rotate-0 transition-transform"
+                          />
+                        ))}
                       {(allocation[axis] || 0) === 0 && (
                         <span className="text-sm text-text-subtle italic whitespace-nowrap">
                           — Ei noppia —

@@ -23,9 +23,12 @@ export class SessionRecapsController {
 
   @UseGuards(OptionalJwtAuthGuard)
   @Get()
-  findBySession(@Query("sessionId", ParseIntPipe) sessionId: number, @Req() req: Request) {
+  findBySession(
+    @Query("sessionId", ParseIntPipe) sessionId: number,
+    @Req() req: Request & { user?: { id: number; role: string } },
+  ) {
     // OptionalJwtAuthGuard may or may not populate req.user
-    const user: { id: number; role: string } | undefined = (req as any).user;
+    const user = req.user;
     return this.sessionRecapsService.findBySession(sessionId, user ?? null);
   }
 

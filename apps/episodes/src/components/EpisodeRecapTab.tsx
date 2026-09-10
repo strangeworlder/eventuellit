@@ -99,10 +99,10 @@ export function EpisodeRecapTab({ episode, sessions, isLoading }: EpisodeRecapTa
             <Text variant="muted">
               Kertauksia ei ole vielä saatavilla — pelatut sessiot näkyvät täällä julkaisun jälkeen.
             </Text>
-            <SessionTimeline sessions={sessions!} episodeId={episode.id} />
+            <SessionTimeline sessions={sessions ?? []} episodeId={episode.id} />
           </Stack>
         ) : (
-          <SessionTimeline sessions={sessions!} episodeId={episode.id} />
+          <SessionTimeline sessions={sessions ?? []} episodeId={episode.id} />
         )}
       </Stack>
     </Stack>

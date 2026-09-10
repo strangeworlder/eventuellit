@@ -50,10 +50,20 @@ function isSameDay(a: Date, b: Date): boolean {
   );
 }
 
+interface CalendarCell {
+  id: string;
+  date: Date | null;
+}
+
+interface CalendarRow {
+  id: string;
+  cells: CalendarCell[];
+}
+
 /** Returns the calendar grid rows for a given month.
  *  Week starts on Monday (Finnish locale). Each cell is a Date or null for padding.
  */
-function buildCalendarGrid(year: number, month: number): (Date | null)[][] {
+function buildCalendarGrid(year: number, month: number): CalendarRow[] {
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
 
@@ -61,15 +71,21 @@ function buildCalendarGrid(year: number, month: number): (Date | null)[][] {
   const startDow = (firstDay.getDay() + 6) % 7;
   const daysInMonth = lastDay.getDate();
 
-  const cells: (Date | null)[] = [];
+  const rawCells: (Date | null)[] = [];
+  for (let i = 0; i < startDow; i++) rawCells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) rawCells.push(new Date(year, month, d));
+  while (rawCells.length % 7 !== 0) rawCells.push(null);
 
-  for (let i = 0; i < startDow; i++) cells.push(null);
-  for (let d = 1; d <= daysInMonth; d++) cells.push(new Date(year, month, d));
-
-  while (cells.length % 7 !== 0) cells.push(null);
-
-  const rows: (Date | null)[][] = [];
-  for (let i = 0; i < cells.length; i += 7) rows.push(cells.slice(i, i + 7));
+  const rows: CalendarRow[] = [];
+  for (let r = 0; r < rawCells.length / 7; r++) {
+    const slice = rawCells.slice(r * 7, (r + 1) * 7);
+    const rowId = `cal-row-${year}-${month}-${r}`;
+    const cells: CalendarCell[] = slice.map((date, c) => ({
+      id: date ? `date-${toIso(date)}` : `empty-slot-${year}-${month}-${r}-${c}`,
+      date,
+    }));
+    rows.push({ id: rowId, cells });
+  }
   return rows;
 }
 
@@ -380,18 +396,13 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
 
                 {/* Day rows */}
                 <tbody>
-                  {grid.map((row, ri) => (
-                    <tr key={`week-${viewYear}-${viewMonth}-${ri}`} className="grid grid-cols-7">
-                      {row.map((day, di) => {
-                        if (!day) {
-                          return (
-                            <td
-                              key={`empty-${viewYear}-${viewMonth}-${ri}-${di}`}
-                              aria-disabled="true"
-                              className="h-8"
-                            />
-                          );
+                  {grid.map((row) => (
+                    <tr key={row.id} className="grid grid-cols-7">
+                      {row.cells.map((cell) => {
+                        if (!cell.date) {
+                          return <td key={cell.id} aria-disabled="true" className="h-8" />;
                         }
+                        const day = cell.date;
                         const iso = toIso(day);
                         const isSelected = selectedDate ? isSameDay(day, selectedDate) : false;
                         const isToday = isSameDay(day, today);
@@ -399,7 +410,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                         const outOfRange = isOutOfRange(day);
 
                         return (
-                          <td key={iso}>
+                          <td key={cell.id}>
                             <button
                               type="button"
                               data-date={iso}

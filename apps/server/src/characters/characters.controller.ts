@@ -11,7 +11,6 @@ import {
 } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { type AuthUser, CurrentUser } from "../auth/current-user.decorator";
-import { Roles, RolesGuard } from "../auth/roles.guard";
 import { CharactersService } from "./characters.service";
 import { AdvanceCharacterDto } from "./dto/advance-character.dto";
 import { AdvanceMonkDto } from "./dto/advance-monk.dto";

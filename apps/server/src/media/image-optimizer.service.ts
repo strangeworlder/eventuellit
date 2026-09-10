@@ -33,7 +33,7 @@ export class ImageOptimizerService {
   async optimize(
     buffer: Buffer,
     originalFilename: string,
-    context: string,
+    _context: string,
   ): Promise<OptimizeResult> {
     const meta = await sharp(buffer).metadata();
     const origWidth = meta.width ?? 800;

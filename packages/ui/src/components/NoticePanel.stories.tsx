@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 import { Button } from "./Button";
 import { GameTerm } from "./GameTerm";
 import { NoticePanel } from "./NoticePanel";

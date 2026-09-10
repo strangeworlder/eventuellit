@@ -382,17 +382,16 @@ export const StationConnections = React.forwardRef<HTMLDivElement, StationConnec
       }
 
       const anchorId = `--station-node-${node.direction}`;
+      const station = node.station;
 
       return (
         <div className="group flex flex-col items-center gap-1 relative">
-          {node.station ? (
+          {station ? (
             <button
               type="button"
               className="station-node-btn block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-accent)] rounded-sm cursor-pointer"
               aria-label={`Siirry asemalle ${node.title}`}
-              onClick={
-                interactive ? () => handleStationClick(node.station!, node.direction) : undefined
-              }
+              onClick={interactive ? () => handleStationClick(station, node.direction) : undefined}
               style={
                 {
                   "--theme-primary": color,
@@ -403,7 +402,7 @@ export const StationConnections = React.forwardRef<HTMLDivElement, StationConnec
             >
               <DiceIcon
                 faces={20}
-                value={node.station.order}
+                value={station.order}
                 size="md"
                 active
                 className="hover:scale-110 transition-transform duration-200"

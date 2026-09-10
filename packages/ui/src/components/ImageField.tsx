@@ -80,8 +80,8 @@ export function ImageField({
       try {
         const result = await onUpload(file);
         onChange(result);
-      } catch (err: any) {
-        setUploadError(err?.message ?? "Lataus epäonnistui");
+      } catch (err) {
+        setUploadError(err instanceof Error ? err.message : "Lataus epäonnistui");
       }
     },
     [onUpload, onChange],
@@ -191,26 +191,19 @@ export function ImageField({
 
       {/* Upload tab */}
       {activeTab === "upload" && (
-        <div
+        <button
+          type="button"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onClick={() => fileInputRef.current?.click()}
           className={cn(
-            "flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-sm border-2 border-dashed cursor-pointer transition-all",
+            "w-full flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-sm border-2 border-dashed cursor-pointer transition-all text-left font-normal",
             isDragOver
               ? "border-[var(--theme-primary)] bg-[var(--theme-surface-tint)]"
               : "border-[var(--theme-border-medium)] bg-[var(--theme-bg)] hover:border-[var(--theme-primary)]/60",
             uploading && "pointer-events-none opacity-60",
           )}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              fileInputRef.current?.click();
-            }
-          }}
         >
           {uploading ? (
             <>
@@ -234,7 +227,7 @@ export function ImageField({
             className="hidden"
             tabIndex={-1}
           />
-        </div>
+        </button>
       )}
 
       {displayError && <FieldError>{displayError}</FieldError>}

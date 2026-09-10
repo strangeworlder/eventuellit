@@ -2,15 +2,16 @@ import "reflect-metadata";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { vi } from "vitest";
 import { JwtAuthGuard } from "../auth/auth.guard";
+import type { AuthUser } from "../auth/current-user.decorator";
 import { CharactersController } from "./characters.controller";
 import { CharactersService } from "./characters.service";
 
 describe("CharactersController", () => {
   let controller: CharactersController;
-  let service: any;
+  let service: Record<string, ReturnType<typeof vi.fn>>;
 
-  const mockUser = { id: 1, role: "player", email: "p@test.com", username: "p" };
-  const mockReq = mockUser as any;
+  const mockUser: AuthUser = { id: 1, role: "player", email: "p@test.com", username: "p" };
+  const mockReq = mockUser;
 
   beforeEach(async () => {
     service = {
@@ -26,7 +27,7 @@ describe("CharactersController", () => {
       remove: vi.fn().mockResolvedValue(undefined),
     };
 
-    const module: TestingModule = await Test.createTestingModule({
+    const _module: TestingModule = await Test.createTestingModule({
       controllers: [CharactersController],
       providers: [
         {
@@ -39,7 +40,7 @@ describe("CharactersController", () => {
       .useValue({ canActivate: () => true })
       .compile();
 
-    controller = new CharactersController(service);
+    controller = new CharactersController(service as unknown as CharactersService);
   });
 
   it("should be defined", () => {

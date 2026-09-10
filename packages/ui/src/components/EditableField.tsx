@@ -115,7 +115,7 @@ export const EditableField = React.forwardRef<HTMLDivElement, EditableFieldProps
     const [editing, setEditing] = React.useState(false);
     const [draft, setDraft] = React.useState(value);
     // Keep a ref to the trigger so focus can be returned after cancel/save
-    const triggerRef = React.useRef<HTMLSpanElement>(null);
+    const triggerRef = React.useRef<HTMLButtonElement>(null);
 
     // Sync draft when value prop changes while not editing (e.g. optimistic mutation)
     React.useEffect(() => {
@@ -203,7 +203,6 @@ export const EditableField = React.forwardRef<HTMLDivElement, EditableFieldProps
                   setEditing(false);
                   requestAnimationFrame(() => triggerRef.current?.focus());
                 }}
-                // biome-ignore lint/a11y/noAutofocus: intentional — edit mode opens inline
                 autoFocus
               />
               <div className="flex items-center gap-3 mt-1">
@@ -223,7 +222,6 @@ export const EditableField = React.forwardRef<HTMLDivElement, EditableFieldProps
                 onKeyDown={(e) => {
                   if (e.key === "Escape") cancel();
                 }}
-                // biome-ignore lint/a11y/noAutofocus: intentional — edit mode opens inline
                 autoFocus
               />
               <div className="flex items-center gap-3 mt-1">
@@ -246,7 +244,6 @@ export const EditableField = React.forwardRef<HTMLDivElement, EditableFieldProps
                   if (e.key === "Enter") save();
                   if (e.key === "Escape") cancel();
                 }}
-                // biome-ignore lint/a11y/noAutofocus: intentional — edit mode opens inline
                 autoFocus
               />
               <div className="flex items-center gap-3 mt-1">
@@ -276,25 +273,18 @@ export const EditableField = React.forwardRef<HTMLDivElement, EditableFieldProps
         {...props}
       >
         <FieldLabel obscured={isObscured}>{label}</FieldLabel>
-        {/* The trigger must be keyboard-accessible: role="button", tabIndex, Enter/Space handlers */}
-        <span
+        <button
           ref={triggerRef}
-          role="button"
-          tabIndex={isObscured ? -1 : 0}
+          type="button"
+          disabled={isObscured}
           aria-label={`Muokkaa kenttää: ${label}`}
           onClick={openEdit}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              openEdit();
-            }
-          }}
           data-text={
             isObscured ? obscureString(displayValue || displayPlaceholder || "") : undefined
           }
           style={isObscured ? glitchStyle : undefined}
           className={cn(
-            "text-[length:var(--font-size-sm)] text-[var(--theme-text)] cursor-pointer",
+            "text-left bg-transparent border-0 p-0 text-[length:var(--font-size-sm)] text-[var(--theme-text)] cursor-pointer",
             multiline && "whitespace-pre-wrap",
             // Hover: hint the field is interactive
             "hover:text-[var(--theme-secondary)] transition-colors duration-[var(--motion-duration-fast)] ease-[var(--motion-easing-default)]",
@@ -314,7 +304,7 @@ export const EditableField = React.forwardRef<HTMLDivElement, EditableFieldProps
               {isObscured ? obscureString(displayPlaceholder ?? "") : displayPlaceholder}
             </span>
           )}
-        </span>
+        </button>
       </div>
     );
   },

@@ -255,8 +255,8 @@ function RulesetArticleView({ page, basePath }: { page: MarkdownPage; basePath: 
 
   // Prev / next chapter
   const currentIndex = pages.findIndex((p) => p.id === page.id);
-  const prevPage = currentIndex > 0 ? pages[currentIndex - 1]! : null;
-  const nextPage = currentIndex < pages.length - 1 ? pages[currentIndex + 1]! : null;
+  const prevPage = currentIndex > 0 ? (pages[currentIndex - 1] ?? null) : null;
+  const nextPage = currentIndex < pages.length - 1 ? (pages[currentIndex + 1] ?? null) : null;
 
   return (
     <HeadingLevelProvider>
@@ -358,8 +358,8 @@ function RulesetRoutes() {
   // Dynamically determine the correct base path for absolute routing to avoid nesting issues
   const getBasePath = () => {
     const segments = pathname.split("/").filter(Boolean);
-    if (segments.length === 0) return "/";
-    const firstSegment = segments[0]!;
+    const firstSegment = segments[0];
+    if (!firstSegment) return "/";
     // If first segment matches a page ID or a known static route, we're mounted at root
     if (pages.some((p) => p.id === firstSegment) || STATIC_ROUTES.has(firstSegment)) return "/";
     // Otherwise, use the first segment as the mount point (e.g. "/ruleset")
@@ -400,8 +400,10 @@ function RulesetRoutes() {
         const delta = e.key === "ArrowRight" ? 1 : -1;
         const nextIndex = currentIndex + delta;
         if (nextIndex >= 0 && nextIndex < pages.length) {
-          const nextPage = pages[nextIndex]!;
-          navigate(basePath === "/" ? `/${nextPage.id}` : `${basePath}/${nextPage.id}`);
+          const nextPage = pages[nextIndex];
+          if (nextPage) {
+            navigate(basePath === "/" ? `/${nextPage.id}` : `${basePath}/${nextPage.id}`);
+          }
         }
       }
     };

@@ -5,7 +5,6 @@ import {
   Get,
   Logger,
   Post,
-  Req,
   Res,
   UnauthorizedException,
   UseGuards,

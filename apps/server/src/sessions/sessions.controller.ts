@@ -13,7 +13,6 @@ import {
 } from "@nestjs/common";
 import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
-import { type AuthUser, CurrentUser } from "../auth/current-user.decorator";
 import { OptionalJwtAuthGuard } from "../auth/optional-jwt-auth.guard";
 import { Roles, RolesGuard } from "../auth/roles.guard";
 import { EpisodePlayersService } from "../episode-players/episode-players.service";
@@ -30,8 +29,11 @@ export class SessionsController {
 
   @UseGuards(OptionalJwtAuthGuard)
   @Get()
-  async findByEpisode(@Query("episodeId", ParseIntPipe) episodeId: number, @Req() req: Request) {
-    const user: { id: number; role: string } | undefined = (req as any).user;
+  async findByEpisode(
+    @Query("episodeId", ParseIntPipe) episodeId: number,
+    @Req() req: Request & { user?: { id: number; role: string } },
+  ) {
+    const user = req.user;
     if (user) {
       await this.episodePlayersService.assertEnrolled(episodeId, user.id, user.role);
     }

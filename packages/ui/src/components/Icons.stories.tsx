@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 import { customIconNames } from "../generated/custom-icon-names";
 import { DiceIcon } from "./DiceIcon";
 import { Icon, type icons, lucideIcons } from "./Icon";

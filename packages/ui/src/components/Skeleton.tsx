@@ -74,13 +74,15 @@ export interface SkeletonTextProps {
 export function SkeletonText({ lines = 3, lastLineShort = true, className }: SkeletonTextProps) {
   return (
     <div className={cn("space-y-2", className)} aria-hidden="true">
-      {Array.from({ length: lines }).map((_, i) => (
-        <Skeleton
-          key={`skeleton-line-${i}`}
-          variant="text"
-          className={cn(lastLineShort && i === lines - 1 ? "max-w-[55%]" : "max-w-full")}
-        />
-      ))}
+      {Array.from({ length: 50 }, (_, n) => `skeleton-line-${n + 1}`)
+        .slice(0, lines)
+        .map((lineId, i) => (
+          <Skeleton
+            key={lineId}
+            variant="text"
+            className={cn(lastLineShort && i === lines - 1 ? "max-w-[55%]" : "max-w-full")}
+          />
+        ))}
     </div>
   );
 }

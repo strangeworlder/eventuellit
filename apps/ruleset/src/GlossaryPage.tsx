@@ -133,7 +133,9 @@ export function GlossaryPage({ basePath }: GlossaryPageProps) {
                             href="#"
                             onClick={(e) => {
                               e.preventDefault();
-                              handleSectionLink(entry.sectionPageId!, entry.sectionId!);
+                              if (entry.sectionPageId && entry.sectionId) {
+                                handleSectionLink(entry.sectionPageId, entry.sectionId);
+                              }
                             }}
                             className="text-sm"
                           >

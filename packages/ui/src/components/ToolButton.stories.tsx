@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import React from "react";
 import { Button } from "./Button";
 import { MarkdownRenderer } from "./Markdown";
 import { Text } from "./Text";

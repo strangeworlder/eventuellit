@@ -78,7 +78,7 @@ function GeneratorForm({
 
   const taidotCount = archetype ? TAIDOT_COUNTS[archetype] : 0;
   const [selectedTaidot, setSelectedTaidot] = useState<Array<string | null>>(
-    Array(TAIDOT_COUNTS["soldier"]).fill(null),
+    Array(TAIDOT_COUNTS.soldier).fill(null),
   );
   const [customSkillText, setCustomSkillText] = useState("");
 
@@ -204,7 +204,7 @@ function GeneratorForm({
     setSex("none");
     setMotivation("");
     setNotes("");
-    setSelectedTaidot(Array(TAIDOT_COUNTS["Sotilas"]).fill(null));
+    setSelectedTaidot(Array(TAIDOT_COUNTS.Sotilas).fill(null));
     setCustomSkillText("");
     setFysiikka(0);
     setNopeus(0);
@@ -260,9 +260,7 @@ function GeneratorForm({
                       variant={selectedEpisodeId === ep.id ? "solid" : "outline"}
                       onClick={() => {
                         setSelectedEpisodeId(ep.id);
-                        setSelectedTaidot(
-                          Array(taidotCount || TAIDOT_COUNTS["Sotilas"]).fill(null),
-                        );
+                        setSelectedTaidot(Array(taidotCount || TAIDOT_COUNTS.Sotilas).fill(null));
                         setCustomSkillText("");
                       }}
                     >
@@ -367,9 +365,18 @@ function GeneratorForm({
                   <div className="flex items-center gap-2 text-text-muted font-mono">
                     <span>Noppia jäljellä:</span>
                     <div className="flex gap-1.5">
-                      {Array.from({ length: diceRemaining }).map((_, i) => (
-                        <DiceIcon key={i} faces={4} size="sm" />
-                      ))}
+                      {[
+                        "die-rem-1",
+                        "die-rem-2",
+                        "die-rem-3",
+                        "die-rem-4",
+                        "die-rem-5",
+                        "die-rem-6",
+                      ]
+                        .slice(0, diceRemaining)
+                        .map((dieKey) => (
+                          <DiceIcon key={dieKey} faces={4} size="sm" />
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -464,56 +471,58 @@ function GeneratorForm({
                   <LoadingState message="Ladataan taitoja..." />
                 ) : (
                   <div className="space-y-4">
-                    {Array.from({ length: taidotCount }).map((_, slotIndex) => {
-                      const slotValue = selectedTaidot[slotIndex];
-                      const isCustomSlot = slotValue === "custom";
-                      return (
-                        <Card key={slotIndex} variant="outline">
-                          <CardHeader>
-                            <CardTitle>Taito {slotIndex + 1}</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <SkillMasonry
-                              sort="optimal"
-                              skills={
-                                episodeSkills?.map((skill) => ({
-                                  id: skill.id,
-                                  name: skill.name,
-                                  disabled: selectedTaidot.some(
-                                    (s, i) => i !== slotIndex && s === skill.name,
-                                  ),
-                                  selected: slotValue === skill.name,
-                                })) ?? []
-                              }
-                              onSkillClick={(skill) =>
-                                handleTaidotSelect(
-                                  slotIndex,
-                                  slotValue === skill.name ? null : skill.name,
-                                )
-                              }
-                              showCustomButton={!hasCustomSlot || isCustomSlot}
-                              isCustomSelected={isCustomSlot}
-                              onCustomClick={() =>
-                                handleTaidotSelect(slotIndex, isCustomSlot ? null : "custom")
-                              }
-                            />
-                            {isCustomSlot && (
-                              <div className="mt-3">
-                                <Input
-                                  label="Kirjoita oma taito"
-                                  placeholder="Esim. Hakkerointi"
-                                  value={customSkillText}
-                                  onChange={(e) => setCustomSkillText(e.target.value)}
-                                />
-                                <p className="text-xs text-text-muted mt-1">
-                                  GM tarkastaa omat taidot.
-                                </p>
-                              </div>
-                            )}
-                          </CardContent>
-                        </Card>
-                      );
-                    })}
+                    {["luonti-taito-1", "luonti-taito-2", "luonti-taito-3"]
+                      .slice(0, taidotCount)
+                      .map((slotId, slotIndex) => {
+                        const slotValue = selectedTaidot[slotIndex];
+                        const isCustomSlot = slotValue === "custom";
+                        return (
+                          <Card key={slotId} variant="outline">
+                            <CardHeader>
+                              <CardTitle>Taito {slotIndex + 1}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <SkillMasonry
+                                sort="optimal"
+                                skills={
+                                  episodeSkills?.map((skill) => ({
+                                    id: skill.id,
+                                    name: skill.name,
+                                    disabled: selectedTaidot.some(
+                                      (s, i) => i !== slotIndex && s === skill.name,
+                                    ),
+                                    selected: slotValue === skill.name,
+                                  })) ?? []
+                                }
+                                onSkillClick={(skill) =>
+                                  handleTaidotSelect(
+                                    slotIndex,
+                                    slotValue === skill.name ? null : skill.name,
+                                  )
+                                }
+                                showCustomButton={!hasCustomSlot || isCustomSlot}
+                                isCustomSelected={isCustomSlot}
+                                onCustomClick={() =>
+                                  handleTaidotSelect(slotIndex, isCustomSlot ? null : "custom")
+                                }
+                              />
+                              {isCustomSlot && (
+                                <div className="mt-3">
+                                  <Input
+                                    label="Kirjoita oma taito"
+                                    placeholder="Esim. Hakkerointi"
+                                    value={customSkillText}
+                                    onChange={(e) => setCustomSkillText(e.target.value)}
+                                  />
+                                  <p className="text-xs text-text-muted mt-1">
+                                    GM tarkastaa omat taidot.
+                                  </p>
+                                </div>
+                              )}
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
                   </div>
                 )}
               </div>
@@ -639,182 +648,180 @@ function InnerApp() {
             <Route
               path="list"
               element={
-                <>
-                  <HeadingLevelProvider>
-                    <Hero title="Hahmot" description="Hahmot" />
-                    <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 space-y-0">
-                      <Breadcrumb className="col-span-full mb-2" items={[{ label: "Hahmot" }]} />
-                      {isLoading && (
-                        <>
-                          <SkeletonCard className="col-span-1" />
-                          <SkeletonCard className="col-span-1" />
-                          <SkeletonCard className="col-span-1" />
-                        </>
-                      )}
-                      {!isLoading && characters?.length === 0 && (
-                        <div className="col-span-full text-center py-12">
-                          <p className="text-text-muted mb-4">Ei hahmoja vielä.</p>
-                          <Button onClick={() => navigate(`${basePath}/new`)}>
-                            Luo ensimmäinen hahmosi
-                          </Button>
-                        </div>
-                      )}
-                      {!isLoading &&
-                        characters?.map((char: CharacterListItem) => {
-                          const activeHarmit = (char.harmit ?? []).filter(
-                            (h: { healed: boolean }) => !h.healed,
-                          ).length;
-                          const totalHarmit = (char.harmit ?? []).length;
-                          const isRemovedFromPlay =
-                            Boolean(char.removedFromPlayAt) || totalHarmit >= 5;
-                          const archetypeLabel = char.archetype;
-                          const isOwn = user && char.userId === user.id;
-                          const episodes: { id: number; title: string; status: string }[] =
-                            char.episodes ?? [];
-                          const prepEpisode =
-                            episodes.find((e: { status: string }) => e.status === "active") ??
-                            episodes.find((e: { status: string }) => e.status === "planned");
+                <HeadingLevelProvider>
+                  <Hero title="Hahmot" description="Hahmot" />
+                  <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 space-y-0">
+                    <Breadcrumb className="col-span-full mb-2" items={[{ label: "Hahmot" }]} />
+                    {isLoading && (
+                      <>
+                        <SkeletonCard className="col-span-1" />
+                        <SkeletonCard className="col-span-1" />
+                        <SkeletonCard className="col-span-1" />
+                      </>
+                    )}
+                    {!isLoading && characters?.length === 0 && (
+                      <div className="col-span-full text-center py-12">
+                        <p className="text-text-muted mb-4">Ei hahmoja vielä.</p>
+                        <Button onClick={() => navigate(`${basePath}/new`)}>
+                          Luo ensimmäinen hahmosi
+                        </Button>
+                      </div>
+                    )}
+                    {!isLoading &&
+                      characters?.map((char: CharacterListItem) => {
+                        const activeHarmit = (char.harmit ?? []).filter(
+                          (h: { healed: boolean }) => !h.healed,
+                        ).length;
+                        const totalHarmit = (char.harmit ?? []).length;
+                        const isRemovedFromPlay =
+                          Boolean(char.removedFromPlayAt) || totalHarmit >= 5;
+                        const archetypeLabel = char.archetype;
+                        const isOwn = user && char.userId === user.id;
+                        const episodes: { id: number; title: string; status: string }[] =
+                          char.episodes ?? [];
+                        const prepEpisode =
+                          episodes.find((e: { status: string }) => e.status === "active") ??
+                          episodes.find((e: { status: string }) => e.status === "planned");
 
-                          return (
-                            <Card
-                              key={char.id}
-                              variant="interactive"
-                              onClick={() => navigate(`${basePath}/character/${char.id}`)}
-                            >
-                              <CardHeader>
-                                <CardTitle>{char.name}</CardTitle>
-                                <p className="text-xs font-bold uppercase tracking-widest text-[var(--theme-secondary)]">
-                                  {archetypeLabel}
-                                </p>
-                              </CardHeader>
-                              <CardContent variant="dense">
-                                <div className="flex flex-col gap-3 w-full">
-                                  {episodes.length > 0 && (
-                                    <p className="text-xs text-text-muted">
-                                      Jakso:{" "}
-                                      <span className="text-[var(--theme-text)] font-medium">
-                                        {episodes.map((e: { title: string }) => e.title).join(", ")}
-                                      </span>
-                                    </p>
-                                  )}
-                                  <div className="flex justify-between items-center w-full text-sm">
-                                    <span className="text-text-muted">
-                                      Harmit:{" "}
-                                      <span
-                                        className={
-                                          isRemovedFromPlay
-                                            ? "font-bold text-[var(--theme-accent)]"
-                                            : activeHarmit > 0
-                                              ? "font-bold text-[var(--theme-primary)]"
-                                              : "font-medium text-[var(--theme-text)]"
-                                        }
-                                      >
-                                        {activeHarmit} / 5
-                                      </span>
+                        return (
+                          <Card
+                            key={char.id}
+                            variant="interactive"
+                            onClick={() => navigate(`${basePath}/character/${char.id}`)}
+                          >
+                            <CardHeader>
+                              <CardTitle>{char.name}</CardTitle>
+                              <p className="text-xs font-bold uppercase tracking-widest text-[var(--theme-secondary)]">
+                                {archetypeLabel}
+                              </p>
+                            </CardHeader>
+                            <CardContent variant="dense">
+                              <div className="flex flex-col gap-3 w-full">
+                                {episodes.length > 0 && (
+                                  <p className="text-xs text-text-muted">
+                                    Jakso:{" "}
+                                    <span className="text-[var(--theme-text)] font-medium">
+                                      {episodes.map((e: { title: string }) => e.title).join(", ")}
                                     </span>
-                                    <span className="text-text-muted inline-flex items-center gap-1.5">
-                                      Sisu:
-                                      {(() => {
-                                        const dice: Array<{ id: string; faces: number }> =
-                                          char.sisuDice ?? [];
-                                        const removed = new Set<string>(char.removedSisuIds ?? []);
-                                        const activeByFaces = new Map<number, number>();
-                                        for (const d of dice) {
-                                          if (!removed.has(d.id)) {
-                                            activeByFaces.set(
-                                              d.faces,
-                                              (activeByFaces.get(d.faces) ?? 0) + 1,
-                                            );
-                                          }
-                                        }
-                                        const sorted = [...activeByFaces.entries()].sort(
-                                          ([a], [b]) => a - b,
-                                        );
-                                        if (sorted.length === 0)
-                                          return (
-                                            <span className="font-medium text-[var(--theme-text)]">
-                                              0
-                                            </span>
+                                  </p>
+                                )}
+                                <div className="flex justify-between items-center w-full text-sm">
+                                  <span className="text-text-muted">
+                                    Harmit:{" "}
+                                    <span
+                                      className={
+                                        isRemovedFromPlay
+                                          ? "font-bold text-[var(--theme-accent)]"
+                                          : activeHarmit > 0
+                                            ? "font-bold text-[var(--theme-primary)]"
+                                            : "font-medium text-[var(--theme-text)]"
+                                      }
+                                    >
+                                      {activeHarmit} / 5
+                                    </span>
+                                  </span>
+                                  <span className="text-text-muted inline-flex items-center gap-1.5">
+                                    Sisu:
+                                    {(() => {
+                                      const dice: Array<{ id: string; faces: number }> =
+                                        char.sisuDice ?? [];
+                                      const removed = new Set<string>(char.removedSisuIds ?? []);
+                                      const activeByFaces = new Map<number, number>();
+                                      for (const d of dice) {
+                                        if (!removed.has(d.id)) {
+                                          activeByFaces.set(
+                                            d.faces,
+                                            (activeByFaces.get(d.faces) ?? 0) + 1,
                                           );
-                                        return sorted.map(([faces, count]) => (
-                                          <span
-                                            key={faces}
-                                            className="inline-flex items-center gap-0.5"
-                                          >
-                                            <span className="font-medium text-[var(--theme-text)]">
-                                              {count}×
-                                            </span>
-                                            <DiceIcon
-                                              faces={faces as 4 | 6 | 8 | 10 | 12 | 20}
-                                              size="sm"
-                                            />
+                                        }
+                                      }
+                                      const sorted = [...activeByFaces.entries()].sort(
+                                        ([a], [b]) => a - b,
+                                      );
+                                      if (sorted.length === 0)
+                                        return (
+                                          <span className="font-medium text-[var(--theme-text)]">
+                                            0
                                           </span>
-                                        ));
-                                      })()}
-                                    </span>
-                                  </div>
-                                  {char.ownerName && (
-                                    <p className="text-xs text-text-subtle border-t border-[var(--theme-border-soft)] pt-2 mt-1">
-                                      Pelaaja: {char.ownerName}
-                                      {isOwn && (
-                                        <span className="ml-2 text-[length:var(--font-size-2xs)] font-black tracking-widest text-[var(--theme-secondary)] uppercase">
-                                          sinun
+                                        );
+                                      return sorted.map(([faces, count]) => (
+                                        <span
+                                          key={faces}
+                                          className="inline-flex items-center gap-0.5"
+                                        >
+                                          <span className="font-medium text-[var(--theme-text)]">
+                                            {count}×
+                                          </span>
+                                          <DiceIcon
+                                            faces={faces as 4 | 6 | 8 | 10 | 12 | 20}
+                                            size="sm"
+                                          />
                                         </span>
-                                      )}
-                                    </p>
-                                  )}
-                                  {isOwn && prepEpisode && (
+                                      ));
+                                    })()}
+                                  </span>
+                                </div>
+                                {char.ownerName && (
+                                  <p className="text-xs text-text-subtle border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                                    Pelaaja: {char.ownerName}
+                                    {isOwn && (
+                                      <span className="ml-2 text-[length:var(--font-size-2xs)] font-black tracking-widest text-[var(--theme-secondary)] uppercase">
+                                        sinun
+                                      </span>
+                                    )}
+                                  </p>
+                                )}
+                                {isOwn && prepEpisode && (
+                                  <div className="border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate(`${basePath}/prep/${prepEpisode.id}`);
+                                      }}
+                                    >
+                                      Valmistaudu
+                                    </Button>
+                                  </div>
+                                )}
+                                {isOwn &&
+                                  linkEpisodeId &&
+                                  !isRemovedFromPlay &&
+                                  !episodes.some((e) => e.id === linkEpisodeId) && (
                                     <div className="border-t border-[var(--theme-border-soft)] pt-2 mt-1">
                                       <Button
-                                        variant="outline"
+                                        variant="solid"
                                         size="sm"
+                                        disabled={linkCharacterEpisode.isPending}
                                         onClick={(e) => {
                                           e.stopPropagation();
-                                          navigate(`${basePath}/prep/${prepEpisode.id}`);
+                                          linkCharacterEpisode.mutate(
+                                            { characterId: char.id, episodeId: linkEpisodeId },
+                                            {
+                                              onSuccess: () => {
+                                                navigate(`${basePath}/prep/${linkEpisodeId}`);
+                                              },
+                                            },
+                                          );
                                         }}
                                       >
-                                        Valmistaudu
+                                        Liitä jaksoon
                                       </Button>
                                     </div>
                                   )}
-                                  {isOwn &&
-                                    linkEpisodeId &&
-                                    !isRemovedFromPlay &&
-                                    !episodes.some((e) => e.id === linkEpisodeId) && (
-                                      <div className="border-t border-[var(--theme-border-soft)] pt-2 mt-1">
-                                        <Button
-                                          variant="solid"
-                                          size="sm"
-                                          disabled={linkCharacterEpisode.isPending}
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            linkCharacterEpisode.mutate(
-                                              { characterId: char.id, episodeId: linkEpisodeId },
-                                              {
-                                                onSuccess: () => {
-                                                  navigate(`${basePath}/prep/${linkEpisodeId}`);
-                                                },
-                                              },
-                                            );
-                                          }}
-                                        >
-                                          Liitä jaksoon
-                                        </Button>
-                                      </div>
-                                    )}
-                                  {isRemovedFromPlay && (
-                                    <p className="text-xs text-[var(--theme-accent)] border-t border-[var(--theme-border-soft)] pt-2 mt-1">
-                                      Hahmo poistettu pelistä, eikä sitä voi liittää uuteen jaksoon.
-                                    </p>
-                                  )}
-                                </div>
-                              </CardContent>
-                            </Card>
-                          );
-                        })}
-                    </PageBody>
-                  </HeadingLevelProvider>
-                </>
+                                {isRemovedFromPlay && (
+                                  <p className="text-xs text-[var(--theme-accent)] border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                                    Hahmo poistettu pelistä, eikä sitä voi liittää uuteen jaksoon.
+                                  </p>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                  </PageBody>
+                </HeadingLevelProvider>
               }
             />
             <Route

@@ -327,7 +327,7 @@ export function PlayerDashboard() {
               <Heading>Kutsut</Heading>
             </div>
             <div className="space-y-4">
-              {data!.pendingInvites.map((invite) => (
+              {data?.pendingInvites.map((invite) => (
                 <InviteCard
                   key={invite.id}
                   invite={invite}
@@ -348,7 +348,7 @@ export function PlayerDashboard() {
               <Heading>Jaksot</Heading>
             </div>
             <div className="space-y-4">
-              {data!.episodes.map((episode) => (
+              {data?.episodes.map((episode) => (
                 <EpisodeActionsCard
                   key={episode.episodeId}
                   episode={episode}

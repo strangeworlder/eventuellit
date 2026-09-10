@@ -9,7 +9,7 @@ import { MonkPowersService } from "./monk-powers.service";
 
 describe("MonkPowersController", () => {
   let controller: MonkPowersController;
-  let service: any;
+  let service: Record<string, ReturnType<typeof vi.fn>>;
 
   beforeEach(async () => {
     service = {
@@ -20,7 +20,7 @@ describe("MonkPowersController", () => {
       remove: vi.fn().mockResolvedValue({ success: true }),
     };
 
-    const module: TestingModule = await Test.createTestingModule({
+    const _module: TestingModule = await Test.createTestingModule({
       controllers: [MonkPowersController],
       providers: [
         {
@@ -36,7 +36,7 @@ describe("MonkPowersController", () => {
       .useValue({ canActivate: () => true })
       .compile();
 
-    controller = new MonkPowersController(service);
+    controller = new MonkPowersController(service as unknown as MonkPowersService);
   });
 
   it("should be defined", () => {

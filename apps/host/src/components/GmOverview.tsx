@@ -137,7 +137,11 @@ function PlayerStatusCard({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => onOpenCharacter(player.characterId!)}
+                onClick={() => {
+                  if (player.characterId) {
+                    onOpenCharacter(player.characterId);
+                  }
+                }}
               >
                 <Icon name="file-text" size={14} className="mr-1" />
                 Avaa hahmosivu

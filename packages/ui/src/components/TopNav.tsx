@@ -59,9 +59,26 @@ export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
       [ref, listRef],
     );
 
+    React.useEffect(() => {
+      const el = listRef.current;
+      if (!el) return;
+
+      const handleMouseOver = handlers.onMouseOver as unknown as (e: Event) => void;
+      const handleMouseLeave = handlers.onMouseLeave as unknown as (e: Event) => void;
+      const handleClick = handlers.onClick as unknown as (e: Event) => void;
+
+      el.addEventListener("mouseover", handleMouseOver);
+      el.addEventListener("mouseleave", handleMouseLeave);
+      el.addEventListener("click", handleClick);
+
+      return () => {
+        el.removeEventListener("mouseover", handleMouseOver);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+        el.removeEventListener("click", handleClick);
+      };
+    }, [handlers, listRef]);
+
     return (
-      // biome-ignore lint/a11y/noStaticElementInteractions: TopNavList uses event delegation to animate the active indicator pill
-      // biome-ignore lint/a11y/useKeyWithClickEvents: TopNavList uses event delegation to animate the active indicator pill
       <div
         ref={setRefs}
         className={cn(
@@ -77,9 +94,6 @@ export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
           className,
         )}
         style={{ ...pillStyle, ...style } as React.CSSProperties}
-        onMouseOver={handlers.onMouseOver}
-        onMouseLeave={handlers.onMouseLeave}
-        onClick={handlers.onClick}
         {...props}
       />
     );

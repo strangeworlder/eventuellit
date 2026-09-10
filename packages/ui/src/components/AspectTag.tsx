@@ -55,87 +55,69 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
         : "alert-triangle"
       : undefined;
 
-    return (
-      // biome-ignore lint/a11y/noStaticElementInteractions: role and onClick are dynamically applied when onSelect is provided
-      // biome-ignore lint/a11y/useAriaPropsSupportedByRole: aria-label is conditionally applied when role="button" is active
-      <div
-        ref={ref}
-        className={cn(
-          // ── Base ──
-          "group inline-flex items-center gap-2 rounded-md px-3 py-1.5",
-          "font-heading text-xs font-bold uppercase tracking-wider",
-          "transition-all duration-300 ease-in select-none",
-          "hover:scale-[1.03] hover:-translate-y-px hover:duration-200 hover:ease-out",
+    const tagClassName = cn(
+      // ── Base ──
+      "group inline-flex items-center gap-2 rounded-md px-3 py-1.5",
+      "font-heading text-xs font-bold uppercase tracking-wider",
+      "transition-all duration-300 ease-in select-none",
+      "hover:scale-[1.03] hover:-translate-y-px hover:duration-200 hover:ease-out",
 
-          // ── Harm: active ──
-          isHarm &&
-            !isHealed && [
-              "border border-[color-mix(in_srgb,var(--theme-primary)_50%,red)]",
-              "bg-[color-mix(in_srgb,var(--theme-primary)_12%,transparent)]",
-              "text-[color-mix(in_srgb,var(--theme-text)_75%,red)]",
-              // embossed inset + glow
-              "shadow-[0_0_8px_color-mix(in_srgb,var(--theme-primary)_20%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary)_15%,transparent)]",
-              // pulse animation
-              "animate-[aspect-pulse_3s_ease-in-out_infinite] transition-all duration-200",
-              // hover lift
-              "hover:shadow-[0_0_16px_color-mix(in_srgb,var(--theme-primary)_35%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary)_25%,transparent)]",
-            ],
+      // ── Harm: active ──
+      isHarm &&
+        !isHealed && [
+          "border border-[color-mix(in_srgb,var(--theme-primary)_50%,red)]",
+          "bg-[color-mix(in_srgb,var(--theme-primary)_12%,transparent)]",
+          "text-[color-mix(in_srgb,var(--theme-text)_75%,red)]",
+          // embossed inset + glow
+          "shadow-[0_0_8px_color-mix(in_srgb,var(--theme-primary)_20%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary)_15%,transparent)]",
+          // pulse animation
+          "animate-[aspect-pulse_3s_ease-in-out_infinite] transition-all duration-200",
+          // hover lift
+          "hover:shadow-[0_0_16px_color-mix(in_srgb,var(--theme-primary)_35%,transparent),inset_0_-1px_0_color-mix(in_srgb,var(--theme-primary)_25%,transparent)]",
+        ],
 
-          // ── Harm: healed ──
-          isHealed && [
-            "border border-dashed border-[var(--theme-border-soft)]",
-            "bg-[var(--theme-secondary)]/5",
-            "text-[var(--theme-secondary)]",
-            "opacity-80",
-            "hover:opacity-100",
-          ],
+      // ── Harm: healed ──
+      isHealed && [
+        "border border-dashed border-[var(--theme-border-soft)]",
+        "bg-[var(--theme-secondary)]/5",
+        "text-[var(--theme-secondary)]",
+        "opacity-80",
+        "hover:opacity-100",
+      ],
 
-          // ── Skill ──
-          !isHarm &&
-            !isName && [
-              "border border-[var(--theme-border-soft)]",
-              "border-l-[3px] border-l-[var(--theme-accent)]",
-              "bg-[var(--theme-accent)]/8",
-              "text-[var(--theme-accent)]",
-              "shadow-sm",
-              "hover:shadow-[0_0_12px_color-mix(in_srgb,var(--theme-accent)_20%,transparent)]",
-              "hover:border-[var(--theme-border-medium)]",
-            ],
+      // ── Skill ──
+      !isHarm &&
+        !isName && [
+          "border border-[var(--theme-border-soft)]",
+          "border-l-[3px] border-l-[var(--theme-accent)]",
+          "bg-[var(--theme-accent)]/8",
+          "text-[var(--theme-accent)]",
+          "shadow-sm",
+          "hover:shadow-[0_0_12px_color-mix(in_srgb,var(--theme-accent)_20%,transparent)]",
+          "hover:border-[var(--theme-border-medium)]",
+        ],
 
-          // ── Name ──
-          isName && [
-            "border border-[var(--theme-border-soft)]",
-            "border-l-[3px] border-l-[var(--theme-secondary)]",
-            "bg-[var(--theme-secondary)]/8",
-            "text-[var(--theme-secondary)]",
-            "shadow-sm",
-            onSelect && [
-              "cursor-pointer",
-              "hover:bg-[var(--theme-secondary)]/18",
-              "hover:border-[var(--theme-secondary)]/40",
-              "hover:shadow-[0_0_14px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)]",
-              "active:scale-[0.97]",
-            ],
-          ],
+      // ── Name ──
+      isName && [
+        "border border-[var(--theme-border-soft)]",
+        "border-l-[3px] border-l-[var(--theme-secondary)]",
+        "bg-[var(--theme-secondary)]/8",
+        "text-[var(--theme-secondary)]",
+        "shadow-sm",
+        onSelect && [
+          "cursor-pointer",
+          "hover:bg-[var(--theme-secondary)]/18",
+          "hover:border-[var(--theme-secondary)]/40",
+          "hover:shadow-[0_0_14px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)]",
+          "active:scale-[0.97]",
+        ],
+      ],
 
-          className,
-        )}
-        {...props}
-        onClick={isName && onSelect ? onSelect : props.onClick}
-        onKeyDown={
-          isName && onSelect
-            ? (e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  onSelect();
-                }
-              }
-            : undefined
-        }
-        role={isName && onSelect ? "button" : undefined}
-        tabIndex={isName && onSelect ? 0 : undefined}
-        aria-label={isName && onSelect ? `Valitse nimi: ${text}` : undefined}
-      >
+      className,
+    );
+
+    const tagContent = (
+      <>
         {/* Icon */}
         {icon && (
           <Icon
@@ -203,6 +185,26 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
             )}
           </span>
         )}
+      </>
+    );
+
+    if (isName && onSelect) {
+      return (
+        <button
+          ref={ref as React.Ref<HTMLButtonElement>}
+          type="button"
+          className={tagClassName}
+          onClick={onSelect}
+          aria-label={`Valitse nimi: ${text}`}
+        >
+          {tagContent}
+        </button>
+      );
+    }
+
+    return (
+      <div ref={ref} className={tagClassName} {...props}>
+        {tagContent}
       </div>
     );
   },

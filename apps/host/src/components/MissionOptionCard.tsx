@@ -69,35 +69,30 @@ export function MissionOptionCard({
         )}
 
         {/* Comment thread — stop click propagation so it doesn't trigger card selection */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: stops propagation to parent selection card */}
-        <div
+        <CommentThread
           className="mt-1"
           onClick={(e) => e.stopPropagation()}
-          onKeyDown={(e) => e.stopPropagation()}
-        >
-          <CommentThread
-            comments={comments.map((c) => ({
-              id: c.id,
-              author: c.author ?? "Nimetön",
-              anonymous: c.anonymous,
-              timestamp: c.createdAt,
-              content: c.content,
-            }))}
-            onNewComment={(content, anonymous) => {
-              addComment.mutate(
-                { roundId, optionId: option.id, content, anonymous },
-                {
-                  onSuccess: () =>
-                    toast({ message: "Kommenttisi on lähetetty.", variant: "success" }),
-                  onError: () =>
-                    toast({ message: "Kommentin lähettäminen epäonnistui.", variant: "error" }),
-                },
-              );
-            }}
-            isSubmitting={addComment.isPending}
-            allowNew={!votingClosed}
-          />
-        </div>
+          comments={comments.map((c) => ({
+            id: c.id,
+            author: c.author ?? "Nimetön",
+            anonymous: c.anonymous,
+            timestamp: c.createdAt,
+            content: c.content,
+          }))}
+          onNewComment={(content, anonymous) => {
+            addComment.mutate(
+              { roundId, optionId: option.id, content, anonymous },
+              {
+                onSuccess: () =>
+                  toast({ message: "Kommenttisi on lähetetty.", variant: "success" }),
+                onError: () =>
+                  toast({ message: "Kommentin lähettäminen epäonnistui.", variant: "error" }),
+              },
+            );
+          }}
+          isSubmitting={addComment.isPending}
+          allowNew={!votingClosed}
+        />
       </SelectionCardBody>
     </SelectionCard>
   );

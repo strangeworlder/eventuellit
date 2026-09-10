@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import { MarkdownRenderer } from "./Markdown";
 import { Text } from "./Text";

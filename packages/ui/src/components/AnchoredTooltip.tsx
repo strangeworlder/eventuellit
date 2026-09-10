@@ -215,7 +215,7 @@ export const AnchoredTooltip = React.forwardRef<HTMLSpanElement, AnchoredTooltip
 
     const useAnchor = !!anchorName;
     const positionClasses = useAnchor ? anchorPlacementBase[placement] : placementBase[placement];
-    const anchorStyle = useAnchor ? anchorPositionStyle(placement, anchorName!) : undefined;
+    const anchorStyle = anchorName ? anchorPositionStyle(placement, anchorName) : undefined;
 
     return (
       <span

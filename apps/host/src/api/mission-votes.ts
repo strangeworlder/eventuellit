@@ -169,8 +169,8 @@ export const useCastVote = () => {
         }),
       });
       if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error((err as any).message || "Failed to cast vote");
+        const err = (await response.json().catch(() => ({}))) as { message?: string };
+        throw new Error(err.message || "Failed to cast vote");
       }
       return response.json();
     },
@@ -193,8 +193,8 @@ export const useDeleteVote = () => {
         credentials: "include",
       });
       if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error((err as any).message || "Failed to remove vote");
+        const err = (await response.json().catch(() => ({}))) as { message?: string };
+        throw new Error(err.message || "Failed to remove vote");
       }
       return response.json();
     },
@@ -247,8 +247,8 @@ export const useCreateVotingRound = () => {
         body: JSON.stringify(data),
       });
       if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error((err as any).message || "Failed to create voting round");
+        const err = (await response.json().catch(() => ({}))) as { message?: string };
+        throw new Error(err.message || "Failed to create voting round");
       }
       return response.json();
     },

@@ -54,7 +54,12 @@ export function extractH3SectionsFromMarkdown(
       continue;
     }
 
-    const label = normalizeHeadingLabel(headingMatch[1]!);
+    const rawHeading = headingMatch[1];
+    if (!rawHeading) {
+      continue;
+    }
+
+    const label = normalizeHeadingLabel(rawHeading);
     sections.push({
       id: createUniqueHeadingId(label, usageMap, prefix),
       label,

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { StatBlock } from "./StatBlock";
+import type { Theme } from "./Theme";
 
 const meta = {
   title: "Suunnittelujarjestelma/Molekyylit/StatBlock",
@@ -102,7 +103,7 @@ export const ThemeShowcase: Story = {
         {themes.map((theme) => (
           <StatBlock
             key={theme}
-            theme={theme as any}
+            theme={theme as Theme}
             label={theme}
             value={Math.floor(Math.random() * 50) + 10}
             maxValue={100}

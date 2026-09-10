@@ -114,7 +114,7 @@ export const HeroCanvas = React.forwardRef<HTMLCanvasElement, HeroCanvasProps>(
       ro.observe(canvas);
 
       const handleMouseMove = (e: MouseEvent) => {
-        const rect = canvas!.getBoundingClientRect();
+        const rect = canvas?.getBoundingClientRect();
         targetMouseRef.current = {
           x: (e.clientX - rect.left) / rect.width - 0.5,
           y: (e.clientY - rect.top) / rect.height - 0.5,

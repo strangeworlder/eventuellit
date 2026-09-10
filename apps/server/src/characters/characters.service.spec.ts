@@ -5,9 +5,27 @@ import { DATABASE_CONNECTION } from "../db/db.module";
 import { NotificationsService } from "../notifications/notifications.service";
 import { CharactersService } from "./characters.service";
 
+type MockDb = {
+  query: Record<string, Record<string, ReturnType<typeof vi.fn>>>;
+  select: ReturnType<typeof vi.fn>;
+  from: ReturnType<typeof vi.fn>;
+  leftJoin: ReturnType<typeof vi.fn>;
+  innerJoin: ReturnType<typeof vi.fn>;
+  where: ReturnType<typeof vi.fn>;
+  limit: ReturnType<typeof vi.fn>;
+  orderBy: ReturnType<typeof vi.fn>;
+  insert: ReturnType<typeof vi.fn>;
+  values: ReturnType<typeof vi.fn>;
+  returning: ReturnType<typeof vi.fn>;
+  update: ReturnType<typeof vi.fn>;
+  set: ReturnType<typeof vi.fn>;
+  delete: ReturnType<typeof vi.fn>;
+  transaction: ReturnType<typeof vi.fn>;
+};
+
 describe("CharactersService", () => {
   let service: CharactersService;
-  let mockDb: any;
+  let mockDb: MockDb;
 
   beforeEach(async () => {
     mockDb = {

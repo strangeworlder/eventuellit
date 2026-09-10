@@ -21,6 +21,7 @@ import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { Text } from "@repo/ui/components/Text";
 import { useMemo, useState } from "react";
 import {
+  type CharacterListItem,
   useAdvanceCharacterForEpisode,
   useCharacters,
   useRefreshCharacterForEpisode,
@@ -74,7 +75,7 @@ function PracticalInfoCard({
 }) {
   const hasPlayers = playerNames.length > 0;
   const hasSessions = sessions.length > 0;
-  const hasLocation = location && location.trim();
+  const hasLocation = location?.trim();
 
   if (!hasPlayers && !hasSessions && !hasLocation) return null;
 
@@ -170,7 +171,9 @@ function ReadingItemRow({
             variant="outline"
             size="sm"
             onClick={() => {
-              window.location.href = item.url!;
+              if (item.url) {
+                window.location.href = item.url;
+              }
             }}
           >
             Avaa
@@ -350,7 +353,7 @@ function ReturningCharacterPrep({
   needsRefresh,
   needsAdvance,
 }: {
-  character: any;
+  character: CharacterListItem;
   episodeId: number;
   needsRefresh: boolean;
   needsAdvance: boolean;
@@ -637,56 +640,58 @@ function ReturningCharacterPrep({
                     <LoadingState message="Ladataan taitoja..." />
                   ) : (
                     <div className="space-y-4">
-                      {Array.from({ length: taidotCount }).map((_, slotIndex) => {
-                        const slotValue = selectedTaidot[slotIndex] ?? null;
-                        const isCustomSlot = slotValue === "custom";
-                        return (
-                          <Card key={slotIndex} variant="outline">
-                            <CardHeader>
-                              <CardTitle>Taito {slotIndex + 1}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                              <SkillMasonry
-                                sort="optimal"
-                                skills={
-                                  episodeSkills?.map((skill) => ({
-                                    id: skill.id,
-                                    name: skill.name,
-                                    disabled: selectedTaidot.some(
-                                      (s, i) => i !== slotIndex && s === skill.name,
-                                    ),
-                                    selected: slotValue === skill.name,
-                                  })) ?? []
-                                }
-                                onSkillClick={(skill) =>
-                                  handleTaidotSelect(
-                                    slotIndex,
-                                    slotValue === skill.name ? null : skill.name,
-                                  )
-                                }
-                                showCustomButton={!hasCustomSlot || isCustomSlot}
-                                isCustomSelected={isCustomSlot}
-                                onCustomClick={() =>
-                                  handleTaidotSelect(slotIndex, isCustomSlot ? null : "custom")
-                                }
-                              />
-                              {isCustomSlot && (
-                                <div className="mt-3">
-                                  <Input
-                                    label="Kirjoita oma taito"
-                                    placeholder="Esim. Hakkerointi"
-                                    value={customSkillText}
-                                    onChange={(e) => setCustomSkillText(e.target.value)}
-                                  />
-                                  <p className="text-xs text-text-muted mt-1">
-                                    GM tarkastaa omat taidot.
-                                  </p>
-                                </div>
-                              )}
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
+                      {["taito-slot-1", "taito-slot-2"]
+                        .slice(0, taidotCount)
+                        .map((slotId, slotIndex) => {
+                          const slotValue = selectedTaidot[slotIndex] ?? null;
+                          const isCustomSlot = slotValue === "custom";
+                          return (
+                            <Card key={slotId} variant="outline">
+                              <CardHeader>
+                                <CardTitle>Taito {slotIndex + 1}</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <SkillMasonry
+                                  sort="optimal"
+                                  skills={
+                                    episodeSkills?.map((skill) => ({
+                                      id: skill.id,
+                                      name: skill.name,
+                                      disabled: selectedTaidot.some(
+                                        (s, i) => i !== slotIndex && s === skill.name,
+                                      ),
+                                      selected: slotValue === skill.name,
+                                    })) ?? []
+                                  }
+                                  onSkillClick={(skill) =>
+                                    handleTaidotSelect(
+                                      slotIndex,
+                                      slotValue === skill.name ? null : skill.name,
+                                    )
+                                  }
+                                  showCustomButton={!hasCustomSlot || isCustomSlot}
+                                  isCustomSelected={isCustomSlot}
+                                  onCustomClick={() =>
+                                    handleTaidotSelect(slotIndex, isCustomSlot ? null : "custom")
+                                  }
+                                />
+                                {isCustomSlot && (
+                                  <div className="mt-3">
+                                    <Input
+                                      label="Kirjoita oma taito"
+                                      placeholder="Esim. Hakkerointi"
+                                      value={customSkillText}
+                                      onChange={(e) => setCustomSkillText(e.target.value)}
+                                    />
+                                    <p className="text-xs text-text-muted mt-1">
+                                      GM tarkastaa omat taidot.
+                                    </p>
+                                  </div>
+                                )}
+                              </CardContent>
+                            </Card>
+                          );
+                        })}
                     </div>
                   )}
                 </div>

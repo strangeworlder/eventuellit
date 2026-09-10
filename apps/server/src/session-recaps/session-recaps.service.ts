@@ -43,10 +43,12 @@ export class SessionRecapsService {
     const whereClause =
       isGm || published
         ? eq(sessionPlayerRecaps.sessionId, sessionId)
-        : and(
-            eq(sessionPlayerRecaps.sessionId, sessionId),
-            eq(sessionPlayerRecaps.userId, viewer!.id),
-          );
+        : viewer
+          ? and(
+              eq(sessionPlayerRecaps.sessionId, sessionId),
+              eq(sessionPlayerRecaps.userId, viewer.id),
+            )
+          : eq(sessionPlayerRecaps.sessionId, sessionId);
 
     return this.db
       .select({

@@ -1,16 +1,18 @@
 import "reflect-metadata";
-import { Test, type TestingModule } from "@nestjs/testing";
+import { Test } from "@nestjs/testing";
+import type { Response } from "express";
 import { vi } from "vitest";
 import { AuthController } from "./auth.controller";
 import { JwtAuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
+import type { AuthUser } from "./current-user.decorator";
 
 describe("AuthController", () => {
   let controller: AuthController;
-  let service: any;
+  let service: Record<string, ReturnType<typeof vi.fn>>;
 
-  const mockUser = { id: 1, email: "test@test.fi", username: "testuser", role: "player" };
-  const mockReq = mockUser as any;
+  const mockUser: AuthUser = { id: 1, email: "test@test.fi", username: "testuser", role: "player" };
+  const mockReq = mockUser;
 
   const mockRes = () => {
     const res = {
@@ -18,7 +20,7 @@ describe("AuthController", () => {
       json: vi.fn().mockReturnThis(),
       clearCookie: vi.fn().mockReturnThis(),
     };
-    return res as any;
+    return res as unknown as Response;
   };
 
   beforeEach(async () => {
@@ -47,7 +49,7 @@ describe("AuthController", () => {
       .useValue({ canActivate: () => true })
       .compile();
 
-    controller = new AuthController(service);
+    controller = new AuthController(service as unknown as AuthService);
   });
 
   it("should be defined", () => {

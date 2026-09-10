@@ -60,7 +60,10 @@ export class MediaService {
     };
 
     const result = await this.db.insert(media).values(insertData).returning();
-    const record = result[0]!;
+    const record = result[0];
+    if (!record) {
+      throw new Error("Failed to create media record");
+    }
 
     this.logger.log(`Created media record: ${record.id} (${record.key})`);
     return {

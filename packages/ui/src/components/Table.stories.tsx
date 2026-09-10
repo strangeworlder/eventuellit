@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 import { Badge } from "./Badge";
 import { Table } from "./Table";
 
@@ -138,7 +137,7 @@ export const StickyHeader: Story = {
         { key: "pelaajat", header: "Pelaajat", align: "center" },
         { key: "kesto", header: "Kesto", align: "right" },
       ]}
-      data={[...episodeData, ...episodeData.map((r) => ({ ...r, istunto: r.istunto + " II" }))]}
+      data={[...episodeData, ...episodeData.map((r) => ({ ...r, istunto: `${r.istunto} II` }))]}
       stickyHeader
       striped
       className="max-h-52"

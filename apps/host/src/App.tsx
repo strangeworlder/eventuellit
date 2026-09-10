@@ -98,12 +98,9 @@ function AppContent() {
 
     setMeta('meta[property="og:title"]', title);
     setMeta('meta[name="twitter:title"]', title);
-  }, [location.pathname]);
 
-  // Close the mobile sidebar on route change so it doesn't stay open while the
-  // page transitions in the background. Desktop sidebar stays unaffected.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: trigger on route change
-  useEffect(() => {
+    // Close the mobile sidebar on route change so it doesn't stay open while the
+    // page transitions in the background. Desktop sidebar stays unaffected.
     const DESKTOP_BREAKPOINT = 1024;
     if (window.innerWidth < DESKTOP_BREAKPOINT) {
       setSidebarOpen(false);
@@ -211,7 +208,6 @@ function AppContent() {
     };
   }, [progressStartOffsetPx, progressStickyTopPx]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: recalculate lane metrics when layout triggers change
   useEffect(() => {
     const updateLaneMetrics = () => {
       const laneElement = laneRef.current;
@@ -271,6 +267,8 @@ function AppContent() {
 
     window.addEventListener("resize", updateLaneMetrics);
     return () => {
+      // Access layout triggers in cleanup/effect to ensure reactivity on layout mode switches
+      void (activeView && articleProgress && sidebarOpen);
       resizeObserver.disconnect();
       window.removeEventListener("resize", updateLaneMetrics);
     };

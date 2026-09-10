@@ -169,7 +169,7 @@ export const FactionBadge = React.forwardRef<HTMLDivElement, FactionBadgeProps>(
             <span
               style={{
                 // Always use base palette for gradient — hover uses filter:brightness below
-                background: `linear-gradient(135deg, ${FACTION_COLOR_VARS[color]} 30%, ${FACTION_COLOR_VARS[secondaryColor!]} 100%)`,
+                background: `linear-gradient(135deg, ${FACTION_COLOR_VARS[color]} 30%, ${c2} 100%)`,
                 WebkitBackgroundClip: "text",
                 backgroundClip: "text",
                 WebkitTextFillColor: "transparent",

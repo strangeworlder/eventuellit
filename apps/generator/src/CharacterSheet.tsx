@@ -114,10 +114,14 @@ export function CharacterSheet({
     onMutate: async (newUpdates) => {
       await queryClient.cancelQueries({ queryKey: ["character", characterId] });
       const previous = queryClient.getQueryData(["character", characterId]);
-      queryClient.setQueryData(["character", characterId], (old: any) => ({
-        ...old,
-        ...newUpdates,
-      }));
+      queryClient.setQueryData<Character>(["character", characterId], (old) =>
+        old
+          ? {
+              ...old,
+              ...newUpdates,
+            }
+          : undefined,
+      );
       return { previous };
     },
     onError: (_err, _newUpdates, context) => {
@@ -243,7 +247,7 @@ export function CharacterSheet({
                     placeholder="0"
                     onSave={(v) => {
                       const parsed = parseInt(v, 10);
-                      if (!isNaN(parsed) && parsed >= 0) {
+                      if (!Number.isNaN(parsed) && parsed >= 0) {
                         updateCharacter({ monkAdvancementsAllowed: parsed });
                       }
                     }}
@@ -599,7 +603,6 @@ function EditableName({
             if (e.key === "Enter") handleSave();
             if (e.key === "Escape") handleCancel();
           }}
-          // biome-ignore lint/a11y/noAutofocus: intentional for edit mode
           autoFocus
         />
 

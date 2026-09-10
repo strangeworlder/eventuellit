@@ -83,7 +83,7 @@ export class MissionVotesService {
   }
 
   async updateRound(roundId: number, dto: UpdateRoundDto) {
-    const round = await this.requireRound(roundId);
+    const _round = await this.requireRound(roundId);
 
     const updates: Partial<typeof votingRounds.$inferInsert> = {};
     if (dto.title !== undefined) updates.title = dto.title;

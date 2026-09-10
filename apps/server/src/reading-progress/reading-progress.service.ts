@@ -82,15 +82,16 @@ export class ReadingProgressService {
     >();
 
     for (const row of relevantProgress) {
-      if (!byUser.has(row.userId)) {
-        byUser.set(row.userId, {
+      let entry = byUser.get(row.userId);
+      if (!entry) {
+        entry = {
           userId: row.userId,
           username: row.username,
           completedItemIds: [],
           completedAt: [],
-        });
+        };
+        byUser.set(row.userId, entry);
       }
-      const entry = byUser.get(row.userId)!;
       entry.completedItemIds.push(row.readingItemId);
       entry.completedAt.push(row.completedAt);
     }

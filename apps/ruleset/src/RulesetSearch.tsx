@@ -81,8 +81,8 @@ function buildSectionIndex(pages: SearchablePage[]) {
       const h3Match = line.match(/^###\s+(.+?)\s*$/);
       if (h3Match) {
         flush();
-        const rawLabel = h3Match[1]!
-          .replace(/\\([\\`*_{}[\]()#+.!-])/g, "$1")
+        const rawLabel = h3Match[1]
+          ?.replace(/\\([\\`*_{}[\]()#+.!-])/g, "$1")
           .replace(/[`*_~]/g, "")
           .trim();
         const slug =
@@ -182,11 +182,6 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
   const sectionIndex = useMemo(() => buildSectionIndex(pages), [pages]);
   const results = useMemo(() => search(query, sectionIndex), [query, sectionIndex]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: reset active index when search results change
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [results.length]);
-
   useEffect(() => {
     if (open) {
       setQuery("");
@@ -205,7 +200,8 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
         return;
       }
 
-      const pageId = result.pageId!;
+      const pageId = result.pageId;
+      if (!pageId) return;
       const target = basePath === "/" ? `/${pageId}` : `${basePath}/${pageId}`;
       navigate(target, {
         state: result.sectionId ? { scrollToSection: result.sectionId } : undefined,
@@ -237,7 +233,10 @@ export function RulesetSearch({ open, onClose, pages, basePath }: RulesetSearchP
               ref={inputRef}
               type="text"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setActiveIndex(0);
+              }}
               onKeyDown={handleKeyDown}
               placeholder="Hae termiä, sääntöä tai osiota..."
               className="border-0 shadow-none bg-transparent rounded-none h-auto min-h-0 py-1.5 px-0 text-base font-normal focus-visible:ring-0 focus-visible:border-transparent"

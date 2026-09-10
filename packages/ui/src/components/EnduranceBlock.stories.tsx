@@ -24,7 +24,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Interactive wrapper
-const Interactive = (props: any) => {
+const Interactive = (props: React.ComponentProps<typeof EnduranceBlock>) => {
   const [value, setValue] = useState(props.value ?? 10);
   return (
     <EnduranceBlock

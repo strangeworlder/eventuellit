@@ -49,7 +49,7 @@ function RefSteps({ steps }: { steps: string[] }) {
   return (
     <ol className="space-y-1.5">
       {steps.map((step, i) => (
-        <li key={i} className="flex items-start gap-2.5 text-sm">
+        <li key={step} className="flex items-start gap-2.5 text-sm">
           <span className="shrink-0 w-5 h-5 rounded-full bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] text-xs font-black flex items-center justify-center mt-0.5">
             {i + 1}
           </span>

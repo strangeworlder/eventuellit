@@ -12,7 +12,7 @@ import { EpisodesService } from "./episodes.service";
 
 describe("EpisodesController", () => {
   let controller: EpisodesController;
-  let service: any;
+  let service: Record<string, ReturnType<typeof vi.fn>>;
 
   const mockGmUser = { id: 1, email: "gm@test.com", username: "gm", role: "gm" };
 
@@ -29,7 +29,7 @@ describe("EpisodesController", () => {
       removeSkill: vi.fn().mockResolvedValue(undefined),
     };
 
-    const module: TestingModule = await Test.createTestingModule({
+    const _module: TestingModule = await Test.createTestingModule({
       controllers: [EpisodesController],
       providers: [
         {
@@ -45,7 +45,7 @@ describe("EpisodesController", () => {
       .useValue({ canActivate: () => true })
       .compile();
 
-    controller = new EpisodesController(service);
+    controller = new EpisodesController(service as unknown as EpisodesService);
   });
 
   it("should be defined", () => {
@@ -63,12 +63,12 @@ describe("EpisodesController", () => {
   });
 
   it("should pass gmId to create", async () => {
-    await controller.create({ slug: "test", title: "Test" } as any, mockGmUser);
+    await controller.create({ slug: "test", title: "Test" } as CreateEpisodeDto, mockGmUser);
     expect(service.create).toHaveBeenCalledWith(expect.any(Object), mockGmUser.id);
   });
 
   it("should allow GM to update", async () => {
-    await controller.update(1, { title: "New" } as any);
+    await controller.update(1, { title: "New" } as UpdateEpisodeDto);
     expect(service.update).toHaveBeenCalledWith(1, { title: "New" });
   });
 

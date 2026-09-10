@@ -55,9 +55,9 @@ export function SelectionCardGroup({
 
   return (
     <SelectionCardGroupCtx.Provider value={ctx}>
-      <div role="group" className={cn("grid grid-cols-1 tablet:grid-cols-2 gap-3", className)}>
+      <fieldset className={cn("grid grid-cols-1 tablet:grid-cols-2 gap-3", className)}>
         {children}
-      </div>
+      </fieldset>
     </SelectionCardGroupCtx.Provider>
   );
 }
@@ -174,8 +174,8 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
         ref={ref}
         data-theme={theme}
         data-selection={selectionState}
-        role="radio"
-        aria-checked={selectionState !== "none"}
+        role="option"
+        aria-selected={selectionState !== "none"}
         aria-disabled={isDisabled}
         tabIndex={isDisabled ? -1 : 0}
         onKeyDown={(e) => {

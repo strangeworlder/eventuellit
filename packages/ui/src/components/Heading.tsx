@@ -18,6 +18,11 @@ export { cn };
 const FlickeringText = ({ text }: { text: string }) => {
   const [flickerIndex, setFlickerIndex] = React.useState<number | null>(null);
   const [breathState, setBreathState] = React.useState({ center: 0, toggle: false });
+  const charTokens = React.useMemo(
+    () =>
+      Array.from(text).map((char, index) => ({ id: `char-token-${index}-${char}`, char, index })),
+    [text],
+  );
 
   React.useEffect(() => {
     if (!text) return;
@@ -91,12 +96,12 @@ const FlickeringText = ({ text }: { text: string }) => {
 
   return (
     <>
-      {Array.from(text).map((char, index) => {
-        const distance = Math.abs(index - breathState.center);
-        const isFlickering = flickerIndex === index;
+      {charTokens.map((token) => {
+        const distance = Math.abs(token.index - breathState.center);
+        const isFlickering = flickerIndex === token.index;
         return (
           <span
-            key={`${char}-${index}`}
+            key={token.id}
             className={cn(
               isFlickering ? "flicker-char" : "",
               breathState.toggle ? "breath-char" : "",
@@ -106,7 +111,7 @@ const FlickeringText = ({ text }: { text: string }) => {
               animationDelay: `${distance * 0.15}s`,
             }}
           >
-            {char === " " ? "\u00A0" : char}
+            {token.char === " " ? "\u00A0" : token.char}
           </span>
         );
       })}

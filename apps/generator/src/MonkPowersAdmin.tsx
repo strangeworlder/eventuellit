@@ -165,8 +165,8 @@ export function MonkPowersAdmin({ basePath = "" }: MonkPowersAdminProps) {
         });
       }
       handleCloseDialog();
-    } catch (err: any) {
-      setFormError(err.message || "Tallennus epäonnistui.");
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : "Tallennus epäonnistui.");
     }
   };
 

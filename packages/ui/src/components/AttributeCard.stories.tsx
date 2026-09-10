@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AttributeCard, getScoreBonusFromValue } from "./AttributeCard";
-import { Theme } from "./Theme";
 
 const meta: Meta<typeof AttributeCard> = {
   title: "Suunnittelujarjestelma/Organismit/AttributeCard",
@@ -18,7 +17,7 @@ const meta: Meta<typeof AttributeCard> = {
 export default meta;
 type Story = StoryObj<typeof AttributeCard>;
 
-const InteractiveTemplate = (args: any) => {
+const InteractiveTemplate = (args: React.ComponentProps<typeof AttributeCard>) => {
   const [fysiikka, setFysiikka] = useState(1);
   const [nopeus, setNopeus] = useState(0);
   const maxDice = 15; // Increased to allow testing upgrades

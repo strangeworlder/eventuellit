@@ -51,8 +51,7 @@ function resolveRemoteAssetUrl(assetPath: string) {
 // ---------------------------------------------------------------------------
 function parseFrontmatter(md: string) {
   const match = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
-  // biome-ignore lint/suspicious/noExplicitAny: Frontmatter supports mixed scalar values across world entry fields.
-  const data: Record<string, any> = {};
+  const data: Record<string, unknown> = {};
   let content = md;
 
   if (match) {
@@ -135,17 +134,23 @@ const entries: WorldEntry[] = Object.entries(modules)
 
     return {
       id: filename.toLowerCase(),
-      title: data.title || filename,
-      order: data.order || 99,
-      description: data.description || "",
+      title: typeof data.title === "string" && data.title ? data.title : filename,
+      order: typeof data.order === "number" ? data.order : 99,
+      description: typeof data.description === "string" ? data.description : "",
       content,
-      category: data.category || category,
-      tension: data.tension || "",
-      image: data.image || "",
-      parent: data.parent || undefined,
-      color: data.color || undefined,
-      secondary_color: data.secondary_color || undefined,
-      secondary_parent: data.secondary_parent || undefined,
+      category: typeof data.category === "string" && data.category ? data.category : category,
+      tension: typeof data.tension === "string" ? data.tension : "",
+      image: typeof data.image === "string" ? data.image : "",
+      parent: typeof data.parent === "string" && data.parent ? data.parent : undefined,
+      color: typeof data.color === "string" && data.color ? data.color : undefined,
+      secondary_color:
+        typeof data.secondary_color === "string" && data.secondary_color
+          ? data.secondary_color
+          : undefined,
+      secondary_parent:
+        typeof data.secondary_parent === "string" && data.secondary_parent
+          ? data.secondary_parent
+          : undefined,
       ruling_faction: parseListField(data.ruling_faction),
       disrupting_factions: parseListField(data.disrupting_factions),
       // Version snapshot fields
@@ -957,11 +962,11 @@ function FactionDetail({
       // Factions that co-rule stations we disrupt
       ...stationEntries
         .filter((s) => s.disrupting_factions?.includes(entry.id) && s.ruling_faction?.length)
-        .flatMap((s) => s.ruling_faction!),
+        .flatMap((s) => s.ruling_faction ?? []),
       // Factions that disrupt stations we (co-)rule
       ...stationEntries
         .filter((s) => s.ruling_faction?.includes(entry.id) && s.disrupting_factions?.length)
-        .flatMap((s) => s.disrupting_factions!),
+        .flatMap((s) => s.disrupting_factions ?? []),
     ]),
   );
   const rivals = rivalIds
@@ -971,227 +976,225 @@ function FactionDetail({
   const accentColor = def?.color ?? "secondary";
 
   return (
-    <>
-      <HeadingLevelProvider>
-        <Hero
-          title={entry.title}
-          description={entry.description}
-          backgroundImageSrc={entry.image ? resolveRemoteAssetUrl(entry.image) : undefined}
+    <HeadingLevelProvider>
+      <Hero
+        title={entry.title}
+        description={entry.description}
+        backgroundImageSrc={entry.image ? resolveRemoteAssetUrl(entry.image) : undefined}
+      />
+
+      <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
+        <Breadcrumb
+          className="col-span-full mb-2"
+          items={[
+            { label: "Maailma", to: basePath || "/world" },
+            { label: "Faktiot", to: `${basePath}/faktiot` },
+            ...(parentDef
+              ? [{ label: parentDef.name, to: `${basePath}/faktiot/${parentDef.id}` }]
+              : []),
+            { label: entry.title },
+          ]}
         />
 
-        <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
-          <Breadcrumb
-            className="col-span-full mb-2"
-            items={[
-              { label: "Maailma", to: basePath || "/world" },
-              { label: "Faktiot", to: `${basePath}/faktiot` },
-              ...(parentDef
-                ? [{ label: parentDef.name, to: `${basePath}/faktiot/${parentDef.id}` }]
-                : []),
-              { label: entry.title },
-            ]}
-          />
+        {/* Main content column */}
+        <div className="space-y-8 animate-in fade-in duration-500">
+          {/* Lore */}
+          <MarkdownRenderer headingIdPrefix={`faction-${entry.id}`}>
+            {entry.content}
+          </MarkdownRenderer>
 
-          {/* Main content column */}
-          <div className="space-y-8 animate-in fade-in duration-500">
-            {/* Lore */}
-            <MarkdownRenderer headingIdPrefix={`faction-${entry.id}`}>
-              {entry.content}
-            </MarkdownRenderer>
-
-            {/* Subfactions (main factions only) */}
-            {subEntries.length > 0 && (
-              <TextSection title="Alafaktiot">
-                <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-4">
-                  {subEntries.map((sub) => {
-                    const subDef = getFactionById(sub.id);
-                    return (
-                      <EntityCard
-                        key={sub.id}
-                        name={sub.title}
-                        subtitle={sub.description}
-                        color={subDef?.color ?? accentColor}
-                        secondaryColor={subDef?.secondaryColor}
-                        iconName={subDef?.icon}
-                        href={`${basePath}/faktiot/${sub.id}`}
-                        variant="npc"
-                      />
-                    );
-                  })}
-                </div>
-              </TextSection>
-            )}
-
-            {/* NPCs placeholder */}
-            <TextSection title="Merkittävät hahmot">
-              <div className="mt-4">
-                <NoticePanel variant="info">
-                  Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
-                </NoticePanel>
+          {/* Subfactions (main factions only) */}
+          {subEntries.length > 0 && (
+            <TextSection title="Alafaktiot">
+              <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-4">
+                {subEntries.map((sub) => {
+                  const subDef = getFactionById(sub.id);
+                  return (
+                    <EntityCard
+                      key={sub.id}
+                      name={sub.title}
+                      subtitle={sub.description}
+                      color={subDef?.color ?? accentColor}
+                      secondaryColor={subDef?.secondaryColor}
+                      iconName={subDef?.icon}
+                      href={`${basePath}/faktiot/${sub.id}`}
+                      variant="npc"
+                    />
+                  );
+                })}
               </div>
             </TextSection>
+          )}
 
-            {/* Controlled stations */}
-            {controlledStations.length > 0 && (
-              <TextSection title="Hallitut asemat">
-                <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 mt-4">
-                  {controlledStations.map((station) => (
-                    <a
-                      key={station.id}
-                      href={`${basePath}/kynnys/${station.id}`}
-                      className="no-underline text-inherit"
-                    >
-                      <Card variant="interactive" className="h-full cursor-pointer">
-                        <CardHeader>
-                          <div className="flex items-start justify-between gap-2">
-                            <CardTitle>{station.title}</CardTitle>
-                            {station.tension && (
-                              <Text
-                                variant="caption"
-                                className="text-xs uppercase tracking-widest text-[var(--theme-primary)] shrink-0 mt-0.5"
-                              >
-                                {station.tension}
-                              </Text>
-                            )}
-                          </div>
-                        </CardHeader>
-                        {station.description && (
-                          <CardContent>
-                            <Text className="text-sm">{station.description}</Text>
-                          </CardContent>
-                        )}
-                      </Card>
-                    </a>
-                  ))}
-                </div>
-              </TextSection>
-            )}
-          </div>
+          {/* NPCs placeholder */}
+          <TextSection title="Merkittävät hahmot">
+            <div className="mt-4">
+              <NoticePanel variant="info">
+                Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
+              </NoticePanel>
+            </div>
+          </TextSection>
 
-          {/* Sidebar */}
-          <PageAside sticky>
-            <div className="space-y-4">
-              {/* Parent faction link (subfactions only) */}
-              {(parentDef || secondaryParentDef) && (
-                <Card variant="outline">
-                  <CardHeader>
-                    <CardTitle>Emofaktio</CardTitle>
-                  </CardHeader>
-                  <CardContent variant="dense">
-                    <div className="space-y-1.5">
-                      {parentDef && (
-                        <FactionBadge
-                          factionName={parentDef.name}
-                          color={parentDef.color}
-                          iconName={parentDef.icon}
-                          href={`${basePath}/faktiot/${parentDef.id}`}
-                          variant="card"
-                          className="w-full"
-                        />
+          {/* Controlled stations */}
+          {controlledStations.length > 0 && (
+            <TextSection title="Hallitut asemat">
+              <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4 mt-4">
+                {controlledStations.map((station) => (
+                  <a
+                    key={station.id}
+                    href={`${basePath}/kynnys/${station.id}`}
+                    className="no-underline text-inherit"
+                  >
+                    <Card variant="interactive" className="h-full cursor-pointer">
+                      <CardHeader>
+                        <div className="flex items-start justify-between gap-2">
+                          <CardTitle>{station.title}</CardTitle>
+                          {station.tension && (
+                            <Text
+                              variant="caption"
+                              className="text-xs uppercase tracking-widest text-[var(--theme-primary)] shrink-0 mt-0.5"
+                            >
+                              {station.tension}
+                            </Text>
+                          )}
+                        </div>
+                      </CardHeader>
+                      {station.description && (
+                        <CardContent>
+                          <Text className="text-sm">{station.description}</Text>
+                        </CardContent>
                       )}
-                      {secondaryParentDef && (
-                        <FactionBadge
-                          factionName={secondaryParentDef.name}
-                          color={secondaryParentDef.color}
-                          iconName={secondaryParentDef.icon}
-                          href={`${basePath}/faktiot/${secondaryParentDef.id}`}
-                          variant="card"
-                          className="w-full"
-                        />
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+                    </Card>
+                  </a>
+                ))}
+              </div>
+            </TextSection>
+          )}
+        </div>
 
-              {/* Quick stats */}
+        {/* Sidebar */}
+        <PageAside sticky>
+          <div className="space-y-4">
+            {/* Parent faction link (subfactions only) */}
+            {(parentDef || secondaryParentDef) && (
               <Card variant="outline">
                 <CardHeader>
-                  <CardTitle>Tilastot</CardTitle>
+                  <CardTitle>Emofaktio</CardTitle>
                 </CardHeader>
                 <CardContent variant="dense">
-                  <dl className="space-y-1.5 text-sm">
-                    <div className="flex items-baseline justify-between gap-2">
-                      <dt>
-                        <Text variant="caption" className="uppercase tracking-wider">
-                          Hallittuja asemia
-                        </Text>
-                      </dt>
-                      <dd className="font-heading font-bold text-lg tabular-nums text-[var(--theme-primary)]">
-                        {controlledStations.length}
-                      </dd>
-                    </div>
-                    <div className="flex items-baseline justify-between gap-2">
-                      <dt>
-                        <Text variant="caption" className="uppercase tracking-wider">
-                          Häirittyä asemaa
-                        </Text>
-                      </dt>
-                      <dd className="font-heading font-bold text-lg tabular-nums text-[var(--theme-primary)]">
-                        {disruptedStations.length}
-                      </dd>
-                    </div>
-                  </dl>
+                  <div className="space-y-1.5">
+                    {parentDef && (
+                      <FactionBadge
+                        factionName={parentDef.name}
+                        color={parentDef.color}
+                        iconName={parentDef.icon}
+                        href={`${basePath}/faktiot/${parentDef.id}`}
+                        variant="card"
+                        className="w-full"
+                      />
+                    )}
+                    {secondaryParentDef && (
+                      <FactionBadge
+                        factionName={secondaryParentDef.name}
+                        color={secondaryParentDef.color}
+                        iconName={secondaryParentDef.icon}
+                        href={`${basePath}/faktiot/${secondaryParentDef.id}`}
+                        variant="card"
+                        className="w-full"
+                      />
+                    )}
+                  </div>
                 </CardContent>
               </Card>
+            )}
 
-              {/* Rivals */}
-              {rivals.length > 0 && (
-                <Card variant="outline">
-                  <CardHeader>
-                    <CardTitle>Kilpailijat</CardTitle>
-                  </CardHeader>
-                  <CardContent variant="dense">
-                    <div className="space-y-1.5">
-                      {rivals.map((rival) => (
+            {/* Quick stats */}
+            <Card variant="outline">
+              <CardHeader>
+                <CardTitle>Tilastot</CardTitle>
+              </CardHeader>
+              <CardContent variant="dense">
+                <dl className="space-y-1.5 text-sm">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <dt>
+                      <Text variant="caption" className="uppercase tracking-wider">
+                        Hallittuja asemia
+                      </Text>
+                    </dt>
+                    <dd className="font-heading font-bold text-lg tabular-nums text-[var(--theme-primary)]">
+                      {controlledStations.length}
+                    </dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <dt>
+                      <Text variant="caption" className="uppercase tracking-wider">
+                        Häirittyä asemaa
+                      </Text>
+                    </dt>
+                    <dd className="font-heading font-bold text-lg tabular-nums text-[var(--theme-primary)]">
+                      {disruptedStations.length}
+                    </dd>
+                  </div>
+                </dl>
+              </CardContent>
+            </Card>
+
+            {/* Rivals */}
+            {rivals.length > 0 && (
+              <Card variant="outline">
+                <CardHeader>
+                  <CardTitle>Kilpailijat</CardTitle>
+                </CardHeader>
+                <CardContent variant="dense">
+                  <div className="space-y-1.5">
+                    {rivals.map((rival) => (
+                      <FactionBadge
+                        key={rival.id}
+                        factionName={rival.name}
+                        color={rival.color}
+                        secondaryColor={rival.secondaryColor}
+                        iconName={rival.icon}
+                        href={`${basePath}/faktiot/${rival.id}`}
+                        variant="card"
+                        className="w-full"
+                      />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Subfaction list (main factions only) */}
+            {!entry.parent && subEntries.length > 0 && (
+              <Card variant="outline">
+                <CardHeader>
+                  <CardTitle>Alafaktiot</CardTitle>
+                </CardHeader>
+                <CardContent variant="dense">
+                  <div className="space-y-1.5">
+                    {subEntries.map((sub) => {
+                      const subDef = getFactionById(sub.id);
+                      return (
                         <FactionBadge
-                          key={rival.id}
-                          factionName={rival.name}
-                          color={rival.color}
-                          secondaryColor={rival.secondaryColor}
-                          iconName={rival.icon}
-                          href={`${basePath}/faktiot/${rival.id}`}
+                          key={sub.id}
+                          factionName={sub.title}
+                          color={subDef?.color ?? accentColor}
+                          secondaryColor={subDef?.secondaryColor}
+                          iconName={subDef?.icon}
+                          href={`${basePath}/faktiot/${sub.id}`}
                           variant="card"
                           className="w-full"
                         />
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Subfaction list (main factions only) */}
-              {!entry.parent && subEntries.length > 0 && (
-                <Card variant="outline">
-                  <CardHeader>
-                    <CardTitle>Alafaktiot</CardTitle>
-                  </CardHeader>
-                  <CardContent variant="dense">
-                    <div className="space-y-1.5">
-                      {subEntries.map((sub) => {
-                        const subDef = getFactionById(sub.id);
-                        return (
-                          <FactionBadge
-                            key={sub.id}
-                            factionName={sub.title}
-                            color={subDef?.color ?? accentColor}
-                            secondaryColor={subDef?.secondaryColor}
-                            iconName={subDef?.icon}
-                            href={`${basePath}/faktiot/${sub.id}`}
-                            variant="card"
-                            className="w-full"
-                          />
-                        );
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          </PageAside>
-        </PageBody>
-      </HeadingLevelProvider>
-    </>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </PageAside>
+      </PageBody>
+    </HeadingLevelProvider>
   );
 }
 

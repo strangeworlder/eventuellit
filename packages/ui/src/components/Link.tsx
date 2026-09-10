@@ -33,7 +33,14 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       );
     }
 
-    return <ReactRouterLink to={href} className={classes} {...(props as any)} />;
+    return (
+      <ReactRouterLink
+        ref={ref}
+        className={classes}
+        {...(props as Omit<React.ComponentProps<typeof ReactRouterLink>, "to">)}
+        to={href}
+      />
+    );
   },
 );
 Link.displayName = "Link";

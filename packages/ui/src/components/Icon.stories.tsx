@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 import { customIconNames } from "../generated/custom-icon-names";
 import { Icon, type IconProps, icons, lucideIcons } from "./Icon";
 import "../styles.css";

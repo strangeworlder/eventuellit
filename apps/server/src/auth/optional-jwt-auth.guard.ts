@@ -12,14 +12,16 @@ export class OptionalJwtAuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest<Request>();
+    const request = context
+      .switchToHttp()
+      .getRequest<Request & { user?: Record<string, unknown> }>();
     const token = this.extractTokenFromRequest(request);
 
     if (!token) return true;
 
     try {
       const payload = this.jwtService.verify(token);
-      (request as any).user = {
+      request.user = {
         id: payload.sub,
         email: payload.email,
         role: payload.role,
