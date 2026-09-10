@@ -31,6 +31,7 @@ import {
 import { worldCategories } from "./categories";
 import { stationConnections } from "./connections";
 import { type factions, getFactionById, getHybridFactions } from "./factions";
+import { detectSwipeDirection } from "./swipe";
 
 const remoteOrigin = new URL(import.meta.url).origin;
 
@@ -439,27 +440,72 @@ function ArticleContent({
   // Swipe navigation between stations (mobile) — always navigates to canonical (no version param)
   useEffect(() => {
     let startX = 0;
+    let startY = 0;
+    let startTime = 0;
+    let isTracking = false;
+
     const onTouchStart = (e: TouchEvent) => {
-      startX = e.touches[0]?.clientX ?? 0;
+      // Only track single-touch gestures
+      if (e.touches.length !== 1) {
+        isTracking = false;
+        return;
+      }
+
+      const touch = e.touches[0];
+      if (!touch) return;
+
+      // Ignore touches that originated on interactive elements
+      const target = e.target as HTMLElement | null;
+      if (target?.closest?.("a, button, input, textarea, select, [data-no-swipe]")) {
+        isTracking = false;
+        return;
+      }
+
+      startX = touch.clientX;
+      startY = touch.clientY;
+      startTime = Date.now();
+      isTracking = true;
     };
+
     const onTouchEnd = (e: TouchEvent) => {
-      const endX = e.changedTouches[0]?.clientX ?? 0;
-      const delta = startX - endX;
-      const SWIPE_THRESHOLD = 60;
-      if (Math.abs(delta) < SWIPE_THRESHOLD) return;
-      if (delta > 0 && currentIndex < categoryEntries.length - 1) {
+      if (!isTracking) return;
+      isTracking = false;
+
+      const touch = e.changedTouches[0];
+      if (!touch) return;
+
+      const endX = touch.clientX;
+      const endY = touch.clientY;
+      const durationMs = Date.now() - startTime;
+
+      const direction = detectSwipeDirection({
+        startX,
+        startY,
+        endX,
+        endY,
+        durationMs,
+      });
+
+      if (direction === "left" && currentIndex < categoryEntries.length - 1) {
         const next = categoryEntries[currentIndex + 1];
         if (next) navigate(`${basePath}/${entry.category}/${next.id}`);
-      } else if (delta < 0 && currentIndex > 0) {
+      } else if (direction === "right" && currentIndex > 0) {
         const prev = categoryEntries[currentIndex - 1];
         if (prev) navigate(`${basePath}/${entry.category}/${prev.id}`);
       }
     };
+
+    const onTouchCancel = () => {
+      isTracking = false;
+    };
+
     document.addEventListener("touchstart", onTouchStart, { passive: true });
     document.addEventListener("touchend", onTouchEnd, { passive: true });
+    document.addEventListener("touchcancel", onTouchCancel, { passive: true });
     return () => {
       document.removeEventListener("touchstart", onTouchStart);
       document.removeEventListener("touchend", onTouchEnd);
+      document.removeEventListener("touchcancel", onTouchCancel);
     };
   }, [currentIndex, categoryEntries, basePath, entry.category, navigate]);
 
