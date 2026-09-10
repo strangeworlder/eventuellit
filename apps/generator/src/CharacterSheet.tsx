@@ -13,6 +13,7 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { Link } from "@repo/ui/components/Link";
 import { LoadingState } from "@repo/ui/components/LoadingState";
+import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { PageBody } from "@repo/ui/components/Page";
 import { SkillTagList } from "@repo/ui/components/SkillTagList";
@@ -405,9 +406,11 @@ export function CharacterSheet({
                             </Badge>
                           </div>
                           {power.description && (
-                            <p className="text-xs text-text-muted whitespace-pre-wrap">
-                              {power.description}
-                            </p>
+                            <div className="text-xs text-text-muted">
+                              <MarkdownRenderer className="space-y-1 [&_p]:mb-1 [&_p]:text-xs [&_ul]:my-1 [&_ol]:my-1 [&_li]:text-xs">
+                                {power.description}
+                              </MarkdownRenderer>
+                            </div>
                           )}
                           {power.properties && Object.keys(power.properties).length > 0 && (
                             <div className="flex flex-wrap gap-1.5 pt-1">

@@ -9,6 +9,7 @@ import { Hero } from "@repo/ui/components/Hero";
 import { Input } from "@repo/ui/components/Input";
 import { Stack } from "@repo/ui/components/Layout";
 import { LoadingState } from "@repo/ui/components/LoadingState";
+import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { PageBody } from "@repo/ui/components/Page";
 import { Select, type SelectOption } from "@repo/ui/components/Select";
@@ -195,11 +196,17 @@ export function MonkPowersAdmin({ basePath = "" }: MonkPowersAdminProps) {
       {
         key: "description",
         header: "Kuvaus",
-        render: (value) => (
-          <span className="text-text-muted text-sm line-clamp-2 max-w-md">
-            {(value as string) || "—"}
-          </span>
-        ),
+        render: (value) => {
+          const desc = value as string;
+          if (!desc) return <span className="text-text-muted text-sm">—</span>;
+          return (
+            <div className="line-clamp-2 max-w-md text-xs text-text-muted">
+              <MarkdownRenderer className="space-y-0.5 [&_p]:mb-0 [&_p]:text-xs [&_ul]:my-0 [&_ol]:my-0 [&_li]:text-xs">
+                {desc}
+              </MarkdownRenderer>
+            </div>
+          );
+        },
       },
       {
         key: "properties",
@@ -374,13 +381,27 @@ export function MonkPowersAdmin({ basePath = "" }: MonkPowersAdminProps) {
           </div>
 
           <TextArea
-            label="Kuvaus"
+            label="Kuvaus (Markdown)"
+            variant="monospace"
             size="compact"
             rows={4}
             value={formDescription}
             onChange={(e) => setFormDescription(e.target.value)}
-            placeholder="Kuvaus voiman vaikutuksista ja säännöistä..."
+            placeholder="Kuvaus voiman vaikutuksista ja säännöistä (tukee Markdown-muotoilua)..."
           />
+
+          {formDescription.trim() && (
+            <div className="rounded border border-[var(--theme-border-soft)] bg-[var(--theme-bg)] p-3 space-y-1">
+              <Text variant="muted" className="text-xs font-semibold uppercase tracking-wider">
+                Esikatselu:
+              </Text>
+              <div className="text-xs text-[var(--theme-text)]">
+                <MarkdownRenderer className="space-y-1 [&_p]:mb-1 [&_p]:text-xs [&_ul]:my-1 [&_ol]:my-1 [&_li]:text-xs">
+                  {formDescription}
+                </MarkdownRenderer>
+              </div>
+            </div>
+          )}
 
           {/* Properties editor */}
           <div className="border-t border-[var(--theme-border-soft)] pt-3">

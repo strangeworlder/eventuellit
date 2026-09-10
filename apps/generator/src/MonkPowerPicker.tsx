@@ -1,6 +1,7 @@
 import { Badge } from "@repo/ui/components/Badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { LoadingState } from "@repo/ui/components/LoadingState";
+import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { useMemo, useState } from "react";
 import { type MonkPower, useMonkPowers } from "./api/monk-powers";
@@ -153,9 +154,11 @@ export function MonkPowerPicker({
                 </CardHeader>
                 <CardContent className="py-2 px-4 space-y-2">
                   {power.description && (
-                    <p className="text-xs text-text-muted whitespace-pre-wrap">
-                      {power.description}
-                    </p>
+                    <div className="text-xs text-text-muted">
+                      <MarkdownRenderer className="space-y-1 [&_p]:mb-1 [&_p]:text-xs [&_ul]:my-1 [&_ol]:my-1 [&_li]:text-xs">
+                        {power.description}
+                      </MarkdownRenderer>
+                    </div>
                   )}
                   {propertyEntries.length > 0 && (
                     <div className="flex flex-wrap gap-2 pt-1 border-t border-[var(--theme-border-soft)]/50">
