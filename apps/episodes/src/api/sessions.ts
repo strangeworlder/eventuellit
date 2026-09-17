@@ -11,6 +11,8 @@ export interface Session {
   label: string | null;
   gmRecap: string | null;
   recapPublished: boolean;
+  isEnrolled?: boolean;
+  canEditRecap?: boolean;
   createdAt: string;
 }
 

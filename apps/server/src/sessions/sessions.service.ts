@@ -4,12 +4,16 @@ import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
 import { episodes, sessions } from "../db/schema";
+import { EpisodePlayersService } from "../episode-players/episode-players.service";
 import type { CreateSessionDto } from "./dto/create-session.dto";
 import type { UpdateSessionDto } from "./dto/update-session.dto";
 
 @Injectable()
 export class SessionsService {
-  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
+  constructor(
+    @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
+    @Inject(EpisodePlayersService) private readonly episodePlayersService: EpisodePlayersService,
+  ) {}
 
   async findByEpisode(episodeId: number, viewer: { id: number; role: string } | null) {
     const rows = await this.db
@@ -19,11 +23,34 @@ export class SessionsService {
       .orderBy(sessions.sessionNumber);
 
     const isGm = viewer?.role === "gm";
-    return rows.map((row) => {
-      if (!isGm && !row.recapPublished) {
-        return { ...row, gmRecap: null as string | null };
+    let isEnrolled = false;
+    let canEditRecap = false;
+
+    if (viewer) {
+      if (isGm) {
+        isEnrolled = true;
+      } else {
+        const anyEnrolled = await this.episodePlayersService.hasAnyEnrollments(episodeId);
+        if (!anyEnrolled) {
+          isEnrolled = true;
+          canEditRecap = true;
+        } else {
+          isEnrolled = await this.episodePlayersService.isEnrolled(episodeId, viewer.id);
+          canEditRecap = isEnrolled;
+        }
       }
-      return row;
+    }
+
+    return rows.map((row) => {
+      const sessionData = {
+        ...row,
+        isEnrolled,
+        canEditRecap,
+      };
+      if (!isGm && !row.recapPublished) {
+        return { ...sessionData, gmRecap: null as string | null };
+      }
+      return sessionData;
     });
   }
 

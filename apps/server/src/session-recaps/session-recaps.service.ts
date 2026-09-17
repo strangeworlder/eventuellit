@@ -17,7 +17,7 @@ import type { UpsertSessionPlayerRecapDto } from "./dto/upsert-session-player-re
 export class SessionRecapsService {
   constructor(
     @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
-    private readonly episodePlayersService: EpisodePlayersService,
+    @Inject(EpisodePlayersService) private readonly episodePlayersService: EpisodePlayersService,
   ) {}
 
   private async getSessionOrThrow(sessionId: number) {
@@ -30,15 +30,19 @@ export class SessionRecapsService {
 
   async findBySession(sessionId: number, viewer: { id: number; role: string } | null) {
     const session = await this.getSessionOrThrow(sessionId);
-    if (viewer) {
-      await this.episodePlayersService.assertEnrolled(session.episodeId, viewer.id, viewer.role);
-    }
 
     const isGm = viewer?.role === "gm";
     const published = session.recapPublished;
 
-    // Anonymous on unpublished session: nothing to show
-    if (!isGm && !published && !viewer) return [];
+    // Anonymous or non-enrolled viewer on unpublished session: nothing to show
+    if (!isGm && !published) {
+      if (!viewer) return [];
+      const anyEnrolled = await this.episodePlayersService.hasAnyEnrollments(session.episodeId);
+      if (anyEnrolled) {
+        const enrolled = await this.episodePlayersService.isEnrolled(session.episodeId, viewer.id);
+        if (!enrolled) return [];
+      }
+    }
 
     const whereClause =
       isGm || published

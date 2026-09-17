@@ -758,7 +758,12 @@ export function SessionPrepView({ episodeId, basePath }: { episodeId: number; ba
   );
 
   // Derived values — safe after all hooks are declared.
-  const isNotEnrolled = sessionsError instanceof EnrollmentError;
+  const isNotEnrolled =
+    sessionsError instanceof EnrollmentError ||
+    (user?.role !== "gm" &&
+      sessions !== undefined &&
+      sessions.length > 0 &&
+      sessions[0].isEnrolled === false);
   const isEpisodeCompleted = episode?.status === "completed";
   const nextSessionIndex = sessions ? sessions.findIndex((s) => s.status === "next") : -1;
   const linkedCharacter = linkedOwnCharacters[0];

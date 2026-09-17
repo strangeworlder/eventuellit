@@ -73,6 +73,7 @@ function SessionBlock({ session, episodeId }: { session: Session; episodeId: num
               sessionId={session.id}
               sessionStatus={session.status}
               recapPublished={session.recapPublished}
+              canEdit={session.canEditRecap}
             />
           </Stack>
         )}

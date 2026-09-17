@@ -15,29 +15,21 @@ import type { Request } from "express";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { OptionalJwtAuthGuard } from "../auth/optional-jwt-auth.guard";
 import { Roles, RolesGuard } from "../auth/roles.guard";
-import { EpisodePlayersService } from "../episode-players/episode-players.service";
 import { CreateSessionDto } from "./dto/create-session.dto";
 import { UpdateSessionDto } from "./dto/update-session.dto";
 import { SessionsService } from "./sessions.service";
 
 @Controller("sessions")
 export class SessionsController {
-  constructor(
-    private readonly sessionsService: SessionsService,
-    private readonly episodePlayersService: EpisodePlayersService,
-  ) {}
+  constructor(private readonly sessionsService: SessionsService) {}
 
   @UseGuards(OptionalJwtAuthGuard)
   @Get()
-  async findByEpisode(
+  findByEpisode(
     @Query("episodeId", ParseIntPipe) episodeId: number,
     @Req() req: Request & { user?: { id: number; role: string } },
   ) {
-    const user = req.user;
-    if (user) {
-      await this.episodePlayersService.assertEnrolled(episodeId, user.id, user.role);
-    }
-    return this.sessionsService.findByEpisode(episodeId, user ?? null);
+    return this.sessionsService.findByEpisode(episodeId, req.user ?? null);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

@@ -166,12 +166,14 @@ interface PlayerRecapSectionProps {
   sessionId: number;
   sessionStatus: "planned" | "next" | "played";
   recapPublished: boolean;
+  canEdit?: boolean;
 }
 
 export function PlayerRecapSection({
   sessionId,
   sessionStatus,
   recapPublished,
+  canEdit,
 }: PlayerRecapSectionProps) {
   const { user } = useAuth();
   const isGm = user?.role === "gm";
@@ -192,7 +194,7 @@ export function PlayerRecapSection({
 
         {isLoading && <Text variant="muted">Ladataan kertauksia...</Text>}
 
-        {!isLoading && !isGm && user && (
+        {!isLoading && !isGm && user && ((canEdit ?? true) || currentUserRecap) && (
           <OwnRecapEditor sessionId={sessionId} existing={currentUserRecap} />
         )}
 
