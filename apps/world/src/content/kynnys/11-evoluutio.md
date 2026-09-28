@@ -4,6 +4,7 @@ order: 11
 description: "Polttopiste — Kynnyksen hyperkapitalistinen teknologiakampus ja kehonmuokkauksen valtakunta."
 category: kynnys
 tension: "Murtunut"
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/d8017e7d-36e2-4b72-9f58-e334106c3485-1024.jpg
 ruling_faction: ""
 disrupting_factions: ratasvartio, verhonkutojat, muotinvalajat
 ---
