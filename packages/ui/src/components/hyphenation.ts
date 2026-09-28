@@ -4,43 +4,51 @@ import hyphenopoly from "hyphenopoly";
 type HyphenateFn = (text: string) => string;
 
 let cached: HyphenateFn | null = null;
+let initPromise: Promise<void> | null = null;
 const queue: Array<() => void> = [];
 
-// Kick off WASM loading immediately on first import — shared singleton
-// across all Heading instances so the 2.6 KB fi.wasm is fetched only once.
-(
-  hyphenopoly
-    .config({
-      require: ["fi"],
-      // patDir (second arg) is bundle-relative and useless in a Vite SPA;
-      // we resolve the WASM ourselves via the /Hyphenopoly/patterns/ path
-      // served by the Vite plugin in @eventuellit/host.
-      loader: async (file: string) => {
-        const res = await fetch(`/Hyphenopoly/patterns/${file}`);
-        if (!res.ok) {
-          throw new Error(`[Hyphenopoly] ${file}: HTTP ${res.status}`);
-        }
-        return res.arrayBuffer();
-      },
+/**
+ * Lazily kicks off WASM loading on first demand.
+ * Subsequent calls return the same promise.
+ */
+function ensureInit(): Promise<void> {
+  if (initPromise) return initPromise;
+  initPromise = (
+    hyphenopoly
+      .config({
+        require: ["fi"],
+        loader: async (file: string) => {
+          const res = await fetch(`/Hyphenopoly/patterns/${file}`);
+          if (!res.ok) {
+            throw new Error(`[Hyphenopoly] ${file}: HTTP ${res.status}`);
+          }
+          return res.arrayBuffer();
+        },
+      })
+      .get("fi") as Promise<HyphenateFn>
+  )
+    .then((fn) => {
+      cached = fn;
+      queue.splice(0).forEach((cb) => {
+        cb();
+      });
     })
-    .get("fi") as Promise<HyphenateFn>
-)
-  .then((fn) => {
-    cached = fn;
-    queue.splice(0).forEach((cb) => {
-      cb();
+    .catch((err: unknown) => {
+      console.warn("[Hyphenopoly] Failed to load Finnish patterns:", err);
     });
-  })
-  .catch((err: unknown) => {
-    console.warn("[Hyphenopoly] Failed to load Finnish patterns:", err);
-  });
+  return initPromise;
+}
 
 /**
  * Returns the text with Finnish soft hyphens (\u00AD) inserted at correct
  * syllable boundaries. Falls back to the original string until the WASM loads.
  */
 export function hyphenateText(text: string): string {
-  return cached !== null ? cached(text) : text;
+  if (cached === null) {
+    ensureInit();
+    return text;
+  }
+  return cached(text);
 }
 
 /** True once the Finnish WASM pattern has finished loading. */
@@ -57,6 +65,7 @@ export function onHyphenationReady(cb: () => void): () => void {
     cb();
     return () => {};
   }
+  ensureInit();
   queue.push(cb);
   return () => {
     const i = queue.indexOf(cb);

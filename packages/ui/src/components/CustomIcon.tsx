@@ -1,29 +1,47 @@
 import React from "react";
 import type { CustomIconName } from "../generated/custom-icon-names";
 
-/**
- * Injects the SVG sprite sheet into the DOM once (on first mount).
- * The sprite is inlined as a hidden SVG at the top of <body>,
- * so individual icons can reference it via <use href="#icon-*">.
- */
 let spriteInjected = false;
+let spritePromise: Promise<void> | null = null;
 
-function injectSprite() {
-  if (spriteInjected || typeof document === "undefined") return;
-  spriteInjected = true;
+export function injectSprite(): Promise<void> {
+  if (spriteInjected || spritePromise) return spritePromise ?? Promise.resolve();
+  if (typeof document === "undefined") return Promise.resolve();
 
   const existing = document.getElementById("custom-icon-sprite");
-  if (existing) return;
+  if (existing) {
+    spriteInjected = true;
+    return Promise.resolve();
+  }
 
-  // The sprite content is imported via Vite's ?raw loader in Icon.tsx
-  // and passed here as a string to inject once.
+  spritePromise = fetch("/icons-custom.svg")
+    .then((res) => {
+      if (!res.ok) throw new Error(`[CustomIcon] HTTP ${res.status}`);
+      return res.text();
+    })
+    .then((markup) => {
+      if (document.getElementById("custom-icon-sprite")) return;
+      const container = document.createElement("div");
+      container.id = "custom-icon-sprite";
+      container.setAttribute("aria-hidden", "true");
+      container.style.position = "absolute";
+      container.style.width = "0";
+      container.style.height = "0";
+      container.style.overflow = "hidden";
+      container.innerHTML = markup;
+      document.body.insertBefore(container, document.body.firstChild);
+      spriteInjected = true;
+    })
+    .catch((err) => {
+      console.warn("[CustomIcon] Failed to load SVG sprite:", err);
+    });
+
+  return spritePromise;
 }
 
 export interface CustomIconProps extends React.SVGAttributes<SVGElement> {
   name: CustomIconName;
   size?: number;
-  /** @internal Used by Icon component to set the sprite markup on first render */
-  _spriteMarkup?: string;
 }
 
 /**
@@ -31,26 +49,11 @@ export interface CustomIconProps extends React.SVGAttributes<SVGElement> {
  * Always use the `Icon` component wrapper — this is an internal primitive.
  */
 export const CustomIcon = React.forwardRef<SVGSVGElement, CustomIconProps>(
-  ({ name, size = 16, className, _spriteMarkup, style, ...props }, ref) => {
+  ({ name, size = 16, className, style, ...props }, ref) => {
     // Inject sprite into DOM on first render (client-side only)
     React.useEffect(() => {
-      if (spriteInjected || typeof document === "undefined") return;
-      spriteInjected = true;
-
-      if (document.getElementById("custom-icon-sprite")) return;
-
-      if (_spriteMarkup) {
-        const container = document.createElement("div");
-        container.id = "custom-icon-sprite";
-        container.setAttribute("aria-hidden", "true");
-        container.style.position = "absolute";
-        container.style.width = "0";
-        container.style.height = "0";
-        container.style.overflow = "hidden";
-        container.innerHTML = _spriteMarkup;
-        document.body.insertBefore(container, document.body.firstChild);
-      }
-    }, [_spriteMarkup]);
+      injectSprite();
+    }, []);
 
     return (
       <svg
@@ -70,5 +73,3 @@ export const CustomIcon = React.forwardRef<SVGSVGElement, CustomIconProps>(
 );
 
 CustomIcon.displayName = "CustomIcon";
-
-export { injectSprite };

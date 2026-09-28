@@ -35,15 +35,23 @@ const queryClient = new QueryClient();
 
 import { useAuth } from "@repo/auth/use-auth";
 import { useNotificationCount } from "./api/notifications";
-import { ChangelogPage } from "./components/ChangelogPage";
 import { LandingPage } from "./components/LandingPage";
 import { LoginPage } from "./components/LoginPage";
 import { OmaSivuPage } from "./components/OmaSivuPage";
-import { OperaatiotPage } from "./components/OperaatiotPage";
-import { PrivacyPolicyPage } from "./components/PrivacyPolicyPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyPage } from "./components/VerifyPage";
 import { buildDocumentTitle } from "./route-title";
+
+// Lazily load heavy / secondary host pages
+const ChangelogPage = React.lazy(() =>
+  import("./components/ChangelogPage").then((m) => ({ default: m.ChangelogPage })),
+);
+const OperaatiotPage = React.lazy(() =>
+  import("./components/OperaatiotPage").then((m) => ({ default: m.OperaatiotPage })),
+);
+const PrivacyPolicyPage = React.lazy(() =>
+  import("./components/PrivacyPolicyPage").then((m) => ({ default: m.PrivacyPolicyPage })),
+);
 
 // Lazily load the exposed Vite Federation micro-frontends
 const GeneratorApp = React.lazy(() => import("generator/App"));

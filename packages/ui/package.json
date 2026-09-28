@@ -4,11 +4,26 @@
     "private": true,
     "exports": {
         ".": "./src/index.ts",
+        "./components/utils": "./src/components/utils.ts",
+        "./components/hyphenation": "./src/components/hyphenation.ts",
+        "./components/attribute-dice": "./src/components/attribute-dice.ts",
+        "./components/article-navigation-utils": "./src/components/article-navigation-utils.tsx",
+        "./components/article-progress-events": "./src/components/article-progress-events.tsx",
+        "./components/useFocusTrap": "./src/components/useFocusTrap.ts",
+        "./components/useObscuredGlitch": "./src/components/useObscuredGlitch.ts",
+        "./components/usePillIndicator": "./src/components/usePillIndicator.ts",
+        "./components/*": [
+            "./src/components/*.tsx",
+            "./src/components/*.ts"
+        ],
         "./*": [
             "./src/*.tsx",
             "./src/*.ts"
         ]
     },
+    "sideEffects": [
+        "**/*.css"
+    ],
     "scripts": {
         "lint": "biome check .",
         "generate:component": "turbo gen react-component",
@@ -43,7 +58,6 @@
     },
     "dependencies": {
         "clsx": "^2.1.1",
-        "framer-motion": "^12.38.0",
         "hyphenopoly": "^6.1.0",
         "lucide-react": "^0.576.0",
         "react": "^19.2.0",

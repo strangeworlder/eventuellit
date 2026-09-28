@@ -57,7 +57,7 @@ export default defineConfig(({ mode }) => {
           episodes: `${env.VITE_EPISODES_URL || "http://localhost:3004"}/assets/entry.js`,
           world: `${env.VITE_WORLD_URL || "http://localhost:3005"}/assets/entry.js`,
         },
-        shared: ["react", "react-dom", "react-router-dom"],
+        shared: ["react", "react-dom", "react-router-dom", "@tanstack/react-query"],
       }),
     ],
     server: {

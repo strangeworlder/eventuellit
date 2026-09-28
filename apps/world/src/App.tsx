@@ -10,10 +10,6 @@ import { MarkdownRenderer } from "@repo/ui/components/Markdown";
 import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
 import { Page, PageAside, PageBody } from "@repo/ui/components/Page";
-import {
-  type StationConnectionNode,
-  StationConnections,
-} from "@repo/ui/components/StationConnections";
 import { Text } from "@repo/ui/components/Text";
 import { TextSection } from "@repo/ui/components/TextSection";
 import { TopNavDropdown, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
@@ -29,6 +25,7 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { worldCategories } from "./categories";
+import { type StationConnectionNode, StationConnections } from "./components/StationConnections";
 import { stationConnections } from "./connections";
 import { type factions, getFactionById, getHybridFactions } from "./factions";
 import { detectSwipeDirection } from "./swipe";

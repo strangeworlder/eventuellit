@@ -1,11 +1,14 @@
+import {
+  AnchoredTooltip,
+  type AnchoredTooltipPlacement,
+} from "@repo/ui/components/AnchoredTooltip";
+import { DiceIcon } from "@repo/ui/components/DiceIcon";
+import { Heading } from "@repo/ui/components/Heading";
+import { Text } from "@repo/ui/components/Text";
+import { cn } from "@repo/ui/components/utils";
 import { motion, type Transition } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnchoredTooltip, type AnchoredTooltipPlacement } from "./AnchoredTooltip";
-import { DiceIcon } from "./DiceIcon";
-import { Heading } from "./Heading";
-import { Text } from "./Text";
-import { cn } from "./utils";
 
 export type CompassDir = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
 
@@ -28,7 +31,6 @@ export interface ConnectedStation {
  * The game board / world map component. Renders a compass-rose of connected station nodes
  * around an animated central die. Each node is clickable and navigates to a station route.
  * Uses framer-motion for enter/exit animations and CSS Anchor Positioning for tooltips.
- * The most complex component in the library.
  *
  * @summary game board map; renders connected stations around a center die with compass directions
  */
@@ -458,6 +460,7 @@ export const StationConnections = React.forwardRef<HTMLDivElement, StationConnec
 
         <div
           ref={containerRef}
+          style={{ aspectRatio: "1 / 1" }}
           className={`relative w-full max-w-md mx-auto aspect-square bg-transparent border border-[var(--theme-secondary)] rounded-xl ${phase === "idle" ? "overflow-visible" : "overflow-hidden"}`}
         >
           {/* ═══════════════ IDLE ═══════════════ */}

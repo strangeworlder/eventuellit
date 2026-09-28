@@ -173,12 +173,7 @@ function useToastPortalTheme(forced?: Theme): Theme | undefined {
     read();
     const obs = new MutationObserver(read);
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    obs.observe(document.body, {
-      subtree: true,
-      childList: true,
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
+    obs.observe(document.body, { attributes: true, attributeFilter: ["data-theme"] });
     return () => obs.disconnect();
   }, [forced]);
 

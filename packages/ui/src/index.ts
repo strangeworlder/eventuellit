@@ -137,13 +137,7 @@ export { SkillMasonry } from "./components/SkillMasonry";
 export type { SkillTagItem, SkillTagListProps } from "./components/SkillTagList";
 export { SkillTagList } from "./components/SkillTagList";
 export { StatBlock } from "./components/StatBlock";
-export type {
-  CompassDir,
-  ConnectedStation,
-  StationConnectionNode,
-  StationConnectionsProps,
-} from "./components/StationConnections";
-export { StationConnections } from "./components/StationConnections";
+
 export { Switch } from "./components/Switch";
 export type { TableColumn, TableProps } from "./components/Table";
 export { Table } from "./components/Table";

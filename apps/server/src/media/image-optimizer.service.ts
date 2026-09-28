@@ -2,6 +2,9 @@ import { Injectable, Logger } from "@nestjs/common";
 import sharp from "sharp";
 import { R2Service } from "./r2.service";
 
+// Disable libvips operation cache to avoid holding native memory buffers
+sharp.cache(false);
+
 /** Widths to generate for responsive variants. Originals wider than these get all breakpoints. */
 const BREAKPOINTS = [480, 768, 1200];
 
@@ -52,21 +55,18 @@ export class ImageOptimizerService {
       `Optimizing ${originalFilename} (${origWidth}×${origHeight}) → ${widths.length} sizes × 3 formats`,
     );
 
-    // Generate and upload all variants
+    // Generate and upload all variants sequentially to keep native RAM low
     for (const w of widths) {
       const resized = sharp(buffer).resize(w, null, { withoutEnlargement: true });
 
-      const [avifBuf, webpBuf, jpgBuf] = await Promise.all([
-        resized.clone().avif({ quality: 45 }).toBuffer(),
-        resized.clone().webp({ quality: 70 }).toBuffer(),
-        resized.clone().jpeg({ quality: 75, mozjpeg: true }).toBuffer(),
-      ]);
+      const avifBuf = await resized.clone().avif({ quality: 45 }).toBuffer();
+      await this.r2.putObject(`${key}-${w}.avif`, avifBuf, "image/avif");
 
-      await Promise.all([
-        this.r2.putObject(`${key}-${w}.avif`, avifBuf, "image/avif"),
-        this.r2.putObject(`${key}-${w}.webp`, webpBuf, "image/webp"),
-        this.r2.putObject(`${key}-${w}.jpg`, jpgBuf, "image/jpeg"),
-      ]);
+      const webpBuf = await resized.clone().webp({ quality: 70 }).toBuffer();
+      await this.r2.putObject(`${key}-${w}.webp`, webpBuf, "image/webp");
+
+      const jpgBuf = await resized.clone().jpeg({ quality: 75, mozjpeg: true }).toBuffer();
+      await this.r2.putObject(`${key}-${w}.jpg`, jpgBuf, "image/jpeg");
     }
 
     // Generate blur placeholder (24px wide)

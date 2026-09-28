@@ -34,7 +34,6 @@ import {
 } from "lucide-react";
 import React from "react";
 import { type CustomIconName, customIconNames } from "../generated/custom-icon-names";
-import spriteMarkup from "../generated/icons-custom.svg?raw";
 import { CustomIcon } from "./CustomIcon";
 import { cn } from "./utils";
 
@@ -135,21 +134,13 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
               name={customName}
               size={36}
               className={cn("text-[var(--theme-secondary)]", className)}
-              _spriteMarkup={spriteMarkup}
             />
           </div>
         );
       }
 
       return (
-        <CustomIcon
-          ref={ref}
-          name={customName}
-          size={size}
-          className={className}
-          _spriteMarkup={spriteMarkup}
-          {...props}
-        />
+        <CustomIcon ref={ref} name={customName} size={size} className={className} {...props} />
       );
     }
 
