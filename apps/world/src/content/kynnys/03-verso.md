@@ -39,7 +39,7 @@ Kapinan jälkeen Deterministien asema on yhtä sekasortoinen kuin muunkin vanhan
 
 Verson nykyinen katastrofi juontaa juurensa tapahtumaan, jota kutsutaan Seitsemännen sektorin karsinnaksi. Erityisen sankka Sumun kausi pilasi osan sadosta, ja plantaasinomistaja asensi tiloihinsa KW-konsortion kokeellisen optimointipaketin. Epävakaan fysiikan vuoksi leikkuukoneet eivät kyenneet erottamaan kasvillisuutta asukkaista: koneet luokittelivat uupumuksesta tuupertuneet työläiset vialliseksi massaksi ja aloittivat sadonkorjuun ihmisten keskellä.
 
-Tuhkan puolueen johto ei keskeyttänyt teurastusta, vaan käytti sitä propagandassaan osoituksena koneiden pahuudesta. Samaan aikaan KW-konsortio antoi koneiden jatkaa kerätäkseen dataa järjestelmän toiminnasta ääriolosuhteissa.
+Tuhkan puolueen johto antoi teurastuksen jatkua ja hyödynsi sitä propagandassaan osoituksena koneiden pahuudesta. Samaan aikaan KW-konsortio antoi koneiden jatkaa kerätäkseen dataa järjestelmän toiminnasta ääriolosuhteissa.
 
 Koko Verson tuhoon johtanut tapahtumaketju käynnistyi, kun Kokemuspuolueen perustajat selvittivät, että seitsemännen sektorin karsinta oli ollut salainen kenttäkoe: eliitti oli kehittänyt menetelmää eteenpäin ja valmistellut tuhansien ihmisten järjestelmällistä jauhamista lannoitteeksi. Tämän totuuden leviäminen suorassa lähetyksessä sytytti kapinan.
 

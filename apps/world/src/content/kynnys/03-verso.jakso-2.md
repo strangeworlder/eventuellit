@@ -39,7 +39,7 @@ Asemalla kytee hiljainen ja turbulentti vastarinta. Koska asukkaat on vangittu A
 
 Nykyinen jännite juontaa juurensa tapahtumaan, jota kutsutaan Seitsemännen sektorin karsinnaksi. Erityisen sankka Sumun kausi pilasi osan sadosta, ja Krediittejään pelännyt plantaasinomistaja asensi tiloihinsa KW-konsortion kokeellisen optimointipaketin. Epävakaan fysiikan vuoksi automaattiset leikkuukoneet eivät kyenneet erottamaan biomassaa asukkaista: koneet luokittelivat uupumuksesta tuupertuneet työläiset vialliseksi massaksi ja aloittivat sadonkorjuun ihmisten keskellä.
 
-Tuhkan puolueen johto ei keskeyttänyt teurastusta, vaan käytti sitä propagandan kuvaamiseen osoittaakseen koneiden pahuuden. Samaan aikaan KW-konsortio antoi koneiden jatkaa kerätäkseen dataa järjestelmän tehokkuudesta ääriolosuhteissa. Tapaus teki asukkaille selväksi, että heidän henkensä on molemmille osapuolille arvottomampaa kuin multa, jota he kyntävät.
+Tuhkan puolueen johto antoi teurastuksen jatkua ja hyödynsi sitä propagandan kuvaamiseen osoittaakseen koneiden pahuuden. Samaan aikaan KW-konsortio antoi koneiden jatkaa kerätäkseen dataa järjestelmän tehokkuudesta ääriolosuhteissa. Tapaus teki asukkaille selväksi, että heidän henkensä on molemmille osapuolille arvottomampaa kuin multa, jota he kyntävät.
 
 ### Palvelut
 

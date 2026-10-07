@@ -10,7 +10,7 @@ disrupting_factions: deterministit
 
 ### Yleiskuvaus
 
-Verkko on Kynnyksen tarkkaileva silmä. Muinaisen säätutkan ja observatorion raunioille pystytetty asema kantaa kymmeniä valtavia lautasantenneja, pimeitä radioteleskooppeja ja passiivisensoreita, jotka haravoivat alusliikennettä, kantoaaltoja ja poikkeamia koko järjestelmän laajuudelta. Asemaa hallitsevat Heimolaiset, jotka pyörittävät valvontakoneistoa kuin laajaa perheyritystä: tietoa ei luovuteta ilmaiseksi, vaan siitä käydään kauppaa varjoissa niille, joilla on varaa maksaa — ja valvontatietoa pimitetään niiltä, jotka uhkaavat heimon etua.
+Verkko on Kynnyksen tarkkaileva silmä. Muinaisen säätutkan ja observatorion raunioille pystytetty asema kantaa kymmeniä valtavia lautasantenneja, pimeitä radioteleskooppeja ja passiivisensoreita, jotka haravoivat alusliikennettä, kantoaaltoja ja poikkeamia koko järjestelmän laajuudelta. Asemaa hallitsevat Heimolaiset, jotka pyörittävät valvontakoneistoa kuin laajaa perheyritystä: tiedosta käydään kauppaa varjoissa maksukykyisten toimijoiden kanssa, samalla kun arkaluontoisia havaintoja salataan heimon oman edun suojelemiseksi.
 
 Asemalla vallitsee kireä hermopeli, sillä KW-konsortion Deterministit pyrkivät soluttautumaan Verkon laitteistoihin. Deterministien algoritmit janoavat Verkon valtavia raakadatavirtoja voidakseen mallintaa ja ennustaa Kynnyksen asukkaiden liikkeitä.
 

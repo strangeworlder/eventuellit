@@ -10,7 +10,7 @@ disrupting_factions: logiikan-inkvisitio
 
 ### Yleiskuvaus
 
-Ikoni on Kynnyksen tarinatehdas ja julkisuuskoneiston koti. Verhonkutojien hallitsema studioasema hehkuu kuumia kuvausvaloja, äänieristettyjä studioita ja leikkaushuoneita, joista syötetään ympärivuorokautista ohjelmaa asemien kaikille näyttöpinnoille: uutislähetyksiä, sankaritarinoita, oikeussalidraamaa ja viihdettä. Jokainen kuva ja kantoaalto on huolella leikattu ja valaistu palvelemaan kirkon sanomaa. Totuus ei ole Ikonilla muuttumaton vakio, vaan taiten käsikirjoitettu ja ohjattu neuvottelukysymys.
+Ikoni on Kynnyksen tarinatehdas ja julkisuuskoneiston koti. Verhonkutojien hallitsema studioasema hehkuu kuumia kuvausvaloja, äänieristettyjä studioita ja leikkaushuoneita, joista syötetään ympärivuorokautista ohjelmaa asemien kaikille näyttöpinnoille: uutislähetyksiä, sankaritarinoita, oikeussalidraamaa ja viihdettä. Jokainen kuva ja kantoaalto on huolella leikattu ja valaistu palvelemaan kirkon sanomaa. Totuus näyttäytyy Ikonilla taiten käsikirjoitettuna ja ohjattuna neuvottelukysymyksenä.
 
 Aseman kulisseissa käydään jatkuvaa sanasotaa. Logiikan Inkvisitio seuraa Ikonin lähetyksiä vainoharhaisella tarkkuudella auditoimalla käsikirjoituksia ja syyttämällä Verhonkutojia todellisuuden vääristelystä aina, kun teatraalinen narratiivi sivuuttaa konsortion tilastolliset faktat.
 

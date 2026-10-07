@@ -13,9 +13,9 @@ Kryptan vanhimpien, vuosisatoja valotta maanneiden katakombien ytimessä lepää
 * **Karkurin kosketus:** Karkuri tunkeutui syvyyksiin noutaakseen arkistomateriaalia ja pääsi vaarallisen lähelle artefaktia. Hän kantaa hermostossaan artefaktin staasikohinaa, mikä saa läheiset *Sisäinen ääni* -implantit värähtelemään ja talon kuolleet luurakenteet reagoimaan.
 
 ### Haaskalinnut: Eksentriset paperibyrokraatit
-Haaskalinnut eivät ole etäisiä mystikoita, vaan eriskummallisia, inhimillisiä paperi- ja nauha-arkistonhoitajia.
+Haaskalinnut ovat eriskummallisia, inhimillisiä paperi- ja nauha-arkistonhoitajia.
 * **Analoginen ylivalta:** Digitaalinen data korruptoituu Kynnyksellä magneettikenttien ja säteilyn vuoksi. Haaskalinnut ovat vuosisatojen saatossa koonneet satoja tonneja paperikansioita, leimakortteja ja magneettinauhoja. He hallitsevat Kynnyksen asukkaiden syntilistoja, verotietoja ja sukujuuria.
-* **Inhimilliset heikkoudet:** Veljeskunta koostuu vanhoista, puolikuuroista ja purevista arkistomyyristä, joilla on omat kiusalliset ennakkoluulonsa, lemmikkijuorunsa ja omituiset mielipiteensä Kynnyksen johtajista. Karkurin tekemä murtomurto arkistoholviin ei loukannut heitä pyhäinhäväistyksenä, vaan järkyttävänä luettelointirikkomuksena: laatikot on pengottu, kansioita puuttuu ja hyllyjärjestys on sekaisin. Tästä syystä he kutsuivat Ratasvartion jahtiupseerin apuun.
+* **Inhimilliset heikkoudet:** Veljeskunta koostuu vanhoista, puolikuuroista ja purevista arkistomyyristä, joilla on omat kiusalliset ennakkoluulonsa, lemmikkijuorunsa ja omituiset mielipiteensä Kynnyksen johtajista. Karkurin tekemä murtomurto arkistoholviin herätti veljeskunnassa suuttumusta nimenomaan järkyttävänä luettelointirikkomuksena: laatikot on pengottu, kansioita puuttuu ja hyllyjärjestys on sekaisin. Tästä syystä he kutsuivat Ratasvartion jahtiupseerin apuun.
 
 ### Louhoksen "Pesä" -yhteys
 Louhoksen (15. asema) riippuva asuinyhteisö *Pesä* on suora miniatyyrimikrokosmos Kryptasta. Sen ontto, toisiinsa kytkeytyvä huoneverkosto toistaa Kryptan luuarkkitehtuuria pienessä mittakaavassa.

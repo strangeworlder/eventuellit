@@ -10,17 +10,17 @@ disrupting_factions: heimolaiset
 
 ### Yleiskuvaus
 
-Häkkiin päädytään silloin, kun kaikki muut ovet ovat sulkeutuneet tai kun Kynnys haluaa pyyhkiä nimesi muistista. Alun perin järeäksi väestönsuojaksi louhittu asema on nykyään irvokas yhdistelmä loisteliasta viihdepalatsia ja järjestelmän epävirallista päätepysäkkiä. Se on pragmaattinen nielu, joka imee muiden asemien velalliset, toisinajattelijat ja hankalat elementit muuttaen heidän elämänsä ja kuolemansa uskonnolliseksi veriurheiluksi ja kovilla panoksilla pyöriväksi spektaakkeliksi. Elleivät kasinosalit ja areenat kylpisi niin sokaisevassa neonvalossa, Häkki tunnettaisiin puhtaasti armottomana vankilana.
+Häkkiin päädytään silloin, kun kaikki muut ovet ovat sulkeutuneet tai kun Kynnys haluaa pyyhkiä nimesi muistista. Alun perin järeäksi väestönsuojaksi louhittu asema on nykyään irvokas yhdistelmä loisteliasta viihdepalatsia ja järjestelmän epävirallista päätepysäkkiä. Se on pragmaattinen nielu, joka imee muiden asemien velalliset, toisinajattelijat ja hankalat elementit muuttaen heidän elämänsä ja kuolemansa uskonnolliseksi veriurheiluksi ja kovilla panoksilla pyöriväksi spektaakkeliksi. Kallioon louhitut kasinosalit ja areenat kätkevät sokaisevan neonvalonsa alle armottoman vankilan.
 
 #### Klaustrofobian ja neonloiston arkkitehtuuri
 
-Fyysisesti Häkki on klaustrofobinen ja ruosteinen tunneliverkosto, joka on puristettu syvälle planetoidilohkareen sisään. Kuka tahansa asemalle saapuva — oli kyseessä Akselin rikkauksiin tottunut keinottelija tai ketjuissa raahattu velallinen — joutuu kulkemaan täysin samoja ahtaita ja painostavia käytäviä pitkin. Aseman rakenne ei kestä ulkokuoren louhintaa ilman vakavaa romahdusvaaraa, mistä muistuttaa aseman kyljessä ammottava "Arpi": valtava murtuma, joka repesi menneisyyden epäonnistuneessa laajennustyössä.
+Fyysisesti Häkki on klaustrofobinen ja ruosteinen tunneliverkosto, joka on puristettu syvälle planetoidilohkareen sisään. Kuka tahansa asemalle saapuva — oli kyseessä Akselin rikkauksiin tottunut keinottelija tai ketjuissa raahattu velallinen — joutuu kulkemaan täysin samoja ahtaita ja painostavia käytäviä pitkin. Aseman kallioperä vaatii jatkuvaa varovaisuutta sortumavaaran vuoksi, mistä muistuttaa aseman kyljessä ammottava "Arpi": valtava murtuma, joka repesi menneisyyden epäonnistuneessa laajennustyössä.
 
-Ahtauden ja pimeyden piina katkeaa äkillisesti vasta, kun tunnelit avautuvat kallioperän ytimeen louhittuihin massiivisiin amfiteattereihin ja kasinosaleihin. Nämä tilat ovat sokaisevan valon, sametin ja pauhaavan melun räjähdys. Aseman sisuksista ei ole näkymiä avaruuteen, mikä tekee siitä täydellisen suljetun pullon: pakeneminen on sekä fyysisesti että henkisesti lähes mahdotonta. Kontrasti ahtaan kiven ja ylettömän loiston välillä on viritetty murtamaan saapujan mieli.
+Ahtauden ja pimeyden piina katkeaa äkillisesti vasta, kun tunnelit avautuvat kallioperän ytimeen louhittuihin massiivisiin amfiteattereihin ja kasinosaleihin. Nämä tilat ovat sokaisevan valon, sametin ja pauhaavan melun räjähdys. Aseman sisuksista avautuu näkymä vain ympäröiviin kallioseiniin, mikä tekee siitä täydellisen suljetun tilan ja pakenemisesta äärimmäisen vaikeaa. Kontrasti ahtaan kiven ja ylettömän loiston välillä on viritetty murtamaan saapujan mieli.
 
 ### Hallinta
 
-Asemaa hallitsevat Pyhän Tragedian lapset, joille areena ja uhkapeli eivät ole paheita vaan pyhiä toimituksia. Heille uhkapeli on suora metafora Suuren sodan kauhuille ja elämän mielivallalle: sen kuvastona ovat veri ja epätoivo, joiden läpi satunnaisuus voi tuoda pelastuksen. Kultti ei tarvitse perinteisiä saarnoja välittääkseen oppinsa. Pöydissä voi asettaa panokseksi mitä tahansa, mutta oman hengen heittäminen noppien varaan on kultin silmissä korkein mahdollinen uskonteko.
+Asemaa hallitsevat Pyhän Tragedian lapset, joille areena ja uhkapeli ovat pyhiä toimituksia. Heille uhkapeli on suora metafora Suuren sodan kauhuille ja elämän mielivallalle: sen kuvastona ovat veri ja epätoivo, joiden läpi satunnaisuus voi tuoda pelastuksen. Kultti välittää oppinsa suoraan pelipöytien ja areenan kautta. Pöydissä voi asettaa panokseksi mitä tahansa, ja oman hengen heittäminen noppien varaan edustaa kultin silmissä korkeinta mahdollista uskontekoa.
 
 Areenalla toisiaan vastaan asettuvat Kynnyksen epätoivoiset velalliset, toisilta asemilta kuljetetut vangit sekä kultin omat ottelijat, jotka odottavat oikeaa hetkeä lopulliselle martyriudelleen. Kultille on elintärkeää, että tragedia on aitoa: sovittu ottelu on heidän silmissään pahin mahdollinen pyhäinhäväistys.
 
@@ -38,7 +38,7 @@ Heimolaiset toimivat pelinhoitajina, kassanhoitajina ja vedonvälittäjinä. Per
 
 #### Kynnyksen kuluttava viemäri
 
-Häkki on Kynnyksellä poikkeuksellinen anomalia: se on täysi kuluttaja. Se ei tuota verkostoon ruokaa, energiaa eikä teknologiaa, mutta se pysyy yltäkylläisenä, koska muut asemat tarvitsevat sen palveluksia. Häkki hoitaa tehtävän, jota kukaan muu ei halua omalle tunnolleen: se nielee asemien ongelmajätteen. Epätoivoisten ja tuomittujen virta ruokkii areenoita, eikä Häkistä palaa käytännössä kukaan takaisin vapauteen.
+Häkki on Kynnyksellä poikkeuksellinen anomalia: se toimii verkostossa puhtaana palvelun ja kulutuksen keskuksena. Asema pysyy yltäkylläisenä, koska muut asemat tarvitsevat sen palveluksia ja ulkoistavat sille hankalimmat ongelmansa. Epätoivoisten ja tuomittujen virta ruokkii areenoita, ja Häkkiin saapuminen merkitsee käytännössä lopullista jäämistä.
 
 ### Yhteydet
 

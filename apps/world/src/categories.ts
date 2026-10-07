@@ -35,4 +35,11 @@ export const worldCategories: WorldCategory[] = [
     icon: "flame",
     useHubIndex: true,
   },
+  {
+    id: "hahmot",
+    title: "Henkilöt",
+    description: "Kynnyksen vaikuttajat, virkamiehet, toisinajattelijat ja alamaailman toimijat.",
+    icon: "player-character",
+    useHubIndex: true,
+  },
 ];

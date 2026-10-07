@@ -19,7 +19,7 @@ Nykyisin halkeileva linnakeasema on aseellisen konfliktin polttopiste. Hallinnol
 
 Kilpi on massiivinen kanavalinnoitus tunnetun järjestelmän laidalla. Sen arkkitehtuuri on nurinkurinen: useita metrejä paksua betonista ja teräksistä ulkopintaa täplittävät kuolleet, ruosteiset tykkitornit, ja kaikki elintilat, bunkkerit ja majoitussiivet on puristettu sisäänpäin kohti keskuskanavaa. Kynnykselle Kilven suunnasta saapuvat alukset lipuvat tämän ahtaan nielun läpi bunkkerijonojen välissä. Matkaajaa seuraa herkeämätön tunne siitä, että hän on lukemattomien näkymättömien piippujen tähtäimessä.
 
-Aseman akustiikka on betoninen painajainen. Kanava toimii valtavana kaikukoppana: ääni ei kuole, vaan muuttaa muotoaan ja vahvistuu. Kaukaisella telakalla putoavan jakoavaimen kilahdus voi kulkea kilometrien matkan betoniseiniä pitkin ja kajahtaa esiin aivan toisella lohkolla. Pommi-iskujen ja tulitaisteluiden paineaallot jäävät kiertämään kanavaa minuuteiksi, ja ilmanvaihtohormit kantavat kuiskaavia ääniä lohkolta toiselle.
+Aseman akustiikka on betoninen painajainen. Kanava toimii valtavana kaikukoppana: ääni säilyy, muuttaa muotoaan ja vahvistuu betonisilla pinnoilla. Kaukaisella telakalla putoavan jakoavaimen kilahdus voi kulkea kilometrien matkan betoniseiniä pitkin ja kajahtaa esiin aivan toisella lohkolla. Pommi-iskujen ja tulitaisteluiden paineaallot jäävät kiertämään kanavaa minuuteiksi, ja ilmanvaihtohormit kantavat kuiskaavia ääniä lohkolta toiselle.
 
 Laitureilla ja kanavan holveissa parveilevat mekaaniset lokit — autonomiset huoltolennokit, jotka ovat aikojen saatossa villiintyneet loisiksi. Ne repivät huoltokohteista muttereita, tiivisteitä ja kaapeleita kasatakseen niistä sekavia pesiä aseman pimeisiin kulmauksiin. Niiden metallinen rääkynä on Kilven katkeamaton äänimaisema.
 
@@ -35,7 +35,7 @@ Pyhän Tragedian lapset vastaavat kurinpitoon pragmaattisella kaupunkisodalla. H
 
 Troolaus on Kilven elinehto. Aseman troolarit ovat romualuksia, joiden keulat on vahvistettu kestämään tyhjyyden armoton kitka. Ne laukaistaan asemalta suoraan syvään avaruuteen, missä suunnistus perustuu enemmän intuitioon ja vanhoihin tähtikarttoihin kuin toimivaan elektroniikkaan.
 
-Alukset kiskovat mukanaan raaka-aineita ja hylkyjä, mutta asukkaille arvokkainta saalista ovat syvän avaruuden virroista naaratut reliikit: vanhat viihdetallenteet, paperikirjat ja tuntematon teknologia. Saalis on jatkuvasti vaarassa päätyä Ratasvartion takavarikoimaksi, vaikka sotilaat eivät kykene valvomaan koko sokkeloista satamalabyrinttia.
+Alukset kiskovat mukanaan raaka-aineita ja hylkyjä, mutta asukkaille arvokkainta saalista ovat syvän avaruuden virroista naaratut reliikit: vanhat viihdetallenteet, paperikirjat ja tuntematon teknologia. Saalis on jatkuvasti vaarassa päätyä Ratasvartion takavarikoimaksi, sotilaiden rajallisesta valvontakapasiteetista huolimatta sokkeloisessa satamalabyrintissa.
 
 ### Yhteydet
 

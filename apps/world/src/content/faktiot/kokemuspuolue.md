@@ -8,19 +8,19 @@ secondary_color: accent
 parent: tuhkan-puolue
 secondary_parent: ekklesia
 ---
-Kokemuspuolue syntyi Versolla kolmen kuolemaantuomitun epätoivoisesta päätöksestä. Kun Tuhkan puolueen ja KW-konsortion salainen polttolista uhkasi heidän henkeään, matemaatikko Jamir Toisto, bioarkkitehti Yune ja automaatiokoodari Holti eivät paenneet piiloon — he perustivat puolueen, joka poltti koko vanhan järjestelmän maan tasalle. Kokemuspuolue väittää, että Kynnyksen asukkaille on tapahtunut jotain peruuttamatonta ja todellista, ja se on tapahtunut heille itselleen, ei tilastolliselle massalle. He vaativat, että tämä kokemus — kaikessa arkisessa karkeudessaan ja satunnaisessa kauneudessaan — on tallentamisen, jakamisen ja kuulemisen arvoinen.
+Kokemuspuolue syntyi Versolla kolmen kuolemaantuomitun päätöksestä. Kun Tuhkan puolueen ja KW-konsortion salainen polttolista uhkasi heidän henkeään, matemaatikko Jamir Toisto, bioarkkitehti Yune ja automaatiokoodari Holti perustivat puolueen, joka poltti vanhan järjestelmän maan tasalle. Kokemuspuolue korostaa, että Kynnyksen asukkaille tapahtunut murros on todellinen ja kohdistuu suoraan eläviin yksilöihin. Tämä kokemus — kaikessa arkisessa karkeudessaan ja satunnaisessa kauneudessaan — on heidän mukaansa tallentamisen, jakamisen ja kuulemisen arvoinen.
 
 Verratessaan itseään Tuhkan puolueen hiljaiseen unohdukseen ja Ekklesian laskelmoituun spektaakkeliin Kokemuspuolue etsii kolmatta tietä: kokemusta sellaisena kuin se todellisuudessa elää ihmisessä. Se, mikä alkoi filosofisena vastalauseena, muuttui Versolla aseeksi — ja ase toimi.
 
 ### Maailma
 Kokemuspuolueen jäsenille maailma näyttäytyy yksilöllisten totuuksien mosaiikkina, joka on aina ristiriidassa virallisten narratiivien kanssa. He ovat herkistyneet sille, mitä Tuhkan puolue haluaa haudata ja mitä Ekklesia pyrkii lavastamaan. Heille Kynnys on paikka, jossa asukkaat kantavat painavia ja kertomattomia kokemuksia: asioita, joita kukaan ei ole kysynyt, mutta joita ei voi pyyhkiä pois.
 
-Verson tapahtumat antoivat tälle asenteelle terävän kärjen. Kun polttolistan biomassasuunnitelma paljastettiin suorassa lähetyksessä koko asemalle, kokemusten keräämisen filosofia sai konkreettisen ja verisen todisteen: valtakoneisto ei ainoastaan sivuuttanut kansansa kokemuksia, vaan aikoi jauhaa heidät lannoitteeksi.
+Verson tapahtumat antoivat tälle asenteelle terävän kärjen. Kun polttolistan biomassasuunnitelma paljastettiin suorassa lähetyksessä koko asemalle, kokemusten keräämisen filosofia sai konkreettisen ja verisen todisteen: valtakoneisto valmisteli kansansa järjestelmällistä jauhamista lannoitteeksi.
 
 ### Historia
 Puolueen juuret ovat ihmisissä, jotka eivät enää mahtuneet kumpaankaan suureen valtakoneistoon: entisissä Tuhkan puolueen jäsenissä, jotka kieltäytyivät unohtamasta, ja Ekklesian reunoilta karanneissa toisinajattelijoissa, jotka tukehtuivat onttoon spektaakkeliin.
 
-Varsinainen läpimurto tapahtui Versolla, kun ydinjäsenet joutuivat polttolistalle. Jamir Toisto — KW-konsortion entinen matemaattinen analyytikko — laski todennäköisyydet ja ymmärsi, ettei pelkkä sabotaasi riittäisi, sillä koneisto nostaisi aina uudet virkamiehet tilalle. Ainoa keino selviytyä oli koko rakenteen murtaminen.
+Varsinainen läpimurto tapahtui Versolla, kun ydinjäsenet joutuivat polttolistalle. Jamir Toisto — KW-konsortion entinen matemaattinen analyytikko — laski todennäköisyydet ja totesi, että koneisto nostaisi aina uudet virkamiehet tilalle. Ainoa keino selviytyä oli koko rakenteen murtaminen.
 
 Kahden viikon aikana kolmikko rakensi vallankumouksen: Holti kytki mukaan maatalouskoneiden huoltoverkostot, Jamir vuoti konsortion laskelmiin perustuvia paljastuksia suoraan kantoaalloille, ja Yune herätti Tuhkan puolueen sisäiset toisinajattelijat varjodiplomatiallaan. Kolmikko ruokki vainoharhaa molempiin suuntiin: konsortiolle uskoteltiin Tuhkan johdon heikkoutta ja Tuhkalle konsortion valtausyrityksiä.
 

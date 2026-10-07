@@ -13,7 +13,7 @@ disrupting_factions: ratasvartio, verhonkutojat, muotinvalajat
 
 Evoluutio on Kynnyksen häpeilemättömin menestystarina ja sen räikein poikkeama. Siinä missä naapuriasemat kamppailevat resurssipulan, rapistumisen ja poliittisen nihilismin kourissa, Evoluutio kukoistaa puhtaana ja pröystäilevänä teknologiakampuksena. Ennen Suurta sotaa se toimi Verson tieteellisenä sisarasemana ja maatalousjalostamona, mutta nykyisin se on valjastanut lääketieteen ja ihmiskehon muokkauksen raa'aksi liiketoiminnaksi. Sekä kirkko että puolue ovat joutuneet väistymään yksityisen pääoman tieltä: kaikki on myytävänä, ja täydellisyyden tavoittelu on ainoa sosiaalisen arvon mittari.
 
-Pinnan alla asema on kuitenkin murtunut kahtia. Se ei nojaa Kynnyksen yhteisiin lakeihin, vaan jokaista tasoa hallitsevat yksityiset klinikkadynastiat ja sijoittajakonsernit. Kiekkojen valoisilla yläpinnoilla ostetaan iätöntä kauneutta ja huipputason kybernetiikkaa desinfioidun kukkaisilman tuoksussa, kun taas alapintojen pimeässä teollisuuskoneistossa raataa velkaantunut ja näkymätön työväki, jonka kehoilla utopia pidetään käynnissä.
+Pinnan alla asema on murtunut kahtia. Jokaista tasoa hallitsevat yksityiset klinikkadynastiat ja sijoittajakonsernit omien säädöstensä varassa. Kiekkojen valoisilla yläpinnoilla ostetaan iätöntä kauneutta ja huipputason kybernetiikkaa desinfioidun kukkaisilman tuoksussa, kun taas alapintojen pimeässä teollisuuskoneistossa raataa velkaantunut ja näkymätön työväki, jonka kehoilla utopia pidetään käynnissä.
 
 #### Kaksipuoliset kiekot ja kääntyvä painovoima
 
@@ -25,17 +25,17 @@ Aseman erikoisuus on kaksipuolinen painovoima: jokainen kiekko vetää kulkijaa 
 
 Kiekkojen yläpinnat ovat esteettisesti viimeisteltyjä puistomaisia kampusalueita täynnä huippuklinikoita, geenilaboratorioita ja ylellisiä residenssejä. Siellä Kynnyksen rikkaat muokkaavat hermostojaan, hankkivat synteettisiä aistielimiä ja korvaavat biologiansa huippuluokan kybernetiikalla. 
 
-Kiekkojen alapinnat taas ovat ruosteisia, öljynkatkuisia koneistoja, jotka eivät koskaan näe aitoa valoa. Alapintojen reunoille pultatut sokaisevat valonheittimet osoittavat alas seuraavalle kiekolle luoden sinne keinotekoisen päivänpaisteen, mutta samalla ne häikäisevät alhaalta katsovan niin, ettei ylemmän kiekon saastaista pohjaa voi erottaa. Pimeissä alapuolissa elää aseman unohdettu alaluokka: velkavankeuteen joutuneet hoitajat, asentajat ja laitehuoltajat, joiden laittomilla takahuoneklinikoilla asennetaan vanhentuneita proteeseja ilman puudutusta.
+Kiekkojen alapinnat ovat ruosteisia, öljynkatkuisia koneistoja varjossa. Alapintojen reunoille pultatut sokaisevat valonheittimet osoittavat alas seuraavalle kiekolle luoden sinne keinotekoisen päivänpaisteen, mutta samalla ne häikäisevät alhaalta katsovan peittäen ylemmän kiekon pohjan. Pimeissä alapuolissa elää aseman unohdettu alaluokka: velkavankeuteen joutuneet hoitajat, asentajat ja laitehuoltajat, joiden laittomilla takahuoneklinikoilla asennetaan vanhentuneita proteeseja ilman puudutusta.
 
 ### Hallinta
 
-Evoluutiolla valta ei kuulu poliittisille puolueille eikä Ekklesian papeille. Se on murtunut asema, jonka arjesta päättävät asemakiekkoja omistavat lääketiededynastiat ja suursijoittajat. Jokainen kiekko on tietyn konsernin yksityisomaisuutta, ja omistusoikeus sanelee lait: joillakin tasoilla liikkuminen on täysin vapaata kulutuksen maksimoimiseksi, toisilla vaaditaan biometriset geenitunnisteet tai kalliit tullimaksut. Verhonkutojat ja Muotinvalajat ovat yrittäneet pitää yllä jalansijaa, mutta heidän roolinsa on kutistunut pelkäksi PR-koneistoksi, jolla kokeellista kirurgiaa markkinoidaan milloin uskonnollisena jalostumisena, milloin työkansan kehityksenä.
+Evoluution arjesta päättävät asemakiekkoja omistavat lääketiededynastiat ja suursijoittajat. Jokainen kiekko on tietyn konsernin yksityisomaisuutta, ja omistusoikeus sanelee lait: joillakin tasoilla liikkuminen on täysin vapaata kulutuksen maksimoimiseksi, toisilla vaaditaan biometriset geenitunnisteet tai kalliit tullimaksut. Verhonkutojat ja Muotinvalajat ovat yrittäneet pitää yllä jalansijaa, mutta heidän roolinsa on kutistunut pelkäksi PR-koneistoksi, jolla kokeellista kirurgiaa markkinoidaan milloin uskonnollisena jalostumisena, milloin työkansan kehityksenä.
 
 #### Ratasvartion nyrkki
 
 KW-konsortion sotilaallinen siipi Ratasvartio toimii asemalla kahdessa eri roolissa. Alatasojen satamissa ja teollisuuskuiluissa partioivat eliitin palkkaamat raskaat kurinpitäjät, jotka pitävät alapuolten huoltoväen ja velkaduunarit kurissa häikäilemättömällä väkivallalla.
 
-Aseman ylimmällä kiekolla tilanne on toinen. Ratasvartio on ostanut kyseisen kiekon reunalta itselleen pysyvän enklaavin valtavalla kertasummalla ja suojelusopimuksilla. Keskelle kimmeltävää kampusta on noussut karu, teollisen harmaa sotilaslinnake asejärjestelmineen ja suljettuine hangaareineen. Se on itsenäinen tukikohta, jonne edes aseman rikkaimmilla dynastioilla ei ole asiaa ja jossa konsortio valmistelee omia salattuja operaatioitaan.
+Aseman ylimmällä kiekolla tilanne on toinen. Ratasvartio on ostanut kyseisen kiekon reunalta itselleen pysyvän enklaavin valtavalla kertasummalla ja suojelusopimuksilla. Keskelle kimmeltävää kampusta on noussut karu, teollisen harmaa sotilaslinnake asejärjestelmineen ja suljettuine hangaareineen. Se on itsenäinen tukikohta, johon pääsy on varattu yksinomaan konsortiolle sen valmistellessa omia salattuja operaatioitaan.
 
 ### Palvelut
 
@@ -46,7 +46,7 @@ Aseman ylimmällä kiekolla tilanne on toinen. Ratasvartio on ostanut kyseisen k
 
 #### Vaiettu proteiinikierto
 
-Vaikka Evoluutio ei tuota perinteistä viljaa, se ruokkii asukkaansa tehokkaasti. Suurin osa ravinnosta syntetisoidaan kemiallisesti, mutta asemalla toimii myös julkinen salaisuus, josta salongeissa vaietaan: orgaaninen ylijäämä kierrätetään täydellisesti. Päivittäisistä leikkauksista kertyvät kudokset ja klinikoilla kuolleiden jäänteet toimitetaan suoraan alapintojen teollisiin biomurskaimiin. Yläpinnoilla aines jalostetaan huippukokkien loihtimaksi molekyyligourmeeksi; alapuolilla sama biomassa jaetaan halpana ja karkeasti prosessoituna proteiinitahnana.
+Evoluutio syntetisoi valtaosan ravinnostaan kemiallisesti ja ruokkii asukkaansa tehokkaasti. Asemalla toimii samalla julkinen salaisuus, josta salongeissa vaietaan: orgaaninen ylijäämä kierrätetään täydellisesti. Päivittäisistä leikkauksista kertyvät kudokset ja klinikoilla kuolleiden jäänteet toimitetaan suoraan alapintojen teollisiin biomurskaimiin. Yläpinnoilla aines jalostetaan huippukokkien loihtimaksi molekyyligourmeeksi; alapuolilla sama biomassa jaetaan halpana ja karkeasti prosessoituna proteiinitahnana.
 
 ### Yhteydet
 
@@ -54,7 +54,7 @@ Evoluutiolta pääsee suoraan asemille: **Alasin**, **Siemen** ja **Tori**.
 
 #### Itsenäinen talouskolmio
 
-Evoluutio ei nojaa Kynnyksen viralliseen pääporttiin Seulaan (1), vaan se muodostaa oman taloudellisen kolmionsa kolmen hyvin erilaisen naapurin kanssa:
+Evoluutio muodostaa oman taloudellisen kolmionsa kolmen naapuriaseman kanssa:
 
 Alasin (4) on Evoluutiolle välttämätön teollinen kumppani. Sieltä saapuu jatkuva virta titaania, runkorakenteita ja hienomekaniikkaa, jotka Evoluution kliinisissä saleissa hiotaan luksustuotteiksi. Vastineeksi Evoluutio tarjoaa Alasimen loukkaantuneille metallityöläisille kirurgisia korjauksia — hinnalla, joka sitoo telakan mestarit usein vuosien velkaorjuuteen.
 

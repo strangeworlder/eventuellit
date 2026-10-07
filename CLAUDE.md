@@ -4,8 +4,8 @@
 
 > [!CAUTION]
 > **Before building ANY new feature or UI, you MUST complete the design system pre-flight:**
-> 1. Read `claude-skills/visual-identity/SKILL.md` for the retro-space-opera visual identity.
-> 2. Read `claude-skills/ui-design-system/SKILL.md` for token, theming, and component rules.
+> 1. Read `.agents/skills/visual-identity/SKILL.md` for the retro-space-opera visual identity.
+> 2. Read `.agents/skills/ui-design-system/SKILL.md` for token, theming, and component rules.
 > 3. Consult the Storybook MCP (`list-all-documentation`) or read `packages/ui/src/components/ComponentGuide.mdx` to check the component inventory.
 > 4. **Use `@repo/ui` components** (`<Button>`, `<Card>`, `<Input>`, `<Text>`, `<Heading>`, etc.) — NEVER raw HTML elements with Tailwind classes.
 > 5. Include a **"Design System Usage"** section in every implementation plan.
@@ -90,16 +90,17 @@ To keep code clean and prevent Biome errors:
 - **Line Endings**: LF (`\n`) exclusively.
 
 ## Additional Skills
-
-Skills are available in the `claude-skills/` directory:
-- `claude-skills/visual-identity/SKILL.md` – **Visual identity**: retro-space-opera aesthetic, color philosophy, animation vocabulary, anti-patterns
-- `claude-skills/ui-design-system/SKILL.md` – UI design system rules, theming, tokens
-- `claude-skills/atomic-design/SKILL.md` – Component classification and Storybook hierarchy
-- `claude-skills/project-conventions/SKILL.md` – Naming, security, state management
-- `claude-skills/setup-troubleshooting/SKILL.md` – Environment setup and common error fixes
-- `claude-skills/article-progress-nav/SKILL.md` – Progress rail architecture and MFE integration
-- `claude-skills/content-authoring/SKILL.md` – Markdown content in ruleset/episodes/world
-- `claude-skills/game-mechanics/SKILL.md` – TTRPG domain knowledge (dice, attributes, combat)
+ 
+Skills are available in the `.agents/skills/` directory (mirrored in `claude-skills/`):
+- `.agents/skills/content-authoring/SKILL.md` – Markdown content in ruleset/episodes/world, Finnish prose standards
+- `.agents/skills/visual-identity/SKILL.md` – **Visual identity**: retro-space-opera aesthetic, color philosophy, animation vocabulary, anti-patterns
+- `.agents/skills/ui-design-system/SKILL.md` – UI design system rules, theming, tokens
+- `.agents/skills/atomic-design/SKILL.md` – Component classification and Storybook hierarchy
+- `.agents/skills/game-mechanics/SKILL.md` – TTRPG domain knowledge (dice, attributes, combat)
+- `.agents/skills/diegetic-pdf/SKILL.md` – Printable in-universe PDF handout generation
+- `.agents/skills/project-conventions/SKILL.md` – Naming, security, state management
+- `.agents/skills/setup-troubleshooting/SKILL.md` – Environment setup and common error fixes
+- `.agents/skills/article-progress-nav/SKILL.md` – Progress rail architecture and MFE integration
 
 ## Storybook MCP
 

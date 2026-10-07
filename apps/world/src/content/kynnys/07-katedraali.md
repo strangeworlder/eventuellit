@@ -13,7 +13,7 @@ disrupting_factions: pyhan-tragedian-lapset
 
 Katedraali on yksi Kynnyksen mahtavimmista asemista – kaunis, kerroksellinen ja unenomainen kokonaisuus, jonka läsnäolo tuntuu kaikkialla. Se on hätkähdyttävä yhdistelmä teemapuistoa, lähetysstudiota, propagandakeskusta ja pyhää maata. Jokainen sen kulma huutaa merkitystä. Ennen Suurta sotaa asema toimi aurinkokunnan kulttuurikeskuksena, mutta nykyisin se on Ekklesian koti ja henkinen komentosilta. Siinä missä naapuriasema Ikoni tuottaa käytännön sisällön, Katedraali on idea-asema: paikka, jossa Kynnyksen suuret ja pienet narratiivit käsikirjoitetaan ja ohjataan massoille.
 
-Asema ei nuku koskaan, vaan se elää jatkuvassa valveunessa. Sen äänimaailma on katkeamaton: himmeä kuoromusiikki ja kantoaaltojen humina ovat läsnä kaikkialla, eivät suoraan samassa tilassa vaan aina seuraavasta huoneesta tai aivan kuulon rajoilta kantautuen. Vaikka asukas nukkuisi, äänet ja valot on viritetty alitajuntaa varten eivätkä ne koskaan vaikene kokonaan. Tyrannin läsnäolo on täällä voimakkaampi kuin missään muualla Kynnyksellä: kultaiset ikonit ja motivaatiojulisteet täyttävät kadut, ja julistukset pyörivät tauotta massiivisilla näyttöpinnoilla.
+Asema elää jatkuvassa valveunessa. Sen äänimaailma on katkeamaton: himmeä kuoromusiikki ja kantoaaltojen humina ovat läsnä kaikkialla, kantautuen aina seuraavasta huoneesta tai aivan kuulon rajoilta. Äänet ja valot on viritetty vaikuttamaan alitajuntaan myös asukkaan nukkuessa. Tyrannin läsnäolo tuntuu Katedraalilla voimakkaana: kultaiset ikonit ja motivaatiojulisteet täyttävät kadut, ja julistukset pyörivät tauotta massiivisilla näyttöpinnoilla.
 
 #### Ihmismassojen arkkitehtuuri
 

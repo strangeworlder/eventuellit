@@ -10,9 +10,9 @@ disrupting_factions: erottajat
 
 ### Yleiskuvaus
 
-Pesä on Kynnyksen vanhin ja tiivein asuinkeskus — sokkeloinen vanhakaupunki, jonka hämärissä käytävissä sukupolvien kerrostumat näkyvät kuluneina kaakeleina, keltaisina hehkulamppuina ja toisensa tuntevina naapureina. Asemaa täplittävät pienet teetuvat, perhemajatalot ja yhteiskeittiöt. Kynnys ei ole asukkaille väliaikainen leiri vaan pysyvä koti, jota suojellaan ulkomaailman myrskyiltä pitämällä pää alhaalla.
+Pesä on Kynnyksen vanhin ja tiivein asuinkeskus — sokkeloinen vanhakaupunki, jonka hämärissä käytävissä sukupolvien kerrostumat näkyvät kuluneina kaakeleina, keltaisina hehkulamppuina ja toisensa tuntevina naapureina. Asemaa täplittävät pienet teetuvat, perhemajatalot ja yhteiskeittiöt. Kynnys edustaa asukkaille pysyvää kotia, jota suojellaan ulkomaailman myrskyiltä arjen hiljaisella rutiinilla.
 
-Täällä ei kaivata vallankumouksia vaan vakautta: Tuhkan puolue vaalii hiljaisuutta ja tuttua pysähtyneisyyttä. Rauhaa hiertävät kuitenkin Erottajat, joiden mielestä puolueen vanha johto on jähmettänyt aseman elävältä ja joiden salaliitot pyrkivät tuomaan yhteisöön uutta teknologiaa ja radikaalimpia liittoja.
+Pesässä vaalitaan vakautta: Tuhkan puolue ylläpitää hiljaisuutta ja tuttua pysähtyneisyyttä. Rauhaa hiertävät kuitenkin Erottajat, joiden mielestä puolueen vanha johto on jähmettänyt aseman elävältä ja joiden salaliitot pyrkivät tuomaan yhteisöön uutta teknologiaa ja radikaalimpia liittoja.
 
 ### Hallinta
 

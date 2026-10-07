@@ -14,7 +14,8 @@ import { Text } from "@repo/ui/components/Text";
 import { TextSection } from "@repo/ui/components/TextSection";
 import { TopNavDropdown, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { useArticleScrollProgress } from "@repo/ui/components/useArticleScrollProgress";
-import { useEffect, useRef } from "react";
+import { cn } from "@repo/ui/components/utils";
+import { useEffect, useRef, useState } from "react";
 import {
   Outlet,
   Route,
@@ -101,6 +102,14 @@ export interface WorldEntry {
   // Station faction fields
   ruling_faction?: string[];
   disrupting_factions?: string[];
+  // Character / NPC entry fields
+  faction?: string;
+  subfaction?: string;
+  parent_label?: string;
+  station?: string;
+  station_name?: string;
+  role?: string;
+  status?: string;
   // Version / snapshot fields
   version_of?: string; // if set, this is a historical snapshot of that station id
   episode?: string; // episode slug (matches episodes app routing)
@@ -126,6 +135,7 @@ const entries: WorldEntry[] = Object.entries(modules)
     // "./content/kynnys/01-seula.md" -> category: "kynnys", id: "01-seula"
     // "./content/kynnys/03-verso.jakso-1.md" -> version snapshot, version_of: "03-verso"
     // "./content/faktiot/tuhkan-puolue/muotinvalajat.md" -> category: "faktiot", id: "muotinvalajat"
+    // "./content/hahmot/pyrkyri.md" -> category: "hahmot", id: "pyrkyri"
     const parts = path.replace("./content/", "").split("/");
     const category = parts.length > 1 ? parts[0] : "uncategorized";
     const filename = (parts[parts.length - 1] ?? "unknown").replace(".md", "");
@@ -151,6 +161,17 @@ const entries: WorldEntry[] = Object.entries(modules)
           : undefined,
       ruling_faction: parseListField(data.ruling_faction),
       disrupting_factions: parseListField(data.disrupting_factions),
+      // Character / NPC entry fields
+      faction: typeof data.faction === "string" && data.faction ? data.faction : undefined,
+      subfaction:
+        typeof data.subfaction === "string" && data.subfaction ? data.subfaction : undefined,
+      parent_label:
+        typeof data.parent_label === "string" && data.parent_label ? data.parent_label : undefined,
+      station: typeof data.station === "string" && data.station ? data.station : undefined,
+      station_name:
+        typeof data.station_name === "string" && data.station_name ? data.station_name : undefined,
+      role: typeof data.role === "string" && data.role ? data.role : undefined,
+      status: typeof data.status === "string" && data.status ? data.status : undefined,
       // Version snapshot fields
       version_of: data.version_of ? String(data.version_of) : undefined,
       episode: data.episode ? String(data.episode) : undefined,
@@ -518,7 +539,11 @@ function ArticleContent({
     displayed.ruling_faction?.length || displayed.disrupting_factions?.length
   );
   const hasVersions = versions.length > 0;
-  const hasSidebar = connectionNodes.length > 0 || hasFactionData || hasVersions;
+  const stationCharacters = entriesForCategory("hahmot").filter(
+    (c) => c.station === entry.id || c.station === displayed.id,
+  );
+  const hasSidebar =
+    connectionNodes.length > 0 || hasFactionData || hasVersions || stationCharacters.length > 0;
 
   const canonicalHref = `${basePath}/${entry.category}/${entry.id}`;
 
@@ -601,6 +626,32 @@ function ArticleContent({
                     disruptingFactions={displayed.disrupting_factions}
                     basePath={basePath}
                   />
+                )}
+                {stationCharacters.length > 0 && (
+                  <div className="px-4 tablet:pr-8 tablet:pl-0">
+                    <Heading className="mb-3">Merkittävät henkilöt</Heading>
+                    <div className="space-y-2">
+                      {stationCharacters.map((char) => {
+                        const charDef = char.faction ? getFactionById(char.faction) : undefined;
+                        const charColor =
+                          (char.color as "primary" | "secondary" | "accent") ??
+                          charDef?.color ??
+                          "secondary";
+                        return (
+                          <EntityCard
+                            key={char.id}
+                            name={char.title}
+                            subtitle={char.role || char.description}
+                            color={charColor}
+                            secondaryColor={charDef?.secondaryColor}
+                            parentLabel={char.parent_label ?? charDef?.name}
+                            href={`${basePath}/hahmot/${char.id}`}
+                            variant="npc"
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
                 )}
                 {hasVersions && (
                   <StationVersionHistory
@@ -996,6 +1047,16 @@ function FactionDetail({
     ? []
     : factiotEntries.filter((e) => e.parent === entry.id || e.secondary_parent === entry.id);
 
+  const subfactionIds = subEntries.map((s) => s.id);
+  const characterEntries = entriesForCategory("hahmot");
+  const relatedCharacters = characterEntries.filter((c) => {
+    if (c.faction === entry.id || c.subfaction === entry.id) return true;
+    if (subfactionIds.includes(c.subfaction ?? "") || subfactionIds.includes(c.faction ?? "")) {
+      return true;
+    }
+    return false;
+  });
+
   const controlledStations = stationEntries.filter((s) => s.ruling_faction?.includes(entry.id));
   const disruptedStations = stationEntries.filter((s) => s.disrupting_factions?.includes(entry.id));
 
@@ -1069,14 +1130,40 @@ function FactionDetail({
             </TextSection>
           )}
 
-          {/* NPCs placeholder */}
-          <TextSection title="Merkittävät hahmot">
-            <div className="mt-4">
-              <NoticePanel variant="info">
-                Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
-              </NoticePanel>
-            </div>
-          </TextSection>
+          {/* Faction NPCs */}
+          {relatedCharacters.length > 0 ? (
+            <TextSection title="Merkittävät hahmot">
+              <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-4">
+                {relatedCharacters.map((char) => {
+                  const charDef = char.faction ? getFactionById(char.faction) : undefined;
+                  const charColor =
+                    (char.color as "primary" | "secondary" | "accent") ??
+                    charDef?.color ??
+                    accentColor;
+                  return (
+                    <EntityCard
+                      key={char.id}
+                      name={char.title}
+                      subtitle={char.role || char.description}
+                      color={charColor}
+                      secondaryColor={charDef?.secondaryColor}
+                      parentLabel={char.parent_label ?? charDef?.name}
+                      href={`${basePath}/hahmot/${char.id}`}
+                      variant="npc"
+                    />
+                  );
+                })}
+              </div>
+            </TextSection>
+          ) : (
+            <TextSection title="Merkittävät hahmot">
+              <div className="mt-4">
+                <NoticePanel variant="info">
+                  Tämän faktion merkittävät hahmot dokumentoidaan tähän myöhemmin.
+                </NoticePanel>
+              </div>
+            </TextSection>
+          )}
 
           {/* Controlled stations */}
           {controlledStations.length > 0 && (
@@ -1242,6 +1329,321 @@ function FactionDetail({
 }
 
 // ---------------------------------------------------------------------------
+// Characters Layout — wraps all /world/hahmot/* routes
+// ---------------------------------------------------------------------------
+function CharactersLayout({
+  characterEntries,
+  basePath,
+}: {
+  characterEntries: WorldEntry[];
+  basePath: string;
+}) {
+  const { pathname } = useLocation();
+  const lastSegment = pathname.split("/").filter(Boolean).pop() ?? "";
+  const isIndexPage = lastSegment === "hahmot";
+  const currentEntry = isIndexPage
+    ? null
+    : (characterEntries.find((e) => e.id === lastSegment) ?? characterEntries[0]);
+
+  const categoryBasePath = `${basePath}/hahmot`;
+
+  return (
+    <Page>
+      <div className="px-4 tablet:px-0 pt-4">
+        {/* Desktop: tab bar with parent back-link */}
+        <TopNavList className="hidden tablet:flex">
+          <TopNavLink variant="parent" to={basePath || "/world"}>
+            Maailma
+          </TopNavLink>
+          <TopNavLink to={categoryBasePath}>Kaikki henkilöt</TopNavLink>
+        </TopNavList>
+
+        {/* Mobile: dropdown selector */}
+        <TopNavDropdown
+          className="tablet:hidden"
+          currentId={currentEntry?.id ?? "all"}
+          items={[
+            { id: "all", label: "Kaikki henkilöt", to: categoryBasePath },
+            ...characterEntries.map((entry) => ({
+              id: entry.id,
+              label: entry.title,
+              to: `${categoryBasePath}/${entry.id}`,
+            })),
+          ]}
+          label="Valitse henkilö"
+        />
+      </div>
+
+      <Outlet />
+    </Page>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Characters Index — card grid of all characters at /world/hahmot
+// ---------------------------------------------------------------------------
+function CharactersIndex({
+  characterEntries,
+  basePath,
+}: {
+  characterEntries: WorldEntry[];
+  basePath: string;
+}) {
+  const [selectedFaction, setSelectedFaction] = useState<string>("all");
+
+  const filterOptions = [
+    { id: "all", label: "Kaikki" },
+    { id: "kw-konsortio", label: "KW-konsortio" },
+    { id: "ekklesia", label: "Ekklesia" },
+    { id: "tuhkan-puolue", label: "Tuhkan puolue" },
+    { id: "other", label: "Riippumattomat & Muut" },
+  ];
+
+  const filteredEntries = characterEntries.filter((c) => {
+    if (selectedFaction === "all") return true;
+    if (selectedFaction === "other") {
+      return (
+        !c.faction ||
+        (c.faction !== "kw-konsortio" && c.faction !== "ekklesia" && c.faction !== "tuhkan-puolue")
+      );
+    }
+    return c.faction === selectedFaction;
+  });
+
+  return (
+    <>
+      <HeadingLevelProvider>
+        <Hero
+          title="Henkilöt"
+          description="Kynnyksen vaikuttajat, virkamiehet, toisinajattelijat ja operaattorit asemien ja faktioiden taustalla."
+        />
+      </HeadingLevelProvider>
+
+      <PageBody>
+        <Breadcrumb
+          className="mb-6"
+          items={[{ label: "Maailma", to: basePath || "/world" }, { label: "Henkilöt" }]}
+        />
+
+        {/* Filter buttons */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {filterOptions.map((opt) => {
+            const isActive = selectedFaction === opt.id;
+            const count =
+              opt.id === "all"
+                ? characterEntries.length
+                : characterEntries.filter((c) => {
+                    if (opt.id === "other") {
+                      return (
+                        !c.faction ||
+                        (c.faction !== "kw-konsortio" &&
+                          c.faction !== "ekklesia" &&
+                          c.faction !== "tuhkan-puolue")
+                      );
+                    }
+                    return c.faction === opt.id;
+                  }).length;
+
+            return (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => setSelectedFaction(opt.id)}
+                className={cn(
+                  "px-4 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer border",
+                  isActive
+                    ? "bg-[var(--theme-primary)] text-[var(--theme-primary-foreground)] border-transparent shadow-sm"
+                    : "bg-[var(--theme-card)] text-[var(--theme-text-muted)] border-[var(--theme-border-soft)] hover:border-[var(--theme-border-medium)] hover:text-[var(--theme-text)]",
+                )}
+              >
+                {opt.label}
+                <span className="ml-1.5 opacity-70 text-xs">({count})</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Grid of character cards */}
+        <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-6 animate-in fade-in duration-300">
+          {filteredEntries.map((char) => {
+            const factionDef = char.faction ? getFactionById(char.faction) : undefined;
+            const cardColor =
+              (char.color as "primary" | "secondary" | "accent") ??
+              factionDef?.color ??
+              "secondary";
+
+            return (
+              <EntityCard
+                key={char.id}
+                name={char.title}
+                subtitle={char.role || char.description}
+                color={cardColor}
+                secondaryColor={factionDef?.secondaryColor}
+                parentLabel={char.parent_label ?? factionDef?.name}
+                href={`${basePath}/hahmot/${char.id}`}
+                variant="npc"
+              />
+            );
+          })}
+        </div>
+      </PageBody>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Character Detail — single character page at /world/hahmot/:characterId
+// ---------------------------------------------------------------------------
+function CharacterDetail({
+  characterEntries,
+  basePath,
+}: {
+  characterEntries: WorldEntry[];
+  basePath: string;
+}) {
+  const { characterId } = useParams<{ characterId: string }>();
+  const entry = characterEntries.find((e) => e.id === characterId);
+
+  if (!entry) {
+    return <MfeNotFoundRedirect to={`${basePath}/hahmot`} />;
+  }
+
+  const factionDef = entry.faction ? getFactionById(entry.faction) : undefined;
+  const subfactionDef = entry.subfaction ? getFactionById(entry.subfaction) : undefined;
+
+  return (
+    <>
+      <HeadingLevelProvider>
+        <Hero title={entry.title} description={entry.role || entry.description} />
+      </HeadingLevelProvider>
+
+      <PageBody className="grid grid-cols-1 desktop:grid-cols-[2fr_1fr] gap-8">
+        <Breadcrumb
+          className="col-span-full mb-2"
+          items={[
+            { label: "Maailma", to: basePath || "/world" },
+            { label: "Henkilöt", to: `${basePath}/hahmot` },
+            { label: entry.title },
+          ]}
+        />
+
+        {/* Main biography / dossier content */}
+        <div className="animate-in fade-in duration-500 space-y-6">
+          <HeadingLevelProvider>
+            <MarkdownRenderer headingIdPrefix={`character-${entry.id}`}>
+              {entry.content}
+            </MarkdownRenderer>
+          </HeadingLevelProvider>
+        </div>
+
+        {/* Sidebar with affiliation and status */}
+        <PageAside sticky>
+          <div className="space-y-4">
+            {/* Status / Role Card */}
+            <Card variant="outline">
+              <CardHeader>
+                <CardTitle>Tiedot</CardTitle>
+              </CardHeader>
+              <CardContent variant="dense">
+                <div className="space-y-3">
+                  {entry.role && (
+                    <div>
+                      <Text
+                        variant="caption"
+                        className="text-xs uppercase tracking-wider block mb-0.5"
+                      >
+                        Rooli
+                      </Text>
+                      <Text className="text-sm font-semibold">{entry.role}</Text>
+                    </div>
+                  )}
+                  {entry.status && (
+                    <div>
+                      <Text
+                        variant="caption"
+                        className="text-xs uppercase tracking-wider block mb-0.5"
+                      >
+                        Status
+                      </Text>
+                      <div className="inline-block mt-0.5">
+                        <Badge
+                          variant={
+                            entry.status === "Aktiivinen"
+                              ? "highlight"
+                              : entry.status === "Edesmennyt"
+                                ? "outline"
+                                : "ghost"
+                          }
+                        >
+                          {entry.status}
+                        </Badge>
+                      </div>
+                    </div>
+                  )}
+                  {entry.station && (
+                    <div>
+                      <Text
+                        variant="caption"
+                        className="text-xs uppercase tracking-wider block mb-0.5"
+                      >
+                        Sijainti / Asema
+                      </Text>
+                      <a
+                        href={`${basePath}/kynnys/${entry.station}`}
+                        className="text-sm font-medium text-[var(--theme-primary)] hover:underline inline-flex items-center gap-1 mt-0.5"
+                      >
+                        {entry.station_name || entry.station} →
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Faction card */}
+            {(factionDef || subfactionDef || entry.parent_label) && (
+              <Card variant="outline">
+                <CardHeader>
+                  <CardTitle>Ryhmittymä</CardTitle>
+                </CardHeader>
+                <CardContent variant="dense">
+                  <div className="space-y-2">
+                    {factionDef && (
+                      <FactionBadge
+                        factionName={factionDef.name}
+                        color={factionDef.color}
+                        secondaryColor={factionDef.secondaryColor}
+                        iconName={factionDef.icon}
+                        href={`${basePath}/faktiot/${factionDef.id}`}
+                        variant="card"
+                        className="w-full"
+                      />
+                    )}
+                    {subfactionDef && (
+                      <FactionBadge
+                        factionName={subfactionDef.name}
+                        color={subfactionDef.color}
+                        iconName={subfactionDef.icon}
+                        href={`${basePath}/faktiot/${subfactionDef.id}`}
+                        variant="card"
+                        className="w-full"
+                      />
+                    )}
+                    {!factionDef && !subfactionDef && entry.parent_label && (
+                      <Text className="text-sm font-medium">{entry.parent_label}</Text>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </PageAside>
+      </PageBody>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Root App component
 // ---------------------------------------------------------------------------
 function AppRoutes() {
@@ -1291,9 +1693,30 @@ function AppRoutes() {
         />
       </Route>
 
+      {/* Hahmot / Henkilöt routes */}
+      <Route
+        path="hahmot"
+        element={
+          <CharactersLayout characterEntries={entriesForCategory("hahmot")} basePath={basePath} />
+        }
+      >
+        <Route
+          index
+          element={
+            <CharactersIndex characterEntries={entriesForCategory("hahmot")} basePath={basePath} />
+          }
+        />
+        <Route
+          path=":characterId"
+          element={
+            <CharacterDetail characterEntries={entriesForCategory("hahmot")} basePath={basePath} />
+          }
+        />
+      </Route>
+
       {/* All other category routes */}
       {worldCategories
-        .filter((c) => c.id !== "faktiot")
+        .filter((c) => c.id !== "faktiot" && c.id !== "hahmot")
         .map((category) => {
           const categoryEntries = entriesForCategory(category.id);
 

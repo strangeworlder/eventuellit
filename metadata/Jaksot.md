@@ -680,7 +680,7 @@ Valmistelut keskeytyvät ronskisti, kun Sametti heittää heidät areenalle. Kos
 
 Pedon ruumiin äärellä heidän mieliinsä iskee karu oivallus: Häkin aivan kaikki ovet toimivat sähköisillä magneettilukoilla.
 
-Kun luvattu sähkökatko parin päivän päästä iskee ja avaa vankien sellien ovet, se avaa samalla automaattisesti myös kaikkien areenan petoeläintallien häkit. Pakomatkasta ei siis tule pelkkä vankilapako, vaan pilkkopimeässä käytävä kaaosmainen selviytymiskamppailu vapaina riehuvien hirviöiden keskellä.
+Kun luvattu sähkökatko parin päivän päästä iskee ja avaa vankien sellien ovet, se avaa samalla automaattisesti myös kaikkien areenan petoeläintallien häkit. Pakomatka muuttuu pilkkopimeässä käytäväksi kaaosmaiseksi selviytymiskamppailuksi vapaina riehuvien hirviöiden keskellä.
 
 #### **Pe­laa­jien ker­tauk­set**
 
@@ -756,7 +756,7 @@ Kynnys vavahtelee. Verson biodoomi on liekeissä, Sykkeen energiavirrat pätkiv�
 
 Tällainen vallankaappaus vaatii kuitenkin laillisen perusteen ja kansan hyväksynnän. Ne tarvitsevat Kasvot kapinalle.
 
-Yksi teistä on saatu kiinni ja istuu nyt syytetyn aitiossa Laki-aseman Korkeimmassa oikeudessa. Sinua ei syytetä ainoastaan sabotaasista, vaan "Kynnyksen ontologisen vakauden ja koko Arkkitehtuurin vaarantamisesta". Muut olette puolustustiimi: asianajajia, PR-konsultteja ja kulissien takaisina "ongelmanratkojia". Teidän tehtävänne on voittaa tämä näytösoikeudenkäynti ja kaataa direktiivi.
+Yksi teistä on saatu kiinni ja istuu nyt syytetyn aitiossa Laki-aseman Korkeimmassa oikeudessa. Syytteinä ovat sabotaasi sekä "Kynnyksen ontologisen vakauden ja koko Arkkitehtuurin vaarantaminen". Muut olette puolustustiimi: asianajajia, PR-konsultteja ja kulissien takaisina "ongelmanratkojia". Teidän tehtävänne on voittaa tämä näytösoikeudenkäynti ja kaataa direktiivi.
 
 Kaikki katseet kääntyvät teihin.
 
@@ -892,7 +892,7 @@ Seuraavaksi Yune käy tapaamassa Turkoosia Oselottia, eksentrisesti pukeutuvaa o
 
 Sahyen kontaktien kautta ryhmä jäljittää Lannanhaju-nimisen työläisen, joka paljastaa olevansa yllätystodistaja Verijuuren lapsi. Lannanhaju kertoo isänsä kyllä nähneen murhan huoltotunneleissa, mutta paljastaa samalla kriittisen heikkouden: Verijuuren kyberneettiset silmät ovat halvat, jatkuvasti häiriöitä iskevät halpahalliamllit. Syyttäjän tähtitodistaja on siis visuaalisesti täysin epäluotettava.
 
-Tiimi suuntaa painostamaan Sahyen mentorin mainitsemaa, teknisestä valvonnasta vastaavaa Alirutiinia. Tämä myöntää, että valvontakameroiden sokeat pisteet huoltotunneleissa eivät ole fysiikan lakeja rikkovaa "ontologista taikuutta", vaan KW-Konsortion tiukasti aikataulutettuja, säännöllisiä sähkönsäästökatkoksia.
+Tiimi suuntaa painostamaan Sahyen mentorin mainitsemaa, teknisestä valvonnasta vastaavaa Alirutiinia. Tämä myöntää, että valvontakameroiden sokeat pisteet huoltotunneleissa johtuvat KW-Konsortion tiukasti aikataulutetuista, säännöllisistä sähkönsäästökatkoksista.
 
 ##### **Pil­liin pu­hal­ta­ja ja oi­keu­den­käyn­nin siir­to**
 
@@ -1236,7 +1236,7 @@ Asemalla majoittumista varten ryhmä ottaa käyttöönsä kasinohotellin kulmahu
 
 **Kontakti:** Laitetta hallussaan pitävä "Hylätty Shakkikuningatar" paljastuu Ekklesian 13\. kierron viidenneksi Megapaaviksi. Hänet oli aikanaan canceloitu ja syösty unohdukseen mitättömän skandaalin vuoksi, ja hänen motivaationaan näyttää olevan kosto.
 
-**Huutokauppa ja sääanomalia:** Huutokauppaan osallistuu Ekklesian sisäpiirin lisäksi Arkkitehtuurin byrokraatteja. Kauppaa ei käydä rahalla, vaan laitteesta vaaditaan todennäköisesti laittomia palveluksia tai suoraa kyvykkyyden todistamista. Jamirin analyysi paljastaa myös historiallisen faktan: reitit Katedraalille Sykkeeltä, Pöydästä ja Verkosta ovat aina olleet täysin stabiileja vailla minkäänlaisia avaruussään häiriöitä.
+**Huutokauppa ja sääanomalia:** Huutokauppaan osallistuu Ekklesian sisäpiirin lisäksi Arkkitehtuurin byrokraatteja. Laitteesta vaaditaan rahan sijaan todennäköisesti laittomia palveluksia tai suoraa kyvykkyyden todistamista. Jamirin analyysi paljastaa myös historiallisen faktan: reitit Katedraalille Sykkeeltä, Pöydästä ja Verkosta ovat aina olleet täysin stabiileja vailla minkäänlaisia avaruussään häiriöitä.
 
 **Vaara 7 Lamenta:** Ryhmän tutkiessa asemalla liikkuvia pyhimyksiä he törmäävät hyytävään entiteettiin. Lamenta on "supermarttyyri" ja ikuinen uhri, joka kaappaa kaiken huomion itseensä. Hänen kristallikyyneleitä itkevä, hunnutettu hahmonsa alkaa ilmestyä taustalle lähes jokaiseen kuvaan ja heijastukseen.
 
@@ -1250,7 +1250,7 @@ Puistojen välisessä yhdystunnelissa massiivinen, raajojen ja kameroiden muodos
 
 Seuraavana päivänä koittaa Shakkikuningattaren lupaama demonstraatio, joka on määrä pitää vehreässä puistossa. Puiston keskellä seisoo valtava Tyrannin patsas, jonka kasvoja sokeasti palvovat pyhiinvaeltajat jonottavat koskettamaan. Ryhmän yrittäessä manipuloida tietään jonon ohi ympäristö alkaa värähdellä matalalla bassotaajuudella.
 
-Todellisuus repeää. Koko kolmikko tempautuu valveuneen, joka siirtää heidät heille tuttuun puolen vuoden takaiseen toistuvaan uneen – mutta tällä kertaa he eivät ole sotilaita haarniskoissa, vaan omissa vaatteissaan. Sotilaat ja puolustusjärjestelmä ovat jähmettyneet paikoilleen. Seinien läpi tilaan astuu hämmentyneitä hahmoja, ja tila muuntuu unilogiikalla esiintymislavaksi, jonka katsomossa seisoo muita huutokaupan kiinnostuneita osapuolia.
+Todellisuus repeää. Koko kolmikko tempautuu valveuneen, joka siirtää heidät heille tuttuun puolen vuoden takaiseen toistuvaan uneen – tällä kertaa he esiintyvät haarniskoitujen sotilaiden sijaan omissa arkivaatteissaan. Sotilaat ja puolustusjärjestelmä ovat jähmettyneet paikoilleen. Seinien läpi tilaan astuu hämmentyneitä hahmoja, ja tila muuntuu unilogiikalla esiintymislavaksi, jonka katsomossa seisoo muita huutokaupan kiinnostuneita osapuolia.
 
 Jamirin nopeasta kehotuksesta ryhmä ottaa tilanteen haltuunsa ja kääntää sen ammattimaiseksi keikkaesitykseksi. Holti astuu parrasvaloihin, kasvoilleen teatterinaamion ottaen, ja esittää roolinsa suvereenisti. Tyhjyydestä kajahtaa Hylätyn Shakkikuningattaren ääni: *"Toivottavasti tämä on tarpeeksi todistetta siitä, että minulla on laite."* Ennen kuin esitys ehtii loppuun, Lamentan raastava itku kaikuu saliin, valokeila siirtyy ja harha romahtaa jättäen heidät takaisin patsaan juurelle. Ryhmälle jää kuitenkin kristallinkirkas muistikuva reitistä, joka johtaa syvälle aseman alapuolisiin rakenteisiin.
 

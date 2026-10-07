@@ -6,7 +6,7 @@ category: faktiot
 color: primary
 parent: tuhkan-puolue
 ---
-Heimolaiset ovat Tuhkan puolueen se haara, joka pitää asemien käytännön arjen pyörimässä. He eivät piittaa ideologisesta puhtaudesta tai korkealentoisista julistuksista, vaan siitä, että perhe ja suku selviävät seuraavaan aamuun. He ovat Kynnyksen ruohonjuuritason erikoisosaajia, jotka ovat kutoneet itsensä asemien huoltorakenteisiin ja varjoihin niin tiukasti, ettei heitä voi syrjäyttää ilman, että koko asemaverkosto pysähtyy.
+Heimolaiset ovat Tuhkan puolueen se haara, joka pitää asemien käytännön arjen pyörimässä. He keskittyvät ideologisen puhtauden sijaan perheen ja suvun selviytymiseen seuraavaan aamuun. He ovat Kynnyksen ruohonjuuritason erikoisosaajia, jotka ovat kutoneet itsensä asemien huoltorakenteisiin ja varjoihin niin tiukasti, ettei heitä voi syrjäyttää ilman, että koko asemaverkosto pysähtyy.
 
 ### Maailma
 Kynnys jakautuu Heimolaisille vain kahteen leiriin: omaan väkeen ja vaarallisiin vieraisiin. Maailma näyttäytyy resurssien ja riskien kenttänä, josta selvitään vain pitämällä omien puolta muiden kustannuksella. Turva löytyy perheestä ja verisiteistä, ja kaikki yhteisön ulkopuolelta tuleva on lähtökohtaisesti epäilyttävää. Muiden faktioiden poliittiset mielipiteet eivät paina vaa'assa, sillä ainoa merkityksellinen asia on oman suvun ruokkiminen, suojeleminen ja vaurastuminen.
