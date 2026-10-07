@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 02 - Yömyyrän huoltomappi</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #2b2b2b;
+    font-family: 'Courier New', Courier, monospace;
+    color: #1a1a1a;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 16mm 18mm;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* PAGE 1: WORK ORDER CLIPBOARD */
+  .p1-bg {
+    background-color: #f1ede1;
+    background-image: radial-gradient(rgba(120,90,50,0.1) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .clipboard-clamp {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 24px;
+    background: linear-gradient(180deg, #777, #333 40%, #555);
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    z-index: 10;
+  }
+  .work-header {
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-top: 14px;
+    margin-bottom: 12px;
+  }
+  .work-title {
+    font-size: 11pt;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  .work-meta {
+    margin-top: 4px;
+    font-size: 8.5pt;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+  }
+  .work-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.2pt;
+    margin-bottom: 14px;
+  }
+  .work-table th {
+    border-top: 1.5px solid #222;
+    border-bottom: 1.5px solid #222;
+    padding: 4px 3px;
+    background: #e2dcc9;
+    text-align: left;
+  }
+  .work-table td {
+    padding: 3px;
+    border-bottom: 1px dotted #aaa;
+  }
+  .st-done { font-weight: bold; color: #1e5c26; }
+  .st-prog { font-weight: bold; color: #9c6308; }
+  .st-none { font-weight: bold; color: #a11c1c; }
+  .st-other { font-weight: bold; color: #555; }
+  .st-closed { font-weight: bold; color: #401060; }
+
+  .boss-note {
+    border: 1px dashed #777;
+    padding: 8px 10px;
+    background: #eae3d0;
+    font-size: 8.5pt;
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+
+  .pencil-annotations {
+    font-family: 'Segoe Print', 'Comic Sans MS', cursive, sans-serif;
+    color: #2b333a;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 10px 14px;
+    border-left: 4px solid #4a5c68;
+    position: relative;
+  }
+
+  .grease-smudge {
+    position: absolute;
+    width: 80px;
+    height: 60px;
+    background: radial-gradient(ellipse, rgba(70,50,20,0.35) 0%, rgba(70,50,20,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* PAGE 2: GRAPH PAPER SKETCH */
+  .p2-bg {
+    background-color: #f7f9fa;
+    background-image: 
+      linear-gradient(rgba(100, 150, 200, 0.25) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 150, 200, 0.25) 1px, transparent 1px);
+    background-size: 5mm 5mm;
+  }
+  .sketch-header {
+    border-bottom: 1px solid #7799aa;
+    padding-bottom: 6px;
+    font-size: 9pt;
+    color: #446677;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .schematic-container {
+    width: 100%;
+    font-family: 'Segoe Print', 'Comic Sans MS', cursive, sans-serif;
+    color: #1a2936;
+    position: relative;
+    height: 250mm;
+  }
+  .schem-box {
+    border: 2px solid #233b4d;
+    background: rgba(255,255,255,0.85);
+    padding: 8px 12px;
+    position: absolute;
+    box-shadow: 2px 2px 0 rgba(35,59,77,0.15);
+  }
+  .pipe-v {
+    position: absolute;
+    border-left: 4px solid #233b4d;
+  }
+  .pipe-h {
+    position: absolute;
+    border-top: 4px solid #233b4d;
+  }
+  .warning-badge {
+    color: #a31515;
+    font-weight: bold;
+    font-size: 11pt;
+  }
+
+  /* PAGE 3: BADGES & CIGARETTE NOTE */
+  .p3-bg {
+    background-color: #eae5d9;
+    padding: 18mm;
+  }
+  .badges-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .worker-badge {
+    background: #ffdb4d;
+    border: 3px solid #111;
+    border-radius: 8px;
+    height: 52mm;
+    padding: 10px 12px;
+    position: relative;
+    box-shadow: 2px 3px 6px rgba(0,0,0,0.25);
+    color: #111;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+  }
+  .badge-slot {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 6px;
+    background: #333;
+    border-radius: 4px;
+  }
+  .badge-stripes {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      #111,
+      #111 6px,
+      #ffdb4d 6px,
+      #ffdb4d 12px
+    );
+  }
+  .badge-title {
+    font-size: 10pt;
+    font-weight: bold;
+    margin-top: 14px;
+    line-height: 1.2;
+  }
+  .badge-class {
+    font-size: 22pt;
+    font-weight: bold;
+    margin: 8px 0;
+  }
+  .badge-barcode {
+    font-size: 7.5pt;
+    letter-spacing: 2px;
+    border-top: 1px solid #111;
+    padding-top: 4px;
+    margin-top: 8px;
+  }
+
+  .cigarette-card {
+    background: #c9b18f;
+    border: 2px solid #8f7453;
+    border-radius: 3px;
+    padding: 16px 20px;
+    box-shadow: 3px 4px 8px rgba(0,0,0,0.3);
+    font-family: 'Segoe Print', 'Comic Sans MS', cursive, sans-serif;
+    color: #1b1916;
+    font-size: 11pt;
+    line-height: 1.6;
+    position: relative;
+    transform: rotate(-0.5deg);
+  }
+  .cigarette-brand {
+    font-family: Arial, sans-serif;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #69523b;
+    border-bottom: 1px solid #9e8467;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* PAGE 4: MED-APEX DEBT LETTER */
+  .p4-bg {
+    background-color: #ffffff;
+    padding: 22mm 22mm;
+    font-family: 'Times New Roman', Times, serif;
+    color: #1a1a1a;
+  }
+  .clinic-header {
+    border-bottom: 2px solid #005a70;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .clinic-logo-text {
+    font-size: 18pt;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #005a70;
+  }
+  .clinic-motto {
+    font-size: 8pt;
+    letter-spacing: 1px;
+    color: #557788;
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  .clinic-meta {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    background: #f0f7f9;
+    border-left: 3px solid #005a70;
+    padding: 6px 12px;
+    margin-bottom: 18px;
+  }
+  .letter-body {
+    font-size: 10pt;
+    line-height: 1.6;
+    text-align: justify;
+  }
+  .collateral-box {
+    margin: 12px 0;
+    padding: 10px 16px;
+    background: #faf4f4;
+    border-left: 4px solid #a61c1c;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 9.5pt;
+    font-weight: bold;
+    color: #6b0c0c;
+  }
+  .urgent-scrawl {
+    position: absolute;
+    top: 12mm;
+    right: 18mm;
+    color: #1a1a1a;
+    font-family: 'Segoe Print', 'Comic Sans MS', cursive, sans-serif;
+    font-size: 13pt;
+    font-weight: bold;
+    transform: rotate(3deg);
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 2px;
+  }
+  .disclaimer-footer {
+    margin-top: 24px;
+    border-top: 1px solid #ccc;
+    padding-top: 8px;
+    font-size: 7.5pt;
+    color: #777;
+    font-style: italic;
+    font-family: sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: WORK ORDER LIST -->
+<div class="page p1-bg page-break">
+  <div class="clipboard-clamp"></div>
+  <div class="grease-smudge" style="top:140px; right:40px;"></div>
+  <div class="grease-smudge" style="bottom:180px; left:60px;"></div>
+
+  <div class="work-header">
+    <div class="work-title">RATASVARTIO / LOHKO NOLLA — ALAPUOLEN HUOLTO</div>
+    <div class="work-meta">
+      <div><strong>TYÖMÄÄRÄYKSET: ROTAATIO 41</strong></div>
+      <div>Asentaja: <strong>YÖMYYRÄ</strong></div>
+      <div>Lupa: <strong>C (alapinta + Juurakko)</strong></div>
+      <div>Esimies: <strong>Ruuvari</strong></div>
+    </div>
+  </div>
+
+  <table class="work-table">
+    <thead>
+      <tr>
+        <th style="width:30px;">#</th>
+        <th style="width:230px;">KOHDE</th>
+        <th style="width:80px;">TILA</th>
+        <th>HUOM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>01</td><td>Suodatin, ilmanvaihto J-12</td><td class="st-done">TEHTY</td><td></td></tr>
+      <tr><td>02</td><td>Suodatin, ilmanvaihto J-13</td><td class="st-done">TEHTY</td><td>taas tukossa</td></tr>
+      <tr><td>03</td><td>Valaistus, Juurakon käytävä 4</td><td class="st-prog">KESKEN</td><td>polttimoita ei oo</td></tr>
+      <tr><td>04</td><td>Venttiili 02A (lauhde)</td><td class="st-done">TEHTY</td><td></td></tr>
+      <tr><td>05</td><td>Venttiili 03C (lauhde)</td><td class="st-done">TEHTY</td><td></td></tr>
+      <tr><td>06</td><td>Venttiili 05B</td><td class="st-none">EI TEHTY</td><td>ei osia</td></tr>
+      <tr><td>07</td><td>Kahvinkeitin, taukotila R-6</td><td class="st-other">EI MUN</td><td>ilmoitettu 3 kertaa</td></tr>
+      <tr style="background:rgba(255,230,120,0.3)"><td>08</td><td>Venttiili 08B (syöttö P-4)</td><td class="st-done">TEHTY</td><td><strong>!!!</strong></td></tr>
+      <tr><td>09</td><td>Pumppu 2, laakeri</td><td class="st-done">TEHTY</td><td></td></tr>
+      <tr style="background:rgba(255,180,180,0.3)"><td>10</td><td>Pumppu 4, painemittari</td><td class="st-none">EI TEHTY</td><td><strong>KIELLETTY (ks. alla)</strong></td></tr>
+      <tr><td>11</td><td>Ritilä, biomurskain BM-3</td><td class="st-done">TEHTY</td><td>terä vaihdettu</td></tr>
+      <tr><td>12</td><td>Huoltoluukku J-21 (itä)</td><td class="st-closed">SULJETTU</td><td>RV hitsas umpeen</td></tr>
+      <tr><td>13</td><td>Viemäri, taukotila</td><td class="st-done">TEHTY</td><td>älkää kysykö</td></tr>
+      <tr><td>14</td><td>Valaistus, nostolava RP-2 (reuna)</td><td class="st-done">TEHTY</td><td>lava TOIMII</td></tr>
+      <tr><td>15</td><td>Venttiili 11A</td><td class="st-done">TEHTY</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="boss-note">
+    <strong>Varastosta kadonnut:</strong> 2 jakoavainta, 1 hitsausmaski, 4 kahvikuppia.<br>
+    Joku tietää kuka. — Ruuvari
+  </div>
+
+  <div class="pencil-annotations">
+    <p><strong>#10 — mulle sanottiin ettei P-4:n mittaria saa koskea. MIKS EI??</strong> normaalisti kaikki mittarit pitää kalibroida. sanoivat että "telakka hoitaa". mikä telakka. ei siellä oo laivaa</p>
+    <p><strong>#8 — 08B on se mistä pääsee syöttöputkeen.</strong> ks. kartta</p>
+    <p><em>kahvikupit en ottanut</em></p>
+  </div>
+</div>
+
+<!-- PAGE 2: GRAPH PAPER SKETCH -->
+<div class="page p2-bg page-break">
+  <div class="sketch-header">
+    <div><strong>LOHKO NOLLA ALAPUOLEN REITTIKARTTA</strong> (luonnos / ei mittakaavaa)</div>
+    <div>Asentaja Yömyyrä</div>
+  </div>
+
+  <div class="schematic-container">
+    <!-- Top Box: Lohko Nolla -->
+    <div class="schem-box" style="top: 15px; left: 180px; width: 320px; border-width: 3px; background: #eef4f8;">
+      <div style="font-size: 13pt; font-weight: bold; text-align: center;">LOHKO NOLLA (KURU)</div>
+      <div style="font-size: 10pt; text-align: center; color: #444;">telakan pohja ????</div>
+    </div>
+
+    <!-- Pipe from top box down -->
+    <div class="pipe-v" style="top: 75px; left: 340px; height: 90px; border-left-width: 6px;"></div>
+    <div style="position: absolute; top: 90px; left: 360px; font-size: 10pt; line-height: 1.3; width: 260px;">
+      <strong>SYÖTTÖKOURU</strong> — iso, voi kävellä kumarassa<br>
+      <span style="color:#555;">"tänne menee kaikki se mössö"</span>
+    </div>
+
+    <!-- Pump 4 Box -->
+    <div class="schem-box" style="top: 175px; left: 190px; width: 300px; border-color: #a31515; background: #fff8f8;">
+      <div class="warning-badge" style="text-align: center;">PUMPPU 4 (P-4)</div>
+      <div style="font-size: 9.5pt; text-align: center; font-weight: bold;">LAUHDE = KIEHUVAA</div>
+    </div>
+    <div style="position: absolute; top: 165px; left: 510px; font-size: 9.5pt; color: #a31515; line-height: 1.3; width: 180px;">
+      ← <strong>!!! LAUKEE 4 MIN VÄLEIN</strong><br>
+      VARO VARO VARO<br>
+      odottakaa sihinä → <em>sitten JUOSKAA</em>
+    </div>
+
+    <!-- Pipe down to Juurakko -->
+    <div class="pipe-v" style="top: 235px; left: 340px; height: 160px;"></div>
+    <div style="position: absolute; top: 250px; left: 355px; font-size: 9.5pt;">
+      <strong>venttiili 08B</strong> (avain mulla)
+    </div>
+
+    <!-- Juurakko area description -->
+    <div style="position: absolute; top: 285px; left: 60px; font-size: 10.5pt; color: #2e4a36; line-height: 1.4; border-left: 3px solid #2e4a36; padding-left: 8px;">
+      <strong>VAIENNUT JUURAKKO</strong><br>
+      (kosteaa, juuria,<br>ei valoja käyt. 4)
+    </div>
+
+    <!-- Welded hatch warning -->
+    <div class="schem-box" style="top: 290px; left: 380px; width: 220px; border-style: dashed; border-color: #555; background: #eee;">
+      <div style="font-size: 9.5pt; font-weight: bold; color: #661111;">J-21 itä — HITSATTU UMPEEN</div>
+      <div style="font-size: 8.5pt;">ÄLKÄÄ MENKÖ. RV hitsas toissavuorolla (oli hyvä reitti)</div>
+    </div>
+
+    <!-- Biomurskain BM-3 -->
+    <div class="schem-box" style="top: 410px; left: 190px; width: 300px;">
+      <div style="font-size: 11pt; font-weight: bold; text-align: center;">BIOMURSKAIN BM-3</div>
+      <div style="font-size: 9pt; text-align: center;">ritilä irtoaa 4 pultilla (terä pyörii)</div>
+    </div>
+    <div style="position: absolute; top: 415px; left: 510px; font-size: 9pt; color: #333;">
+      ← tunkilla saa auki
+    </div>
+
+    <!-- Pipe down to Rasvakuilu -->
+    <div class="pipe-v" style="top: 468px; left: 340px; height: 80px;"></div>
+
+    <!-- Bottom Box: Rasvakuilu -->
+    <div class="schem-box" style="top: 550px; left: 60px; width: 560px; border-width: 3px; background: #faeed9;">
+      <div style="font-size: 12pt; font-weight: bold; text-align: center; letter-spacing: 1px;">
+        ═══════ RASVAKUILU — ALATASO ═══════
+      </div>
+      <div style="display: flex; justify-content: space-around; margin-top: 6px; font-size: 9.5pt;">
+        <div>laituri R-6</div>
+        <div>taukotila</div>
+        <div><strong>klinikka "Hellä Käsi" (sisko)</strong></div>
+      </div>
+    </div>
+
+    <!-- Reunanostolava note -->
+    <div style="position: absolute; top: 645px; left: 60px; right: 60px; font-size: 10pt; line-height: 1.4; border-top: 2px dashed #446677; padding-top: 10px;">
+      <strong>REUNALLE → nostolava RP-2 TOIMII</strong> (korjasin valot)<br>
+      putouksen takana tikkaat ylös, painovoima kääntyy puolivälissä.<br>
+      <span style="color:#a31515; font-weight: bold;">ÄLKÄÄ KATSOKO ALAS. siis oikeesti.</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: BADGES & CIGARETTE BOX NOTE -->
+<div class="page p3-bg page-break">
+  <div style="font-size: 10pt; font-weight: bold; margin-bottom: 12px; color: #333; letter-spacing: 1px;">
+    LOHKO NOLLA / ALAPINNAN TYÖMAATUNNISTEET (4 KPL)
+  </div>
+
+  <div class="badges-grid">
+    <!-- Badge 1 -->
+    <div class="worker-badge">
+      <div class="badge-slot"></div>
+      <div class="badge-stripes"></div>
+      <div class="badge-title">KW-ALAPUOLEN HUOLTO</div>
+      <div class="badge-class">LUPA C</div>
+      <div style="font-size:8pt;">ALAPINTA · JUURAKKO · PUMPUT</div>
+      <div class="badge-barcode">||| | ||||| || |||||| 091-C</div>
+    </div>
+
+    <!-- Badge 2 -->
+    <div class="worker-badge">
+      <div class="badge-slot"></div>
+      <div class="badge-stripes"></div>
+      <div class="badge-title">KW-ALAPUOLEN HUOLTO</div>
+      <div class="badge-class">LUPA C</div>
+      <div style="font-size:8pt;">ALAPINTA · JUURAKKO · PUMPUT</div>
+      <div class="badge-barcode">||| || |||| || |||||| 092-C</div>
+    </div>
+
+    <!-- Badge 3 -->
+    <div class="worker-badge">
+      <div class="badge-slot"></div>
+      <div class="badge-stripes"></div>
+      <div class="badge-title">KW-ALAPUOLEN HUOLTO</div>
+      <div class="badge-class">LUPA C</div>
+      <div style="font-size:8pt;">ALAPINTA · JUURAKKO · PUMPUT</div>
+      <div class="badge-barcode">|||| | |||| || |||||| 093-C</div>
+    </div>
+
+    <!-- Badge 4 -->
+    <div class="worker-badge">
+      <div class="badge-slot"></div>
+      <div class="badge-stripes"></div>
+      <div class="badge-title">KW-ALAPUOLEN HUOLTO</div>
+      <div class="badge-class">LUPA C</div>
+      <div style="font-size:8pt;">ALAPINTA · JUURAKKO · PUMPUT</div>
+      <div class="badge-barcode">||| ||| ||| || |||||| 094-C</div>
+    </div>
+  </div>
+
+  <!-- Cigarette Card Note -->
+  <div class="cigarette-card">
+    <div class="cigarette-brand">KUPARISAVU · AITO TERVA · 20 KPL</div>
+    <p style="margin-top:0;"><strong>4 kpl C-lupia.</strong></p>
+    <p>ei nimiä eikä kuvia. laittakaa rintaan ja ottakaa joku jakoavain tai putki käteen niin kukaan ei kysele mitään.</p>
+    <p style="margin-bottom:0;">Ruuvari tekee kierroksen pari kertaa vuorossa, se ei nää mitään jos sille ei ala selittämään.</p>
+  </div>
+</div>
+
+<!-- PAGE 4: MED-APEX DEBT DEMAND -->
+<div class="page p4-bg">
+  <div class="urgent-scrawl">jaksopäivä 3 = YLIHUOMENNA !</div>
+
+  <div class="clinic-header">
+    <div>
+      <div class="clinic-logo-text">MED-APEX</div>
+      <div class="clinic-motto">"Uusi Sinä — Elinikäinen Kumppanuus"</div>
+    </div>
+    <div style="text-align: right; font-size: 8pt; color: #555;">
+      Plastinen laakso · Kliininen Torni 7<br>
+      Perintä ja Vakuushallinta
+    </div>
+  </div>
+
+  <div class="clinic-meta">
+    Viite: <strong>VH-11-30027</strong> / Hellä Käsi -sopimusklinikka<br>
+    Velallinen: <strong>PISARA</strong> (huollettava)<br>
+    Takaaja: <strong>YÖMYYRÄ</strong> (lähiomainen)
+  </div>
+
+  <div class="letter-body">
+    <p><strong>Arvoisa takaaja,</strong></p>
+
+    <p>Kiitämme Teitä luottamuksesta Med-Apexin hermostolliseen kumppanuusohjelmaan. Huollettavallenne asennettiin 14. jaksopäivänä neuroproteesi mallia NX-3 "Rauhallinen Mieli" (sarjanumero NX3-00418) sopimuksen VH-11-30027 mukaisesti.</p>
+
+    <p>Valitettavasti joudumme ilmoittamaan, että sopimuksen mukainen jaksoerä (1 200 kr) on jäänyt suorittamatta kolmena (3) peräkkäisenä kautena. Avoin saatava korkoineen on <strong>45 260 kr</strong>.</p>
+
+    <p>Sopimuksen kohdan 14.2 (Vakuudet) mukaisesti Med-Apex on oikeutettu realisoimaan vakuuden, joka tässä tapauksessa on:</p>
+
+    <div class="collateral-box">
+      VAKUUS A: huollettavan vasen keuhko (elinsiirtokelpoinen)<br>
+      VAKUUS B: proteesin palautus, mikäli vakuus A ei riitä
+    </div>
+
+    <p>Huomautamme ystävällisesti, että proteesin NX-3 käytönaikainen "epämukavuus" on tunnettu ominaisuus, joka lievenee, kun maksuliikenne normalisoituu (ks. kohta 9.1, Palvelutason säätö).</p>
+
+    <p>Proteesi on varustettu valmistajan huoltoliitännällä C7 (takaraivo), jonka kautta laite voidaan sammuttaa ainoastaan Med-Apexin valtuutetun teknikon toimesta. Laitteen luvaton irrottaminen muualta kuin liitännästä C7 voi aiheuttaa pysyvän vaurion.</p>
+
+    <p><strong>Noutaja saapuu klinikalle Hellä Käsi jaksopäivänä 3.</strong> Mikäli saatava suoritetaan ennen noutajan saapumista, toimenpide peruuntuu.</p>
+
+    <p>Arvostamme kumppanuuttanne.</p>
+
+    <div style="margin-top: 25px;">
+      Ystävällisin terveisin,<br><br>
+      <strong>KORKO</strong><br>
+      Vakuushallinnan virkailija, Med-Apex
+    </div>
+  </div>
+
+  <div class="disclaimer-footer">
+    Tämä viesti on automaattisesti tarkastettu esteettisen viestinnän standardin EV-2 mukaisesti. Med-Apex ei vastaa viestin emotionaalisista vaikutuksista.
+  </div>
+</div>
+
+</body>
+</html>

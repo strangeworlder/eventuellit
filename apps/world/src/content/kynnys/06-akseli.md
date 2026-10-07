@@ -10,9 +10,9 @@ disrupting_factions: logiikan-inkvisitio
 
 ### Yleiskuvaus
 
-Akseli on KW-konsortion sydän Kynnyksessä. Korkeat tornit, viimeistellyt käytävät ja tunnelma, jossa jokainen liike rekisteröidään jonnekin. Tänne tuodaan sopimukset allekirjoitettaviksi, tänne maksetaan velat, täältä annetaan käskyt. Asemalla ei juurikaan ole häiriötekijöitä — KW-konsortio on valvonut, ettei kilpailu pääse sisälle.
+Akseli on KW-konsortion hermokeskus ja Kynnyksen hallinnollinen sydän. Sen arkkitehtuuri huokuu laskelmoitua viileyttä: steriilit lasitornit, kiillotetut komposiittikäytävät ja herkeämätön tunne siitä, että jokainen askel rekisteröidään konsortion taseisiin. Tänne tuodaan Kynnyksen kalleimmat sopimukset vahvistettaviksi, tänne tilitetään energiavelat ja täältä lähtevät johtokunnan direktiivit. Kilpailua ei sallita, ja asemalla vallitseva hiljaisuus on ostettua ja tarkkaan valvottua rauhaa.
 
-Se on ainoa Kynnyksen asemista, jossa vallitsee lähes täydellinen rauha. Tämä rauha on hankittu. Logiikan Inkvisitio toimii täällä konsortion laillisena käsivarren jatkeena — heidän päättelynsä määrittää, mikä on sallittua ja mikä ei.
+Järjestyksen takeena toimii Logiikan Inkvisitio, joka valvoo konsortion sisäistä koneistoa armottomalla päättelyllään. Inkvisiittorit varmistavat, että jokainen toimenpide ja virkamies noudattaa konsortion virheetöntä logiikkaa — tai poistuu tieltä.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Se on ainoa Kynnyksen asemista, jossa vallitsee lähes täydellinen rauha. Täm�
 
 ### Palvelut
 
-- Laki ja sopimukset
-- Pankkipalvelut ja luotto
+- **Sopimusoikeus ja auditointi:** Suurten yrityssopimusten kirjaaminen, omistussuhteiden vahvistus ja tilintarkastukset.
+- **Pankki- ja luottolaitokset:** Krediittivaraukset, pääomasijoitukset ja velkakirjojen hallinta.
 
 ### Yhteydet
 
-Akselilta pääsee suoraan asemille: **Syke**, **Katedraali**, **Häkki**.
+Akselin suljetuilta siirtolaitureilta on suorat yhteydet asemille: **Syke**, **Katedraali** ja **Häkki**.

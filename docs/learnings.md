@@ -166,6 +166,43 @@ const isObscured = Boolean(obscuredProp || contextObscured);
 **Issue:** Opening full-size modals from in-flow rules text images interrupts long-form reading.
 **Action:** `ImageElement` has `variant="inline"` which disables modal opening while keeping shared responsive/manifest behavior. Ruleset markdown section images use this inline variant.
 
+#### 23) Kampanjan tasoarkkitehtuuri ja julkisuuden rajapinta (Information Secrecy)
+**Date:** 2026-10-06
+**Issue:** Sisällöntuotannossa oli vaarana sekoittaa eri tasojen tietoja keskenään ja vuotaa pelinjohtajan salaisia kosmologisia ja metatason totuuksia julkisiin teksteihin tai pelaajamateriaaleihin.
+**Action:** Määriteltiin ja dokumentoitiin kampanjan nelitasoinen arkkitehtuuri:
+1. *Taso 1 (Diegeettinen taso):* 100 % maailmansisäinen pinta (handouts, leikkauskaaviot, asiakirjat). Nolla prosenttia GM-metatietoa.
+2. *Taso 2 (Pelillinen skenaariotaso & julkinen lore):* Pelinjohtajan prep (kellotus, reitit, esteet) sekä suodatettu julkinen maailmankuvaus (`apps/world/`, sääntökirja: asemat, tekniikka, viralliset uskomukset).
+3. *Taso 3 (Metataso):* Pelinjohtajan ja suunnittelijan työkalu huonon pelinjohtamisen allegoriana (Pyhimykset = PJ-synnit, faktiot = GNS-kargokultit, titaani = G+N-hubris, Kokemuspuolue = pelaajien toimijuus). Ei koskaan lausuta pelaajille.
+4. *Taso 4 (Meta-metataso):* Syvä ontologinen kosmologia (Tyranni on poissa / peli hylätty, Kapina on johtajaton luonnonlaki, Astia kantaa sodan kuolleita, Syklin immuunireaktio, ajan ja nimien ontologia). Ehdottomasti salainen GM-tieto.
+**Sääntö:** Julkiseen osaan (`apps/world/`, `apps/episodes/`, sääntökirja, handouts) saa kirjoittaa vain Tasoa 1 ja suodatettua Tasoa 2. Tasot 3 ja 4 ovat ehdottoman kiellettyjä julkisessa tekstissä.
+
+#### 24) Pöytäroolipelin toimijuus vs. videopelimäiset quest markerit ja aikarajojen narratiivisuus
+**Date:** 2026-10-06
+**Issue:** Pelaajamateriaaleissa ja skenaariokuvauksissa esiintyi videopelimäisiä "quest markereita" (suoria ohjeita tyyliin *"vedä vipua X tasanteella Y, niin kone kuolee"*), ja aikarajat oli määritelty liian simulationistisesti kellonaikoja kyttäämällä.
+**Action:**
+1. Poistettiin kaikki orjamaiset algoritmit ja toimintaohjeet dokumenteista. Tekstit edustavat vain tekijänsä ammattitaitoa (huoltotärinä, vartijan laipiohuomio). Pelaajille annetaan itse oivaltamisen ja päättelyn ilo.
+2. Tarjotaan useita loogisia väyliä (miljoona tapaa edetä: hissi, putous, putkisto), mutta pelaajien omat luovat ratkaisut ovat ensisijaisia.
+3. Otettiin käyttöön narratiivinen aikasäätely: Gaalakello (18:00–21:00), jossa pelaajien valinnoilla (nopea vs. varovainen) on selkeä aikakustannus, tiukan sekuntikellon sijaan.
+4. Otettiin käyttöön puolirelevantit propit (kuten Sahyen vanhat oikeustapaukset), joilla GM voi rikastuttaa maailmaa aidolla paperilla ilman valmiita avaimia.
+
+#### 25) Maailman ontologia, kargokulttifaktiot ja NPC-nimeämislogiikka
+**Date:** 2026-10-06
+**Issue:** Faktiot ja NPC:t uhkasivat luisua stereotyyppisiksi scifi-kliseiksi tai liian tietoisiksi universumin salaisuuksista, ja kieli sisälsi Maan kalenterivuosisidonnaisuuksia.
+**Action:**
+1. *Kargokultit ja dogmaattiset harhat:* Faktiot eivät palvele elävää jumalaa, vaan toistavat hylätyn Arkkitehtuurin protokollia. Ekklesia uskoo vilpittömästi luovansa *"sakramentaalista ekstaasia"* ja KW *"komentokoheesiota"*; orjaverkko on tämän harhan mekaaninen seuraus.
+2. *NPC-nimeäminen (Petri-vertaus):* Tavallisilla asukkailla on funktioon perustuvat nimet (*Yömyyrä, Kuilu, Ruuvari, Sydänmies*). Nämä ovat asukkaille täysin arkisia nimiä, mutta pelaajat näkevät niistä koneiston rakenteen. Bombastiset nimet säästetään vain päävihollisille (*Uppoamaton Kolossi, Iridiumkardinaali*).
+3. *Rivihahmojen rajattu näkökulma:* Huoltoasentajat eivät puhu kosmologiasta; he tuntevat vain lauhteen, putket ja henkilökohtaiset velkansa.
+4. *Ajan ontologia:* Poistettiin Maan vuosiluvut. Aika mitataan työvuoroina, sykleinä ja asemien mekaanisina rotaatioina.
+
+#### 26) Diegeettisten proppien laatuvaatimukset, negaation poisto ja sääntöartefakti-terminologia
+**Date:** 2026-10-06
+**Issue:** Jakson 9 propeissa esiintyi negaation kautta kirjoittamista ("ei X, vaan Y"), termiä "shiny object", ja osa kaavioista oli matalaresoluutioisia.
+**Action:**
+1. Auditoitiin kaikki 17 proppia ja poistettiin poikkeuksetta negaatiorakenteet ("ei X, vaan Y"). Asiat kuvataan suoraan sen kautta mitä on ja mitä hahmo näkee.
+2. Lukittiin terminologia: aina *sääntöartefakti* tai *Arkkitehtuurin sääntöydin* (ei koskaan "shiny object").
+3. Korvattiin rasterikuvat ja alkeelliset kaaviot tarkoilla SVG-vektoreilla (leikkauskaaviot, mittaviivat) ja korkeakontrastisilla mustavalkoisilla salakuvilla.
+4. Varmistettiin kaksipuolisten tulosteiden toimivuus ja käännettiin kaikki 17 PDF:ää headless Chromella (`tools/generate_pdf.py --all`).
+
 ### Build & Tooling
 
 #### 21) Storybook 10 on Vite 6 Requires Node v22+

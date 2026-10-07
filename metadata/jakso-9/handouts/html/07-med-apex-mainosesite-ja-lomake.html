@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 07 - Med-Apex Mainosesite ja Kauneusarvon Lomake</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #2b2b2b;
+    font-family: 'Century Gothic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #222;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* BROCHURE PAGE 1: FRONT & SPREAD 1 */
+  .brochure-page {
+    background: linear-gradient(135deg, #ffffff 0%, #f4fbfb 50%, #fcf7f9 100%);
+    padding: 16mm 18mm;
+    color: #1a3038;
+  }
+  .gold-border {
+    border: 1px solid #d4af37;
+    height: 100%;
+    padding: 10mm 12mm;
+    position: relative;
+    background: rgba(255,255,255,0.7);
+  }
+  .clinic-badge {
+    text-align: center;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #e2cf86;
+    padding-bottom: 10px;
+  }
+  .clinic-name {
+    font-size: 20pt;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: #0b4f60;
+    text-transform: uppercase;
+  }
+  .tagline-sub {
+    font-size: 11pt;
+    letter-spacing: 3px;
+    color: #b58d24;
+    text-transform: uppercase;
+    margin-top: 4px;
+    font-weight: bold;
+  }
+
+  .service-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin: 10px 0;
+  }
+  .service-table th {
+    border-bottom: 1.5px solid #0b4f60;
+    text-align: left;
+    padding: 4px 6px;
+    color: #0b4f60;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .service-table td {
+    padding: 5px 6px;
+    border-bottom: 1px solid #e8f0f2;
+    vertical-align: top;
+  }
+  .price-cell {
+    text-align: right;
+    font-weight: bold;
+    color: #0b4f60;
+    white-space: nowrap;
+  }
+
+  .quote-box {
+    background: #fdfaf0;
+    border-left: 3px solid #d4af37;
+    padding: 6px 12px;
+    font-style: italic;
+    font-size: 8.2pt;
+    margin-top: 6px;
+    color: #554422;
+  }
+
+  /* BROCHURE PAGE 2: GALA & AUDIT CRITERIA */
+  .gala-hero {
+    background: linear-gradient(90deg, #0b4f60, #1a748c);
+    color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .gala-title {
+    font-size: 13pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .promo-list {
+    font-size: 8.5pt;
+    line-height: 1.5;
+    margin: 8px 0;
+    padding-left: 18px;
+  }
+
+  .fine-print {
+    font-size: 7.2pt;
+    line-height: 1.35;
+    color: #556670;
+    text-align: justify;
+    margin-top: 14px;
+    border-top: 1px solid #d4af37;
+    padding-top: 8px;
+  }
+  .criteria-box {
+    background: #eef6f8;
+    border: 1px solid #b5d5de;
+    padding: 8px 10px;
+    margin-top: 8px;
+    font-size: 7.8pt;
+    line-height: 1.4;
+  }
+
+  /* PAGE 3: PINK CARBON-COPY AUDIT FORM */
+  .carbon-page {
+    background-color: #fbe6eb;
+    background-image: radial-gradient(rgba(180, 80, 110, 0.08) 1px, transparent 1px);
+    background-size: 12px 12px;
+    padding: 18mm 20mm;
+    color: #2b1119;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .audit-form-border {
+    border: 2px solid #8f344e;
+    padding: 12mm 14mm;
+    height: 100%;
+    position: relative;
+    background: rgba(255,255,255,0.45);
+  }
+  .audit-header {
+    border-bottom: 2px solid #8f344e;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .audit-title {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #63192d;
+    letter-spacing: 0.5px;
+  }
+  .audit-meta {
+    font-size: 8.5pt;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .criteria-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin: 10px 0;
+  }
+  .criteria-table th {
+    border-top: 1.5px solid #8f344e;
+    border-bottom: 1.5px solid #8f344e;
+    text-align: left;
+    padding: 4px;
+    background: rgba(143,52,78,0.08);
+  }
+  .criteria-table td {
+    padding: 4px;
+    border-bottom: 1px dotted #caa0ab;
+  }
+  .rejected-stamp {
+    border: 3.5px solid #a6122d;
+    color: #a6122d;
+    font-size: 16pt;
+    font-weight: bold;
+    padding: 4px 14px;
+    transform: rotate(-6deg);
+    display: inline-block;
+    letter-spacing: 2px;
+    background: rgba(166,18,45,0.06);
+  }
+  .angry-handwriting {
+    font-family: 'Segoe Script', 'Comic Sans MS', cursive;
+    color: #1a296b; /* Blue ballpoint pen */
+    font-size: 10pt;
+    line-height: 1.45;
+    margin-top: 18px;
+    border-top: 2px dashed #8f344e;
+    padding-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: MED-APEX MAINOSESITE - ETUSIVU & HOIDOT -->
+<div class="page brochure-page page-break">
+  <div class="gold-border">
+    <div class="clinic-badge">
+      <!-- Site's Sparkles SVG -->
+      <svg style="width:36px; height:36px; fill:#0b4f60; margin-bottom:2px;" viewBox="0 0 841.9 595.3">
+        <path d="M387.3,518.6c-3.7-7,13.8-16.6,12.7-24.2-.5-3.3-5-10.3-7.3-12l-15.7,14.6-26.8-53.1,104.9-123.7,18.6,48.5c4.9-3.3,10.4-11.8,8.8-16l-16.7-43.9,79.4-41.5-33.2,153.2-19.7-44.8-10.5,14.3,22.4,53.5-93.1,120.3-23.7-45.2ZM407.1,456.4l12.3-11.2c-5.4-2.4-12.8,4.1-12.3,11.2Z"/>
+        <path d="M242.3,400.8c15.9-36.8,31.3-69.5,54-106.8l8.7,52.4-29.7,27.9c2.4,3.2,9.8,8.1,19.9,8.6l31.4-29.3-17.4-130.6,45.9-8.1,21.7-11,2.2,20.6,68.4,60-107.5,127.3h-88.1s18.2-17.6,18.2-17.6c.8-.8,1.4-5.4.6-6.2-1.2-1.2-6.4-2.6-7.8-1.6l-20.4,14.3Z"/>
+        <path d="M312,185.4l19.5-31.5,8.1,13.5,35.6-68.9,33.4-55.9,31.2,196.4-33.8-28.3c-10.7-8.9-18.7-19.9-25.4-34l-68.6,8.7Z"/>
+      </svg>
+      <div class="clinic-name">MED-APEX</div>
+      <div class="tagline-sub">UUSI SINÄ</div>
+      <div style="font-size: 8.5pt; font-style: italic; color: #555; margin-top: 2px;">
+        Anna geeniesi loistaa puhtaimmassa muodossaan.
+      </div>
+    </div>
+
+    <div style="font-size: 9pt; line-height: 1.45; text-align: justify; margin-bottom: 10px;">
+      <strong>Olet ansainnut täydellisyyden.</strong> Plastisen laakson sydämessä, Kliinisen Tornin 7 kristallikerroksissa, Med-Apexin kirurgit muovaavat sinusta sen version, jonka olet aina tiennyt olevan olemassa. Ei kompromisseja. Ei epäsymmetriaa. Ei menneisyyttä. <em>Sinä — mutta oikein.</em>
+    </div>
+
+    <div style="font-size: 9.5pt; font-weight: bold; color: #0b4f60; border-bottom: 1px solid #d4af37; padding-bottom: 2px; margin-top: 8px;">
+      VALIKOIDUT HOITOKOKONAISUUDET
+    </div>
+
+    <table class="service-table">
+      <thead>
+        <tr>
+          <th>HOITO</th>
+          <th>KUVAUS</th>
+          <th style="text-align:right;">HINTA ALK.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Kultasärmä-silmät</strong></td>
+          <td>Iiriksen kultaus ja pupillin kirkastus. Katse, joka myy.</td>
+          <td class="price-cell">18 000 kr</td>
+        </tr>
+        <tr>
+          <td><strong>Kloonattu poskipää</strong></td>
+          <td>Oman kudoksesi pohjalta kasvatettu, täydellisen symmetrinen.</td>
+          <td class="price-cell">24 500 kr</td>
+        </tr>
+        <tr>
+          <td><strong>Ääni-harmonisointi</strong></td>
+          <td>Äänihuulten viritys asiakkaan valitsemaan sävellajiin.</td>
+          <td class="price-cell">9 900 kr</td>
+        </tr>
+        <tr>
+          <td><strong>Muisti-silitys</strong></td>
+          <td>Epämiellyttävien muistojen pehmennys. <em>Ei sisällä poistoa.</em></td>
+          <td class="price-cell">31 000 kr</td>
+        </tr>
+        <tr>
+          <td><strong>Oligarkkien nuorennus</strong></td>
+          <td>Täydellinen solutason uudistus. Hinta sopimuksen mukaan.</td>
+          <td class="price-cell">Kysy</td>
+        </tr>
+        <tr style="background: rgba(11,79,96,0.06);">
+          <td><strong>Rauhallinen Mieli (NX-3)</strong></td>
+          <td>Neuroproteesi kaikille. Joustava kumppanuusrahoitus!</td>
+          <td class="price-cell">0 kr käsiraha</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="quote-box">
+      "Ennen en uskaltanut katsoa peiliin. Nyt peili ei uskalla katsoa minua."<br>
+      <span style="font-size:7.5pt; color:#777;">— Tyytyväinen asiakas, Kruununlehto</span>
+    </div>
+    <div class="quote-box" style="margin-top:4px;">
+      "Kolmas leukani on paras tähän asti."<br>
+      <span style="font-size:7.5pt; color:#777;">— Tyytyväinen asiakas, Plastinen laakso</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: MED-APEX MAINOSESITE - GAALA & KRITEERIT -->
+<div class="page brochure-page page-break">
+  <div class="gold-border">
+    <div class="gala-hero">
+      <div class="gala-title">SUURI SAKRAMENTTI LÄHESTYY</div>
+      <div style="font-size: 8.5pt; margin-top: 2px;">Oletko valmis Ekklesian kameroiden eteen?</div>
+    </div>
+
+    <div style="font-size: 8.8pt; line-height: 1.45; text-align: justify;">
+      Ekklesian juhlalähetys kokoaa ylimmän kiekon eliitin Hissikehä 03:n gaalakerrokseen. Med-Apex on gaalan pääyhteistyökumppani. Varaa nyt pikahoito, ja ole lähetyksen kaunein kasvo!
+    </div>
+
+    <ul class="promo-list">
+      <li><strong>Pikasymmetria (2 h):</strong> –20 % koodilla <code style="color:#0b4f60; font-weight:bold;">SAKRAMENTTI</code></li>
+      <li><strong>Gaalavalaistukseen optimoitu ihonsävy:</strong> –15 % koodilla <code style="color:#0b4f60; font-weight:bold;">IRIDIUM</code></li>
+      <li><strong>Ekklesian akkreditoiduille todistajille:</strong> ilmainen meikkaus lähetystiskin vieressä!</li>
+    </ul>
+
+    <div style="font-size: 8.2pt; background: #fff2f2; border-left: 3px solid #b83232; padding: 6px 10px; margin: 10px 0;">
+      <strong>Huomautus matkustajille:</strong> Hissi 03 on suljettu tavalliselta liikenteeltä gaalan ajan. Gaalavieraat ohjataan esteettiseen auditointiin hissiaulassa. Hissit 01–02 remontissa. Hissi 04 vain biometrisesti tunnistetuille.
+    </div>
+
+    <div class="criteria-box">
+      <strong>ESTEETTISEN AUDITOINNIN PISTEYTYS (Asetus 12 §):</strong><br>
+      Pääsy yleisille alueille edellyttää <strong>vähintään 14 / 20 pistettä</strong>.<br>
+      Arvioitavat kriteerit (0–4 p):<br>
+      1. Symmetria &nbsp;·&nbsp; 2. Ihon tila &nbsp;·&nbsp; 3. Pukeutuminen &nbsp;·&nbsp; 4. Ryhti &nbsp;·&nbsp; 5. Sosiaalinen krediitti
+    </div>
+
+    <div class="fine-print">
+      Med-Apex on Plastisen laakson rekisteröity klinikkadynastia. Hoitojen tulokset ovat yksilöllisiä. Kumppanuusrahoituksen ehdot: ks. sopimuksen kohdat 9.1 (Palvelutason säätö) ja 14.2 (Vakuudet). Med-Apex pidättää oikeuden siirtää saatavia kolmansille osapuolille. Poikkeukset auditointiin: ks. esteettisen tarkastuksen asetuksen 12 §.<br>
+      <em>Esitteen laatija: Med-Apex Markkinointi · Vastaava: Kiiltokuva</em>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: KAUNEUSARVON AUDITOINTILOMAKE (PINK CARBON-COPY) -->
+<div class="page carbon-page">
+  <div class="audit-form-border">
+    <div class="audit-header">
+      <div>
+        <div class="audit-title">EVOLUUTIO · ESTEETTINEN AUDITOINTI</div>
+        <div style="font-size: 8pt; color: #63192d;">HISSIKEHÄ 03 — TARKASTUSPISTE B</div>
+      </div>
+      <div style="text-align: right; font-size: 9pt; font-weight: bold; color: #63192d;">
+        LOMAKE EA-3
+      </div>
+    </div>
+
+    <div class="audit-meta">
+      Tarkastaja: <strong>KAUNEUSARVO</strong> &nbsp;&nbsp;&nbsp; Vuoro: <strong>gaala-aatto, ilta</strong><br>
+      Tulija (kuvaus): <em>keski-ikäinen mies, "työnjohtaja" Alasimelta (?)</em>
+    </div>
+
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>KRITEERI</th>
+          <th style="width:90px; text-align:center;">PISTEET (0–4)</th>
+          <th>HUOMAUTUKSET</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. Symmetria</td>
+          <td style="text-align:center; font-weight:bold;">1</td>
+          <td>vasen olkapää alempana</td>
+        </tr>
+        <tr>
+          <td>2. Ihon tila</td>
+          <td style="text-align:center; font-weight:bold;">0</td>
+          <td>arpia, öljyä, <strong>AURINKO??</strong></td>
+        </tr>
+        <tr>
+          <td>3. Pukeutuminen</td>
+          <td style="text-align:center; font-weight:bold;">1</td>
+          <td>vuokrapuku, hihat lyhyet</td>
+        </tr>
+        <tr>
+          <td>4. Ryhti</td>
+          <td style="text-align:center; font-weight:bold;">2</td>
+          <td>yrittää</td>
+        </tr>
+        <tr>
+          <td>5. Sosiaalinen krediitti</td>
+          <td style="text-align:center; font-weight:bold;">2</td>
+          <td>suosittelija Med-Apex (perintä)</td>
+        </tr>
+        <tr style="border-top: 2px solid #8f344e;">
+          <td><strong>YHTEENSÄ</strong></td>
+          <td style="text-align:center; font-weight:bold; font-size:11pt;">6 / 20</td>
+          <td><span class="rejected-stamp">HYLÄTTY</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="font-size: 8.5pt; line-height: 1.4; margin-top: 8px;">
+      Ehdotettu korjaava hoito: <em>Pikasymmetria (koodi SAKRAMENTTI)</em><br>
+      Tulija tarjosi 200 kr "käsittelymaksua". Tarjous liian kömpelö.<br>
+      <strong>Ohjattu takaisin alas.</strong>
+    </div>
+
+    <div class="angry-handwriting">
+      Ja muistan vieläkin sen Laki-aseman "tarkastajan", joka tuli apureineen, heilutti Kaanonin sinettipaperia 441 ja piti kuulemma päästää läpi ilman pisteitä, 12 § b. Ilman PISTEITÄ! Esimies sanoi, että "laki on laki". Kirjoitin kuittauksen kuten pitää, mutta kirjaan tähän että tämä on VÄÄRIN ja koko pykälä pitäisi poistaa.<br>
+      <em>Hississä 03 on peili. Katsokaa siihen ennen kuin tulette minun tiskilleni. — K.</em>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

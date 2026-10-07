@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 05 - Laki-aseman ennakkotapaus 441/KW</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #262420;
+    font-family: 'Times New Roman', Georgia, serif;
+    color: #1a1612;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 18mm 22mm;
+    position: relative;
+    background-color: #fbf7ee;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .parchment-border {
+    border: 3px double #4a3c2c;
+    padding: 12mm 14mm;
+    height: 100%;
+    position: relative;
+  }
+
+  .court-header {
+    text-align: center;
+    border-bottom: 1.5px solid #4a3c2c;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+  .court-name {
+    font-size: 13pt;
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .case-title {
+    font-size: 15pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 4px 0;
+  }
+  .case-subject {
+    font-size: 9.5pt;
+    font-style: italic;
+    color: #4a3c2c;
+  }
+
+  .section-h {
+    font-size: 10pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    color: #3b2c1d;
+  }
+
+  .legal-body {
+    font-size: 8.8pt;
+    line-height: 1.45;
+    text-align: justify;
+    margin-bottom: 6px;
+  }
+
+  .ruling-highlight {
+    background: rgba(180, 140, 90, 0.1);
+    border-left: 3.5px solid #6b4e2e;
+    padding: 6px 12px;
+    margin: 6px 0;
+    font-weight: bold;
+    font-size: 9pt;
+    line-height: 1.45;
+  }
+
+  /* WAX SEAL & SIGNATURE FOOTER */
+  .court-footer {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(74,60,44,0.3);
+    padding-top: 10px;
+  }
+  .seal-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .wax-seal {
+    width: 68px;
+    height: 68px;
+    background: radial-gradient(circle at 35% 35%, #b82424, #731313 70%, #420a0a);
+    border-radius: 50%;
+    box-shadow: 2px 3px 6px rgba(0,0,0,0.4), inset -2px -2px 5px rgba(0,0,0,0.5), inset 2px 2px 4px rgba(255,255,255,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #f7d4d4;
+    border: 2px solid #540d0d;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .wax-seal-inner {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(255,255,255,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .seal-text {
+    font-size: 5pt;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .seal-icon {
+    width: 20px;
+    height: 20px;
+    fill: #fce8e8;
+    margin: 1px 0;
+  }
+
+  .signature-block {
+    text-align: right;
+    font-size: 8.5pt;
+  }
+  .judge-sign {
+    font-family: 'Segoe Script', 'Brush Script MT', cursive;
+    font-size: 15pt;
+    font-weight: bold;
+    color: #1a1612;
+    margin: 2px 0;
+  }
+
+  /* ATTACHMENT PAGES */
+  .appendix-header {
+    border-bottom: 2px solid #555;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+  .appendix-title {
+    font-size: 11pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .statute-block {
+    margin-bottom: 10px;
+    font-size: 8.8pt;
+    line-height: 1.45;
+    text-align: justify;
+  }
+  .statute-num {
+    font-weight: bold;
+    color: #2b1f13;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: PÄÄTÖS 441 / KW -->
+<div class="page page-break">
+  <div class="parchment-border">
+    
+    <div class="court-header">
+      <div class="court-name">Laki-asema · Kolmas Tuomioistuin</div>
+      <div class="case-title">ENNAKKOTAPAUSPÄÄTÖS 441 / KW</div>
+      <div class="case-subject">Asia: Sotilaallisen vuokra-alueen oikeudellinen asema ja Laki-aseman tarkastusvaltuuksien ulottuvuus</div>
+    </div>
+
+    <div class="section-h">I. ASIAN TAUSTA</div>
+    <div class="legal-body">
+      Tuomioistuimen eteen on saatettu kysymys siitä, voiko yksityisen tahon maalle vuokrasopimuksella pystytetty sotilaallinen erillisalue julistautua oikeudellisesti suvereeniksi alueeksi ja siten asettua Kynnyksen yhteisen lainkäytön ulkopuolelle. Asiassa kantajana on toiminut Laki-aseman Lisenssivirasto ja vastaajana KW-konsortion Ratasvartio-osasto, joka on vedonnut siihen, että sotilaallinen välttämättömyys oikeuttaa sulkemaan erillisalueensa kaikelta ulkoiselta valvonnalta, mukaan lukien tämän tuomioistuimen valtuuttamat tarkastajat.
+    </div>
+
+    <div class="section-h">II. SOVELLETTAVAT SÄÄDÖKSET</div>
+    <div class="legal-body">
+      Tuomioistuin on soveltanut Kynnyksen Perustamissopimuksen artikloja 4, 11 ja 19; Kauppaoikeuden Yleislain lukua 7 (Vuokra ja vuokraoikeuden rajat); Laki-aseman Tarkastusasetusta (§§ 1–23) sekä aiempia ennakkotapauksia 112/TA, 309/VT ja 388/KW, joista viimeksi mainittu on tämän tuomioistuimen kokoonpanon toimesta osittain kumottu siltä osin kuin se koski satama-alueiden jätevesitulleja.
+    </div>
+
+    <div class="section-h">III. TUOMIOISTUIMEN RATKAISU</div>
+    <div class="legal-body">
+      Tuomioistuin toteaa, että <strong>vuokra ei luo suvereniteettia.</strong> Se, joka vuokraa maata, vuokraa maan eikä lakia. Vuokralainen on, kuten on ollut aina, maan omistajan ja Kynnyksen yhteisen lain alainen, eikä mikään määrä terästä, aseita tai valvontalaitteita muuta tätä tosiasiaa. Näin ollen tuomioistuin määrää:
+    </div>
+
+    <div class="ruling-highlight">
+      Laki-aseman valtuuttamalla tarkastajalla on rajoittamaton oikeus päästä kaikille KW-konsortion vuokra-alueille, mukaan lukien sotilaalliset erillisalueet, tarkastaakseen vuokra- ja lisenssiehtojen noudattamisen. Pääsyn epääminen katsotaan vuokrasopimuksen olennaiseksi rikkomukseksi.
+    </div>
+
+    <div class="section-h">IV. TARKASTAJAN KOSKEMATTOMUUS</div>
+    <div class="legal-body">
+      Tuomioistuin on vakaasti harkinnut vastaajan väitettä, jonka mukaan paikalliset kulku- ja turvatarkastukset koskevat kaikkia alueelle saapuvia. Tuomioistuin hylkää väitteen:
+    </div>
+
+    <div class="ruling-highlight">
+      Laki-aseman valtuutettua tarkastajaa ja tämän saattuetta, enintään neljä (4) henkeä mukaan lukien tarkastaja, ei saa alistaa paikallisille kulku-, esteettisille, biometrisille tai muille vastaaville tarkastuksille matkalla tarkastuskohteeseen tai sen sisällä.
+    </div>
+    <div class="legal-body" style="font-style: italic; margin-top: 2px;">
+      Tarkastaja edustaa lakia itseään valvontakäynnillä.
+    </div>
+
+    <div class="section-h">V. VALITUSOSOITUS</div>
+    <div class="legal-body" style="font-size: 8pt; color: #444;">
+      Tähän päätökseen voi hakea muutosta Laki-aseman Ylimmältä Neuvostolta kuudenkymmenen (60) jaksopäivän kuluessa päätöksen tiedoksisaannista. Valitus on tehtävä kirjallisesti, kolmena kappaleena, lomakkeella LA-V-7, ja siihen on liitettävä valitusmaksu (1 400 kr). Lomakkeen LA-V-6 käyttö on lakkautettu. <em>Päätös on lainvoimainen; muutoksenhakuaika on päättynyt ilman valitusta.</em>
+    </div>
+
+    <!-- Court Footer: Wax Seal & Judge Signature -->
+    <div class="court-footer">
+      <div class="seal-container">
+        <div class="wax-seal">
+          <div class="wax-seal-inner">
+            <div class="seal-text">LAKI-ASEMA</div>
+            <!-- Rulebook SVG -->
+            <svg class="seal-icon" viewBox="0 0 841.9 595.3">
+              <path d="M202.3,446.6l-18.8-38.1-9.4,32.9-77.3-4.4v-42c0,0,31.7-.1,31.7-.1l-31.6-15.9,2.2-330.2,55.1,1.6,10.7,62.6,11.5-61.8c62.4,7.3,109.3,18.4,164.2,55.5l-.2,389.2c-41.5-25.3-84.7-41.2-138.1-49.2h0Z"/>
+              <path d="M720,345.7l-22.1,9.8-1.7,49.7c8.8,2.5,23.7,12.5,23.6,22.7l-1.6,120.3-274.6,4.1-22.8,26.6-120,1-23-27-223.6-5.6c-1.2-5.5-1.7-15.3-5.4-16.7l-20-7.2-27.3-24.6,9.9-4.7c1.3-.6,4.6-2.2,3.2-2.7l-13.9-5.4L0,130.3l60.1-1.9-.6,77c0,3.9-1.8,14.4-5.5,16.2l-17.6,8.4,21.8,3.1.8,248c75.2-3.2,143.2,7.2,212.4,24.4,18,4.5,36.4,15.5,53.7,24.4,21.3,14.5,47.9,15.2,68.7-.3,73.8-39,179.2-52.3,266.9-47.1V128.9l57.2,2.1,2.2,214.7Z"/>
+            </svg>
+            <div class="seal-text">III TRIBUNALIS</div>
+          </div>
+        </div>
+        <div style="font-size: 7.5pt; color: #555; line-height: 1.3;">
+          VIRALLINEN SINETTI<br>
+          <strong>EHJÄ · REKISTERÖITY</strong>
+        </div>
+      </div>
+
+      <div class="signature-block">
+        Laki-asemalla, Kolmannessa Tuomioistuimessa<br>
+        <div class="judge-sign">Kaanon</div>
+        <strong>KAANON</strong><br>
+        Ylituomari
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE 2: LIITTEET I & II -->
+<div class="page">
+  <div class="parchment-border">
+    
+    <div class="appendix-header">
+      <div class="appendix-title">LIITE I: OTE — KYNNYKSEN TERVEYSPERUSKIRJA (YLEINEN OSA)</div>
+      <div style="font-size: 8pt; color: #555;">Säädöskokoelma K-109 / Voimassa koko Kynnyksen vapaavyöhykkeellä</div>
+    </div>
+
+    <div class="statute-block">
+      <span class="statute-num">8 § Hoitosopimuksen vapaaehtoisuus</span><br>
+      Hoitosopimus on pätevä vain, jos hoidettava tai tämän lähiomainen on tehnyt sen vapaasta tahdostaan ja ymmärtäen sen ehdot. Ehtojen ymmärtämisen osoittaa hoidon tarjoaja.
+    </div>
+
+    <div class="statute-block" style="background: rgba(220,180,140,0.15); padding: 6px 10px; border-left: 3px solid #6b4e2e;">
+      <span class="statute-num">9 § Kielletyt vakuudet</span><br>
+      1. Hoitosopimuksen tai siihen liittyvän velan vakuudeksi ei saa asettaa hoidettavan elintä, kudosta, kehon osaa tai elintoimintoa.<br>
+      2. <strong>Sopimus, jossa tällainen vakuus on asetettu, on mitätön kokonaisuudessaan</strong>, eikä sen perusteella voida periä saatavia.<br>
+      3. <strong>Hoitoon liittyvän laitteen toiminnan heikentäminen, säätäminen tai etäohjaaminen velan perimiseksi rinnastetaan kidutukseen.</strong>
+    </div>
+
+    <div class="statute-block">
+      <span class="statute-num">10 § Laitteen poistaminen</span><br>
+      Mitättömän sopimuksen perusteella asennettu laite on poistettava tai sammutettava hoidettavan pyynnöstä turvallisesti ja veloituksetta.
+    </div>
+
+    <div class="statute-block">
+      <span class="statute-num">11 § Jätevesi ja hoitojätteet</span><br>
+      Hoitolaitosten jätevesi on käsiteltävä asemakohtaisten määräysten mukaisesti ennen sen johtamista yhteisiin kiertoihin. Määräysten valvonta kuuluu asemien omille viranomaisille. (Ks. myös Kauppaoikeuden Yleislain 14:3, jätevesitullit.)
+    </div>
+
+    <div class="appendix-header" style="margin-top: 24px;">
+      <div class="appendix-title">LIITE II: OTE — EVOLUUTION ESTEETTISEN TARKASTUKSEN ASETUS</div>
+      <div style="font-size: 8pt; color: #555;">Liitetty tarkastajien käyttöön Laki-aseman Lisenssivirastossa</div>
+    </div>
+
+    <div class="statute-block">
+      <span class="statute-num">12 § Poikkeukset esteettisestä tarkastuksesta</span><br>
+      Esteettistä tarkastusta ei suoriteta:<br>
+      <strong>a)</strong> Evoluution klinikkadynastioiden omille henkilöstöryhmille, joilla on voimassa oleva sisäinen tunniste;<br>
+      <strong>b) Kynnyksen yhteisen lainkäytön valtuuttamille virkamiehille ja heidän saattueilleen virkatehtävän ajan;</strong><br>
+      <strong>c)</strong> Hissikehä 03:n kautta kulkeville diplomaattisille edustajille, joiden asiakirjat on varustettu Ekklesian tai Laki-aseman leimalla.
+    </div>
+
+    <div style="margin-top: 30px; font-size: 8pt; color: #666; font-style: italic; border-top: 1px dashed #999; padding-top: 6px;">
+      Oikeaksi todistaa Laki-aseman Lisenssiviraston kirjaamo. Asiakirja on Sahye Kaanonin henkilökohtaisessa virkasalkussa.
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

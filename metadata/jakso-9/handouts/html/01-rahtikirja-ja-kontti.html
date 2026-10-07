@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 01 - Rahtikirja AT-7</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #d8d2c4;
+    font-family: 'Courier New', Courier, monospace;
+    color: #1a1a1a;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 16mm 18mm;
+    position: relative;
+    background-color: #f7f4ea;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* FRONT SIDE STYLES */
+  .manifest-border {
+    border: 2px solid #2b2b2b;
+    padding: 12px 14px;
+    height: 100%;
+    position: relative;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.015),
+      rgba(0,0,0,0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+  .manifest-header {
+    border-bottom: 2px solid #2b2b2b;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-icon {
+    width: 32px;
+    height: 32px;
+    fill: #2b2b2b;
+  }
+  .title-main {
+    font-size: 15pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .title-sub {
+    font-size: 8.5pt;
+    color: #444;
+  }
+  .form-code {
+    font-size: 11pt;
+    font-weight: bold;
+    border: 1.5px solid #2b2b2b;
+    padding: 4px 8px;
+    background: #eae4d3;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    row-gap: 4px;
+    font-size: 9pt;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed #666;
+    padding-bottom: 10px;
+  }
+  .meta-label {
+    color: #444;
+  }
+  .meta-val {
+    font-weight: bold;
+  }
+
+  /* TABLE */
+  .cargo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.2pt;
+    margin-bottom: 10px;
+  }
+  .cargo-table th {
+    border-top: 1.5px solid #2b2b2b;
+    border-bottom: 1.5px solid #2b2b2b;
+    text-align: left;
+    padding: 4px 2px;
+    background: #eae4d3;
+  }
+  .cargo-table td {
+    padding: 2.5px 2px;
+    border-bottom: 1px dotted #ccc;
+  }
+  .col-row { width: 35px; }
+  .col-name { width: 330px; }
+  .col-qty { width: 65px; text-align: right; }
+  .col-weight { width: 85px; text-align: right; padding-right: 10px; }
+
+  /* TOTALS & CONDITIONS */
+  .summary-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 8.5pt;
+    border-top: 1.5px solid #2b2b2b;
+    border-bottom: 1.5px solid #2b2b2b;
+    padding: 6px 0;
+    margin-bottom: 10px;
+  }
+  .summary-right {
+    text-align: right;
+    padding-right: 10px;
+  }
+
+  .inspection-box {
+    font-size: 8.5pt;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  /* STAMPS */
+  .stamps-row {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    min-height: 80px;
+  }
+  .stamp-customs {
+    border: 3px solid #1a3c75;
+    color: #1a3c75;
+    padding: 6px 12px;
+    font-size: 9pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    transform: rotate(-3deg);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(26,60,117,0.05);
+    border-radius: 3px;
+  }
+  .stamp-scrap {
+    border: 3px dashed #a3221b;
+    color: #a3221b;
+    padding: 6px 14px;
+    font-size: 11pt;
+    font-weight: bold;
+    transform: rotate(5deg);
+    background: rgba(163,34,27,0.04);
+  }
+  .stamp-faded {
+    border: 2px solid #5a3866;
+    color: #5a3866;
+    opacity: 0.65;
+    padding: 5px 10px;
+    font-size: 8pt;
+    transform: rotate(-7deg);
+  }
+
+  /* HANDWRITTEN MARKER ON FRONT */
+  .handwritten-arrow {
+    position: absolute;
+    right: -10px;
+    top: 366px;
+    color: #0b1a30;
+    font-family: 'Comic Sans MS', 'Segoe Print', cursive, sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    transform: rotate(2deg);
+    background: rgba(255,255,255,0.7);
+    padding: 2px 6px;
+    border-left: 3px solid #0b1a30;
+  }
+  .handwritten-tools {
+    position: absolute;
+    right: -10px;
+    top: 456px;
+    color: #0b1a30;
+    font-family: 'Comic Sans MS', 'Segoe Print', cursive, sans-serif;
+    font-size: 9.5pt;
+    font-weight: bold;
+    transform: rotate(-2deg);
+    background: rgba(255,255,255,0.7);
+    padding: 2px 6px;
+    border-left: 3px solid #0b1a30;
+  }
+
+  /* BACK SIDE STYLES */
+  .back-page {
+    background-color: #eedec7;
+    background-image: radial-gradient(#d5be9b 1px, transparent 1px);
+    background-size: 20px 20px;
+    padding: 25mm 25mm;
+    font-family: 'Segoe Print', 'Comic Sans MS', cursive, sans-serif;
+    color: #12161f;
+  }
+  .grease-spot {
+    position: absolute;
+    width: 140px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(94,68,36,0.3) 0%, rgba(94,68,36,0) 70%);
+    pointer-events: none;
+  }
+  .grease-1 { top: 120px; left: 80px; transform: scale(1.4, 0.8) rotate(20deg); }
+  .grease-2 { bottom: 180px; right: 100px; transform: scale(1.1, 1.3) rotate(-15deg); }
+
+  .marker-text {
+    font-size: 13.5pt;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 2;
+  }
+  .marker-text p {
+    margin-bottom: 16px;
+  }
+  .marker-signature {
+    margin-top: 30px;
+    font-size: 16pt;
+    font-weight: bold;
+  }
+  .dock-debt {
+    position: absolute;
+    bottom: 25mm;
+    left: 25mm;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10pt;
+    color: #7a7267;
+    text-decoration: line-through;
+    transform: rotate(-3deg);
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: FRONT (ETUPUOLI) -->
+<div class="page page-break">
+  <div class="manifest-border">
+    
+    <div class="manifest-header">
+      <div class="header-left">
+        <!-- Site's Gear Icon -->
+        <svg class="header-icon" viewBox="0 0 841.9 595.3">
+          <path d="M467,575.5l-90,.8-15.8-66.1-47.7-20.8-58.6,35.6-28.2-26.5,13.3-43.3-25,31.2-23.1-25.5,35.3-57.5-19.2-44.1-62-19.6c-10-3.2-2.9-32.9,6-33.6-5.9-5.3-12.6-14.3-12.2-19.9l2.3-34.6,65.6-15.5,20-45.7-36-59.1,63.2-62.8,59.6,35.9,46.6-20.1,15.1-64.8,91.4-.9,15,65.2,46.5,20,61-34.8,26.3,26.3c-7.1,9.1-11.5,17.1-13.6,26.7l-4,18.4,30.4-35,22.4,24.9-34.8,59.1,20.2,45.9,65.4,16.6.4,88.1-65.9,17-19.7,44.6,34.4,59.6-61.7,63.3-60.4-35.4-46.9,20.9-15.6,65.6Z"/>
+        </svg>
+        <div>
+          <div class="title-main">ALASIN — TELAKKATULLI</div>
+          <div class="title-sub">ULOSMENEVÄ RAHTI · KESKUSTELAKKA LAITURI 19</div>
+        </div>
+      </div>
+      <div class="form-code">LOMAKE AT-7 (r.3)</div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-label">Rahtikirjan nro:</div>
+      <div class="meta-val">AT7-4-0098813-K</div>
+
+      <div class="meta-label">Lähettäjä:</div>
+      <div class="meta-val">Telakkaosuuskunta Kolmas Ankkuri, laituri 19</div>
+
+      <div class="meta-label">Vastaanottaja:</div>
+      <div class="meta-val">Med-Apex Logistiikka / Jätevirta 09<br>Evoluutio, alatuonti, Rasvakuilu, laituri R-6</div>
+
+      <div class="meta-label">Kuljetusmuoto:</div>
+      <div class="meta-val">Suljettu kontti, painovoimaton rahtiväylä</div>
+
+      <div class="meta-label">Kontin tunnus:</div>
+      <div class="meta-val">KA-19-55410 (40 jalkaa, ei ilmastointia)</div>
+
+      <div class="meta-label">Rahdin luokka:</div>
+      <div class="meta-val">C — teollisuusromu, ei elävää rahtia</div>
+    </div>
+
+    <table class="cargo-table">
+      <thead>
+        <tr>
+          <th class="col-row">RIVI</th>
+          <th class="col-name">NIMIKE</th>
+          <th class="col-qty">MÄÄRÄ</th>
+          <th class="col-weight">PAINO (kg)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>001</td><td>Titaanilaippa, rungon, kulunut</td><td style="text-align:right">14 kpl</td><td style="text-align:right">2 240</td></tr>
+        <tr><td>002</td><td>Titaanilaippa, rungon, murtunut</td><td style="text-align:right">6 kpl</td><td style="text-align:right">910</td></tr>
+        <tr><td>003</td><td>Laipion sarana, raskas</td><td style="text-align:right">22 kpl</td><td style="text-align:right">660</td></tr>
+        <tr><td>004</td><td>Pultti M48, ruostunut</td><td style="text-align:right">400 kpl</td><td style="text-align:right">320</td></tr>
+        <tr><td>005</td><td>Pultti M48, uusi (palautus)</td><td style="text-align:right">80 kpl</td><td style="text-align:right">64</td></tr>
+        <tr><td>006</td><td>Mutteri M48</td><td style="text-align:right">480 kpl</td><td style="text-align:right">190</td></tr>
+        <tr><td>007</td><td>Runkopelti, leikattu, sekalainen</td><td style="text-align:right">1 erä</td><td style="text-align:right">3 100</td></tr>
+        <tr><td>008</td><td>Kaapelikela, kupari, käytetty</td><td style="text-align:right">9 kpl</td><td style="text-align:right">720</td></tr>
+        <tr><td>009</td><td>Kaapelikela, kupari, palanut</td><td style="text-align:right">3 kpl</td><td style="text-align:right">240</td></tr>
+        <tr><td>010</td><td>Hydrauliletku, 6 m</td><td style="text-align:right">35 kpl</td><td style="text-align:right">210</td></tr>
+        <tr><td>011</td><td>Paineventtiili, huollettava</td><td style="text-align:right">12 kpl</td><td style="text-align:right">180</td></tr>
+        <tr style="background: rgba(255, 230, 150, 0.35);">
+          <td>012</td>
+          <td><strong>Jäähdytysvaippa, orgaanisen reaktorin,</strong><br><span style="font-size:7.5pt">ylimittainen, palautus valmistajalle</span></td>
+          <td style="text-align:right">1 kpl</td>
+          <td style="text-align:right"><strong>1 450</strong></td>
+        </tr>
+        <tr><td>013</td><td>Tiivisterengas, sekalainen</td><td style="text-align:right">1 erä</td><td style="text-align:right">40</td></tr>
+        <tr><td>014</td><td>Suodatinkasetti, käytetty</td><td style="text-align:right">60 kpl</td><td style="text-align:right">120</td></tr>
+        <tr><td>015</td><td>Telakkaromu, lajittelematon</td><td style="text-align:right">1 erä</td><td style="text-align:right">1 800</td></tr>
+        <tr style="background: rgba(255, 230, 150, 0.35);">
+          <td>016</td>
+          <td>Työkalulaatikko, laivurin (henk.koht.)</td>
+          <td style="text-align:right">1 kpl</td>
+          <td style="text-align:right">38</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Handwritten marginal notes -->
+    <div class="handwritten-arrow">← tää ei oo romua</div>
+    <div class="handwritten-tools">← valjaat + tunkki pohjalla. 2 paria. sori enempää ei saatu</div>
+
+    <div class="summary-box">
+      <div>
+        <strong>YHTEENSÄ: 12 282 kg</strong><br>
+        Ilmoitettu romuarvo: 4 100 kr
+      </div>
+      <div class="summary-right">
+        Tullimaksu: <strong>205 kr / MAKSETTU</strong><br>
+        Kuitti: 88-1102 / Telakkatulli
+      </div>
+    </div>
+
+    <div class="inspection-box">
+      <div>Erityisehto: <em>Ei avata kuljetuksen aikana. Vastaanottaja purkaa.</em></div>
+      <div>Sinetti: <strong>0045-881 [EHJÄ]</strong></div>
+    </div>
+
+    <div style="font-size:8.5pt; margin-top: 6px; display:flex; justify-content:space-between; border-bottom: 1px solid #999; padding-bottom: 6px;">
+      <div>Tarkastus: <strong>[X] Silmämääräinen hyväksytty</strong></div>
+      <div>Tarkastaja: <strong>44</strong> &nbsp;&nbsp;&nbsp; Kuittaus: <em style="text-decoration:underline">44_tulli</em></div>
+    </div>
+
+    <!-- STAMPS -->
+    <div class="stamps-row">
+      <div class="stamp-customs">
+        <svg style="width:20px; height:20px; fill:#1a3c75" viewBox="0 0 841.9 595.3">
+          <path d="M467,575.5l-90,.8-15.8-66.1-47.7-20.8-58.6,35.6-28.2-26.5,13.3-43.3-25,31.2-23.1-25.5,35.3-57.5-19.2-44.1-62-19.6c-10-3.2-2.9-32.9,6-33.6-5.9-5.3-12.6-14.3-12.2-19.9l2.3-34.6,65.6-15.5,20-45.7-36-59.1,63.2-62.8,59.6,35.9,46.6-20.1,15.1-64.8,91.4-.9,15,65.2,46.5,20,61-34.8,26.3,26.3c-7.1,9.1-11.5,17.1-13.6,26.7l-4,18.4,30.4-35,22.4,24.9-34.8,59.1,20.2,45.9,65.4,16.6.4,88.1-65.9,17-19.7,44.6,34.4,59.6-61.7,63.3-60.4-35.4-46.9,20.9-15.6,65.6Z"/>
+        </svg>
+        <div>ALASIN TELAKKATULLI<br><span style="font-size:7pt">TARKASTETTU · 44</span></div>
+      </div>
+      <div class="stamp-scrap">
+        ROMU / EI ARVOTAVARAA
+      </div>
+      <div class="stamp-faded">
+        MED-APEX VASTAANOTTO<br>RASVAKUILU R-6
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE 2: BACK (KÄÄNTÖPUOLI) -->
+<div class="page back-page">
+  <div class="grease-spot grease-1"></div>
+  <div class="grease-spot grease-2"></div>
+
+  <div class="marker-text">
+    <p>jos luette tätä niin te ette oo kuollu. hyvä</p>
+
+    <p>R-6:lla odottaa teidän mies. EI se joka kysyy rahtikirjaa se on tullin. teidän mies ei kysy mitään</p>
+
+    <p>
+      hissit ylös:<br>
+      <strong>04 = ANSA.</strong> skannaa veren ja geenit. tulli syö miehiä siellä<br>
+      <strong>03 = katsoo vain ihon ja vaatteet.</strong> pukeutukaa<br>
+      <strong>01 ja 02</strong> suljettu remontin takia (oli jo viime kerralla)
+    </p>
+
+    <p>ulkoreunalla putous kohisee niin kovaa ettei mitään kuulu. älkää hakatko mitään ennen kuin kohisee</p>
+
+    <p>Med-Apex ostaa tällaisia vaippoja (ks. rivi 12) ja ihmisiä. en kysy kumpaa enemmän</p>
+
+    <p>en tuu takasin hakemaan</p>
+
+    <div class="marker-signature">— K.</div>
+  </div>
+
+  <div class="dock-debt">
+    laituri 19 velkaa 40 kr kahvista
+  </div>
+</div>
+
+</body>
+</html>

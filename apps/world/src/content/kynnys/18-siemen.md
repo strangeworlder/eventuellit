@@ -10,9 +10,9 @@ disrupting_factions: heimolaiset
 
 ### Yleiskuvaus
 
-Siemen on Kynnyksen toivo — tai ainakin Muotinvalajat haluavat uskoa niin. Yliopiston ja maatilan yhdistelmä on epätavallinen mutta toimiva: oppilaat oppivat sekä kirjoista että pellosta. Muotinvalajat uskovat, että tietämys ja ravinto ovat saman asian kaksi puolta.
+Siemen yhdistää maatilan ja klassisen akatemian tavalla, jota ei löydy muualta Kynnykseltä. Laajoissa holvimaisissa kasvihuoneissa ja porrastetuilla multatasanteilla viljellään sitkeitä maaperäkasveja samalla kun viereisissä luentosaleissa opiskellaan agronomiaa, biologiaa ja Kynnyksen varhaista historiaa. Muotinvalajille asema edustaa Tuhkan puolueen perimmäistä ihannetta: he uskovat, että henkinen sivistys ja raskas ruumiillinen työ pellolla ovat saman vakauden kaksi välttämätöntä puolta.
 
-Heimolaiset häiritsevät, koska Siemenen arkistot sisältävät geologista ja ekologista tietoa, jota Heimolaiset kaipaavat.
+Aseman idylliä varjostavat Heimolaisten solut. Heimon patriarkat kärkkyvät Siemenen vanhoja geologisia arkistoja ja siemenpankkeja, joiden tiedot asemien maaperästä ja hedelmällisyydestä olisivat heille arvokas valttikortti suhteessa puoluejohtoon.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Heimolaiset häiritsevät, koska Siemenen arkistot sisältävät geologista ja e
 
 ### Palvelut
 
-- Koulutus ja opetus
-- Tarvikkeet ja maataloustuotteet
+- **Koulutus ja opetus:** Maatalousoppi, kasvinjalostus ja perinteisen käsityön opetus.
+- **Siemenpankki ja sato:** Puhdas siemenvilja, luonnonlannoitteet ja perinneviljelyksen tuotteet.
 
 ### Yhteydet
 
-Siemeneltä pääsee suoraan asemille: **Kilpi**, **Kuiskaus**, **Krypta**, **Evoluutio**.
+Siemenen vihreiltä satamalaitureilta on suorat reitit neljälle asemalle: **Kilpi**, **Kuiskaus**, **Krypta** ja **Evoluutio**.

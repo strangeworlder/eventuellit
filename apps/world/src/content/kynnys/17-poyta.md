@@ -10,9 +10,9 @@ disrupting_factions: ratasvartio
 
 ### Yleiskuvaus
 
-Pöytä on paikka, jossa viholliset istuvat ja puhuvat. Erottajat ovat rakentaneet tähän vanhan kauppakeskuksen raunioille neutraalin vyöhykkeen, jossa Kynnyksen fraktioiden edustajat voivat kohdata ilman, että aseita tarvitaan heti. Täällä syntyy sopimuksia — ja ne myös rikkoutuvat tässä.
+Pöytä on Kynnyksen hauras diplomaattinen suoja-alue. Muinaisen kauppakeskuksen avaraan atriumpihaan rakennetulla asemalla asevoimat riisutaan poikkeuksetta ovella: massiivisten tammipöytien ja himmeiden kattokruunujen alla vihamielisten faktioiden neuvottelijat kohtaavat toisensa saman leivän ääressä. Tuhkan puolueesta irtautuneet Erottajat valvovat vyöhykkeen puolueettomuutta ja toimivat puolueettomina sovittelijoina, joiden suojissa Kynnyksen vaarallisimmat aselepot ja salaisimmat kauppaliitot solmitaan — tai puretaan.
 
-Ratasvartio häiritsee: heille rauha neuvottelemalla on luovutus toisella nimellä.
+Rauhan tasapaino on herkkä. Ratasvartion karskit komentajat pitävät diplomatiaa vain heikkoutena ja viivytystaisteluna: he partioivat aseman suojavyöhykkeen rajalla ja muistuttavat läsnäolollaan, että sopimukset ovat vain niin vahvoja kuin niiden takana seisova aseellinen voima.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Ratasvartio häiritsee: heille rauha neuvottelemalla on luovutus toisella nimell
 
 ### Palvelut
 
-- Sovittelu ja neuvottelut
-- Ruoka ja vieraanvaraisuus
+- **Diplomaattinen sovittelu:** Neutraalit neuvottelutilat, valalliset välitystuomiot ja tulitaukojen kirjaaminen.
+- **Vieraanvaraisuus ja suojelus:** Aseettomat majoitustilat, edustusateriat ja suojatut diplomaattikuriirit.
 
 ### Yhteydet
 
-Pöydältä pääsee suoraan asemille: **Katedraali**, **Pesä**, **Kilpi**.
+Pöydän neuvottelulaitureilta on suorat yhteydet asemille: **Katedraali**, **Pesä** ja **Kilpi**.

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 12 - Ensimmäisen Kudospankin panttikirja PK-18804</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #22201d;
+    font-family: 'Times New Roman', Georgia, serif;
+    color: #1a1612;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 16mm 18mm;
+    position: relative;
+    background-color: #fbf8ee;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* Guilloche-style ornate certificate border */
+  .certificate-border {
+    border: 4px double #4a3818;
+    outline: 1.5px solid #8c6e32;
+    outline-offset: -8px;
+    padding: 12mm 14mm;
+    height: 100%;
+    position: relative;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.7) 0%, rgba(246, 239, 222, 0.4) 100%);
+  }
+
+  .watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 68pt;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: rgba(180, 40, 40, 0.08);
+    pointer-events: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 1;
+  }
+
+  .stamp-overdue {
+    position: absolute;
+    top: 38mm;
+    right: 18mm;
+    transform: rotate(12deg);
+    border: 3.5px solid #a81c1c;
+    color: #a81c1c;
+    padding: 6px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 13pt;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: rgba(255, 240, 240, 0.85);
+    box-shadow: 2px 3px 6px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+  .stamp-overdue::after {
+    content: "REALISOINTI VIREILLÄ";
+    display: block;
+    font-size: 7.5pt;
+    letter-spacing: 1px;
+    text-align: center;
+    border-top: 1px solid #a81c1c;
+    margin-top: 3px;
+    padding-top: 2px;
+  }
+
+  .bank-header {
+    text-align: center;
+    border-bottom: 2px solid #5a4622;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+  }
+  .bank-sub {
+    font-size: 8pt;
+    letter-spacing: 4px;
+    color: #6b552b;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .bank-title {
+    font-size: 16pt;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #2b1f0c;
+    margin: 4px 0;
+    text-transform: uppercase;
+  }
+  .doc-id {
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+    letter-spacing: 1.5px;
+    color: #4a3e2e;
+  }
+
+  .section-title {
+    font-size: 10pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #423013;
+    border-bottom: 1px solid #c2ad82;
+    padding-bottom: 2px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+
+  .parties-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 8.8pt;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .party-box {
+    background: rgba(220, 205, 175, 0.2);
+    border: 1px solid #d4c29d;
+    padding: 6px 10px;
+  }
+  .party-box strong {
+    color: #2e200c;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* Financial Statement Table */
+  .ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.8pt;
+    margin: 8px 0;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .ledger-table th {
+    background-color: #dfd1b3;
+    border: 1px solid #8f7951;
+    padding: 4px 8px;
+    text-align: left;
+    font-size: 8pt;
+    letter-spacing: 1px;
+    color: #2a1f0d;
+  }
+  .ledger-table td {
+    border: 1px solid #bfae8a;
+    padding: 4px 8px;
+    color: #1a1612;
+  }
+  .ledger-table tr.total-row {
+    background-color: #eeddbb;
+    font-weight: bold;
+    font-size: 9.5pt;
+  }
+
+  .mortgage-clause {
+    background: rgba(160, 40, 40, 0.05);
+    border-left: 3.5px solid #a81c1c;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 8.7pt;
+    line-height: 1.45;
+    text-align: justify;
+  }
+  .mortgage-clause strong {
+    color: #8c1212;
+  }
+
+  .footer-signatures {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid #8c6e32;
+    padding-top: 8px;
+  }
+  .bank-seal {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid #735928;
+    background: radial-gradient(circle at 35% 35%, #e0c888, #9b7730 70%, #543f14);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3), inset 1px 1px 3px rgba(255,255,255,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #2d1f05;
+    font-size: 5.5pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .bank-seal-star {
+    font-size: 14pt;
+    color: #3b2805;
+    margin: 1px 0;
+  }
+
+  .signature-unit {
+    text-align: right;
+    font-size: 8.5pt;
+  }
+  .script-sign {
+    font-family: 'Brush Script MT', 'Segoe Script', cursive;
+    font-size: 16pt;
+    color: #1a1612;
+    margin: 2px 0;
+  }
+
+  /* PAGE 2 STYLES */
+  .memo-container {
+    border: 2px solid #5a4622;
+    padding: 14mm 16mm;
+    height: 100%;
+    background: #fdfaf2;
+    position: relative;
+  }
+  .memo-badge {
+    position: absolute;
+    top: 12mm;
+    right: 14mm;
+    border: 2px dashed #b33939;
+    color: #b33939;
+    padding: 4px 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(3deg);
+  }
+  .memo-header {
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+  .memo-title {
+    font-size: 13pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #222;
+  }
+  .memo-meta {
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.5;
+    margin: 8px 0;
+  }
+  .memo-body {
+    font-size: 8.8pt;
+    line-height: 1.48;
+    text-align: justify;
+    margin-bottom: 10px;
+  }
+  .memo-quote-box {
+    background: #ede6d4;
+    border: 1px solid #bcad8a;
+    padding: 8px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 8.2pt;
+    line-height: 1.4;
+    margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- SIVU 1: ENSIMMÄISEN KUDOSPANKIN VIRALLINEN PANTTIKIRJA -->
+<div class="page page-break">
+  <div class="watermark">VAKUUSKIINNITYS</div>
+  <div class="stamp-overdue">ERÄÄNTYNYT</div>
+
+  <div class="certificate-border">
+    <div class="bank-header">
+      <div class="bank-sub">Kynnyksen Keskusrahoituslaitos · Perustamiskirja 01-KP</div>
+      <div class="bank-title">ENSIMMÄINEN KUDOSPANKKI</div>
+      <div class="doc-id">VALVONTA- JA VAKUUSHALLINTAOSASTO · ASIAKIRJA PK-18804-A</div>
+    </div>
+
+    <div class="section-title">1. VELKASUHTEEN OSAPUOLET JA ROOLIT</div>
+    <div class="parties-grid">
+      <div class="party-box">
+        <strong>PÄÄVELALLINEN / KIINNITYKSEN ANTAJA:</strong>
+        Dynastia ARPIJALOSTAJA / Med-Apex Konserni<br>
+        Vastuullinen edustaja: Matriarkka Arpijalostaja (henkilökohtainen omavelkainen takaus)<br>
+        Rekisteri: Kliininen Torni 7, Sektori 04
+      </div>
+      <div class="party-box">
+        <strong>VELKOJA / VAKUUDENHALTIJA:</strong>
+        Ensimmäinen Kudospankki (Rek. 01-KP-Kynnys)<br>
+        Valtuutettu edustaja: Pankkiiri HOLVI<br>
+        Pankkikonttori: Sisäkehä 01, Finanssiholvi
+      </div>
+    </div>
+
+    <div class="section-title">2. SAATAVAN ERITTELY JA KORKOKERTYMÄ</div>
+    <table class="ledger-table">
+      <thead>
+        <tr>
+          <th>ERÄN KUVAUS</th>
+          <th>PERUSTE</th>
+          <th style="text-align: right;">MÄÄRÄ (kr)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PÄÄOMA (Lainaerä L-4412 / Telakkalaajennus)</td>
+          <td>Kiinnityskirja 11-09-RT</td>
+          <td style="text-align: right;">180 000,00 kr</td>
+        </tr>
+        <tr>
+          <td>Kertyneet sopimuskorot (3 edellistä rotaatiota)</td>
+          <td>Korkotaso 3,4 % / rotaatio</td>
+          <td style="text-align: right;">18 400,00 kr</td>
+        </tr>
+        <tr>
+          <td>Viivästyskorko (progressiivinen, pykälä 8.2)</td>
+          <td>Erääntymisviive 42 kiertoa</td>
+          <td style="text-align: right;">6 100,00 kr</td>
+        </tr>
+        <tr>
+          <td>Vakuushallinnon käsittely- ja tarkastuskulut</td>
+          <td>Standarditariffi KP-4</td>
+          <td style="text-align: right;">1 250,00 kr</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2">YHTEENSÄ ERÄÄNTYNYT JA MAKSUKELPOINEN SAATAVA:</td>
+          <td style="text-align: right; color: #8c1212;">205 750,00 kr</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">3. KIINNITETTY VAKUUSKOHDE JA PYKÄLÄ 19.4</div>
+    <div class="mortgage-clause">
+      <strong>PYKÄLÄ 19.4 (VÄLITÖN REALISOINTIEHTO):</strong><br>
+      Mikäli edellä eriteltyä saatavaa (205 750,00 kr) ei suoriteta täysimääräisesti <strong>nykyisen asemarotaation (Rotaatio 41) päättymiseen mennessä</strong>, päävelallinen menettää välittömästi, ilman oikeudenkäyntiä tai erillistä sovittelumenettelyä, hallinta- ja vuokraoikeutensa kiinnitettyyn kohteeseen:
+      <br><br>
+      <strong>KIINNITYSKOHDE:</strong><br>
+      Evoluution Ylimmän Kiekon Sektori 00 (<strong>Lohko Nolla</strong>), sisältäen maankäyttöoikeuden, huoltokäytävät sekä edelleenvuokraussopimukset koskien <em>Ratasvartion erillisaluetta ja Kuivatelakka-allasta 0</em>. Kaikki vuokratulot ja tilojen hallintaoikeus siirtyvät Ensimmäiselle Kudospankille.
+    </div>
+
+    <div class="footer-signatures">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="bank-seal">
+          <div>KP-01</div>
+          <div class="bank-seal-star">✦</div>
+          <div>SIGILLUM<br>CREDITI</div>
+        </div>
+        <div style="font-size: 7.5pt; color: #5a482b; line-height: 1.3;">
+          ENSIMMÄISEN KUDOSPANKIN<br>
+          VIRALLINEN KIINNITYSSINETTI<br>
+          <em>Tallekirja Nro 9942/B</em>
+        </div>
+      </div>
+
+      <div class="signature-unit">
+        <div>Vahvistettu Finanssiholvissa,</div>
+        <div class="script-sign">Holvi</div>
+        <div><strong>HOLVI</strong> · Pankkiiri</div>
+        <div style="font-size: 7.5pt; color: #555;">Vakuushallinnan ja pakkoperinnän johtaja</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIVU 2: LIITE A: PAKKOTÄYTÄNTÖÖNPANOON VALMISTELTU INFRAN SULKUMÄÄRÄYS -->
+<div class="page">
+  <div class="memo-container">
+    <div class="memo-badge">LUONNOS / ODOTTAA LEIMAA</div>
+
+    <div class="memo-header">
+      <div style="font-size: 8.5pt; letter-spacing: 2px; color: #666; font-weight: bold;">ENSIMMÄINEN KUDOSPANKKI · TÄYTÄNTÖÖNPANOJAOSTO</div>
+      <div class="memo-title">LIITE A: INFRASTRUKTUURIN KATKAISUPYYNTÖ</div>
+      <div class="doc-id">LIITETIEDOSTO ASIAKIRJAAN PK-18804-A / KOHDE: LOHKO NOLLA</div>
+    </div>
+
+    <div class="memo-meta">
+      <strong>JAKELU:</strong> Evoluution Energiayhtiö · Keskikiekon Tehontasausvalvomo<br>
+      <strong>TIEDOKSI:</strong> Aseman Kuvernöörin Virasto; Aseman Palo- ja Ilmanturvalaitos<br>
+      <strong>LÄHETTÄJÄ:</strong> Ensimmäinen Kudospankki (Pankkiiri Holvi)<br>
+      <strong>TÄYTÄNTÖÖNPANOAJANKOHTA:</strong> Rotaation 41 vaihde (välittömästi ilman armonaikaa)
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #ccc; margin: 8px 0;">
+
+    <div class="memo-body">
+      Koska päävelallinen (Dynastia Arpijalostaja) on osoittautunut kykenemättömäksi kattamaan erääntynyttä saatavaa L-4412, Ensimmäinen Kudospankki käyttää Kauppaoikeuden 19 luvun ja vakuussopimuksen mukaista valtaansa siirtyä vuokranantajan suoraan määräämisoikeuteen.
+    </div>
+
+    <div class="memo-body">
+      Pyydämme jakeluverkon valvojia valmistautumaan välittömiin katkaisutoimenpiteisiin Lohko Nollan vuokra-alueella, mikäli suoritusta ei kirjata pankkitilille ennen iltajakson loppua:
+    </div>
+
+    <div class="memo-quote-box">
+      <strong>MÄÄRÄYS TEHONTASAUKSEN VALVOMOLLE:</strong><br><br>
+      1. <strong>PRIMÄÄRISÄHKÖT:</strong> Syöttölinja E-01 (Lohko Nolla / Ratasvartion komentoliitos) kytketään irti muuntaja-asemalta T-12.<br>
+      2. <strong>ELATUS- JA KIERTONESTEPUMPUT:</strong> Teolliset siirtopumput P-2 ja P-4 (ravinnesyöttö kuivatelakkaan) suljetaan ja paineistus ajetaan nollaan.<br>
+      3. <strong>KULKUOIKAUDET:</strong> Lohko Nollan ulko-ovien hissilukitukset kytketään turvalukkotilaan. Sisäänpääsy sallitaan ainoastaan Kudospankin nimeämille realisointitarkastajille.<br><br>
+      <em>"Vuokralaisen (Ratasvartio) väitteet sotilaallisesta poikkeustilasta eivät sido kiinteistön laillista haltijaa. Kiinteistön sähköt katkaistaan."</em>
+    </div>
+
+    <div class="memo-body">
+      <strong>TÄYTÄNTÖÖNPANO-OHJE VALVONTAPALVELULLE:</strong><br>
+      Asiamiehen on tiedoksiannettava tämä päätös suoraan päävelalliselle ennen rotaation sulkeutumista. Henkilökohtainen tiedoksianto Hissikehä 03:n edustustilaisuuden yhteydessä tarjoaa velalliselle viimeisen mahdollisuuden suorittaa välitön siirtokate tai osoittaa korvaava vakuus ennen fyysisen kytkennän purkamista.
+    </div>
+
+    <div style="margin-top: 30px; display: flex; justify-content: flex-end;">
+      <div style="text-align: right; font-size: 8.5pt;">
+        <div>Ensimmäisen Kudospankin valtuuttamana,</div>
+        <div class="script-sign">Holvi</div>
+        <div><strong>HOLVI</strong></div>
+        <div style="font-size: 7.5pt; color: #666;">Johtava Asiamies & Perintävaltuutettu</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -10,9 +10,9 @@ disrupting_factions: deterministit
 
 ### Yleiskuvaus
 
-Verkko näkee kaiken. Vanhan säänvalvontatornin päältä Heimolaiset ovat rakentaneet sensorijärjestelmän, joka seuraa liikennettä, viestejä ja poikkeavuuksia koko Kynnyksen alueella. Tietoa myydään niille, joilla on varaa — ja pidätetään niiltä, jotka ovat uhka.
+Verkko on Kynnyksen tarkkaileva silmä. Muinaisen säätutkan ja observatorion raunioille pystytetty asema kantaa kymmeniä valtavia lautasantenneja, pimeitä radioteleskooppeja ja passiivisensoreita, jotka haravoivat alusliikennettä, kantoaaltoja ja poikkeamia koko järjestelmän laajuudelta. Asemaa hallitsevat Heimolaiset, jotka pyörittävät valvontakoneistoa kuin laajaa perheyritystä: tietoa ei luovuteta ilmaiseksi, vaan siitä käydään kauppaa varjoissa niille, joilla on varaa maksaa — ja valvontatietoa pimitetään niiltä, jotka uhkaavat heimon etua.
 
-Deterministit haluavat päästä käsiksi Verkon arkistoihin. Järjestelmien käyttäytyminen on heidän alueensa, ja Verkossa on paljon sellaista dataa, jota ei ole koskaan julkaistu.
+Asemalla vallitsee kireä hermopeli, sillä KW-konsortion Deterministit pyrkivät soluttautumaan Verkon laitteistoihin. Deterministien algoritmit janoavat Verkon valtavia raakadatavirtoja voidakseen mallintaa ja ennustaa Kynnyksen asukkaiden liikkeitä.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Deterministit haluavat päästä käsiksi Verkon arkistoihin. Järjestelmien kä
 
 ### Palvelut
 
-- Valvonta ja tiedusteludata
-- Tiedustelu-operaatiot
+- **Reittivalvonta ja tutkadata:** Alusliikenteen seuranta, hätäpoijut ja nestemäisen avaruuden virtauskartat.
+- **Signaalitiedustelu ja telemetria:** Varjoissa myytävät liikennetallenteet, salatut koordinaatit ja valvontalokit.
 
 ### Yhteydet
 
-Verkolta pääsee suoraan asemille: **Katedraali**, **Häkki**, **Vaaka**.
+Verkon antennitasanteilta avautuvat suorat yhteydet asemille: **Katedraali**, **Häkki** ja **Vaaka**.

@@ -10,49 +10,50 @@ disrupting_factions: heimolaiset
 
 ### Yleiskuvaus
 
-Häkki on paikka, jonne mennään kun kaikki muut ovet ovat kiinni, tai kun Kynnys haluaa unohtaa sinut. Alun perin vanhaksi väestönsuojaksi rakennettu asema on nykyään irvokas yhdistelmä loisteliasta viihdekeskusta ja Kynnyksen epävirallista päätepysäkkiä. Se on pragmaattinen viemäri, joka nielee muiden asemien velkaiset, toisinajattelijat ja ongelmat, muuttaen heidän elämänsä ja kuolemansa uskonnolliseksi rituaaliksi ja kovilla panoksilla pelattavaksi viihteeksi. Jos kasino ja areenat eivät olisi niin sokaisevia ja huomionhakuisia, Häkki tunnettaisiin puhtaasti armottomana vankila-asemana.
+Häkkiin päädytään silloin, kun kaikki muut ovet ovat sulkeutuneet tai kun Kynnys haluaa pyyhkiä nimesi muistista. Alun perin järeäksi väestönsuojaksi louhittu asema on nykyään irvokas yhdistelmä loisteliasta viihdepalatsia ja järjestelmän epävirallista päätepysäkkiä. Se on pragmaattinen nielu, joka imee muiden asemien velalliset, toisinajattelijat ja hankalat elementit muuttaen heidän elämänsä ja kuolemansa uskonnolliseksi veriurheiluksi ja kovilla panoksilla pyöriväksi spektaakkeliksi. Elleivät kasinosalit ja areenat kylpisi niin sokaisevassa neonvalossa, Häkki tunnettaisiin puhtaasti armottomana vankilana.
 
 #### Klaustrofobian ja neonloiston arkkitehtuuri
-Fyysisesti Häkki on klaustrofobinen ja ruosteinen tunnelien verkko, joka on puristettu syvälle planetoidilohkareen kiven sisään. Kuka tahansa asemalle saapuva, oli kyseessä sitten Akselin rikkauksiin tottunut yhtiöpamppu tai ketjuissa raahattu velallinen, joutuu ryömimään täysin samoja ahtaita ja painostavia käytäviä pitkin. Aseman rakenne ei yksinkertaisesti mahdollista ulkokuoreen koskemista ilman massiivista romahdusvaaraa. Tämän todistaa aseman reunalla ammottava "Arpi", valtava murtuma, joka syntyi menneisyyden epäonnistuneesta laajennusyrityksestä.
 
-Tämä ahtauden ja pimeyden piina katkeaa äkillisesti vasta, kun tunnelit avautuvat aseman syvimpään ytimeen louhittuihin valtaviin amfiteattereihin ja kasinosaleihin. Nämä tilat ovat sokaisevan neonvalon, luksuksen ja pauhaavan melun räjähdys. Aseman ulkopuolella ei ole juurikaan näkymiä nestemäiseen avaruuteen, mikä tekee paikasta täydellisen suljetun pullon, josta pakeneminen on fyysinen ja psykologinen mahdottomuus. Kontrasti ahtaan pimeyden ja ylivoimaisen loiston välillä on suunniteltu murtamaan saapujan mieli.
+Fyysisesti Häkki on klaustrofobinen ja ruosteinen tunneliverkosto, joka on puristettu syvälle planetoidilohkareen sisään. Kuka tahansa asemalle saapuva — oli kyseessä Akselin rikkauksiin tottunut keinottelija tai ketjuissa raahattu velallinen — joutuu kulkemaan täysin samoja ahtaita ja painostavia käytäviä pitkin. Aseman rakenne ei kestä ulkokuoren louhintaa ilman vakavaa romahdusvaaraa, mistä muistuttaa aseman kyljessä ammottava "Arpi": valtava murtuma, joka repesi menneisyyden epäonnistuneessa laajennustyössä.
+
+Ahtauden ja pimeyden piina katkeaa äkillisesti vasta, kun tunnelit avautuvat kallioperän ytimeen louhittuihin massiivisiin amfiteattereihin ja kasinosaleihin. Nämä tilat ovat sokaisevan valon, sametin ja pauhaavan melun räjähdys. Aseman sisuksista ei ole näkymiä avaruuteen, mikä tekee siitä täydellisen suljetun pullon: pakeneminen on sekä fyysisesti että henkisesti lähes mahdotonta. Kontrasti ahtaan kiven ja ylettömän loiston välillä on viritetty murtamaan saapujan mieli.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Pyhän Tragedian lapset
-- **Häiritsevä faktio:** Heimolaiset
-- **Jännite:** Korkea
+Asemaa hallitsevat Pyhän Tragedian lapset, joille areena ja uhkapeli eivät ole paheita vaan pyhiä toimituksia. Heille uhkapeli on suora metafora Suuren sodan kauhuille ja elämän mielivallalle: sen kuvastona ovat veri ja epätoivo, joiden läpi satunnaisuus voi tuoda pelastuksen. Kultti ei tarvitse perinteisiä saarnoja välittääkseen oppinsa. Pöydissä voi asettaa panokseksi mitä tahansa, mutta oman hengen heittäminen noppien varaan on kultin silmissä korkein mahdollinen uskonteko.
 
-#### Pyhän so­dan me­ta­fo­ra
-Asemaa hallitsevat Pyhän Tragedian lapset, joille areena ja uhkapeli eivät ole paheita vaan pyhiä instrumentteja. Heille uhkapeli on suora metafora Suuren sodan kauheudelle ja Kynnyksen mielivallalle. Sen kuvasto on verta ja epätoivoa, joiden sisältä voi satunnaisuuden kautta löytyä pelastus. Kultti ei tarvitse perinteistä uskontoa tai saarnoja välittääkseen viestinsä. Pöydissä voi lyödä vetoa kaikesta, mutta oman elämänsä asettaminen panokseksi on kultin silmissä lähimpänä sodankäyntiin osallistumista, mitä asukas voi enää kokea.
+Areenalla toisiaan vastaan asettuvat Kynnyksen epätoivoiset velalliset, toisilta asemilta kuljetetut vangit sekä kultin omat ottelijat, jotka odottavat oikeaa hetkeä lopulliselle martyriudelleen. Kultille on elintärkeää, että tragedia on aitoa: sovittu ottelu on heidän silmissään pahin mahdollinen pyhäinhäväistys.
 
-Areenalla taistelevat toistensa kanssa Kynnyksen epätoivoiset velkaiset, muiden asemien vangit sekä kultin omat ammattilaiset, jotka odottavat oikeaa hetkeä tehdäkseen lopullisen uhrauksen. Kultille on elintärkeää, että tragedia on täysin aitoa. Esitys ilman totuutta ei ole totta, ja ennalta sovittu taistelu on heille pahin mahdollinen pyhäinhäväistys.
+#### Perhekeskeinen valta
 
-#### Per­he­kes­kei­nen va­lta
-Häiritsevänä, mutta aseman arjen mahdollistavana voimana toimivat Tuhkan puolueen Heimolaiset, jotka pyörittävät kasinon ja areenoiden operatiivista toimintaa. He toimivat järjestäytyneenä rikollisuutena, jolle uskonto tai sodan pyhyys on yhdentekevää. Heidän ainoa todellinen motivaationsa on oman sukunsa ja perheensä vallan kasvattaminen. Raha, ottelut ja uhkapelit ovat vain työkaluja tässä makrotason pelissä.
+Häiritsevänä, mutta aseman arjen mahdollistavana voimana toimivat Tuhkan puolueen Heimolaiset, jotka pyörittävät kasinon ja areenoiden käytännön operaatioita. He edustavat järjestäytynyttä rikollisuutta, jolle uskonto tai sodan pyhyys on yhdentekevää ja jonka ainoa motivaatio on oman suvun vallan ja varallisuuden kasvattaminen.
 
-Heimolaiset toimivat jakajina ja vedonvälittäjinä. Perheiden intresseissä on Kynnyksen kulissien takainen hallinta ja riskien minimointi. He haluaisivat optimoida tulokset ja sopia otteluita etukäteen silloin, kun se hyödyttää perhettä. Pyhän Tragedian lapset, jotka valvovat toimintaa ylhäältä, puolestaan rankaisevat tällaisesta epäaidosta "sodan väärentämisestä" silmittömällä väkivallalla. Tämä luo aseman sisälle jatkuvan, hengenvaarallisen jännitteen uskonnollisen fanaattisuuden ja kyynisten rikollisjärjestöjen välille.
+Heimolaiset toimivat pelinhoitajina, kassanhoitajina ja vedonvälittäjinä. Perheiden tavoitteena on riskien minimointi: he haluaisivat sopia ottelut etukäteen silloin, kun se tuottaa parhaan tuloksen. Aseman yläparvilta toimintaa valvovat Pyhän Tragedian lapset taas rankaisevat tällaisesta sodan väärentämisestä armottomalla väkivallalla. Tämä luo aseman sisälle jatkuvan, hengenvaarallisen jännitteen fanaatikkojen ja kyynisten rikollisperheiden välille.
 
 ### Palvelut
 
-- Uhkapelit ja vedonlyönti
-- Taistelut ja veriurheilu
-- Ongelmien hävittäminen
+- **Uhkapelit ja vedonlyönti:** Kaikki mahdollinen valuutoista, aluksista ja maa-alueista aina omaan vapauteen ja elinaikaan.
+- **Areenataistelut ja veriurheilu:** Suorana lähetyksenä välitettävät ottelut, gladiaattorinäytökset ja kaksintaistelut.
+- **Ongelmien kadottaminen:** Kynnyksen tehokkain ja pysyvin keino hävittää kiusalliset velalliset ja poliittiset vastustajat.
 
-#### Kyn­nyk­sen ku­lut­ta­va vie­mä­ri
-Häkki on Kynnyksellä harvinainen anomalia: se on täysi kuluttaja. Se ei tuota energiaa, ruokaa tai muutakaan aineellista hyötyä verkostoon, mutta se pysyy yltäkylläisenä, koska kaikki muut joutuvat pitämään sen kasassa. Häkki hoitaa asian, jota kukaan muu ei halua ottaa omille harteilleen: se nielaisee Kynnyksen ongelmat. Epätoivoisten ja tuomittujen virta ruokkii areenaa, eikä Häkistä palaa käytännössä koskaan ketään takaisin siviiliin. Muiden asemien on pidettävä kasinon valot päällä vastineeksi tästä jätehuollosta ja silmien sulkemisesta.
+#### Kynnyksen kuluttava viemäri
+
+Häkki on Kynnyksellä poikkeuksellinen anomalia: se on täysi kuluttaja. Se ei tuota verkostoon ruokaa, energiaa eikä teknologiaa, mutta se pysyy yltäkylläisenä, koska muut asemat tarvitsevat sen palveluksia. Häkki hoitaa tehtävän, jota kukaan muu ei halua omalle tunnolleen: se nielee asemien ongelmajätteen. Epätoivoisten ja tuomittujen virta ruokkii areenoita, eikä Häkistä palaa käytännössä kukaan takaisin vapauteen.
 
 ### Yhteydet
 
-Häkiltä pääsee suoraan asemille: **Seula**, **Akseli**, **Laki**, **Verkko**.
+Häkiltä pääsee suoraan asemille: **Seula**, **Akseli**, **Laki** ja **Verkko**.
 
-#### Hal­vaan­tu­nut tuo­mio­ko­neis­to ja hil­jai­set so­pi­muk­set
-Makrotasolla Verkko (tiedustelu), Laki (tuomio), Vaaka (toimeenpano) ja Häkki (vankila) muodostavat erikoisen kombinaation. Jos tämä neljän aseman järjestelmä toimisi saumattomasti, se olisi Kynnyksellä voittamaton. Tällä hetkellä tämä putki on kuitenkin murtunut faktioiden keskinäisen tappelun ja sabotaasin vuoksi, mikä jättää järjestelmän yskimään ja estää sitä pyörimästä kuten pitäisi.
+#### Halvaantunut tuomiokoneisto ja hiljaiset sopimukset
 
-Tästä huolimatta Laki ja Häkki ovat läheisessä symbioosissa faktiorajojen yli. Laista ohjataan jatkuvasti tuomittuja areenalle, mikä pitää Kynnyksen kadut puhtaana. Naapuriasema Akseli ymmärtää Häkin loogisen käyttöarvon erinomaisesti ja arvostaa sitä, että aseman veristä toimintaa ei tarvitse virallisesti sitoa Konsortioon mitenkään. Muut hoitavat nämä ongelmat, ja Konsortion johto voi kääntää katseensa toisaalle.
+Laajemmassa mittakaavassa Verkko (tiedustelu), Laki (tuomio), Vaaka (toimeenpano) ja Häkki (vankila) muodostaisivat saumattoman kontrolliketjun, joka hallitsisi koko Kynnystä. Tällä hetkellä tämä putki on kuitenkin murtunut faktioiden keskinäisen sabotaasin vuoksi, mikä jättää järjestelmän yskimään.
 
-#### Arven salakuljetusverkko
-Aseman romahtanut vaurio, Arpi, toimii Häkin logistisena sokeana pisteenä. Arven alueella tehdään kaikki Häkin salakuljetus ja hämärät diilit. Naapuriasemilta tulevat vierailijat, laittomat tarvikkeet ja epäviralliset siirrot pääsevät sen kautta asemalle ja asemalta täysin ilman ulkopuolista huomiota.
+Tästä huolimatta Laki ja Häkki elävät läheisessä symbioosissa. Laista toimitetaan jatkuvasti tuomittuja areenalle, mikä pitää puutarhakaupungin kadut puhtaina. Naapuriasema Akseli ymmärtää Häkin hyödyn erinomaisesti ja arvostaa sitä, ettei veristä toimintaa tarvitse virallisesti kytkeä KW-konsortioon: Konsortion johto voi pestä kätensä, kun Häkki siivoaa velalliset pois taseesta.
+
+#### Arven salakuljetusreitit
+
+Aseman kyljessä ammottava murtuma, Arpi, toimii Häkin logistisena pimeänä kulmana. Arven suojissa hoidetaan kaikki salakuljetus ja luvattomat telakoinnit: pimeät alukset, luvattomat tarvikkeet ja etsintäkuulutetut henkilöt pääsevät liikkumaan sen kautta kenenkään huomaamatta.
 
 #### Sensuroitu totuus ja mediasota
-Urheiluohjelmat ja draama myyvät Kynnyksellä erinomaisesti, mutta massat vaativat viihteensä helpostipureskeltavassa muodossa. Ikonin (16) Verhonkutojat nauttivat areenan suurista tarinankaarista häpeilemättä, mutta he sensuroivat lähetyksiä poistaen niistä pahimman teurastuksen ja uskonnollisen fanatismin. Tämä on suora loukkaus Pyhän Tragedian lapsille, joiden uskonnollinen missio on välittää sota, kärsimys ja uhraus täysin aitona ja raakana kaikille. Koko Häkin olemassaolon ydin häpäistään päivittäin Ikonin kaupallisen filtterin läpi.
+
+Urheilulähetykset ja areenadraama myyvät Kynnyksellä erinomaisesti. Ikonin (16) Verhonkutojat hyödyntävät areenan tarinankaaria häpeilemättä, mutta he sensuroivat suoria lähetyksiä karsien niistä raaimman teurastuksen ja kultin saarnat. Tämä on avoin loukkaus Pyhän Tragedian lapsille, joiden pyhä missio on välittää kärsimys ja sota täysin suodattamattomana kaikille.

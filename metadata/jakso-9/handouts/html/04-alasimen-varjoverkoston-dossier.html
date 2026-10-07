@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 04 - Alasimen varjoverkoston dossier</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #262320;
+    font-family: 'Courier New', Courier, monospace;
+    color: #1a1a1a;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 16mm 20mm;
+    position: relative;
+    background-color: #fbf9f4;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .paper-clip {
+    position: absolute;
+    top: 6mm;
+    left: 20mm;
+    width: 14px;
+    height: 40px;
+    border: 3px solid #888;
+    border-radius: 8px 8px 0 0;
+    border-bottom: none;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    z-index: 10;
+  }
+
+  .stamp-confidential {
+    position: absolute;
+    top: 14mm;
+    right: 20mm;
+    border: 3px solid #9e1a1a;
+    color: #9e1a1a;
+    padding: 4px 12px;
+    font-size: 11pt;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transform: rotate(4deg);
+    background: rgba(158,26,26,0.06);
+    border-radius: 3px;
+  }
+
+  .dossier-header {
+    border-bottom: 2px solid #222;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    margin-top: 10px;
+    font-size: 8.5pt;
+    line-height: 1.4;
+  }
+  .dossier-title {
+    font-size: 12.5pt;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .intro-block {
+    font-size: 8.8pt;
+    line-height: 1.45;
+    text-align: justify;
+    margin-bottom: 12px;
+    border-left: 3px solid #666;
+    padding-left: 10px;
+    background: rgba(0,0,0,0.02);
+  }
+
+  .person-entry {
+    margin-bottom: 12px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .person-content {
+    flex-grow: 1;
+    font-size: 8.5pt;
+    line-height: 1.4;
+  }
+  .person-title {
+    font-size: 10.5pt;
+    font-weight: bold;
+    border-bottom: 1.5px solid #444;
+    padding-bottom: 2px;
+    margin-bottom: 6px;
+  }
+
+  /* PHOTO POLAROIDS */
+  .polaroid {
+    width: 170px;
+    background: #ffffff;
+    border: 1px solid #bbb;
+    box-shadow: 2px 3px 6px rgba(0,0,0,0.2);
+    padding: 6px 6px 14px 6px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .polaroid img {
+    width: 100%;
+    height: 155px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid #777;
+    filter: contrast(1.1) brightness(0.95);
+  }
+  .polaroid-caption {
+    font-size: 7.2pt;
+    color: #444;
+    margin-top: 6px;
+    font-family: 'Segoe Print', cursive, sans-serif;
+    line-height: 1.25;
+  }
+
+  .redacted {
+    background-color: #111;
+    color: #111;
+    user-select: none;
+    padding: 0 4px;
+  }
+
+  .roster-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 7.8pt;
+    line-height: 1.35;
+  }
+  .roster-item {
+    background: rgba(0,0,0,0.025);
+    border-left: 2.5px solid #555;
+    padding: 6px 8px;
+  }
+  .roster-name {
+    font-weight: bold;
+    font-size: 8.2pt;
+    color: #111;
+    margin-bottom: 2px;
+  }
+
+  .gossip-box {
+    background: #f2ece1;
+    border: 1px dashed #776a5b;
+    padding: 8px 12px;
+    font-size: 8.2pt;
+    line-height: 1.4;
+    margin-top: 8px;
+  }
+
+  .clipping-box {
+    background: #faf4e8;
+    border: 1px solid #cca;
+    padding: 10px 14px;
+    margin-top: 14px;
+    font-family: 'Times New Roman', Times, serif;
+    position: relative;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  .clipping-head {
+    font-size: 11pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid #888;
+    padding-bottom: 2px;
+    margin-bottom: 6px;
+  }
+
+  .footer-sign {
+    margin-top: 18px;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    border-top: 1px solid #333;
+    padding-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: INTRO & ENTRY 1 (KOLOSSI) -->
+<div class="page page-break">
+  <div class="paper-clip"></div>
+  <div class="stamp-confidential">HENKILÖKOHTAINEN</div>
+
+  <div class="dossier-header">
+    <div class="dossier-title">KUKA ON KUKA YLIMMÄLLÄ KIEKOLLA</div>
+    <div style="font-size: 8pt; color: #555;">— eli miksi koko asema on yksi suuri huono avioliitto</div>
+    <div style="margin-top: 6px; font-weight: bold;">
+      Vastaanottaja: Kokemuspuolueen puheenjohtajalle<br>
+      Lähde: SILMÄPARI / Alasin, solu 3 &nbsp;·&nbsp; <em>Polta luettuasi. (Ette polta. Kukaan ei koskaan polta.)</em>
+    </div>
+  </div>
+
+  <div class="intro-block">
+    Arvoisa puheenjohtaja, minulta pyydettiin "tilannekuvaa". Saatte sen, mutta ymmärtäkää, että Evoluutiolla tilannekuva on samanlainen kuin peilikuva klinikan odotushuoneessa: kaikki on vähän liian sileää ja joku on maksanut siitä. Lyhyesti: KW ja Ekklesia ovat liitossa. Liitto on rakkaudeton, ja molemmat osapuolet pitävät salaa kirjaa toisen virheistä. Teidän kannaltanne tämä on paras uutinen moneen vuoteen.
+  </div>
+
+  <!-- ENTRY 1: KOMENTAJA KOLOSSI -->
+  <div class="person-entry" style="margin-top: 10px;">
+    <div class="person-content">
+      <div class="person-title">1. KOMENTAJA UPPOAMATON KOLOSSI — Ratasvartio, Lohko Nolla</div>
+      <p style="margin: 3px 0 6px 0;">
+        Kolossi on sotilas, joka on unohtanut olleensa koskaan ihminen, ja Ratasvartio on palkinnut hänet siitä. Hänen panssarinsa on paksumpi kuin useimpien asemien ulkokuori, eikä hänellä ole tiettävästi harrastusta, perhettä tai mielipidettä, joka ei liittyisi laipioihin tai sulkutiloihin.
+      </p>
+      <ul style="margin: 0; padding-left: 16px; line-height: 1.45;">
+        <li><strong>Järjestys ja eristys.</strong> Hän ei neuvottele. Kun jokin tuntuu epävarmalta, hän sulkee ovet. Jos hälytys soi, hän telkeää koko sektorin kysymättä syytä.</li>
+        <li><strong>Hiljaisuus.</strong> Inhoaa ääntä, valoja ja siviilejä, jotka liikkuvat ilman valtuutusta.</li>
+        <li><strong>Kuvausryhmät.</strong> Ekklesian läsnäolo Lohko Nollassa ajaa hänet raivon partaalle. Hän on kahdesti vaatinut kirkon droonien takavarikointia sotilasalueelta ja hävinnyt KW:n johdolle, koska konsortio tarvitsee kirkon julkisuutta. Hän hautoo kostoa ja etsii syytä heittää kameramiehet tyhjyyteen.</li>
+      </ul>
+    </div>
+
+    <!-- Real Photo for Kolossi -->
+    <div class="polaroid" style="transform: rotate(-1.5deg);">
+      <img src="assets/kolossi.jpg" alt="Komentaja Kolossi">
+      <div class="polaroid-caption">Kolossi telakan laipiolla. Vartijat näyttävät lapsilta.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: ENTRY 2 (IRIDIUMKARDINAALI) & ENTRY 3 (ARPIJALOSTAJA) -->
+<div class="page page-break">
+  <!-- ENTRY 2: IRIDIUMKARDINAALI -->
+  <div class="person-entry">
+    <div class="person-content">
+      <div class="person-title">2. IRIDIUMKARDINAALI — Ekklesia, Suuren Sakramentin juontaja</div>
+      <p style="margin: 3px 0 6px 0;">
+        Kardinaali on ihminen siinä mielessä kuin valonsäde peilissä. Iho suomuiseksi muovattua kudosta, kasvoilla kiillotettu metallinaamio, ympärillään kultaisia kuvausdrooneja, joiden linsseihin hän puhuu kuin Jumalalle.
+      </p>
+      <ul style="margin: 0; padding-left: 16px; line-height: 1.4;">
+        <li><strong>Katsojalukujen pakkomielle.</strong> Sisäpiirin vuotojen mukaan edellisen lähetyksen vastaanotto jäi pahasti tavoitteesta. Taustalla kaksi kilpailevaa kardinaalia kärkkyy hänen paikkaansa.</li>
+        <li><strong>Draama ja armahdus.</strong> Ei kestä kuivaa liturgiaa. Lähetys tarvitsee konfliktin: harhaoppisen tai yllättävän todistajan, jonka kardinaali voi suorassa kuvassa "pelastaa" tai tuomita.</li>
+        <li><strong>Akkreditointi.</strong> Ottaa rutiininomaisesti lähetykseen "kadun ääniä" ja ulkopuolisia todistajia tunnelman luomiseksi. Valinnat tehdään gaala-aamuna <strong>Hissikehä 03:n Ekklesian lähetystiskillä</strong>. Kriteeri on se, miltä tarina näyttää broadcast-valossa.</li>
+      </ul>
+    </div>
+
+    <!-- Real Photo for Iridiumkardinaali -->
+    <div class="polaroid" style="transform: rotate(1.5deg);">
+      <img src="assets/kardinaali.jpg" alt="Iridiumkardinaali">
+      <div class="polaroid-caption">Kardinaali gaalavalossa. Ottaja sai potkut.</div>
+    </div>
+  </div>
+
+  <hr style="border: 0; border-top: 1px dashed #888; margin: 12px 0;">
+
+  <!-- ENTRY 3: ARPIJALOSTAJA -->
+  <div class="person-entry">
+    <div class="person-content">
+      <div class="person-title">3. ARPIJALOSTAJA — Med-Apexin matriarkka</div>
+      <p style="margin: 3px 0 6px 0;">
+        Med-Apex omistaa kallion ja tasanteen, jolle Lohko Nolla on pultattu. KW vuokraa maata. Suhde on Arpijalostajalle sekä miljoonatulo että syvä arvovaltatappio: hänen tontilleen nousi sotilastukikohta, jonka porteista häntä itseäänkään ei päästetä sisään.
+      </p>
+      <div style="background: rgba(255, 230, 200, 0.45); border-left: 3px solid #b3391b; padding: 6px 8px; font-size: 8.2pt; margin-bottom: 4px;">
+        <strong>TÄMÄ TIETO MAKSOI SOLU 3:LLE KAKSI YHTEYSHENKILÖÄ:</strong><br>
+        Klinikkadynastian loisto on osittain velkakuplaa. Arpijalostaja on ottanut <strong>Ensimmäiseltä Kudospankilta</strong> valtavan henkilökohtaisen lainan, jonka vakuudeksi hän kiinnitti osuutensa KW:n vuokrasopimuksesta. Lainan eräpäivä lähestyy. Jos suku tai kilpailijat saisivat tietää, että vuokraoikeudet ovat vaarassa siirtyä pankille, matriarkka syrjäytettäisiin ennen kuin seuraava leikkausvuoro alkaa.
+      </div>
+    </div>
+
+    <!-- Real Photo for Arpijalostaja -->
+    <div class="polaroid" style="transform: rotate(-1deg);">
+      <img src="assets/arpijalostaja.jpg" alt="Arpijalostaja">
+      <div class="polaroid-caption">Salakuva lasikonttorista. Kasvot "vaiheessa".</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: EXTENSIVE ROSTER OF UPPER DISK FIGURES -->
+<div class="page page-break">
+  <div class="person-title" style="margin-bottom: 10px;">
+    4. KULISSIEN PERSOONAT JA KESKINÄISET SKISMISORMUKSET
+  </div>
+
+  <div class="roster-grid">
+    <!-- 1 -->
+    <div class="roster-item">
+      <div class="roster-name">KAUNEUSARVO (Esteettinen tarkastaja, Hissikehä 03)</div>
+      Aseman ylimielinen portinvartija, jolle suurin nautinto on alasimelaisen käännyttäminen "väärän leukakulman" takia. Ottaa vastaan voitelurahoja, kunhan ne ojennetaan kalliissa kuoressa ja pokkuroiden. Vihaa Laki-asemaa sydämensä pohjasta: marisi useamman rotaation ruokalassa siitä, kuinka tuomioistuimen lisenssitarkastajat marssivat hänen pisteensä läpi vilauttamalla vain korkeimman oikeuden ennakkotapausmandaattia, eikä hän mahtanut mitään.
+    </div>
+
+    <!-- 2 -->
+    <div class="roster-item">
+      <div class="roster-name">YLILÄÄKÄRI SILKKIVEITSI (Kruununlehdon Sanatorioliitto)</div>
+      Plastisen laakson leikkaustaiteen huippu ja esteettinen puristi. Erosi hiljattain puolisostaan leukaluun symmetriariidan seurauksena. Hänen henkilökohtaisessa holvissaan säilytetään Arpijalostajan leikkauspäiväkirjoja sukupolvien takaa — aineistoa, jonka julkistus romuttaisi dynastian myymän myytin "virheettömästä perimästä".
+    </div>
+
+    <!-- 3 -->
+    <div class="roster-item">
+      <div class="roster-name">PANKKIIRI HOLVI (Ensimmäinen Kudospankki)</div>
+      Pääkirjanpitäjä, joka keskittyy puhtaasti vakuuksiin ja korkoihin. Pitää hallussaan Arpijalostajan velkakirjaa. Mies ei välitä kuka maksaa, kunhan pääoma on taattu; heti kun vaihtoehtoinen takuu takaa paremman tuoton, hän realisoi vakuudet epäröimättä.
+    </div>
+
+    <!-- 4 -->
+    <div class="roster-item">
+      <div class="roster-name">OHJAAJA LINSSI / VALONKANTAJA (Ekklesian tuottaja)</div>
+      Pääohjaaja, jota kiinnostaa ainoastaan dramaturgia ja leikkausrytmi. Veti ne paksut lähetyskaapelit B-käytävän poikki niin, ettei palo-ovi mahdu kiinni. Hän on valmis raivaamaan kenelle tahansa kymmenen sekuntia suoraa lähetysaikaa, jos luvassa on jotain, mikä saa katsojat jähmettymään ruutujen ääreen.
+    </div>
+
+    <!-- 5 -->
+    <div class="roster-item">
+      <div class="roster-name">HISSIPÄÄLLIKKÖ KUILU (Terminaali 03)</div>
+      Hermoraunio mekaanikko, joka pyörittää matkustajavirtoja. Hissit 01 ja 02 seisovat hallinnollisella käskyllä matkustajavirtojen ohjaamiseksi suoraan tarkastuspisteen ja kirkon kamerapuomien eteen.
+    </div>
+
+    <!-- 6 -->
+    <div class="roster-item">
+      <div class="roster-name">RUUVARI (Ratasvartion alapuolen huolto)</div>
+      Alapinnan huoltoasentajien kantaesimies. Juo taukoamatta kahvia, varastelee kuppeja kirkon catering-pöydistä ja vihaa Kolossin esikuntaa. Jos miehelle vie kunnollista Alasimen paahdettua papukahvia, hän katsoo toisaalle vaikka joku kantaisi telakkaromua huoltohissiin.
+    </div>
+
+    <!-- 7 -->
+    <div class="roster-item">
+      <div class="roster-name">TURVALLISUUSUPSEERI LAIPIO (Lohko Nolla)</div>
+      Ratasvartion äreä aliupseeri, joka hukkuu omiin muistioihinsa. On kirjoittanut toistuvasti esikunnalle siitä, että Kruununlehdon oksat tukkivat kamerat ja ovien 90 sekunnin sulkuviive on turvallisuuskatastrofi. Mies on niin kyllästynyt byrokratiaan, ettei liiku paikaltaan ilman virallista leimattua käskyä.
+    </div>
+
+    <!-- 8 -->
+    <div class="roster-item">
+      <div class="roster-name">LUKUVARJO (KW-konsortion datakeskus)</div>
+      Teknokraattinen järjestelmävahti, jolle kaikki inhimillinen ja mekaaninen kitka on vain "sallittua kohinaa". Vaikka koko reaktori vuotaisi tyhjyyteen, hän kieltäytyy tutkimasta asiaa ilman määrämuotoista DT-4-valituslomaketta.
+    </div>
+
+    <!-- 9 -->
+    <div class="roster-item">
+      <div class="roster-name">KIILTOKUVA (Med-Apexin PR-johtaja)</div>
+      Dynastian kiillotettu ääni. Hänen vastuullaan on muotoilla elinryöstöt ja hermosäryt "Uusi Sinä -hyvinvointikumppanuuksiksi". Hän puhuu puhtaasti manipuloidakseen ja saa kenet tahansa uskomaan puheisiinsa.
+    </div>
+
+    <!-- 10 -->
+    <div class="roster-item">
+      <div class="roster-name">KARDINAALIT: KULTAOMENA & VIIMEINEN SÄDE</div>
+      Ekklesian sisäisen opposition kärkinimet. Istuvat gaalan kutsuvierasaitioissa odottaen Iridiumkardinaalin kompastumista. Jos lähetys ajautuu kaaokseen tai tähtijuontaja menettää otteensa, he ovat valmiina kaappaamaan mikrofonin ja valokeilan puolessa minuutissa.
+    </div>
+
+    <!-- 11 -->
+    <div class="roster-item">
+      <div class="roster-name">VIRKAILIJA KORKO (Vakuushallinta, Med-Apex)</div>
+      Perintäosaston kliininen virkamies. Hajuton ja tunteeton byrokraatti, joka leimaa elinten takavarikointimääräyksiä samalla rutiinilla kuin kirjastokortteja.
+    </div>
+
+    <!-- 12 -->
+    <div class="roster-item">
+      <div class="roster-name">VALKOARTISAANI (Plastisen laakson varjot)</div>
+      Pimeiden kujien arvostetuin laiton muotoilija. Valmistaa väliaikaisia identiteettinaamioita, ihon korjauspigmenttejä ja kloonattuja kulkutunnisteita klinikoiden hylkäämille ja esteettisen seulan ulkopuolelle jääville.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: NOISE, NEWSPAPER CLIPPING & SIGNOFF -->
+<div class="page">
+  <div class="gossip-box">
+    <strong>5. KOHINA, JOTA EN JAKSANUT SIIVOTA POIS:</strong>
+    <ul style="margin: 4px 0 0 0; padding-left: 16px;">
+      <li>Plastisen laakson ylilääkäri Silkkiveitsi erosi kolmannesta puolisostaan. Syynä "eriävät näkemykset leukaluun symmetriasta".</li>
+      <li>Ekklesian sisäinen pukeutumisohje gaalaan: <em>"Sävyt: iridium, helmi, aamunkoitto. Harmaa on ankarasti hylätty KW:n värinä."</em></li>
+      <li>Gaalan sponsorit: Med-Apex, Ensimmäinen Kudospankki, Kruununlehdon Sanatorioliitto, "Uusi Sinä" -säätiö, KW-konsortio (pienellä fontilla).</li>
+      <li>Kokemuspuolueen Alasimen paikallisosasto valittaa, ettei heitä ole kutsuttu mihinkään. Kerron tämän, koska he pyysivät.</li>
+      <li>Kolossin sanotaan nukkuvan seisaaltaan. En usko. Mutta en myöskään usko, että hän nukkuu.</li>
+    </ul>
+  </div>
+
+  <div class="clipping-box">
+    <div class="clipping-head">PLASTISEN LAAKSON AAMUKIILTO · VIIHDE & GAALAT</div>
+    <div style="font-size: 10pt; font-weight: bold; margin-bottom: 4px;">KARDINAALI LUPAA "SUURIMMAN SAKRAMENTIN IKINÄ"</div>
+    <p style="font-size: 8pt; line-height: 1.4; margin: 0; text-align: justify;">
+      Ekklesian tähtijuontaja paljastaa: tulevassa lähetyksessä nähdään "Kynnyksen historian hämmästyttävin ihme". Lähetys tapahtuu yhteistyössä KW-konsortion kanssa. Komentaja Uppoamaton Kolossi kieltäytyi haastattelupyynnöstä. <em>"Komentaja on ujo"</em>, Kardinaali naurahti. <em>"Mutta sydämeltään hän on yksi meistä."</em>
+    </p>
+    <div style="font-family:'Segoe Print', cursive; font-size:9pt; color:#a11; margin-top:4px; text-align:right;">
+      — ha ha
+    </div>
+  </div>
+
+  <div class="footer-sign">
+    Teen tämän, koska joku teistä on aikanaan tehnyt jotain, mikä sai minut uskomaan, että asioilla voi olla väliä. Älkää tuottako pettymystä.<br><br>
+    <strong>— SILMÄPARI</strong><br>
+    <span style="font-size: 7.5pt; color: #555;">Tiedusteluverkosto Alasin / Solu 3</span>
+  </div>
+</div>
+
+</body>
+</html>

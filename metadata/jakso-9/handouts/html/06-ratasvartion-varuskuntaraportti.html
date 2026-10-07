@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 06 - Ratasvartion varuskuntaraportti</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #242424;
+    font-family: 'Courier New', Courier, monospace;
+    color: #141414;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 16mm 20mm;
+    position: relative;
+    background-color: #e8e6df;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .report-border {
+    border: 2px solid #333;
+    padding: 10mm 12mm;
+    height: 100%;
+    position: relative;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.012),
+      rgba(0,0,0,0.012) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  }
+
+  .report-header {
+    border-bottom: 2px solid #222;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .header-left {
+    font-size: 9.5pt;
+    line-height: 1.35;
+  }
+  .header-title {
+    font-size: 11pt;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .section-h {
+    font-size: 9.5pt;
+    font-weight: bold;
+    border-bottom: 1px solid #444;
+    padding-bottom: 2px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .report-body {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    text-align: justify;
+    margin-bottom: 8px;
+  }
+
+  /* STAMPS */
+  .stamp-kasittelyssa {
+    border: 3px solid #9e1a1a;
+    color: #9e1a1a;
+    font-weight: bold;
+    font-size: 9.5pt;
+    padding: 3px 8px;
+    text-transform: uppercase;
+    transform: rotate(3deg);
+    display: inline-block;
+  }
+  .stamp-sisainen {
+    border: 2px solid #1a3c75;
+    color: #1a3c75;
+    font-weight: bold;
+    font-size: 8.5pt;
+    padding: 2px 6px;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    display: inline-block;
+  }
+  .stamp-archived {
+    border: 2.5px solid #4a154b;
+    color: #4a154b;
+    font-weight: bold;
+    font-size: 9pt;
+    padding: 4px 10px;
+    text-transform: uppercase;
+    transform: rotate(-5deg);
+    display: inline-block;
+  }
+
+  .missing-page-notice {
+    margin-top: 20px;
+    border: 1px dashed #777;
+    background: rgba(0,0,0,0.03);
+    padding: 10px;
+    text-align: center;
+    font-size: 8.5pt;
+    color: #555;
+    font-style: italic;
+  }
+
+  .door-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.2pt;
+    margin: 6px 0;
+    background: #dedcd3;
+  }
+  .door-table td {
+    padding: 3px 6px;
+    border: 1px solid #bbb;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: SIVU 1 / 6 -->
+<div class="page page-break">
+  <div class="report-border">
+    <div class="report-header">
+      <div class="header-left">
+        <div>RATASVARTIO · LOHKO NOLLA · TURVALLISUUSOSASTO</div>
+        <div class="header-title">VARUSKUNTARAPORTTI — ROTAATIO 41</div>
+        <div style="font-size:8pt; color:#444;">Laatija: LAIPIO, turvallisuusupseeri, kanta-aliupseeri<br>Vastaanottaja: Komentajan esikunta</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 9.5pt; font-weight: bold;">SIVU 1 / 6</div>
+        <div style="margin-top: 4px;"><span class="stamp-sisainen">SISÄINEN</span></div>
+        <div style="margin-top: 4px;"><span class="stamp-kasittelyssa">KÄSITTELYSSÄ</span></div>
+      </div>
+    </div>
+
+    <div class="section-h">1. YLEISTÄ</div>
+    <div class="report-body">
+      Rotaatio meni. Kukaan ei kuollut. Se on tällä vuorolla saavutus.<br><br>
+      Raportoin samat puutteet kolmannen kerran. Pyydän, että esikunta kuittaa vastaanoton tällä kertaa. Edelliset kaksi raporttia (rotaatiot 39 ja 40) eivät ole palanneet. Oletan, että ne ovat jossain samassa paikassa kuin pyytämäni lisämiehet.
+    </div>
+
+    <div class="section-h">2. MIEHISTÖ</div>
+    <div class="report-body">
+      Vahvuus: 212 (tavoite 260). Sairaana 9. <strong>Siirretty telakkavartioon 30 — ilman ilmoitusta minulle.</strong> Telakkavartio ei vastaa minulle eikä kerro mitä vartioi. <em>"Komentajan suora alaisuus."</em> Selvä.<br><br>
+      Alokkaat vuorolla C nukkuvat vartiotuvassa. Kaksi löytyi nukkumasta ammusvaraston ovella. Annoin rangaistuksen. Kolmas väitti "tarkkailevansa silmät kiinni". Annoin kaksi rangaistusta.
+    </div>
+
+    <div class="missing-page-notice">
+      [ SIVU 2 / 6 PUUTTUU — HUOLTOTOIMISTON KOPIOSSA TYHJÄ ARKKI ]
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: SIVU 3 / 6 -->
+<div class="page page-break">
+  <div class="report-border">
+    <div class="report-header">
+      <div class="header-left">
+        <div>RATASVARTIO · LOHKO NOLLA · TURVALLISUUSOSASTO</div>
+        <div class="header-title">VARUSKUNTARAPORTTI — ROTAATIO 41</div>
+      </div>
+      <div style="font-size: 9.5pt; font-weight: bold;">SIVU 3 / 6</div>
+    </div>
+
+    <div class="section-h">4. VALVONTA — PUUTTEET (TOISTUVAT)</div>
+    
+    <div class="report-body">
+      <strong>4.1 Sektori 4, kamerat K-41 … K-46</strong><br>
+      Puu kasvaa fyysisesti laipioiden läpi. Kruununlehdon puolelta tunkeva elävä puu on peittänyt kamerat K-41 … K-46 lehvästöllä. <strong>Näkyvyys nolla.</strong> Ilmoitettu kolme rotaatiota sitten. Med-Apex sanoo, että puu on "suojeltu muinaisjäänne" ja sen leikkaaminen vaatii luvan. Lupaa on haettu, mutta viranomaiskäsittely seisoo. Kamerat kuvaavat lehtiä.
+    </div>
+
+    <div class="report-body">
+      <strong>4.2 Ulkoreuna, sektorit 7–9, liiketunnistimet</strong><br>
+      Putous. Vesisumu ja kohina sokeuttavat liiketunnistimet. Järjestelmä hälyttää koko ajan tai ei ollenkaan; KW:n data-osasto on säätänyt herkkyyden alas, jotta "väärät hälytykset" loppuisivat. Nyt ei tule hälytyksiä. Ei vääriä eikä oikeita. KW:n mukaan ilmiö on "luonnollinen" eikä heidän vastuullaan.<br><br>
+      Pyysin kiinteää vartiopaikkaa nostolavan RP-2 yläpäähän. Pyyntö hylätty: <em>"Ulkoreunalta ei tule ketään. Siellä on putous."</em><br>
+      <strong>Juuri siksi.</strong>
+    </div>
+
+    <div class="report-body">
+      <strong>4.3 Droonit</strong><br>
+      Ulkoreunan droonit telakoituvat kierroksen päätteeksi huoltokuittaukseen. <strong>Siinä ajassa ei valvota mitään.</strong> Kysyin KW:ltä miksi. Vastaus: "Protokolla 4.4." Kysyin mikä on protokolla 4.4. Vastaus: "Protokolla."
+    </div>
+
+    <div class="section-h">5. LAIPIOT JA HÄLYTYSKETJU</div>
+    <div class="report-body">
+      Muistutan kaikkia vuoroja:
+    </div>
+
+    <table class="door-table">
+      <tr><td>HÄLYTYS → LAIPIOIDEN AUTOMAATTINEN SULKU</td><td style="font-weight:bold; color:#a11c1c;">90 s</td></tr>
+      <tr><td>PÄÄPORTTI (Lohko Nolla, etelä)</td><td>90 s + käsilukitus</td></tr>
+      <tr><td>B-KÄYTÄVÄ</td><td style="font-weight:bold; color:#a11c1c;">90 s (KS. KOHTA 6.1 !!!)</td></tr>
+      <tr><td>TELAKAN YLÄTASANNE</td><td>90 s</td></tr>
+      <tr><td>SYÖTTÖKOURU</td><td style="font-weight:bold; color:#0e5218;">EI LAIPIOTA</td></tr>
+    </table>
+
+    <div class="report-body">
+      <strong>90 sekuntia on liian pitkä.</strong> Olen sanonut tämän. Vastaus: "Ihmisten pitää ehtiä pois." Ihmisten pitää ehtiä pois, ja muiden pitää ehtiä sisään. Kumpaakin ehtii 90 sekunnissa.
+    </div>
+
+    <div class="report-body">
+      <strong>5.1 Syöttökouru</strong><br>
+      Telakan pohjaan johtava syöttökouru on miehittämätön huoltoväylä; valvonta perustuu lämpöanturiin L-03. Telakkavartio sanoo, ettei kukaan "järkevä" mene sinne. Lämpötila kourussa 37 °C ja haju sen mukainen. Olen samaa mieltä siitä, ettei kukaan järkevä mene sinne. En ole samaa mieltä siitä, että vain järkeviä ihmisiä on olemassa.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: SIVU 4 / 6 -->
+<div class="page page-break">
+  <div class="report-border">
+    <div class="report-header">
+      <div class="header-left">
+        <div>RATASVARTIO · LOHKO NOLLA · TURVALLISUUSOSASTO</div>
+        <div class="header-title">VARUSKUNTARAPORTTI — ROTAATIO 41</div>
+      </div>
+      <div style="font-size: 9.5pt; font-weight: bold;">SIVU 4 / 6</div>
+    </div>
+
+    <div class="section-h">6. EKKLESIA</div>
+    
+    <div class="report-body">
+      <strong>6.1 Kuvausryhmät</strong><br>
+      Kirkon kuvausryhmät (3 kpl + "kevytryhmä") ovat valloittaneet B-käytävän. Kaapelit lattialla, valot katossa, droneja joka puolella. Käytävä on puoliksi tukossa. <strong>Laipio B ei sulkeudu kokonaan, jos kaapelit ovat kynnyksellä. Testattu. Ei sulkeudu. Jää 40 cm rako.</strong><br><br>
+      Kuvausryhmät ovat myös:
+      <ul style="margin: 4px 0; padding-left: 18px;">
+        <li>kysyneet miehiltäni "voisitteko näyttää uhkaavammilta",</li>
+        <li>häirinneet radioliikennettä kanavilla 2 ja 5,</li>
+        <li>syöneet vartiotuvan kahvit.</li>
+      </ul>
+      Pyydän, että komentaja vie asian KW:n johdolle. Tiedän, että komentaja on yrittänyt. Pyydän uudestaan.
+    </div>
+
+    <div class="report-body">
+      <strong>6.2 Akkreditoinnit</strong><br>
+      Ekklesia tuo lähetystä varten ulkopuolisia "todistajia" ja "asiantuntijoita", jotka akkreditoidaan Hissikehällä. He kulkevat Kardinaalin saattueessa, eikä heitä tarkasteta pääportilla erikseen, koska "Kardinaali takaa heidät". Kardinaali ei takaa mitään. Kardinaali takaa valaistuksen.
+    </div>
+
+    <div class="section-h">7. TELAKKA</div>
+    <div class="report-body">
+      Ei kuulu minulle. Sanottu selvästi.<br><br>
+      <strong>Merkitsen kuitenkin ylös, että vartiotuvassa lattia värisee öisin. Tasaisesti. Kuin joku kävelisi raskaasti jossain alhaalla.</strong> Miehet sanovat, että se on "kone". Kysyin telakkavartiolta, mikä kone. He sanoivat, että se on "kone".<br><br>
+      <strong>Tärinä on voimistunut tällä rotaatiolla.</strong>
+    </div>
+
+    <div class="missing-page-notice">
+      [ SIVU 5 / 6 PUUTTUU — KOPIOSSA TYHJÄ ARKKI ]
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: SIVU 6 / 6 -->
+<div class="page">
+  <div class="report-border">
+    <div class="report-header">
+      <div class="header-left">
+        <div>RATASVARTIO · LOHKO NOLLA · TURVALLISUUSOSASTO</div>
+        <div class="header-title">VARUSKUNTARAPORTTI — PÄÄTÖS</div>
+      </div>
+      <div style="font-size: 9.5pt; font-weight: bold;">SIVU 6 / 6</div>
+    </div>
+
+    <div class="section-h">9. SEKALAISTA</div>
+    <ul style="font-size: 8.5pt; line-height: 1.5; margin: 8px 0; padding-left: 18px;">
+      <li><strong>Varastosta kadonnut:</strong> 1 hitsausmaski, 2 jakoavainta, 1 sorkkarauta, 14 kahvikuppia. Kahvikupit ovat todennäköisesti Ekklesialla.</li>
+      <li><strong>Ruokalista rotaatiolle 42:</strong> vuoro 1 proteiinipata, vuoro 2 proteiinipata (paprika), vuoro 3 kalaa (ei oikeaa), vuoro 4 proteiinipata, vuoro 5 "juhla-ateria" (proteiinipata).</li>
+      <li><strong>Alokas Nuppi</strong> pyytää siirtoa. Syy: "lattia värisee". <strong>Hylätty.</strong></li>
+      <li>Muistutan, että vartiotuvan ovi on pidettävä kiinni. Siitä tulee hajua syöttökourun suunnalta.</li>
+    </ul>
+
+    <div class="report-body" style="margin-top: 16px;">
+      Kuittaan raportin. Pyydän kuittausta takaisin.
+    </div>
+
+    <div style="margin-top: 24px; font-size: 10pt; line-height: 1.4;">
+      <strong>LAIPIO</strong><br>
+      Turvallisuusupseeri, kanta-aliupseeri<br>
+      Ratasvartio / Lohko Nolla
+    </div>
+
+    <div style="margin-top: 30px; display: flex; gap: 16px; align-items: center;">
+      <div class="stamp-sisainen">SISÄINEN</div>
+      <div class="stamp-kasittelyssa">KÄSITTELYSSÄ</div>
+      <div class="stamp-archived">ARKISTOITU — EI TOIMENPITEITÄ</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

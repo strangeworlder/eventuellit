@@ -1,7 +1,7 @@
 ---
 title: "Krypta"
 order: 19
-description: "Museo — pyhäkkö, arkisto ja haaskalintuen koti."
+description: "Museo — pyhäkkö, arkisto ja Haaskalintujen koti."
 category: kynnys
 tension: "Matala"
 ruling_faction: haaskalinnut
@@ -9,9 +9,9 @@ ruling_faction: haaskalinnut
 
 ### Yleiskuvaus
 
-Krypta on muisti. Haaskalinnut ovat keränneet tähän kaiken, mitä Suuresta sodasta ja sitä edeltäneistä ajoista on löytynyt — esineitä, asiakirjoja, hylkyjen osia, tarinoiden jäämistöjä. Asema on osa museo, osa arkisto ja osa pyhäkkö niille, jotka kunnioittavat mennyttä.
+Krypta on Kynnyksen hiljainen muisti ja sen vaarallisin arkisto. Paksun kiven sisään koverretussa holvistossa Ekklesian Haaskalinnut vaalivat kaikkea, mitä Suuresta sodasta ja sitä edeltäneiltä kultakausilta on saatu pelastettua: särkyneitä kypäriä, sulaneita ohjainpiirejä, valaehtoisia asiakirjoja ja hylkyjen metallisia jäämistöjä. Asema toimii yhtä aikaa museona, tutkimuskeskuksena ja sakraalina holvina niille, jotka etsivät totuutta menneisyydestä.
 
-Pääsy on teknisesti avoin, mutta Haaskalinnut tietävät tarkalleen mitä heillä on — ja eivät heti kerro.
+Pääsy näyttelysaleihin on periaatteessa avoin, mutta Haaskalinnut pitävät arvokkaimmat arkistonsa visusti lukkojen takana. He tietävät jokaisen esineen ja asiakirjan kiristysarvon nykypäivän valtapelissä, eikä totuuksia luovuteta koskaan ilman vastinetta.
 
 ### Hallinta
 
@@ -21,9 +21,9 @@ Pääsy on teknisesti avoin, mutta Haaskalinnut tietävät tarkalleen mitä heil
 
 ### Palvelut
 
-- Artefaktit ja relikvikit
-- Historia ja tieto
+- **Muinaiset reliikit ja artefaktit:** Suuren sodan aikaiset esineet, aseenosat ja mekaaniset relikviot.
+- **Historiallinen arkistotutkimus:** Kadonneet sukupuut, vanhat sopimuspohjat ja arkistoidut salaisuudet.
 
 ### Yhteydet
 
-Kryptalta pääsee suoraan asemille: **Siemen**, **Kuiskaus**.
+Kryptan holvilaitureilta on suorat reitit asemille: **Siemen** ja **Kuiskaus**.

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 14 - Sahyen tarkastuspassi LA-T-12</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #1e2229;
+    font-family: 'Times New Roman', Georgia, serif;
+    color: #1a1612;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 16mm 18mm;
+    position: relative;
+    background-color: #f7f5ed;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .passport-border {
+    border: 3px double #20354b;
+    outline: 1.5px solid #859bb3;
+    outline-offset: -7px;
+    padding: 12mm 14mm;
+    height: 100%;
+    position: relative;
+    background: radial-gradient(circle at center, #ffffff 0%, #f4f1e6 100%);
+  }
+
+  .crest-header {
+    text-align: center;
+    border-bottom: 2px solid #20354b;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+  }
+  .crest-icon {
+    width: 48px;
+    height: 48px;
+    fill: #20354b;
+    margin-bottom: 4px;
+  }
+  .jurisdiction-title {
+    font-size: 13pt;
+    letter-spacing: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #162637;
+  }
+  .agency-title {
+    font-size: 17pt;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #20354b;
+    margin: 2px 0;
+  }
+  .doc-ref {
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+    letter-spacing: 2px;
+    color: #485c72;
+    font-weight: bold;
+  }
+
+  .stamp-executed {
+    position: absolute;
+    top: 36mm;
+    right: 18mm;
+    transform: rotate(8deg);
+    border: 3px solid #1a5632;
+    color: #1a5632;
+    padding: 6px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: rgba(235, 250, 240, 0.9);
+    box-shadow: 2px 3px 6px rgba(0,0,0,0.1);
+  }
+
+  .section-h {
+    font-size: 10.5pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #1c3147;
+    border-bottom: 1px solid #b0c2d4;
+    padding-bottom: 2px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+  }
+
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin-bottom: 12px;
+  }
+  .info-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #e2ddd0;
+    vertical-align: top;
+  }
+  .info-table td.label-col {
+    width: 38%;
+    font-weight: bold;
+    color: #253e57;
+    letter-spacing: 0.5px;
+  }
+  .info-table td.val-col {
+    color: #111;
+  }
+
+  .mandate-quote {
+    background: rgba(32, 53, 75, 0.05);
+    border-left: 4px solid #20354b;
+    padding: 10px 14px;
+    font-size: 9pt;
+    line-height: 1.48;
+    text-align: justify;
+    margin: 12px 0;
+  }
+
+  /* SEAL & SIGNATURE */
+  .footer-auth {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #b0c2d4;
+    padding-top: 10px;
+  }
+  .court-seal {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid #142230;
+    background: radial-gradient(circle at 35% 35%, #2a527c, #162f4a 70%, #0d1a29);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3), inset 1px 1px 2px rgba(255,255,255,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #e5effa;
+    font-size: 5.5pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  .sign-col {
+    text-align: right;
+    font-size: 8.5pt;
+  }
+  .judge-sign {
+    font-family: 'Brush Script MT', 'Segoe Script', cursive;
+    font-size: 17pt;
+    font-weight: bold;
+    color: #162637;
+    margin: 2px 0;
+  }
+
+  /* PAGE 2: SAATTUELOMAKE */
+  .escort-box {
+    margin: 10px 0;
+    border: 1px solid #859bb3;
+    background: rgba(255,255,255,0.8);
+    padding: 10px 12px;
+  }
+  .escort-line {
+    margin-bottom: 12px;
+    font-size: 9pt;
+  }
+  .escort-fill {
+    border-bottom: 1.5px dashed #20354b;
+    min-height: 22px;
+    margin-top: 4px;
+    padding: 2px 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    color: #0b1a29;
+  }
+
+  .statute-alert {
+    background: rgba(180, 40, 40, 0.06);
+    border: 1.5px solid #8f2727;
+    padding: 10px 14px;
+    margin-top: 14px;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    text-align: justify;
+  }
+  .statute-alert strong {
+    color: #8f2727;
+  }
+</style>
+</head>
+<body>
+
+<!-- SIVU 1: VIRALLINEN TARKASTUSPASSI -->
+<div class="page page-break">
+  <div class="passport-border">
+    <div class="stamp-executed">VALTUUTETTU AUDIITTORI</div>
+
+    <div class="crest-header">
+      <!-- Rulebook / Scales SVG -->
+      <svg class="crest-icon" viewBox="0 0 841.9 595.3">
+        <path d="M202.3,446.6l-18.8-38.1-9.4,32.9-77.3-4.4v-42c0,0,31.7-.1,31.7-.1l-31.6-15.9,2.2-330.2,55.1,1.6,10.7,62.6,11.5-61.8c62.4,7.3,109.3,18.4,164.2,55.5l-.2,389.2c-41.5-25.3-84.7-41.2-138.1-49.2h0Z"/>
+        <path d="M720,345.7l-22.1,9.8-1.7,49.7c8.8,2.5,23.7,12.5,23.6,22.7l-1.6,120.3-274.6,4.1-22.8,26.6-120,1-23-27-223.6-5.6c-1.2-5.5-1.7-15.3-5.4-16.7l-20-7.2-27.3-24.6,9.9-4.7c1.3-.6,4.6-2.2,3.2-2.7l-13.9-5.4L0,130.3l60.1-1.9-.6,77c0,3.9-1.8,14.4-5.5,16.2l-17.6,8.4,21.8,3.1.8,248c75.2-3.2,143.2,7.2,212.4,24.4,18,4.5,36.4,15.5,53.7,24.4,21.3,14.5,47.9,15.2,68.7-.3,73.8-39,179.2-52.3,266.9-47.1V128.9l57.2,2.1,2.2,214.7Z"/>
+      </svg>
+      <div class="jurisdiction-title">Laki-asema · Kynnys</div>
+      <div class="agency-title">LISENSSIVIRASTO</div>
+      <div class="doc-ref">VIRALLINEN TARKASTUSPASSI LA-T-12 / 884</div>
+    </div>
+
+    <div class="section-h">I. AUDIITTORIN HENKILÖ- JA VALTUUTUSTIEDOT</div>
+    <table class="info-table">
+      <tr>
+        <td class="label-col">VALTUUTETTU TARKASTAJA:</td>
+        <td class="val-col"><strong>SAHYE</strong></td>
+      </tr>
+      <tr>
+        <td class="label-col">VIRKA-ASEMA:</td>
+        <td class="val-col">Laki-aseman Kolmannen Tuomioistuimen auditoija (Virkaluokka 4)</td>
+      </tr>
+      <tr>
+        <td class="label-col">TOIMIVALLAN PERUSTE:</td>
+        <td class="val-col">Lainvoimainen ennakkotapauspäätös <strong>441 / KW</strong> (Laki-asema)</td>
+      </tr>
+      <tr>
+        <td class="label-col">VALVONTAKOHDE:</td>
+        <td class="val-col">Evoluution Ylin Kiekko, Lohko 00 (Ratasvartion erillisalue ja Kuivatelakka 0)</td>
+      </tr>
+      <tr>
+        <td class="label-col">TARKASTUKSEN TARKOITUS:</td>
+        <td class="val-col">Maanvuokra-, turvallisuus- ja lisenssiehtojen riippumaton täytäntöönpanovalvonta</td>
+      </tr>
+    </table>
+
+    <div class="section-h">II. YLEINEN LAINKÄYTTÖMÄÄRÄYS</div>
+    <div class="mandate-quote">
+      <em>"Vuokra ei luo suvereniteettia. Se, joka vuokraa maata, vuokraa maan eikä lakia."</em><br><br>
+      Kaikki Kynnyksen viranomaiset, yksityiset turvayhtiöt, asemavahdit ja Ratasvartion komentoliitokset velvoitetaan antamaan tämän passin haltijalle vapaa ja esteetön kulkuoikeus kaikkiin valvontakohteen tiloihin. Tarkastajalla on oikeus tallentaa mittausdataa, kuulustella henkilöstöä ja tutkia teknisiä liitäntöjä.
+    </div>
+
+    <div class="footer-auth">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="court-seal">
+          <div>LEX</div>
+          <div style="font-size: 13pt; margin: 1px 0;">⚖</div>
+          <div>III TRIB.</div>
+        </div>
+        <div style="font-size: 7.5pt; color: #3b5066; line-height: 1.3;">
+          LAKI-ASEMA · LISENSSIVIRASTO<br>
+          VIRALLINEN AUDITOINTISINETTI<br>
+          <em>Vahvistettu arkistoon 884-A</em>
+        </div>
+      </div>
+
+      <div class="sign-col">
+        <div>Vahvistanut Laki-asemalla,</div>
+        <div class="judge-sign">Kaanon</div>
+        <div><strong>KAANON</strong></div>
+        <div style="font-size: 7.5pt; color: #555;">Ylituomari, Kolmas Tuomioistuin</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIVU 2: SAATTUELOMAKE JA KOSKEMATTOMUUSSÄÄDÖS -->
+<div class="page">
+  <div class="passport-border">
+    <div class="crest-header" style="padding-bottom: 6px; margin-bottom: 10px;">
+      <div class="jurisdiction-title" style="font-size: 11pt;">LAKI-ASEMAN LISENSSIVIRASTO · SAATTUELOMAKE</div>
+      <div class="doc-ref">LIITE ASIAKIRJAAN LA-T-12 / ENNAKKOTAPAUS 441 (KOHTA IV)</div>
+    </div>
+
+    <div class="section-h">III. TARKASTAJAN SAATTUEEN JÄSENET (TÄYTETÄÄN MAASTOSSA)</div>
+    <div style="font-size: 8.5pt; color: #444; margin-bottom: 6px;">
+      Ennakkotapauksen 441/KW kohdan IV mukaisesti tarkastajalla on oikeus ottaa mukaansa enintään neljä (4) asiantuntijaa, avustajaa tai turvahenkilöä. Nimetyt henkilöt jakavat täyden virallisen tarkastajasuojan:
+    </div>
+
+    <div class="escort-box">
+      <div class="escort-line">
+        <strong>1. DELEGAATION JÄSEN / TEHTÄVÄNIMIKE:</strong>
+        <div class="escort-fill"></div>
+      </div>
+      <div class="escort-line">
+        <strong>2. DELEGAATION JÄSEN / TEHTÄVÄNIMIKE:</strong>
+        <div class="escort-fill"></div>
+      </div>
+      <div class="escort-line">
+        <strong>3. DELEGAATION JÄSEN / TEHTÄVÄNIMIKE:</strong>
+        <div class="escort-fill"></div>
+      </div>
+      <div class="escort-line" style="margin-bottom: 4px;">
+        <strong>4. DELEGAATION JÄSEN / TEHTÄVÄNIMIKE:</strong>
+        <div class="escort-fill"></div>
+      </div>
+    </div>
+
+    <div class="section-h">IV. EHDOTON KOSKEMATTOMUUSMÄÄRÄYS PORTINWARTIJOILLE</div>
+    <div class="statute-alert">
+      <strong>MÄÄRÄYS KAIKILLE VALVONTAPISTEILLE, HISSEILLE JA TURVAHENKILÖILLE:</strong><br><br>
+      Tämän passin esittäjää ja hänen yllä nimikoitua saattuettaan <strong>ei saa alistaa paikallisille esteettisille, biometrisille, ulkonäöllisille, geeni- tai kulkutarkastuksille.</strong>
+      <br><br>
+      Heitä ei saa viivyttää, käännyttää, vaatia lahjuksia tai vaatia esittämään paikallisia kutsukortteja. Tarkastaja edustaa lakia itseään valvontakäynnillä.
+      <br><br>
+      <strong>UHKASAKKO JA RANGAISTUSVAATIMUS:</strong><br>
+      Jokainen virkailija, vartija tai asemavastaava, joka kieltäytyy hyväksymästä tätä passia tai pyrkii estämään tarkastajan saattueen kulkua, tuomitaan välittömään toimiluvan peruutukseen ja katsotaan syyllistyneen virkavallan törkeään estämiseen.
+    </div>
+
+    <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: flex-end;">
+      <div style="font-size: 7.5pt; color: #555; line-height: 1.3;">
+        LOMAKE LA-T-12/REV-B<br>
+        TÄYTTÖOIKEUS VAIN NIMETYLLÄ AUDIITTORILLA<br>
+        <em>Sinetti ja vesileima tarkastettava UV-valolla</em>
+      </div>
+
+      <div style="text-align: right; font-size: 8.5pt;">
+        <div>Tarkastajan allekirjoitus ja vahvistus:</div>
+        <div style="border-bottom: 1.5px solid #20354b; width: 180px; height: 26px; margin: 4px 0 2px auto;"></div>
+        <div style="font-size: 8pt; color: #333;"><strong>SAHYE</strong> · Laki-aseman Tarkastaja</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

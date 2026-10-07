@@ -10,9 +10,9 @@ disrupting_factions: verhonkutojat
 
 ### Yleiskuvaus
 
-Vaaka on kunnia-asema — tai ainakin se esittää sellaista. Ratasvartio pitää sitä hallussaan, ja sen areenat ovat paikka, jossa Kynnyksen kiistoja ratkaistaan terävillä välineillä. Kaksintaistelu on virallisesti tunnustettu riidanratkaisumenetelmä, ja Vaaka on sen temppeli.
+Vaaka on sotilaallisen kurin ja muodollisen kunnian linnake. Ratasvartion hallitsemalla asemalla teräs kalskahtaa hiekoitetuilla kentillä: täällä Kynnyksen poliittiset ja henkilökohtaiset riidat ratkaistaan virallistetuin kaksintaisteluin. Siinä missä naapuriasema Häkki on villiä ja veristä viihdettä, Vaaka noudattaa tiukkoja taistelumääräyksiä, valallisia aseistariisuntoja ja vuosisataisia kunniasääntöjä. Kaksintaistelu on laillisesti vahvistettu tapa pestä tahratut sopimukset puhtaiksi.
 
-Verhonkutojat häiritsevät: heille Vaaka on draaman näyttämö, ei sodan harjoituskenttä. He haluavat tehdä sen tarinoista.
+Ratasvartion ankaraa järjestystä hiertävät Verhonkutojat. Mediakirkon dramaturgeille taistelukenttä ei ole sotilasoppia vaan loistava näyttämö: he pyrkivät tuotteistamaan kaksintaistelut suoriksi draamalähetyksiksi ja tekemään miekkamiehistä palvottuja julkkiksia fanaattisen kurinpidon kustannuksella.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Verhonkutojat häiritsevät: heille Vaaka on draaman näyttämö, ei sodan harjo
 
 ### Palvelut
 
-- Palkkasotilaat ja turvapalvelut
-- Kunniataistelut ja arvon palauttaminen
+- **Viralliset kaksintaistelut:** Juridisesti sitovat kunniaottelut, tuomarit ja aselajitarkastukset.
+- **Sotilaskoulutus ja turvajoukot:** Ratasvartion kokeneet kouluttajat, henkivartijat ja palkkasoturit.
 
 ### Yhteydet
 
-Vaakalta pääsee suoraan asemille: **Laki**, **Verkko**.
+Vaa'an suojatuilta harjoituslaitureilta avautuvat suorat yhteydet asemille: **Laki** ja **Verkko**.

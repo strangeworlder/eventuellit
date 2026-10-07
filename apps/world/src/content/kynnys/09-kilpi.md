@@ -10,102 +10,41 @@ disrupting_factions: ratasvartio, pyhan-tragedian-lapset
 ---
 
 ### Yleiskuvaus
-Kilpi on Kynnyksen historian raastavin muodonmuutos. Se rakennettiin Ikuiseksi vartioksi suojelemaan 
-planeettakuntaa nestemäisen avaruuden ulkopuolisilta unohdetuilta uhilta. Suuri sota käänsi aseman tarkoituksen 
-irvokkaasti itseään vastaan: valtavat tykkitornit ja sensorijärjestelmät suunnattiin sisäänpäin 
-kohti Kynnyksen omia reittejä. Vartiosta tuli vanginvartija. 
 
-Nykyisin säröilevä asema on konfliktin polttopiste. Hallinnollinen selkäranka on murentunut, 
-ja kaksi sotivaa puoliskoa repivät aseman identiteettiä ja arkea eri suuntiin vailla toivoa ratkaisusta.
+Kilpi on Kynnyksen historian raastavin muodonmuutos. Se rakennettiin aikoinaan Ikuiseksi vartioksi suojelemaan asuttuja maailmoja nestemäisen avaruuden ulkopuolelta uhkaavilta vaaroilta. Suuri sota käänsi aseman tarkoituksen irvokkaasti itseään vastaan: valtavat tykkitornit ja sensorilaitteistot suunnattiin sisäänpäin kohti Kynnyksen omia reittejä. Vartiosta tuli Kynnyksen oma vanginvartija.
+
+Nykyisin halkeileva linnakeasema on aseellisen konfliktin polttopiste. Hallinnollinen selkäranka on murentunut, ja kaksi sotivaa ryhmittymää repii aseman arkea eri suuntiin vailla toivoa kompromissista.
 
 #### Betoninen nielu
 
-Kilpi on massiivinen kanavalinnoitus käytännössä tunnetun maailman reunalla, 
-jonka ytimen läpi virtaa yksi Kynnyksen voimakkaimmista 
-luonnonvoimista. Arkkitehtuuri on nurinkurista. Metrejä paksua betonista ja teräksistä ulkopintaa 
-täplittävät kuolleet, ruosteiset tykkitornit. Elintilat, bunkkerit ja rakennukset on puristettu 
-sisäänpäin kohti keskuskanavaa. Kynnykselle Kilven suunnasta pyrkivät alukset lipuvat tämän putken 
-läpi bunkkerijonojen välissä. Matkaajia seuraa jatkuva tunne siitä, että he ovat lukemattomien 
-näkymättömien aseiden tähtäimessä.
+Kilpi on massiivinen kanavalinnoitus tunnetun järjestelmän laidalla. Sen arkkitehtuuri on nurinkurinen: useita metrejä paksua betonista ja teräksistä ulkopintaa täplittävät kuolleet, ruosteiset tykkitornit, ja kaikki elintilat, bunkkerit ja majoitussiivet on puristettu sisäänpäin kohti keskuskanavaa. Kynnykselle Kilven suunnasta saapuvat alukset lipuvat tämän ahtaan nielun läpi bunkkerijonojen välissä. Matkaajaa seuraa herkeämätön tunne siitä, että hän on lukemattomien näkymättömien piippujen tähtäimessä.
 
-Aseman akustiikka on betoninen painajainen. Kanava on osittain valtava kaikukoppa: ääni ei aina kuole, 
-se muuttaa muotoaan. Sopivassa kohdassa kaukaisella telakalla tapahtuva työkalun kilahdus voi kulkea kilometrien matkan 
-betoniseinien välissä ja voimistua yllättävillä tavoilla. 
-Mikä pahempaa, jos jossain tapahtuu pahaa, räjähdyksen paineaalto ja ulvova melu jäävät kiertämään kanavaa minuuteiksi. Joskus jopa kuiskaus saattaa matkata 
-huoltokuituja pitkin ja nousta esiin aseman toisella puolella vääristyneenä aavemaisena tervehdyksenä.
+Aseman akustiikka on betoninen painajainen. Kanava toimii valtavana kaikukoppana: ääni ei kuole, vaan muuttaa muotoaan ja vahvistuu. Kaukaisella telakalla putoavan jakoavaimen kilahdus voi kulkea kilometrien matkan betoniseiniä pitkin ja kajahtaa esiin aivan toisella lohkolla. Pommi-iskujen ja tulitaisteluiden paineaallot jäävät kiertämään kanavaa minuuteiksi, ja ilmanvaihtohormit kantavat kuiskaavia ääniä lohkolta toiselle.
 
-Sataman ja kanavan katoissa ja rakenteiden raoissa parveilevat mekaaniset lokit. Nämä autonomiset huoltolennokit 
-ovat aikojen saatossa villiintyneet mekaanisiksi loisiksi. Ne varastavat asukkailta ja 
-huoltokohteista irto-osia, muttereita ja johtoja rakentaakseen niistä sekavia pesiään aseman 
-pimeisiin kulmiin. Niiden jatkuva, sieluton meteli on pysyvä osa Kilven äänimaisemaa.
+Laitureilla ja kanavan holveissa parveilevat mekaaniset lokit — autonomiset huoltolennokit, jotka ovat aikojen saatossa villiintyneet loisiksi. Ne repivät huoltokohteista muttereita, tiivisteitä ja kaapeleita kasatakseen niistä sekavia pesiä aseman pimeisiin kulmauksiin. Niiden metallinen rääkynä on Kilven katkeamaton äänimaisema.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Ei kukaan
-- **Häiritsevä faktio:** Ratasvartio, Pyhän Tragedian lapset
-- **Jännite:** Murtunut
+Tuhkan puolueen vetäydyttyä Kilvestä seurasi säälimätön valtataistelu. KW-konsortion Ratasvartio-erikoisjoukot ja Ekklesian radikaaleimmat fanaatikot, Pyhän Tragedian lapset, ovat ajautuneet pattitilanteeseen, joka jakaa aseman rintamalinjoihin.
 
-Tuhkan puolueen vetäytymistä seurasi säälimätön valtakamppailu. KW-konsortion Ratasvartio-erikoisjoukot
-ja Ekklesian oppeja äärimmilleen seuraavat Pyhän Tragedian 
-lapset ovat ajautuneet pattitilanteeseen, joka repii asemaa kahtia. Ratasvartio hallitsee 
-osaa bunkkereista itsenäisenä tyranniana erillään emoyrityksestä. He ovat kasvottomia, kypärien ja maskien taakse 
-piiloutuvia kiusaajia. Tämä epäinhimillisyys mahdollistaa mielivaltaiset pidätykset ja 
-väkivallan, jota he nimittävät järjestyksen ylläpidoksi. Heidän univormunsa ja symbolinsa luovat 
-jyrkän kontrastin aseman pölyiselle betonille.
+Ratasvartio hallitsee osaa bunkkereista itsenäisenä sotilasdiktatuurina erillään emoyhtiön valvonnasta. He ovat kasvottomia, kypärien ja maskien taakse suojautuvia kurinpitäjiä, joiden mielivaltaiset pidätykset ja kovat otteet kulkevat järjestyksenpidon nimellä.
 
-Pyhän Tragedian lapset vastaavat tähän pragmaattisella terrorilla. Heille aseman murtunut 
-arkkitehtuuri on pyhää kuvastoa, ja he pyrkivät muuttamaan koko linnakkeen aggressiiviseksi 
-muistomerkiksi sodan kauhuille. Uhrikultti kohdistaa iskunsa pääosin Ratasvartioon, mutta he 
-janoavat näkyvyyttä hinnalla millä hyvänsä. Kultin räjähdykset estävät Ratasvartion 
-poliisivaltiota materialisoitumasta täydellisesti, mutta samalla ne tekevät arjesta 
-jatkuvaa selviytymistaistelua.
+Pyhän Tragedian lapset vastaavat kurinpitoon pragmaattisella kaupunkisodalla. Heille aseman murtunut betoni on pyhää kuvastoa, ja he pyrkivät tekemään linnakkeesta verisen muistomerkin Suuren sodan kauhuille. Uhrikultti kohdistaa iskunsa Ratasvartioon janoen samalla julkisuutta hinnalla millä hyvänsä. Heidän räjähteensä estävät Ratasvartion poliisivaltiota vakiintumasta, mutta tekevät tavallisen kansan arjesta jatkuvaa selviytymistä.
 
 ### Palvelut
 
-Troolaus on Kilven elinehto. Aseman troolarit ovat romualuksia, jotka on vahvistettu kestämään 
-tyhjyyden armoton kitka. Ne laukaistaan asemalta suoraan syvään avaruuteen, missä navigointi 
-perustuu enemmän onneen ja vanhoihin karttoihin kuin teknologiaan. Sensorit kantavat tyhjyydessä 
-tuskallisen lyhyen matkan, mikä tekee liikkumisesta lähes sokeaa. Kun alukset palaavat nestemäiseen 
-avaruuteen, sensorit alkavat jälleen toimia, mutta paluumatka bunkkerien suojaan säilyy aina riskialttiina.
+Troolaus on Kilven elinehto. Aseman troolarit ovat romualuksia, joiden keulat on vahvistettu kestämään tyhjyyden armoton kitka. Ne laukaistaan asemalta suoraan syvään avaruuteen, missä suunnistus perustuu enemmän intuitioon ja vanhoihin tähtikarttoihin kuin toimivaan elektroniikkaan.
 
-Alukset raahaavat mukanaan raaka-aineita ja hylkyjä, mutta asukkaille arvokkainta lastia ovat 
-Syvän avaruuden virroista naaratut "unohdetut asiat". Muinaiset viihdetallenteet, nuhjuiset 
-vaatteet ja teknologia tuntuvat asukkaille aidoilta pilkahduksilta keskellä harmautta. Saalis 
-on jatkuvasti vaarassa joutua Ratasvartion takavarikoimaksi, vaikka vartio ei 
-kykene hallitsemaan koko sokkeloista ja massiivista satama-aluetta.
+Alukset kiskovat mukanaan raaka-aineita ja hylkyjä, mutta asukkaille arvokkainta saalista ovat syvän avaruuden virroista naaratut reliikit: vanhat viihdetallenteet, paperikirjat ja tuntematon teknologia. Saalis on jatkuvasti vaarassa päätyä Ratasvartion takavarikoimaksi, vaikka sotilaat eivät kykene valvomaan koko sokkeloista satamalabyrinttia.
 
 ### Yhteydet
 
-Kilveltä pääsee suoraan asemille: **Pöytä**, **Siemen**.
+Kilveltä pääsee suoraan asemille: **Pöytä** ja **Siemen**.
 
 #### Kynnyksen raskas ankkuri
 
-Vaikka Kilpi on hallinnollisesti sortunut ja sisältä mädäntynyt, se suorittaa yhä tehtävää, 
-jota ilman Kynnys lakkaisi olemasta. Se on järjestelmän ainoa merkittävä sisääntuloväylä 
-massalle, joka on peräisin nestemäisen avaruuden ulkopuolelta. Kilven troolaama Syvän avaruuden 
-materia on raskasta ja aitoa. Se tuo mukanaan alkuaineita ja mineraaleja, joita asemien fyysinen 
-ylläpito vaatii. Ilman tätä massan virtaa koko Kynnystä kanatteleva kuluisi loppuun ja muuttuisi 
-ontoksi kuvajaiseksi, kykenemättömäksi lopulta ylläpitämään yhteyksiä.
+Vaikka Kilven hallinto on pirstaleina, asema suorittaa tehtävää, jota ilman Kynnys lakkaisi olemasta. Se on järjestelmän ainoa sisääntuloväylä massalle, joka tuodaan nestemäisen avaruuden ulkopuolelta. Kilven troolaama syvän avaruuden materia tuo mukanaan raskaita alkuaineita ja mineraaleja, joita asemien fyysinen korjaaminen vaatii. Ilman tätä jatkuvaa virtaa asemien metalli haurastuisi ja Kynnyksen arkkitehtuuri kuluisi olemattomiin.
 
-Esimerkiksi **Verstas** on täysin riippuvainen Kilven tuomasta romusta. Monet Kynnyksen 
-kriittisistä järjestelmistä ovat niin muinaisia, ettei niitä osata enää valmistaa. Ainoa tapa 
-pitää reaktorit ja ilmanvaihto käynnissä on löytää Syvän avaruuden hylyistä vastaavia komponentteja. 
+#### Naapurisuhteet ja eristys
 
-Kilpi on välttämätön paha – säröinen ja vaarallinen portti, joka pitää järjestelmän hengissä 
-syöttämällä sille materiaa kulutettavaksi. Jos troolaus pysähtyy, koko Kynnyksen
-infrastruktuuri romahtaa muutamassa sukupolvessa.
-
-#### Hiipuva yhteisöllisyys ja naapurit
-
-Valtaosa Kilvestä on kummankaan faktion ulottumattomissa. Erityisesti satama-alueet ovat 
-säilyneet asukkaiden omina saarekkeina, joissa asemaa ennen hallinneen Tuhkan puolueen perintö ja yhteisölliset arvot 
-näkyvät vahvimpina. Hämärät troolarikapakat ovat turvapaikkoja, joissa puolueen tunnukset 
-elävät asukkaiden muistoissa ja hiljaisissa eleissä. Normaaliuden ylläpito on kuitenkin 
-vaikeaa, sillä alueet jäävät jatkuvasti taistelevien osapuolten jalkoihin.
-
-Poliittisesti ja logistisesti Kilpi on puristuksissa. Asema on lähes täysin riippuvainen 
-naapureistaan **Pöydästä** (17) ja **Siemenestä** (18), jotka ovat Tuhkan puolueen vahvoja 
-keskuksia. Kaikki Kilpeen saapuva ja sieltä lähtevä kulkee näiden asemien 
-kautta. Tuhkan puolueelle nykyinen Kilpi on kauhistus, jossa fasistinen poliisivaltio 
-ja uskonnolliset terroristit repivät toisiaan. Naapuriasemilla pelätään väkivallan 
-leviämistä, mikä tekee asioinnista Kilven asukkaiden kanssa jännitteistä ja vaikeaa.
+Kilpi on puristuksissa naapureidensa välissä. Asema on riippuvainen **Pöydästä** (17) ja **Siemenestä** (18), jotka edustavat Tuhkan puolueen vahvoja perinnealueita. Kaikki Kilpeen saapuva ruoka ja varaosat kulkevat näiden kahden aseman kautta. Tuhkan puolueelle nykyinen Kilpi on varoittava esimerkki kaaoksesta, jossa sotilaskuri ja itsemurhakultti kuluttavat toisiaan loppuun. Naapuriasemat pelkäävät väkivallan leviämistä ja suhtautuvat Kilveltä saapuviin matkaajiin äärimmäisen varautuneesti.

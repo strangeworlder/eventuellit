@@ -10,9 +10,9 @@ disrupting_factions: haaskalinnut
 
 ### Yleiskuvaus
 
-Tori myy kaiken, mitä kukaan muu ei myy. Heimolaisten hallitsema asema on rakennettu kierrätyskeskuksen päälle — kaikki mitä muualta heitetään pois päätyy ennen pitkää Torille. Täällä löytyy vanhentuneita aseita, epäilyttäviä lääkkeitä, varastettuja identiteettejä ja teknologiaa, jota ei enää pitäisi olla olemassa.
+Torilla käydään kauppaa kaikella sillä, mitä viralliset asemat kieltäytyvät edes kirjaamasta. Heimolaisten hallitsema valtava basaari on pystytetty muinaisen jätteenkäsittely- ja kierrätyskeskuksen päälle: kaikki, mikä muualla heitetään roskiin tai leimataan romuksi, päätyy ennemmin tai myöhemmin Torin laitureille. Höyryävien putkistojen ja räpsyvien neonkylttien alla kaupataan vanhoja sotilasaseita, takahuoneiden lääkkeitä, väärennettyjä biometrisiä tunnisteita ja sellaista teknologiaa, jonka pitäisi olla jo aikaa sitten hävitettyä.
 
-Haaskalinnut kiertävät Torin käytävillä jatkuvasti: heille se on kullan kaivos, josta löytyy unohdettujen aikojen esineitä ja tietoa — asioita, joita muut eivät vielä tiedä etsiä.
+Aseman käytävillä kiertelevät herkeämättä Haaskalinnut: heille laaja romutorien sokkelo on ehtymätön aarrearkku, josta voi löytää menneiden aikojen esineitä, muistikortteja ja perhetietoja ennen kuin muut edes ymmärtävät niiden arvoa.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Haaskalinnut kiertävät Torin käytävillä jatkuvasti: heille se on kullan kai
 
 ### Palvelut
 
-- Salakuljetustavara ja kielletyt hyödykkeet
-- Romu ja kierrätysmateriaalit
+- **Mustan pörssin hyödykkeet:** Salakuljetetut aseet, luvattomat stimulantit ja väärennetyt Arkkitehtuurikrediitit.
+- **Romu ja kierrätyskomponentit:** Purettujen alusten osat, keraamiset suojalevyt ja vanha elektroniikka.
 
 ### Yhteydet
 
-Torilta pääsee suoraan asemille: **Evoluutio**, **Laki**.
+Torin kierteisiltä basaarisilloilta kulkevat suorat reitit asemille: **Evoluutio** ja **Laki**.

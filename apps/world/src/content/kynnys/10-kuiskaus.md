@@ -10,9 +10,9 @@ disrupting_factions: erottajat
 
 ### Yleiskuvaus
 
-Kuiskaus oli Kynnyksen hermojärjestelmä — kaikki data, kaikki viestit, kaikki salaisuudet kulkivat sen kautta. Tuo infrastruktuuri on edelleen paikallaan, mutta rapautuneena ja hallitsemattomana. Logiikan Inkvisitio on vallannut sen, koska informaatio on valtaa — ja Kuiskauksen kautta kulkee enemmän tietoa kuin kukaan haluaa myöntää.
+Kuiskaus oli menneisyydessä Kynnyksen hermojärjestelmä: aseman syövereissä risteilevien valokuitujen, magneettinauhojen ja antennitornien kautta kulkivat järjestelmän kaikki viralliset lähetykset, salatut raportit ja yksityiset viestit. Valtava tiedonsiirtoverkko humisee edelleen pimeissä käytävissä, mutta rapautuneena ja ilman keskitettyä valvontaa. Logiikan Inkvisitio on asettunut vartioimaan solmukohtaa, sillä Kuiskauksen pirstoutuneiden reitittimien läpi virtaa enemmän salaista dataa ja vaarallisia totuuksia kuin yksikään valtakeskittymä uskaltaa myöntää.
 
-Erottajat yrittävät avata Kuiskausta kaikille, koska heidän mielestään suljettu tieto on kaikkien vaara.
+Asema on jatkuvan sabotaasin näyttämö. Tuhkan puolueen Erottajat pyrkivät murtamaan Inkvisition koodilukot ja avaamaan viestiverkot vapaasti kaikkien käyttöön uskoen, että vain salattu tieto tekee Kynnyksestä hauraan.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Erottajat yrittävät avata Kuiskausta kaikille, koska heidän mielestään sulj
 
 ### Palvelut
 
-- Data ja tiedonvälitys
-- Salaisuudet ja tiedustelu
+- **Tiedonsiirto ja reititys:** Pirstaleiset kantoaallot, hätälähetykset ja vanhat viestikanavat.
+- **Signaalitiedustelu ja dekoodaus:** Salattujen viestien purku, kadonneet datavirrat ja taajuuksien kuuntelu.
 
 ### Yhteydet
 
-Kuiskaukselta pääsee suoraan asemille: **Seula**, **Verso**, **Siemen**, **Krypta**.
+Kuiskauksen signaalilaitureilta kulkevat yhteydet asemille: **Seula**, **Verso**, **Siemen** ja **Krypta**.

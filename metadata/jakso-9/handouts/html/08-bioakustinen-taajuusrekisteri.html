@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 08: Bioakustinen taajuusrekisteri</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #1a1a1a;
+    background-color: #d8d4cc;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    margin: 0 auto;
+    background-color: #fbf9f4;
+    padding: 16mm 18mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+  }
+  .grid-bg {
+    background-image: 
+      linear-gradient(to right, rgba(180, 195, 205, 0.25) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(180, 195, 205, 0.25) 1px, transparent 1px);
+    background-size: 5mm 5mm;
+  }
+  .doc-header {
+    border-bottom: 2px solid #2a3b4c;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .doc-title {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 11pt;
+    font-weight: bold;
+    color: #1a2a3a;
+    letter-spacing: 0.5px;
+  }
+  .doc-subtitle {
+    font-size: 8pt;
+    color: #555;
+    margin-top: 3px;
+  }
+  .meta-box {
+    text-align: right;
+    font-family: 'Consolas', monospace;
+    font-size: 8pt;
+    color: #444;
+  }
+  h2 {
+    font-size: 11.5pt;
+    margin: 12px 0 6px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #1a3044;
+    border-bottom: 1px solid #c0c8d0;
+    padding-bottom: 2px;
+  }
+  p {
+    font-size: 9pt;
+    line-height: 1.45;
+    margin: 6px 0;
+    text-align: justify;
+  }
+  .formula-box {
+    background: #edf2f6;
+    border-left: 4px solid #204060;
+    padding: 8px 14px;
+    margin: 10px 0;
+    font-family: 'Cambria Math', 'Georgia', serif;
+    font-size: 10pt;
+    font-style: italic;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin: 10px 0;
+  }
+  .spec-table th, .spec-table td {
+    border: 1px solid #a8b8c8;
+    padding: 5px 8px;
+  }
+  .spec-table th {
+    background: #dde6ee;
+    font-family: 'Consolas', monospace;
+    font-weight: bold;
+    color: #102030;
+    text-align: left;
+  }
+  .spec-table tr:nth-child(even) {
+    background: rgba(230, 238, 245, 0.4);
+  }
+  .highlight-row {
+    background: #ffe8cc !important;
+    font-weight: bold;
+  }
+  .diagram-container {
+    border: 1px solid #99aab8;
+    background: #fdfdfd;
+    padding: 10px;
+    margin: 12px 0;
+    position: relative;
+  }
+  .diagram-title {
+    font-family: 'Consolas', monospace;
+    font-size: 8pt;
+    font-weight: bold;
+    color: #334455;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .spectrum-bar {
+    height: 16px;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    font-family: 'Consolas', monospace;
+    font-size: 7.5pt;
+    color: #fff;
+    padding-left: 6px;
+    border-radius: 2px;
+  }
+  .callout-warning {
+    border: 2px solid #b83020;
+    background: #fff5f5;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 8.5pt;
+    line-height: 1.45;
+  }
+  .callout-warning strong {
+    color: #901000;
+  }
+  .stamp-academic {
+    display: inline-block;
+    border: 2px solid #1a3a60;
+    color: #1a3a60;
+    font-family: 'Consolas', monospace;
+    font-weight: bold;
+    font-size: 8pt;
+    padding: 3px 8px;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+  }
+  .academic-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #a0b0c0;
+    margin-top: 16px;
+    padding-top: 8px;
+    font-family: 'Consolas', monospace;
+    font-size: 7.5pt;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+
+<!-- SIVU 1 -->
+<div class="page grid-bg page-break">
+  <div class="doc-header">
+    <div>
+      <div class="doc-title">ALASIMEN VAPAA AKATEMIA · FREKVENSSIFYYSIIKKA</div>
+      <div class="doc-subtitle">Tutkimusmonografia B-19 / Kenttädiagnostiikan opas</div>
+    </div>
+    <div class="meta-box">
+      <div>AK-884 · REV. 3</div>
+      <div>AKAT. VÄRE</div>
+    </div>
+  </div>
+
+  <h2>1. Johdanto ja fysikaalinen muunnosasteikko</h2>
+  <p>
+    Kynnyksen keinotekoisissa asemarakenteissa havaitaan jatkuvasti laajaa mekaanisen värähtelyn spektriä. Usein asemainsinöörit ja valvontakoneistot luokittelevat kaikki matalataajuiset impulssit virheellisesti "rakenteelliseksi resonanssiksi". Tämä monografia esittää matemaattisen kriteeristön, jolla mekaaninen runkovärähtely erotetaan <strong>biologisen lihaskudoksen kardiovaskulaarisesta pulssista</strong>.
+  </p>
+
+  <div class="formula-box">
+    <span>Perusmuunnos:</span>
+    <strong>Sykli minuutissa (bpm) = f (Hz) × 60</strong>
+    <span>(esim. 0,50 Hz = 30 bpm &nbsp;|&nbsp; 1,00 Hz = 60 bpm)</span>
+  </div>
+
+  <h2>2. Taajuusalueet ja aaltomuotojen fysiikka</h2>
+  <p>
+    Aseman kussakin järjestelmässä esiintyvä tärinä voidaan luokitella sen herätemekanismin mukaan:
+  </p>
+
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">LÄHDE</th>
+        <th style="width: 22%;">TAAJUUS (Hz)</th>
+        <th style="width: 20%;">VASTAAVA SYKLI</th>
+        <th>SPEKTRIN OMINAISUUDET</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Turbiinit / Roottorit</strong></td>
+        <td>25,0 – 400,0 Hz</td>
+        <td>1 500 – 24 000 rpm</td>
+        <td>Jyrkkä siniaalto, terävät harmoniset kerrannaiset. Ei poikkeamaa.</td>
+      </tr>
+      <tr>
+        <td><strong>Aseman rungon keinunta</strong></td>
+        <td>0,005 – 0,050 Hz</td>
+        <td>1 sykli per 20–200 s</td>
+        <td>Nestemäisen avaruuden virtausvastus. Laaja, hajanainen kohina.</td>
+      </tr>
+      <tr>
+        <td><strong>Hydraulipumput</strong></td>
+        <td>0,250 Hz (tasan)</td>
+        <td>15 sykliä / min</td>
+        <td>Männän paineistusvaihe. Kantikas aaltomuoto, terävä sulkeutuminen.</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>ORGAANINEN SYDÄNLIHAS</strong></td>
+        <td><strong>0,400 – 1,200 Hz</strong></td>
+        <td><strong>24 – 72 bpm</strong></td>
+        <td><strong>Kaksoishuippu (eteis/kammio-vaste). Asteittain kiihtyvä käyrä.</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Spektrogrammikaavio: Turbiini vs. Kardiovaskulaarinen pulssi</h2>
+  <div class="diagram-container">
+    <div class="diagram-title">TAAJUUSJAKAUMA JA ENERGIATIHEYS (LOGARITMINEN SKAALA)</div>
+    
+    <div style="font-size: 7.5pt; color: #555; margin-bottom: 2px;">0.01 Hz &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.1 Hz &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0 Hz &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 Hz &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100 Hz</div>
+    
+    <div class="spectrum-bar" style="width: 25%; background: #607d8b;">Aseman rungon aaltoilu (0.005–0.05 Hz)</div>
+    <div class="spectrum-bar" style="width: 38%; margin-left: 28%; background: #a82010;">ORGAANINEN SYKE: 0.50–1.00 Hz (30–60 bpm)</div>
+    <div class="spectrum-bar" style="width: 32%; margin-left: 68%; background: #37474f;">Teollisuusturbiinit (25–350 Hz)</div>
+    
+    <p style="font-size: 7.5pt; color: #666; margin-top: 6px; font-style: italic;">
+      Huom.: Mekaaninen resonanssi keskittyy aina korkeille taajuuksille tai pysyy täysin stabiilina. Matalataajuinen (0,5–1,0 Hz) säännöllinen ja kiihtyvä sykäys edellyttää elastista orgaanista massaa.
+    </p>
+  </div>
+
+  <div class="academic-footer">
+    <div>ALASIMEN VAPAA AKATEMIA · MONOGRAFIA B-19</div>
+    <div>SIVU 1 / 2</div>
+  </div>
+</div>
+
+<!-- SIVU 2 -->
+<div class="page grid-bg">
+  <div class="doc-header">
+    <div>
+      <div class="doc-title">ALASIMEN VAPAA AKATEMIA · FREKVENSSIFYYSIIKKA</div>
+      <div class="doc-subtitle">Tutkimusmonografia B-19 · Osa II: Heräämiskäyrä</div>
+    </div>
+    <div class="meta-box">
+      <div>AK-884 · REV. 3</div>
+      <div>SIVU 2 / 2</div>
+    </div>
+  </div>
+
+  <h2>4. Suuren orgaanisen organismin heräämisen taajuusvaiheet</h2>
+  <p>
+    Kun laaja biologinen kudosmassa (tilavuudeltaan useita tonneja tai kymmeniä kuutiometrejä) kytketään elatukseen ja herätetään lepotilasta, kardiovaskulaarinen vaste etenee fysiologisten kynnysten läpi:
+  </p>
+
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th style="width: 18%;">TAAJUUS (Hz)</th>
+        <th style="width: 18%;">SYKE (bpm)</th>
+        <th style="width: 24%;">VAIHENIMIKE</th>
+        <th>ORGANISMIN FYSIOLOGINEN TILA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0,400 Hz</td>
+        <td>24 bpm</td>
+        <td>Syvä kryostaasi</td>
+        <td>Hypoterminen lepo. Lihasjänteys nolla, aivorunko vaimennettu.</td>
+      </tr>
+      <tr>
+        <td>0,500 Hz</td>
+        <td>30 bpm</td>
+        <td>Peruselatus</td>
+        <td>Anesteettinen lepotila. Vähimmäisaineenvaihdunta.</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>0,583 Hz</strong></td>
+        <td><strong>35 bpm</strong></td>
+        <td><strong>ENSIAKTIVAATIO</strong></td>
+        <td><strong>Perifeerinen verenkierto avautuu. Veri virtaa suuriin lihaksiin.</strong></td>
+      </tr>
+      <tr>
+        <td>0,600 Hz</td>
+        <td>36 bpm</td>
+        <td>Metabolinen nousu</td>
+        <td>Hermostollinen esisytytys käynnistyy. Lämmöntuotto alkaa.</td>
+      </tr>
+      <tr>
+        <td>0,617 Hz</td>
+        <td>37 bpm</td>
+        <td>Hapenottovaste</td>
+        <td>Ravinneliuoksen ja hapen kulutus kaksinkertaistuu.</td>
+      </tr>
+      <tr>
+        <td>0,633 Hz</td>
+        <td>38 bpm</td>
+        <td>Lihastonus</td>
+        <td>Raajojen passiivinen jänteys palautuu. Hermosynapsit kytkeytyvät.</td>
+      </tr>
+      <tr>
+        <td>0,650 Hz</td>
+        <td>39 bpm</td>
+        <td>Refleksikynnys</td>
+        <td>Autonomiset hermoheijasteet aktivoituvat.</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>0,667 Hz</strong></td>
+        <td><strong>40 bpm</strong></td>
+        <td><strong>KIIHTYVYYDEN TAITE</strong></td>
+        <td><strong>Organismi reagoi ulkoisiin ärsykkeisiin. Esivalveillaolo.</strong></td>
+      </tr>
+      <tr>
+        <td>0,750 Hz</td>
+        <td>45 bpm</td>
+        <td>Keuhkovaste</td>
+        <td>Hengitys- ja painolastilihasten sykliset supistukset.</td>
+      </tr>
+      <tr>
+        <td>0,833 Hz</td>
+        <td>50 bpm</td>
+        <td>Motorinen jännitys</td>
+        <td>Spontaani tahdonalainen liike mahdollinen pidäkkeissä.</td>
+      </tr>
+      <tr style="background: #e2f0d9; font-weight: bold;">
+        <td><strong>1,000 Hz</strong></td>
+        <td><strong>60 bpm</strong></td>
+        <td><strong>TÄYSI VALVEILLAOLO</strong></td>
+        <td><strong>Täysi motorinen ja hermostollinen synkronointivalmius.</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>5. Diagnostinen lausunto: Teräs vs. Elävä liha</h2>
+
+  <div class="callout-warning">
+    <strong>AKATEEMIKKO VÄRE — HUOMAUTUS KENTTÄTUTKIJOILLE JA ANALYYTIKOILLE:</strong><br>
+    Mekaanisen teräslaipion tai kuivatelakan pohjalaatan ominaistaajuus määräytyy sen massasta (<em>M</em>) ja rakenteellisesta jäykkyydestä (<em>k</em>):<br>
+    <div style="text-align: center; margin: 6px 0; font-family: 'Cambria Math', serif; font-size: 10pt;">
+      <em>f₀ = (1 / 2π) · √(k / M)</em>
+    </div>
+    Teräsrakenteen ominaistaajuus pysyy fysiikan lakien puitteissa vakiona massan säilyessä ennallaan.<br><br>
+    Mikäli valvontajärjestelmä havaitsee tällaisen nousevan 0,583 → 0,667 Hz käyrän, ilmiö vastaa suoraan <strong>suuren orgaanisen sydänlihaskudoksen siirtymistä 35 bpm hypotermiasta kohti 60 bpm heräämistä.</strong>
+  </div>
+
+  <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: flex-end;">
+    <div>
+      <div class="stamp-academic">ALASIMEN VAPAA AKATEMIA · HYVÄKSYTTY</div>
+      <div style="font-size: 7.5pt; color: #555; margin-top: 4px;">Jakelu: Fysiikan jaoston jäsenet & tutkimusarkistot</div>
+    </div>
+    <div style="text-align: right; font-family: 'Consolas', monospace; font-size: 8pt; color: #444;">
+      Arkistoitu: Akat. Väre<br>
+      Viite: B19-BIO-RESO
+    </div>
+  </div>
+
+  <div class="academic-footer">
+    <div>ALASIMEN VAPAA AKATEMIA · FREKVENSSIFYYSIIKAN JAOSTO</div>
+    <div>SIVU 2 / 2</div>
+  </div>
+</div>
+
+</body>
+</html>

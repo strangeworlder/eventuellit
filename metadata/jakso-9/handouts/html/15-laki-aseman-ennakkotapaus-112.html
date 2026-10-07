@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 15 - Laki-aseman ennakkotapaus 112/TA</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #262420;
+    font-family: 'Times New Roman', Georgia, serif;
+    color: #1a1612;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 18mm 22mm;
+    position: relative;
+    background-color: #fbf7ee;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+
+  .parchment-border {
+    border: 3px double #33483b;
+    padding: 12mm 14mm;
+    height: 100%;
+    position: relative;
+  }
+
+  .court-header {
+    text-align: center;
+    border-bottom: 1.5px solid #33483b;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .court-name {
+    font-size: 13pt;
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #1d3326;
+  }
+  .case-title {
+    font-size: 15pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 4px 0;
+    color: #111;
+  }
+  .case-subject {
+    font-size: 9.5pt;
+    font-style: italic;
+    color: #33483b;
+  }
+
+  .section-h {
+    font-size: 10pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    color: #1d3326;
+  }
+
+  .legal-body {
+    font-size: 9pt;
+    line-height: 1.5;
+    text-align: justify;
+    margin-bottom: 8px;
+  }
+
+  .ruling-highlight {
+    background: rgba(40, 90, 60, 0.08);
+    border-left: 3.5px solid #235839;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 9.2pt;
+    line-height: 1.48;
+  }
+
+  .dissent-box {
+    background: rgba(100, 100, 100, 0.05);
+    border-left: 3px dashed #666;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-style: italic;
+    font-size: 8.8pt;
+    line-height: 1.45;
+  }
+
+  /* WAX SEAL & SIGNATURE FOOTER */
+  .court-footer {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(51, 72, 59, 0.3);
+    padding-top: 12px;
+  }
+  .seal-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .wax-seal {
+    width: 68px;
+    height: 68px;
+    background: radial-gradient(circle at 35% 35%, #2a7a50, #144e30 70%, #0a2919);
+    border-radius: 50%;
+    box-shadow: 2px 3px 6px rgba(0,0,0,0.4), inset -2px -2px 5px rgba(0,0,0,0.5), inset 2px 2px 4px rgba(255,255,255,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #d4f7e1;
+    border: 2px solid #0d3821;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .wax-seal-inner {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(255,255,255,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .seal-text {
+    font-size: 5pt;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .seal-icon {
+    width: 20px;
+    height: 20px;
+    fill: #e8fce8;
+    margin: 1px 0;
+  }
+
+  .signature-block {
+    text-align: right;
+    font-size: 8.5pt;
+  }
+  .judge-sign {
+    font-family: 'Brush Script MT', 'Segoe Script', cursive;
+    font-size: 16pt;
+    font-weight: bold;
+    color: #1a1612;
+    margin: 2px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="parchment-border">
+    
+    <div class="court-header">
+      <div class="court-name">Laki-asema · Toinen Tuomioistuin</div>
+      <div class="case-title">ENNAKKOTAPAUSPÄÄTÖS 112 / TA</div>
+      <div class="case-subject">Asia: Biometristen sensorien ja geenitarkastusten laillisuus yksityisalueiden rajapinnoilla</div>
+    </div>
+
+    <div class="section-h">I. ASIA JA VAATIMUKSET</div>
+    <div class="legal-body">
+      Vapaiden Laivureiden Liitto on saattanut tuomioistuimen ratkaistavaksi vaatimuksen, jonka mukaan teollisten ja biolääketieteellisten asemien siirtymähisseihin (erityisesti ns. Luokan 4 syväskannausportit, kuten Hissi 04) asetetut automaattiset veren- ja geenitunnistuslaitteet rikkovat Kynnyksen Perustamissopimuksen 8 §:n takaamaa ruumiillista koskemattomuutta ja ovat siten laittomia.
+    </div>
+    <div class="legal-body">
+      Vastaajana toiminut Klinikkaliitto on esittänyt, että lääketieteellisten tutkimusosastojen ja steriilien klinikkakiekkojen haltijoilla on ehdoton oikeus suojata asukkaitaan ja tuotantoaan ulkoisilta biologisilta tartunnoilta sekä kontaminoituneilta geeniperimiltä.
+    </div>
+
+    <div class="section-h">II. TUOMIOISTUIMEN RATKAISU (ÄÄNIN 3–2)</div>
+    <div class="legal-body">
+      Tuomioistuin on punninnut yksilön liikkumisvapautta suhteessa asemakiinteistön haltijan suojaoikeuteen ja toteaa seuraavaa:
+    </div>
+
+    <div class="ruling-highlight">
+      <strong>1. Yksityisalueen rajausoikeus:</strong> Vaikka yleisillä siirtymäväylillä kulkevaa ei saa ilman rikosepäilyä alistaa verikokeille, yksityisomisteisella klinikkakiekolla toimivalla toimiluvan haltijalla on laillinen oikeus asettaa tiloihinsa saapumisen ehdoksi biometrinen todentaminen tartuntatautien ja biologisen kontaminaation torjunnan nojalla.
+      <br><br>
+      <strong>2. Käännytyksen laillisuus:</strong> Mikäli saapuva henkilö kieltäytyy luovuttamasta verinäytettä tai DNA-tunnistetta hissiportille, häntä ei saa vangita ilman virkavallan päätöstä, mutta hänet saadaan laillisesti käännyttää takaisin alas tai sulkea eristyslukkoon odottamaan poistumiskuljetusta.
+    </div>
+
+    <div class="section-h">III. ERIÄVÄ MIELIPIDE (Tuomari Varjo)</div>
+    <div class="dissent-box">
+      "Tämä päätös antaa klinikkadynastioille mielivaltaisen vallan lajitella ihmiset orjiin ja herroihin solutason perusteella. Kun hissiporteista tehdään laillisia erottelijoita terveysturvallisuuden nimissä, oikeusvaltio lakkaa hissikuilun kynnyksellä. Jätän päätökseen eriävän mielipiteeni."
+    </div>
+
+    <div class="court-footer">
+      <div class="seal-container">
+        <div class="wax-seal">
+          <div class="wax-seal-inner">
+            <div class="seal-text">LAKI-ASEMA</div>
+            <!-- Rulebook SVG -->
+            <svg class="seal-icon" viewBox="0 0 841.9 595.3">
+              <path d="M202.3,446.6l-18.8-38.1-9.4,32.9-77.3-4.4v-42c0,0,31.7-.1,31.7-.1l-31.6-15.9,2.2-330.2,55.1,1.6,10.7,62.6,11.5-61.8c62.4,7.3,109.3,18.4,164.2,55.5l-.2,389.2c-41.5-25.3-84.7-41.2-138.1-49.2h0Z"/>
+              <path d="M720,345.7l-22.1,9.8-1.7,49.7c8.8,2.5,23.7,12.5,23.6,22.7l-1.6,120.3-274.6,4.1-22.8,26.6-120,1-23-27-223.6-5.6c-1.2-5.5-1.7-15.3-5.4-16.7l-20-7.2-27.3-24.6,9.9-4.7c1.3-.6,4.6-2.2,3.2-2.7l-13.9-5.4L0,130.3l60.1-1.9-.6,77c0,3.9-1.8,14.4-5.5,16.2l-17.6,8.4,21.8,3.1.8,248c75.2-3.2,143.2,7.2,212.4,24.4,18,4.5,36.4,15.5,53.7,24.4,21.3,14.5,47.9,15.2,68.7-.3,73.8-39,179.2-52.3,266.9-47.1V128.9l57.2,2.1,2.2,214.7Z"/>
+            </svg>
+            <div class="seal-text">II TRIBUNALIS</div>
+          </div>
+        </div>
+        <div style="font-size: 7.5pt; color: #555; line-height: 1.3;">
+          VIRALLINEN SINETTI<br>
+          <strong>TOINEN TUOMIOISTUIN · PÄÄTÖS LAINVOIMAINEN</strong>
+        </div>
+      </div>
+
+      <div class="signature-block">
+        <div>Annettu Laki-asemalla,</div>
+        <div class="judge-sign">Vaaka</div>
+        <div><strong>VAAKA</strong> · Tuomari</div>
+        <div style="font-size: 7.5pt; color: #666;">Toinen Tuomioistuin, Siviilijaosto</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

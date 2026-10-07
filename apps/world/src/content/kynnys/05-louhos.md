@@ -11,41 +11,43 @@ disrupting_factions: haaskalinnut
 
 ### Yleiskuvaus
 
-Louhos on paikka, jonne tullaan pakoon, kun halutaan kadota. Se on Kynnyksen unohdettu ääripää, joka on saanut kärsiä paljon; sitä pidetään nykyään turhana, ja se on viimeinen asema, jonne keskusasemilta lähetetään yhtään mitään resursseja, vaikka se on joskus ollut yksi niistä. Ulkoa katsottuna se ei muistuttaa helminauhaa tai kierteistä koteloa, joka kiertyy itseensä simpukkamaisesti kerros toisensa jälkeen. Sen kiiltävään pintaan pureutuvat jättimäiset, ruosteiset metallihakaset, jotka näyttävät olleen siinä aina, ja ne toimivat ainoina sisäänkäynteinä aseman sisuksiin. Lähestyttäessä aseman muoto hajoaa fraktaalimaiseksi, kymmeniksi sisäkkäisiksi ja toisiaan toistaviksi spiraaleiksi, joita peittävät epäsäännöllisemmät muodot.
+Louhos vetää puoleensa niitä, jotka haluavat kadota olemattomiin. Se on Kynnyksen unohdettu reuna-alue — hylätty kaivoskeskus, jonne keskusasemilta ei enää toimiteta virallista tukea. Ulkoa katsottuna se muistuttaa kierteistä simpukankuorta, joka kietoutuu itseensä kerros toisensa jälkeen. Kiiltävään suomumaiseen pintaan pureutuvat jättimäiset, ruosteiset metallihakaset, jotka toimivat ainoina ilmalukkoina ja sisäänkäynteinä aseman uumeniin. Lähestyttäessä aseman hahmo murtuu fraktaalimaiseksi, kymmeniksi sisäkkäisiksi spiraaleiksi ja hylätyiksi laitureiksi.
 
-Kaiken sisällä leijuu aavemainen, alati muuttuva valo, joka huokuu jostain aseman rakenteen syvimmistä kerroksista. Ilmassa on kaikkialla kuiva, sieraimia kirvelevä suolan tuoksu, ja ympäristö rapisee hiljaa itsekseen.
+Sisällä leijuu aavemainen, hitaasti pulssina muuttuva valo, joka huokuu jostain syvältä aseman kivirungosta. Ilmassa tuntuu kuiva, sieraimia kirvelevä suolan ja hapettuneen kuparin tuoksu, ja hauras kallioperä rapisee hiljaa asukkaiden jalkojen alla.
 
 #### Helmiäisen ja kuparin spiraalit
-Louhos on aikaa sitten kaivettu tyhjäksi. Arkkitehtuurin joukot veivät täältä aikoinaan sen mitä tarvitsivat, ja jäljellä on enää pelkät ruotoiset luut. Käytävät eivät näytä perinteisiltä kaivostunneleilta; niiden seinämät ovat häiritsevän sileitä ja hennon tuntuisia. Ne irtoavat ohuina, kalansuomumaisina liuskeina. Tämä materiaali on muinaista helmiäissuomua, voimakkainta tunnettua suoja- ja rakennusmateriaalia, josta Tyrannin eliittijoukkojen haarniskat on aikoinaan muokattu. Kuilut ja rakenteet kulkevat oudoissa suunnissa, sillä nestemäisessä avaruudessa "ylös" ja "alas" ovat suhteellisia käsitteitä. Asutut kuilut on yhdistetty toisiinsa hissein, portaikoin ja laskeutumisköysin.
 
-Ympäristö on armoton ja muokkaa asukkaitaan. Aseman oudot kaasut saavat kaiken metallin hapettumaan ja peittymään kupariseen patinaan, ja pitkään asemalla eläneiden asukkaiden veri värjäytyy hitaasti sinivihertäväksi. Louhoksessa on vain yksi ehdoton, urbaanina legendana kiertävä sääntö: punainen on kielletty väri. Punaisen värin käyttäminen, punaisten valojen sytyttäminen tai ulkopuolisten veren vuodattaminen tuo huonoa onnea ja vetää syvyyksistä puoleensa "pahoja asioita", joita kukaan ei halua kohdata.
+Louhos kaivettiin tyhjäksi jo sukupolvia sitten. Arkkitehtuurin armeijat veivät täältä aikoinaan kaiken arvokkaan, ja jäljelle jäi vain ontoksi koverrettu luuranko. Käytävät eivät kuitenkaan näytä tavallisilta kaivostunneleilta: seinämät ovat häiritsevän liukkaita ja ohuita, ja ne irtoavat kalansuomumaisina liuskeina. Materiaali on muinaista helmiäissuomua — sitkeää suoja- ja rakennusainetta, josta Tyrannin eliittikaartin haarniskat aikanaan taottiin. 
+
+Kuilut risteilevät käsittämättömissä kulmissa, sillä nestemäisessä avaruudessa painovoima määräytyy kulloinkin vahvimman massakeskittymän mukaan. Asutut kuilut on sidottu toisiinsa köysin, tikkain ja riippuhissein.
+
+Ympäristö muovaa asukkaitaan armotta: aseman oudot kaasut saavat kaiken metallin peittymään paksuun vihreään kuparipatinaan, ja vuosia louhoksessa eläneiden veri värjäytyy vähitellen sinivihreäksi. Asemalla vallitsee yksi ehdoton tabu: punainen on kirottu väri. Punaiset vaatteet, punaiset valot tai veren vuodattaminen vetävät paikallisten mukaan syvyyksistä puoleensa hylättyjä kaivosorganismeja ja sokeita koneita, joiden häiritsemistä vältetään hinnalla millä hyvänsä.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Neutraali
-- **Häiritsevä faktio:** Haaskalinnut
-- **Jännite:** Murtunut
+Louhoksella ei ole keskusvaltaa, virallisia lakeja tai rekisteröityjä virkamiehiä. Se on murtunut, viranomaisten kartoilta pudonnut turvapaikka tavallisille köyhille, lainsuojattomille ja velkojaan pakeneville. Elanto hankitaan vaihtamalla syvyyksien löytöjä muiden asemien ruokaan ja varaosiin.
 
-#### Lain ja jär­jes­tyk­sen ul­ko­puo­lel­la
-Louhoksella ei ole minkäänlaista virallista keskusvaltaa, lakeja tai järjestystä. Se on murtunut, ulkopuolella oleva pakopaikka tavallisille ihmisille, lainsuojattomille ja niille, jotka etsivät unohdusta. Asemalla on pienimuotoista omaa ravinnontuotantoa ja energiankeruuta, ja elanto hankitaan pitkälti vaihtamalla syvyyksien löytöjä muiden asemien tuottamiin materiaaleihin.
+#### Lain ja järjestyksen ulkopuolella
 
-Ekklesian maineenmurskaajat, Haaskalinnut, pitävät Louhoksella pesäänsä, mutta he eivät pyri hallitsemaan asemaa. He haluavat nimenomaan pysyä erillään aseman arjesta – varmasti aivan hyvästä syystä. Heidän tukikohtansa on "Pesä", paksujen ketjujen varassa kuilujen tyhjyyteen ripustettu rakennelma, joka ei kosketa aseman seinämiä. Täältä käsin he tutkivat juuri sinun salaisuuksiasi.
+Ekklesian pahamaineiset tutkijat, Haaskalinnut, pitävät Louhoksella salaista pesäänsä, mutta he eivät pyri hallitsemaan asemaa. He haluavat pysyä erillään arjesta omissa oloissaan. Heidän tukikohtansa on "Pesä" — paksujen teräsketjujen varassa kuilun pohjattomaan tyhjyyteen ripustettu eristetty moduuli, joka ei kosketa aseman seinämiä. Siellä Haaskalinnut perkaavat keräämiään salaisuuksia ja arkistojen hylkyjä.
 
 ### Palvelut
 
-- Piilopaikat ja anonymiteetti
-- Arkeologiset aarteet ja muinainen data
+- **Piilopaikat ja anonymiteetti:** Huoneita ilman rekisteröintiä, kadonneet henkilöllisyydet ja suojatut luolat.
+- **Arkeologinen data ja muinaislöydöt:** Helmiäissuomut, vanhat muistipiirit ja arkistoidut ennakkotapaukset.
 
-#### Unohdetun aseman kaupiaat 
-Vaikka Louhoksen parhaat päivät ovat takanapäin, kaivostoimintaa jatketaan yhä pienimuotoisesti. Helmiäissuomujen ja muinaisten aarteiden louhiminen on pakko hoitaa varovaisesti. Liika hosuminen saa seinien liuskeet liukumaan paikaltaan ja aiheuttaa tuhoisia sortumia. Syvyyksissä etsijöitä vaanivat myös muinaiset, vääristyneet ja demonimaisiksi muuttuneet autonomiset kaivoskoneet.
+#### Unohdetun aseman kauppiaat
 
-Riskit kannattavat. Syvyyksistä löytyy yhä asioita, joilla on korvaamatonta arvoa muualla Kynnyksellä – erityisesti muinaista dataa datakiteiden, diskettien, kansioiden ja jopa täysin mahdottomiin formaatteihin tallennetun tiedon muodossa. Louhoksen reunoilla sijaitsevilla kauppa-alueilla voi todistaa Kynnyksen erikoisimpia kohtaamisia. Laki-aseman arkeologi-asianajajat kohtaavat täällä suolan ja kuparin marinoimat, siniveriset paikalliset oppaat ostaakseen muinaisia ennakkotapauksia. Molemmat osapuolet ovat alansa parhaita neuvottelijoita, mutta tulevat niin täydellisen eri maailmoista, että heidän kaupankäyntinsä on sivustakatsojalle äärimmäisen humoristista seurattavaa.
+Vaikka Louhoksen loistoaika on kaukana takana, kaivamista jatketaan yhä. Helmiäisen ja muinaisten artefaktien irrottaminen vaatii äärimmäistä varovaisuutta: liian kova isku saa liuskeet liukumaan paikoiltaan ja laukaisee valtavia ketjusortumia. Syvyyksissä etsijöitä uhkaavat myös muinaiset, villiintyneet kaivosrobotit.
+
+Riskit kuitenkin kannattavat, sillä syvyyksistä nousee dataa, jolla on mittaamaton arvo muualla Kynnyksellä: datakiteitä, magneettinauhoja ja vanhoja asiakirjasalkkuja. Laituritorilla voi todistaa kummallisia kauppaneuvotteluja, kun Laki-aseman huolitellut juristit ja Louhoksen kuparin vihertämät, suolaantuneet oppaat hierovat kauppaa muinaisista ennakkotapauksista.
 
 ### Yhteydet
 
-Louhokselta pääsee suoraan asemille: **Seula**, **Laki**.
+Louhokselta pääsee suoraan asemille: **Seula** ja **Laki**.
 
-#### Iro­ni­set na­pa­nuo­rat
-Logistisesti Louhos on ironinen ääripää. Vaikka se on Kynnyksen unohdetuin ja hylätyin piilopaikka, sen molemmat suorat yhteydet vievät Kynnyksen merkittävimpiin keskuksiin. Yhteys Kynnyksen suurimpaan kauppasatamaan, Seulaan (1), tekee siitä helposti saavutettavan kenelle tahansa, joka onnistuu livahtamaan kauppavirtojen mukana piiloon.
+#### Ristiriitaiset yhteydet
 
-Toinen yhteys vie steriiliin Laki-asemalle (12). Laki-asema ja Louhos elävät absurdissa symbioosissa. Laki on riippuvainen Louhoksen uumenista kaivetusta muinaisesta tiedosta pitääkseen oman juridisen koneistonsa ja Verhonkutojien tuottaman oikeussalidraaman pyörimässä.
+Logistisesti Louhos elää oudossa ristiriidassa: vaikka se on Kynnyksen unohdetuin kolkka, sen molemmat suorat yhteydet vievät järjestelmän mahtavimpiin keskuksiin. Yhteys Seulaan (1) tekee asemasta helposti saavutettavan kenelle tahansa, joka onnistuu livahtamaan rahtiliikenteen mukana syrjään.
+
+Toinen yhteys johtaa steriilille Laki-asemalle (12). Asemat elävät omituisessa symbioosissa: Laki tarvitsee Louhoksen uumenista kaivettua muinaista dataa ja lakikokoelmia pitääkseen oman oikeussalikoneistonsa ja Verhonkutojien tuottamat oikeusdraamat käynnissä.

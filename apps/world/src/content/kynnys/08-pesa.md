@@ -10,9 +10,9 @@ disrupting_factions: erottajat
 
 ### Yleiskuvaus
 
-Pesä on paikka, johon palataan. Tuhkan puolueen hallitsema asema on Kynnyksen vanhin asuimisto — sokkeloiset käytävät, sukupolvien kerrostumat seinissä, naapurit jotka tuntevat toisensa. Se on täynnä pieniä kahviloita, majataloja ja ihmisiä, joille Kynnys on kotipaikka eikä väliasema.
+Pesä on Kynnyksen vanhin ja tiivein asuinkeskus — sokkeloinen vanhakaupunki, jonka hämärissä käytävissä sukupolvien kerrostumat näkyvät kuluneina kaakeleina, keltaisina hehkulamppuina ja toisensa tuntevina naapureina. Asemaa täplittävät pienet teetuvat, perhemajatalot ja yhteiskeittiöt. Kynnys ei ole asukkaille väliaikainen leiri vaan pysyvä koti, jota suojellaan ulkomaailman myrskyiltä pitämällä pää alhaalla.
 
-Täällä ei olla vallankumouksellisia — täällä yritetään pitää se, mitä on. Tuhkan puolue on tässä tehtävässä hyvä, mutta Erottajat hankaloittavat tilannetta: heidän mielestään puolue on liian passiivinen, ja he pyrkivät juurruttamaan yhteisöön uusia käytäntöjä ja liittoja.
+Täällä ei kaivata vallankumouksia vaan vakautta: Tuhkan puolue vaalii hiljaisuutta ja tuttua pysähtyneisyyttä. Rauhaa hiertävät kuitenkin Erottajat, joiden mielestä puolueen vanha johto on jähmettänyt aseman elävältä ja joiden salaliitot pyrkivät tuomaan yhteisöön uutta teknologiaa ja radikaalimpia liittoja.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Täällä ei olla vallankumouksellisia — täällä yritetään pitää se, mit
 
 ### Palvelut
 
-- Asuminen ja majoitus
-- Piilottelu ja suoja
+- **Asuminen ja perhemajoitus:** Pitkäaikaiset suojatut asunnot, vanhat majatalot ja yhteisöruokalat.
+- **Suojapaikat ja kätköt:** Tiiviin yhteisön tarjoama hiljainen turvaverkko ja sukujen valvomat piilopaikat.
 
 ### Yhteydet
 
-Pesältä pääsee suoraan asemille: **Seula**, **Katedraali**, **Pöytä**, **Verso**.
+Pesän kapeilta asuinlaitureilta kulkevat suorat yhteydet asemille: **Seula**, **Katedraali**, **Pöytä** ja **Verso**.

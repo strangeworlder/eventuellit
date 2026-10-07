@@ -10,22 +10,20 @@ disrupting_factions: verhonkutojat
 
 ### Yleiskuvaus
 
-Seula on Kynnyksen portti — laajin ja vilkkain asemista. Kauppiaita, siirtolaisia ja kulkureita vyöryy sen kanaviin joka suunnasta, ja aseman näennäisesti neutraali status tekee siitä ainoan paikan, jossa verivihollisetkin voivat istua saman pöydän ääressä. Jännitettä on vähän, koska kauppa menee ennen kaikkea muuta.
+Seula ottaa tulijan vastaan kosteana huminana, laiturihitsauksen kärynä ja kymmenien kantoaaltojen puurona. Asema rakennettiin aikoinaan Kynnyksen suojelluksi portiksi — ensimmäiseksi tarkastuspisteeksi sisämaailmoista saapuville aluksille. Tuo raja on sittemmin murtunut: vartioidusta tullista on tullut valtava, avoin vapaasatama, jonka sokkeloisiin kanaviin vyöryy kauppiaita, pakolaisia, opportunisteja ja keikkapilotteja kaikkialta järjestelmästä.
 
-Seulaa kutsuttiin muinoin Kynnyksen portiksi — se oli ensimmäinen kosketuspiste kaikelle mikä saapui sisämaailmoista. Tuo rooli ei ole kadonnut, mutta se on muuttunut: ennen se oli vartioitu raja, nyt se on avoin tori.
+Asemalla vallitsee hauras, ostettu rauha. Seulalla verivihollisetkin mahtuvat samoihin laituribaareihin ja neuvottelutiloihin, sillä kaupankäynnin katkeamattomuus menee poliittisen kaunan edelle. Kuka tahansa on tervetullut, kunhan telakkamaksut on hoidettu ja aseet pidetään koteloissaan.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Neutraali
-- **Häiritsevä faktio:** Verhonkutojat
-- **Jännite:** Matala
+Virallista valtaapitävää ryhmittymää ei ole; asema julistautuu neutraaliksi kauppavyöhykkeeksi, jota valvoo vain laiturikohtainen satamapoliisi. Taustalla häärivät kuitenkin Verhonkutojat, jotka käyttävät sataman avoimuutta omiin informaatio-operaatioihinsa ja tekevät Seulasta Kynnyksen suurimman huhujen ja mielikuvien markkinapaikan.
 
 ### Palvelut
 
-- Kauppa ja tavaranvaihto
-- Kuljetusyhteydet kaikkialle Kynnykseen
-- Kloonauspalvelut
+- **Kauppa ja laiturit:** Kaiken laillisen ja harmaan tavaran vaihto, rahtiterminaalit ja korjaustelakointi.
+- **Logistiikka:** Säännölliset siirtoalukset ja yhteysreitit kaikkialle Kynnykseen.
+- **Kloonauspalvelut:** Aseman laitamilla toimivat viralliset ja epäviralliset identiteetti- ja kloonausklinikat.
 
 ### Yhteydet
 
-Seulalta pääsee suoraan asemille: **Syke**, **Verso**, **Pesä**, **Kuiskaus**, **Alasin**, **Louhos**, **Häkki**.
+Seula on Kynnyksen vilkkain solmukohta. Sen laitureilta lähtee suoria linjoja seitsemälle asemalle: **Syke**, **Verso**, **Pesä**, **Kuiskaus**, **Alasin**, **Louhos** ja **Häkki**.

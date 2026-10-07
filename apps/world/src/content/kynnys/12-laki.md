@@ -10,45 +10,44 @@ disrupting_factions: pyhan-tragedian-lapset
 
 ### Yleiskuvaus
 
-Laki on Kynnyksen mittapuulla poikkeuksellisen kontrolloitu ja vakaa elinympäristö, jonka arkkitehtuuri on rakennettu heijastamaan järjestystä. Aseman ydin on puistomainen: hoidettuja lehmuskujia, laajoja nurmialueita ja kaksi- tai kolmikerroksisia tiilirakennuksia, jotka sulautuvat harmonisesti ympäristöönsä. Lämpötila on automatisoitu ihanteelliseen 22 asteeseen, ja ilmanvaihto simuloi kevyttä tuulenvirettä. Mitä kauemmas aseman ytimestä siirrytään kohti ulkokuorta ja satamia, sitä tiiviimmäksi rakennuskanta muuttuu. Leveät puistokadut kapenevat ja tiilirakennukset korvautuvat ahtaammilla minikerrostaloilla ja logistiikkatiloilla.
+Laki on Kynnyksen mittapuulla poikkeuksellisen säännelty ja vakaa elinympäristö, jonka arkkitehtuuri on rakennettu heijastamaan täydellistä järjestystä. Aseman ydin on puutarhakaupunki: hoidettuja lehmuskujia, laajoja nurmialueita ja kaksi- tai kolmikerroksisia punatiilirakennuksia, jotka sulautuvat harmonisesti toisiinsa. Lämpötila on automatisoitu tasaiseen 22 asteeseen, ja ilmanvaihto simuloi leppoisaa kesätuulta. Mitä kauemmas ytimestä siirrytään kohti ulkokuorta ja laitureita, sitä tiiviimmäksi rakennuskanta käy: puistokadut kapenevat ja tiilitalot korvautuvat ahtailla minikerrostaloilla ja logistiikkavarastoilla.
 
-Asema on täysin itsenäinen ja omavarainen yhteisö. Kynnyksen ylimpänä oikeusasteena toimimisen lisäksi se on kymmenien tuhansien ihmisten koti. Tuomareiden ja asianajajien rinnalla arkea pyörittävät palvelusväki, kauppiaat, huoltotyöntekijät ja siivoojat. Asukkaille tiukka sääntely ja jatkuva valvonta eivät ole uhka, vaan tae turvallisuudesta. Ennakoitavuus ja järjestys pitävät kadut siisteinä ja arjen häiriöttömänä. Ihmiset elävät Laissa, koska asiat toimivat: sääntöjen puitteissa eläminen ei ole kärsimystä, vaan opittu ja sisäistetty rutiini. Asukkaat tietävät, että jokaisella teolla on mitattava seurauksensa, ja he rakentavat arkensa luottavaisesti tämän järjestelmän ympärille.
+Asema on omavarainen yhteisö ja Kynnyksen ylin oikeusaste, mutta myös kymmenien tuhansien ihmisten koti. Tuomareiden ja asianajajien rinnalla arkea pyörittävät palvelusväki, kauppiaat, huoltotyöntekijät ja siivoojat. Asukkaille tiukka valvonta ei ole uhka, vaan tae turvallisuudesta: ennakoitavuus pitää kadut siisteinä ja arjen häiriöttömänä. Sääntöjen noudattaminen on opittu rutiini — asukkaat tietävät, että jokaisella teolla on mitattava seurauksensa, ja he rakentavat elämänsä tämän laskennallisen vakauden ympärille.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Logiikan Inkvisitio
-- **Häiritsevä faktio:** Verhonkutojat, Heimolaiset
-- **Jännite:** Korkea
+Logiikan Inkvisitio hallitsee aseman virallista koneistoa ja oikeuskäsitystä. Heidän oppinsa mukaan yhteiskunnallinen harmonia saavutetaan ymmärtämällä tekojen perimmäiset syyt ja karsimalla epälooginen käytös. Katutasolla tämä näkyy automatisoituna infrana: sensoriverkosto valvoo ympäristöä herkeämättä, ja pienistä arjen rikkeistä — kuten melurajojen ylittämisestä, roskaamisesta tai väärillä alueilla liikkumisesta — seuraa välitön automaattinen tiliveloitus. Nämä sensorisakot ohjaavat käytöstä huomaamattomasti pitäen fyysisen väkivallan tarpeen pienenä. 
 
-#### Automaatio ja motiivien auditointi
-Logiikan Inkvisitio hallitsee aseman virallista koneistoa ja oikeuskäsitystä. Heidän järjestelmänsä nojaa ajatukseen, että yhteiskunnallinen harmonia saavutetaan ymmärtämällä tekojen perimmäiset syyt ja karsimalla epälooginen käytös. Katutasolla tämä on viety pitkälle automatisoituun infraan: sensoriverkosto tarkkailee ympäristöä, ja pienistä arjen rikkeistä – kuten melurajojen ylittämisestä, roskaamisesta tai väärillä alueilla oleskelusta – seuraa automaattinen tiliveloitus. Nämä mikromaksut ohjaavat asukkaiden käytöstä huomaamattomasti ja pitävät fyysisen kurinpidon tarpeen minimissä. Kun tapaus vaatii ihmistuomioistuinta, Inkvisiittorit auditoivat osapuolia tarkoituksenaan purkaa teon looginen ketju ja motiivit. Tuomiot eivät perustu vain itse tekoon, vaan siihen, oliko teon taustalla oleva ajattelumalli ja moraali järjestelmän vakaudelle haitallinen.
+Kun tapaus etenee ihmistuomioistuimeen, Inkvisiittorit auditoivat osapuolia tarkoituksenaan purkaa teon looginen syy-seurausketju. Tuomiot eivät perustu vain itse tekoon, vaan siihen, oliko teon taustalla vaikuttava ajattelumalli ja motiivi järjestelmän vakaudelle haitallinen.
 
-#### Huomiotalous ja merkityksen rakentaminen
-Verhonkutojat ovat aseman kaupallinen ja kulttuurinen ydin. He eivät ole pelkkä häiriötekijä oikeusjärjestelmälle, vaan he tuotteistavat sen. Verhonkutojat toimivat Kynnyksen huippu-asianajajina, PR-toimistoina ja mediantuottajina. Siinä missä Inkvisitio perkaa oikeussaleissa kuivaa moraalifilosofiaa, Verhonkutojat sanoittavat nämä tapaukset ihmisille ymmärrettäviksi, tunteisiin vetoaviksi tarinoiksi. He kääntävät kuivat sopimuskiistat ja raskaat rikostapaukset Kynnyksen seuratetuimmiksi draamoiksi. Tämän ansiosta Verhonkutojat tuovat asemalle valtavasti pääomaa ja tarjoavat asukkaille merkityksellisyyden tunnetta: he tekevät laista viihdettä ja antavat kansalle illuusion osallistumisesta päätöksentekoon.
+#### Huomiotalous ja oikeussalidraama
 
-#### Arjen infra ja käytännön sovittelu
-Heimolaiset asuttavat aseman tiiviimpiä reuna-alueita ja pitävät yllä koko idyllin fyysistä pohjaa: he ovat aseman huoltomiehiä, puutarhureita, siivoojia ja satamatyöläisiä. Koska Logiikan Inkvisition virallinen oikeusprosessi on raskas, periaatteellinen ja usein liian kankea tavallisen työväestön arjen ongelmiin, Heimolaiset tarjoavat tähän käytännönläheisen ratkaisun. Heidän yhteisönsä hoitaa naapuririidat, pienet velat ja arjen vahingonkorvaukset omien, sukukunniaan ja perhesiteisiin nojaavien verkostojensa kautta. Asiat sovitaan kasvotusten takapihoilla ja yhteisissä grillijuhlissa. Tämä rinnakkainen katuoikeus on elintärkeä osa aseman ekosysteemiä, sillä se purkaa painetta viralliselta koneistolta ja pitää työtä tekevän luokan pyörät pyörimässä silloinkin, kun byrokratia yskii.
+Verhonkutojat muodostavat aseman kaupallisen ja kulttuurisen moottorin. He eivät ainoastaan toimi oikeusjärjestelmän sisällä, vaan he tuotteistavat sen. Verhonkutojat toimivat Kynnyksen huippuasianajajina, julkisuusstrategeina ja mediaspektaakkelin ohjaajina. Siinä missä Inkvisitio perkaa oikeussaleissa kuivaa logiikkaa, Verhonkutojat dramatisoivat nämä tapaukset ihmisille suorina lähetyksinä ja tunteisiin vetoavina tarinoina kääntäen raskaat rikosjutut ja sopimuskiistat Kynnyksen katsotuimmiksi sarjoiksi. Verhonkutojat tuovat asemalle valtavasti pääomaa ja tarjoavat yleisölle illuusion osallistumisesta vallankäyttöön.
+
+#### Arjen infra ja katuoikeus
+
+Heimolaiset asuttavat aseman tiiviitä laita-alueita ja pitävät yllä idyllin fyysistä pohjaa: he ovat puutarhureita, putkimiehiä, siivoojia ja satamatyöläisiä. Koska Logiikan Inkvisition virallinen oikeusprosessi on hidas ja kankea tavallisen työväestön arjen pulmiin, Heimolaiset tarjoavat käytännöllisen rinnakkaisjärjestelmän. Heidän yhteisönsä hoitaa naapuririidat, velat ja vahingonkorvaukset omien sukuneuvostojensa ja perhesiteidensä kautta. Asiat sovitaan kasvotusten takapihoilla ja huoltokäytävissä. Tämä rinnakkainen katuoikeus on elintärkeä venttiili, joka purkaa painetta viralliselta koneistolta ja pitää arjen pyörimässä silloinkin, kun byrokratia yskii.
 
 ### Palvelut
 
-- Kynnyksen korkein oikeusistuin ja sopimusten tulkinta
-- Juridinen edustus ja mediakampanjat
-- Yhteisöllinen ja epävirallinen riidanratkaisu
+- **Korkein oikeusistuin:** Sopimusten virallinen tulkinta, tilintarkastukset ja auditointituomiot.
+- **Juridinen edustus ja mediastrategiat:** Verhonkutojien huippuasianajajat ja julkisuuskampanjat.
+- **Sovittelu ja riidanratkaisu:** Epäviralliset sukuoikeudet ja käytännön sovittelupalvelut.
 
-Laki käsittelee ne ison profiilin tapaukset ja riidat, jotka ylittävät paikallisten tuomioistuinten vallan muilla asemilla.
+Laki käsittelee kaikki ne korkean profiilin tapaukset, joiden poliittinen tai taloudellinen painoarvo ylittää muiden asemien paikallisoikeuksien toimivallan.
 
 ### Yhteydet
 
-Lakilta pääsee suoraan asemille: **Alasin**, **Tori**, **Louhos**, **Vaaka**, **Häkki**.
+Lakilta pääsee suoraan asemille: **Alasin**, **Tori**, **Louhos**, **Vaaka** ja **Häkki**.
 
 Laki on juridinen solmukohta, jonka satamiin saapuu jatkuvasti aluksia tuoden mukanaan asiantuntijoita, syytettyjä ja kanteita.
 
-**Alasin**: Raskaan teollisuuden telakka on Lain suurin asiakas yritysoikeuden saralla. Alasimen monimutkaiset rakennusurakat, ammattikiltojen vaateet ja patenttikiistat tuottavat Lakiin jatkuvan virran raskaita ja rahakkaita sopimuskiistoja.
+**Alasin (4):** Raskaan teollisuuden telakka on Lain suurin asiakas yritysoikeuden saralla. Alasimen massiiviset rakennusurakat, kiltojen vaatimukset ja patenttikiistat tuottavat Lakiin jatkuvan virran rahakkaimpia sopimusriitoja.
 
-**Tori**: Vaikka Tori on musta markkinapaikka ja virallisesti Lain vastakohta, asemilla on elintärkeä logistinen suhde. Heimolaiset hyödyntävät Torin verkostoja hankkiakseen varaosia Lain huoltotöihin byrokratian ohi. Vastineeksi oikeuslaitoksen byrokratiasta "pudonnutta" tai takavarikoitua, mutta virallisesti hävittämättä jäänyttä materiaalia päätyy säännöllisesti Torin kauppiaiden käsiin.
+**Tori (20):** Vaikka Tori on musta pörssi ja virallisesti Lain vastakohta, asemilla on elintärkeä logistinen suhde. Heimolaiset hyödyntävät Torin verkostoja hankkiakseen varaosia huoltotöihin byrokratian ohi. Vastineeksi oikeuslaitoksen varastoista pudonnutta takavarikoitua tavaraa päätyy säännöllisesti Torin tiskin alle.
 
-**Louhos**: Raunioituneen kaivosaseman ja Lain välinen yhteys perustuu tietoon. Louhoksen uumenista ja hylätyistä datavarastoista etsitään yhä muinaisia asiakirjoja, omistusoikeuksia ja historiallisia ennakkotapauksia, joita oikeusoppineet ostavat tukeakseen argumenttejaan ihmistuomioistuimissa.
+**Louhos (5):** Raunioituneen kaivosaseman ja Lain välinen yhteys perustuu tietoon. Louhoksen uumenista etsitään muinaisia asiakirjoja, kiinteistöoikeuksia ja historiallisia ennakkotapauksia, joita lakimiehet ostavat kalliilla tukeakseen argumenttejaan ihmistuomioistuimissa.
 
-**Vaaka**: Laki ja Vaaka tarjoavat kaksi rinnakkaista ja toisilleen täysin vastakkaista tapaa riidanratkaisuun. Siinä missä Laki nojaa pykäliin, auditointeihin ja mediaoikeudenkäynteihin, Vaaka tarjoaa nopean, kunniaan perustuvan virallisen kaksintaistelun. Osapuolet yrittävät usein taktisesti siirtää kiistojaan asemalta toiselle riippuen siitä, kumpi järjestelmä suosii heitä sillä hetkellä enemmän.
+**Vaaka (13):** Laki ja Vaaka tarjoavat kaksi toisilleen vastakkaista tapaa riidanratkaisuun. Siinä missä Laki nojaa pykäliin, auditointeihin ja oikeussalidraamaan, Vaaka tarjoaa nopean, kunniaan perustuvan kaksintaistelun. Riitapuolet yrittävät usein taktikoida kiistansa asemalta toiselle sen mukaan, kumpi järjestelmä palvelee heitä paremmin.
 
-**Häkki**: Laki ei toimi pitkäaikaisena vankilana. Kun tuomiot on julistettu, järjestelmän siisteyttä ylläpidetään laivaamalla syylliset viipymättä pois asemalta. Suurin osa vankeusrangaistukseen tuomituista lähetetään suoraan Häkkiin kärsimään rangaistustaan sen selliosastoihin tai areenoille.
+**Häkki (14):** Laki ei toimi pitkäaikaisena vankilana: puutarhakaupungin siisteyttä vaalitaan laivaamalla tuomitut viipymättä pois asemalta. Valtaosa vankeusrangaistukseen tuomituista siirretään suoraan Häkin selleihin tai areenoille.

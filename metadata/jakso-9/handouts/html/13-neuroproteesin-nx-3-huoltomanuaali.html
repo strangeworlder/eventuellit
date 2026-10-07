@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 13 - Neuroproteesin NX-3 Huolto-opas</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #2b2b2b;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #222;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 16mm 18mm;
+    position: relative;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .manual-frame {
+    border: 1.5px solid #005a70;
+    height: 100%;
+    padding: 12mm 14mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .manual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #005a70;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+  .brand-title {
+    font-size: 13pt;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #005a70;
+    text-transform: uppercase;
+  }
+  .brand-sub {
+    font-size: 8pt;
+    color: #555;
+    letter-spacing: 0.5px;
+  }
+  .doc-badge {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-size: 8pt;
+    line-height: 1.3;
+    background: #eef7fa;
+    border: 1px solid #bce1ea;
+    padding: 4px 8px;
+  }
+
+  .section-h {
+    font-size: 9.5pt;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #005a70;
+    border-bottom: 1px solid #ccd;
+    padding-bottom: 3px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+
+  .text-p {
+    font-size: 8.5pt;
+    line-height: 1.45;
+    color: #333;
+    text-align: justify;
+    margin-bottom: 8px;
+  }
+
+  /* DIAGRAM BOX */
+  .diagram-container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+    align-items: center;
+    background: #f8fafb;
+    border: 1px solid #d2dfe4;
+    padding: 10px 14px;
+    margin: 8px 0;
+  }
+  .svg-pinout {
+    width: 190px;
+    height: 190px;
+  }
+
+  /* PIN TABLE */
+  .pin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    font-family: 'Courier New', monospace;
+    margin-top: 6px;
+  }
+  .pin-table th {
+    background: #005a70;
+    color: #ffffff;
+    padding: 4px 6px;
+    text-align: left;
+    font-size: 7.5pt;
+    letter-spacing: 0.5px;
+  }
+  .pin-table td {
+    border: 1px solid #d0dbe0;
+    padding: 3.5px 6px;
+    color: #111;
+  }
+  .pin-table tr:nth-child(even) {
+    background: #f3f8fa;
+  }
+
+  /* WARNING BOX */
+  .warning-box {
+    background: #fff3f3;
+    border: 2px solid #c92a2a;
+    border-left: 6px solid #c92a2a;
+    padding: 10px 14px;
+    margin: 10px 0;
+  }
+  .warning-title {
+    color: #c92a2a;
+    font-weight: 800;
+    font-size: 9.5pt;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .warning-body {
+    font-size: 8.3pt;
+    line-height: 1.45;
+    color: #3b1111;
+    text-align: justify;
+  }
+  .warning-body strong {
+    color: #961616;
+  }
+
+  .step-list {
+    margin: 6px 0;
+    padding-left: 18px;
+    font-size: 8.3pt;
+    line-height: 1.45;
+    color: #2b1111;
+  }
+
+  .footer-row {
+    margin-top: auto;
+    border-top: 1px solid #ccc;
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.5pt;
+    color: #777;
+    font-family: 'Courier New', monospace;
+  }
+</style>
+</head>
+<body>
+
+<!-- SIVU 1: LIITÄNTÄSPESIFIKAATIO JA C7-PINNIJÄRJESTYS -->
+<div class="page page-break">
+  <div class="manual-frame">
+    <div class="manual-header">
+      <div>
+        <div class="brand-title">MED-APEX NEUROTEKNOLOGIA</div>
+        <div class="brand-sub">Tuotekehitys ja Kenttädiagnostiikka · Kliininen Torni 7</div>
+      </div>
+      <div class="doc-badge">
+        DOKUMENTTI: MN-NX3-04<br>
+        REVISIO: 4.2 (STABIILI)<br>
+        JAKELU: TEKNISET TIIMIT
+      </div>
+    </div>
+
+    <div class="section-h">1. LAITTEEN RAKENNE JA PORTTI C7</div>
+    <div class="text-p">
+      Kliinisen sarjan neuroproteesi <strong>NX-3 "Rauhallinen Mieli"</strong> koostuu potilaan kalloluuhun upotetusta keraamisesta aivorunkotyynystä ja korvan taakse asennettavasta litteästä ohjainkotelosta. Kaikki ohjelmointi-, kalibrointi- ja telemetriatoiminnot tapahtuvat yhden ainoan suojatun liitännän, 8-napaisen <strong>Portin C7</strong> kautta.
+    </div>
+
+    <!-- C7 Connector Diagram & Notes -->
+    <div class="diagram-container">
+      <div style="text-align: center;">
+        <svg class="svg-pinout" viewBox="0 0 200 200">
+          <!-- Outer circular housing -->
+          <circle cx="100" cy="100" r="90" fill="#2d3748" stroke="#1a202c" stroke-width="4" />
+          <circle cx="100" cy="100" r="82" fill="#e2e8f0" stroke="#718096" stroke-width="2" />
+          
+          <!-- Keyway / Alignment notch at top -->
+          <path d="M 94 18 L 106 18 L 106 28 L 94 28 Z" fill="#2d3748" />
+          <text x="100" y="38" font-size="7" font-family="sans-serif" font-weight="bold" text-anchor="middle" fill="#718096">KOHDISTUSURA</text>
+
+          <!-- 8 Circular Pins in a Circle -->
+          <!-- Pin 1: (100, 52) -->
+          <circle cx="100" cy="54" r="8" fill="#d69e2e" stroke="#744210" stroke-width="1.5" />
+          <text x="100" y="57" font-size="8" font-weight="bold" text-anchor="middle" fill="#222">1</text>
+
+          <!-- Pin 2: (132, 67) -->
+          <circle cx="132" cy="67" r="8" fill="#4299e1" stroke="#2b6cb0" stroke-width="1.5" />
+          <text x="132" y="70" font-size="8" font-weight="bold" text-anchor="middle" fill="#fff">2</text>
+
+          <!-- Pin 3: (146, 100) -->
+          <circle cx="146" cy="100" r="8" fill="#718096" stroke="#2d3748" stroke-width="1.5" />
+          <text x="146" y="103" font-size="8" font-weight="bold" text-anchor="middle" fill="#fff">3</text>
+
+          <!-- Pin 4: (132, 133) -->
+          <circle cx="132" cy="133" r="8" fill="#e53e3e" stroke="#9b2c2c" stroke-width="1.5" />
+          <text x="132" y="136" font-size="8" font-weight="bold" text-anchor="middle" fill="#fff">4</text>
+
+          <!-- Pin 5: (100, 146) -->
+          <circle cx="100" cy="146" r="8" fill="#9f7aea" stroke="#553c9a" stroke-width="1.5" />
+          <text x="100" y="149" font-size="8" font-weight="bold" text-anchor="middle" fill="#fff">5</text>
+
+          <!-- Pin 6: (68, 133) -->
+          <circle cx="68" cy="133" r="8" fill="#38a169" stroke="#22543d" stroke-width="1.5" />
+          <text x="68" y="136" font-size="8" font-weight="bold" text-anchor="middle" fill="#fff">6</text>
+
+          <!-- Pin 7: (54, 100) -->
+          <circle cx="54" cy="100" r="8" fill="#ed8936" stroke="#9c4221" stroke-width="1.5" />
+          <text x="54" y="103" font-size="8" font-weight="bold" text-anchor="middle" fill="#fff">7</text>
+
+          <!-- Pin 8: (68, 67) -->
+          <circle cx="68" cy="67" r="8" fill="#a0aec0" stroke="#4a5568" stroke-width="1.5" />
+          <text x="68" y="70" font-size="8" font-weight="bold" text-anchor="middle" fill="#222">8</text>
+
+          <!-- Center marker -->
+          <circle cx="100" cy="100" r="3" fill="#a0aec0" />
+        </svg>
+        <div style="font-size: 7.5pt; font-family: 'Courier New', monospace; color: #555; margin-top: 2px;">
+          PORTTI C7 (NAARASLIITIN)
+        </div>
+      </div>
+
+      <div style="font-size: 8pt; line-height: 1.4; color: #444;">
+        <strong style="color: #005a70;">LIITTIMEN TIETOJA:</strong><br>
+        • Malli: Hirose-Apex Sub-Mini 8P<br>
+        • Materiaali: Kullattu berylliumkupari, teflon-eriste<br>
+        • Lukitus: Painettava bajonetti (kierto 15° myötäpäivään)<br>
+        • Suojausluokka: IP68 (steriili nesteupotus)<br><br>
+        <em>Huom: Liitintä ei saa puhdistaa metallisella neulalla oikosulkuvaaran vuoksi!</em>
+      </div>
+    </div>
+
+    <div class="section-h">2. PINNIJÄRJESTYS JA SIGNAALIKUVAUS</div>
+    <table class="pin-table">
+      <thead>
+        <tr>
+          <th style="width: 38px;">PINNI</th>
+          <th style="width: 100px;">TUNNUS</th>
+          <th style="width: 70px;">TASO</th>
+          <th>TOIMINNALLINEN KUVAUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td><strong>+5V_LOG</strong></td>
+          <td>+5,0 V DC</td>
+          <td>Logiikkapiirien teholähde ja diagnostiikkatilan virransyöttö.</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td><strong>BRAIN_SYNC</strong></td>
+          <td>+1,2 V DC</td>
+          <td>Aivorunkokiinnityksen biosähköinen tahdistus- ja synkronisignaali.</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td><strong>GND</strong></td>
+          <td>0,0 V Ref</td>
+          <td>Laitteen yhteinen signaalimaa ja rungon suojamaadoitus.</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td><strong>IMPULSE_CH</strong></td>
+          <td>0 … 24 V DC</td>
+          <td>Kipu- ja hermovastekanava (etähallittu velkaperintäpulssi).</td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td><strong>TEST_BYPASS</strong></td>
+          <td>+3,3 V Hi-Z</td>
+          <td>Tehtaan diagnostiikkasilta ja suojatilan ohjauslinja.</td>
+        </tr>
+        <tr>
+          <td><strong>6</strong></td>
+          <td><strong>DATA_IO</strong></td>
+          <td>UART TTL</td>
+          <td>Kaksisuuntainen sarjaväylä (Med-Apex salausavain vaaditaan).</td>
+        </tr>
+        <tr>
+          <td><strong>7</strong></td>
+          <td><strong>ANT_FEED</strong></td>
+          <td>RF 868 MHz</td>
+          <td>Subkutaanisen etäyhteysantennin syöttöjohdin klinikan linkkiin.</td>
+        </tr>
+        <tr>
+          <td><strong>8</strong></td>
+          <td><strong>RESERVED</strong></td>
+          <td>Avoin</td>
+          <td>Valmistajan sisäinen varaus (älä kytke maahan).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-row">
+      <div>MED-APEX NEUROLOGICAL SYSTEMS · SIVU 1 / 2</div>
+      <div>ASIAKIRJA MN-NX3-04 · LUOKITUS: SALAINEN</div>
+    </div>
+  </div>
+</div>
+
+<!-- SIVU 2: HUOLTO-OHJEET JA TURVALLISUUSVAROITUS -->
+<div class="page">
+  <div class="manual-frame">
+    <div class="manual-header">
+      <div>
+        <div class="brand-title">MED-APEX NEUROTEKNOLOGIA</div>
+        <div class="brand-sub">Turvallisuusohjeistus ja Hätätoimenpiteet · Malli NX-3</div>
+      </div>
+      <div class="doc-badge">
+        LUKU 4: KRIITTINEN<br>
+        VAROITUS 12-B
+      </div>
+    </div>
+
+    <div class="section-h">3. DIAGNOSTIIKKA JA KALIBROINTI</div>
+    <div class="text-p">
+      Tavanomainen kuukausihuolto suoritetaan liittämällä Med-Apex MA-88 -diagnostiikkapääte C7-porttiin potilaan ollessa paikallispuudutettuna. Kalibrointisykli mittaa hermoimpedanssin kanavalta 4 ja säätää impulssitehon dynastian perintäohjeen mukaiseksi (normaaliasteikko 1,2 V – 18,5 V).
+    </div>
+
+    <!-- CRITICAL WARNING BOX -->
+    <div class="warning-box">
+      <div class="warning-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#c92a2a">
+          <path d="M12 2L1 21h22L12 2zm0 3.5L20.3 19H3.7L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+        </svg>
+        ANKARASTI KIELLETTY KENTTÄMENETTELY (VAROITUS 12-B)
+      </div>
+      <div class="warning-body">
+        <strong>LAITTEEN SISÄÄNRAKENNETTU HÄTÄPURKUTILA (SAFE SLEEP MODE):</strong><br>
+        Lääkintäviranomaisten säädösten vuoksi NX-3 sisältää mekaanis-elektronisen hätäohitustoiminnon, jota <em>ei koskaan saa käyttää kenttäolosuhteissa ilman klinikan ylilääkärin kirjallista lupaa</em>.
+        <br><br>
+        Mikäli liitännän <strong>Pinni 3 (GND)</strong> ja <strong>Pinni 5 (TEST_BYPASS)</strong> oikosuljetaan n. <strong>50 ohmin vastuksella</strong> (tai vastaavalla matalaohmisella johdinsillalla) ja samanaikaisesti laitteen alareunassa olevaa upotettua mikrokytkintä painetaan yhtäjaksoisesti <strong>neljä (4) sekuntia</strong>, laite kytkeytyy automaattisesti hätätilaan:
+        
+        <ol class="step-list">
+          <li><strong>Kanavan 4 sensorinen kuormitusimpulssi deaktivoituu:</strong> Neurostimulaattori nollautuu eikä vastaa ulkoisiin ohjauspulsseihin.</li>
+          <li><strong>Antenniyhteys (Pinni 7) katkaistaan:</strong> Sisäinen RF-rele aukeaa ja laite siirtyy passiiviseen lepotilaan.</li>
+          <li><strong>Aivorunkolukon turvalaukaisu:</strong> Laite laskee kontaktijännitteen asteittain lepotilaan ilman heijastevaurioita.</li>
+        </ol>
+        
+        <strong>OIKEUDELLINEN SEURAAMUS:</strong> Tämän ohitustoimenpiteen luvaton suorittaminen purkaa välittömästi valmistajatakuun ja katsotaan <em>lääkinnällisen vakuusoikeuden loukkaukseksi</em> Kynnyksen Kauppaoikeuden 14 § nojalla!
+      </div>
+    </div>
+
+    <div class="section-h">4. STERILOINTI JA KÄYTTÖYMPÄRISTÖ</div>
+    <div class="text-p">
+      • Höyryautoklaavi sallittu vain ennen ensimmäistä asennusta (maks. 121 °C, 15 min).<br>
+      • Käyttölämpötila potilaan kudoksessa: +34,0 °C … +41,5 °C.<br>
+      • Puhdistus asennuksen jälkeen: 70 % isopropanoli ulkopinnoille. Älä päästä liuottimia suoraan C7-portin sisäpuolisille kontakteille ilman silikonitulppaa SP-3.
+    </div>
+
+    <div class="section-h">5. LAADUNVALVONTA JA TEKNINEN VAHVISTUS</div>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 14px;">
+      <div style="font-size: 8pt; color: #555; line-height: 1.4;">
+        MED-APEX NEUROSURGICAL INSTRUMENTS<br>
+        Tarkastettu erä: #NX3-8819-B<br>
+        Kalibrointivarmenne: Hyväksytty
+      </div>
+      <div style="text-align: right; font-size: 8.5pt;">
+        <div>Vastuullinen pääsuunnittelija:</div>
+        <div style="font-family: 'Brush Script MT', cursive; font-size: 15pt; color: #005a70; margin: 2px 0;">Särmä</div>
+        <div><strong>INSINÖÖRI SÄRMÄ</strong></div>
+        <div style="font-size: 7.5pt; color: #666;">Med-Apex Neuroteknologian Kenttäjohtaja</div>
+      </div>
+    </div>
+
+    <div class="footer-row">
+      <div>MED-APEX NEUROLOGICAL SYSTEMS · SIVU 2 / 2</div>
+      <div>ASIAKIRJA MN-NX3-04 · LUOKITUS: SALAINEN</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

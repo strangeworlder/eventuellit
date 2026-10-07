@@ -10,9 +10,9 @@ disrupting_factions: logiikan-inkvisitio
 
 ### Yleiskuvaus
 
-Ikoni tuottaa Kynnyksen tarinoita. Verhonkutojien hallitsema studioasema lähettää sisältöä joka paikkaan — uutiset, draama, historia, viihde. Kaikki on huolellisesti muotoiltu palvelemaan jotain tarkoitusta. Totuus on neuvoteltavissa.
+Ikoni on Kynnyksen tarinatehdas ja julkisuuskoneiston koti. Verhonkutojien hallitsema studioasema hehkuu kuumia kuvausvaloja, äänieristettyjä studioita ja leikkaushuoneita, joista syötetään ympärivuorokautista ohjelmaa asemien kaikille näyttöpinnoille: uutislähetyksiä, sankaritarinoita, oikeussalidraamaa ja viihdettä. Jokainen kuva ja kantoaalto on huolella leikattu ja valaistu palvelemaan kirkon sanomaa. Totuus ei ole Ikonilla muuttumaton vakio, vaan taiten käsikirjoitettu ja ohjattu neuvottelukysymys.
 
-Logiikan Inkvisitio on jatkuvasti eri mieltä siitä, mitä Ikoni lähettää. Fakta ja narratiivi törmäävät säännöllisesti, ja joskus julkisesti.
+Aseman kulisseissa käydään jatkuvaa sanasotaa. Logiikan Inkvisitio seuraa Ikonin lähetyksiä vainoharhaisella tarkkuudella auditoimalla käsikirjoituksia ja syyttämällä Verhonkutojia todellisuuden vääristelystä aina, kun teatraalinen narratiivi sivuuttaa konsortion tilastolliset faktat.
 
 ### Hallinta
 
@@ -22,9 +22,9 @@ Logiikan Inkvisitio on jatkuvasti eri mieltä siitä, mitä Ikoni lähettää. F
 
 ### Palvelut
 
-- Julkisuus ja maineen hallinta
-- Media ja tiedonvälitys
+- **Julkisuuskuvan rakentaminen:** Maineenhallinta, henkilöbrändit, haastattelut ja valokeilakampanjat.
+- **Tuotanto ja lähetysverkot:** Uutistuotanto, lavastetut draamat ja Kynnyksen laajuinen kantoaaltolähetys.
 
 ### Yhteydet
 
-Ikonilta pääsee suoraan asemalle: **Katedraali**.
+Ikonin suojatuilta VIP-laitureilta avautuu suora pääyhteys suoraan Ekklesian sydämeen: **Katedraaliin**.

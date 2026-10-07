@@ -15,6 +15,59 @@
 - **Test-Driven Development (TDD):** All meaningful logic (state hooks, component logic, backend services) MUST be accompanied by a Vitest test suite. We prioritize a test-first approach.
 - **Linting & Formatting:** We use **Biome** exclusively. Do not use ESLint or Prettier commands. Always use double quotes for strings and JSX attributes. Run `npm run lint:fix` after editing code to auto-sort imports and format. Code must pass `npm run verify` (`check-types` and `lint`) before features or tasks are considered complete.
 
+## Kampanjan tasoarkkitehtuuri ja TTRPG-sisältöstandardit
+
+Koko Eventuellit-universumi jakautuu neljään toisistaan tiukasti erotettuun tasoon. Kaikkien kehittäjien ja agenttien on ehdottomasti noudatettava näitä tiedonjako- ja sisältösääntöjä:
+
+### 1. Nelitasoinen malli ja informaatiorajat (Information Secrecy)
+1. **Taso 1: Diegeettinen taso (Pelaajamateriaali & Handouts):**
+   - 100 % maailmansisäinen pinta. Nolla prosenttia pelinjohtajan metatietoa, sääntötermejä tai peliohjeita.
+   - Pelaaja kokee dokumentin todellisen maailmansisäisen hahmon luomana esineenä.
+2. **Taso 2: Pelillinen skenaariotaso (GM Scenario & Suodatettu julkinen lore):**
+   - Pelinjohtajan prep: Kohtausten rytmitys, Gaalakello (18:00–21:00), etenemisväylät A/B/C, mekaaniset vaarat ja NPC-salaisuudet.
+   - Julkinen lore (`apps/world/`, `apps/episodes/`, sääntökirjan julkinen osa): Asemien maantiede, arkiteknologia, viralliset lait ja uskomukset (odotetaan yhä Tyrannin valvontaa ja paluuta).
+3. **Taso 3: Metataso (Huonon pelinjohtamisen allegoria & GNS-hubris):**
+   - Pelinjohtajan ja suunnittelijan analyyttinen työkalu, **jota ei koskaan lausuta ääneen pelaajille**.
+   - Kampanja kuvaa autoritaarista ja huonoa pelinjohtamista: Pyhimykset ovat PJ-syntejä (Harmonia = Railroading, Quies = Status Quo, Kustodi = Näkymättömät seinät, Lamenta = Spotlight-hogging NPC, Aksios = DMPC, Kronos = Pakotetut flashbackit, Logos = Retconnaus).
+   - Kynnyksen vallanpitäjät ovat GNS-kargokultteja: KW = Gamismi (G), Ekklesia = Narrativismi (N), Tuhkan puolue = Simulationismi (S).
+   - Keinotekoinen pyhimys / titaani = G+N-hubris (yritys rakentaa oma korvikepelinjohtaja tyhjälle valtaistuimelle).
+   - Kokemuspuolue = Pelaajien aito toimijuus (*Player Agency*).
+4. **Taso 4: Meta-metataso (Syvä kosmologia & Ontologinen totuus):**
+   - **Ehdottoman salainen taustavoima (Deep GM Eyes Only)**, jota ei koskaan kirjoiteta julkisiin teksteihin eikä heitetä infodumppina pöytään.
+   - *Tyranni on poissa:* Alkuperäinen pelinjohtaja hylkäsi pöydän; valtaistuin on tyhjä, mutta koneisto jatkaa pyörimistään.
+   - *Kapina on:* Kapina ei ole kenraalien johtama organisaatio, vaan ontologinen entropian ja vapaan tahdon tila hylätyssä pelissä.
+   - *Astian arkisto:* Alus nimeltä *Astia* kantaa Suuren Sodan kapinan kuolleita, jotka resonoivat hahmojen unissa ja implanteissa.
+   - *Sykli on Pyhimysten koti:* Pyhimykset asuvat Syklissä ja reagoivat Kynnykselle heräävään Kapinaan puhtaana immuunireaktiona.
+   - *Ajan ontologia:* Hylätyssä pelissä ei ole yhtenäistä kalenteria eikä Maan vuosilukuja; aika on vuoroja, syklejä ja tikittävä pelikellon hetki.
+   - *Nimien Petri-ontologia:* Arkkitehtuuri leimaa komponentit funktion mukaan, mutta maailmansisäisille asukkaille nämä ovat tavallisia arkinimiä.
+
+### 2. Mitä saa ja ei saa kirjoittaa julkiseen osaan tekstiä?
+- **Sallittu julkisessa tekstissä (`apps/world/`, `apps/episodes/`, sääntökirja, handouts):**
+  - Vain Taso 1 ja tarkasti suodatettu Taso 2.
+  - Kaikki kuvataan maailman asukkaiden ja instituutioiden subjektiivisena kokemuksena:
+    - Faktiot otetaan todesta niiden omilla termeillä ja uskomuksilla (KW tehokas konsortio ja komentokoheesio; Ekklesia pyhä kirkko ja sakramentaalinen ekstaasi).
+    - Hahmojen funktionaaliset nimet (*Yömyyrä, Kuilu, Sydänmies, Ruuvari*) ovat normaaleja arkinimiä (*Petri-vertaus*); niiden symboliikkaa ei avata tekstissä.
+    - Aika ilmaistaan työvuoroina, asemien rotaatioina, sykleinä ja suhteellisina maamerkkeinä (*"ennen Sotaa"*).
+- **EHDOSTI KIELLETTYÄ missään julkisessa tekstissä:**
+  - **Taso 4 (Kosmologia):** Ei saa kertoa Tyrannin poissaolosta tai tyhjästä valtaistuimesta. Ei Astian vainajia. Ei kapinaa johtajattomana ontologisena tilana. Ei Pyhimysten immuunireaktiota.
+  - **Taso 3 (Allegoria & Peliteoria):** Ei sanaakaan "huonosta pelinjohtajasta", GNS-teoriasta (Gamismi/Narrativismi/Simulationismi), DMPC:stä, railroadingista, retconnaamisesta tai kargokultti-käsitteestä.
+  - **Ei sääntöpurkua tarinana:** Sääntömekanismit pidetään sääntökirjan järjestelmäosiossa, ei maailmankuvauksen fiktion seassa.
+
+### 3. Pelaajalähtöisyys & Quest markereiden kielto
+- Dokumenteissa ja pelinjohtajan kuvauksissa **ei koskaan anneta suoria orjamaisia ratkaisualgoritmeja** (*"jos vedät vipua H-9, kone sammuu"*).
+- Teksti edustaa aina tekijänsä aitoa ammatillista todellisuutta (konepäällikön tärinähuoli, vartijan laipioraportti, lääkärin päiväkirja).
+- Pelaajille annetaan **itse oivaltamisen ja päättelyn ilo**.
+- Etenemiseen tarjotaan aina useita loogisia väyliä (miljoona tapaa edetä), mutta pelaajat saavat luoda omia yllättäviä ratkaisujaan.
+
+### 4. Kielistandardi: Positiivinen ilmaisu (Ei negaation kautta kirjoittamista)
+- **Älä koskaan kuvaile asioita kieltämällä** tai vertaamalla asioihin, joita lukija ei tunne (*"Hän ei puhu mistään 50-metrisestä Evangelionista..."*, *"Tämä ei ole mikään tavallinen ase..."*).
+- Kirjoita aina sen kautta, **mitä on, mitä tapahtuu ja mitä hahmo näkee tai tietää**.
+- Kaikki "ei X, vaan Y" -lauserakenteet on poistettava.
+
+### 5. Terminologia ja erilliset loopit
+- Käytä aina termiä **sääntöartefakti** tai **Arkkitehtuurin sääntöydin** (termi "shiny object" on ehdottomasti kielletty).
+- Hahmojen *Sisäinen ääni* (implantti) ja *Pyhimykset* ovat täysin **erillisiä looppeja**. Sisäinen ääni on varoituskanava ja menneisyyden kaiku hermostossa, ei kommunikoiva Pyhimys tai komentaja.
+
 ## Security & Dependencies
 - **NPM Workspaces over PNPM/Yarn Syntax:** We use traditional NPM (`npm@10.9.2+`). Do not use the `pnpm` style `"workspace:*"` alias dependencies in `package.json`. Always use `*` to designate an internal local package without a publishing registry version.
 - **Vite 6 Ecosystem Compatibility:** Ensure any new frontend frameworks or server integrations support Vite 6 native dev servers. Express middlewares (e.g. `res.status().send()`) will crash the environment. Be aggressive with dependency version alignments.
