@@ -68,6 +68,11 @@ Koko Eventuellit-universumi jakautuu neljään toisistaan tiukasti erotettuun ta
 - Käytä aina termiä **sääntöartefakti** tai **Arkkitehtuurin sääntöydin** (termi "shiny object" on ehdottomasti kielletty).
 - Hahmojen *Sisäinen ääni* (implantti) ja *Pyhimykset* ovat täysin **erillisiä looppeja**. Sisäinen ääni on varoituskanava ja menneisyyden kaiku hermostossa, ei kommunikoiva Pyhimys tai komentaja.
 
+### 6. Jaksokuvaukset (metadata/Jaksot.md & apps/episodes)
+- Jaksokuvaukset edustavat Tasoa 2 (suodatettu julkinen lore ja pelillinen skenaariokehys).
+- **Premissi on diegeettinen mainospuhe:** Se asettaa tarinan lähtöpisteen, moraalisen dilemman ja panokset suoraan hahmoille, mutta ei koskaan riko neljättä seinää kuvailemalla pelipöytää, heittoja tai sääntömekaniikkoja.
+- **Taitojen nimeämiskonventio:** Taidot (`episode_skills`) ovat itsenäisiä pelimekaanisia käsitteitä. Niiden nimissä ei koskaan käytetä vaihtoehtoisia kauttaviivoja ("X / Y"). Jokaisella taidolla on yksi yksikäsitteinen ja iskevä nimi.
+
 ## Security & Dependencies
 - **NPM Workspaces over PNPM/Yarn Syntax:** We use traditional NPM (`npm@10.9.2+`). Do not use the `pnpm` style `"workspace:*"` alias dependencies in `package.json`. Always use `*` to designate an internal local package without a publishing registry version.
 - **Vite 6 Ecosystem Compatibility:** Ensure any new frontend frameworks or server integrations support Vite 6 native dev servers. Express middlewares (e.g. `res.status().send()`) will crash the environment. Be aggressive with dependency version alignments.

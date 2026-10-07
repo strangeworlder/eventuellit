@@ -203,6 +203,41 @@ const isObscured = Boolean(obscuredProp || contextObscured);
 3. Korvattiin rasterikuvat ja alkeelliset kaaviot tarkoilla SVG-vektoreilla (leikkauskaaviot, mittaviivat) ja korkeakontrastisilla mustavalkoisilla salakuvilla.
 4. Varmistettiin kaksipuolisten tulosteiden toimivuus ja käännettiin kaikki 17 PDF:ää headless Chromella (`tools/generate_pdf.py --all`).
 
+#### 27) Maailmatekstin kieli: AI-maneereiden karsiminen, huomiotaloussatiiri ja tynkäartikkelit
+**Date:** 2026-10-07
+**Issue:** Maailmateksteissä (`apps/world/src/content/`) esiintyi tekoälylle tyypillistä kaavamaisuutta (esittelyrakenteita, partisiipin ylikäyttöä, kliseisiä loppukaneetteja), ja toisaalta syntyi sekaannusta modernin sanaston (huomiotalous, cancelointi) ja fiktion kielen suhteesta.
+**Action:**
+1. *AI-maneereiden ja kaavamaisuuden karsiminen:*
+   - Poistetaan mekaaniset aloitukset (*"X on paikka, jonne/jossa..."*, *"toimii sydämenä"*). Aloitetaan suoraan toiminnalla, tilalla tai aistihavainnoilla.
+   - Poistetaan opettavaiset moraalisaarnat ja loppukaneetit (*"Kaikella on hintansa"*, *"Vain aika näyttää..."*).
+   - Vältetään kuluneita AI-metaforoja (*"valon ja varjon leikki"*, *"herkkä tasapaino"*, *"monimutkainen kudos"*, *"kaksiteräinen miekka"*) ja symmetrisiä kolmikoita (*"toivo, pelko ja epätoivo"*).
+   - Puretaan käännössyntaksi ja partisiippirakenteet aktiivisiksi teonsanoiksi.
+   - Pidetään kertojaääni objektiivisena: ei satunnaista sinuttelua eikä irrallisia arkipuheen heittoja (*"vaikea rasti"*, *"koulukiusaajat"*).
+   - Poistetaan pehmeät tavuviivat (`&shy;`) otsikoista ja leipätekstistä.
+2. *Moderni huomiotaloussanasto on tietoista tyyliä:*
+   - Ekklesian ja KW-konsortion termit (*canceloiminen, huomiotalous, tilit, syötteet, kantoaallot, auditointi*) ovat tarkoituksellista korporaatio- ja mediasatiiria.
+   - Niitä ei saa piilottaa tai kääntää keinotekoisen pseudo-fantasiakielen taakse, vaan kirjoitetaan niiden ympärille luonnollista, sujuvaa suomea.
+3. *Tynkäasemia ei paisuteta:*
+   - Asemat, joista puuttuu laajempi data (~30 riviä), pidetään kompakteina ja iskevinä. Kieliasun hiomisessa ei saa hallusinoida uutta lorea, vaan ainoastaan rikastetaan aistillisuutta ja kielellistä tarkkuutta.
+
+#### 28) Taidot ovat itsenäisiä pelimekaanisia käsitteitä (ei kauttaviivoja "X / Y")
+**Date:** 2026-10-07
+**Issue:** Jaksokuvauksiin ja pelaajamateriaaleihin oli eksynyt vaihtoehtoisia taitonimiä kauttaviivalla erotettuna (kuten *"Välskäri / Kenttäkirurgi"* tai *"Multamunkki / Mullan aistija"*). Tämä rikkoo pelimekaniikan ja tietokannan (`episode_skills`) eheyden, sillä taidon nimi toimii hahmolomakkeilla ja käyttöliittymässä itsenäisenä valintana.
+**Action:** Taidoissa ei käytetä koskaan kauttaviivoja ("X / Y"). Jokaisella taidolla on aina yksi selkeä, itsenäinen ja teemaan ankkuroitu nimi (kuten *Välskäri*, *Multamunkki*, *Rohdosseppä*).
+
+#### 29) Jaksokuvausten tuotantoformaatti, premissin mainospuhe-luonne ja informaatiorajat
+**Date:** 2026-10-07
+**Issue:** Jakson 10 kuvauksen luonnoksessa premissi laajeni metatasolle kuvaamaan pelipöydän heittoja ja paljastamaan tulevia käänteitä, jaksokuvaukseen vuoti Tason 3/4 pelinjohtajasalaisuuksia (Petri-vertaus, sääntöartefakti, epäilysmittarin asteikot), ja dokumenttiin lisättiin epästandardia YAML-frontmatteria.
+**Action:**
+1. Kaikki jaksokuvaukset noudattavat suoraan `metadata/Jaksot.md` -rakennetta otsikkotasoineen (`## **Nimi**`, `### **Premissi**`, `### **Tyylilaji**` jne.). Ei YAML-frontmatteria leipätekstin sekaan.
+2. Premissi on puhtaasti diegeettinen "mainospuhe" (pitch), joka puhuttelee pelaajahahmoja asettaen tilanteen ja panokset ilman pelipöytäviittauksia.
+3. Julkiseen jaksokuvaukseen ei saa koskaan kirjoittaa Tason 3 tai 4 tietoja; pelinjohtajan salaisuudet pidetään visusti `02-pelinjohtajan-metadata.md` -tiedostossa.
+
+#### 30) Kielistandardi: Ehdoton positiivinen ilmaisu ja negaation kautta määrittelyn täyskielto
+**Date:** 2026-10-07
+**Issue:** Tekstiluonnoksiin lipsahti toistuvasti negaation kautta määrittelyä ja vastakkainasettelua (*"Ovelle ei ilmesty rumaa katujengiä..., vaan..."*, *"Hän ei aloita potkimalla ovia sisään, vaan..."*, *"Hän ei etsi syytä ampua, vaan..."*, *"Pelaajahahmoilla ei ole..."*). Tämä rikkoo suoraan `docs/rules.md` §4 ja `claude-skills/content-authoring/SKILL.md` -kielistandardia ("Kaikki 'ei X, vaan Y' -lauserakenteet on poistettava").
+**Action:** Tekstiä ei koskaan rakenneta kieltämisen tai "ei X, vaan Y" -rakenteiden varaan. Kaikki lauseet kirjoitetaan aktiivisen ja positiivisen ilmaisun kautta kuvaamalla suoraan mitä ON, mitä TAPAHTUU ja mitä hahmot NÄKEVÄT, KUULEVAT ja TEKEVÄT (esim. *"Pimeydestä astuu esiin Ratasvartion kokenein jahtiupseeri: Valkohanskainen Verikoira. Hän lähestyy taloa rauhallisin askelin, pyyhkii mustan mullan saappaistaan kynnysmattoon..."*).
+
 ### Build & Tooling
 
 #### 21) Storybook 10 on Vite 6 Requires Node v22+
