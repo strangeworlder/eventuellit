@@ -21,5 +21,3 @@ Yömyyrä on matalakasvuinen, sitkeä ja öljyyn tahriintuneeseen huoltohaaparii
 ### Asema ja vaikutusvalta
 Yömyyrän perusteellinen tuntemus Evoluution laipiorakenteista ja kuivatelakan alapuolisista salatuista kuiluista tekee hänestä korvaamattoman henkilön asemien alamaailmalle. Hän tuntee magneettilukkojen heikkoudet, rutiinipartioiden sokeat pisteet sekä asemien virallisista arkkitehtuurikartoista puuttuvat huoltokanavat.
 
-### Tunnetut toimet ja raportoidut tapahtumat
-Evoluutio-aseman kuivatelakkaan kohdistuneen massiivisen hälytystilanteen aikana ilmoitettiin epäilyttävistä liikkeistä Rasvakuilun syvissä huoltokäytävissä. Huoltotyökalujen ja mekaanisten ohitussarjojen todettiin joutuneen tuntemattomien soluttautujien käyttöön, mikä mahdollisti sulkulinjojen läpäisyn ilman suoraa tulitaistelua. Yömyyrä onnistui välttämään kuulustelut vetäytymällä syvemmälle aseman laipioväliköihin.
