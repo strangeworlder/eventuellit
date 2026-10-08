@@ -20,6 +20,3 @@ Komentaja on poikkeuksellisen massiivinen, lähes kolmemetrinen kyberneettisesti
 
 ### Asema ja vaikutusvalta
 Kenttäkomentajana Kolossi vastaa Evoluution kuivatelakan ehdottomasta koskemattomuudesta ja suojaprotokollista. Hän johtaa satoja Ratasvartion iskuryhmiä ja hallitsee aseman paineovia, bunkkerisiipiä sekä raskaiden mekaanisten lukitusten ohjauskeskuksia. Vaikka operaatio on toteutettu yhteistyössä Ekklesian korkean papiston kanssa, komentajan välit uskonnolliseen mediaorganisaatioon ovat äärimmäisen kireät: hän pitää julkisia seremonioita ja kuvausryhmiä turvallisuusriskinä, joka vaarantaa kuivatelakan painetasapainon ja sulkulinjat.
-
-### Tunnetut toimet ja raportoidut tapahtumat
-Komentajan johtama osasto on viime aikoina eristänyt Evoluution keskeisiä lohkoja täyteen sotilassulkuun, mikä on herättänyt laajaa tyytymättömyyttä aseman siviili- ja tutkijaväestössä. Virallisten tiedotteiden mukaan kyseessä on "rakenteellinen painetestaus ja järjestelmäoptimointi", mutta telakoiden läheisyydestä raportoidut valtavat energiankulutuspiikit ja raskaat liikehälytykset viittaavat käynnissä olevaan suurimittakaavaiseen asekehitysprojektiin.
