@@ -27,6 +27,7 @@
 | 15 | [15-laki-aseman-ennakkotapaus-112.md](15-laki-aseman-ennakkotapaus-112.md) | [15-laki-aseman-ennakkotapaus-112.pdf](pdf/15-laki-aseman-ennakkotapaus-112.pdf) | [15-laki-aseman-ennakkotapaus-112.html](html/15-laki-aseman-ennakkotapaus-112.html) | Tuomari Vaaka | Sahyen salkusta kun kysytään: *"Onko ennakkotapausta geeniporteista tai hissi 04:stä?"* |
 | 16 | [16-laki-aseman-ennakkotapaus-309.md](16-laki-aseman-ennakkotapaus-309.md) | [16-laki-aseman-ennakkotapaus-309.pdf](pdf/16-laki-aseman-ennakkotapaus-309.pdf) | [16-laki-aseman-ennakkotapaus-309.html](html/16-laki-aseman-ennakkotapaus-309.html) | Ylituomari Kallio | Sahyen salkusta kun kysytään: *"Voimmeko haastaa heidät ruumiiden teollisesta kierrätyksestä?"* |
 | 17 | [17-laki-aseman-ennakkotapaus-218.md](17-laki-aseman-ennakkotapaus-218.md) | [17-laki-aseman-ennakkotapaus-218.pdf](pdf/17-laki-aseman-ennakkotapaus-218.pdf) | [17-laki-aseman-ennakkotapaus-218.html](html/17-laki-aseman-ennakkotapaus-218.html) | Tuomari Kaanon | Sahyen salkusta kun kysytään: *"Voiko armeija sammuttaa Ekklesian lähetyksen?"* |
+| 18 | [18-arpijalostajan-kompromaatti-kolossista.md](18-arpijalostajan-kompromaatti-kolossista.md) | [18-arpijalostajan-kompromaatti-kolossista.pdf](pdf/18-arpijalostajan-kompromaatti-kolossista.pdf) | [18-arpijalostajan-kompromaatti-kolossista.html](html/18-arpijalostajan-kompromaatti-kolossista.html) | Matriarkka Arpijalostaja, Med-Apex | Toimitettu Sahyen päätelaitteeseen salatulla datasirulla hissikehällä kaupanpäällisenä sopimuksesta 902/MA. |
 
 > [!NOTE]
 > **Ennakkotapaukset 15, 16 ja 17 (Puolirelevantit ennakkotapaukset):**  
@@ -55,6 +56,7 @@
 | 15 | Ennakkotapaus 112/TA: Yksityisklinikoilla biometriset syväskannerit (Hissi 04) ovat laillisia tartuntatautien torjunnan nojalla. Kieltäytyjän saa käännyttää laillisesti takaisin alas. | Äänestysjakauma 3–2, tuomari Varjon eriävä mielipide, vanhat satamapöytäkirjat. |
 | 16 | Ennakkotapaus 309/VT: Leikkausjäte ja vainajat siirtyvät laillisesti klinikan proteiinikiertoon 1 rotaation kuluessa, ellei 500 kr lunastusmaksua suoriteta. Teollinen kierto on laillista. | Tuhkausmaksun taksat, jätehuollon sanitääriset vaatimukset, varastointiajat. |
 | 17 | Ennakkotapaus 218/EK: Ekklesian seremoniallisia suoria lähetyksiä suojaa uskonnollinen koskemattomuus. Vahvistaa Ekklesian kameroiden laillisen koskemattomuuden telakalla Kolossin vastustuksesta huolimatta. | Radiomajakoiden tehorajat, taajuusallokaatiot, eetterimaksut, poikkeuspykälät. |
+| 18 | Med-Apexin esteettisen kirurgian asiakaskansio MA-TK-09: Kolossin laiton vartalonlaajennus (165 cm satamakirjuri lavastettu hydraulisilla korotuksilla ja keraamisilla hartialevikkeillä), valelaskut Ratasvartion tilille ja 48 500 kr rästivelka klinikan perinnässä. Sisältää puhtaasti Med-Apexin leikkaus- ja laskutustiedot. Yhdessä Laipion raportin (06) kanssa todistaa, mihin varuskunnan laipiorahat katosivat. Esittäminen laukaisee epärationaalisen, pikkumaisen raivon ja sektorisulun. | Kirurgiset toimenpidekaaviot, leikkaussalin potilaskuvat, Med-Apexin valelaskukopiot, perintähuomautukset, arvenpeitevoiteet. |
 
 ---
 
@@ -67,9 +69,9 @@
        ┌──────────────────┬───────────────────┼───────────────────┬──────────────────┐
        ▼                  ▼                   ▼                   ▼                  ▼
    POLKU 1            POLKU 2             POLKU 3             POLKU 4            SIVUREITIT
-   Juridinen          Skandaali &         Taktinen            Proteiini-         Tytär & Velka
-   valtuuskunta       Ekklesia            leikkaus            putkisto           12, 13, 08
-   05 + 14 + 07       04 + 11 + 09 + 17   06 + 03 + 10 + 02   02 + 03 + 10 + 16  
+   Juridinen          Skandaali &         Taktinen            Proteiini-         Tytär & Velka &
+   valtuuskunta       Ekklesia            leikkaus            putkisto           Kolossin kaato
+   05 + 14 + 07       04 + 11 + 09 + 17   06 + 03 + 10 + 02   02 + 03 + 10 + 16  12, 13, 08, 18
 ```
 
 | Polku | Tarvittavat propit | Mikä yhdistelmä avaa polun |
@@ -81,6 +83,7 @@
 | **Erityistehtävä A: Yömyyrän tyttären pelastus** | 02, 13, 07 | Huoltomapin C7-merkintä + Manuaalin Varoitus 12-B (pinnien 3 ja 5 oikosulku 50 Ω vastuksella + 4 s kytkinpainallus). Jamir pystyy vapauttamaan tyttären etäkivusta säästäen aivotoiminnan vakaana. |
 | **Erityistehtävä B: Arpijalostajan kiristäminen** | 12, 09, 04 | Salainen panttikirja osoittaa 180 000 kr velan ja erääntymisen tänä iltana. Arpijalostaja aitiossa C joutuu valitsemaan: joko hän vetää sähköt pois Ratasvartiolta, tai Kudospankki häätää hänet koko asemalta. |
 | **Erityistehtävä C: Titaanin luonteen tunnistus** | 08, 03, 10 | Rekisterin ja telemetrian vertailu paljastaa 0,583–0,667 Hz rytmin ihmisen leposykkeeksi (35–40 bpm). Pelaajat tajuavat kuivatelakassa makaavan elävän 50-metrisen bio-titaanin. |
+| **Erityistehtävä D: Kolossin aseman horjutus & pikkumainen raivokohtaus** | 18, (06), (09) | Arpijalostajan kompromaatti rajoittuu puhtaasti Med-Apexin tietämiin asioihin: Kolossin salattuun esteettiseen pituuskasvatukseen, keraamisiin hartiatäytteisiin, 165 cm todelliseen kokoon sekä siihen, että Kolossi pakotti Med-Apexin laskuttamaan toimenpiteet Ratasvartion huoltorahoista valenimikkeillä. Yhdessä Laipion raportin (06) kanssa tämä paljastaa varuskunnan määrärahojen kavalluksen. Se ei paljasta juonen muita osia: sen esittäminen Kolossille murskaa hänen haarniskoidun miehuutensa ja saa hänet toimimaan epärationaalisen pikkumaisesti (inttää hartialinjoistaan, syyttää kuittia laskuvirheestä, sulkee vihamielisesti ovia ja musiikkia, komentaa koko sektorin lukkoon vain estääkseen häpeänsä leviämisen). |
 
 ---
 

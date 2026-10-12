@@ -10,7 +10,7 @@
 ## 1. Nimeämisen ontologia ja Petri-vertaus
 
 * **Maailmansisäinen arki (Petri-vertaus):** Sotilaille ja teknokraateille *Uppoamaton Kolossi* on vain kookkaan komentajan täysin normaali nimi ja sotilasarvo. Kukaan asemalla ei naura nimelle tai koe sitä osoittelevana – heille se on arkinen kutsumanimi miehelle, joka valvoo laipioita.
-* **Pelaajien meta-näkymä:** Nimi heijastaa suoraan hahmon perimmäistä arkkityyppiä ja kohtaloa: **Titanicin hubrista**. Kolossi uskoo sokeasti, että hänen laivateräksinen kehonsa ja hänen komentamansa kuivatelakka ovat "uppoamattomia" ja läpäisemättömiä, vaikka todellisuudessa koko rakenne natisee liitoksissaan.
+* **Pelaajien meta-näkymä (Gigantti = Kolossi & Hideo Kojiman ilmiselvyys):** Nimi heijastaa hahmon arkkityyppiä ja kohtaloa suoraan: **Titanicin hubrista**. Nimi *Uppoamaton Kolossi* on suora, häpeilemätön viittaus Titanicin sisarlaivaan (*RMS Gigantic* / Gigantti = Kolossi) ja sitä kautta epäsuorasti itse Titaniciin. Hahmon nimeäminen noudattaa tietoista Hideo Kojima -maista ilmiselvyyttä: hän on kirjaimellisesti käveleväksi sotalaivaksi lavastettu mies, jonka "uppoamattomuus" ja "vesitiiviit laipiot" ovat esteettisen kirurgian valhetta. Kolossi uskoo sokeasti, että hänen laivateräksinen kehonsa ja hänen komentamansa kuivatelakka ovat "uppoamattomia" ja läpäisemättömiä, vaikka todellisuudessa koko rakenne natisee liitoksissaan. Jos hänen valheensa paljastetaan, hän ei reagoi sotilaallisen kylmästi, vaan raivostuu epärationaalisen pikkumaisesti ja lapsellisesti.
 
 ---
 
