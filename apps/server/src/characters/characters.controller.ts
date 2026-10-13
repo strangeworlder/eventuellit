@@ -34,6 +34,11 @@ export class CharactersController {
     return this.charactersService.findAll();
   }
 
+  @Get("anchors/claimed")
+  getClaimedAnchors() {
+    return this.charactersService.getClaimedAnchorIds();
+  }
+
   @Get(":id")
   findOne(@Param("id", ParseIntPipe) id: number) {
     return this.charactersService.findOne(id);

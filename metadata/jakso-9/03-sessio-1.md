@@ -271,3 +271,105 @@ Valitsivatpa hahmot minkä tahansa kolmesta reitistä, he saapuvat H-hetken kynn
   Alemmalta komentotasolta kajahtaa Komentaja Uppoamattoman Kolossin metallinen karjunta kyborgisotilaille.  
   Heidän takanaan ilmalukon ovi pamahtaa lukkoon laivateräksisellä kolahduksella.  
   *Ensimmäinen istunto päättyy tähän.*
+
+---
+
+## 6. Pelatun istunnon raportti (Sessio #01)
+
+**Pelattu:** perjantaina 9. lokakuuta 2026
+
+### **Pelinjohtajan kertaus**
+
+#### **Prologi: Jaettu uni pöytävuorella**
+
+Sessio käynnistyy Kynnykselle ominaisella, toistuvalla unella. Neljän hengen iskuryhmä havahtuu valkoisiin keramiittihaarniskoihin pukeutuneina ja lasereilla aseistautuneina aukealta pöytävuoritasanteelta. Matalan bunkkerinseinämän takana suojassa kykkivä ryhmä todistaa, kuinka heidän omat joukkonsa yrittävät vetäytyä aukean keskellä odottavaan pelastusalukseen vastustajan jatkuvan tulituksen alla.
+
+Reitti vapauteen vaatii kuudenkymmenen metrin etenemistä kivikosta toiseen vihollisen raskaasti aseistettujen sotilaiden, tulilinjaa valvovan tarkka-ampujan ja taivaalta syöksyvän pommitusdroonin ohitse. Tiukan tulikurin, koordinoitujen iskujen ja nopeiden syöksyjen siivittämänä ryhmä eliminoi vihollisia ja raivaa tiensä kohti turva-aluetta. Unen askelmerkit ja rutiinit piirtyvät alitajuntaan juuri ennen kuin näkymä leikkautuu mustaan ja herääminen koittaa.
+
+#### **Herääminen romukontissa ja kaksi Jamiria**
+
+Hahmojen kryostaasi lakkaa, ja he heräävät kylminä ja huonovointisina pimeästä rahtikontista. Ryhmä: Kokemuspuolueen keikarimainen johtaja Holti, elegantti analyytikko Jamir, Laki-aseman tyyni paralegal Sahye sekä Louhoksen syvyyksissä kovettunut siniverinen sotilas Irian, on koottu yhteen hätäisesti. Kukin on saanut tahoillaan epämääräisen hätäkutsun kapinalta: KW-konsortiolla ja Ekklesialla on tekeillä jotain massiivista, ja he olivat ainoat riittävän lähellä reagoimaan.
+
+Kontin hämärässä syntyy välitön hämmennys, kun ronskiin kaivoselämään ja mutkattomaan toimintaan tottunut Irian tuijottaa Jamiria monttu auki. Jamirilla on sama ääni, samat kasvot ja jopa täsmälleen sama tuore arpi kuin Irianin tuntemalla veriveljellä Louhokselta, mutta tämä Jamir pukeutuu aristokraattiseen röyhelöpaitaan ja nahkasaappaisiin eikä ole nähnytkään kaivostunneleita. Irian ei ole uskoa silmiään, kunnes selviää, että kyseessä on Verson vallankumouksessa marinoitunut tilastoanalyytikko ja Kokemuspuolueen taustahahmo.
+
+Varusteita tarkastettaessa Irian löytää kassiensa päältä kontin muokatun rahtikirjan. Sen kääntöpuolelle Irianin tuttu fikseri Kuparisuoni on raapustanut elintärkeitä ohjeita: ryhmä on toimitettu Evoluutio-aseman 6. kiekon alapinnan teolliseen satamaan (Sektori S6). Lapussa varoitetaan aseman hisseistä: hissi 4 on hengenvaarallinen ansa ("skannaa veren ja geenit, tulli syö miehiä"), hissiä 3 vahtii esteettiset standardit, ja hissit 1 ja 2 ovat poissa pelistä. Huoltotöiden työnjohtaja Ruuvari sen sijaan tekee kierroksiaan ja hänet voi tarvittaessa lahjoa kahvilla.
+
+#### **Vaara 8 Aksios ja monivärinen Kuoro**
+
+Kesken varusteiden jaon ja tilanteen hahmottamisen kaikkien näkökenttään iskee tuttu, raastava migreeniaalto ja purppurainen järjestelmävaroitus:
+
+"Vaara  
+8  
+Aksios"
+
+Holti ja Jamir menettävät välittömästi malttinsa: he muistavat liiankin hyvin Verson liekehtivän Norsunluutornin ja Aksioksen, Tyrannin pysäyttämättömän miekan, jonka läsnäolo romuttaa kaikki todennäköisyydet joko nollaan tai sataan prosenttiin. Ennen kuin tilannetta ehditään purkaa enempää, näkökenttään leimahtaa uusi, häiriöinen signaali. Se hakee väriään neljän eri sävyn välillä ja piirtää ruudulle epämääräisen tekstin: "Vaara [suttua] [suttua]".
+
+Kun ryhmä hetkeä myöhemmin raottaa kontin ovea ja varmistaa reitin satama-alueelle, häiriö toistuu implantteihin selkeämpänä: "Vaara [suttua] Kuoro". Nimi ei yhdisty suoraan kehenkään tunnettuun pyhimykseen, ja ryhmä spekuloi huolestuneena, onko kyseessä asemalle kätkettyyn superaseeseen liittyvä vääristymä vai jonkinlainen uusi uhka.
+
+#### **Jäähdytysvaippa ja lukujen romahdus**
+
+Kontin uumenista paljastuu ryhmän henkilökohtaisten varusteiden ja pienten käsiaseiden lisäksi massiivinen, pöydän kokoinen ja 1 650 kiloa painava laite: orgaanisen reaktorin jäähdytysvaippa. Sahye ja ryhmän asiantuntijat tunnistavat sen huipputason leikkausstabiloijaksi, jollaista käytetään sairaaloissa suojaamaan kudoksia vaativien operaatioiden aikana – tämä yksilö on vain mitoitettu jättimäiselle organismille. Rahtikirjan mukaan laite on anastettu MedApex-konsernilta, ja se on toimitettu satamaan romumetalliksi naamioituna.
+
+Ennen varastosta poistumista Irianille ja Holtille kilahtaa aivoimplantteihin ilmoitus: he ovat molemmat voittaneet päävoiton Kynnyksen satunnaisessa kestolotossa. Ilo jää kuitenkin lyhyeksi Jamirin laskiessa matematiikan: Aksioksen absoluuttinen läsnäolo on poistanut sattuman ja nostanut voiton todennäköisyyden 100 prosenttiin, jolloin jättipotti on jakautunut tuhansien osallistujien kesken ja käteen jää vain mitättömät 500 krediittiä mieheen.
+
+#### **Kiekon ulkoreuna ja palava trukki**
+
+Ryhmä vetää niskaansa huoltohaalarit, kätkee aseensa duffelilaukkuihin ja etenee varaston poikki kohti viereistä R6-sektoria. Sieltä he löytävät kontaktinsa, Ratasvartion huoltojoukkoihin soluttautuneen kaksoisagentin nimeltä Yömyyrä. Hermoromahduksen partaalla keikkuva Yömyyrä vahvistaa tiedustelutiedot: aseman korkeimmalla tasolla, Lohkossa 0, valmistellaan massiivisen ja pelottavan valmiin aseen salaista koeammuntaa, joka aiotaan televisioida Kynnykselle suurena spektaakkelina.
+
+Yömyyrä suostuu järjestämään ryhmälle teollisuustrukin jäähdytysvaipan siirtämiseksi, kun ryhmä lahjoo hänet arvokkaalla kahvipapupaketilla ja Sahye lupaa katsoa miehen papereita. Samalla paljastuu Yömyyrän henkilökohtainen tragedia: hänen huollettavalleen, pienelle Pisaralle, on asennettu kalliiksi osoittautunut neuroproteesi. Rästissä olevat jaksomaksut uhkaavat ajaa lapsen suoraan velkaorjuuteen ja klinikan teollisiin biomurskaimiin.
+
+Matka MedApexin tiloihin vaatii kiekon 6 alapinnalta siirtymistä sen yläpinnalle ajamalla suoraan ulkoreunan yli. Kaksipuolisen painovoiman taitekohdassa, jyrisevien vesiputousten vierellä, painovoima keikahtaa päälaelleen. Raskas trukki alkaa sutia tyhjää ja meinaa syöksyä nesteavaruuden kuiluun kuormineen. Yömyyrän panikoidessa Holti ryömii koneistoon ja ohittaa akun turvarajat: akku purkaa kaiken virtansa moottoriin äärimmäisenä piikkinä, jolloin trukki nytkähtää väkisin reunan yli ylätasanteen kamaralle. Ylikuumentunut akku syttyy kuitenkin välittömästi räjähdysherkkään akkupaloon. Ryhmä pudottaa vaipan trukin piikeiltä ja vetää sen turvaan paikallisten työläisten avustuksella ennen kuin koneisto sulaa käyttökelvottomaksi.
+
+#### **MedApex ja neuvottelu Arpijalostajan kanssa**
+
+Kiekon 6 yläpinta tarjoaa häikäisevän kontrastin alapuolen saastaiselle teollisuushelvetille: ilma on desinfioidun kukkasmaista, käytävät hohtavat keraamisina ja elävistä puurakenteista versovat puutarhat ympäröivät klinikoita. Sahye ottaa ryhmän johtoonsa virallisena auditointi- ja lakihenkilönä, ja vuokratrukin avulla ryhmä marssii suoraan MedApexin pääkonttoriin ilmoittaen tulleensa neuvottelemaan kriittisen komponentin palauttamisesta.
+
+Heidät saatetaan ylelliseen sisäpuutarhaan, jossa neuvottelupöytään astelee MedApexin kirurgisesti täydelliseksi hiottu matriarkka, Arpijalostaja. Jamirin ja Sahyen nopea paperisynteesi paljastaa Arpijalostajan ahdingon: matriarkka on pantannut henkilökohtaisen vuokraoikeutensa Lohkoon 0 Kudos-pankille ja on velkaa 205 000 krediittiä. Lainan erääntyessä rotaation 41. vaiheessa pankki katkaisee Lohkon 0 primäärisähkön, kiertonesteet ja elossapitojärjestelmät – mikä lamauttaisi myös KW-konsortion aseen.
+
+Neuvottelu muodostuu Sahyen loistavaksi ammatilliseksi näytökseksi. Kun Arpijalostaja tarjoaa laitteesta 45 000 krediittiä paljastaen samalla hampaiden kiristyksellä tarvitsevansa sitä KW-konsortion ja Ekklesian "Kuoro"-projektin viimeistelyyn (jolloin ryhmän implantteihin vilahtaa teksti "Virhe [suttua] Kuoro"), Sahye iskee vastaan. Hän vetoaa Kynnyksen terveysperuskirjaan, hoitovirhedokumentteihin ja sopimusrikkomuksiin.
+
+Tiukan sanailun päätteeksi kauppa lyödään lukkoon 65 000 krediitillä, mutta Sahye sitoo kauppaan kovat reunaehdot:
+* Yömyyrän lapsen, Pisaran, laittomat klinikkasopimukset ja velat puretaan välittömästi ilman sanktioita.
+* Ryhmälle myönnetään vapaat auditointi- ja kulkuluvat ylös aina Lohkon 0 gaalatilan rajalle saakka ilman nöyryyttäviä esteettisiä auditointeja.
+* Ryhmälle toimitetaan kompromaattiaineisto Ratasvartion karskista kenttäkomentajasta, "Uppoamattomasta Kolossista".
+
+#### **Valmistautuminen gaalaan ja live-sabotaasiin**
+
+Kauppojen varmistuttua ryhmä vetäytyy puutarhan suihkulähteelle hengähtämään. Korvauksesta kuitataan välittömästi tuhoutuneen trukin kulut, ja voitot ohjataan Kokemuspuolueen tilien suojiin. Irian upottaa paljaat varpaansa nurmikkoon ja kokeilee epäluuloisena tarjottuja herkkupaloja, kunnes Holti muistuttaa ivallisen lempeästi aseman orgaanisen biomassan todellisesta kierrätyksestä, jolloin leivonnainen jää puoliväliin.
+
+Ennen siirtymistä kohti hissejä Sahye ja Jamir teroittavat ryhmälle tilanteen poliittiset realiteetit: Ekklesian kautta lähetettävä suora koeammuntalähetys on heidän suurin aseensa. Kynnyksen lakien mukaan Ratasvartio ei saa katkaista virallista julkista lähetystä ilman Laki-aseman ylimmän neuvoston poikkeuslupaa. Mikäli ryhmä kykenee murtamaan aseen ja kääntämään tilanteen päälaelleen gaalasalin parrasvaloissa, koko aurinkokunta tulee todistamaan tyrannian hajoamisen sensuroimattomana.
+
+Salkut suljettuina ja luvat taskussaan nelikko suuntaa kohti hissejä, valmiina nousemaan Evoluution huipulle ja kohtaamaan Arkkitehtuurin uuden kauhun.
+
+---
+
+## 7. Pelaajien kertaukset
+
+### **Nina A**
+
+**Hahmon näkökulmasta muistiinpanoja**  
+Sekä Ratasvartio että KW-konsortio yleisesti rikkovat tai vähintään pyrkivät rikkomaan Kynnyksen yleisiä lakeja yllättävän usein ja röyhkeästi. Jos löytäisi riittävän ison lakirikkomuksen oikeanlaisesta nivelkohdasta, ja sen saisi mediaosaajien avulla näytettyä kaikille, millainen dominoefekti siitä syntyisi? Johtuuko uusi virheviesti siitä, että KW:n (laiton?) superase on jo osittain kytkettynä johonkin verkostoon?
+
+**Mitä jäi mieleen?**  
+Hahmojen temperamentit ja osaamiset täydentää toisiaan täydellisesti. Paperimekaniikka!
+
+**Meta-pohdintaa / muistiinpanoja**  
+KUORO
+
+**Kehu kaveria**  
+Irianin taistelua mielenterveytensä puolesta ja sen rappiota kasautuvien todellisuushäiriöiden alla on ihan huikeaa seurata vierestä. Tuomaksen Jamirin vääryys-muttei-ihan oli ihan loistava osa sitä. Yleisesti huippu safe space -peliporukka <3
+
+### **Eevi K**
+
+**Hahmon näkökulmasta muistiinpanoja**  
+Irian yrittää alussa saada jotain selvyyttä onko unilla ja pyhimyksillä yhteys. Lisäksi niiden huomion pelossa Irian vakuuttaa muun ryhmän puhumaan Axioksesta nimellä ”Kasi”.
+
+**Mitä jäi mieleen?**  
+Jamirin kohtaaminen! Valtava määrä papereita! Holtin ”hurmaavuus”. Ryhmän välitön tehokkuus erilaisuuksiistaan huolimatta.
+
+**Meta-pohdintaa / muistiinpanoja**  
+Mihin toisen tuntemattoman pyhimyksen olemassaolo liittyy? Onko se ase vai jotain pelaajien ominaisuuksiin liittyvää?
+
+**Kehu kaveria**  
+Nina loisti Sahyena neuvotteluissa. Täysin sujuva liito Irianin hiljaisesta pyynnöstä kulkuoikeuksiin ja mahtava lakipykäläkiristys niin että Pisara sai vapautensa (ja me lisää rahaa myös trukkiin!)
+

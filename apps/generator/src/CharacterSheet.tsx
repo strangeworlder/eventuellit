@@ -1,22 +1,28 @@
 import { useAuth } from "@repo/auth/use-auth";
-import { AspectTag } from "@repo/ui/components/AspectTag";
-import { Badge } from "@repo/ui/components/Badge";
-import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
-import { Button } from "@repo/ui/components/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
-import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
-import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
-import { EditableField } from "@repo/ui/components/EditableField";
-import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
-import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
-import { Hero } from "@repo/ui/components/Hero";
-import { Input } from "@repo/ui/components/Input";
-import { Link } from "@repo/ui/components/Link";
-import { LoadingState } from "@repo/ui/components/LoadingState";
-import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { NoticePanel } from "@repo/ui/components/NoticePanel";
-import { PageBody } from "@repo/ui/components/Page";
-import { SkillTagList } from "@repo/ui/components/SkillTagList";
+import {
+  AnchorCard,
+  AspectTag,
+  Badge,
+  Breadcrumb,
+  Button,
+  Card,
+  ConfirmDialog,
+  DicePoolTracker,
+  EditableField,
+  EnduranceBlock,
+  getAnchorById,
+  Heading,
+  HeadingLevelProvider,
+  Hero,
+  Input,
+  Link,
+  LoadingState,
+  MarkdownRenderer,
+  NoticePanel,
+  PageBody,
+  SkillTagList,
+} from "@repo/ui";
+import { CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
@@ -48,6 +54,7 @@ interface Character {
   removedSisuIds: string[];
   harmit: Array<{ text: string; healed: boolean }>;
   skills: { name: string; isCustom?: boolean }[] | string[];
+  anchorCardId?: string | null;
   ownerName: string | null;
   fysiikka: number;
   nopeus: number;
@@ -308,6 +315,20 @@ export function CharacterSheet({
                   selectPlaceholder="Valitse sukupuoli"
                   onSave={(v) => updateCharacter({ sex: v })}
                 />
+
+                {(() => {
+                  const effectiveAnchorId =
+                    character.anchorCardId ??
+                    (character.userId === user?.id ? (user?.anchorCardId as string | null) : null);
+                  if (!effectiveAnchorId) return null;
+                  const anchor = getAnchorById(effectiveAnchorId);
+                  return anchor ? (
+                    <div className="space-y-1.5 pt-1">
+                      <p className="text-sm text-text-muted font-semibold">Pelaajan Ankkuri:</p>
+                      <AnchorCard anchor={anchor} />
+                    </div>
+                  ) : null;
+                })()}
 
                 <SkillsSection
                   skills={character.skills}

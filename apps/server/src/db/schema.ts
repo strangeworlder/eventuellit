@@ -17,6 +17,7 @@ export const users = pgTable("users", {
   username: text("username").notNull(),
   avatarUrl: text("avatar_url"),
   role: text("role").default("player").notNull(), // player or gm
+  anchorCardId: text("anchor_card_id").unique(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -108,6 +109,7 @@ export const characters = pgTable("characters", {
   nakemys: integer("nakemys").default(0).notNull(),
   napparyys: integer("napparyys").default(0).notNull(),
   episodeId: integer("episode_id").references(() => episodes.id),
+  anchorCardId: text("anchor_card_id"),
   monkAdvancementsAllowed: integer("monk_advancements_allowed").default(0).notNull(),
   monkAdvancementsUsed: integer("monk_advancements_used").default(0).notNull(),
   removedFromPlayAt: timestamp("removed_from_play_at"),

@@ -59,6 +59,7 @@ export class AuthController {
           username: user.username,
           role: user.role,
           avatarUrl: user.avatarUrl,
+          anchorCardId: user.anchorCardId,
         },
         token: jwt,
       });
@@ -82,6 +83,7 @@ export class AuthController {
       username: fullUser.username,
       role: fullUser.role,
       avatarUrl: fullUser.avatarUrl,
+      anchorCardId: fullUser.anchorCardId,
     };
   }
 

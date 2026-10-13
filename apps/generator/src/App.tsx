@@ -1,9 +1,12 @@
 import { useAuth } from "@repo/auth/use-auth";
+import { AnchorSelector } from "@repo/ui";
 import { AspectTag } from "@repo/ui/components/AspectTag";
 import { AttributeCard, getScoreBonusFromValue } from "@repo/ui/components/AttributeCard";
+import { Badge } from "@repo/ui/components/Badge";
 import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { Button } from "@repo/ui/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
+import { CardStack } from "@repo/ui/components/CardStack";
 import { DiceIcon } from "@repo/ui/components/DiceIcon";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
@@ -18,8 +21,9 @@ import { SkeletonCard } from "@repo/ui/components/Skeleton";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
+import { getAnchorById } from "@repo/ui/data/anchors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Navigate,
   Route,
@@ -32,6 +36,7 @@ import {
 import {
   type CharacterListItem,
   useCharacters,
+  useClaimedAnchorIds,
   useCreateCharacter,
   useLinkCharacterEpisode,
 } from "./api/characters";
@@ -60,12 +65,21 @@ const SEX_OPTIONS = [
 function GeneratorForm({
   basePath,
   existingCharacterNames = [],
+  isAnchorEligible = false,
+  userAnchorCardId = null,
 }: {
   basePath: string;
   existingCharacterNames?: string[];
+  isAnchorEligible?: boolean;
+  userAnchorCardId?: string | null;
 }) {
   const { mutate: createCharacter, isPending, isSuccess, reset } = useCreateCharacter();
   const navigate = useNavigate();
+
+  const { data: claimedAnchorIds = [] } = useClaimedAnchorIds();
+  const [selectedAnchorId, setSelectedAnchorId] = useState<string | null>(null);
+  const effectiveAnchorId = userAnchorCardId ?? selectedAnchorId;
+  const anchorFilled = !isAnchorEligible || effectiveAnchorId !== null;
 
   const [characterName, setCharacterName] = useState("");
   const [nicknames, setNicknames] = useState<string[]>([]);
@@ -149,7 +163,7 @@ function GeneratorForm({
   const sexStepReached = archetypeSelected; // sex is optional, reaching it is enough
   const nameEntered = characterName.trim() !== "";
   const diceAssigned = diceRemaining === 0;
-  const skillsFilled = taidotFilled && archetypeSelected;
+  const skillsFilled = taidotFilled && archetypeSelected && anchorFilled;
 
   // Collect existing character names for exclusion from suggestions
   // (passed in from parent which has the characters query)
@@ -167,7 +181,8 @@ function GeneratorForm({
     diceRemaining === 0 &&
     selectedEpisodeId !== null &&
     archetypeSelected &&
-    taidotFilled;
+    taidotFilled &&
+    anchorFilled;
 
   const handleSave = () => {
     if (!canSubmit || !selectedEpisodeId || !archetype) return;
@@ -193,6 +208,7 @@ function GeneratorForm({
       persoona,
       nakemys,
       napparyys,
+      anchorCardId: effectiveAnchorId ?? undefined,
     });
   };
 
@@ -206,6 +222,7 @@ function GeneratorForm({
     setNotes("");
     setSelectedTaidot(Array(TAIDOT_COUNTS.Sotilas).fill(null));
     setCustomSkillText("");
+    setSelectedAnchorId(null);
     setFysiikka(0);
     setNopeus(0);
     setYmmarrys(0);
@@ -457,11 +474,15 @@ function GeneratorForm({
               </div>
             </ObscuredWrapper>
 
-            {/* ── Step 6: Taidot ── */}
+            {/* ── Step 6: Taidot ja Ankkuri ── */}
             <ObscuredWrapper revealed={diceAssigned}>
               <div className="space-y-4">
                 <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
-                  <Heading>Taidot ({taidotCount} valittava)</Heading>
+                  <Heading>
+                    {isAnchorEligible
+                      ? `Taidot (${taidotCount} kpl) ja Ankkuri`
+                      : `Taidot (${taidotCount} valittava)`}
+                  </Heading>
                 </div>
                 {!selectedEpisodeId ? (
                   <p className="text-text-muted text-sm">
@@ -523,6 +544,46 @@ function GeneratorForm({
                           </Card>
                         );
                       })}
+
+                    {/* ── Sister Slot: Ankkuri (kun kelpoinen) ── */}
+                    {isAnchorEligible && (
+                      <Card variant="outline" theme="inverted">
+                        <CardHeader>
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <CardTitle>Pelaajan Ankkuri</CardTitle>
+                              <p className="text-xs text-text-muted mt-0.5">
+                                {userAnchorCardId
+                                  ? "Pelaajakohtainen erikoistaito – lukittu ja voimassa kaikilla hahmoillasi"
+                                  : "Pysyvä pelaajakohtainen valinta – sitoutuu tiliisi ja vaikuttaa kaikkiin hahmoihisi"}
+                              </p>
+                            </div>
+                            {userAnchorCardId ? (
+                              <Badge variant="solid" className="text-2xs py-0 px-2">
+                                Pysyvä (Lukittu)
+                              </Badge>
+                            ) : selectedAnchorId ? (
+                              <Badge variant="solid" className="text-2xs py-0 px-2">
+                                Valittu
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="text-2xs py-0 px-2">
+                                Valitse 1
+                              </Badge>
+                            )}
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <AnchorSelector
+                            theme="inverted"
+                            claimedAnchorIds={claimedAnchorIds}
+                            lockedAnchorId={userAnchorCardId}
+                            selectedAnchorId={selectedAnchorId}
+                            onSelectAnchor={setSelectedAnchorId}
+                          />
+                        </CardContent>
+                      </Card>
+                    )}
                   </div>
                 )}
               </div>
@@ -626,6 +687,19 @@ function InnerApp() {
     }
   }, [isOnListPage, refetchCharacters]);
 
+  // Group characters by player/user for stacked presentation
+  const groupedCharacters = useMemo(() => {
+    if (!characters) return [];
+    const map = new Map<number | string, CharacterListItem[]>();
+    for (const char of characters) {
+      const key = char.userId ?? `char-${char.id}`;
+      const list = map.get(key) ?? [];
+      list.push(char);
+      map.set(key, list);
+    }
+    return Array.from(map.values());
+  }, [characters]);
+
   return (
     <Page>
       <TopNav>
@@ -668,156 +742,185 @@ function InnerApp() {
                       </div>
                     )}
                     {!isLoading &&
-                      characters?.map((char: CharacterListItem) => {
-                        const activeHarmit = (char.harmit ?? []).filter(
-                          (h: { healed: boolean }) => !h.healed,
-                        ).length;
-                        const totalHarmit = (char.harmit ?? []).length;
-                        const isRemovedFromPlay =
-                          Boolean(char.removedFromPlayAt) || totalHarmit >= 5;
-                        const archetypeLabel = char.archetype;
-                        const isOwn = user && char.userId === user.id;
-                        const episodes: { id: number; title: string; status: string }[] =
-                          char.episodes ?? [];
-                        const prepEpisode =
-                          episodes.find((e: { status: string }) => e.status === "active") ??
-                          episodes.find((e: { status: string }) => e.status === "planned");
+                      groupedCharacters.map((playerChars) => {
+                        const firstChar = playerChars[0];
+                        const isOwnGroup = user && firstChar.userId === user.id;
+                        const stackLabel = isOwnGroup
+                          ? "Sinun hahmosi"
+                          : firstChar.ownerName
+                            ? `Pelaaja: ${firstChar.ownerName}`
+                            : undefined;
 
-                        return (
-                          <Card
-                            key={char.id}
-                            variant="interactive"
-                            onClick={() => navigate(`${basePath}/character/${char.id}`)}
-                          >
-                            <CardHeader>
-                              <CardTitle>{char.name}</CardTitle>
-                              <p className="text-xs font-bold uppercase tracking-widest text-[var(--theme-secondary)]">
-                                {archetypeLabel}
-                              </p>
-                            </CardHeader>
-                            <CardContent variant="dense">
-                              <div className="flex flex-col gap-3 w-full">
-                                {episodes.length > 0 && (
-                                  <p className="text-xs text-text-muted">
-                                    Jakso:{" "}
-                                    <span className="text-[var(--theme-text)] font-medium">
-                                      {episodes.map((e: { title: string }) => e.title).join(", ")}
-                                    </span>
+                        const renderCard = (char: CharacterListItem) => {
+                          const activeHarmit = (char.harmit ?? []).filter(
+                            (h: { healed: boolean }) => !h.healed,
+                          ).length;
+                          const totalHarmit = (char.harmit ?? []).length;
+                          const isRemovedFromPlay =
+                            Boolean(char.removedFromPlayAt) || totalHarmit >= 5;
+                          const archetypeLabel = char.archetype;
+                          const isOwn = user && char.userId === user.id;
+                          const episodes: { id: number; title: string; status: string }[] =
+                            char.episodes ?? [];
+                          const prepEpisode =
+                            episodes.find((e: { status: string }) => e.status === "active") ??
+                            episodes.find((e: { status: string }) => e.status === "planned");
+
+                          return (
+                            <Card
+                              key={char.id}
+                              variant="interactive"
+                              onClick={() => navigate(`${basePath}/character/${char.id}`)}
+                            >
+                              <CardHeader>
+                                <CardTitle>{char.name}</CardTitle>
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <p className="text-xs font-bold uppercase tracking-widest text-[var(--theme-secondary)]">
+                                    {archetypeLabel}
                                   </p>
-                                )}
-                                <div className="flex justify-between items-center w-full text-sm">
-                                  <span className="text-text-muted">
-                                    Harmit:{" "}
-                                    <span
-                                      className={
-                                        isRemovedFromPlay
-                                          ? "font-bold text-[var(--theme-accent)]"
-                                          : activeHarmit > 0
-                                            ? "font-bold text-[var(--theme-primary)]"
-                                            : "font-medium text-[var(--theme-text)]"
-                                      }
-                                    >
-                                      {activeHarmit} / 5
-                                    </span>
-                                  </span>
-                                  <span className="text-text-muted inline-flex items-center gap-1.5">
-                                    Sisu:
-                                    {(() => {
-                                      const dice: Array<{ id: string; faces: number }> =
-                                        char.sisuDice ?? [];
-                                      const removed = new Set<string>(char.removedSisuIds ?? []);
-                                      const activeByFaces = new Map<number, number>();
-                                      for (const d of dice) {
-                                        if (!removed.has(d.id)) {
-                                          activeByFaces.set(
-                                            d.faces,
-                                            (activeByFaces.get(d.faces) ?? 0) + 1,
-                                          );
-                                        }
-                                      }
-                                      const sorted = [...activeByFaces.entries()].sort(
-                                        ([a], [b]) => a - b,
-                                      );
-                                      if (sorted.length === 0)
-                                        return (
-                                          <span className="font-medium text-[var(--theme-text)]">
-                                            0
-                                          </span>
-                                        );
-                                      return sorted.map(([faces, count]) => (
-                                        <span
-                                          key={faces}
-                                          className="inline-flex items-center gap-0.5"
-                                        >
-                                          <span className="font-medium text-[var(--theme-text)]">
-                                            {count}×
-                                          </span>
-                                          <DiceIcon
-                                            faces={faces as 4 | 6 | 8 | 10 | 12 | 20}
-                                            size="sm"
-                                          />
-                                        </span>
-                                      ));
+                                  {char.anchorCardId &&
+                                    (() => {
+                                      const anchor = getAnchorById(char.anchorCardId);
+                                      return anchor ? (
+                                        <AspectTag variant="anchor" text={anchor.name} readOnly />
+                                      ) : null;
                                     })()}
-                                  </span>
                                 </div>
-                                {char.ownerName && (
-                                  <p className="text-xs text-text-subtle border-t border-[var(--theme-border-soft)] pt-2 mt-1">
-                                    Pelaaja: {char.ownerName}
-                                    {isOwn && (
-                                      <span className="ml-2 text-[length:var(--font-size-2xs)] font-black tracking-widest text-[var(--theme-secondary)] uppercase">
-                                        sinun
+                              </CardHeader>
+                              <CardContent variant="dense">
+                                <div className="flex flex-col gap-3 w-full">
+                                  {episodes.length > 0 && (
+                                    <p className="text-xs text-text-muted">
+                                      Jakso:{" "}
+                                      <span className="text-[var(--theme-text)] font-medium">
+                                        {episodes.map((e: { title: string }) => e.title).join(", ")}
                                       </span>
-                                    )}
-                                  </p>
-                                )}
-                                {isOwn && prepEpisode && (
-                                  <div className="border-t border-[var(--theme-border-soft)] pt-2 mt-1">
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        navigate(`${basePath}/prep/${prepEpisode.id}`);
-                                      }}
-                                    >
-                                      Valmistaudu
-                                    </Button>
+                                    </p>
+                                  )}
+                                  <div className="flex justify-between items-center w-full text-sm">
+                                    <span className="text-text-muted">
+                                      Harmit:{" "}
+                                      <span
+                                        className={
+                                          isRemovedFromPlay
+                                            ? "font-bold text-[var(--theme-accent)]"
+                                            : activeHarmit > 0
+                                              ? "font-bold text-[var(--theme-primary)]"
+                                              : "font-medium text-[var(--theme-text)]"
+                                        }
+                                      >
+                                        {activeHarmit} / 5
+                                      </span>
+                                    </span>
+                                    <span className="text-text-muted inline-flex items-center gap-1.5">
+                                      Sisu:
+                                      {(() => {
+                                        const dice: Array<{ id: string; faces: number }> =
+                                          char.sisuDice ?? [];
+                                        const removed = new Set<string>(char.removedSisuIds ?? []);
+                                        const activeByFaces = new Map<number, number>();
+                                        for (const d of dice) {
+                                          if (!removed.has(d.id)) {
+                                            activeByFaces.set(
+                                              d.faces,
+                                              (activeByFaces.get(d.faces) ?? 0) + 1,
+                                            );
+                                          }
+                                        }
+                                        const sorted = [...activeByFaces.entries()].sort(
+                                          ([a], [b]) => a - b,
+                                        );
+                                        if (sorted.length === 0)
+                                          return (
+                                            <span className="font-medium text-[var(--theme-text)]">
+                                              0
+                                            </span>
+                                          );
+                                        return sorted.map(([faces, count]) => (
+                                          <span
+                                            key={faces}
+                                            className="inline-flex items-center gap-0.5"
+                                          >
+                                            <span className="font-medium text-[var(--theme-text)]">
+                                              {count}×
+                                            </span>
+                                            <DiceIcon
+                                              faces={faces as 4 | 6 | 8 | 10 | 12 | 20}
+                                              size="sm"
+                                            />
+                                          </span>
+                                        ));
+                                      })()}
+                                    </span>
                                   </div>
-                                )}
-                                {isOwn &&
-                                  linkEpisodeId &&
-                                  !isRemovedFromPlay &&
-                                  !episodes.some((e) => e.id === linkEpisodeId) && (
+                                  {char.ownerName && (
+                                    <p className="text-xs text-text-subtle border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                                      Pelaaja: {char.ownerName}
+                                      {isOwn && (
+                                        <span className="ml-2 text-[length:var(--font-size-2xs)] font-black tracking-widest text-[var(--theme-secondary)] uppercase">
+                                          sinun
+                                        </span>
+                                      )}
+                                    </p>
+                                  )}
+                                  {isOwn && prepEpisode && (
                                     <div className="border-t border-[var(--theme-border-soft)] pt-2 mt-1">
                                       <Button
-                                        variant="solid"
+                                        variant="outline"
                                         size="sm"
-                                        disabled={linkCharacterEpisode.isPending}
                                         onClick={(e) => {
                                           e.stopPropagation();
-                                          linkCharacterEpisode.mutate(
-                                            { characterId: char.id, episodeId: linkEpisodeId },
-                                            {
-                                              onSuccess: () => {
-                                                navigate(`${basePath}/prep/${linkEpisodeId}`);
-                                              },
-                                            },
-                                          );
+                                          navigate(`${basePath}/prep/${prepEpisode.id}`);
                                         }}
                                       >
-                                        Liitä jaksoon
+                                        Valmistaudu
                                       </Button>
                                     </div>
                                   )}
-                                {isRemovedFromPlay && (
-                                  <p className="text-xs text-[var(--theme-accent)] border-t border-[var(--theme-border-soft)] pt-2 mt-1">
-                                    Hahmo poistettu pelistä, eikä sitä voi liittää uuteen jaksoon.
-                                  </p>
-                                )}
-                              </div>
-                            </CardContent>
-                          </Card>
+                                  {isOwn &&
+                                    linkEpisodeId &&
+                                    !isRemovedFromPlay &&
+                                    !episodes.some((e) => e.id === linkEpisodeId) && (
+                                      <div className="border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                                        <Button
+                                          variant="solid"
+                                          size="sm"
+                                          disabled={linkCharacterEpisode.isPending}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            linkCharacterEpisode.mutate(
+                                              { characterId: char.id, episodeId: linkEpisodeId },
+                                              {
+                                                onSuccess: () => {
+                                                  navigate(`${basePath}/prep/${linkEpisodeId}`);
+                                                },
+                                              },
+                                            );
+                                          }}
+                                        >
+                                          Liitä jaksoon
+                                        </Button>
+                                      </div>
+                                    )}
+                                  {isRemovedFromPlay && (
+                                    <p className="text-xs text-[var(--theme-accent)] border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                                      Hahmo poistettu pelistä, eikä sitä voi liittää uuteen jaksoon.
+                                    </p>
+                                  )}
+                                </div>
+                              </CardContent>
+                            </Card>
+                          );
+                        };
+
+                        if (playerChars.length === 1) {
+                          return renderCard(firstChar);
+                        }
+
+                        return (
+                          <CardStack key={firstChar.userId ?? firstChar.id} label={stackLabel}>
+                            {playerChars.map(renderCard)}
+                          </CardStack>
                         );
                       })}
                   </PageBody>
@@ -830,6 +933,13 @@ function InnerApp() {
                 <GeneratorForm
                   basePath={basePath}
                   existingCharacterNames={(characters ?? []).map((c) => c.name)}
+                  isAnchorEligible={
+                    Boolean(user?.anchorCardId) ||
+                    (characters ?? [])
+                      .filter((c) => user && c.userId === user.id)
+                      .some((c) => Boolean(c.hasPlayedSessions))
+                  }
+                  userAnchorCardId={user?.anchorCardId ?? null}
                 />
               }
             />

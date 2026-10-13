@@ -5,8 +5,8 @@ import { cn } from "./utils";
 export interface AspectTagProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Tag display text */
   text: string;
-  /** Visual variant: harm tags, skill tags, or name suggestion tags */
-  variant: "harm" | "skill" | "name";
+  /** Visual variant: harm tags, skill tags, name suggestion tags, or anchor skills */
+  variant: "harm" | "skill" | "name" | "anchor";
   /** Whether this harm tag has been healed (harm variant only) */
   healed?: boolean;
   /** Whether this is a custom/player-created tag (skill variant only) */
@@ -22,12 +22,13 @@ export interface AspectTagProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Inline chip for harm conditions, skill tags, and name suggestions.
+ * Inline chip for harm conditions, skill tags, name suggestions, and anchor skills.
  * `variant="harm"` shows healable wound tags;
  * `variant="skill"` shows acquired skills that can be removed or renamed;
- * `variant="name"` shows clickable name suggestions (readOnly, selectable via onSelect).
+ * `variant="name"` shows clickable name suggestions (readOnly, selectable via onSelect);
+ * `variant="anchor"` shows player-specific anchor skills with dual polarity.
  *
- * @summary inline chip: harm (healed/not), skill (removable/custom), or name (clickable selection)
+ * @summary inline chip: harm (healed/not), skill (removable/custom), name (clickable selection), or anchor
  */
 export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
   (
@@ -47,13 +48,16 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
   ) => {
     const isHarm = variant === "harm";
     const isName = variant === "name";
+    const isAnchor = variant === "anchor";
     const isHealed = isHarm && healed;
 
     const icon: IconName | undefined = isHarm
       ? isHealed
         ? "heart-pulse"
         : "alert-triangle"
-      : undefined;
+      : isAnchor
+        ? "anchor"
+        : undefined;
 
     const tagClassName = cn(
       // ── Base ──
@@ -87,7 +91,8 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
 
       // ── Skill ──
       !isHarm &&
-        !isName && [
+        !isName &&
+        !isAnchor && [
           "border border-[var(--theme-border-soft)]",
           "border-l-[3px] border-l-[var(--theme-accent)]",
           "bg-[var(--theme-accent)]/8",
@@ -96,6 +101,18 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
           "hover:shadow-[0_0_12px_color-mix(in_srgb,var(--theme-accent)_20%,transparent)]",
           "hover:border-[var(--theme-border-medium)]",
         ],
+
+      // ── Anchor ──
+      isAnchor && [
+        "border border-[var(--theme-border-medium)]",
+        "border-l-[3px] border-l-[var(--theme-primary)]",
+        "bg-[var(--theme-primary)]/10",
+        "text-[var(--theme-text)]",
+        "shadow-sm",
+        "hover:shadow-[0_0_14px_color-mix(in_srgb,var(--theme-primary)_30%,transparent)]",
+        "hover:border-[var(--theme-primary)]",
+        onSelect && ["cursor-pointer", "hover:bg-[var(--theme-primary)]/18", "active:scale-[0.97]"],
+      ],
 
       // ── Name ──
       isName && [
@@ -188,14 +205,14 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
       </>
     );
 
-    if (isName && onSelect) {
+    if ((isName || isAnchor) && onSelect) {
       return (
         <button
           ref={ref as React.Ref<HTMLButtonElement>}
           type="button"
           className={tagClassName}
           onClick={onSelect}
-          aria-label={`Valitse nimi: ${text}`}
+          aria-label={isName ? `Valitse nimi: ${text}` : `Valitse ankkuri: ${text}`}
         >
           {tagContent}
         </button>

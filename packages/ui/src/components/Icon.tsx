@@ -1,4 +1,5 @@
 import {
+  Anchor,
   BookMarked,
   BookOpen,
   Calendar,
@@ -40,6 +41,7 @@ import { cn } from "./utils";
 // ── Lucide icon map (custom icons removed from here) ──────────────────────
 
 export const lucideIcons = {
+  anchor: Anchor,
   "book-marked": BookMarked,
   calendar: Calendar,
   "corner-down-left": CornerDownLeft,

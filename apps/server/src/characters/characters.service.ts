@@ -6,7 +6,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { and, asc, eq, inArray } from "drizzle-orm";
+import { and, asc, eq, inArray, isNotNull, sql } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
@@ -55,6 +55,9 @@ const characterWithOwnerColumns = {
   persoona: characters.persoona,
   nakemys: characters.nakemys,
   napparyys: characters.napparyys,
+  anchorCardId: sql<string | null>`COALESCE(${characters.anchorCardId}, ${users.anchorCardId})`.as(
+    "anchorCardId",
+  ),
   monkAdvancementsAllowed: characters.monkAdvancementsAllowed,
   monkAdvancementsUsed: characters.monkAdvancementsUsed,
   removedFromPlayAt: characters.removedFromPlayAt,
@@ -258,7 +261,34 @@ export class CharactersService {
     return withPowers[0] ?? null;
   }
 
+  async getClaimedAnchorIds(): Promise<string[]> {
+    const rows = await this.db
+      .select({ anchorCardId: users.anchorCardId })
+      .from(users)
+      .where(isNotNull(users.anchorCardId));
+    return rows.map((r) => r.anchorCardId).filter((id): id is string => Boolean(id));
+  }
+
   async create(data: CreateCharacterDto, userId: number) {
+    const user = await this.db.query.users.findFirst({
+      where: eq(users.id, userId),
+    });
+
+    let effectiveAnchorCardId = user?.anchorCardId ?? null;
+    let shouldUpdateUserAnchor = false;
+
+    if (!effectiveAnchorCardId && data.anchorCardId) {
+      // Check if another user has claimed this anchor
+      const claimed = await this.db.query.users.findFirst({
+        where: eq(users.anchorCardId, data.anchorCardId),
+      });
+      if (claimed && claimed.id !== userId) {
+        throw new BadRequestException("Ankkuri on jo toisen pelaajan varaama");
+      }
+      effectiveAnchorCardId = data.anchorCardId;
+      shouldUpdateUserAnchor = true;
+    }
+
     const insertData: typeof characters.$inferInsert = {
       name: data.name,
       archetype: data.archetype,
@@ -283,9 +313,23 @@ export class CharactersService {
       nakemys: data.nakemys ?? 0,
       napparyys: data.napparyys ?? 0,
       userId,
+      anchorCardId: effectiveAnchorCardId,
     };
 
     return this.db.transaction(async (tx) => {
+      if (shouldUpdateUserAnchor && effectiveAnchorCardId) {
+        await tx
+          .update(users)
+          .set({ anchorCardId: effectiveAnchorCardId })
+          .where(eq(users.id, userId));
+
+        // Backfill all existing characters of this user with the newly claimed anchor
+        await tx
+          .update(characters)
+          .set({ anchorCardId: effectiveAnchorCardId })
+          .where(eq(characters.userId, userId));
+      }
+
       const result = await tx.insert(characters).values(insertData).returning();
       const character = result[0];
 

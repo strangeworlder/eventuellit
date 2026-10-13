@@ -14,10 +14,16 @@ export {
 } from "./components/Accordion";
 /** Storybook: Suunnittelujarjestelma/Molekyylit/ActiveStatBlock */
 export { ActiveStatBlock } from "./components/ActiveStatBlock";
+export type { AnchorCardProps } from "./components/AnchorCard";
+/** Storybook: Suunnittelujarjestelma/Pelimekaniikka/AnchorCard */
+export { AnchorCard } from "./components/AnchorCard";
 export type { AnchoredTooltipPlacement } from "./components/AnchoredTooltip";
 // ── Organisms ──
 /** Storybook: Suunnittelujarjestelma/Molekyylit/AnchoredTooltip */
 export { AnchoredTooltip } from "./components/AnchoredTooltip";
+export type { AnchorSelectorProps } from "./components/AnchorSelector";
+/** Storybook: Suunnittelujarjestelma/Pelimekaniikka/AnchorSelector */
+export { AnchorSelector } from "./components/AnchorSelector";
 export type { ArticleProgressNavigatorProps } from "./components/ArticleProgressNavigator";
 export { ArticleProgressNavigator } from "./components/ArticleProgressNavigator";
 export type { AspectTagProps } from "./components/AspectTag";
@@ -34,7 +40,17 @@ export type { ButtonProps, ChevronDirection } from "./components/Button";
 export { Button } from "./components/Button";
 export type { CardProps } from "./components/Card";
 /** Storybook: Suunnittelujarjestelma/Organismit/Card */
-export { Card } from "./components/Card";
+export {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./components/Card";
+export type { CardStackProps } from "./components/CardStack";
+/** Storybook: Suunnittelujarjestelma/Organismit/CardStack */
+export { CardStack } from "./components/CardStack";
 export { Checkbox } from "./components/Checkbox";
 export type { CodeProps } from "./components/Code";
 export { Code } from "./components/Code";
@@ -137,7 +153,6 @@ export { SkillMasonry } from "./components/SkillMasonry";
 export type { SkillTagItem, SkillTagListProps } from "./components/SkillTagList";
 export { SkillTagList } from "./components/SkillTagList";
 export { StatBlock } from "./components/StatBlock";
-
 export { Switch } from "./components/Switch";
 export type { TableColumn, TableProps } from "./components/Table";
 export { Table } from "./components/Table";
@@ -190,3 +205,16 @@ export { VideoCta } from "./components/VideoCta";
 export type { VotingStandingsItem, VotingStandingsProps } from "./components/VotingStandings";
 /** Storybook: Suunnittelujarjestelma/Pelimekaniikka/VotingStandings */
 export { VotingStandings } from "./components/VotingStandings";
+export type {
+  AnchorCard as AnchorCardData,
+  AnchorPolarity,
+  TarotArcana,
+  TarotCourtRank,
+  TarotSuit,
+} from "./data/anchors";
+export {
+  ANCHOR_CARDS,
+  drawRandomAnchors,
+  filterAvailableAnchors,
+  getAnchorById,
+} from "./data/anchors";

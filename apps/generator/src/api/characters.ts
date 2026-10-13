@@ -23,6 +23,7 @@ export interface CreateCharacterDto {
   persoona?: number;
   nakemys?: number;
   napparyys?: number;
+  anchorCardId?: string;
 }
 
 export interface CharacterEpisodeLink {
@@ -44,10 +45,26 @@ export interface CharacterListItem {
   removedSisuIds?: string[];
   episodes?: CharacterEpisodeLink[];
   hasPlayedSessions?: boolean;
+  anchorCardId?: string | null;
   monkAdvancementsAllowed?: number;
   monkAdvancementsUsed?: number;
   monkPowers?: MonkPower[];
   [key: string]: unknown;
+}
+
+export function useClaimedAnchorIds() {
+  return useQuery<string[]>({
+    queryKey: ["anchors", "claimed"],
+    queryFn: async () => {
+      const token = localStorage.getItem("auth_token");
+      const res = await fetch(`${apiBaseUrl}/characters/anchors/claimed`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Failed to fetch claimed anchors");
+      return res.json();
+    },
+  });
 }
 
 export function useCharacters() {

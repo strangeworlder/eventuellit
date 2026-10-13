@@ -41,6 +41,21 @@ export const OmaTaito: Story = {
   },
 };
 
+export const AnkkuriTaito: Story = {
+  args: {
+    text: "Kuilu",
+    variant: "anchor",
+  },
+};
+
+export const ValittavaAnkkuri: Story = {
+  args: {
+    text: "Kipu",
+    variant: "anchor",
+    onSelect: () => {},
+  },
+};
+
 export const MuokattavaHarmi: Story = {
   args: {
     text: "Shokki",
@@ -157,6 +172,17 @@ export const KaikkiVariantit: Story = {
           <AspectTag text="Hakkerointi" variant="skill" />
           <AspectTag text="Lääketiede" variant="skill" onRemove={() => {}} />
           <AspectTag text="Navigointi" variant="skill" isCustom />
+        </div>
+      </div>
+
+      <div>
+        <p className="text-xs uppercase tracking-widest text-[var(--theme-text)]/40 mb-2 font-heading">
+          Ankkurit
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <AspectTag text="Kuilu" variant="anchor" />
+          <AspectTag text="Kipu" variant="anchor" onSelect={() => {}} />
+          <AspectTag text="Malmi" variant="anchor" />
         </div>
       </div>
 
