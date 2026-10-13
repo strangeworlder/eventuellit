@@ -16,6 +16,9 @@
             "./src/components/*.tsx",
             "./src/components/*.ts"
         ],
+        "./data/*": [
+            "./src/data/*.ts"
+        ],
         "./*": [
             "./src/*.tsx",
             "./src/*.ts"

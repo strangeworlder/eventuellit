@@ -1,5 +1,5 @@
 import { useAuth } from "@repo/auth/use-auth";
-import { AnchorSelector } from "@repo/ui";
+import { AnchorSelector, getAnchorById } from "@repo/ui";
 import { AspectTag } from "@repo/ui/components/AspectTag";
 import { AttributeCard, getScoreBonusFromValue } from "@repo/ui/components/AttributeCard";
 import { Badge } from "@repo/ui/components/Badge";
@@ -21,7 +21,6 @@ import { SkeletonCard } from "@repo/ui/components/Skeleton";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
-import { getAnchorById } from "@repo/ui/data/anchors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import {
