@@ -55,9 +55,7 @@ const characterWithOwnerColumns = {
   persoona: characters.persoona,
   nakemys: characters.nakemys,
   napparyys: characters.napparyys,
-  anchorCardId: sql<string | null>`COALESCE(${characters.anchorCardId}, ${users.anchorCardId})`.as(
-    "anchorCardId",
-  ),
+  anchorId: sql<string | null>`COALESCE(${characters.anchorId}, ${users.anchorId})`.as("anchorId"),
   monkAdvancementsAllowed: characters.monkAdvancementsAllowed,
   monkAdvancementsUsed: characters.monkAdvancementsUsed,
   removedFromPlayAt: characters.removedFromPlayAt,
@@ -263,10 +261,10 @@ export class CharactersService {
 
   async getClaimedAnchorIds(): Promise<string[]> {
     const rows = await this.db
-      .select({ anchorCardId: users.anchorCardId })
+      .select({ anchorId: users.anchorId })
       .from(users)
-      .where(isNotNull(users.anchorCardId));
-    return rows.map((r) => r.anchorCardId).filter((id): id is string => Boolean(id));
+      .where(isNotNull(users.anchorId));
+    return rows.map((r) => r.anchorId).filter((id): id is string => Boolean(id));
   }
 
   async create(data: CreateCharacterDto, userId: number) {
@@ -274,18 +272,18 @@ export class CharactersService {
       where: eq(users.id, userId),
     });
 
-    let effectiveAnchorCardId = user?.anchorCardId ?? null;
+    let effectiveAnchorId = user?.anchorId ?? null;
     let shouldUpdateUserAnchor = false;
 
-    if (!effectiveAnchorCardId && data.anchorCardId) {
+    if (!effectiveAnchorId && data.anchorId) {
       // Check if another user has claimed this anchor
       const claimed = await this.db.query.users.findFirst({
-        where: eq(users.anchorCardId, data.anchorCardId),
+        where: eq(users.anchorId, data.anchorId),
       });
       if (claimed && claimed.id !== userId) {
         throw new BadRequestException("Ankkuri on jo toisen pelaajan varaama");
       }
-      effectiveAnchorCardId = data.anchorCardId;
+      effectiveAnchorId = data.anchorId;
       shouldUpdateUserAnchor = true;
     }
 
@@ -313,20 +311,17 @@ export class CharactersService {
       nakemys: data.nakemys ?? 0,
       napparyys: data.napparyys ?? 0,
       userId,
-      anchorCardId: effectiveAnchorCardId,
+      anchorId: effectiveAnchorId,
     };
 
     return this.db.transaction(async (tx) => {
-      if (shouldUpdateUserAnchor && effectiveAnchorCardId) {
-        await tx
-          .update(users)
-          .set({ anchorCardId: effectiveAnchorCardId })
-          .where(eq(users.id, userId));
+      if (shouldUpdateUserAnchor && effectiveAnchorId) {
+        await tx.update(users).set({ anchorId: effectiveAnchorId }).where(eq(users.id, userId));
 
         // Backfill all existing characters of this user with the newly claimed anchor
         await tx
           .update(characters)
-          .set({ anchorCardId: effectiveAnchorCardId })
+          .set({ anchorId: effectiveAnchorId })
           .where(eq(characters.userId, userId));
       }
 

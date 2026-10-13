@@ -6,7 +6,7 @@ import { ANCHOR_CARDS } from "../data/anchors";
 import { AnchorCard } from "./AnchorCard";
 
 const sampleAnchor = ANCHOR_CARDS[0] ?? {
-  id: "atu-0",
+  id: "kuilu",
   name: "Kuilu",
   internalRef: "The Fool",
   arcana: "major",

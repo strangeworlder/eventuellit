@@ -111,14 +111,14 @@ describe("CharactersService", () => {
 
   it("should claim an anchor for a user who does not have one yet and backfill characters", async () => {
     mockDb.query.users.findFirst
-      .mockResolvedValueOnce({ id: 1, anchorCardId: null }) // current user
+      .mockResolvedValueOnce({ id: 1, anchorId: null }) // current user
       .mockResolvedValueOnce(null); // uniqueness check: no other user has it
-    mockDb.returning.mockResolvedValueOnce([{ id: 2, name: "Second Char", anchorCardId: "atu-0" }]);
+    mockDb.returning.mockResolvedValueOnce([{ id: 2, name: "Second Char", anchorId: "kuilu" }]);
 
     const dto = {
       name: "Second Char",
       archetype: "Ekspertti",
-      anchorCardId: "atu-0",
+      anchorId: "kuilu",
       keho: 8,
       mieli: 8,
       tera: 8,
@@ -129,18 +129,18 @@ describe("CharactersService", () => {
     const result = await service.create(dto, 1);
     // Updates both users table and existing characters table
     expect(mockDb.update).toHaveBeenCalledTimes(2);
-    expect(mockDb.set).toHaveBeenCalledWith({ anchorCardId: "atu-0" });
-    expect(result).toEqual({ id: 2, name: "Second Char", anchorCardId: "atu-0" });
+    expect(mockDb.set).toHaveBeenCalledWith({ anchorId: "kuilu" });
+    expect(result).toEqual({ id: 2, name: "Second Char", anchorId: "kuilu" });
   });
 
   it("should enforce existing user anchor when user already has one", async () => {
-    mockDb.query.users.findFirst.mockResolvedValueOnce({ id: 1, anchorCardId: "atu-0" }); // user already has anchor
-    mockDb.returning.mockResolvedValueOnce([{ id: 3, name: "Third Char", anchorCardId: "atu-0" }]);
+    mockDb.query.users.findFirst.mockResolvedValueOnce({ id: 1, anchorId: "kuilu" }); // user already has anchor
+    mockDb.returning.mockResolvedValueOnce([{ id: 3, name: "Third Char", anchorId: "kuilu" }]);
 
     const dto = {
       name: "Third Char",
       archetype: "Sotilas",
-      anchorCardId: "cups-2", // tries to pass a different anchor
+      anchorId: "sopu", // tries to pass a different anchor
       keho: 8,
       mieli: 8,
       tera: 8,
@@ -154,21 +154,21 @@ describe("CharactersService", () => {
     expect(mockDb.insert).toHaveBeenCalled();
     expect(mockDb.values).toHaveBeenCalledWith(
       expect.objectContaining({
-        anchorCardId: "atu-0", // Enforced existing anchor
+        anchorId: "kuilu", // Enforced existing anchor
       }),
     );
-    expect(result).toEqual({ id: 3, name: "Third Char", anchorCardId: "atu-0" });
+    expect(result).toEqual({ id: 3, name: "Third Char", anchorId: "kuilu" });
   });
 
   it("should reject claiming an anchor that another user has already claimed", async () => {
     mockDb.query.users.findFirst
-      .mockResolvedValueOnce({ id: 1, anchorCardId: null }) // current user
-      .mockResolvedValueOnce({ id: 2, anchorCardId: "atu-0" }); // another user has it
+      .mockResolvedValueOnce({ id: 1, anchorId: null }) // current user
+      .mockResolvedValueOnce({ id: 2, anchorId: "kuilu" }); // another user has it
 
     const dto = {
       name: "Second Char",
       archetype: "Ekspertti",
-      anchorCardId: "atu-0",
+      anchorId: "kuilu",
       keho: 8,
       mieli: 8,
       tera: 8,
@@ -180,9 +180,9 @@ describe("CharactersService", () => {
   });
 
   it("should return claimed anchor IDs", async () => {
-    mockDb.where.mockResolvedValueOnce([{ anchorCardId: "atu-0" }, { anchorCardId: "wands-ace" }]);
+    mockDb.where.mockResolvedValueOnce([{ anchorId: "kuilu" }, { anchorId: "kipina" }]);
     const result = await service.getClaimedAnchorIds();
-    expect(result).toEqual(["atu-0", "wands-ace"]);
+    expect(result).toEqual(["kuilu", "kipina"]);
   });
 
   it("should find all characters with owner join and attach episodes", async () => {

@@ -66,19 +66,19 @@ function GeneratorForm({
   basePath,
   existingCharacterNames = [],
   isAnchorEligible = false,
-  userAnchorCardId = null,
+  userAnchorId = null,
 }: {
   basePath: string;
   existingCharacterNames?: string[];
   isAnchorEligible?: boolean;
-  userAnchorCardId?: string | null;
+  userAnchorId?: string | null;
 }) {
   const { mutate: createCharacter, isPending, isSuccess, reset } = useCreateCharacter();
   const navigate = useNavigate();
 
   const { data: claimedAnchorIds = [] } = useClaimedAnchorIds();
   const [selectedAnchorId, setSelectedAnchorId] = useState<string | null>(null);
-  const effectiveAnchorId = userAnchorCardId ?? selectedAnchorId;
+  const effectiveAnchorId = userAnchorId ?? selectedAnchorId;
   const anchorFilled = !isAnchorEligible || effectiveAnchorId !== null;
 
   const [characterName, setCharacterName] = useState("");
@@ -208,7 +208,7 @@ function GeneratorForm({
       persoona,
       nakemys,
       napparyys,
-      anchorCardId: effectiveAnchorId ?? undefined,
+      anchorId: effectiveAnchorId ?? undefined,
     });
   };
 
@@ -553,12 +553,12 @@ function GeneratorForm({
                             <div>
                               <CardTitle>Pelaajan Ankkuri</CardTitle>
                               <p className="text-xs text-text-muted mt-0.5">
-                                {userAnchorCardId
+                                {userAnchorId
                                   ? "Pelaajakohtainen erikoistaito – lukittu ja voimassa kaikilla hahmoillasi"
                                   : "Pysyvä pelaajakohtainen valinta – sitoutuu tiliisi ja vaikuttaa kaikkiin hahmoihisi"}
                               </p>
                             </div>
-                            {userAnchorCardId ? (
+                            {userAnchorId ? (
                               <Badge variant="solid" className="text-2xs py-0 px-2">
                                 Pysyvä (Lukittu)
                               </Badge>
@@ -577,7 +577,7 @@ function GeneratorForm({
                           <AnchorSelector
                             theme="inverted"
                             claimedAnchorIds={claimedAnchorIds}
-                            lockedAnchorId={userAnchorCardId}
+                            lockedAnchorId={userAnchorId}
                             selectedAnchorId={selectedAnchorId}
                             onSelectAnchor={setSelectedAnchorId}
                           />
@@ -778,9 +778,9 @@ function InnerApp() {
                                   <p className="text-xs font-bold uppercase tracking-widest text-[var(--theme-secondary)]">
                                     {archetypeLabel}
                                   </p>
-                                  {char.anchorCardId &&
+                                  {char.anchorId &&
                                     (() => {
-                                      const anchor = getAnchorById(char.anchorCardId);
+                                      const anchor = getAnchorById(char.anchorId);
                                       return anchor ? (
                                         <AspectTag variant="anchor" text={anchor.name} readOnly />
                                       ) : null;
@@ -934,12 +934,12 @@ function InnerApp() {
                   basePath={basePath}
                   existingCharacterNames={(characters ?? []).map((c) => c.name)}
                   isAnchorEligible={
-                    Boolean(user?.anchorCardId) ||
+                    Boolean(user?.anchorId) ||
                     (characters ?? [])
                       .filter((c) => user && c.userId === user.id)
                       .some((c) => Boolean(c.hasPlayedSessions))
                   }
-                  userAnchorCardId={user?.anchorCardId ?? null}
+                  userAnchorId={user?.anchorId ?? null}
                 />
               }
             />

@@ -42,7 +42,7 @@ describe("anchors data and helpers", () => {
   });
 
   it("retrieves a card by ID using getAnchorById", () => {
-    const kuilu = getAnchorById("atu-0");
+    const kuilu = getAnchorById("kuilu");
     expect(kuilu).toBeDefined();
     expect(kuilu?.name).toBe("Kuilu");
     expect(kuilu?.arcana).toBe("major");
@@ -60,7 +60,7 @@ describe("anchors data and helpers", () => {
     });
 
     it("excludes claimed anchor IDs from selection", () => {
-      const claimedIds = ["atu-0", "atu-1", "atu-2", "wands-ace"];
+      const claimedIds = ["kuilu", "virta", "nakija", "kipina"];
       const drawn = drawRandomAnchors(5, claimedIds);
       expect(drawn).toHaveLength(5);
       for (const card of drawn) {

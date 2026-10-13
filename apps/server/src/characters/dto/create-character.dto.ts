@@ -53,7 +53,7 @@ export class CreateCharacterDto {
 
   @IsOptional()
   @IsString()
-  anchorCardId?: string;
+  anchorId?: string;
 
   @IsOptional()
   @IsInt()

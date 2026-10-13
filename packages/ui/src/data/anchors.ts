@@ -23,7 +23,7 @@ export type AnchorCardData = AnchorCard;
 
 export const ANCHOR_CARDS: readonly AnchorCard[] = [
   {
-    id: "atu-0",
+    id: "kuilu",
     name: "Kuilu",
     internalRef: "Atu 0: The Fool",
     arcana: "major",
@@ -39,7 +39,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Painoton huimaus ja äänetön keveys. Tyhjyys lakkaa olemasta pudotus silloin, kun jalat unohtavat kiinteän aineen.",
   },
   {
-    id: "atu-1",
+    id: "virta",
     name: "Virta",
     internalRef: "Atu I: The Magus",
     arcana: "major",
@@ -55,7 +55,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Taajuuksien värinä ja hermostollinen kumu. Kaikki liike hakee vääjäämättä väylää purkautua.",
   },
   {
-    id: "atu-2",
+    id: "nakija",
     name: "Näkijä",
     internalRef: "Atu II: The Priestess",
     arcana: "major",
@@ -71,7 +71,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Hylätyn tilan hyytävä viileys. Vaisto tietää tarkasti sen, mitä kieli ei tavoita.",
   },
   {
-    id: "atu-3",
+    id: "lahde",
     name: "Lähde",
     internalRef: "Atu III: The Empress",
     arcana: "major",
@@ -87,7 +87,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Sitkeä orgaaninen syke kylmässä materiaalissa. Elämä valtaa tilan kysymättä lupaa kukoistaa.",
   },
   {
-    id: "atu-4",
+    id: "raja",
     name: "Raja",
     internalRef: "Atu IV: The Emperor",
     arcana: "major",
@@ -103,7 +103,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kiven liikkumaton paino ja kova geometria. Linnoitus, joka seisoo vakaana kaaosta vasten.",
   },
   {
-    id: "atu-5",
+    id: "sana",
     name: "Sana",
     internalRef: "Atu V: The Hierophant",
     arcana: "major",
@@ -119,7 +119,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Vanhan kaavan metallinen sointi. Säännöt ja sanat, jotka kaikuvat tyhjässä tilassa.",
   },
   {
-    id: "atu-6",
+    id: "liitto",
     name: "Liitto",
     internalRef: "Atu VI: The Lovers",
     arcana: "major",
@@ -135,7 +135,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kahden painon yhteinen painopiste ja jaettu hengitys. Luottamus on sähköistä ja ehdotonta.",
   },
   {
-    id: "atu-7",
+    id: "vaunu",
     name: "Vaunu",
     internalRef: "Atu VII: The Chariot",
     arcana: "major",
@@ -151,7 +151,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kineettisen massan murskaava liikevoima. Inertia, joka ei suostu pysähtymään esteisiin.",
   },
   {
-    id: "atu-8",
+    id: "vaaka",
     name: "Vaaka",
     internalRef: "Atu VIII: Adjustment",
     arcana: "major",
@@ -167,7 +167,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kirurginen symmetria ja analyyttinen viileys. Jokaisella voimalla on tarkka ja vääjäämätön vastineensa.",
   },
   {
-    id: "atu-9",
+    id: "erakko",
     name: "Erakko",
     internalRef: "Atu IX: The Hermit",
     arcana: "major",
@@ -183,7 +183,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Pimeyden eristynyt rauha. Yksinäinen kiintopiste, joka kantaa läpi syvimmän tyhjyyden.",
   },
   {
-    id: "atu-10",
+    id: "ratas",
     name: "Ratas",
     internalRef: "Atu X: Fortune",
     arcana: "major",
@@ -199,7 +199,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Hammasrattaiden säälimätön kierto ja vääjäämätön rytmi. Aika vaihtaa vuoroin arvot toisikseen.",
   },
   {
-    id: "atu-11",
+    id: "liekki",
     name: "Liekki",
     internalRef: "Atu XI: Lust",
     arcana: "major",
@@ -215,7 +215,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Raaka kineettinen kiihko ja hallitsematon nälkä. Voima, joka polttaa epävarmuuden karrelle.",
   },
   {
-    id: "atu-12",
+    id: "riippuja",
     name: "Riippuja",
     internalRef: "Atu XII: The Hanged Man",
     arcana: "major",
@@ -231,7 +231,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Pysähtynyt aika vapaaehtoisessa luopumisessa. Syvä lepo silloin, kun kaikki muu kaatuu ympäriltä.",
   },
   {
-    id: "atu-13",
+    id: "loppu",
     name: "Loppu",
     internalRef: "Atu XIII: Death",
     arcana: "major",
@@ -247,7 +247,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Jääkylmä lopullisuus ja vanhan rakenteen sortuminen. Vääjäämätön siirtymä, jota mikään ei peruuta.",
   },
   {
-    id: "atu-14",
+    id: "tislaus",
     name: "Tislaus",
     internalRef: "Atu XIV: Art",
     arcana: "major",
@@ -263,7 +263,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Vastakohtien hallittu yhteenkietoutuminen. Kaksi erillistä olemusta muuttuvat yhdeksi aineeksi.",
   },
   {
-    id: "atu-15",
+    id: "kahle",
     name: "Kahle",
     internalRef: "Atu XV: The Devil",
     arcana: "major",
@@ -279,7 +279,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Riippuvuuden näkymätön vetovoima ja sidottu tahto. Heikkous, joka kietoutuu toiseen vastustamattomasti.",
   },
   {
-    id: "atu-16",
+    id: "torni",
     name: "Torni",
     internalRef: "Atu XVI: The Tower",
     arcana: "major",
@@ -295,7 +295,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Paineenalaisen rakenteen äkillinen murtuminen. Koko vakiintunut tila hajoaa sekunneissa palasiksi.",
   },
   {
-    id: "atu-17",
+    id: "tahti",
     name: "Tähti",
     internalRef: "Atu XVII: The Star",
     arcana: "major",
@@ -311,7 +311,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kirkas kiintopiste mustassa tyhjyydessä. Kaukainen signaali, joka leikkaa eksyksen halki.",
   },
   {
-    id: "atu-18",
+    id: "varjo",
     name: "Varjo",
     internalRef: "Atu XVIII: The Moon",
     arcana: "major",
@@ -327,7 +327,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Harhojen ja aistipaineen sakea hämärä. Pinnan alla vaaniva kylmä ja huojuva epävarmuus.",
   },
   {
-    id: "atu-19",
+    id: "aurinko",
     name: "Aurinko",
     internalRef: "Atu XIX: The Sun",
     arcana: "major",
@@ -342,7 +342,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
     description: "Sokaiseva säteily ja polttava kuumuus. Kaikki kätketty tulee esiin ilman armoa.",
   },
   {
-    id: "atu-20",
+    id: "heratys",
     name: "Herätys",
     internalRef: "Atu XX: The Aeon",
     arcana: "major",
@@ -358,7 +358,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Menneen ajan syvä kaiku ja heräävä muisti. Vanha maailma nousee pitkästä unohduksesta.",
   },
   {
-    id: "atu-21",
+    id: "keha",
     name: "Kehä",
     internalRef: "Atu XXI: The Universe",
     arcana: "major",
@@ -374,7 +374,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Täydellinen geometria ja sulkeutuva ympyrä. Kaikkien voimien samanaikainen ja vakaa läsnäolo.",
   },
   {
-    id: "wands-ace",
+    id: "kipina",
     name: "Kipinä",
     internalRef: "Ace of Wands",
     arcana: "minor",
@@ -392,7 +392,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Alkusytytys kylmässä pimeydessä ja kuumentuvan aineen tuoksu. Puhdas kineettinen palo.",
   },
   {
-    id: "wands-2",
+    id: "valta",
     name: "Valta",
     internalRef: "2 of Wands: Dominion",
     arcana: "minor",
@@ -410,7 +410,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kireä jännite ja herruus tilassa. Päätös ottaa suunta omiin käsiin ilman selityksiä.",
   },
   {
-    id: "wands-3",
+    id: "vakaus",
     name: "Vakaus",
     internalRef: "3 of Wands: Virtue",
     arcana: "minor",
@@ -428,7 +428,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Murtumaton eteenpäin suuntautuva tahto. Askel ei lipsu silloin, kun maali on lukittu.",
   },
   {
-    id: "wands-4",
+    id: "valmis",
     name: "Valmis",
     internalRef: "4 of Wands: Completion",
     arcana: "minor",
@@ -446,7 +446,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Viimeisen sauman sulkeutuminen ja rakenteen asettuminen. Työ saavuttaa pysyvän muotonsa.",
   },
   {
-    id: "wands-5",
+    id: "riita",
     name: "Riita",
     internalRef: "5 of Wands: Strife",
     arcana: "minor",
@@ -464,7 +464,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kireä hankaussähkö ja yhteentörmäyksen kumu. Ilma täyttyy vaarasta ja arvaamattomasta kahnauksesta.",
   },
   {
-    id: "wands-6",
+    id: "voitto",
     name: "Voitto",
     internalRef: "6 of Wands: Victory",
     arcana: "minor",
@@ -482,7 +482,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Vastuksen murtuminen ja kumea voiman nousu. Liikevoima, joka nousee esteiden yläpuolelle.",
   },
   {
-    id: "wands-7",
+    id: "uhma",
     name: "Uhma",
     internalRef: "7 of Wands: Valour",
     arcana: "minor",
@@ -500,7 +500,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Yksinäinen rintama ylivoimaa vastaan. Kieltäytyminen taipumasta musertavan paineen alla.",
   },
   {
-    id: "wands-8",
+    id: "syoksy",
     name: "Syöksy",
     internalRef: "8 of Wands: Swiftness",
     arcana: "minor",
@@ -518,7 +518,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kiihtyvyys vailla vastusta. Teon ja seurauksen välinen aika supistuu olemattomiin.",
   },
   {
-    id: "wands-9",
+    id: "voima",
     name: "Voima",
     internalRef: "9 of Wands: Strength",
     arcana: "minor",
@@ -536,7 +536,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Väsymätön kestävyys ja valurautainen selkä. Rakenne, joka ottaa vastaan iskun toisensa jälkeen.",
   },
   {
-    id: "wands-10",
+    id: "taakka",
     name: "Taakka",
     internalRef: "10 of Wands: Oppression",
     arcana: "minor",
@@ -554,7 +554,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Raskaan massan musertava paino harteilla. Askel etenee, vaikka kuorma tuntuu ylivoimaiselta.",
   },
   {
-    id: "wands-page",
+    id: "kuriiri",
     name: "Kuriiri",
     internalRef: "Page of Wands",
     arcana: "minor",
@@ -572,7 +572,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Nopea hengitys ja levoton kipinä jänteissä. Liike, joka luikahtaa suljettujen esteiden välistä.",
   },
   {
-    id: "wands-knight",
+    id: "ratsastaja",
     name: "Ratsastaja",
     internalRef: "Knight of Wands",
     arcana: "minor",
@@ -590,7 +590,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Ylikuumentunut kiihko ja liike suoraan leimahdukseen. Vauhti, joka unohtaa varovaisuuden.",
   },
   {
-    id: "wands-queen",
+    id: "valtiatar",
     name: "Valtiatar",
     internalRef: "Queen of Wands",
     arcana: "minor",
@@ -608,7 +608,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Leimuava lämpö ja kova, kyseenalaistamaton auktoriteetti. Katse, joka herättää ehdottoman kunnioituksen.",
   },
   {
-    id: "wands-king",
+    id: "mestari",
     name: "Mestari",
     internalRef: "King of Wands",
     arcana: "minor",
@@ -626,7 +626,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kineettisen energian ylin hallinta. Silmä, joka näkee laajan taistelun yhtenä liekkinä.",
   },
   {
-    id: "cups-ace",
+    id: "malja",
     name: "Malja",
     internalRef: "Ace of Cups",
     arcana: "minor",
@@ -644,7 +644,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kirkkaan elatusnesteen pulppuaminen ja kumea virtaus. Syvä elonjano kuolleessa tilassa.",
   },
   {
-    id: "cups-2",
+    id: "sopu",
     name: "Sopu",
     internalRef: "2 of Cups: Love",
     arcana: "minor",
@@ -662,7 +662,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Sanaton luottamus ja hiljainen nyökkäys vaaran kynnyksellä. Kahden tahdon liittyminen yhteen.",
   },
   {
-    id: "cups-3",
+    id: "juhla",
     name: "Juhla",
     internalRef: "3 of Cups: Abundance",
     arcana: "minor",
@@ -680,7 +680,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Lyhyt unohdus kylmyyden keskellä ja vapaa hengitys. Jaettu helpotus onnistumisen jälkeen.",
   },
   {
-    id: "cups-4",
+    id: "kyllaisyys",
     name: "Kylläisyys",
     internalRef: "4 of Cups: Luxury",
     arcana: "minor",
@@ -698,7 +698,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Raskas mukavuus ja yltäkylläinen lepo. Tila, jossa unohdus peittää lähestyvän vaaran.",
   },
   {
-    id: "cups-5",
+    id: "murhe",
     name: "Murhe",
     internalRef: "5 of Cups: Disappointment",
     arcana: "minor",
@@ -716,7 +716,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Menetyksen armoton hyhmä ja tyhjäksi jäänyt paikka. Katsominen siihen, mikä ei palaa koskaan.",
   },
   {
-    id: "cups-6",
+    id: "muisto",
     name: "Muisto",
     internalRef: "6 of Cups: Pleasure",
     arcana: "minor",
@@ -734,7 +734,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kaukainen kaiku menneestä ja tuttu sävel tyhjyydessä. Lämpö ajasta ennen suurta tuhoa.",
   },
   {
-    id: "cups-7",
+    id: "harha",
     name: "Harha",
     internalRef: "7 of Cups: Debauch",
     arcana: "minor",
@@ -752,7 +752,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Aistien sakea sumu ja vääristyneet heijastukset. Houkutukset, jotka johtavat syvemmälle uneen.",
   },
   {
-    id: "cups-8",
+    id: "luopumus",
     name: "Luopumus",
     internalRef: "8 of Cups: Indolence",
     arcana: "minor",
@@ -770,7 +770,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Hylätty vanha ja selän kääntäminen menneelle. Askel pois silloin, kun mikään ei sido kiinni.",
   },
   {
-    id: "cups-9",
+    id: "ilo",
     name: "Ilo",
     internalRef: "9 of Cups: Happiness",
     arcana: "minor",
@@ -788,7 +788,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Syvä huokaus vaaran jälkeen ja puhdas tyyneys. Varmuus siitä, että pahin on takana päin.",
   },
   {
-    id: "cups-10",
+    id: "tyven",
     name: "Tyven",
     internalRef: "10 of Cups: Satiety",
     arcana: "minor",
@@ -805,7 +805,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
     description: "Peilityyni virtaus ja suojaisa syli. Hiljainen hetki suuren myrskyn mentyä ohi.",
   },
   {
-    id: "cups-page",
+    id: "lapsi",
     name: "Lapsi",
     internalRef: "Page of Cups",
     arcana: "minor",
@@ -823,7 +823,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Vaistonvarainen herkkyys ympäristön värähtelyille. Katse, joka aistii heti pinnan alla liikkuvan.",
   },
   {
-    id: "cups-knight",
+    id: "etsija",
     name: "Etsijä",
     internalRef: "Knight of Cups",
     arcana: "minor",
@@ -841,7 +841,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Sukellus syvään virtaukseen vailla köyttä. Liike aallon mukana kohti kadonnutta pistettä.",
   },
   {
-    id: "cups-queen",
+    id: "syvyys",
     name: "Syvyys",
     internalRef: "Queen of Cups",
     arcana: "minor",
@@ -859,7 +859,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Pimeiden vesien liikkumaton peili. Tyyni katse, joka heijastaa toisen haudatut pelot.",
   },
   {
-    id: "cups-king",
+    id: "virtaus",
     name: "Virtaus",
     internalRef: "King of Cups",
     arcana: "minor",
@@ -877,7 +877,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Syvien virtojen ja paineiden tyyni hallinta. Vakaa mieli keskellä vellovaa ja arvaamatonta merta.",
   },
   {
-    id: "swords-ace",
+    id: "tera",
     name: "Terä",
     internalRef: "Ace of Swords",
     arcana: "minor",
@@ -895,7 +895,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kirurginen selkeys ja paljas valo. Viilto jakaa todellisuuden toteen ja valheeseen.",
   },
   {
-    id: "swords-2",
+    id: "rauha",
     name: "Rauha",
     internalRef: "2 of Swords: Peace",
     arcana: "minor",
@@ -913,7 +913,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kaksi terää vastakkain ja hyytävä seisokki. Hetki, jolloin pieninkin liike laukaisee tuhon.",
   },
   {
-    id: "swords-3",
+    id: "kipu",
     name: "Kipu",
     internalRef: "3 of Swords: Sorrow",
     arcana: "minor",
@@ -931,7 +931,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Menetyksen armoton pakkanen ja revitty pinta. Kärsimys, joka kieltäytyy antamasta periksi.",
   },
   {
-    id: "swords-4",
+    id: "lepo",
     name: "Lepo",
     internalRef: "4 of Swords: Truce",
     arcana: "minor",
@@ -949,7 +949,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Huurteinen hiljaisuus ja panssarin alla tasaantuva hengitys. Valpas lepo ennen hälytystä.",
   },
   {
-    id: "swords-5",
+    id: "havio",
     name: "Häviö",
     internalRef: "5 of Swords: Defeat",
     arcana: "minor",
@@ -967,7 +967,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Hävityn ottelun karvas maku ja veren pyyhintä. Vaisto tietää tarkasti milloin vetäytyä.",
   },
   {
-    id: "swords-6",
+    id: "ylitys",
     name: "Ylitys",
     internalRef: "6 of Swords: Science",
     arcana: "minor",
@@ -985,7 +985,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Matka sumuisen syvyyden ylitse ja tasainen suunta. Looginen polku halki vaaravyöhykkeen.",
   },
   {
-    id: "swords-7",
+    id: "petos",
     name: "Petos",
     internalRef: "7 of Swords: Futility",
     arcana: "minor",
@@ -1003,7 +1003,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Varastettu arvo ja nopea vilkaisu taaksepäin. Liukuminen vartioitujen silmien ohi.",
   },
   {
-    id: "swords-8",
+    id: "vanki",
     name: "Vanki",
     internalRef: "8 of Swords: Interference",
     arcana: "minor",
@@ -1021,7 +1021,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Pimeä sulku ja omien ajatusten kehä. Lukkojen rakenne hahmottuu sormissa sokeanakin.",
   },
   {
-    id: "swords-9",
+    id: "julmuus",
     name: "Julmuus",
     internalRef: "9 of Swords: Cruelty",
     arcana: "minor",
@@ -1038,7 +1038,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
     description: "Valvomattomat hetket ja kylmä hiki. Tietoisuus siitä, mitä kova pakko vaatii.",
   },
   {
-    id: "swords-10",
+    id: "romahdus",
     name: "Romahdus",
     internalRef: "10 of Swords: Ruin",
     arcana: "minor",
@@ -1056,7 +1056,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Viimeisen suojan kaatuminen ja seinien luhistuminen. Äärimmäinen teko silloin, kun kaikki on viety.",
   },
   {
-    id: "swords-page",
+    id: "tuuli",
     name: "Tuuli",
     internalRef: "Page of Swords",
     arcana: "minor",
@@ -1074,7 +1074,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Hiljainen liike korkealla ja tarkka katse pimeään. Viiltävä havainto ennen toisen kääntymistä.",
   },
   {
-    id: "swords-knight",
+    id: "myrsky",
     name: "Myrsky",
     internalRef: "Knight of Swords",
     arcana: "minor",
@@ -1092,7 +1092,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Viheltävä teräs ja säälimätön nopeus. Leikkaava isku ennen kuin toinen ehtii tähdätä.",
   },
   {
-    id: "swords-queen",
+    id: "tuomari",
     name: "Tuomari",
     internalRef: "Queen of Swords",
     arcana: "minor",
@@ -1109,7 +1109,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
     description: "Jääkylmä katse ja totuus vailla lievennyksiä. Kaikki selitykset riisutaan heti.",
   },
   {
-    id: "swords-king",
+    id: "arkkitehti",
     name: "Arkkitehti",
     internalRef: "King of Swords",
     arcana: "minor",
@@ -1127,7 +1127,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Monimutkainen kokonaiskuva ja kylmä laskelmointi. Vastustajan siirtojen lukeminen ennalta.",
   },
   {
-    id: "disks-ace",
+    id: "malmi",
     name: "Malmi",
     internalRef: "Ace of Disks",
     arcana: "minor",
@@ -1145,7 +1145,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Louhitun aineen raskas tiheys ja kiven kylmyys. Vankka ankkuroituminen materiaan.",
   },
   {
-    id: "disks-2",
+    id: "vaihto",
     name: "Vaihto",
     internalRef: "2 of Disks: Change",
     arcana: "minor",
@@ -1163,7 +1163,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Arvojen siirtyminen kädestä toiseen hämärässä. Tasapainoilu puutteen ja yltäkylläisyyden välillä.",
   },
   {
-    id: "disks-3",
+    id: "tyo",
     name: "Työ",
     internalRef: "3 of Disks: Works",
     arcana: "minor",
@@ -1181,7 +1181,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Kipinöiden sade ja rutiininomainen raskas liike. Käden taito, jolla rakenne pysyy koossa.",
   },
   {
-    id: "disks-4",
+    id: "holvi",
     name: "Holvi",
     internalRef: "4 of Disks: Power",
     arcana: "minor",
@@ -1199,7 +1199,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Paksut seinämät ja lukkojen kolahtaminen kiinni. Oman kätkön varjeleminen herkeämättä.",
   },
   {
-    id: "disks-5",
+    id: "hata",
     name: "Hätä",
     internalRef: "5 of Disks: Worry",
     arcana: "minor",
@@ -1217,7 +1217,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Paleltuneet nivelet ja tyhjyys säiliöissä. Kieltäytyminen kuolemasta puutteeseen.",
   },
   {
-    id: "disks-6",
+    id: "jako",
     name: "Jako",
     internalRef: "6 of Disks: Success",
     arcana: "minor",
@@ -1234,7 +1234,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
     description: "Resurssien mittaaminen ja velkojen tasapaino. Jokainen saa sen, mikä kuuluu.",
   },
   {
-    id: "disks-7",
+    id: "halkeama",
     name: "Halkeama",
     internalRef: "7 of Disks: Failure",
     arcana: "minor",
@@ -1252,7 +1252,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Aine, joka leikkaa kiinni, ja hiljainen kiroilu hämärässä. Sinnikäs työ vian voittamiseksi.",
   },
   {
-    id: "disks-8",
+    id: "saato",
     name: "Säätö",
     internalRef: "8 of Disks: Prudence",
     arcana: "minor",
@@ -1270,7 +1270,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Hiljainen keskittyminen mikroskooppisen pieneen yksityiskohtaan. Mittarien virheetön kohdistus.",
   },
   {
-    id: "disks-9",
+    id: "saalis",
     name: "Saalis",
     internalRef: "9 of Disks: Gain",
     arcana: "minor",
@@ -1288,7 +1288,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Täysi varasto ja pitkän työn kerääntynyt hedelmä. Rauhallinen varmuus niukkuuden edessä.",
   },
   {
-    id: "disks-10",
+    id: "perinto",
     name: "Perintö",
     internalRef: "10 of Disks: Wealth",
     arcana: "minor",
@@ -1306,7 +1306,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Sukupolvien vanha työkalu nyrkissä ja vastuu jatkuvuudesta. Se, mikä pidetään pystyssä tuleville.",
   },
   {
-    id: "disks-page",
+    id: "louhija",
     name: "Louhija",
     internalRef: "Page of Disks",
     arcana: "minor",
@@ -1324,7 +1324,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Vasaran koputus kalliossa ja herkkä valppaus. Kivimassan painon aistiminen pimeässä.",
   },
   {
-    id: "disks-knight",
+    id: "raivaaja",
     name: "Raivaaja",
     internalRef: "Knight of Disks",
     arcana: "minor",
@@ -1342,7 +1342,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Metallin kitinä ja inertia, jota mikään ei pysäytä. Vakaa eteneminen vaarallisella pohjalla.",
   },
   {
-    id: "disks-queen",
+    id: "emo",
     name: "Emo",
     internalRef: "Queen of Disks",
     arcana: "minor",
@@ -1360,7 +1360,7 @@ export const ANCHOR_CARDS: readonly AnchorCard[] = [
       "Karhea ääni ja syvä huolenpito raskaan työn tekijöistä. Raaka ja maallinen viisaus.",
   },
   {
-    id: "disks-king",
+    id: "seppa",
     name: "Seppä",
     internalRef: "King of Disks",
     arcana: "minor",

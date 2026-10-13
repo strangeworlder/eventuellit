@@ -54,7 +54,7 @@ interface Character {
   removedSisuIds: string[];
   harmit: Array<{ text: string; healed: boolean }>;
   skills: { name: string; isCustom?: boolean }[] | string[];
-  anchorCardId?: string | null;
+  anchorId?: string | null;
   ownerName: string | null;
   fysiikka: number;
   nopeus: number;
@@ -318,8 +318,8 @@ export function CharacterSheet({
 
                 {(() => {
                   const effectiveAnchorId =
-                    character.anchorCardId ??
-                    (character.userId === user?.id ? (user?.anchorCardId as string | null) : null);
+                    character.anchorId ??
+                    (character.userId === user?.id ? (user?.anchorId as string | null) : null);
                   if (!effectiveAnchorId) return null;
                   const anchor = getAnchorById(effectiveAnchorId);
                   return anchor ? (

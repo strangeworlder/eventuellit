@@ -6,7 +6,7 @@ import { ANCHOR_CARDS, getAnchorById } from "../data/anchors";
 import { AnchorSelector } from "./AnchorSelector";
 
 const defaultFallbackAnchor = {
-  id: "atu-0",
+  id: "kuilu",
   name: "Kuilu",
   internalRef: "The Fool",
   arcana: "major" as const,
@@ -114,7 +114,7 @@ describe("AnchorSelector", () => {
 
   describe("Locked Mode (Returning player with persistent anchor)", () => {
     it("renders locked anchor view with inheritance notice and no reroll button", () => {
-      render(<AnchorSelector lockedAnchorId="atu-0" />);
+      render(<AnchorSelector lockedAnchorId="kuilu" />);
 
       // Notice explaining inheritance to all characters
       expect(screen.getByText("Pelaajakohtainen ankkuri")).toBeInTheDocument();
@@ -123,7 +123,7 @@ describe("AnchorSelector", () => {
 
       // Locked anchor button and badge
       expect(screen.getByText("Lukittu ankkuri")).toBeInTheDocument();
-      const lockedAnchor = getAnchorById("atu-0") ?? selectedOpt;
+      const lockedAnchor = getAnchorById("kuilu") ?? selectedOpt;
       expect(screen.getByText(lockedAnchor.name)).toBeInTheDocument();
 
       // Dual polarities displayed

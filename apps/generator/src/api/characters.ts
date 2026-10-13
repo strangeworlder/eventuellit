@@ -23,7 +23,7 @@ export interface CreateCharacterDto {
   persoona?: number;
   nakemys?: number;
   napparyys?: number;
-  anchorCardId?: string;
+  anchorId?: string;
 }
 
 export interface CharacterEpisodeLink {
@@ -45,7 +45,7 @@ export interface CharacterListItem {
   removedSisuIds?: string[];
   episodes?: CharacterEpisodeLink[];
   hasPlayedSessions?: boolean;
-  anchorCardId?: string | null;
+  anchorId?: string | null;
   monkAdvancementsAllowed?: number;
   monkAdvancementsUsed?: number;
   monkPowers?: MonkPower[];

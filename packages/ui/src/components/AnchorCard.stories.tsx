@@ -16,7 +16,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const fallbackCard: AnchorCardData = {
-  id: "atu-0",
+  id: "kuilu",
   name: "Kuilu",
   internalRef: "Atu 0: The Fool",
   arcana: "major",
@@ -32,16 +32,16 @@ const fallbackCard: AnchorCardData = {
   },
 };
 
-const kuilu: AnchorCardData = getAnchorById("atu-0") ?? fallbackCard;
-const kipina: AnchorCardData = getAnchorById("wands-ace") ?? fallbackCard;
-const sopu: AnchorCardData = getAnchorById("cups-2") ?? fallbackCard;
-const kipu: AnchorCardData = getAnchorById("swords-3") ?? fallbackCard;
-const malmi: AnchorCardData = getAnchorById("disks-ace") ?? fallbackCard;
-const seppa: AnchorCardData = getAnchorById("disks-king") ?? fallbackCard;
+const kuilu: AnchorCardData = getAnchorById("kuilu") ?? fallbackCard;
+const kipina: AnchorCardData = getAnchorById("kipina") ?? fallbackCard;
+const sopu: AnchorCardData = getAnchorById("sopu") ?? fallbackCard;
+const kipu: AnchorCardData = getAnchorById("kipu") ?? fallbackCard;
+const malmi: AnchorCardData = getAnchorById("malmi") ?? fallbackCard;
+const seppa: AnchorCardData = getAnchorById("seppa") ?? fallbackCard;
 
-/** Oletuskortti (Iso Arkana: Kuilu) */
+/** Oletusankkuri: Kuilu */
 export const Oletus: Story = {
-  name: "Iso Arkana: Kuilu",
+  name: "Kuilu",
   args: {
     anchor: kuilu,
   },
@@ -130,7 +130,7 @@ export const ValittavaVuorovaikutus: Story = {
     anchor: kuilu,
   },
   render: () => {
-    const [selectedId, setSelectedId] = useState<string | null>("atu-0");
+    const [selectedId, setSelectedId] = useState<string | null>("kuilu");
     const options = [kuilu, kipina, sopu, kipu, malmi];
 
     return (

@@ -4,5 +4,5 @@ export interface AuthUser {
   username: string;
   role: string;
   avatarUrl: string | null;
-  anchorCardId?: string | null;
+  anchorId?: string | null;
 }

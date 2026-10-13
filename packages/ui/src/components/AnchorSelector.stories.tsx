@@ -61,7 +61,7 @@ export const Oletus: Story = {
 export const GeneraattorinKonteksti: Story = {
   name: "Hahmogeneraattorin sisällä (Inverted Card)",
   render: () => {
-    const [selectedId, setSelectedId] = useState<string | null>("atu-0");
+    const [selectedId, setSelectedId] = useState<string | null>("kuilu");
 
     return (
       <div className="max-w-3xl mx-auto p-4 bg-[var(--theme-bg)]">
@@ -101,12 +101,12 @@ export const GeneraattorinKonteksti: Story = {
 
 /**
  * Esivalittu ankkuri:
- * Valitsin aukeaa tilassa, jossa ankkuri on jo valittu (esim. Atu 0: Kuilu).
+ * Valitsin aukeaa tilassa, jossa ankkuri on jo valittu (esim. Kuilu).
  */
 export const EsivalittuKuilu: Story = {
-  name: "Esivalittu: Kuilu (Atu 0)",
+  name: "Esivalittu: Kuilu",
   render: () => {
-    const [selectedId, setSelectedId] = useState<string | null>("atu-0");
+    const [selectedId, setSelectedId] = useState<string | null>("kuilu");
 
     return (
       <div className="max-w-3xl mx-auto">
@@ -118,13 +118,13 @@ export const EsivalittuKuilu: Story = {
 
 /**
  * Palaavalle pelaajalle lukittu ankkuri:
- * Kun pelaajalla on jo pelattuja pelejä ja vakiintunut ankkuri (esim. Miekat 3: Kipu),
+ * Kun pelaajalla on jo pelattuja pelejä ja vakiintunut ankkuri (esim. Kipu),
  * valitsin esittää suoraan pysyvän ankkurin ja sen polariteetit lukittuna.
  */
 export const PelaajalleLukittu: Story = {
-  name: "Pelaajalle lukittu: Kipu (Miekat 3)",
+  name: "Pelaajalle lukittu: Kipu",
   args: {
-    lockedAnchorId: "swords-3",
+    lockedAnchorId: "kipu",
   },
   render: (args) => (
     <div className="max-w-3xl mx-auto">
@@ -160,20 +160,19 @@ export const VaratutAnkkuritSuodatettu: Story = {
 };
 
 /**
- * Kaikki maat edustettuina (kiinteä erä):
- * Esimerkki, jossa valikoimassa on yksi kortti jokaisesta arkanasta ja maasta:
- * Iso Arkana (Kuilu), Sauvat (Kipinä), Maljat (Sopu), Miekat (Kipu) ja Kiekot (Malmi).
+ * Esimerkkivalikoima (kiinteä erä):
+ * Kuilu, Kipinä, Sopu, Kipu ja Malmi.
  */
-export const KaikkiMaatEdustettuina: Story = {
-  name: "Kaikki maat (Kuilu, Kipinä, Sopu, Kipu, Malmi)",
+export const Esimerkkivalikoima: Story = {
+  name: "Esimerkkivalikoima (Kuilu, Kipinä, Sopu, Kipu, Malmi)",
   render: () => {
-    const [selectedId, setSelectedId] = useState<string | null>("swords-3");
+    const [selectedId, setSelectedId] = useState<string | null>("kipu");
     const sampleBatch = [
-      getAnchorById("atu-0"),
-      getAnchorById("wands-ace"),
-      getAnchorById("cups-2"),
-      getAnchorById("swords-3"),
-      getAnchorById("disks-ace"),
+      getAnchorById("kuilu"),
+      getAnchorById("kipina"),
+      getAnchorById("sopu"),
+      getAnchorById("kipu"),
+      getAnchorById("malmi"),
     ].filter((c): c is (typeof ANCHOR_CARDS)[number] => Boolean(c));
 
     return (
@@ -183,7 +182,7 @@ export const KaikkiMaatEdustettuina: Story = {
           selectedAnchorId={selectedId}
           onSelectAnchor={setSelectedId}
           allowReroll={false}
-          description="Esimerkki kiinteästä valikoimasta, jossa jokainen maa on edustettuna."
+          description="Esimerkki kiinteästä viiden ankkurin valikoimasta."
         />
       </div>
     );
