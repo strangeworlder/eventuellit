@@ -11,6 +11,8 @@ export interface AspectTagProps extends React.HTMLAttributes<HTMLDivElement> {
   healed?: boolean;
   /** Whether this is a custom/player-created tag (skill variant only) */
   isCustom?: boolean;
+  /** Whether this skill tag is locked and cannot be edited or removed (skill variant only) */
+  locked?: boolean;
   /** Callback to remove the tag — shows remove button when provided */
   onRemove?: () => void;
   /** Callback to toggle heal state — shows heal/activate button when provided */
@@ -38,6 +40,7 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
       variant,
       healed = false,
       isCustom = false,
+      locked = false,
       onRemove,
       onToggleHeal,
       onSelect,
@@ -49,7 +52,9 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
     const isHarm = variant === "harm";
     const isName = variant === "name";
     const isAnchor = variant === "anchor";
+    const isSkill = variant === "skill";
     const isHealed = isHarm && healed;
+    const isLockedSkill = isSkill && locked;
 
     const icon: IconName | undefined = isHarm
       ? isHealed
@@ -57,7 +62,9 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
         : "alert-triangle"
       : isAnchor
         ? "anchor"
-        : undefined;
+        : isLockedSkill
+          ? "lock"
+          : undefined;
 
     const tagClassName = cn(
       // ── Base ──
@@ -139,12 +146,14 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
         {icon && (
           <Icon
             name={icon}
-            size={14}
+            size={isLockedSkill ? 12 : 14}
             className={cn(
               "shrink-0 transition-transform duration-200",
               isHealed
                 ? "opacity-50"
-                : "opacity-70 drop-shadow-[0_0_3px_color-mix(in_srgb,var(--theme-primary)_40%,transparent)]",
+                : isLockedSkill
+                  ? "opacity-75 text-[var(--theme-accent)]"
+                  : "opacity-70 drop-shadow-[0_0_3px_color-mix(in_srgb,var(--theme-primary)_40%,transparent)]",
             )}
           />
         )}
@@ -153,14 +162,14 @@ export const AspectTag = React.forwardRef<HTMLDivElement, AspectTagProps>(
         <span className="leading-tight">{text}</span>
 
         {/* Custom skill indicator — mini pill */}
-        {!isHarm && isCustom && (
+        {!isHarm && !isLockedSkill && isCustom && (
           <span className="inline-flex items-center rounded-full bg-[var(--theme-accent)]/15 px-1.5 py-px text-[9px] font-black tracking-widest text-text-subtle">
             oma
           </span>
         )}
 
         {/* Action buttons — slide-in from right */}
-        {!readOnly && (onToggleHeal || onRemove) && (
+        {!readOnly && !isLockedSkill && (onToggleHeal || onRemove) && (
           <span className="inline-flex items-center gap-0.5 ml-1 translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:duration-150 group-hover:ease-out group-focus-within:translate-x-0 group-focus-within:opacity-100 group-focus-within:duration-150 group-focus-within:ease-out transition-all duration-300 ease-in">
             {/* Heal/activate toggle */}
             {isHarm && onToggleHeal && (

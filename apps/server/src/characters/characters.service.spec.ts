@@ -431,6 +431,163 @@ describe("CharactersService", () => {
     expect(mockDb.insert).toHaveBeenCalled();
   });
 
+  describe("rebellion skill (Kapinan riveissä taisteleva -> taistellut)", () => {
+    it("should reject rebellion skill when creating a new character", async () => {
+      mockDb.query.users.findFirst.mockResolvedValueOnce({ id: 1, rebellionLevel: 0 });
+
+      await expect(
+        service.create(
+          {
+            name: "Rookie",
+            archetype: "Sotilas",
+            keho: 8,
+            mieli: 8,
+            tera: 8,
+            sisuDice: [],
+            skills: [{ name: "Kapinan riveissä taisteleva", isCustom: false }],
+          },
+          1,
+        ),
+      ).rejects.toThrow("Tätä erikoistaitoa ei voi valita uutta hahmoa luodessa");
+    });
+
+    it("should automatically include locked 'Kapinan riveissä taistellut' on new characters when user has rebellionLevel >= 1", async () => {
+      mockDb.query.users.findFirst.mockResolvedValueOnce({ id: 1, rebellionLevel: 1 });
+      mockDb.returning.mockResolvedValueOnce([{ id: 10, name: "New Char" }]);
+
+      await service.create(
+        {
+          name: "New Char",
+          archetype: "Sotilas",
+          keho: 8,
+          mieli: 8,
+          tera: 8,
+          sisuDice: [],
+          skills: [{ name: "Tarkkuusammunta", isCustom: false }],
+        },
+        1,
+      );
+
+      expect(mockDb.values).toHaveBeenCalledWith(
+        expect.objectContaining({
+          skills: [
+            { name: "Tarkkuusammunta", isCustom: false },
+            { name: "Kapinan riveissä taistellut", isCustom: false, locked: true },
+          ],
+        }),
+      );
+    });
+
+    it("should transform 'Kapinan riveissä taisteleva' into locked 'Kapinan riveissä taistellut', set user rebellionLevel=1, and backfill other characters on advance", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 1,
+        userId: 1,
+        keho: 8,
+        currentKeho: 8,
+        mieli: 8,
+        currentMieli: 8,
+        tera: 8,
+        currentTera: 8,
+        sisuDice: [],
+        skills: [{ name: "Hylkyjen tutkija", isCustom: false }],
+        fysiikka: 0,
+        nopeus: 0,
+        ymmarrys: 0,
+        persoona: 0,
+        nakemys: 0,
+        napparyys: 0,
+      });
+      mockDb.limit.mockResolvedValueOnce([{ id: 123, refreshedAt: new Date(), advancedAt: null }]);
+      mockDb.query.users.findFirst.mockResolvedValueOnce({ id: 1, rebellionLevel: 0 });
+      mockDb.query.characters.findMany.mockResolvedValueOnce([
+        { id: 1, userId: 1, skills: [{ name: "Hylkyjen tutkija", isCustom: false }] },
+        { id: 2, userId: 1, skills: [{ name: "Lääketiede", isCustom: false }] },
+      ]);
+      mockDb.returning.mockResolvedValueOnce([{ id: 1, name: "Hero" }]);
+
+      const result = await service.advanceForEpisode(
+        1,
+        {
+          episodeId: 2,
+          attribute: "fysiikka",
+          reward: "skill_plus_n8",
+          newSkills: ["Kapinan riveissä taisteleva"],
+        },
+        1,
+      );
+
+      expect(result.advanced).toBe(true);
+      expect(mockDb.set).toHaveBeenCalledWith({ rebellionLevel: 1 });
+      expect(mockDb.set).toHaveBeenCalledWith(
+        expect.objectContaining({
+          skills: [
+            { name: "Hylkyjen tutkija", isCustom: false },
+            { name: "Kapinan riveissä taistellut", isCustom: false, locked: true },
+          ],
+        }),
+      );
+      expect(mockDb.set).toHaveBeenCalledWith(
+        expect.objectContaining({
+          skills: [
+            { name: "Lääketiede", isCustom: false },
+            { name: "Kapinan riveissä taistellut", isCustom: false, locked: true },
+          ],
+        }),
+      );
+    });
+
+    it("should reject selecting 'Kapinan riveissä taisteleva' if user already has rebellionLevel >= 1", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 1,
+        userId: 1,
+        keho: 8,
+        currentKeho: 8,
+        mieli: 8,
+        currentMieli: 8,
+        tera: 8,
+        currentTera: 8,
+        sisuDice: [],
+        skills: [],
+        fysiikka: 0,
+        nopeus: 0,
+        ymmarrys: 0,
+        persoona: 0,
+        nakemys: 0,
+        napparyys: 0,
+      });
+      mockDb.limit.mockResolvedValueOnce([{ id: 123, refreshedAt: new Date(), advancedAt: null }]);
+      mockDb.query.users.findFirst.mockResolvedValueOnce({ id: 1, rebellionLevel: 1 });
+
+      await expect(
+        service.advanceForEpisode(
+          1,
+          {
+            episodeId: 2,
+            attribute: "fysiikka",
+            reward: "skill_plus_n8",
+            newSkills: ["Kapinan riveissä taisteleva"],
+          },
+          1,
+        ),
+      ).rejects.toThrow("Pelaajalla on jo tämä taito");
+    });
+
+    it("should prevent removing or renaming 'Kapinan riveissä taistellut' in update", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 1,
+        userId: 1,
+        skills: [
+          { name: "Lääketiede", isCustom: false },
+          { name: "Kapinan riveissä taistellut", isCustom: false, locked: true },
+        ],
+      });
+
+      await expect(
+        service.update(1, { skills: [{ name: "Lääketiede", isCustom: false }] }, 1, "player"),
+      ).rejects.toThrow("Lukittua erikoistaitoa ei voi muokata tai poistaa");
+    });
+  });
+
   describe("advanceAsMonk", () => {
     it("should throw NotFoundException if character not found", async () => {
       mockDb.query.characters.findFirst.mockResolvedValueOnce(null);

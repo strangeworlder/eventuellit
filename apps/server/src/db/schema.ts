@@ -18,6 +18,7 @@ export const users = pgTable("users", {
   avatarUrl: text("avatar_url"),
   role: text("role").default("player").notNull(), // player or gm
   anchorId: text("anchor_id").unique(),
+  rebellionLevel: integer("rebellion_level").default(0).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

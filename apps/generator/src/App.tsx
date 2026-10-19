@@ -34,6 +34,7 @@ import {
 } from "react-router-dom";
 import {
   type CharacterListItem,
+  isReservedRebellionSkillName,
   useCharacters,
   useClaimedAnchorIds,
   useCreateCharacter,
@@ -143,6 +144,7 @@ function GeneratorForm({
   };
 
   const hasCustomSlot = selectedTaidot.includes("custom");
+  const isCustomReserved = hasCustomSlot && isReservedRebellionSkillName(customSkillText);
 
   const buildSkills = () =>
     selectedTaidot
@@ -153,7 +155,8 @@ function GeneratorForm({
       }));
 
   const taidotFilled =
-    selectedTaidot.every((s) => s !== null) && (!hasCustomSlot || customSkillText.trim() !== "");
+    selectedTaidot.every((s) => s !== null) &&
+    (!hasCustomSlot || (customSkillText.trim() !== "" && !isCustomReserved));
 
   // ── Step progression gates ──
   // New order: Episode → Archetype → Sex → Name → Attributes → Skills
@@ -534,9 +537,16 @@ function GeneratorForm({
                                     value={customSkillText}
                                     onChange={(e) => setCustomSkillText(e.target.value)}
                                   />
-                                  <p className="text-xs text-text-muted mt-1">
-                                    GM tarkastaa omat taidot.
-                                  </p>
+                                  {isCustomReserved ? (
+                                    <p className="text-xs text-[var(--theme-primary)] mt-1">
+                                      Tämä on erikoistaito, jota ei voi valita uutta hahmoa
+                                      luodessa.
+                                    </p>
+                                  ) : (
+                                    <p className="text-xs text-text-muted mt-1">
+                                      GM tarkastaa omat taidot.
+                                    </p>
+                                  )}
                                 </div>
                               )}
                             </CardContent>

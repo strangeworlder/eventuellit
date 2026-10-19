@@ -4,6 +4,17 @@ import type { MonkPower } from "./monk-powers";
 
 const API_URL = `${apiBaseUrl}/characters`;
 
+export const REBELLION_SKILL_SELECTION_NAME = "Kapinan riveissä taisteleva";
+export const REBELLION_SKILL_ACQUIRED_NAME = "Kapinan riveissä taistellut";
+
+export function isReservedRebellionSkillName(name: string): boolean {
+  const normalized = name.trim().toLowerCase();
+  return (
+    normalized === REBELLION_SKILL_SELECTION_NAME.toLowerCase() ||
+    normalized === REBELLION_SKILL_ACQUIRED_NAME.toLowerCase()
+  );
+}
+
 export interface CreateCharacterDto {
   name: string;
   archetype: string;
@@ -16,7 +27,7 @@ export interface CreateCharacterDto {
   mieli: number;
   tera: number;
   sisuDice: Array<{ id: string; faces: number }>;
-  skills: { name: string; isCustom?: boolean }[];
+  skills: { name: string; isCustom?: boolean; locked?: boolean }[];
   fysiikka?: number;
   nopeus?: number;
   ymmarrys?: number;
@@ -43,9 +54,11 @@ export interface CharacterListItem {
   harmit?: Array<{ text: string; healed: boolean }>;
   sisuDice?: Array<{ id: string; faces: number }>;
   removedSisuIds?: string[];
+  skills?: Array<{ name: string; isCustom?: boolean; locked?: boolean } | string>;
   episodes?: CharacterEpisodeLink[];
   hasPlayedSessions?: boolean;
   anchorId?: string | null;
+  rebellionLevel?: number;
   monkAdvancementsAllowed?: number;
   monkAdvancementsUsed?: number;
   monkPowers?: MonkPower[];
@@ -214,9 +227,11 @@ export function useAdvanceCharacterForEpisode() {
 
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["characters"] });
+      queryClient.invalidateQueries({ queryKey: ["character", variables.characterId] });
       queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
     },
   });
 }

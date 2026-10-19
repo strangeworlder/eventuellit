@@ -41,6 +41,14 @@ export const OmaTaito: Story = {
   },
 };
 
+export const LukittuTaito: Story = {
+  args: {
+    text: "Kapinan riveissä taistellut",
+    variant: "skill",
+    locked: true,
+  },
+};
+
 export const AnkkuriTaito: Story = {
   args: {
     text: "Kuilu",

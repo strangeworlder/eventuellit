@@ -60,6 +60,7 @@ export class AuthController {
           role: user.role,
           avatarUrl: user.avatarUrl,
           anchorId: user.anchorId,
+          rebellionLevel: user.rebellionLevel,
         },
         token: jwt,
       });
@@ -84,6 +85,7 @@ export class AuthController {
       role: fullUser.role,
       avatarUrl: fullUser.avatarUrl,
       anchorId: fullUser.anchorId,
+      rebellionLevel: fullUser.rebellionLevel,
     };
   }
 

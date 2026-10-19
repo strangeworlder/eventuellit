@@ -22,6 +22,9 @@ import { Text } from "@repo/ui/components/Text";
 import { useMemo, useState } from "react";
 import {
   type CharacterListItem,
+  isReservedRebellionSkillName,
+  REBELLION_SKILL_ACQUIRED_NAME,
+  REBELLION_SKILL_SELECTION_NAME,
   useAdvanceCharacterForEpisode,
   useCharacters,
   useRefreshCharacterForEpisode,
@@ -358,6 +361,7 @@ function ReturningCharacterPrep({
   needsRefresh: boolean;
   needsAdvance: boolean;
 }) {
+  const { user } = useAuth();
   const refreshMutation = useRefreshCharacterForEpisode();
   const advanceMutation = useAdvanceCharacterForEpisode();
   const { data: episodeSkills, isLoading: isSkillsLoading } = useEpisodeSkills(episodeId);
@@ -368,6 +372,26 @@ function ReturningCharacterPrep({
   const [selectedTaidot, setSelectedTaidot] = useState<Array<string | null>>([null]);
   const [customSkillText, setCustomSkillText] = useState("");
   const [selectedMonkPower, setSelectedMonkPower] = useState<MonkPower | null>(null);
+
+  const hasRebellionSkill =
+    (character.rebellionLevel ?? 0) >= 1 ||
+    (user?.rebellionLevel ?? 0) >= 1 ||
+    (character.skills ?? []).some((s) => {
+      const name = typeof s === "string" ? s : s.name;
+      return name.trim().toLowerCase() === REBELLION_SKILL_ACQUIRED_NAME.toLowerCase();
+    });
+
+  const availableCatalogSkills = useMemo(() => {
+    const base = [...(episodeSkills ?? [])];
+    if (!hasRebellionSkill) {
+      base.push({
+        id: -1,
+        episodeId,
+        name: REBELLION_SKILL_SELECTION_NAME,
+      });
+    }
+    return base;
+  }, [episodeSkills, hasRebellionSkill, episodeId]);
 
   const rewardSelected = reward !== null;
   const attributeAssigned = selectedAttribute !== null;
@@ -401,8 +425,10 @@ function ReturningCharacterPrep({
   };
 
   const hasCustomSlot = selectedTaidot.includes("custom");
+  const isCustomReserved = hasCustomSlot && isReservedRebellionSkillName(customSkillText);
   const taidotFilled =
-    selectedTaidot.every((s) => s !== null) && (!hasCustomSlot || customSkillText.trim() !== "");
+    selectedTaidot.every((s) => s !== null) &&
+    (!hasCustomSlot || (customSkillText.trim() !== "" && !isCustomReserved));
 
   const diceRemaining = selectedAttribute === null ? 1 : 0;
 
@@ -653,16 +679,14 @@ function ReturningCharacterPrep({
                               <CardContent>
                                 <SkillMasonry
                                   sort="optimal"
-                                  skills={
-                                    episodeSkills?.map((skill) => ({
-                                      id: skill.id,
-                                      name: skill.name,
-                                      disabled: selectedTaidot.some(
-                                        (s, i) => i !== slotIndex && s === skill.name,
-                                      ),
-                                      selected: slotValue === skill.name,
-                                    })) ?? []
-                                  }
+                                  skills={availableCatalogSkills.map((skill) => ({
+                                    id: skill.id,
+                                    name: skill.name,
+                                    disabled: selectedTaidot.some(
+                                      (s, i) => i !== slotIndex && s === skill.name,
+                                    ),
+                                    selected: slotValue === skill.name,
+                                  }))}
                                   onSkillClick={(skill) =>
                                     handleTaidotSelect(
                                       slotIndex,
@@ -683,9 +707,15 @@ function ReturningCharacterPrep({
                                       value={customSkillText}
                                       onChange={(e) => setCustomSkillText(e.target.value)}
                                     />
-                                    <p className="text-xs text-text-muted mt-1">
-                                      GM tarkastaa omat taidot.
-                                    </p>
+                                    {isCustomReserved ? (
+                                      <p className="text-xs text-[var(--theme-primary)] mt-1">
+                                        Tämä on erikoistaito, jota ei voi kirjoittaa omana taitona.
+                                      </p>
+                                    ) : (
+                                      <p className="text-xs text-text-muted mt-1">
+                                        GM tarkastaa omat taidot.
+                                      </p>
+                                    )}
                                   </div>
                                 )}
                               </CardContent>

@@ -29,6 +29,43 @@ import type { CreateCharacterDto } from "./dto/create-character.dto";
 import type { RefreshCharacterDto } from "./dto/refresh-character.dto";
 import type { UpdateCharacterDto } from "./dto/update-character.dto";
 
+export const REBELLION_SKILL_SELECTION_NAME = "Kapinan riveissä taisteleva";
+export const REBELLION_SKILL_ACQUIRED_NAME = "Kapinan riveissä taistellut";
+
+function getSkillEntryName(entry: unknown): string {
+  if (typeof entry === "string") return entry.trim();
+  if (typeof entry === "object" && entry !== null && "name" in entry) {
+    const raw = (entry as { name?: unknown }).name;
+    return typeof raw === "string" ? raw.trim() : "";
+  }
+  return "";
+}
+
+function isRebellionSelectionName(name: string): boolean {
+  return name.trim().toLowerCase() === REBELLION_SKILL_SELECTION_NAME.toLowerCase();
+}
+
+function isRebellionAcquiredName(name: string): boolean {
+  return name.trim().toLowerCase() === REBELLION_SKILL_ACQUIRED_NAME.toLowerCase();
+}
+
+function isReservedRebellionName(name: string): boolean {
+  return isRebellionSelectionName(name) || isRebellionAcquiredName(name);
+}
+
+function ensureRebellionSkillInArray(skills: unknown[]): unknown[] {
+  const existing = Array.isArray(skills) ? [...skills] : [];
+  const hasAcquired = existing.some((s) => isRebellionAcquiredName(getSkillEntryName(s)));
+  if (hasAcquired) {
+    return existing.map((s) =>
+      isRebellionAcquiredName(getSkillEntryName(s))
+        ? { name: REBELLION_SKILL_ACQUIRED_NAME, isCustom: false, locked: true }
+        : s,
+    );
+  }
+  return [...existing, { name: REBELLION_SKILL_ACQUIRED_NAME, isCustom: false, locked: true }];
+}
+
 const characterWithOwnerColumns = {
   id: characters.id,
   userId: characters.userId,
@@ -56,6 +93,7 @@ const characterWithOwnerColumns = {
   nakemys: characters.nakemys,
   napparyys: characters.napparyys,
   anchorId: sql<string | null>`COALESCE(${characters.anchorId}, ${users.anchorId})`.as("anchorId"),
+  rebellionLevel: users.rebellionLevel,
   monkAdvancementsAllowed: characters.monkAdvancementsAllowed,
   monkAdvancementsUsed: characters.monkAdvancementsUsed,
   removedFromPlayAt: characters.removedFromPlayAt,
@@ -131,11 +169,17 @@ async function attachEpisodesForCharacters(
 
   const withPlayedSessions = new Set<number>(playedRows.map((r) => r.characterId));
 
-  return rows.map((r) => ({
-    ...r,
-    episodes: byChar.get(r.id as number) ?? [],
-    hasPlayedSessions: withPlayedSessions.has(r.id as number),
-  })) as Array<
+  return rows.map((r) => {
+    const hasRebellion = Number(r.rebellionLevel ?? 0) >= 1;
+    return {
+      ...r,
+      ...(hasRebellion && {
+        skills: ensureRebellionSkillInArray(Array.isArray(r.skills) ? r.skills : []),
+      }),
+      episodes: byChar.get(r.id as number) ?? [],
+      hasPlayedSessions: withPlayedSessions.has(r.id as number),
+    };
+  }) as Array<
     (typeof rows)[number] & { episodes: CharacterEpisodeRow[]; hasPlayedSessions: boolean }
   >;
 }
@@ -272,6 +316,15 @@ export class CharactersService {
       where: eq(users.id, userId),
     });
 
+    const incomingSkills = Array.isArray(data.skills) ? data.skills : [];
+    if (incomingSkills.some((s) => isReservedRebellionName(getSkillEntryName(s)))) {
+      throw new BadRequestException("Tätä erikoistaitoa ei voi valita uutta hahmoa luodessa");
+    }
+    const effectiveSkills =
+      (user?.rebellionLevel ?? 0) >= 1
+        ? ensureRebellionSkillInArray(incomingSkills)
+        : incomingSkills;
+
     let effectiveAnchorId = user?.anchorId ?? null;
     let shouldUpdateUserAnchor = false;
 
@@ -302,7 +355,7 @@ export class CharactersService {
       currentTera: data.tera,
       sisuDice: data.sisuDice,
       removedSisuIds: [],
-      skills: data.skills ?? [],
+      skills: effectiveSkills,
       inventory: [],
       fysiikka: data.fysiikka ?? 0,
       nopeus: data.nopeus ?? 0,
@@ -353,6 +406,35 @@ export class CharactersService {
       throw new ForbiddenException("You do not have permission to edit this character");
     }
 
+    let nextSkills = data.skills;
+    if (data.skills !== undefined) {
+      const incoming = Array.isArray(data.skills) ? data.skills : [];
+      if (incoming.some((s) => isRebellionSelectionName(getSkillEntryName(s)))) {
+        throw new BadRequestException("Virheellinen taidon nimi");
+      }
+      const charHadRebellionSkill =
+        Array.isArray(character.skills) &&
+        character.skills.some((s) => isRebellionAcquiredName(getSkillEntryName(s)));
+      const owner = charHadRebellionSkill
+        ? null
+        : await this.db.query.users.findFirst({ where: eq(users.id, character.userId) });
+      const hasRebellion = charHadRebellionSkill || (owner?.rebellionLevel ?? 0) >= 1;
+
+      if (!hasRebellion) {
+        if (incoming.some((s) => isRebellionAcquiredName(getSkillEntryName(s)))) {
+          throw new BadRequestException("Tätä erikoistaitoa ei voi lisätä muokkaamalla");
+        }
+      } else {
+        const acquiredMatches = incoming.filter((s) =>
+          isRebellionAcquiredName(getSkillEntryName(s)),
+        );
+        if (acquiredMatches.length !== 1) {
+          throw new BadRequestException("Lukittua erikoistaitoa ei voi muokata tai poistaa");
+        }
+        nextSkills = ensureRebellionSkillInArray(incoming);
+      }
+    }
+
     const nextHarmit = data.harmit ?? character.harmit;
     const shouldMarkRemoved = this.hasFiveHarmit(nextHarmit);
     const updateData: Partial<typeof characters.$inferInsert> = {
@@ -370,7 +452,7 @@ export class CharactersService {
       sisuDice: data.sisuDice,
       removedSisuIds: data.removedSisuIds,
       harmit: data.harmit,
-      skills: data.skills,
+      skills: nextSkills,
       inventory: data.inventory,
       nicknames: data.nicknames,
       fysiikka: data.fysiikka,
@@ -639,12 +721,61 @@ export class CharactersService {
 
     const skillCap = data.reward === "munkki" ? 0 : data.reward === "skills_plus_n6" ? 2 : 1;
     const appendedSkills = (data.newSkills ?? []).slice(0, skillCap);
+
+    if (appendedSkills.some((s) => isRebellionAcquiredName(s))) {
+      throw new BadRequestException("Tätä erikoistaitoa ei voi syöttää omana taitona");
+    }
+
+    const rebellionSelectionCount = appendedSkills.filter((s) =>
+      isRebellionSelectionName(s),
+    ).length;
+    if (rebellionSelectionCount > 1) {
+      throw new BadRequestException("Taidon voi valita vain kerran");
+    }
+
+    const shouldAcquireRebellionSkill = rebellionSelectionCount === 1;
+    if (shouldAcquireRebellionSkill) {
+      const charAlreadyHas =
+        Array.isArray(character.skills) &&
+        character.skills.some((s) => isRebellionAcquiredName(getSkillEntryName(s)));
+      const user = await this.db.query.users.findFirst({
+        where: eq(users.id, userId),
+      });
+      if (charAlreadyHas || (user?.rebellionLevel ?? 0) >= 1) {
+        throw new BadRequestException("Pelaajalla on jo tämä taito");
+      }
+    }
+
     const skills = Array.isArray(character.skills) ? [...character.skills] : [];
     for (const skill of appendedSkills) {
-      skills.push({ name: skill, isCustom: true });
+      if (isRebellionSelectionName(skill)) {
+        skills.push({ name: REBELLION_SKILL_ACQUIRED_NAME, isCustom: false, locked: true });
+      } else {
+        skills.push({ name: skill, isCustom: true });
+      }
     }
 
     return this.db.transaction(async (tx) => {
+      if (shouldAcquireRebellionSkill) {
+        await tx.update(users).set({ rebellionLevel: 1 }).where(eq(users.id, userId));
+
+        const otherChars =
+          (await tx.query.characters.findMany({
+            where: eq(characters.userId, userId),
+          })) ?? [];
+        for (const otherChar of otherChars) {
+          if (otherChar.id !== characterId) {
+            const nextOtherSkills = ensureRebellionSkillInArray(
+              Array.isArray(otherChar.skills) ? otherChar.skills : [],
+            );
+            await tx
+              .update(characters)
+              .set({ skills: nextOtherSkills, updatedAt: new Date() })
+              .where(eq(characters.id, otherChar.id));
+          }
+        }
+      }
+
       const updatedRows = await tx
         .update(characters)
         .set({

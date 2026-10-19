@@ -23,9 +23,10 @@ export class AuthService {
     const isDev = !config.isProduction;
     if (isDev) this.logger.log(`[DEV] requestMagicLink called for: ${email}`);
 
-    // Check if user exists (email allowlist)
+    // Check if user exists (email allowlist) — select only id & email so new columns on users cannot break link generation
     const user = await this.db.query.users.findFirst({
       where: eq(users.email, email),
+      columns: { id: true, email: true },
     });
 
     // Always return early without revealing whether the email exists

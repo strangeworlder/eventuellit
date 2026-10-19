@@ -12,6 +12,8 @@ export interface SkillTagItem {
   name: string;
   /** Whether this is a player-created custom skill */
   isCustom?: boolean;
+  /** Whether this skill is locked and cannot be edited or removed */
+  locked?: boolean;
 }
 
 /**
@@ -67,7 +69,7 @@ export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(
     const canEdit = !readOnly && !!onItemEdit;
 
     const startEditing = (item: SkillTagItem) => {
-      if (!canEdit) return;
+      if (!canEdit || item.locked) return;
       setEditingId(item.id);
       setDraftName(item.name);
       setDraftCustom(item.isCustom ?? false);
@@ -99,7 +101,10 @@ export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(
         {items.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {items.map((item) => {
-              if (editingId === item.id) {
+              const itemLocked = item.locked === true;
+              const itemCanEdit = canEdit && !itemLocked;
+
+              if (editingId === item.id && !itemLocked) {
                 return (
                   <div key={item.id} className="flex flex-col gap-2 w-full">
                     <Input
@@ -135,12 +140,23 @@ export const SkillTagList = React.forwardRef<HTMLDivElement, SkillTagListProps>(
                   key={item.id}
                   text={item.name}
                   variant="skill"
-                  isCustom={item.isCustom ?? false}
-                  readOnly={readOnly || !canEdit}
-                  onClick={canEdit ? () => startEditing(item) : undefined}
-                  onRemove={!readOnly && onItemRemove ? () => onItemRemove(item.id) : undefined}
-                  className={canEdit ? "cursor-pointer" : undefined}
-                  title={canEdit ? "Klikkaa muokataksesi" : undefined}
+                  isCustom={itemLocked ? false : (item.isCustom ?? false)}
+                  locked={itemLocked}
+                  readOnly={readOnly || !itemCanEdit}
+                  onClick={itemCanEdit ? () => startEditing(item) : undefined}
+                  onRemove={
+                    !readOnly && !itemLocked && onItemRemove
+                      ? () => onItemRemove(item.id)
+                      : undefined
+                  }
+                  className={itemCanEdit ? "cursor-pointer" : undefined}
+                  title={
+                    itemLocked
+                      ? "Tätä taitoa ei voi muokata"
+                      : itemCanEdit
+                        ? "Klikkaa muokataksesi"
+                        : undefined
+                  }
                 />
               );
             })}
