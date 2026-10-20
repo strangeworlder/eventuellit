@@ -1,5 +1,5 @@
 import type { CSSProperties, MouseEvent } from "react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 export interface PillIndicatorConfig {
   /** CSS selector for nav items or tabs (e.g. `[data-nav-item]` or `[role="tab"]`). */
@@ -7,6 +7,8 @@ export interface PillIndicatorConfig {
   /** Whether the element is the active item (current page or selected tab). */
   activeCheck: (el: HTMLElement) => boolean;
 }
+
+type PillMouseEvent = MouseEvent<HTMLDivElement> | globalThis.MouseEvent;
 
 const SETTLING_TRANSITION =
   "after:[transition:left_500ms_cubic-bezier(0.23,1,0.32,1),right_500ms_cubic-bezier(0.23,1,0.32,1),top_500ms_cubic-bezier(0.23,1,0.32,1),bottom_500ms_cubic-bezier(0.23,1,0.32,1),transform_600ms_cubic-bezier(0.34,1.56,0.64,1)]";
@@ -17,11 +19,12 @@ const HOVER_TRANSITION =
  * Shared tug/stretch animation for the binder-style pill indicator under TopNavList / TabsList.
  */
 function resolveItemFromEvent(
-  e: MouseEvent<HTMLDivElement>,
+  e: PillMouseEvent,
   listEl: HTMLElement,
   itemSelector: string,
 ): HTMLElement | null {
-  const path = e.nativeEvent.composedPath?.() ?? [];
+  const nativeEvent = "nativeEvent" in e ? e.nativeEvent : e;
+  const path = nativeEvent?.composedPath?.() ?? [];
   if (path.length === 0) {
     const el = e.target instanceof Element ? e.target : null;
     const hit = el?.closest(itemSelector);
@@ -67,7 +70,7 @@ export function usePillIndicator({ itemSelector, activeCheck }: PillIndicatorCon
   }, []);
 
   const handleMouseOver = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
+    (e: PillMouseEvent) => {
       if (!listRef.current) return;
       const target = resolveItemFromEvent(e, listRef.current, itemSelector);
       if (!target) return;
@@ -129,7 +132,7 @@ export function usePillIndicator({ itemSelector, activeCheck }: PillIndicatorCon
   }, []);
 
   const handleClick = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
+    (e: PillMouseEvent) => {
       if (!listRef.current) return;
       if (resolveItemFromEvent(e, listRef.current, itemSelector)) {
         triggerSettle();
@@ -149,15 +152,20 @@ export function usePillIndicator({ itemSelector, activeCheck }: PillIndicatorCon
 
   const settleClassName = isSettling ? SETTLING_TRANSITION : HOVER_TRANSITION;
 
+  const handlers = useMemo(
+    () => ({
+      onMouseOver: handleMouseOver,
+      onMouseLeave: handleMouseLeave,
+      onClick: handleClick,
+    }),
+    [handleMouseOver, handleMouseLeave, handleClick],
+  );
+
   return {
     listRef,
     style,
     settleClassName,
     triggerSettle,
-    handlers: {
-      onMouseOver: handleMouseOver,
-      onMouseLeave: handleMouseLeave,
-      onClick: handleClick,
-    },
+    handlers,
   };
 }
