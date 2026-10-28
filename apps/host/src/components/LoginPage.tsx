@@ -106,8 +106,10 @@ export function LoginPage() {
       nonce: sessionNonce.current,
     });
 
+    const cleanEmail = email.trim().toLowerCase();
+
     try {
-      await requestMagicLink(email);
+      await requestMagicLink(cleanEmail);
     } catch {
       // Silently ignore errors — always show success to prevent email enumeration.
     } finally {
@@ -157,6 +159,9 @@ export function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 disabled={isLoading || cooldownRemaining > 0 || isTampered}
               />
               {isTampered && (

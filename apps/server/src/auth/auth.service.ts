@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Inject, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { and, eq, isNotNull, lt, or } from "drizzle-orm";
+import { and, eq, isNotNull, lt, or, sql } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { config } from "../config";
 import { DATABASE_CONNECTION } from "../db/db.module";
@@ -20,18 +20,20 @@ export class AuthService {
   ) {}
 
   async requestMagicLink(email: string, baseUrl: string): Promise<void> {
+    const normalizedEmail = email.trim().toLowerCase();
     const isDev = !config.isProduction;
-    if (isDev) this.logger.log(`[DEV] requestMagicLink called for: ${email}`);
+    if (isDev) this.logger.log(`[DEV] requestMagicLink called for: ${normalizedEmail}`);
 
-    // Check if user exists (email allowlist) — select only id & email so new columns on users cannot break link generation
+    // Check if user exists (email allowlist) — case-insensitive match
     const user = await this.db.query.users.findFirst({
-      where: eq(users.email, email),
+      where: eq(sql`lower(${users.email})`, normalizedEmail),
       columns: { id: true, email: true },
     });
 
     // Always return early without revealing whether the email exists
     if (!user) {
-      if (isDev) this.logger.log(`[DEV] Email not found in DB — check your users table: ${email}`);
+      if (isDev)
+        this.logger.log(`[DEV] Email not found in DB — check your users table: ${normalizedEmail}`);
       return;
     }
 
@@ -40,16 +42,16 @@ export class AuthService {
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + 15); // 15 minute expiry
 
-    // Store token
+    // Store token (normalized)
     await this.db.insert(magicLinkTokens).values({
-      email,
+      email: normalizedEmail,
       token,
       expiresAt,
     });
 
-    // Send magic link
+    // Send magic link to user's registered email
     const verifyUrl = `${baseUrl}/auth/vahvista?token=${token}`;
-    await this.mailService.sendMagicLink(email, verifyUrl);
+    await this.mailService.sendMagicLink(user.email, verifyUrl);
 
     // Cleanup expired/used tokens in the background
     void this.cleanupExpiredTokens().catch(() => {});
@@ -81,9 +83,9 @@ export class AuthService {
       .set({ usedAt: new Date() })
       .where(eq(magicLinkTokens.id, tokenRecord.id));
 
-    // Get user
+    // Get user (case-insensitive in case DB record casing differs from token email)
     const user = await this.db.query.users.findFirst({
-      where: eq(users.email, tokenRecord.email),
+      where: eq(sql`lower(${users.email})`, tokenRecord.email.toLowerCase()),
     });
 
     if (!user) {
@@ -155,7 +157,9 @@ export class AuthService {
       }
 
       // Delete magic link tokens for this email
-      await tx.delete(magicLinkTokens).where(eq(magicLinkTokens.email, user.email));
+      await tx
+        .delete(magicLinkTokens)
+        .where(eq(sql`lower(${magicLinkTokens.email})`, user.email.toLowerCase()));
 
       // Delete the user record
       await tx.delete(users).where(eq(users.id, userId));

@@ -9,13 +9,14 @@ const getApiBaseUrl = (): string => {
 };
 
 export async function requestMagicLink(email: string): Promise<void> {
+  const normalizedEmail = email.trim().toLowerCase();
   const response = await fetch(`${getApiBaseUrl()}/auth/request-link`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({ email: normalizedEmail }),
   });
 
   if (!response.ok) {
