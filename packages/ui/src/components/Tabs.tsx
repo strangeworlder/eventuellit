@@ -149,7 +149,6 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
           "[anchor-scope:--active-tab]",
           "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
           "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
-          "after:transition-[left,right,top,bottom] after:duration-500 after:ease-[cubic-bezier(0.23,1,0.32,1)]",
           settleClassName,
           "after:[transform-origin:var(--tab-tug-ox,50%)_var(--tab-tug-oy,50%)]",
           "after:[transform:translateX(var(--tab-tug-x,0px))_translateY(var(--tab-tug-y,0px))_scaleX(var(--tab-stretch-x,1))_scaleY(var(--tab-stretch-y,1))]",

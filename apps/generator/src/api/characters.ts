@@ -4,6 +4,17 @@ import type { MonkPower } from "./monk-powers";
 
 const API_URL = `${apiBaseUrl}/characters`;
 
+export const REBELLION_SKILL_SELECTION_NAME = "Kapinan riveissä taisteleva";
+export const REBELLION_SKILL_ACQUIRED_NAME = "Kapinan riveissä taistellut";
+
+export function isReservedRebellionSkillName(name: string): boolean {
+  const normalized = name.trim().toLowerCase();
+  return (
+    normalized === REBELLION_SKILL_SELECTION_NAME.toLowerCase() ||
+    normalized === REBELLION_SKILL_ACQUIRED_NAME.toLowerCase()
+  );
+}
+
 export interface CreateCharacterDto {
   name: string;
   archetype: string;
@@ -16,13 +27,14 @@ export interface CreateCharacterDto {
   mieli: number;
   tera: number;
   sisuDice: Array<{ id: string; faces: number }>;
-  skills: { name: string; isCustom?: boolean }[];
+  skills: { name: string; isCustom?: boolean; locked?: boolean }[];
   fysiikka?: number;
   nopeus?: number;
   ymmarrys?: number;
   persoona?: number;
   nakemys?: number;
   napparyys?: number;
+  anchorId?: string;
 }
 
 export interface CharacterEpisodeLink {
@@ -42,12 +54,30 @@ export interface CharacterListItem {
   harmit?: Array<{ text: string; healed: boolean }>;
   sisuDice?: Array<{ id: string; faces: number }>;
   removedSisuIds?: string[];
+  skills?: Array<{ name: string; isCustom?: boolean; locked?: boolean } | string>;
   episodes?: CharacterEpisodeLink[];
   hasPlayedSessions?: boolean;
+  anchorId?: string | null;
+  rebellionLevel?: number;
   monkAdvancementsAllowed?: number;
   monkAdvancementsUsed?: number;
   monkPowers?: MonkPower[];
   [key: string]: unknown;
+}
+
+export function useClaimedAnchorIds() {
+  return useQuery<string[]>({
+    queryKey: ["anchors", "claimed"],
+    queryFn: async () => {
+      const token = localStorage.getItem("auth_token");
+      const res = await fetch(`${apiBaseUrl}/characters/anchors/claimed`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Failed to fetch claimed anchors");
+      return res.json();
+    },
+  });
 }
 
 export function useCharacters() {
@@ -197,9 +227,11 @@ export function useAdvanceCharacterForEpisode() {
 
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["characters"] });
+      queryClient.invalidateQueries({ queryKey: ["character", variables.characterId] });
       queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
     },
   });
 }

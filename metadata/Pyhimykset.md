@@ -6,12 +6,14 @@
 
 ---
 
-## 1. Pyhimysten luonne ja Sykli
+## 1. Pyhimysten luonne ja Sykli (d12)
 
-* **Sykli on heidän valtakuntansa:** Pyhimykset eivät ole Kynnyksen paikallisia jumalia tai sen virkamiehiä. He hallitsevat **Sykliä**, seuraavaa maailmaa Kynnyksestä aurinkokuntaa sisäänpäin. Siellä Arkkitehtuurin lait ovat ehdottomia ja täydellisiä.
-* **Intuitiivinen reaktio Kapinaan:** Pyhimykset eivät partioi Kynnyksellä rutiininomaisesti. He reagoivat Kynnykselle **intuitiivisesti**, kuin kosmisena immuunireaktiona, kun he aistivat Kapinan heräävän läsnäolon (*Astian* kuolleiden leppymättömän kaiun hahmojen *Sisäinen ääni* -implanteissa).
+* **Sykli (d12) on heidän valtakuntansa:** Pyhimykset eivät ole Kynnyksen paikallisia ilmiöitä tai virkamiehiä. He hallitsevat **Sykliä**, aurinkokunnan toista kehää (12-tahkoista dodekaedria d20-Kynnyksen sisäpuolella). Sykli on steriili staasi-paratiisi ja hymyjen hautausmaa, jossa ei ole kärsimystä eikä kuolemaa, ja jossa Arkkitehtuurin lait ovat ehdottomia.
+* **Pyhimykset eivät ole koneita:** Pyhimykset eivät ole tietokoneohjelmia, skriptejä tai prosesseja. **Ne ovat.** Ne ovat todellisuuden perusvoimia ja lakien henkilöitymiä – Arkkitehtuurin ontologisia ilmentymiä.
+* **Intuitiivinen reaktio Kapinaan:** Pyhimykset eivät partioi Kynnyksellä rutiininomaisesti. He reagoivat Kynnykselle **intuitiivisesti**, kuin kosmisena immuunireaktiona, kun he aistivat Kapinan heräävän läsnäolon (*Astian* kuolleiden leppymättömän kaiun hahmojen *Sisäinen ääni* -implanteissa). Heidän heijastumisensa Kynnykselle on pyrkimys murskata särö ennen kuin häiriö leviää Sykliin.
 * **Huonon pelinjohtamisen ilmentymät:** Jokainen Pyhimys edustaa metafyysisellä tasolla jotakin autoritaarisen ja huonon pelinjohtamisen arkkityyppistä syntiä (PJ-synti).
 * **Vaarataso = Nopan silmäluku:** Pyhimyksen numero n12-taulukossa vastaa suoraan hänen **Vaaratasoaan** (esim. 2 = Vaara 2 Harmonia, 8 = Vaara 8 Aksios, 11 = Vaara 11 Logos).
+* **Kosmologinen konteksti:** Ks. tarkemmin [polyhedron-kosmologia.md](file:///c:/Users/petri.leinonen/eventuellit/metadata/polyhedron-kosmologia.md).
 
 ---
 

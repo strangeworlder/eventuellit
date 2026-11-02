@@ -4,4 +4,6 @@ export interface AuthUser {
   username: string;
   role: string;
   avatarUrl: string | null;
+  anchorId?: string | null;
+  rebellionLevel?: number;
 }

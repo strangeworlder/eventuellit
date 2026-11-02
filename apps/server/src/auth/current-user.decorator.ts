@@ -6,6 +6,7 @@ export interface AuthUser {
   username: string;
   role: string;
   avatarUrl?: string | null;
+  anchorId?: string | null;
 }
 
 export const CurrentUser = createParamDecorator(

@@ -20,6 +20,3 @@ Iridiumkardinaali on pitkä, solakka ja androgyyni hahmo, jonka iho on kirurgise
 
 ### Asema ja vaikutusvalta
 Kirkon mediakoneistossa Iridiumkardinaali nauttii valtavaa julkisuusarvoa ja vaikutusvaltaa. Hän ohjaa Verhonkutojien viestintästrategiaa ja määrittää, mitkä tapahtumat pääsevät Kynnyksen virallisiin ohjelmasyötteisiin. Kardinaalille todellisuus ja valta rakentuvat katsojaluvuista, symboleista ja lavastetusta hurmoksesta: hänelle sotilaalliset tai tekniset saavutukset ovat merkityksettömiä, ellei niitä voida kääntää visuaaliseksi spektaakkeliksi asemien asukkaille.
-
-### Tunnetut toimet ja raportoidut tapahtumat
-Kardinaali vastasi Evoluution kuivatelakassa järjestetyn suuren herätysseremonian, niin kutsutun Suuren Sakramentin, julkisesta ohjelmistosta. Seremonia toi telakka-alueelle kirkkokuoroja, kuvausryhmiä ja Kynnyksen eliittivieraita, mikä aiheutti ankaria jännitteitä kuivatelakkaa valvovan Ratasvartion komentajan kanssa. Lähetyksen keskeydyttyä teknisiin häiriöihin ja telakan hälytystilaan kardinaalin delegaatio vetäytyi aseman ylemmille tasoille.

@@ -1,25 +1,32 @@
 import { useAuth } from "@repo/auth/use-auth";
-import { AspectTag } from "@repo/ui/components/AspectTag";
-import { Badge } from "@repo/ui/components/Badge";
-import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
-import { Button } from "@repo/ui/components/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
-import { ConfirmDialog } from "@repo/ui/components/ConfirmDialog";
-import { DicePoolTracker } from "@repo/ui/components/DicePoolTracker";
-import { EditableField } from "@repo/ui/components/EditableField";
-import { EnduranceBlock } from "@repo/ui/components/EnduranceBlock";
-import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
-import { Hero } from "@repo/ui/components/Hero";
-import { Input } from "@repo/ui/components/Input";
-import { Link } from "@repo/ui/components/Link";
-import { LoadingState } from "@repo/ui/components/LoadingState";
-import { MarkdownRenderer } from "@repo/ui/components/Markdown";
-import { NoticePanel } from "@repo/ui/components/NoticePanel";
-import { PageBody } from "@repo/ui/components/Page";
-import { SkillTagList } from "@repo/ui/components/SkillTagList";
+import {
+  AnchorCard,
+  AspectTag,
+  Badge,
+  Breadcrumb,
+  Button,
+  Card,
+  ConfirmDialog,
+  DicePoolTracker,
+  EditableField,
+  EnduranceBlock,
+  getAnchorById,
+  Heading,
+  HeadingLevelProvider,
+  Hero,
+  Input,
+  Link,
+  LoadingState,
+  MarkdownRenderer,
+  NoticePanel,
+  PageBody,
+  SkillTagList,
+} from "@repo/ui";
+import { CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
+import { isReservedRebellionSkillName, REBELLION_SKILL_ACQUIRED_NAME } from "./api/characters";
 import type { MonkPower } from "./api/monk-powers";
 import { suggestNames } from "./name-generator";
 
@@ -47,7 +54,9 @@ interface Character {
   sisuDice: Array<{ id: string; faces: number }>;
   removedSisuIds: string[];
   harmit: Array<{ text: string; healed: boolean }>;
-  skills: { name: string; isCustom?: boolean }[] | string[];
+  skills: { name: string; isCustom?: boolean; locked?: boolean }[] | string[];
+  anchorId?: string | null;
+  rebellionLevel?: number;
   ownerName: string | null;
   fysiikka: number;
   nopeus: number;
@@ -309,8 +318,26 @@ export function CharacterSheet({
                   onSave={(v) => updateCharacter({ sex: v })}
                 />
 
+                {(() => {
+                  const effectiveAnchorId =
+                    character.anchorId ??
+                    (character.userId === user?.id ? (user?.anchorId as string | null) : null);
+                  if (!effectiveAnchorId) return null;
+                  const anchor = getAnchorById(effectiveAnchorId);
+                  return anchor ? (
+                    <div className="space-y-1.5 pt-1">
+                      <p className="text-sm text-text-muted font-semibold">Pelaajan Ankkuri:</p>
+                      <AnchorCard anchor={anchor} />
+                    </div>
+                  ) : null;
+                })()}
+
                 <SkillsSection
                   skills={character.skills}
+                  hasRebellionSkill={
+                    (character.rebellionLevel ?? 0) >= 1 ||
+                    (character.userId === user?.id && (user?.rebellionLevel ?? 0) >= 1)
+                  }
                   canEdit={canEdit}
                   onUpdate={(skills) => updateCharacter({ skills })}
                 />
@@ -745,20 +772,43 @@ export function NicknamesSection({
 
 function SkillsSection({
   skills,
+  hasRebellionSkill = false,
   canEdit,
   onUpdate,
 }: {
-  skills: { name: string; isCustom?: boolean }[] | string[];
+  skills: { name: string; isCustom?: boolean; locked?: boolean }[] | string[];
+  hasRebellionSkill?: boolean;
   canEdit: boolean;
-  onUpdate: (skills: { name: string; isCustom?: boolean }[]) => void;
+  onUpdate: (skills: { name: string; isCustom?: boolean; locked?: boolean }[]) => void;
 }) {
-  if (!skills || skills.length === 0) return null;
+  const normalizedSkills = useMemo(() => {
+    const raw = (skills ?? []).map((s, i) => {
+      const name = typeof s === "string" ? s : s.name;
+      const isRebellion = name.trim().toLowerCase() === REBELLION_SKILL_ACQUIRED_NAME.toLowerCase();
+      return {
+        id: i,
+        name: isRebellion ? REBELLION_SKILL_ACQUIRED_NAME : name,
+        isCustom: isRebellion ? false : typeof s === "string" ? false : (s.isCustom ?? false),
+        locked: isRebellion || (typeof s !== "string" && Boolean(s.locked)),
+      };
+    });
 
-  const normalizedSkills = skills.map((s, i) =>
-    typeof s === "string"
-      ? { id: i, name: s, isCustom: false }
-      : { id: i, name: s.name, isCustom: s.isCustom ?? false },
-  );
+    if (
+      hasRebellionSkill &&
+      !raw.some((s) => s.name.trim().toLowerCase() === REBELLION_SKILL_ACQUIRED_NAME.toLowerCase())
+    ) {
+      raw.push({
+        id: raw.length,
+        name: REBELLION_SKILL_ACQUIRED_NAME,
+        isCustom: false,
+        locked: true,
+      });
+    }
+
+    return raw;
+  }, [skills, hasRebellionSkill]);
+
+  if (normalizedSkills.length === 0) return null;
 
   return (
     <div>
@@ -770,10 +820,15 @@ function SkillsSection({
         onItemEdit={
           canEdit
             ? (id, name, isCustom) => {
+                if (isReservedRebellionSkillName(name)) return;
                 const updated = normalizedSkills.map((s) =>
-                  s.id === id
+                  s.id === id && !s.locked
                     ? { name, isCustom: isCustom ?? s.isCustom }
-                    : { name: s.name, isCustom: s.isCustom },
+                    : {
+                        name: s.name,
+                        isCustom: s.isCustom,
+                        ...(s.locked ? { locked: true } : {}),
+                      },
                 );
                 onUpdate(updated);
               }

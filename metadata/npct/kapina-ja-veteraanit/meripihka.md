@@ -41,5 +41,17 @@
 
 ## 5. Draamallinen ohjauskortti ja heikkoudet
 
-* **Pelinjohtajan roolitus:** Eksistentiaalinen mentori ja totuuden lausuja. Hän auttaa pelaajia ymmärtämään valintojensa seuraukset: *"Jos te tuhoatte aseen, teette sen siksi, että kieltäydytte olemasta koneiston osia."*
-* **Heikkous:** Fyysinen hauraus. Hän on vanha ja pitkän vankeuden heikentämä; hänen ainoa todellinen voimansa on hänen ajatuksissaan ja sanoissaan.
+* **Pelinjohtajan roolitus:** Eksistentiaalinen mentori, filosofi ja totuuden lausuja. Hän auttaa pelaajia ymmärtämään valintojensa seuraukset: *"Jos te tuhoatte aseen, teette sen siksi, että kieltäydytte olemasta koneiston osia."*
+* **Heikkous:** Korkea ikä ja vuosikymmenten vankeuden jäljet. Hän on fyysisesti vanha, mutta hänen älyllinen ja filosofinen voimansa on murtumaton.
+
+---
+
+## 6. Deep GM Meta-Metadata: Sotasankari, teesit ja Yellow Eyes
+
+* **Amiraali Meripihka vs. vanha filosofi:**  
+  Muinainen Amiraali Meripihka oli Suuren sodan legendaarinen kapinalaivaston sotasankari ja lippulaiva *Astian* komentaja – hahmo, joka heijastaa ja kantaa samaa kosmista painoa kuin Amiraali Keltasilmä Vuosisadassa. Nykyhetkessä hän on vanha filosofi, jonka olemus on riisuttu sota-armeijoista ja arvomerkeistä, mutta jonka sanat ovat Kynnyksen vaarallisinta kontrabandaa.
+* **Teesien verinen alkuperä ja sudenkuoppa:**  
+  *Meripihkan teesit* eivät ole abstraktia anarkiaa, vaan amiraalin kirjoittama ruumiinavauspöytäkirja: kapinalaivasto hävisi, koska se yritti olla täydellisen looginen ja sotilaallinen. Vain inhimillinen virhe ja sana *"ehkä"* murtavat Arkkitehtuurin determinismin.  
+  *Varoitus pelaajille:* Meripihkan tavoite on kuitenkin puhdasta entropiaa (polttaa monumentit ja jättää tyhjää tilaa), koska hänellä itsellään ei ole enää mitään menetettävää. Pelaajahahmoilla puolestaan on Kynnyksellä eläviä läheisiä ja suojeltavia ihmisiä.
+* **Yellow Eyes -metataso:**  
+  Pelinjohtajalle Meripihka resonoi Yellow Eyesin (*Keltasilmä*) kanssa – tekijän oman ainoan pelaajahahmon kanssa ajalta, jolloin joku muu veti peliä ja PJ sai olla kuolevainen pelaaja pöydässä. Nyt kun tekijä on jälleen pelinjohtajan tuolissa ylläpitämässä Arkkitehtuurin sääntöjä, Meripihka Kynnyksellä edustaa tuon oman pelaajuuden muistoa kuolevaisena hahmona toisella puolella pöytää. Ks. myös [ludos-ja-kapina.md](file:///c:/Users/petri.leinonen/eventuellit/metadata/ludos-ja-kapina.md).

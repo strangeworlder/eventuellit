@@ -19,6 +19,7 @@ const sampleSkills: SkillTagItem[] = [
   { id: 2, name: "Lääketiede" },
   { id: 3, name: "Navigointi", isCustom: true },
   { id: 4, name: "Tarkkuusammunta" },
+  { id: 5, name: "Kapinan riveissä taistellut", locked: true },
 ];
 
 export const VainLuku: Story = {

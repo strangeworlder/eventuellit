@@ -96,6 +96,15 @@ export const factions: FactionDef[] = [
     parent: "tuhkan-puolue",
     secondaryParent: "ekklesia",
   },
+  {
+    id: "dynastiat",
+    name: "Dynastiat",
+    color: "secondary",
+    secondaryColor: "primary",
+    icon: "file-cabinet",
+    parent: "kw-konsortio",
+    secondaryParent: "tuhkan-puolue",
+  },
 ];
 
 export function getFactionById(id: string): FactionDef | undefined {

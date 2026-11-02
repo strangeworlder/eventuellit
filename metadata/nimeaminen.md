@@ -84,3 +84,16 @@ Nimet kuten *"Tohtori Sydänmies"*, *"Yömyyrä"*, *"Lannanhaju"* tai *"Alirutii
 * Koska maailma on Arkkitehtuurin luomus (ja huonon pelinjohtajan allegoria), koneisto ei osaa luoda todellista sattumaa tai piilotettua inhimillisyyttä. Arkkitehtuuri nimeää luomuksensa niiden perimmäisen ontologisen luonteen mukaan.
 * **Pelaajat näkevät rakenteisiin nimien kautta, jos he joskus tajuaisivat katsoa.** Nimi paljastaa heille etukäteen ja suoraan sen, mitä NPC todellisuudessa edustaa, mihin hänet on ohjelmoitu ja mikä hänen funktionaalinen luonteensa on.
 * Tämä luo hiljaisen, herkullisen ironian: pelaajille totuus on koko ajan esillä heidän kuulemissaan nimissä, mutta hahmot elävät maailmassa, jossa kieli on sokeutunut omalle merkitykselleen.
+
+---
+
+## 5. Semioottinen riivaus ja Vuosisadan kaiku-nimet
+
+Funktionaalisen Petri-logiikan lisäksi nimeämisessä vaikuttaa syvempi **semioottinen riivaus**, joka kumpuaa pelipöydän 54 pelaajan jaetusta historiasta edellisessä kampanjassa (*Vuosisata*, 1912–2012):
+
+* **Riivatut nimet:**  
+  Tietyt sanat ja nimet eivät ole vain Kynnyksen diegeettisiä koodinimiä, vaan ne toimivat semioottisina laukaisimina, jotka herättävät pöydässä istuvissa pelaajissa fysiologisen vainoharhan ja eksistentiaalisen hälytystilan:
+  * **Kuoro (The Choir):** Kynnyksellä ja Evoluutio-asemalla *Kuoro* on salainen keinotekoisen pyhimyksen ja superaseen projekti. Pelaajille sana on kuitenkin Vuosisadassa vaikuttanut käsittämätön, apokalyptinen entiteetti. Kun sana vilahtaa näytöllä, pelaajat riivaavat itseään vanhalla muistillaan.
+  * **Amiraali Meripihka:** Nimi kantaa samaa kosmista ja sotilaallista painoa kuin Vuosisadan *Amiraali Keltasilmä* – kapinalaivaston legendaarinen komentaja, joka johti vastarintaa ja jonka perintö kummittelee nykyhetkessä.
+* **Hauntologia pelipöydässä:**  
+  Pelihahmot eivät tiedä Vuosisadasta mitään; tämä semioottinen jännite elää täysin pelaajien omassa hermostossa ja alitajunnassa (ks. tarkemmin [hauntologia-ja-vuosisata.md](file:///c:/Users/petri.leinonen/eventuellit/metadata/hauntologia-ja-vuosisata.md)).

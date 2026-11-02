@@ -52,6 +52,10 @@ export class CreateCharacterDto {
   skills?: unknown[];
 
   @IsOptional()
+  @IsString()
+  anchorId?: string;
+
+  @IsOptional()
   @IsInt()
   @Min(0)
   fysiikka?: number;

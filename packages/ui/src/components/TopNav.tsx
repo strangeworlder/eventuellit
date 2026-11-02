@@ -63,18 +63,14 @@ export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
       const el = listRef.current;
       if (!el) return;
 
-      const handleMouseOver = handlers.onMouseOver as unknown as (e: Event) => void;
-      const handleMouseLeave = handlers.onMouseLeave as unknown as (e: Event) => void;
-      const handleClick = handlers.onClick as unknown as (e: Event) => void;
-
-      el.addEventListener("mouseover", handleMouseOver);
-      el.addEventListener("mouseleave", handleMouseLeave);
-      el.addEventListener("click", handleClick);
+      el.addEventListener("mouseover", handlers.onMouseOver);
+      el.addEventListener("mouseleave", handlers.onMouseLeave);
+      el.addEventListener("click", handlers.onClick);
 
       return () => {
-        el.removeEventListener("mouseover", handleMouseOver);
-        el.removeEventListener("mouseleave", handleMouseLeave);
-        el.removeEventListener("click", handleClick);
+        el.removeEventListener("mouseover", handlers.onMouseOver);
+        el.removeEventListener("mouseleave", handlers.onMouseLeave);
+        el.removeEventListener("click", handlers.onClick);
       };
     }, [handlers, listRef]);
 
@@ -86,7 +82,6 @@ export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
           "[anchor-scope:--active-tab]",
           "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
           "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
-          "after:transition-[left,right,top,bottom] after:duration-500 after:ease-[cubic-bezier(0.23,1,0.32,1)]",
           settleClassName,
           "after:[transform-origin:var(--tab-tug-ox,50%)_var(--tab-tug-oy,50%)]",
           "after:[transform:translateX(var(--tab-tug-x,0px))_translateY(var(--tab-tug-y,0px))_scaleX(var(--tab-stretch-x,1))_scaleY(var(--tab-stretch-y,1))]",
@@ -143,7 +138,7 @@ export const TopNavLink = React.forwardRef<HTMLAnchorElement, TopNavLinkProps>(
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
               "rounded-t-md mb-[-2px]",
               "border-2 border-transparent bg-transparent",
-              "text-[var(--theme-primary)] hover:text-[var(--theme-primary)]",
+              "text-[var(--theme-primary)] hover:[text-shadow:0_0_15px_var(--theme-primary)] hover:text-[var(--theme-primary)]",
               "after:content-[''] after:absolute after:right-0 after:top-3 after:bottom-3 after:w-px after:bg-[var(--theme-border-soft)]",
               isActive && "[anchor-name:--active-tab]",
               className,

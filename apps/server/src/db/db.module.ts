@@ -1,5 +1,6 @@
-import { Global, Module } from "@nestjs/common";
-import { drizzle } from "drizzle-orm/node-postgres";
+import { Global, Inject, Logger, Module, type OnModuleInit } from "@nestjs/common";
+import { sql } from "drizzle-orm";
+import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { config } from "../config";
 import * as schema from "./schema";
@@ -27,4 +28,22 @@ export const DATABASE_CONNECTION = "DATABASE_CONNECTION";
   ],
   exports: [DATABASE_CONNECTION],
 })
-export class DbModule {}
+export class DbModule implements OnModuleInit {
+  private readonly logger = new Logger(DbModule.name);
+
+  constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
+
+  async onModuleInit() {
+    try {
+      await this.db.execute(
+        sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS rebellion_level INTEGER NOT NULL DEFAULT 0`,
+      );
+    } catch (error) {
+      this.logger.warn(
+        `Could not auto-ensure users.rebellion_level column on startup: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      );
+    }
+  }
+}

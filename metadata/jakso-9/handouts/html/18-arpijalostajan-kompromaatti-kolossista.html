@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Proppi 18 - Arpijalostajan kompromaatti Kolossista</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    font-family: 'Century Gothic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1c242b;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    position: relative;
+    background: linear-gradient(145deg, #ffffff 0%, #f6fbfb 60%, #f7f3ed 100%);
+    box-shadow: 0 0 14px rgba(0,0,0,0.4);
+    overflow: hidden;
+    padding: 12mm 14mm;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .gold-border {
+    border: 1.5px solid #c5a059;
+    outline: 1px solid rgba(197, 160, 89, 0.35);
+    outline-offset: -4px;
+    height: 273mm;
+    box-sizing: border-box;
+    padding: 8mm 10mm;
+    position: relative;
+    background: rgba(255,255,255,0.85);
+  }
+
+  .watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-32deg);
+    font-size: 48pt;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: rgba(197, 160, 89, 0.06);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+  .header {
+    text-align: center;
+    border-bottom: 2px solid #c5a059;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .clinic-title {
+    font-size: 14pt;
+    font-weight: 300;
+    letter-spacing: 5px;
+    color: #0d2830;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .doc-classification {
+    display: inline-block;
+    background: #0d2830;
+    color: #f7e7b4;
+    font-size: 7.2pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 2.5px 9px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    border-radius: 2px;
+  }
+  .doc-ref {
+    font-size: 7.2pt;
+    color: #667;
+    margin-top: 3px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .target-box {
+    background: rgba(13, 40, 48, 0.04);
+    border-left: 3px solid #0d2830;
+    padding: 6px 9px;
+    margin-bottom: 10px;
+    font-size: 7.6pt;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  h2 {
+    font-size: 9.4pt;
+    color: #0d2830;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e2dac6;
+    padding-bottom: 2px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+  }
+
+  p, li {
+    font-size: 8pt;
+    line-height: 1.4;
+    color: #2b333a;
+    position: relative;
+    z-index: 1;
+  }
+  ul {
+    margin: 3px 0 6px 16px;
+    padding: 0;
+  }
+
+  .alert-box {
+    background: rgba(180, 40, 40, 0.05);
+    border: 1px dashed #b84444;
+    border-left: 3.5px solid #b84444;
+    padding: 6px 9px;
+    margin: 7px 0;
+    font-size: 7.5pt;
+    line-height: 1.35;
+    position: relative;
+    z-index: 1;
+  }
+  .alert-title {
+    font-weight: bold;
+    color: #8c1e1e;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 2px;
+    font-size: 7.2pt;
+  }
+
+  .telemetry-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0;
+    font-size: 7.4pt;
+    position: relative;
+    z-index: 1;
+  }
+  .telemetry-table th {
+    background: #0d2830;
+    color: #f7e7b4;
+    text-align: left;
+    padding: 4px 7px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 6.8pt;
+  }
+  .telemetry-table td {
+    border-bottom: 1px solid #e6e0d4;
+    padding: 3.5px 7px;
+    color: #222;
+  }
+  .telemetry-table tr:nth-child(even) {
+    background: rgba(197, 160, 89, 0.06);
+  }
+
+  .telex-box {
+    background: #fdfdfd;
+    border: 1px solid #c5a059;
+    padding: 7px 9px;
+    font-family: 'Courier New', monospace;
+    font-size: 7.2pt;
+    line-height: 1.35;
+    margin: 7px 0;
+    color: #1a2a30;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stamp {
+    display: inline-block;
+    border: 1.5px solid #b84444;
+    color: #b84444;
+    font-size: 7pt;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    transform: rotate(-2deg);
+  }
+
+  .seal-gold {
+    display: inline-block;
+    border: 1.5px solid #c5a059;
+    color: #8c6d28;
+    font-size: 6.8pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2.5px 8px;
+    margin-right: 6px;
+  }
+
+  .bottom-auth-row {
+    position: absolute;
+    bottom: 14mm;
+    left: 10mm;
+    right: 10mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5px;
+    border-top: 1px solid #e8e2d4;
+    z-index: 1;
+  }
+
+  .attachment-grid {
+    display: flex;
+    gap: 6mm;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+  }
+  .photo-frame {
+    border: 1.5px solid #8c7853;
+    padding: 3px;
+    background: #ffffff;
+    box-shadow: 1px 2px 6px rgba(0,0,0,0.18);
+    display: inline-block;
+  }
+  .photo-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .photo-caption {
+    font-size: 6.4pt;
+    color: #49545c;
+    margin-top: 4px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.35;
+  }
+
+  .footer-meta {
+    position: absolute;
+    bottom: 5mm;
+    left: 10mm;
+    right: 10mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 6.4pt;
+    color: #889;
+    border-top: 1px solid #ddd;
+    padding-top: 3px;
+    font-family: 'Courier New', monospace;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: KLIININEN REKONSTRUKTIOPÖYTÄKIRJA JA POTILASPROFIILI -->
+<div class="page page-break">
+  <div class="gold-border">
+    <div class="watermark">MA-TK-09 · SILMÄTERÄ</div>
+
+    <div class="header">
+      <div class="clinic-title">Med-Apex Konserni · Yksityisarkisto</div>
+      <div class="doc-classification">Esteettis-rekonstruktiivinen osasto · Asiakaskansio</div>
+      <div class="doc-ref">TALLENNE: MA-TK-09 · ASIAKASREKISTERI MA-884-122-K</div>
+    </div>
+
+    <div class="target-box">
+      <strong>ASIAKAS:</strong> Komentaja Uppoamaton Kolossi (sotilasrekisteri KW-RV-012)<br>
+      <strong>MED-APEX ASIAKASTUNNUS:</strong> MA-884-122-K (Dynastia-arkisto VII · Aikakausinide XIV, Folio 312)<br>
+      <strong>SÄÄTYLUOKITUS:</strong> Luokka IV (Plebeijiasiakas / Ulkopuolinen nousukas, ei vahvistettua sukulinjaa Kruunulehdossa)<br>
+      <strong>STATUS MED-APEXIN KIRJANPIDOSSA:</strong> Avoin saatava / Saatavienvalvonnan erikoisseuranta<br>
+      <strong>ALKUPERÄINEN BIOLOGINEN REKISTERIOTE (Liite A-1):</strong> Pituus 165 cm, paino 64 kg, rintalastan kuoppaisuus (pectus excavatum), luhistunut ryhti.<br>
+      <strong>KOHDEHAARNISKA:</strong> KW:n virallinen rynnäkkö- ja laipioeksorunko (Malli KW-RV Gigantti-01, Alasimen telakka)<br>
+      <strong>TOIMENPIDETILAUS:</strong> "Biologis-kirurginen sovitus ja esteettinen runkolavastus KW-alustaan"
+    </div>
+
+    <h2>1. Toimenpidetiedot: Biologinen sovitus KW:n Gigantti-runkoon</h2>
+    <p>
+      Kohteen kolmemetrinen laivateräksinen ulkomuoto perustuu KW:n raskaaseen sotilas- ja teollisuusrunkoon (KW-RV Gigantti), jonka sisään hento biologinen potilas on sovitettu Med-Apexin esteettisen kirurgian osastolla suoritetuilla laajoilla luu- ja kudosmuokkauksilla:
+    </p>
+    <ul>
+      <li><strong>Alaraajojen kirurgiset ankkurit ja jatkemoduulit L-60 (+60 cm):</strong> Reisiluuhun pultatut titaaniset ankkurointikiskot ja mekaaniset korotusmoduulit KW-haarniskan poljinkammioon. Potilaan omat jalkaterät päättyvät haarniskan polvikammioon; jatkeilla saavutettu asiakkaan tilaama 3 050 mm seisomakorkeus. Jatkuvia pehmytkudosrepeämiä potilaan kieltäydyttyä vuodelevosta.</li>
+      <li><strong>Keraamiset hartiatäytteet ja esteettiset valelaipiot (+35 cm):</strong> Solisluun päälle ankkuroidut keraamiset muotokaaret ja keinotekoiset hartiatäytteet. Rintakehän ja KW-ulkokuoren välinen tyhjä tila peitetty kuudellatoista silikoniteräksisellä valelaipiolla asiakkaan vaatiman "vesitiiviin laivaprofiilin" aikaansaamiseksi. Täytteet lisäävät potilaan selkärangan kuormitusta ilman biologista lihastukea.</li>
+      <li><strong>Kraniaalinen äänenmadallin (Malli B-0 "Sumusireeni"):</strong> Kurkunpään magneettinen resonanssipanta. Asiakkaan luonnollinen kimeä tenoriääni muunnettu keinotekoisesti KW:n kenttäkomennon metallisen räsähtäväksi 65 Hz laivastobassoksi.</li>
+    </ul>
+
+    <div class="telex-box">
+      MED-APEX ERIKOISKIRURGIA: ASIAKAS 884-122-K (SOVITUS KW-RUNKOON)<br>
+      ────────────────────────────────────────────────────────────────<br>
+      [x] KW-RV Gigantti -integraatio (L-60 luujatkeet) ... Asennettu (Öljyttävä)<br>
+      [x] KW-haarniskan sisäiset esteettiset valelaipiot ... Asennettu<br>
+      [x] Sumusireenin komento-oktaavit ................ Kalibroitu -24 dB tasolle<br>
+      Huomautus: Asiakas kieltäytynyt katsomasta alkuperäisiä profiilikuvia (liite B-1).<br>
+      Vaatii henkilökunnalta ehdotonta puhuttelumuotoa "Komentaja Uppoamaton Kolossi".
+    </div>
+
+    <div class="bottom-auth-row">
+      <div>
+        <span class="seal-gold">Med-Apex Konserni · Valvontajaosto</span>
+        <span class="stamp">Luottamuksellinen · MA-TK-09</span>
+      </div>
+      <div style="font-size:7pt; color:#667; text-align:right;">
+        Dynastia Arpijalostaja · Yksityisarkisto
+      </div>
+    </div>
+
+    <div class="footer-meta">
+      <span>Sivu 1/4 · Asiakirja MA-TK-09</span>
+      <span>Dynastia Arpijalostaja · Kruunulehto</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: TALOUSKIRJANPITO, VALELASKUT JA PERINTÄHISTORIA -->
+<div class="page page-break">
+  <div class="gold-border">
+    <div class="watermark">MA-TK-09 · SILMÄTERÄ</div>
+
+    <div class="header">
+      <div class="clinic-title">Med-Apex Konserni · Yksityisarkisto</div>
+      <div class="doc-classification">Osa 2: Valelaskut, saatavan erittely ja valvontatiedot</div>
+      <div class="doc-ref">TALLENNE: MA-TK-09 · ASIAKASREKISTERI MA-884-122-K</div>
+    </div>
+
+    <h2>2. Med-Apexin laskutus ja asiakkaan vaatimat valenimikkeet</h2>
+    <p>
+      Asiakas on maksattanut biologiset venytysleikkauksensa, toppauksensa ja jatkuvat huoltorasvauksensa vaatimalla Med-Apexin laskutusosastoa osoittamaan laskut suoraan Ratasvartion operatiiviselle tilille (<code>KW-RV-LOHKO-00</code>) teollisuusvalenimikkeillä:
+    </p>
+    <ul>
+      <li><strong>Laskukopio MA-L-8812 (Summa 42 000 kr — Maksettu tililtä KW-RV-LOHKO-00):</strong> Asiakkaan vaatima laskutusnimike: <em>"Lohko Nollan KW-haarniskoiden keraaminen korroosiovahvistus"</em>. Todellinen toimenpide klinikan leikkauspöytäkirjassa: Asiakkaan selän ja hartioiden esteettiset keraamiset täytesiivekkeet KW-haarniskan tyhjän tilan täyttämiseksi.</li>
+      <li><strong>Laskukopio MA-L-9014 (Summa 55 000 kr — Maksettu tililtä KW-RV-LOHKO-00):</strong> Asiakkaan vaatima laskutusnimike: <em>"KW-RV pneumaattisten laipioiden raskaat teollisuusvaraosat ja nesteliittimet"</em>. Todellinen toimenpide klinikan leikkauspöytäkirjassa: Reisiluun hydrauliset pituuskasvatusjatkeet ja nivelkorotukset KW-haarniskan ohjauspolkimiin.</li>
+      <li><strong>Klinikan taloushuomautus (Pääkirjanpitäjä):</strong> Asiakas on kieltäytynyt henkilökohtaisesta maksusta ja pakottanut kirjaamaan leikkauskulut KW:n varuskunnan kalustonhuoltomäärärahoihin. KW-esikunnan kirjanpidossa toimenpiteet näyttävät KW:n oman sotilaskaluston peruskorjaukselta.</li>
+    </ul>
+
+    <h2>3. Avoin saatava ja perintähistoria</h2>
+    <p>
+      Asiakkaalla on edelleen maksamatta Med-Apexille viimeisimmän hartioiden lisälevityksen loppuerä:
+    </p>
+
+    <table class="telemetry-table">
+      <thead>
+        <tr>
+          <th>TOIMENPIDE / MATERIAALI</th>
+          <th>TOSITE</th>
+          <th>SUMMA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Gigantti-hartialinjan 3. vaiheen keraaminen viimeistely</td>
+          <td>MA-EST-902</td>
+          <td>35 000,00 kr</td>
+        </tr>
+        <tr>
+          <td>Sumusireenimodulaattorin B-0 taajuushuolto</td>
+          <td>MA-MOD-114</td>
+          <td>8 500,00 kr</td>
+        </tr>
+        <tr>
+          <td>Erityisvoide (Arvenpeitto / Kliininen)</td>
+          <td>MA-KLI-039</td>
+          <td>5 000,00 kr</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="telex-box" style="text-align:right; font-weight:bold; margin-bottom:8px;">
+      YHTEENSÄ AVOIN VELKASALDO: 48 500,00 kr
+    </div>
+
+    <div class="alert-box">
+      <div class="alert-title">Saatavienvalvonnan merkintä (Rotaatio 40)</div>
+      Perintäkirje toimitettu komentajan esikuntaan. Asiakas kieltäytynyt maksusta. Uhannut asettaa klinikan toimitilat ja varastot Ratasvartion aseelliseen sulkutarkastukseen saatavan virallisen perinnän estämiseksi.
+    </div>
+
+    <div class="alert-box" style="border-left-color: #c5a059; border-color: #c5a059; background: rgba(197, 160, 89, 0.05);">
+      <div class="alert-title" style="color: #6a4f15;">Lakiasiainosaston käsittelymerkintä (Holvi 06)</div>
+      Saatavan ulosotto ja virallisen ilmoituksen jättäminen KW-Konsortion keskushallinnolle keskeytetty toistaiseksi Matriarkan suoralla määräyksellä. Asiakirja MA-TK-09 (sisältäen toimenpidevalokuvat ennen/jälkeen sekä valelaskutositteet) säilytetään matriarkan henkilökohtaisessa arkistossa. Luovutus vain suoralla valtuutuksella.
+    </div>
+
+    <div class="bottom-auth-row">
+      <div>
+        <div style="font-size:7.2pt; font-weight:bold; color:#0d2830;">Dynastia ARPIJALOSTAJA</div>
+        <div style="font-size:6.6pt; color:#667;">ARPIJALOSTAJA · Matriarkka, pääjohtaja</div>
+      </div>
+      <div>
+        <span class="stamp">LUOVUTETTU · LAKI-ASEMAN AUDITOINNILLE</span>
+        <span class="seal-gold" style="margin-left:6px;">MED-APEX SALAINEN ARKISTO</span>
+      </div>
+    </div>
+
+    <div class="footer-meta">
+      <span>Sivu 2/4 · Asiakirja MA-TK-09</span>
+      <span>Dynastia Arpijalostaja · Kruunulehto</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: LIITE A-1: ALKUPERÄINEN BIOLOGINEN REKISTERIOTE -->
+<div class="page page-break">
+  <div class="gold-border">
+    <div class="watermark">MA-TK-09 · SILMÄTERÄ</div>
+
+    <div class="header">
+      <div class="clinic-title">Med-Apex Konserni · Yksityisarkisto</div>
+      <div class="doc-classification">Liite A-1 · Alkuperäinen biologinen valokuva ja antropometria</div>
+      <div class="doc-ref">TALLENNE: MA-TK-09 · LIITE A-1 · ASIAKASREKISTERI MA-884-122-K</div>
+    </div>
+
+    <div class="attachment-grid">
+      <div style="flex: 0 0 76mm;">
+        <div class="photo-frame">
+          <img src="assets/kolossi-liite-a1.jpg" alt="Biologinen rekisteriote MA-884-122-K" style="width: 76mm; height: auto;">
+        </div>
+        <div class="photo-caption">
+          TALLENNE: MA-FOTO-884-A1 · VEDOS 01<br>
+          Valotus: Rotaatio 04, Vuoro B-3 · Klinikka 06<br>
+          Kohde: Asiakas MA-884-122-K (ennen toimenpiteitä)
+        </div>
+      </div>
+
+      <div style="flex: 1;">
+        <div class="target-box" style="margin-bottom: 6px;">
+          <strong>ASIAKAS:</strong> Rekisteröity nimellä Kolossi (sotilasrekisteri KW-RV-012)<br>
+          <strong>ENTINEN TOIMI:</strong> Satamakirjuri / Telakan kirjanpitoapulainen<br>
+          <strong>SÄÄTYLUOKITUS:</strong> Luokka IV (Plebeijiasiakas, ei sukulinjaa)<br>
+          <strong>KOHDERUNKO:</strong> Sovitus KW:n 3-metriseen Gigantti-sotilashaarniskaan<br>
+          <strong>ARKISTOSIJAINTI:</strong> Salainen Holvi 06 (Matriarkan määräys)
+        </div>
+
+        <table class="telemetry-table" style="margin-top: 4px; margin-bottom: 6px;">
+          <thead>
+            <tr>
+              <th>ANTROPOMETRINEN PARAMETRI</th>
+              <th>MITATTU ARVO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Luonnollinen seisomakorkeus</td>
+              <td>165 cm (ilman korotuskenkiä)</td>
+            </tr>
+            <tr>
+              <td>Kokonaispaino</td>
+              <td>64,2 kg</td>
+            </tr>
+            <tr>
+              <td>Rinnanympärys (lepo)</td>
+              <td>82 cm</td>
+            </tr>
+            <tr>
+              <td>Rintalastan tila</td>
+              <td>Pectus excavatum (kuopparinta)</td>
+            </tr>
+            <tr>
+              <td>Ryhti ja lihastonus</td>
+              <td>Luhistunut, voimakas etukeno</td>
+            </tr>
+            <tr>
+              <td>Luontainen ääniala</td>
+              <td>Korkea tenori (perustaajuus 185 Hz)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert-box" style="margin: 5px 0;">
+          <div class="alert-title">Kliininen havainto (Mittausosasto)</div>
+          Kohteella on synnynnäinen rintalastan kuoppaisuus ja heikko luusto. Ei merkkejä geneettisestä säätyjalostuksesta tai sotilaskoulutuksesta. Asiakas vaatinut toistuvasti mittanauhan nollauspisteen uudelleentarkastusta.
+        </div>
+
+        <div style="margin-top: 5px;">
+          <span class="stamp">ALKUPERÄISTALLENNE · EI ASIAKKAAN NÄHTÄVÄKSI</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="telex-box" style="margin-top: 5px;">
+      KLIININEN MUISTIO: DOKUMENTTI MA-TK-09 / LIITE A-1<br>
+      ────────────────────────────────────────────────────────────────<br>
+      Asiakas vaatinut tämän negatiivin ja vedoksen välitöntä tuhoamista<br>
+      esteettisen kirurgiasopimuksen 884-K pykälän 4 nojalla. Arkistoitu<br>
+      Matriarkan suoralla määräyksellä salaiseen Holviin 06 vastaisen varalle.<br>
+      Huomautus: Asiakas kieltäytynyt katsomasta omaa profiilivedostaan.
+    </div>
+
+    <div class="bottom-auth-row">
+      <div>
+        <span class="seal-gold">Med-Apex Konserni · Antropometria</span>
+        <span class="stamp">Luottamuksellinen · Liite A-1</span>
+      </div>
+      <div style="font-size:7pt; color:#667; text-align:right;">
+        Dynastia Arpijalostaja · Yksityisarkisto
+      </div>
+    </div>
+
+    <div class="footer-meta">
+      <span>Sivu 3/4 · Asiakirja MA-TK-09 (Liite A-1)</span>
+      <span>Dynastia Arpijalostaja · Kruunulehto</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: LIITE B-1: RUNKOPROFIILIN LEIKKAUSLUONNOS JA MITTAKAAVIO -->
+<div class="page">
+  <div class="gold-border">
+    <div class="watermark">MA-TK-09 · SILMÄTERÄ</div>
+
+    <div class="header">
+      <div class="clinic-title">Med-Apex Konserni · Yksityisarkisto</div>
+      <div class="doc-classification">Liite B-1 · Biologis-mekaaninen integraatioluonnos (KW-haarniskan sovitus)</div>
+      <div class="doc-ref">TALLENNE: MA-TK-09 · LIITE B-1 · ASIAKASREKISTERI MA-884-122-K</div>
+    </div>
+
+    <div class="attachment-grid">
+      <div style="flex: 0 0 76mm;">
+        <div class="photo-frame">
+          <img src="assets/kolossi-liite-b1.jpg" alt="Runkoluonnos MA-884-122-K" style="width: 76mm; height: auto;">
+        </div>
+        <div class="photo-caption">
+          PIIRUSTUS: MA-DWG-884-GIGANTTI · REV 3<br>
+          Skaala 1:25 · Biologis-mekaaninen poikkileikkaus<br>
+          Med-Apex Kirurgia & KW-RV Telakkasovitus
+        </div>
+      </div>
+
+      <div style="flex: 1;">
+        <div class="target-box" style="margin-bottom: 6px;">
+          <strong>HAARNISKA-ALUSTA:</strong> KW-RV Gigantti-01 (Kone & Voima / Alasimen telakka)<br>
+          <strong>INTEGRAATIO:</strong> Asiakas MA-884-122-K sijoitettuna KW-kuoren sisään<br>
+          <strong>KOKONAISKORKEUS:</strong> 3 050 mm (KW-haarniskan komentosillan seisomakorkeus)<br>
+          <strong>MED-APEXIN OSUUS:</strong> Luujatkeet, onttojen tilojen täytteet ja ohjausliitännät
+        </div>
+
+        <table class="telemetry-table" style="margin-top: 4px; margin-bottom: 6px;">
+          <thead>
+            <tr>
+              <th>MODUULI</th>
+              <th>SPEKSIT</th>
+              <th>MED-APEXIN TODELLINEN SOVITUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MOD-L60</td>
+              <td>+600 mm luujatke</td>
+              <td>Reisiluun titaaniankkurit ja mekaaniset korotusmoduulit</td>
+            </tr>
+            <tr>
+              <td>HARTIAKAARI</td>
+              <td>+350 mm / puoli</td>
+              <td>Keraamiset muotokaaret ja solisluukiinnikkeet</td>
+            </tr>
+            <tr>
+              <td>VALELAIPIOT</td>
+              <td>16 onteloa</td>
+              <td>Silikoniteräksiset ontelotäytteet (kosmeettinen laivamuotoilu)</td>
+            </tr>
+            <tr>
+              <td>B-0 MODULAATTORI</td>
+              <td>Resonanssipanta</td>
+              <td>Kurkunpään magneetti-implantti (65 Hz komentoääni)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert-box" style="margin: 5px 0;">
+          <div class="alert-title">Ylilääkärin seurantahuomautus: Luustokuormitus ja lääkeriippuvuus</div>
+          Potilas kieltäytynyt määrätystä fysioterapiasta ja leikkauksen jälkeisestä vuodelevosta vedoten varuskunnan paraatikatselmuksiin. Reisiluun titaaniliitoksissa todettu toistuvia mikromurtumia ja kroonista luukalvotulehdusta. Potilas anastanut klinikalta luvattomasti vahvoja hermopuudutteita ja vaatinut henkilökuntaa salaamaan kipuoireensa sotilasjohdolta.
+        </div>
+
+        <div style="margin-top: 5px;">
+          <span class="stamp">TEKNINEN SOVITUS · SALAINEN</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="telex-box" style="margin-top: 5px;">
+      MED-APEX SOVITUSPÖYTÄKIRJA (KW-GIGANTTI / POTILAS 884-122-K)<br>
+      ────────────────────────────────────────────────────────────────<br>
+      Asiakkaan vaatima "uppoamattoman komentajan" olemus toteutettu kytkemällä<br>
+      165 cm biologinen keho KW:n viralliseen sotilashaarniskaan.<br>
+      Kaikki kirurgiset ja esteettiset sovitustyöt laskutettu Ratasvartion<br>
+      määrärahoista valekirjauksilla (KW-laipiovaraosat MA-L-8812 ja MA-L-9014).<br>
+      Alkuperäinen sovitusluonnos arkistoitu MA-TK-09 asiakaskansioon.
+    </div>
+
+    <div class="bottom-auth-row">
+      <div>
+        <span class="seal-gold">Med-Apex Konserni · Sovituskirurgia</span>
+        <span class="stamp">Hyväksytty · Liite B-1</span>
+      </div>
+      <div style="font-size:7pt; color:#667; text-align:right;">
+        Dynastia Arpijalostaja · Kruunulehto
+      </div>
+    </div>
+
+    <div class="footer-meta">
+      <span>Sivu 4/4 · Asiakirja MA-TK-09 (Liite B-1)</span>
+      <span>Dynastia Arpijalostaja · Kruunulehto</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -29,6 +29,12 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
     name: "Operaatiot — GM-hallinta ja historia",
     features: [
       {
+        title: "Pelaajakohtainen erikoistaito: Kapinan riveissä taistellut",
+        description:
+          'Palaavan hahmon kehitysnäkymässä voi nyt valita kerran pelaajakohtaisen taidon "Kapinan riveissä taisteleva", joka lukittuu kaikille pelaajan hahmoille muodossa "Kapinan riveissä taistellut".',
+        link: { label: "Siirry hahmopajaan", to: "/generator/list" },
+      },
+      {
         title: "Suljettujen äänestysten historia",
         description:
           'Aiemmat äänestykset eivät enää katoa sulkemisen jälkeen. Kaikki pelaajat näkevät uuden "Aiemmat äänestykset" -osion, jossa vanhat äänestystulokset, tehtäväkortit ja keskustelut ovat selailtavissa taitettavina accordioneina.',

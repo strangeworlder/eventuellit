@@ -1,4 +1,5 @@
 import {
+  Anchor,
   BookMarked,
   BookOpen,
   Calendar,
@@ -14,6 +15,7 @@ import {
   Info,
   Link,
   Loader2,
+  Lock,
   LogIn,
   LogOut,
   Map as LucideMap,
@@ -40,6 +42,7 @@ import { cn } from "./utils";
 // ── Lucide icon map (custom icons removed from here) ──────────────────────
 
 export const lucideIcons = {
+  anchor: Anchor,
   "book-marked": BookMarked,
   calendar: Calendar,
   "corner-down-left": CornerDownLeft,
@@ -51,6 +54,7 @@ export const lucideIcons = {
   info: Info,
   "heart-pulse": HeartPulse,
   link: Link,
+  lock: Lock,
   pencil: Pencil,
   send: Send,
   "shield-alert": ShieldAlert,
