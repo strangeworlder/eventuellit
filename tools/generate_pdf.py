@@ -42,6 +42,14 @@ def html_to_pdf(browser_path: str, html_path: Path, output_pdf_path: Path) -> bo
     
     pdf_abs.parent.mkdir(parents=True, exist_ok=True)
     
+    # If target PDF exists, ensure it is not locked by another process (e.g. Acrobat)
+    if pdf_abs.exists():
+        try:
+            pdf_abs.unlink()
+        except PermissionError:
+            print(f"[ERROR] Tiedosto on lukittu (auki esim. Acrobatissa tai selaimessa): {pdf_abs.name}. Sulje tiedosto ja yritä uudelleen.")
+            return False
+    
     file_url = html_abs.as_uri()
     
     cmd = [

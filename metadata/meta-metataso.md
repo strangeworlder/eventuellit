@@ -98,7 +98,7 @@ Koko kampanjan kielessä vaikuttaa hienovarainen ja syvä kaksoisrakenne:
 Koko Kynnyksellä ja sen kosmologiassa **aikaa ei mitata vuosiluvuilla**. Maailmassa ei ole "vuotta 84", ei gregoriaanista kalenteria, ei tyrannista vuosilukukronologiaa eikä lineaarista numerointia menneisyydelle tai tulevaisuudelle.
 
 * **Ei vuodenaikoja eikä planetaarisia kiertoratoja:**  
-  Avaruus on nestemäistä avaruutta ja Kynnys on hylätty 20 aseman saaristo. Koska asemat pyörivät omilla keinotekoisilla radoillaan vailla planetaarista yhteyttä vanhaan aurinkoon tai vuodenaikojen kiertoon, käsite "vuosi" on ontologisesti kuollut, keinotekoinen tai merkityksetön.
+  Avaruus on nestemäistä avaruutta ja Kynnys on hylätty 20 aseman saaristo. Koska asemat pyörivät omilla keinotekoisilla radoillaan vailla planetaarista kiertorataa, vuodenaikoja tai keskustähteä, käsite "vuosi" on ontologisesti kuollut, keinotekoinen tai merkityksetön.
 * **Miten aikaa mitataan ja koetaan?**  
   Asukkaat, koneet ja kargokultit mittaavat aikaa vain konkreettisina, mekaanisina ja operatiivisina yksiköinä:
   * **Paikalliset mekaaniset syklit ja pulssit:** Työvuorot (*shiftit*), kiekkojen ja asemien mekaaniset rotaatiot, nestevirtauksen pumppuvälit, Ekklesian lähetysjaksot, keinovalon syklit ja tiimat (tunnit ja minuuttilaskurit).
@@ -107,4 +107,19 @@ Koko Kynnyksellä ja sen kosmologiassa **aikaa ei mitata vuosiluvuilla**. Maailm
 * **Metaforinen taso (Pelipöytä ilman kalenteria):**  
   Huonon pelinjohtamisen ontologiassa tämä on suora heijastus hylätystä pelipöydästä: **Pelinjohtaja ei koskaan luonut maailmalleen yhtenäistä kalenteria.**  
   Sääntökirjassa ja pelipöydässä on vain toimintakierrokset, kohtauksen kesto ja pelikerran kello. Pelimaailman asukkaat joutuvat elämään ilman kosmologista tai historiallista ajan ankkuria — heillä on vain tämä hetki, lähestyvä H-hetki ja koneiston tikittävä kello, joka laskee kohti seuraavaa kriisiä.
+
+---
+
+## 7. Valon ja auringon ontologia: Ei aurinkoa, vain "päivänvalo"
+
+Nestemäisen aurinkokunnan keskellä **ei ole aurinkoa**. Maailmassa ei pala luonnollista keskustähteä tai tulipalloa, jonka valossa asemat kylpisivät:
+
+* **Keskellä ei ole aurinkoa:**  
+  Asemat ja kiekot kelluvat pimeässä nestemäisessä avaruudessa. Kukaan Kynnyksen tai Syklin asukkaista ei ole koskaan nähnyt oikeaa, luonnollista aurinkoa. Koko käsite on heille vieras, ellei sitä käytetä kuvaannollisesti myyteissä tai vanhoissa sanonnoissa.
+* **Kaikki valo on "päivänvaloa" (valosyklejä):**  
+  Valo Kynnyksellä syntyy puhtaasti Arkkitehtuurin sähköverkoista, teollisuusvalonheittimistä, elektroluminesenssista, Verson fossiloituneen puun hehkusta ja Ekklesian broadcast-paneeleista.  
+  Asukkaat, lääkärit ja tarkastajat puhuvat siksi vain **"päivänvalosta"** tai **"valosykleistä"** (*day cycle* / *shift light*), ei koskaan auringonvalosta tai auringosta.  
+  * Esimerkki: Jos jollakulla on iho vaurioitunut tai palanut säteilystä, kyseessä on *liiallinen päivänvalo* tai suojaamattoman teollisuusvalon aiheuttama vaurio, ei "auringonpistos".
+* **Metaforinen taso (Pelinjohtaja ei koskaan luonut aurinkoa):**  
+  Huonon pelinjohtamisen ontologiassa tämä on suora heijastus siitä, että pelinjohtaja hylkäsi pöydän luomatta maailmankaikkeudelleen aitoa astrofysiikkaa. Maailmassa on "päivänvalo" päällä vain siksi, että sääntökirjassa lukee "valaistu huone" ja Arkkitehtuurin generaattorit pitävät lamppuja päällä.
 

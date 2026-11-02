@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Jakso 9: Pelinjohtajan tutkintaopas - Mekaanisten onnistumisten avaintiedot</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: #cbd5e1;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #0f172a;
+    line-height: 1.25;
+    font-size: 7.8pt;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 10mm 12mm;
+    margin: 0 auto 10mm auto;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  @media print {
+    body {
+      background: none;
+    }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+      break-after: page;
+    }
+  }
+
+  /* Header styles */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 2.5px;
+    margin-bottom: 5px;
+  }
+  .top-tag {
+    font-size: 6.5pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #991b1b;
+    background: #fee2e2;
+    padding: 1.5px 6px;
+    border-radius: 2px;
+  }
+  .top-meta {
+    font-size: 6.2pt;
+    font-family: 'Consolas', monospace;
+    color: #64748b;
+  }
+  .doc-title {
+    font-size: 11.5pt;
+    font-weight: 900;
+    letter-spacing: -0.2px;
+    color: #0f172a;
+    text-transform: uppercase;
+    margin-bottom: 1px;
+  }
+  .doc-subtitle {
+    font-size: 6.8pt;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 4px;
+  }
+
+  /* Rules Box */
+  .rules-banner {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 3.5px solid #0284c7;
+    padding: 4px 6px;
+    margin-bottom: 6px;
+    font-size: 6.8pt;
+    line-height: 1.25;
+    border-radius: 2px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .rules-banner strong { color: #0369a1; }
+
+  /* Prop Card Grid & Cards */
+  .prop-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .prop-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-left: 3.5px solid #475569;
+    border-radius: 2px;
+    padding: 3.5px 6px;
+    position: relative;
+  }
+  .prop-card.c-tech { border-left-color: #0284c7; }
+  .prop-card.c-lore { border-left-color: #b45309; }
+  .prop-card.c-law { border-left-color: #dc2626; }
+  .prop-card.c-med { border-left-color: #059669; }
+  .prop-card.c-ops { border-left-color: #7c3aed; }
+
+  .prop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 1.5px;
+    margin-bottom: 2px;
+  }
+  .prop-num-title {
+    font-size: 7.4pt;
+    font-weight: 800;
+    color: #0f172a;
+    font-family: 'Consolas', monospace;
+  }
+  .prop-skills {
+    font-size: 6.2pt;
+    font-family: 'Consolas', monospace;
+    font-weight: 700;
+    color: #334155;
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  .reveal-box {
+    background: #f8fafc;
+    border-left: 2.5px solid #d97706;
+    padding: 2.5px 5px;
+    margin: 2px 0;
+    font-size: 7.1pt;
+    line-height: 1.22;
+  }
+  .reveal-label {
+    font-weight: 800;
+    color: #b45309;
+    text-transform: uppercase;
+    font-size: 6.2pt;
+    font-family: 'Consolas', monospace;
+  }
+  .reveal-text {
+    color: #0f172a;
+  }
+
+  .details-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    font-size: 6.4pt;
+    margin-top: 1.5px;
+    line-height: 1.18;
+  }
+  .detail-block {
+    background: #ffffff;
+  }
+  .detail-tag {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 5.8pt;
+    font-family: 'Consolas', monospace;
+  }
+  .tag-surface { color: #64748b; }
+  .tag-crit { color: #16a34a; }
+  .tag-tactical { color: #0284c7; }
+
+  /* Synergies Table */
+  .synergy-card {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 3.5px solid #7c3aed;
+    border-radius: 2px;
+    padding: 4px 6px;
+    margin-top: 5px;
+  }
+  .synergy-header {
+    font-size: 7.2pt;
+    font-weight: 800;
+    color: #5b21b6;
+    font-family: 'Consolas', monospace;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .synergy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+  .syn-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 3px 5px;
+    border-radius: 2px;
+    font-size: 6.4pt;
+    line-height: 1.2;
+  }
+  .syn-props {
+    font-family: 'Consolas', monospace;
+    font-weight: bold;
+    color: #6d28d9;
+    font-size: 6.2pt;
+  }
+
+  /* Footer */
+  .page-footer {
+    position: absolute;
+    bottom: 4mm;
+    left: 12mm;
+    right: 12mm;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 2px;
+    font-family: 'Consolas', monospace;
+    font-size: 5.8pt;
+    color: #64748b;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= SIVU 1 ================= -->
+<div class="page">
+  <div class="top-bar">
+    <div>
+      <span class="top-tag">VAIN PELINJOHTAJALLE · SALAINEN</span>
+    </div>
+    <div class="top-meta">JAKSO 9: ASE // TUTKINTADOKUMENTTI (SIVU 1/3)</div>
+  </div>
+
+  <div class="doc-title">Pelinjohtajan tutkintaopas: Mekaaniset avaintiedot</div>
+  <div class="doc-subtitle">Mitä pelaajalle selviää onnistuneesta proppitutkinnasta ("Tästä sinulle selviää seuraavaa...")</div>
+
+  <div class="rules-banner">
+    <div>
+      <strong>TUTKINTAMEKANIIKKA (NOPPAKOURA 5n20):</strong><br>
+      • <strong>Tavanomainen heitto (Kynnys 13):</strong> Pelaaja saa suoraan kyseisen propin keltaisen <em>Avainpaljastuksen</em>.<br>
+      • <strong>Sovellettava taito:</strong> Toimii narratiivisena porttina. Ilman taitoa yrittäminen maksaa 1 Keston (Mieli/Terä).<br>
+      • <strong>Helpotus (+n4):</strong> Relevantti vahva ominaisuus (Ymmärrys/Näkemys/Näppäryys) lisätään tulokseen.
+    </div>
+    <div>
+      <strong>TUPLAT (KRIITTINEN ONNISTUMINEN) &amp; EPÄONNISTUMINEN:</strong><br>
+      • <strong>Tuplat (vähintään kaksi samaa silmälukua):</strong> Avaa vihreän <em>Kriittisen lisäedun</em> (salakoodi, oikosulku, oikopolku).<br>
+      • <strong>Epäonnistuminen:</strong> Pelaaja hahmottaa vain harmaan <em>Pintatason</em> (kohinan), mutta voi yrittää uudelleen maksamalla aikaa tai Kestoa.
+    </div>
+  </div>
+
+  <div class="prop-grid">
+
+    <!-- PROP 01 -->
+    <div class="prop-card c-tech">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 01: RAHTIKIRJA JA KONTTI</span>
+        <span class="prop-skills">TAIDOT: Logistiikka · Teknologia · Terä / Näppäryys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Huomaat rahtiluettelosta kaksi hälyttävää poikkeamaa: rivillä 012 mainittu <em>'orgaanisen reaktorin jäähdytysvaippa'</em> ja rivillä 016 mainitut <em>'hydrauliset tunkit ja järeät nostovaljaat'</em> eivät sovi minkään tavallisen konetykin rakenteeseen. Kääntöpuolen käsin kirjoitetut muistiinpanot paljastavat kaksi elintärkeää asiaa: <strong>Hissi 04 skannaa saapujien geenit</strong> (sinne ei voi mennä ilman hälytystä!), kun taas <strong>Hissi 03 tarkastaa vain ulkonäön ja koodit</strong>. Lisäksi telakan vesiputouksen kohina peittää alleen kaikki äänet ja liiketunnistimet."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Kymmeniä titaanilaippojen osanumeroita, romupultteja ja tullimaksuja.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Tunnistaa varastotunnuksen väärennöksen ja löytää kontin takaseinän salalokeron.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Ryhmä tietää valita Hissi 03:n ja osaa käyttää vesiputousta akustisena näkösuojana.
+      </div>
+    </div>
+
+    <!-- PROP 02 -->
+    <div class="prop-card c-tech">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 02: YÖMYYRÄN HUOLTOMAPPI JA KIRJE</span>
+        <span class="prop-skills">TAIDOT: Putkistot · Hydrauliikka · Alamaailma · Mieli / Ymmärrys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Öljyinen leikkauskaavio paljastaa turvallisen reitin Väylä C:n läpi: <strong>Pumppu P-4 purkaa polttavaa lauhdehöyryä tasan 4 minuutin välein</strong>, mikä jättää purkauksen jälkeen turvallisen 3,5 minuutin siirtymäikkunan. Itäinen käytävä on hitsattu umpeen. Mapin väliin kätketty virkailija Koron kirje paljastaa Yömyyrän siskon sairauden: tytön takaraivoon on asennettu <strong>neuroproteesi NX-3 (Portti C7)</strong>, jolla klinikka pitää häntä panttivankina. Terveysperuskirjan elinvakuuslauseke kumoaa velkasopimuksen, jos juristi ajaa sen läpi."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Rutiinihuoltoja, suodattimen vaihtoja, kahvinkeittimen korjauslappuja ja ylityökiistoja.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Huomaa manuaalisen ohitusventtiilin B-2, jolla lauhdepurkauksen voi laukaista etänä harhautukseksi.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Turvallinen kulku Väylä C:n läpi ilman palovammoja; avain Yömyyrän perheen vapauttamiseen.
+      </div>
+    </div>
+
+    <!-- PROP 03 -->
+    <div class="prop-card c-tech">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 03: KW-AUTOMAATIOTELEMETRIA</span>
+        <span class="prop-skills">TAIDOT: Tietojärjestelmät · Kybernetiikka · Terä / Näkemys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Tulosteesta nousee kaksi kriittistä rytmiä: Ensinnäkin, kuivatelakkaa valvovien droonien partioreitti kestää 11 minuuttia, mutta <strong>jokaisen kierroksen lopussa on tasan 1 minuutin ja 30 sekunnin sokea huoltokatkos</strong>. Toiseksi, seismisen anturin S-0 matalataajuinen 0,583 → 0,667 Hz värähtely ei ole konevärinää, vaan kiihtyvä orgaaninen rytmi. Se vastaa täsmällisesti leposykkeen nousua 35:stä 40:een lyöntiin minuutissa — jokin biologinen herää telakka-altaassa."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Jännitearvoja, tuulettimien kierroslukuja ja Lukuvarjon ylimielisiä huoltokirjauksia.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Löytää huoltopäätteiden ohituskoodin (<code>KW-OVER-88</code>), jolla droonien katkoksen voi pidentää 3 minuuttiin.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Tarkka 90 sekunnin aikaikkuna livahtaa valvontakehän läpi kuivatelakan huoltokäytäviin.
+      </div>
+    </div>
+
+    <!-- PROP 04 -->
+    <div class="prop-card c-lore">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 04: ALASIMEN VARJOVERKOSTON DOSSIER</span>
+        <span class="prop-skills">TAIDOT: Media · Seurapiirit · Ihmistuntemus · Mieli / Persoona</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Kolmen mahtimiehen välillä vallitsee katkera valtataistelu: <strong>Kenraali Kolossi inhoaa Kardinaalin kuvausryhmiä</strong> ja pitää gaalaa sotilaallisena riskinä. <strong>Kardinaali puolestaan tarvitsee gaalaan sensaatiomaisen 'ihmeen'</strong> pelastaakseen Ekklesian romahtavat katsojaluvut — hän ottaa mielellään vastaan uusia 'todistajia'. Kolmanneksi, Med-Apexin johtaja <strong>Arpijalostaja on salaa korviaan myöten velkaa Ensimmäiselle Kudospankille</strong> ja hänen valtansa horjuu."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Seurapiirijuoruja, kirurgien avioeroja ja Ekklesian pukeutumisohjeita vieraille.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Tuntee Kardinaalin hovimestari Kullan korruptoituneisuuden ja suoran VIP-lämpiön koodin.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Mahdollistaa mahtimiesten pelaamisen toisiaan vastaan; avaa soluttautumisreitin Ekklesian saattueena.
+      </div>
+    </div>
+
+    <!-- PROP 05 -->
+    <div class="prop-card c-law">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 05: LAKI-ASEMAN ENNAKKOTAPAUS 441/KW</span>
+        <span class="prop-skills">TAIDOT: Laki · Byrokratia · Oikeustiede · Mieli / Ymmärrys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Tämä ennakkotapaus tarjoaa täydellisen oikeudellisen suojan: Tuomioistuimen määräämällä tarkastajalla ja hänen <strong>enintään 4 hengen saattueellaan on ehdoton laillinen oikeus astua KW:n vuokra-alueelle</strong> auditointia varten. Aseman paikalliset esteettiset tarkastajat ja vartijat eivät saa estää pääsyä sakon ja toimiluvan menetyksen uhalla. Lisäksi Terveysperuskirjan 9 §:n mukaan elatuslaitteisiin liittyvät velkavastuut raukeavat henkeä uhkaavissa tilanteissa."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Jätevesitulleja, tavaramerkkiriitoja ja kymmeniä pykäläviittauksia teollisuusvuokriin.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Löytää pykälän 14.3: tarkastajalla on oikeus takavarikoida mikä tahansa teollinen laite heti tutkittavaksi.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Avaa Polku 1:n — virallisen sisäänmarssin Hissi 03:n ja tarkastuspisteen läpi suoraan Lohko Nollaan.
+      </div>
+    </div>
+
+    <!-- PROP 06 -->
+    <div class="prop-card c-ops">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 06: RATASVARTION VARUSKUNTARAPORTTI</span>
+        <span class="prop-skills">TAIDOT: Taktiikka · Tiedustelu · Terä / Näkemys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Vartioraportti paljastaa puolustuksen heikot kohdat: Sektorin 4 valvontakamerat ovat <strong>kasvillisuuden peitossa</strong>, ja ulkokehän liiketunnistimet ovat <strong>sokeutuneet vesiputouksen tärinästä ja roiskeista</strong>. Telakan syöttökourulla ei ole ihmisvartiointia, vaan pelkät lämpöanturit. Mikäli hälytys laukeaa, laipioiden automaattinen <strong>sulkeutumisviive on tasan 90 sekuntia</strong> — sen sisällä ehtii juosta sulun läpi."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Puuttuvia työkaluja, alokkaiden kurinpitotoimia ja muonituslistoja.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Havaitsee vartijavuoron vaihdon klo 21:00, jolloin itäinen huoltokäytävä on miehittämättä 4 minuuttia.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Antaa täydellisen fyysisen hiippailureitin telakalle (Polku 3); pelaajat tietävät 90s pakoikkunan.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>EVENTUELLIT · JAKSO 9: ASE</span>
+    <span>PELINJOHTAJAN TUTKINTAOPAS // MEKAANISET AVAINTIEDOT</span>
+    <span>SIVU 1 / 3</span>
+  </div>
+</div>
+
+<!-- ================= SIVU 2 ================= -->
+<div class="page">
+  <div class="top-bar">
+    <div>
+      <span class="top-tag">VAIN PELINJOHTAJALLE · SALAINEN</span>
+    </div>
+    <div class="top-meta">JAKSO 9: ASE // TUTKINTADOKUMENTTI (SIVU 2/3)</div>
+  </div>
+
+  <div class="doc-title">Osa II: Gaala, bio-titaani ja kiristysrekisterit</div>
+  <div class="doc-subtitle">Mitä pelaajalle selviää onnistuneesta proppitutkinnasta (Propit 07–12)</div>
+
+  <div class="prop-grid">
+
+    <!-- PROP 07 -->
+    <div class="prop-card c-lore">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 07: MED-APEX -MAINOSESITE JA LOMAKE</span>
+        <span class="prop-skills">TAIDOT: Sosiaalinen peli · Esteettisyys · Byrokratia · Mieli / Persoona</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Auditointilomake paljastaa arviointikriteerit: tarkastajat etsivät pinnallista statusta, symmetriaa ja ryhtiä — eivät geenejä. Lomakkeen alaviite (12 §) antaa kuitenkin juridisen ohituskaistan: <strong>tarkastusvaltuuskunnilla, joilla on tuomioistuimen passi, on täysi vapautus esteettisestä auditoinnista</strong>. Lisäksi esitteen pieni huoltoilmoitus kertoo, että <strong>Hissi 03 suljetaan yleisöltä tasan klo 20:45</strong> gaalan alkamisen vuoksi."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Kimaltavia kauneuskirurgian mainoslauseita, hinnastoja ja asiakaskertomuksia.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Tuntee tarkastaja Kauneusarvon mieltymykset: antaa +1n20 puheheittoihin auditoinnissa ilman passia.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Asettaa ehdottoman aikarajan (20:45) hissin käytölle ja antaa keinon ohittaa jono ja tarkastus.
+      </div>
+    </div>
+
+    <!-- PROP 08 -->
+    <div class="prop-card c-med">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 08: BIOAKUSTINEN TAAJUUSREKISTERI</span>
+        <span class="prop-skills">TAIDOT: Biologia · Lääketiede · Fysiikka · Mieli / Ymmärrys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Fysikaalinen analyysi todistaa kiistattomasti: Telakalta mitattu 0,583 → 0,667 Hz kaksoissykäys <strong>ei voi olla teräksen tai pumpun värähtelyä</strong>. Teräs ei kiihdytä taajuuttaan itsestään. Tämä on <strong>elävän olennon leposyke (35 → 40 bpm)</strong>, ja biologisen allometriayhtälön (M ≈ (70/bpm)⁴) mukaan se vaatii <strong>50–100 tonnin ja 40–60 metrin biologisen sydämen ja kudosmassan</strong>! Olento on heräämässä hypotermiasta kohti täyttä valveillaoloa; 40 bpm kohdalla herääminen muuttuu peruuttamattomaksi."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Monimutkaisia spektrogrammeja, turbiinitaajuuksia ja hydrauliikan mittausarvoja.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Tunnistaa organismin sydämen fysiologisen heikkouden: magneettierotus alle 50 bpm:ssä lamauttaa sen heti.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Pelaajat ymmärtävät, ettei telakalla ole konetykki vaan heräävä 50-metrinen bio-titaani.
+      </div>
+    </div>
+
+    <!-- PROP 09 -->
+    <div class="prop-card c-ops">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 09: GAALAN VIP-SALIKARTTA JA MENU</span>
+        <span class="prop-skills">TAIDOT: Havainnointi · Soluttautuminen · Alamaailma · Terä / Näppäryys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Salikartta paljastaa mahtimiesten sijainnit: Kenraali Kolossi istuu aitiossa A turvamiestensä keskellä, Arpijalostaja aitiossa C yksin ja suojattomana, ja Kardinaalin alttari hallitsee korotettua päälavaa. Ratkaisevin taktinen yksityiskohta on <strong>huolto-ovi H-3 aivan lavasteiden takana</strong>: se johtaa suoraan kuivatelakan komentotasolle ilman kulkua salin vartijoiden läpi. Lisäksi kuvausdroonit D-1–D-6 partioivat vain salia, eivät huoltokäytäviä."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Pöytävarauksia, 4 ruokalajin menu, orkesterin soittoaikoja ja pukukoodeja.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Havaitsee tarjoiluvaunujen reitin ja koodin — mahdollistaa aseiden salakuljetuksen lavasteisiin.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Antaa tarkan kartan salissa liikkumiseen, suoran reitin huolto-ovelle H-3 ja aition C koordinaatit.
+      </div>
+    </div>
+
+    <!-- PROP 10 -->
+    <div class="prop-card c-tech">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 10: KUIVATELAKAN LEIKKAUSKAAVIO (CAD)</span>
+        <span class="prop-skills">TAIDOT: Koneenrakennus · Sabotaasi · Asejärjestelmät · Teknologia</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Kaavio paljastaa bio-titaanin mekaanisen hallintajärjestelmän: Altaassa 0 lepäävään 50-metriseen olentoon on pultattu kraniaalipanta ja magneettipihdit KW-MAG-9. Aseen todellinen ohjausydin on rintaan kiinnitetty <strong>S-0 Core (sääntöartefakti)</strong>. Kiskon E-02 juuressa on <strong>mekaaninen hätäerotinvipu H-9</strong>: sen kääntäminen purkaa magneettikentän välittömästi, jolloin ohjausvirta katkeaa ja titaani lyyhistyy liikkumattomaksi. Lisäksi pohjaventtiilit V-01/02 tyhjentävät altaan elatusliuoksesta."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Rungon kantavuuslaskelmia, telineiden pultituskarttoja ja hydrauliikan työpaineita.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Löytää magneettien pääkaapelin heikon kohdan: yksi katkaisu pimentää kaikki pidäkkeet kerralla.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Tarjoaa mekaanisen ratkaisun huipennukseen: vivun H-9 kääntäminen neutraloi aseen ilman tulitaistelua.
+      </div>
+    </div>
+
+    <!-- PROP 11 -->
+    <div class="prop-card c-lore">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 11: EKKLESIAN PROMPTERILIUSKA</span>
+        <span class="prop-skills">TAIDOT: Ohjaus/Media · Ajoitus · Tarkkaavaisuus · Mieli / Persoona</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Uskonnollisen seremonian sekuntiaikataulu paljastaa täydellisen toimintaikkunan: <strong>Klo 21:14–21:17 (kohta 'PYHITYKSEN PIMEYS') salissa ja suorassa lähetyksessä on tasan 3 minuutin täydellinen valokatkos</strong>, jolloin vain alttarin hento suitsuke hehkuu. Ohjauskuiskaus vahvistaa: näyttämö pimenee kokonaan, kamerat kääntyvät pois lavalta ja huolto-ovelle H-3 voi siirtyä täysin kenenkään huomaamatta."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Ylitsevuotavia rukoustekstejä, ylistysvirsiä ja teleprompterin taukomerkkejä.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Tunnistaa päämikrofonin taajuuden: pimeyden aikana voi puhua suoraan Ekklesian miljoonayleisölle.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Antaa tarkan 3 minuutin pimeän toimintaikkunan klo 21:14 huolto-ovelle H-3 ja telakalle siirtymiseen.
+      </div>
+    </div>
+
+    <!-- PROP 12 -->
+    <div class="prop-card c-law">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 12: KUDOSPANKIN SALAINEN PANTTIKIRJA</span>
+        <span class="prop-skills">TAIDOT: Talousrikollisuus · Kiristys · Sopimusoikeus · Mieli / Ymmärrys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Tämä asiakirja on <strong>täydellinen kiristysote Med-Apexin matriarkasta Arpijalostajasta</strong>: Klinikka on velkaa Kudospankille 180 000 kruunua, ja <strong>velka erääntyy tänä iltana vuorokauden vaihtuessa</strong>. Velan panttina on koko Lohko Nollan maankäyttöoikeus. Panttikirjaan on valmiiksi kirjattu ulosottopäätös: erääntymisen hetkellä Kudospankki katkaisee linjan E-01 ja telakan pumput P-2/P-4. Arpijalostaja joutuu suostumaan mihin tahansa vaatimukseen, jos ryhmä lupaa pelastaa hänet ulosotolta."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Viivästyskorkotaulukoita, tase-erittelyjä ja sanktiopykäliä.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Huomaa ulosottovaltakirjan muotovirheen: ryhmä voi vaatia Arpijalostajaa sammuttamaan virrat heti.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Ryhmä voi marssia aitioon C ja pakottaa Arpijalostajan vetämään sähköt pois Ratasvartiolta.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TIMELINE BOX -->
+  <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3.5px solid #0284c7; border-radius: 2px; padding: 4px 6px; margin-top: 5px;">
+    <div style="font-size: 7.2pt; font-weight: 800; color: #0369a1; font-family: 'Consolas', monospace; text-transform: uppercase; margin-bottom: 2px;">
+      PELINJOHTAJAN TILANNEAIKAJANA: LOHKO NOLLAN KRIITTISET AIKA-IKKUNAT
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; font-size: 6.2pt; line-height: 1.2;">
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#0f172a; font-family:'Consolas',monospace;">20:00 · HERÄÄMINEN</strong><br>
+        Kontti satamalaiturilla. Yömyyrä jakaa mapin (02) ja logistiikkalokit (01, 03).
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#b45309; font-family:'Consolas',monospace;">20:45 · HISSI 03 SULKEE</strong><br>
+        Kauneusarvon esteettinen tarkastus päättyy. Vain virallinen passi (14) avaa hissin.
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#0284c7; font-family:'Consolas',monospace;">21:00 · VARTIJANVAIHTO</strong><br>
+        Ratasvartion vuorojen vaihto (06): 4 minuutin huoltokatkos itäisellä käytävällä.
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#6d28d9; font-family:'Consolas',monospace;">21:14 · VALOKATKOS</strong><br>
+        Ekklesian "Pyhityksen pimeys" (11): tasan 3 min pimeyttä ja esteetön reitti ovelle H-3.
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#dc2626; font-family:'Consolas',monospace;">22:00 · ROTAATION VAIHDE</strong><br>
+        Kudospankin 180k velka erääntyy (12); titaani saavuttaa 40 bpm heräämispisteen (08).
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>EVENTUELLIT · JAKSO 9: ASE</span>
+    <span>PELINJOHTAJAN TUTKINTAOPAS // MEKAANISET AVAINTIEDOT</span>
+    <span>SIVU 2 / 3</span>
+  </div>
+</div>
+
+<!-- ================= SIVU 3 ================= -->
+<div class="page">
+  <div class="top-bar">
+    <div>
+      <span class="top-tag">VAIN PELINJOHTAJALLE · SALAINEN</span>
+    </div>
+    <div class="top-meta">JAKSO 9: ASE // TUTKINTADOKUMENTTI (SIVU 3/3)</div>
+  </div>
+
+  <div class="doc-title">Osa III: Kybernetiikka, lait ja moniprop-synergiat</div>
+  <div class="doc-subtitle">Mitä pelaajalle selviää onnistuneesta proppitutkinnasta (Propit 13–17 &amp; Synergiat)</div>
+
+  <div class="prop-grid">
+
+    <!-- PROP 13 -->
+    <div class="prop-card c-tech">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 13: NEUROPROTEESIN NX-3 HUOLTOMANUAALI</span>
+        <span class="prop-skills">TAIDOT: Kybernetiikka · Neurokirurgia · Teknologia · Terä / Näppäryys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Manuaalin Varoitus 12-B sisältää täsmällisen kytkentäohjeen proteesin pakkosammutukseen: Takaraivon Portin C7 kahdeksannapaisessa liittimessä <strong>pinnien 3 (GND) ja 5 (TEST_BYPASS) oikosulkeminen 50 ohmin vastuksella samalla kun huoltonappia painetaan 4 sekuntia</strong>, kytkee proteesin pysyvään suojaustilaan. Tämä <strong>katkaisee etäohjauksen ja kivun välittömästi</strong>, mutta jättää potilaan aivotoiminnan ja elintoiminnot täysin vakaiksi ilman hermovaurioita."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Autoklaavin lämpötiloja, desinfiointiohjeita ja takuuehtojen juridista kapulakieltä.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Jamir pystyy rakentamaan ohitusliittimen 2 minuutissa mistä tahansa taskusta löytyvästä elektroniikasta.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Mahdollistaa Yömyyrän siskon vapauttamisen etäkivusta ja kiristyksestä lopullisesti.
+      </div>
+    </div>
+
+    <!-- PROP 14 -->
+    <div class="prop-card c-law">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 14: SAHYEN VIRALLINEN TARKASTUSPASSI LA-T-12</span>
+        <span class="prop-skills">TAIDOT: Laki · Viranomaistoiminta · Byrokratia · Mieli / Persoona</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Tämä asiakirja on voimassa oleva laillinen koskemattomuustodistus: Kun Sahye kirjoittaa ryhmän jäsenten nimet neljälle saattuetäyttöriville, <strong>koko ryhmä nauttii tuomioistuimen täyttä immuniteettia</strong>. Mikään aseman vartio- tai tullielin ei saa suorittaa heille biometristä, esteettistä tai ruumiillista tarkastusta. Heidän varusteitaan tai laukkujaan ei saa tutkia, ja heillä on oikeus kantaa virallisia tutkimusvälineitä (myös työkaluja ja aseita) Lohko Nollaan."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Virkavalan lainauksia, tuomioistuimen arkistointileimoja ja asiakirjasäädöksiä.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Passiin voi lisätä hätätilapykälän, joka valtuuttaa Jamirin kytkeytymään suoraan aseman pääterminaaliin.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Ryhmä kävelee Hissi 03:n ja esteettisen auditoinnin läpi näyttämällä passia; aseet säilyvät mukana.
+      </div>
+    </div>
+
+    <!-- PROP 15 -->
+    <div class="prop-card c-law">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 15: LAKI-ASEMAN ENNAKKOTAPAUS 112/TA (GEENIPORTIT)</span>
+        <span class="prop-skills">TAIDOT: Oikeustiede · Laki · Mieli / Ymmärrys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Asiakirja paljastaa Hissi 04:n juridisen taustan: Yksityisklinikoilla on laillinen oikeus käyttää biometrisiä syväskannereita tartuntatautien torjunnan nojalla, ja <strong>jokainen skannauksesta kieltäytyvä käännytetään laillisesti väkivalloin takaisin</strong>. Tämä vahvistaa kiistattomasti, että <strong>Hissi 04 on hengenvaarallinen ansa</strong>: pienikin poikkeama geeneissä tai henkilöllisyydessä sulkee hissin ja laukaisee välittömän aseellisen hälytyksen."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Äänestysjakauma 3–2, tuomari Varjon eriävä mielipide ja sataman karanteenipöytäkirjoja.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Tuntee skannerin kalibrointisäännön: tarkastusta voi vaatia viivästettäväksi 5 minuutilla 'puhtauden varmistamiseksi'.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Vahvistaa ehdottoman kiellon käyttää Hissiä 04; säästää ryhmän hengenvaaralliselta virheeltä.
+      </div>
+    </div>
+
+    <!-- PROP 16 -->
+    <div class="prop-card c-med">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 16: LAKI-ASEMAN ENNAKKOTAPAUS 309/VT (PROTEIINIKIERTO)</span>
+        <span class="prop-skills">TAIDOT: Lääketiede · Oikeustiede · Byrokratia · Mieli / Ymmärrys</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Päätös paljastaa Kynnyksen julman biologisen talouden: Klinikan leikkausjäte ja kuolleet potilaat siirtyvät yhden rotaation kuluessa <strong>suoraan teolliseen proteiinikiertoon</strong>, ellei omaisilla ole varaa 500 kruunun lunastusmaksuun. Tämä selittää, <strong>mitä putkistoissa virtaa</strong>: Väylä C:n ja pumpun P-4 syöttämä neste kuivatelakalle ei ole koneöljyä, vaan teollisesti nesteytettyä ihmiskudosmassaa, jolla 50-metristä titaania kasvatetaan ja ruokitaan."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Tuhkausmaksujen taksoja, varastointiaikoja ja jätehuollon sanitäärisiä vaatimuksia.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Löytää hätädesinfiointipykälän: paljastaa putkiston huoltoluukun, johon voi syöttää hyydytysainetta.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Paljastaa titaanin elatuksen luonteen; antaa mahdollisuuden sabotoida tai hyydyttää sen ravinto.
+      </div>
+    </div>
+
+    <!-- PROP 17 -->
+    <div class="prop-card c-law">
+      <div class="prop-header">
+        <span class="prop-num-title">PROP 17: LAKI-ASEMAN ENNAKKOTAPAUS 218/EK (LÄHETYSSUOJA)</span>
+        <span class="prop-skills">TAIDOT: Viestintäoikeus · Politiikka · Laki · Mieli / Persoona</span>
+      </div>
+      <div class="reveal-box">
+        <span class="reveal-label">🗣️ PELINJOHTAJA KERTOO ONNISTUNEELLE:</span>
+        <div class="reveal-text">
+          "Tämä ennakkotapaus vahvistaa Ekklesian suoran lähetyksen koskemattomuuden: Uskonnollisia lähetyksiä suojaa ehdoton uskonnonvapauslaki, ja <strong>Ratasvartiolla tai armeijalla ei ole oikeutta katkaista tai sensuroida lähetystä edes sotatilalain nojalla</strong>. Tämä selittää, miksi Kolossi joutuu sietämään kameroita: hän ei voi lain nojalla estää niitä. Jos pelaajat astuvat suoran TV-kameran eteen, Kolossi ei voi ampua heitä ilman suoraa valtakunnallista skandaalia."
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-block">
+          <span class="detail-tag tag-surface">PINTATASO:</span> Radiomajakoiden tehorajoja, taajuusmaksuja ja eetterialueen toimilupia.
+        </div>
+        <div class="detail-block">
+          <span class="detail-tag tag-crit">TUPLAT (KRIITTINEN):</span> Löytää yleishyödyllisen lähetyspykälän: aseman virallisen hätäkuulutuksen voi ajaa lähetykseen pakolla.
+        </div>
+      </div>
+      <div class="detail-block" style="margin-top: 1.5px;">
+        <span class="detail-tag tag-tactical">TOIMINNALLINEN HYÖTY:</span> Antaa hahmoille täydellisen julkisuussuojan: suorassa lähetyksessä he ovat turvassa armeijalta.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SYNERGIES SECTION -->
+  <div class="synergy-card">
+    <div class="synergy-header">MONIPROP-TUTKINTASYNERGIAT (KUN PELAAJA YHDISTÄÄ USEAMMAN DOKUMENTIN)</div>
+    <div class="synergy-grid">
+      <div class="syn-item">
+        <span class="syn-props">SYNERGIA A: TITAANIN OLEMUS (03 + 08 + 10)</span><br>
+        Telemetrian 0,667 Hz syke (03) + Akatemian leposykeyhtälö (08) + CAD-kaavio (10) todistavat: telakalla ei ole alus eikä tykki, vaan 50-metrinen elävä bio-titaani, jonka hermosto herää 40 bpm kohdalla.
+      </div>
+      <div class="syn-item">
+        <span class="syn-props">SYNERGIA B: TELAKAN VALTAUS (04 + 09 + 11 + 17)</span><br>
+        Dossier mahtimiesten riidasta (04) + Salikartan ovi H-3 (09) + 3 min pimeys klo 21:14 (11) + Kameroiden laillinen suoja (17) mahdollistaa marssin komentotasolle täysin huomaamatta pimeyden aikana.
+      </div>
+      <div class="syn-item">
+        <span class="syn-props">SYNERGIA C: PERHEEN VAPAUS &amp; SÄHKÖT (02 + 12 + 13)</span><br>
+        Yömyyrän kirje (02) + Kudospankin 180k velka (12) + Portin C7 oikosulku (13) vapauttavat siskon kivusta ja pakottavat Arpijalostajan katkaisemaan Ratasvartion virrat ennen eräpäivää.
+      </div>
+      <div class="syn-item">
+        <span class="syn-props">SYNERGIA D: VIRALLINEN AUDITOINTI (05 + 07 + 14 + 15)</span><br>
+        Ennakkotapaus 441 (05) + Sahyen passi (14) kumoavat Kauneusarvon tarkastuksen Hissillä 03 (07) ja vahvistavat, miksi Hissi 04 (15) on kierrettävä kaukaa. Ryhmä saapuu Lohko Nollaan laillisesti aseet mukana.
+      </div>
+    </div>
+  </div>
+
+  <!-- GM PRACTICAL TIPS BOX -->
+  <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3.5px solid #059669; border-radius: 2px; padding: 4px 6px; margin-top: 5px;">
+    <div style="font-size: 7.2pt; font-weight: 800; color: #047857; font-family: 'Consolas', monospace; text-transform: uppercase; margin-bottom: 2px;">
+      PELINJOHTAJAN PÖYTÄSÄÄNNÖT: TUTKINTAMEKANIIKAN SUJUVA JOHTAMINEN
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; font-size: 6.2pt; line-height: 1.2;">
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#0f172a; font-family:'Consolas',monospace;">1. ÄLÄ PIHTAA TIETOA</strong><br>
+        Kun heitto onnistuu (≥13 tai taito), lue tai tiivistä keltaisen laatikon teksti heti. Tieto on pelaajille tekojen polttoainetta.
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#0369a1; font-family:'Consolas',monospace;">2. HAHMON ASIANTUNTEMUS</strong><br>
+        Jos Jamir tutkii tekniikkaa tai Sahye lakia rauhassa, anna tieto ilman heittoa tai myönnä automaattinen vahva noppa (+n4).
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#b45309; font-family:'Consolas',monospace;">3. PIDÄ TITAANI SALASSA</strong><br>
+        Älä koskaan sano sanaa "Keinotekoinen Pyhimys" ääneen. Anna pelaajien itse oivaltaa, mitä altaassa heräävä organismi merkitsee.
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:2.5px 4px; border-radius:2px;">
+        <strong style="color:#dc2626; font-family:'Consolas',monospace;">4. EPÄONNISTUMISEN HINTA</strong><br>
+        Epäonnistunut heitto ei pysäytä peliä: pelaaja näkee vain pintamelun, mutta voi käyttää 1 Keston tai aikaa saadakseen tiedon.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>EVENTUELLIT · JAKSO 9: ASE</span>
+    <span>PELINJOHTAJAN TUTKINTAOPAS // MEKAANISET AVAINTIEDOT</span>
+    <span>SIVU 3 / 3</span>
+  </div>
+</div>
+
+</body>
+</html>

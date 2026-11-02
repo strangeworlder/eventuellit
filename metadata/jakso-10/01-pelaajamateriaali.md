@@ -59,28 +59,26 @@ Toisin kuin maailman funktionaaliset NPC:t, pelaajahahmot ovat aitoja tuntevia y
 
 ---
 
-## 4. Taidot (Valitse tai muotoile 3–4 taitoa)
+## 4. Taidot (Valitse tai muotoile 2–3 taitoa)
 
-1. **Multamunkki:** Tunnet maaperän ravinteet ja vainajien maatumisvaiheet. Erotat saappaisiin tarttuneen mullan perusteella, miltä Kynnyksen asemalta tai miltä Kryptan sarkalohkolta tulija on peräisin.
-2. **Katakombien salvamies:** Hallitset vanhat laipiot, raskaat lukot ja tuuletushormit. Osaat avata ja sulkea ovet täysin äänettömästi sekä hyödyntää rakenteiden onttoja tiloja kätköinä.
-3. **Välskäri:** Olet tottunut hoitamaan ampumavammoja, murtumia ja syviä viiltoja käsivaralla ilman kliinisiä laitteita ja sensorihälytyksiä.
-4. **Pokeri-isäntä:** Hallitset mielenmalttisi, äänenpainosi ja mikroilmeesi äärimmäisessä paineessa. Pystyt valehtelemaan suoraan silmiin ja vastaamaan leppoisasti ilman pulssin kiihtymistä.
-5. **Kestitsijä:** Hallitset leivinuunin, kattauksen ja hienovaraisen tarjoilun. Osaat kääntää piinaavan kuulustelun huomion tuoreella leivällä, mausteliemillä ja talon antimilla.
-6. **Kuiskausten kuuntelija:** Luet suurtilan akustiikkaa, hirsien elämistä ja askelten painoa. Tiedät tarkalleen, missä huoneessa liikutaan ja kenen askeleet lattialankut paljastavat.
-7. **Raskaan työn raataja:** Kehollinen sitkeys, mullan lapiointi, viljasäkkien kantaminen ja työkalujen vankka käyttö. Pystyt siirtämään raskaita esteitä tai kantamaan haavoittuneen huomaamatta.
-8. **Arkistojen tuntija:** Hallitset Ekklesian paperikääröt, hautakirjat ja sukupuut. Osaat kaivaa esiin menneisyyden syntejä ja käyttää kirkon perinnesäännöksiä suojanasi.
-9. **Kätkijän vaisto:** Hahmotat huoneesta luontevat piilot sekunneissa. Osaat naamioida ihmisen tai esineen jauhosammioiden, lakanapinojen tai juureslaatikoiden sekaan.
-10. **Eläintenhoitaja:** Hallitset tilan työjuhdat ja vahtikoirat. Osaat rauhoittaa hermostuneen eläimen eleettömästi ja ohjata vainukoirien huomion harhaan maatalouden hajuilla.
-11. **Työkaluveistäjä:** Mekaaninen näppäryys, puutyöt ja hätävälineiden valmistus. Osaat vaientaa narisevan lankun minuutissa tai veistää peitekiilan kellarin oveen.
-12. **Rohdosseppä:** Tunnet kupolien lääkekasvit, uutteet ja rauhoittavat rohdokset. Osaat sekoittaa uneen vaivuttavaa teetä tai vaimentaa houreilevan potilaan kivut.
-13. **Vierashuoneiden paimen:** Tunnet suurtilan majatalotoiminnan ja vieraiden tavat. Osaat luovia herkkäunisten matkalaisten, vaativien kauppiaiden ja uteliaiden virkamiesten välissä.
-14. **Sisäisen äänen kuristaja:** Hallitset implanttisi taajuuksia ja estät sen häiriöitä vuotamasta ympäristöön. Pystyt viestimään äänettömästi samalla kun ylläpidät arkista keskustelua.
-15. **Perinteiden vartija:** Tunnet Kryptan rukousnauhat, uskonnolliset säännöt ja iltarutiinit. Osaat perustella epäilyttävän toimen tai lukitun oven ikiaikaisella tabulla, jota sotilaatkaan eivät tohdi kyseenalaistaa.
-16. **Jälkien hävittäjä:** Osaat siivota veren, katakombikalkin ja saappaiden raapaisut niin perusteellisesti, etteivät mekaanisetkaan vainukoirat saa vainua pakoreitistä.
-17. **Hautasaattaja:** Tunnet valvomattoman vastaanottosataman reitit, hautalaivojen kapteenit ja vainajien siirron käytännöt. Osaat liikkua huomaamatta satamalaitureiden ja tilusten välillä.
-18. **Maatalousbloggaaja:** Ymmärrät Ekklesian verkkojen huomiotaloutta. Osaat kääntää kiusallisen tilanteen tilan julkiseksi PR-lähetykseksi tai reseptivideoksi, johon sotilaat eivät halua tallentua.
-19. **Tilan vanhin:** Nautit perheen sisäistä sanallista ja sanatonta kunnioitusta. Pystyt hillitsemään nuoremman väen paniikin yhdellä katseella ja osoittamaan kullekin luontevan roolin.
-20. **Uunimestari:** Hallitset suuren leivinuunin vedon, tuhkan ja lämpötilat. Osaat hävittää raskauttavat kääreet ja rievut polttouunissa herättämättä vieraan hajua huoneilmaan.
+1. **Mustan mullan agronomi:** Hallitset vainajien nesteistä ja orgaanisesta aineksesta kypsyvän maaperän. Tunnet kompostilämmön, lannoitesammiot ja juuriston, ja osaat lukea maasta jokaisen sinne sekoittuneen vieraan aineen.
+2. **Kalkitusmestari:** Vastaat vainajien luiden lipeäkäsittelystä, kalkituksesta ja sommittelusta katakombien seinämiin. Tunnet luuston kestävyyden ja osaat liikkua painottomissa ossuaareissa tarttuen nikamiin äänettömästi.
+3. **Keittiömunkki:** Vastaat talon leivinuuneista, vuosisataisesta hapanjuuresta ja muonituksesta. Osaat lepyttää epäluuloiset vieraat tuoreella leivällä ja peittää keittiön tuoksuilla epäilyttävät hajut.
+4. **Hautalaivuri:** Tunnet valvomattoman vastaanottosataman pimeät laiturit ja niille saapuvat ruumisalukset. Osaat liikkua sataman ja tilan välillä huomaamatta ja tunnet laivurien vaitonaiset tavat.
+5. **Katakombien luotain:** Tunnet kellarin alapuolella aukeavat kilometrien painottomat luolastot. Hahmotat tilat pimeässä pelkällä kosketuksella ja tiedät paikat, joissa ääni kantaa luiden pinnoilla kilometrien päähän.
+6. **Nauha-arkistonhoitaja:** Olet käsitellyt Haaskalintujen paperikääröjä, magneettinauhoja ja sukupuita. Tiedät, miten Kynnyksen salaisuudet on arkistoitu ja millaisilla asiakirjoilla virkamiehen saa epäröimään.
+7. **Siemenkauppias:** Tunnet Siemen-aseman akatemian, siemenpankit ja asemien väliset viralliset kauppasopimukset. Ymmärrät ulkomaailman politiikkaa ja omistat vakuuttavat kauppaluvat.
+8. **Signaalipunoja:** Ymmärrät, miksi Sisäinen ääni -implantit poimivat luiden seasta menneisyyden kaikuja. Osaat virittää taajuuksia, vaimentaa implanttisi vuodot ja lukea taustakohinan heilahduksia.
+9. **Kellarin vouti:** Vastaat suurtilan avaimista, salpalukoista, tuuletushormeista ja kätköistä. Tiedät talon jokaisen narisevan lankun, kätketyn luukun ja katakombeihin johtavan huoltokäytävän.
+10. **Surujuhlan kestitsijä:** Olet tottunut ottamaan vastaan vainajien omaisia ja vieraita kaikkialta Kynnykseltä. Hallitset uskonnollisen etiketin, osaat lukea surun ja epäluulon merkkejä ja ohjata keskustelun vaarattomille urille.
+11. **Haaskalintujen oppipoika:** Tunnet aseman tiedustelijoiden toimintatavat ja tiedät, miten he keräävät likaa asukkaista. Osaat tunnistaa kuulustelijan harhautukset ja syöttää tälle uskottavia puolitotuuksia.
+12. **Perimätiedon vanhin:** Tunnet Kryptan ikiaikaiset lait, uskonnolliset säännöt ja iltarutiinit. Osaat puolustaa suljettua ovea tai epäilyttävää hiljaisuutta pyhillä tabuilla, joita virkavallan sotilaatkaan eivät tohdi julkisesti loukata.
+13. **Lietelannan hoitaja:** Hallitset tilan työjuhdat, lantakuopat ja eläinsuojat. Osaat ohjata eläimiä sanattomasti ja käyttää mullan ja lannan karkeita hajuja harhauttamaan tarkkojakin vainukoiria.
+14. **Nukutusyrttien tuntija:** Kasvatat kupoleissa kipua lievittäviä ja uneen vaivuttavia kasveja. Osaat valmistaa nopeasti hyytelöiviä hauteita, vaimentaa haavoittuneen tuskat ja pitää potilaan hiljaa tuntikausia.
+15. **Hautakirjuri:** Hallitset Ekklesian viralliset kuolinrekisterit ja leimasimet. Osaat lukea ja väärentää hautausasiakirjoja sekä kirjata ihmisiä virallisesti siunatuiksi ja menneisyyteen kadonneiksi.
+16. **Maatalousbloggaaja:** Hallitset Ekklesian verkkojen huomiotalouden ja tilan julkisen syötteen. Osaat kääntää kiusallisen tilanteen tilan julkiseksi PR-lähetykseksi tai suoraksi leivontakatsaukseksi, jonka edessä virkavalta joutuu varomaan mainettaan.
+17. **Ruumiinavaaja:** Olet tottunut erottelemaan vainajien pehmytkudokset ja tutkimaan luiden vammat. Erotat silmänräpäyksessä vanhat vauriot tuoreista ampumahaavoista ja osaat ommella haavoja karkein kenttävälinein.
+18. **Luuveistäjä:** Työstät vainajien luista muistoesineitä, reliikkejä ja rukoushelmiä. Tunnet muinaiset kaiverrustyylit, erotat aidot reliikit väärennöksistä ja osaat muotoilla luusta ja kalkista työkaluja ja kiiloja.
 
 ---
 

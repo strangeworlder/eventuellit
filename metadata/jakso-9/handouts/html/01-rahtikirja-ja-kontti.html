@@ -192,29 +192,33 @@
   /* HANDWRITTEN MARKER ON FRONT */
   .handwritten-arrow {
     position: absolute;
-    right: -10px;
-    top: 366px;
-    color: #0b1a30;
-    font-family: 'Comic Sans MS', 'Segoe Print', cursive, sans-serif;
-    font-size: 10pt;
-    font-weight: bold;
-    transform: rotate(2deg);
-    background: rgba(255,255,255,0.7);
-    padding: 2px 6px;
-    border-left: 3px solid #0b1a30;
-  }
-  .handwritten-tools {
-    position: absolute;
-    right: -10px;
-    top: 456px;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%) rotate(1.5deg);
     color: #0b1a30;
     font-family: 'Comic Sans MS', 'Segoe Print', cursive, sans-serif;
     font-size: 9.5pt;
     font-weight: bold;
-    transform: rotate(-2deg);
-    background: rgba(255,255,255,0.7);
-    padding: 2px 6px;
+    background: rgba(255,255,255,0.72);
+    padding: 1px 5px;
     border-left: 3px solid #0b1a30;
+    white-space: nowrap;
+    z-index: 10;
+  }
+  .handwritten-tools {
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-1.5deg);
+    color: #0b1a30;
+    font-family: 'Comic Sans MS', 'Segoe Print', cursive, sans-serif;
+    font-size: 8.8pt;
+    font-weight: bold;
+    background: rgba(255,255,255,0.72);
+    padding: 1px 5px;
+    border-left: 3px solid #0b1a30;
+    white-space: nowrap;
+    z-index: 10;
   }
 
   /* BACK SIDE STYLES */
@@ -329,7 +333,10 @@
           <td>012</td>
           <td><strong>Jäähdytysvaippa, orgaanisen reaktorin,</strong><br><span style="font-size:7.5pt">ylimittainen, palautus valmistajalle</span></td>
           <td style="text-align:right">1 kpl</td>
-          <td style="text-align:right"><strong>1 450</strong></td>
+          <td style="text-align:right; position: relative;">
+            <strong>1 450</strong>
+            <div class="handwritten-arrow">← tää ei oo romua</div>
+          </td>
         </tr>
         <tr><td>013</td><td>Tiivisterengas, sekalainen</td><td style="text-align:right">1 erä</td><td style="text-align:right">40</td></tr>
         <tr><td>014</td><td>Suodatinkasetti, käytetty</td><td style="text-align:right">60 kpl</td><td style="text-align:right">120</td></tr>
@@ -338,14 +345,13 @@
           <td>016</td>
           <td>Työkalulaatikko, laivurin (henk.koht.)</td>
           <td style="text-align:right">1 kpl</td>
-          <td style="text-align:right">38</td>
+          <td style="text-align:right; position: relative;">
+            38
+            <div class="handwritten-tools">← valjaat + tunkki pohjalla. 2 paria. sori enempää ei saatu</div>
+          </td>
         </tr>
       </tbody>
     </table>
-
-    <!-- Handwritten marginal notes -->
-    <div class="handwritten-arrow">← tää ei oo romua</div>
-    <div class="handwritten-tools">← valjaat + tunkki pohjalla. 2 paria. sori enempää ei saatu</div>
 
     <div class="summary-box">
       <div>
@@ -410,7 +416,7 @@
 
     <p>en tuu takasin hakemaan</p>
 
-    <div class="marker-signature">— K.</div>
+    <div class="marker-signature">— Kuparisuoni</div>
   </div>
 
   <div class="dock-debt">

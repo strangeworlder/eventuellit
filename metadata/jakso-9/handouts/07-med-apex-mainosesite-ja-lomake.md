@@ -86,7 +86,7 @@ Ekklesian juhlalähetys kokoaa ylimmän kiekon eliitin Hissikehä 03:n gaalakerr
 │                                                                      │
 │ KRITEERI                     PISTEET (0–4)   HUOM                    │
 │ 1. Symmetria                      1          vasen olkapää alempana  │
-│ 2. Ihon tila                      0          arpia, öljyä, AURINKO?? │
+│ 2. Ihon tila                      0          arpia, öljyä, PÄIVÄNVALO?? │
 │ 3. Pukeutuminen                   1          vuokrapuku, hihat lyhyet│
 │ 4. Ryhti                          2          yrittää                 │
 │ 5. Sosiaalinen krediitti          2          suosittelija Med-Apex   │
@@ -96,16 +96,18 @@ Ekklesian juhlalähetys kokoaa ylimmän kiekon eliitin Hissikehä 03:n gaalakerr
 │ Ehdotettu korjaava hoito: Pikasymmetria (koodi SAKRAMENTTI)          │
 │ Tulija tarjosi 200 kr "käsittelymaksua". Tarjous liian kömpelö.      │
 │ Ohjattu takaisin alas.                                               │
+├──────────────────────────────────────────────────────────────────────┤
+│ Asetusviite (12 §): Tarkastusvelvoite sitoo kaikkia siviilejä.       │
+│ Vapautettu ainoastaan tuomioistuimen virallinen tarkastusvaltuuskunta │
+│ sinetöidyllä mandaatilla tai Ekklesian korkea papisto.               │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-*(Lomakkeen alaosaan, samalla kuulakärkikynällä mutta paljon kovemmin painaen:)*
+*(Lomakkeen alalaitaan, samalla kuulakärkikynällä, selvästi turhautuneena:)*
 
-> **Ja muistan vieläkin sen viime kauden Laki-aseman "tarkastajan", joka tuli kahden apurin kanssa, heilutti sinettipaperia ja piti kuulemma päästää läpi ilman pisteitä, 12 § b. Ilman PISTEITÄ. Esimies sanoi, että "laki on laki". Kirjoitin kuittauksen kuten pitää, mutta kirjaan tähän että tämä on VÄÄRIN ja koko pykälä pitäisi poistaa. Jos niitä tulee lisää gaalan aikana, en vastaa ilmeestäni.**
+> **Tulija yritti vedota kiireeseen ja tarjosi 200 kr seteleitä. Muistutettu, että ilman virallista säännöstön mukaista poikkeuslupaa tämän tiskin ohi ei kuljeta. Saatto takaisin rahtilaiturille. Tiski pyyhittävä desinfiointiaineella ennen seuraavaa vuoroa.**
 >
-> **Jos joku lukee tämän: hississä 03 on peili. Katsokaa siihen ennen kuin tulette minun tiskilleni.**
->
-> **— K.**
+> **— Kauneusarvo**
 
 *(Lomakkeen kääntöpuolella, eri kynällä, todennäköisesti Kauneusarvon omaa asiaa:)*  
 ~~muista: pikasymmetria itselle ke~~  

@@ -48,6 +48,7 @@ Koko Eventuellit-universumi jakautuu neljään toisistaan tiukasti erotettuun ta
     - Faktiot otetaan todesta niiden omilla termeillä ja uskomuksilla (KW tehokas konsortio ja komentokoheesio; Ekklesia pyhä kirkko ja sakramentaalinen ekstaasi).
     - Hahmojen funktionaaliset nimet (*Yömyyrä, Kuilu, Sydänmies, Ruuvari*) ovat normaaleja arkinimiä (*Petri-vertaus*); niiden symboliikkaa ei avata tekstissä.
     - Aika ilmaistaan työvuoroina, asemien rotaatioina, sykleinä ja suhteellisina maamerkkeinä (*"ennen Sotaa"*).
+    - Valo ja aurinko: Nestemäisen aurinkokunnan keskellä ei ole aurinkoa. Käytä aina termiä **päivänvalo** tai **valosykli** — sanaa "aurinko" tai "auringonvalo" ei käytetä fiktion kuvauksissa.
 - **EHDOSTI KIELLETTYÄ missään julkisessa tekstissä:**
   - **Taso 4 (Kosmologia):** Ei saa kertoa Tyrannin poissaolosta tai tyhjästä valtaistuimesta. Ei Astian vainajia. Ei kapinaa johtajattomana ontologisena tilana. Ei Pyhimysten immuunireaktiota.
   - **Taso 3 (Allegoria & Peliteoria):** Ei sanaakaan "huonosta pelinjohtajasta", GNS-teoriasta (Gamismi/Narrativismi/Simulationismi), DMPC:stä, railroadingista, retconnaamisesta tai kargokultti-käsitteestä.

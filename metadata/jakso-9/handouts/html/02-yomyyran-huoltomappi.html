@@ -150,18 +150,21 @@
   }
   .schem-box {
     border: 2px solid #233b4d;
-    background: rgba(255,255,255,0.85);
+    background: #ffffff;
     padding: 8px 12px;
     position: absolute;
     box-shadow: 2px 2px 0 rgba(35,59,77,0.15);
+    z-index: 2;
   }
   .pipe-v {
     position: absolute;
-    border-left: 4px solid #233b4d;
+    background-color: #233b4d;
+    z-index: 1;
   }
   .pipe-h {
     position: absolute;
-    border-top: 4px solid #233b4d;
+    background-color: #233b4d;
+    z-index: 1;
   }
   .warning-badge {
     color: #a31515;
@@ -400,15 +403,19 @@
   </div>
 
   <div class="schematic-container">
+    <!-- Main Vertical Pipes (Behind Boxes with z-index: 1) -->
+    <!-- Upper Syöttökouru (6px wide, centered at X=340px) -->
+    <div class="pipe-v" style="top: 30px; left: 337px; width: 6px; height: 170px;"></div>
+    <!-- Lower Syöttöputki (4px wide, centered at X=340px) -->
+    <div class="pipe-v" style="top: 190px; left: 338px; width: 4px; height: 380px;"></div>
+
     <!-- Top Box: Lohko Nolla -->
     <div class="schem-box" style="top: 15px; left: 180px; width: 320px; border-width: 3px; background: #eef4f8;">
       <div style="font-size: 13pt; font-weight: bold; text-align: center;">LOHKO NOLLA (KURU)</div>
       <div style="font-size: 10pt; text-align: center; color: #444;">telakan pohja ????</div>
     </div>
 
-    <!-- Pipe from top box down -->
-    <div class="pipe-v" style="top: 75px; left: 340px; height: 90px; border-left-width: 6px;"></div>
-    <div style="position: absolute; top: 90px; left: 360px; font-size: 10pt; line-height: 1.3; width: 260px;">
+    <div style="position: absolute; top: 90px; left: 360px; font-size: 10pt; line-height: 1.3; width: 260px; z-index: 3;">
       <strong>SYÖTTÖKOURU</strong> — iso, voi kävellä kumarassa<br>
       <span style="color:#555;">"tänne menee kaikki se mössö"</span>
     </div>
@@ -418,41 +425,36 @@
       <div class="warning-badge" style="text-align: center;">PUMPPU 4 (P-4)</div>
       <div style="font-size: 9.5pt; text-align: center; font-weight: bold;">LAUHDE = KIEHUVAA</div>
     </div>
-    <div style="position: absolute; top: 165px; left: 510px; font-size: 9.5pt; color: #a31515; line-height: 1.3; width: 180px;">
+    <div style="position: absolute; top: 165px; left: 510px; font-size: 9.5pt; color: #a31515; line-height: 1.3; width: 180px; z-index: 3;">
       ← <strong>!!! LAUKEE 4 MIN VÄLEIN</strong><br>
       VARO VARO VARO<br>
       odottakaa sihinä → <em>sitten JUOSKAA</em>
     </div>
 
-    <!-- Pipe down to Juurakko -->
-    <div class="pipe-v" style="top: 235px; left: 340px; height: 160px;"></div>
-    <div style="position: absolute; top: 250px; left: 355px; font-size: 9.5pt;">
+    <div style="position: absolute; top: 250px; left: 355px; font-size: 9.5pt; z-index: 3;">
       <strong>venttiili 08B</strong> (avain mulla)
     </div>
 
     <!-- Juurakko area description -->
-    <div style="position: absolute; top: 285px; left: 60px; font-size: 10.5pt; color: #2e4a36; line-height: 1.4; border-left: 3px solid #2e4a36; padding-left: 8px;">
+    <div style="position: absolute; top: 285px; left: 60px; font-size: 10.5pt; color: #2e4a36; line-height: 1.4; border-left: 3px solid #2e4a36; padding-left: 8px; z-index: 3;">
       <strong>VAIENNUT JUURAKKO</strong><br>
       (kosteaa, juuria,<br>ei valoja käyt. 4)
     </div>
 
     <!-- Welded hatch warning -->
-    <div class="schem-box" style="top: 290px; left: 380px; width: 220px; border-style: dashed; border-color: #555; background: #eee;">
+    <div class="schem-box" style="top: 290px; left: 380px; width: 220px; border-style: dashed; border-color: #555; background: #eeeeee;">
       <div style="font-size: 9.5pt; font-weight: bold; color: #661111;">J-21 itä — HITSATTU UMPEEN</div>
       <div style="font-size: 8.5pt;">ÄLKÄÄ MENKÖ. RV hitsas toissavuorolla (oli hyvä reitti)</div>
     </div>
 
     <!-- Biomurskain BM-3 -->
-    <div class="schem-box" style="top: 410px; left: 190px; width: 300px;">
+    <div class="schem-box" style="top: 410px; left: 190px; width: 300px; background: #ffffff;">
       <div style="font-size: 11pt; font-weight: bold; text-align: center;">BIOMURSKAIN BM-3</div>
       <div style="font-size: 9pt; text-align: center;">ritilä irtoaa 4 pultilla (terä pyörii)</div>
     </div>
-    <div style="position: absolute; top: 415px; left: 510px; font-size: 9pt; color: #333;">
+    <div style="position: absolute; top: 415px; left: 510px; font-size: 9pt; color: #333; z-index: 3;">
       ← tunkilla saa auki
     </div>
-
-    <!-- Pipe down to Rasvakuilu -->
-    <div class="pipe-v" style="top: 468px; left: 340px; height: 80px;"></div>
 
     <!-- Bottom Box: Rasvakuilu -->
     <div class="schem-box" style="top: 550px; left: 60px; width: 560px; border-width: 3px; background: #faeed9;">

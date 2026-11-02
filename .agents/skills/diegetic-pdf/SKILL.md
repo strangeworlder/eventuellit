@@ -42,7 +42,9 @@ Tämä taitosetti määrittelee, miten roolipelikampanjan fyysiset pelaajamateri
    * Salakuvat ja valvontakuvat toteutetaan korkeakontrastisina, rakeisina mustavalkokuvina (valvontakamerat, arkistopolaroidit).
 10. **Aika Kynnyksellä:**
     * Ei Maan vuosilukuja tai gregoriaanista kalenteria. Päiväykset merkitään työvuoroina, asemien mekaanisina rotaatioina ja sykleinä.
-11. **Terminologia:**
+11. **Valo ja aurinko dokumenteissa:**
+    * Nestemäisessä aurinkokunnassa ei ole aurinkoa. Dokumenteissa viitataan aina "päivänvaloon" tai "valosykleihin", ei aurinkoon tai auringonvaloon.
+12. **Terminologia:**
     * Käytä aina termiä **sääntöartefakti** tai **Arkkitehtuurin sääntöydin** (termi "shiny object" on ehdottomasti kielletty).
 
 ---

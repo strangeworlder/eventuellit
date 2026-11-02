@@ -2,295 +2,700 @@
 <html lang="fi">
 <head>
 <meta charset="UTF-8">
-<title>Proppi 08: Bioakustinen taajuusrekisteri</title>
+<title>Proppi 08: Bioakustinen taajuusrekisteri ja orgaanisen kinetiikan vertailutaulukko</title>
 <style>
   @page {
     size: A4 portrait;
     margin: 0;
   }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
   * {
     box-sizing: border-box;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  body {
     margin: 0;
     padding: 0;
-    font-family: 'Georgia', 'Times New Roman', serif;
-    color: #1a1a1a;
-    background-color: #d8d4cc;
+  }
+  body {
+    background-color: #cbd5e1;
+    font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
+    color: #0f172a;
+    line-height: 1.35;
+    font-size: 8pt;
   }
   .page {
     width: 210mm;
     min-height: 297mm;
     max-height: 297mm;
-    margin: 0 auto;
-    background-color: #fbf9f4;
-    padding: 16mm 18mm;
+    margin: 0 auto 10mm auto;
+    background-color: #fcfbf9;
+    padding: 10mm 12mm;
     position: relative;
     overflow: hidden;
-  }
-  .page-break {
-    page-break-after: always;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   .grid-bg {
-    background-image: 
-      linear-gradient(to right, rgba(180, 195, 205, 0.25) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(180, 195, 205, 0.25) 1px, transparent 1px);
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.22) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.22) 1px, transparent 1px);
     background-size: 5mm 5mm;
   }
+  @media print {
+    body { background: none; }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+      break-after: page;
+    }
+  }
+
+  /* Academic Header */
   .doc-header {
-    border-bottom: 2px solid #2a3b4c;
-    padding-bottom: 8px;
-    margin-bottom: 14px;
+    border-bottom: 2.5px solid #0f172a;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
   }
-  .doc-title {
+  .institution-name {
     font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 11pt;
-    font-weight: bold;
-    color: #1a2a3a;
-    letter-spacing: 0.5px;
+    font-size: 10.5pt;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #0f172a;
+    text-transform: uppercase;
   }
-  .doc-subtitle {
-    font-size: 8pt;
-    color: #555;
-    margin-top: 3px;
+  .doc-series {
+    font-size: 7.2pt;
+    font-family: 'Consolas', monospace;
+    color: #475569;
+    margin-top: 1px;
   }
-  .meta-box {
+  .meta-badges {
     text-align: right;
     font-family: 'Consolas', monospace;
-    font-size: 8pt;
-    color: #444;
+    font-size: 6.8pt;
+    color: #334155;
+    line-height: 1.25;
   }
+  .badge-arch {
+    display: inline-block;
+    background: #e2e8f0;
+    border: 1px solid #94a3b8;
+    padding: 1px 5px;
+    font-weight: 700;
+    border-radius: 2px;
+    margin-bottom: 1px;
+  }
+
+  /* Headings & Text */
   h2 {
-    font-size: 11.5pt;
-    margin: 12px 0 6px 0;
+    font-size: 8.8pt;
+    font-family: 'Consolas', monospace;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #1a3044;
-    border-bottom: 1px solid #c0c8d0;
-    padding-bottom: 2px;
+    letter-spacing: 0.4px;
+    color: #0f172a;
+    border-bottom: 1.5px solid #cbd5e1;
+    padding-bottom: 1.5px;
+    margin: 5px 0 3px 0;
   }
   p {
-    font-size: 9pt;
-    line-height: 1.45;
-    margin: 6px 0;
+    font-size: 7.8pt;
     text-align: justify;
+    line-height: 1.3;
+    color: #1e293b;
+    margin-bottom: 3px;
   }
-  .formula-box {
-    background: #edf2f6;
-    border-left: 4px solid #204060;
-    padding: 8px 14px;
-    margin: 10px 0;
-    font-family: 'Cambria Math', 'Georgia', serif;
-    font-size: 10pt;
-    font-style: italic;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .spec-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 8.5pt;
-    margin: 10px 0;
-  }
-  .spec-table th, .spec-table td {
-    border: 1px solid #a8b8c8;
-    padding: 5px 8px;
-  }
-  .spec-table th {
-    background: #dde6ee;
-    font-family: 'Consolas', monospace;
-    font-weight: bold;
-    color: #102030;
-    text-align: left;
-  }
-  .spec-table tr:nth-child(even) {
-    background: rgba(230, 238, 245, 0.4);
-  }
-  .highlight-row {
-    background: #ffe8cc !important;
-    font-weight: bold;
-  }
-  .diagram-container {
-    border: 1px solid #99aab8;
-    background: #fdfdfd;
-    padding: 10px;
-    margin: 12px 0;
-    position: relative;
-  }
-  .diagram-title {
-    font-family: 'Consolas', monospace;
-    font-size: 8pt;
-    font-weight: bold;
-    color: #334455;
-    margin-bottom: 6px;
-    text-align: center;
-  }
-  .spectrum-bar {
-    height: 16px;
-    margin: 4px 0;
-    display: flex;
-    align-items: center;
-    font-family: 'Consolas', monospace;
-    font-size: 7.5pt;
-    color: #fff;
-    padding-left: 6px;
-    border-radius: 2px;
-  }
-  .callout-warning {
-    border: 2px solid #b83020;
-    background: #fff5f5;
-    padding: 10px 14px;
-    margin: 12px 0;
-    font-size: 8.5pt;
-    line-height: 1.45;
-  }
-  .callout-warning strong {
-    color: #901000;
-  }
-  .stamp-academic {
-    display: inline-block;
-    border: 2px solid #1a3a60;
-    color: #1a3a60;
-    font-family: 'Consolas', monospace;
-    font-weight: bold;
-    font-size: 8pt;
+  .formula-strip {
+    background: #f1f5f9;
+    border-left: 3px solid #0284c7;
+    border-right: 1px solid #cbd5e1;
+    border-top: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
     padding: 3px 8px;
-    text-transform: uppercase;
-    transform: rotate(-2deg);
-  }
-  .academic-footer {
+    margin: 3px 0 4px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #a0b0c0;
-    margin-top: 16px;
-    padding-top: 8px;
     font-family: 'Consolas', monospace;
-    font-size: 7.5pt;
-    color: #666;
+    font-size: 7.2pt;
+  }
+  .formula-highlight {
+    font-size: 8.2pt;
+    font-weight: 800;
+    color: #0369a1;
+  }
+
+  /* Tables */
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6.8pt;
+    margin-bottom: 4px;
+    background: #ffffff;
+  }
+  table.data-table th {
+    background-color: #0f172a;
+    color: #ffffff;
+    font-family: 'Consolas', monospace;
+    text-transform: uppercase;
+    font-size: 6pt;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 2.5px 4px;
+    text-align: left;
+    border: 1px solid #0f172a;
+  }
+  table.data-table td {
+    padding: 2px 4px;
+    border: 1px solid #cbd5e1;
+    vertical-align: middle;
+    line-height: 1.18;
+  }
+  table.data-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+  .row-target {
+    background-color: #ffedd5 !important;
+    border-left: 3px solid #ea580c !important;
+  }
+  .row-target td {
+    font-weight: 700;
+    color: #9a3412;
+  }
+  .row-wake {
+    background-color: #dcfce7 !important;
+    border-left: 3px solid #16a34a !important;
+  }
+  .row-wake td {
+    font-weight: 700;
+    color: #166534;
+  }
+
+  /* Waveforms & Charts */
+  .waveform-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin: 3px 0 5px 0;
+  }
+  .waveform-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 2px;
+    padding: 3px 4px;
+  }
+  .waveform-header {
+    font-family: 'Consolas', monospace;
+    font-size: 6pt;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 1px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .waveform-card.wave-bio {
+    border: 1.5px solid #ea580c;
+    background: #fffaf5;
+  }
+  .waveform-card.wave-bio .waveform-header {
+    color: #c2410c;
+  }
+  .waveform-desc {
+    font-size: 5.6pt;
+    color: #475569;
+    line-height: 1.15;
+    margin-top: 1px;
+  }
+
+  .chart-box {
+    background: #ffffff;
+    border: 1px solid #94a3b8;
+    border-radius: 2px;
+    padding: 4px 6px;
+    margin: 4px 0;
+  }
+  .chart-title {
+    font-family: 'Consolas', monospace;
+    font-size: 6.8pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0f172a;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+    border-bottom: 1px dashed #cbd5e1;
+    padding-bottom: 1.5px;
+  }
+
+  /* Two Column Box */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin: 4px 0;
+  }
+  .col-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 4px 6px;
+    border-radius: 2px;
+  }
+
+  /* Page 1 Expanded Layout */
+  .p1-content h2 {
+    font-size: 8.6pt;
+    margin: 5px 0 2px 0;
+  }
+  .p1-content p {
+    font-size: 7.6pt;
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+  .p1-content .formula-strip {
+    padding: 3.5px 8px;
+    margin: 4px 0 5px 0;
+    font-size: 7pt;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .p1-content .formula-highlight {
+    font-size: 8.5pt;
+    white-space: nowrap;
+  }
+  .p1-content .waveform-grid {
+    gap: 5px;
+    margin: 4px 0 5px 0;
+  }
+  .p1-content .waveform-card {
+    padding: 3px 5px;
+  }
+  .p1-content .waveform-desc {
+    font-size: 5.6pt;
+    margin-top: 2px;
+  }
+  .p1-content .chart-box {
+    padding: 4px 6px;
+    margin: 4px 0;
+  }
+  .p1-content table.data-table th {
+    padding: 2.5px 4px;
+    font-size: 6.2pt;
+  }
+  .p1-content table.data-table td {
+    padding: 2.2px 4px;
+    font-size: 6.6pt;
+  }
+  .callout-box {
+    background: #fef2f2;
+    border: 1px solid #f87171;
+    border-left: 3.5px solid #dc2626;
+    padding: 4px 8px;
+    margin: 4px 0;
+    font-size: 7.2pt;
+    line-height: 1.25;
+    border-radius: 2px;
+  }
+  .callout-box strong { color: #991b1b; }
+
+  .pencil-note {
+    font-family: 'Comic Sans MS', 'Segoe Print', cursive, sans-serif;
+    color: #1e3a5f;
+    font-size: 7.2pt;
+    font-weight: bold;
+    background: rgba(254, 243, 199, 0.7);
+    border-left: 3px solid #d97706;
+    padding: 2px 6px;
+    margin: 3px 0;
+    line-height: 1.25;
+    transform: rotate(-0.5deg);
+  }
+
+  /* Stamps & Signatures */
+  .sign-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+    padding-top: 3px;
+    border-top: 1px solid #cbd5e1;
+  }
+  .stamp-box {
+    border: 2px solid #0369a1;
+    color: #0369a1;
+    font-family: 'Consolas', monospace;
+    font-size: 6.2pt;
+    font-weight: 800;
+    padding: 1px 5px;
+    text-transform: uppercase;
+    transform: rotate(-1.5deg);
+    display: inline-block;
+  }
+  .stamp-warning {
+    border: 2px solid #b91c1c;
+    color: #b91c1c;
+    font-family: 'Consolas', monospace;
+    font-size: 6.2pt;
+    font-weight: 800;
+    padding: 1px 5px;
+    text-transform: uppercase;
+    transform: rotate(1deg);
+    display: inline-block;
+  }
+
+  /* Footer */
+  .page-footer {
+    position: absolute;
+    bottom: 5mm;
+    left: 12mm;
+    right: 12mm;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 2px;
+    font-family: 'Consolas', monospace;
+    font-size: 6pt;
+    color: #64748b;
   }
 </style>
 </head>
 <body>
 
-<!-- SIVU 1 -->
-<div class="page grid-bg page-break">
+<!-- ================= PAGE 1 ================= -->
+<div class="page grid-bg p1-content">
   <div class="doc-header">
     <div>
-      <div class="doc-title">ALASIMEN VAPAA AKATEMIA · FREKVENSSIFYYSIIKKA</div>
-      <div class="doc-subtitle">Tutkimusmonografia B-19 / Kenttädiagnostiikan opas</div>
+      <div class="institution-name">Alasimen Vapaa Akatemia · Frekvenssifysiikka</div>
+      <div class="doc-series">Tutkimusmonografia B-19 // Akustisen diagnostiikan kenttäopas (Arkisto AK-884)</div>
     </div>
-    <div class="meta-box">
-      <div>AK-884 · REV. 3</div>
-      <div>AKAT. VÄRE</div>
+    <div class="meta-badges">
+      <span class="badge-arch">ARKISTO: AK-884-REV.3</span><br>
+      <span>LAATIJA: AKAT. VÄRE (OS. BIORES.)</span>
     </div>
   </div>
 
-  <h2>1. Johdanto ja fysikaalinen muunnosasteikko</h2>
+  <h2>1. Johdanto: Mekaaninen runkovärähtely vs. orgaaninen syke</h2>
   <p>
-    Kynnyksen keinotekoisissa asemarakenteissa havaitaan jatkuvasti laajaa mekaanisen värähtelyn spektriä. Usein asemainsinöörit ja valvontakoneistot luokittelevat kaikki matalataajuiset impulssit virheellisesti "rakenteelliseksi resonanssiksi". Tämä monografia esittää matemaattisen kriteeristön, jolla mekaaninen runkovärähtely erotetaan <strong>biologisen lihaskudoksen kardiovaskulaarisesta pulssista</strong>.
+    Kynnyksen keinotekoisissa megakiekoissa mitataan jatkuvasti laajaa matalataajuista seismistä spektriä. Yleisin diagnostiikkavirhe on luokitella kaikki matalataajuiset sykäykset "rakenteelliseksi resonanssiksi". Tämä monografia esittää matemaattisen kriteeristön, jolla mekaaninen runkovärähtely erotetaan <strong>makromolekyylisen orgaanisen lihaskudoksen kardiovaskulaarisesta pulssista</strong>.
   </p>
 
-  <div class="formula-box">
-    <span>Perusmuunnos:</span>
-    <strong>Sykli minuutissa (bpm) = f (Hz) × 60</strong>
-    <span>(esim. 0,50 Hz = 30 bpm &nbsp;|&nbsp; 1,00 Hz = 60 bpm)</span>
+  <div class="formula-strip">
+    <span>PERUSMUUNNOS:</span>
+    <span class="formula-highlight">Sykli minuutissa (bpm) = f (Hz) × 60</span>
+    <span>0,583 Hz = 35,0 bpm &nbsp;|&nbsp; 0,667 Hz = 40,0 bpm &nbsp;|&nbsp; 1,000 Hz = 60,0 bpm</span>
   </div>
 
-  <h2>2. Taajuusalueet ja aaltomuotojen fysiikka</h2>
-  <p>
-    Aseman kussakin järjestelmässä esiintyvä tärinä voidaan luokitella sen herätemekanismin mukaan:
-  </p>
+  <h2>2. Aaltomuotojen vertaileva oskillogrammi (Herätemekanismit)</h2>
+  <div class="waveform-grid">
+    <!-- Wave 1: Turbiini -->
+    <div class="waveform-card">
+      <div class="waveform-header">
+        <span>A: TURBIINIT</span>
+        <span>25–400 Hz</span>
+      </div>
+      <svg viewBox="0 0 160 55" style="width: 100%; height: 42px; display: block;">
+        <rect width="160" height="55" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.5"/>
+        <line x1="0" y1="27.5" x2="160" y2="27.5" stroke="#94a3b8" stroke-dasharray="2,2" stroke-width="0.5"/>
+        <path d="M 0,27.5 Q 4,5 8,27.5 T 16,27.5 T 24,27.5 T 32,27.5 T 40,27.5 T 48,27.5 T 56,27.5 T 64,27.5 T 72,27.5 T 80,27.5 T 88,27.5 T 96,27.5 T 104,27.5 T 112,27.5 T 120,27.5 T 128,27.5 T 136,27.5 T 144,27.5 T 152,27.5 T 160,27.5" fill="none" stroke="#334155" stroke-width="1.2"/>
+      </svg>
+      <div class="waveform-desc">Jyrkkä siniaalto ja harmoniset kerrannaiset. Taajuus ei heilu ilman kuormaa.</div>
+    </div>
 
-  <table class="spec-table">
+    <!-- Wave 2: Rungon aaltoilu -->
+    <div class="waveform-card">
+      <div class="waveform-header">
+        <span>B: RUNGIN VASTUS</span>
+        <span>0,005–0,05 Hz</span>
+      </div>
+      <svg viewBox="0 0 160 55" style="width: 100%; height: 42px; display: block;">
+        <rect width="160" height="55" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.5"/>
+        <line x1="0" y1="27.5" x2="160" y2="27.5" stroke="#94a3b8" stroke-dasharray="2,2" stroke-width="0.5"/>
+        <path d="M 0,30 Q 35,12 70,35 T 140,20 T 160,28" fill="none" stroke="#475569" stroke-width="1.3"/>
+      </svg>
+      <div class="waveform-desc">Avaruuden virtausvaappuminen. Epäsäännöllinen, laaja ja hitaasti vaimeneva kumpu.</div>
+    </div>
+
+    <!-- Wave 3: Hydrauliikka -->
+    <div class="waveform-card">
+      <div class="waveform-header">
+        <span>C: PUMPPU P-4</span>
+        <span>0,250 Hz (15/min)</span>
+      </div>
+      <svg viewBox="0 0 160 55" style="width: 100%; height: 42px; display: block;">
+        <rect width="160" height="55" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.5"/>
+        <line x1="0" y1="42" x2="160" y2="42" stroke="#94a3b8" stroke-dasharray="2,2" stroke-width="0.5"/>
+        <path d="M 0,42 L 20,42 L 20,10 L 50,10 L 50,42 L 95,42 L 95,10 L 125,10 L 125,42 L 160,42" fill="none" stroke="#0284c7" stroke-width="1.4"/>
+      </svg>
+      <div class="waveform-desc">Mäntäsykli: 4 s latausvaihe, jyrkkä kantikas paineaalto tasan 4:00 välein.</div>
+    </div>
+
+    <!-- Wave 4: Orgaaninen syke -->
+    <div class="waveform-card wave-bio">
+      <div class="waveform-header">
+        <span>D: ORGAANINEN PULSSI</span>
+        <span>0,583–0,667 Hz</span>
+      </div>
+      <svg viewBox="0 0 160 55" style="width: 100%; height: 42px; display: block;">
+        <rect width="160" height="55" fill="#fffaf5" stroke="#ea580c" stroke-width="0.7"/>
+        <line x1="0" y1="36" x2="160" y2="36" stroke="#fdba74" stroke-dasharray="2,2" stroke-width="0.5"/>
+        <path d="M 0,36 L 15,36 Q 20,31 25,36 L 30,36 L 33,39 L 37,8 L 42,44 L 45,36 L 50,36 Q 58,26 66,36 L 95,36 Q 100,31 105,36 L 110,36 L 113,39 L 117,8 L 122,44 L 125,36 L 130,36 Q 138,26 146,36 L 160,36" fill="none" stroke="#c2410c" stroke-width="1.5"/>
+      </svg>
+      <div class="waveform-desc"><strong>Kaksoishuippu (eteis/kammio).</strong> Asteittain kiihtyvä aikaväli = elävä sydänlihas!</div>
+    </div>
+  </div>
+
+  <h2>2.1. Yksittäisen sykäyksen mikrorakenne: Mekaaninen mäntä vs. orgaaninen supistus</h2>
+  <div class="chart-box">
+    <div class="chart-title">
+      <span>AIKATASON MIKROANALYYSI (T = 1,50 s / RESOLUUTIO 5 ms)</span>
+      <span>SEISMINEN DETEKTORI S-0 // VERTAILUPARI</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; margin-top: 2px;">
+      <div>
+        <div style="font-family:'Consolas', monospace; font-size:6pt; font-weight:bold; color:#0284c7; margin-bottom:2px;">
+          MEKAANINEN HYDRAULIIKKA (PUMPPU P-4)
+        </div>
+        <svg viewBox="0 0 320 75" style="width: 100%; height: 55px; display: block;">
+          <rect width="320" height="75" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.6"/>
+          <line x1="0" y1="54" x2="320" y2="54" stroke="#94a3b8" stroke-dasharray="2,2" stroke-width="0.5"/>
+          <path d="M 0,54 L 40,54 L 40,16 L 46,10 L 52,20 L 150,20 L 150,54 L 154,60 L 158,54 L 320,54" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <text x="46" y="8" font-family="Consolas" font-size="6" fill="#0369a1" text-anchor="middle">Iskupiikki</text>
+          <text x="100" y="32" font-family="Consolas" font-size="6" fill="#475569" text-anchor="middle">Vakiopaineinen työvaihe</text>
+          <text x="156" y="70" font-family="Consolas" font-size="6" fill="#0369a1" text-anchor="middle">Sulkuvasara</text>
+        </svg>
+        <div style="font-size: 5.6pt; color: #475569; line-height: 1.15; margin-top: 2px;">
+          Kantikas profiili. Venttiilin avautuminen ja sulkeutuminen tuottaa symmetrisen metallisen resonanssipiikin ilman elastista vaimennusta.
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Consolas', monospace; font-size:6pt; font-weight:bold; color:#c2410c; margin-bottom:2px;">
+          ORGAANINEN SYKÄYS (KANAVA S-0 / KUIVATELAKKA)
+        </div>
+        <svg viewBox="0 0 320 75" style="width: 100%; height: 55px; display: block;">
+          <rect width="320" height="75" fill="#fffaf5" stroke="#ea580c" stroke-width="0.7"/>
+          <line x1="0" y1="48" x2="320" y2="48" stroke="#fdba74" stroke-dasharray="2,2" stroke-width="0.5"/>
+          <path d="M 0,48 L 25,48 Q 40,38 55,48 L 65,48 L 70,53 L 80,12 L 90,64 L 96,48 L 110,48 Q 130,34 150,48 L 165,48 Q 200,47 240,48 L 320,48" fill="none" stroke="#c2410c" stroke-width="1.6"/>
+          <circle cx="47" cy="43" r="2.2" fill="#ea580c"/>
+          <text x="47" y="35" font-family="Consolas" font-size="5.8" font-weight="bold" fill="#ea580c" text-anchor="middle">Eteispuristus</text>
+          <circle cx="80" cy="12" r="2.2" fill="#b91c1c"/>
+          <text x="80" y="8" font-family="Consolas" font-size="5.8" font-weight="bold" fill="#b91c1c" text-anchor="middle">Pääkammio (0,85 G)</text>
+          <text x="140" y="30" font-family="Consolas" font-size="5.8" fill="#ea580c" text-anchor="middle">T-aalto (rentoutus)</text>
+          <text x="210" y="58" font-family="Consolas" font-size="5.8" fill="#64748b">Diastolinen lepo</text>
+        </svg>
+        <div style="font-size: 5.6pt; color: #7c2d12; line-height: 1.15; margin-top: 2px;">
+          Elastinen kaksoishuippu. Nousuaika 110 ms, epäsymmetrinen vaimennuskerroin ζ = 0,42. Vastaa suuren ontelomaisen lihaksen hemodynamiikkaa.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>3. Logaritminen spektrianalyysi: Mekaaninen kohina vs. S-0 signaali</h2>
+  <div class="chart-box">
+    <div class="chart-title">
+      <span>TAAJUUSJAKAUMA JA ENERGIATIHEYS (0,001 Hz – 1 000 Hz)</span>
+      <span>SPEKTROMETRI AK-884 / SEISMINEN KANAVA S-0</span>
+    </div>
+    <svg viewBox="0 0 700 160" style="width: 100%; height: 140px; display: block;">
+      <rect x="50" y="8" width="635" height="122" fill="#fafafa" stroke="#cbd5e1" stroke-width="0.8"/>
+      
+      <!-- dB lines -->
+      <line x1="50" y1="32" x2="685" y2="32" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="50" y1="62" x2="685" y2="62" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="50" y1="92" x2="685" y2="92" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="50" y1="122" x2="685" y2="122" stroke="#94a3b8" stroke-width="0.8"/>
+
+      <text x="42" y="35" font-family="Consolas" font-size="6.5" fill="#64748b" text-anchor="end">+60 dB</text>
+      <text x="42" y="65" font-family="Consolas" font-size="6.5" fill="#64748b" text-anchor="end">+40 dB</text>
+      <text x="42" y="95" font-family="Consolas" font-size="6.5" fill="#64748b" text-anchor="end">+20 dB</text>
+      <text x="42" y="125" font-family="Consolas" font-size="6.5" fill="#64748b" text-anchor="end">0 dB</text>
+
+      <!-- Log decades -->
+      <line x1="120" y1="8" x2="120" y2="130" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="225" y1="8" x2="225" y2="130" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="330" y1="8" x2="330" y2="130" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="435" y1="8" x2="435" y2="130" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="540" y1="8" x2="540" y2="130" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="645" y1="8" x2="645" y2="130" stroke="#e2e8f0" stroke-width="0.6"/>
+
+      <text x="120" y="139" font-family="Consolas" font-size="6.8" fill="#334155" text-anchor="middle">0,01 Hz</text>
+      <text x="225" y="139" font-family="Consolas" font-size="6.8" fill="#334155" text-anchor="middle">0,1 Hz</text>
+      <text x="330" y="139" font-family="Consolas" font-size="6.8" fill="#334155" text-anchor="middle">1,0 Hz</text>
+      <text x="435" y="139" font-family="Consolas" font-size="6.8" fill="#334155" text-anchor="middle">10 Hz</text>
+      <text x="540" y="139" font-family="Consolas" font-size="6.8" fill="#334155" text-anchor="middle">100 Hz</text>
+      <text x="645" y="139" font-family="Consolas" font-size="6.8" fill="#334155" text-anchor="middle">1 kHz</text>
+
+      <!-- Curve -->
+      <path d="M 50,118 Q 80,115 100,92 Q 120,68 140,112 Q 180,120 220,122 L 260,122 L 262,38 L 265,122 L 290,122 L 295,42 L 305,32 L 312,122 L 380,122 Q 420,120 460,82 L 470,22 L 485,72 L 500,18 L 515,62 L 530,12 L 550,68 L 570,28 L 610,112 L 685,120" fill="none" stroke="#475569" stroke-width="1.3"/>
+
+      <!-- Highlight zone: Biological Target Window (0.40 - 1.20 Hz) -->
+      <rect x="275" y="8" width="60" height="114" fill="rgba(234, 88, 12, 0.12)" stroke="#ea580c" stroke-dasharray="3,2" stroke-width="0.8"/>
+      
+      <!-- Target Peak annotation -->
+      <line x1="298" y1="42" x2="298" y2="14" stroke="#c2410c" stroke-width="1.2"/>
+      <polygon points="298,42 295,32 301,32" fill="#c2410c"/>
+      <text x="300" y="16" font-family="Consolas" font-size="6.8" font-weight="bold" fill="#c2410c">S-0 MITATTU SIGNAALI: 0,583 → 0,667 Hz (35 → 40 bpm)</text>
+
+      <text x="125" y="52" font-family="Consolas" font-size="6" fill="#475569">Rungon aaltoilu</text>
+      <text x="240" y="32" font-family="Consolas" font-size="6" fill="#0284c7">Pumppu P-4 (0,25 Hz)</text>
+      <text x="500" y="10" font-family="Consolas" font-size="6.2" font-weight="bold" fill="#334155">Turbiinit ja roottorit (25–400 Hz)</text>
+    </svg>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; border-top: 1px dashed #cbd5e1; padding-top: 3px; margin-top: 2px; font-size: 5.5pt; font-family: 'Consolas', monospace; color: #475569;">
+      <div><strong>I: RUNGIN VASTUS</strong><br>0,005–0,05 Hz. Ei harmonisia ylä-ääniä, vaimenee viskoosisti.</div>
+      <div><strong>II: HYDRAULIPUMPPU</strong><br>0,25 Hz tasan. Terävä kanttikommutointi, mekaaninen vakio.</div>
+      <div style="color: #9a3412;"><strong>III: ANOMALIA S-0</strong><br><strong>0,583–0,667 Hz.</strong> Kiihtyvä kaksoissykli, elävä kudosmassa!</div>
+      <div><strong>IV: ROOTTORIKOHINA</strong><br>25–400 Hz. Sinimuotoinen teollisuusmelu, kuormariippuvainen.</div>
+    </div>
+  </div>
+
+  <h2>4. Kenttädiagnostiikan taajuusrekisteri</h2>
+  <table class="data-table">
     <thead>
       <tr>
-        <th style="width: 25%;">LÄHDE</th>
-        <th style="width: 22%;">TAAJUUS (Hz)</th>
-        <th style="width: 20%;">VASTAAVA SYKLI</th>
-        <th>SPEKTRIN OMINAISUUDET</th>
+        <th style="width: 22%;">VÄRÄHTELYN LÄHDE</th>
+        <th style="width: 17%;">TAAJUUS (Hz)</th>
+        <th style="width: 18%;">VASTAAVA SYKLI</th>
+        <th>SPEKTRI JA KÄYTTÄYTYMINEN RAKENTEISSA</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Turbiinit / Roottorit</strong></td>
+        <td><strong>Turbiinit &amp; roottorit</strong></td>
         <td>25,0 – 400,0 Hz</td>
         <td>1 500 – 24 000 rpm</td>
-        <td>Jyrkkä siniaalto, terävät harmoniset kerrannaiset. Ei poikkeamaa.</td>
+        <td>Puhdas siniaalto, terävät harmoniset kerrannaiset. Ei taajuusliukumaa ilman kuorman säätöä.</td>
       </tr>
       <tr>
-        <td><strong>Aseman rungon keinunta</strong></td>
+        <td><strong>Kiekon rungon keinunta</strong></td>
         <td>0,005 – 0,050 Hz</td>
-        <td>1 sykli per 20–200 s</td>
-        <td>Nestemäisen avaruuden virtausvastus. Laaja, hajanainen kohina.</td>
+        <td>1 sykli / 20–200 s</td>
+        <td>Nestemäisen avaruuden virtausvastus. Epäsäännöllinen, laaja ja hajanainen kohinaspektri.</td>
       </tr>
       <tr>
-        <td><strong>Hydraulipumput</strong></td>
+        <td><strong>Hydraulijärjestelmä (P-4)</strong></td>
         <td>0,250 Hz (tasan)</td>
         <td>15 sykliä / min</td>
-        <td>Männän paineistusvaihe. Kantikas aaltomuoto, terävä sulkeutuminen.</td>
+        <td>Männän paineistusvaihe. Kantikas aaltomuoto, terävä sulkeutumispiikki tasan 4:00 välein.</td>
       </tr>
-      <tr class="highlight-row">
+      <tr class="row-target">
         <td><strong>ORGAANINEN SYDÄNLIHAS</strong></td>
         <td><strong>0,400 – 1,200 Hz</strong></td>
         <td><strong>24 – 72 bpm</strong></td>
-        <td><strong>Kaksoishuippu (eteis/kammio-vaste). Asteittain kiihtyvä käyrä.</strong></td>
+        <td><strong>Kaksoishuippu (eteis/kammiovaste). Asteittain kiihtyvä taajuus. Edellyttää biologista massaa!</strong></td>
       </tr>
     </tbody>
   </table>
 
-  <h2>3. Spektrogrammikaavio: Turbiini vs. Kardiovaskulaarinen pulssi</h2>
-  <div class="diagram-container">
-    <div class="diagram-title">TAAJUUSJAKAUMA JA ENERGIATIHEYS (LOGARITMINEN SKAALA)</div>
-    
-    <div style="font-size: 7.5pt; color: #555; margin-bottom: 2px;">0.01 Hz &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.1 Hz &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0 Hz &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 Hz &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100 Hz</div>
-    
-    <div class="spectrum-bar" style="width: 25%; background: #607d8b;">Aseman rungon aaltoilu (0.005–0.05 Hz)</div>
-    <div class="spectrum-bar" style="width: 38%; margin-left: 28%; background: #a82010;">ORGAANINEN SYKE: 0.50–1.00 Hz (30–60 bpm)</div>
-    <div class="spectrum-bar" style="width: 32%; margin-left: 68%; background: #37474f;">Teollisuusturbiinit (25–350 Hz)</div>
-    
-    <p style="font-size: 7.5pt; color: #666; margin-top: 6px; font-style: italic;">
-      Huom.: Mekaaninen resonanssi keskittyy aina korkeille taajuuksille tai pysyy täysin stabiilina. Matalataajuinen (0,5–1,0 Hz) säännöllinen ja kiihtyvä sykäys edellyttää elastista orgaanista massaa.
-    </p>
+  <h2>5. Seismisen mittausaseman S-0 kenttäloki (Alasimen vertailuaineisto)</h2>
+  <table class="data-table" style="margin-bottom: 2px;">
+    <thead>
+      <tr>
+        <th style="width: 14%;">AIKALEIMA</th>
+        <th style="width: 16%;">MITATTU TAAJUUS</th>
+        <th style="width: 14%;">LASKETTU SYKE</th>
+        <th style="width: 18%;">AMPLITUDI (RMS)</th>
+        <th>DIAGNOSTINEN HUOMIO (KANAVA S-0 / KUIVATELAKKA)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Vuoro 36 / 18:00</td>
+        <td>0,400 Hz</td>
+        <td>24,0 bpm</td>
+        <td>0,4 mm/s²</td>
+        <td>Taustakohinaa. Syvä hypoterminen lepotila, aivorunko ja hermot vaimennettuina.</td>
+      </tr>
+      <tr>
+        <td>Vuoro 38 / 02:00</td>
+        <td>0,500 Hz</td>
+        <td>30,0 bpm</td>
+        <td>1,2 mm/s²</td>
+        <td>Tasainen kaksoisimpulssi. Peruselatus kytketty, ravinneliuos kiertää hitaasti.</td>
+      </tr>
+      <tr>
+        <td>Vuoro 39 / 20:15</td>
+        <td>0,550 Hz</td>
+        <td>33,0 bpm</td>
+        <td>2,1 mm/s²</td>
+        <td>Esilämmitysjakso aktivoitu. Lämpövuo nousee kohti solutason heräämiskynnystä.</td>
+      </tr>
+      <tr class="row-target">
+        <td>Vuoro 40 / 14:00</td>
+        <td>0,583 Hz</td>
+        <td>35,0 bpm</td>
+        <td>3,8 mm/s²</td>
+        <td>ENSIAKTIVAATIO: Taajuus noussut 16,6 %. Ravinnepumppujen virtaus kolminkertaistunut.</td>
+      </tr>
+      <tr class="row-target">
+        <td>Vuoro 41 / 06:00</td>
+        <td>0,617 Hz</td>
+        <td>37,0 bpm</td>
+        <td>5,4 mm/s²</td>
+        <td>Hapenottovaste: Kaasuvaihtimet kuormittuvat 94 % tasolle. Lämpö 28–30 °C.</td>
+      </tr>
+      <tr class="row-target">
+        <td>Vuoro 41 / 18:30</td>
+        <td>0,667 Hz</td>
+        <td>40,0 bpm</td>
+        <td>8,4 mm/s²</td>
+        <td>KIIHTYVYYDEN TAITE: Resonanssi välittyy suoraan kuivatelakan kölikiskoihin. Organismi herää!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="background: #f1f5f9; border-left: 3px solid #0f172a; padding: 2.5px 6px; font-size: 6.2pt; font-family: 'Consolas', monospace; color: #1e293b; margin-top: 2px;">
+    <strong>HUOMIO TELAKAN RAKENTEESTA:</strong> Anturit asennettu telakan runkopalkkeihin 400 m päässä keskusaltaasta. Signaalin siirtymänopeus teräksessä 5 100 m/s. Sykäysten vaimenemattomuus todistaa suoran mekaanisen kosketuksen elävän organismin ja telakan kölipukin välillä.
   </div>
 
-  <div class="academic-footer">
-    <div>ALASIMEN VAPAA AKATEMIA · MONOGRAFIA B-19</div>
-    <div>SIVU 1 / 2</div>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 3px; padding-top: 2px; border-top: 1px solid #cbd5e1;">
+    <div style="font-family: 'Consolas', monospace; font-size: 6.2pt; color: #475569;">
+      ARKISTOINTITUNNUS: AK-884-TELAKKA // ALASIMEN TEKNILLINEN LABORATORIO
+    </div>
+    <div style="font-family: 'Consolas', monospace; font-size: 6.5pt; font-weight: bold; color: #b91c1c;">
+      VÄRE: "Signaali vahvistaa: suora elävä biologinen yhteys runkoon."
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>ALASIMEN VAPAA AKATEMIA · FREKVENSSIFYYSIIKAN JAOSTO</span>
+    <span>MONOGRAFIA B-19 // OSA I: TAAJUUSSPEKTRI JA AALTOMUODOT</span>
+    <span>SIVU 1 / 2</span>
   </div>
 </div>
 
-<!-- SIVU 2 -->
+<!-- ================= PAGE 2 ================= -->
 <div class="page grid-bg">
   <div class="doc-header">
     <div>
-      <div class="doc-title">ALASIMEN VAPAA AKATEMIA · FREKVENSSIFYYSIIKKA</div>
-      <div class="doc-subtitle">Tutkimusmonografia B-19 · Osa II: Heräämiskäyrä</div>
+      <div class="institution-name">Alasimen Vapaa Akatemia · Frekvenssifysiikka</div>
+      <div class="doc-series">Tutkimusmonografia B-19 // Osa II: Heräämiskäyrä ja kynnysarvot (Arkisto AK-884)</div>
     </div>
-    <div class="meta-box">
-      <div>AK-884 · REV. 3</div>
-      <div>SIVU 2 / 2</div>
+    <div class="meta-badges">
+      <span class="badge-arch">ARKISTO: AK-884-REV.3</span><br>
+      <span>VIITE: B19-BIO-RESO</span>
     </div>
   </div>
 
-  <h2>4. Suuren orgaanisen organismin heräämisen taajuusvaiheet</h2>
+  <h2>6. Suuren orgaanisen organismin heräämisen fysiologiset vaiheet</h2>
   <p>
-    Kun laaja biologinen kudosmassa (tilavuudeltaan useita tonneja tai kymmeniä kuutiometrejä) kytketään elatukseen ja herätetään lepotilasta, kardiovaskulaarinen vaste etenee fysiologisten kynnysten läpi:
+    Kun mittakaavaltaan massiivinen (kymmeniä kuutiometrejä / satoja tonneja) biologinen sydänlihas kytketään ulkoiseen elatukseen ja lämmitetään kryostaasista, sen metabolinen syke kiihtyy seuraavien fysikaalisten kynnysten mukaisesti:
   </p>
 
-  <table class="spec-table">
+  <table class="data-table">
     <thead>
       <tr>
-        <th style="width: 18%;">TAAJUUS (Hz)</th>
-        <th style="width: 18%;">SYKE (bpm)</th>
-        <th style="width: 24%;">VAIHENIMIKE</th>
-        <th>ORGANISMIN FYSIOLOGINEN TILA</th>
+        <th style="width: 12%;">TAAJUUS</th>
+        <th style="width: 11%;">SYKE</th>
+        <th style="width: 20%;">VAIHENIMIKE</th>
+        <th style="width: 16%;">LÄMMÖNTUOTTO</th>
+        <th>ORGANISMIN KLIININEN JA FYSIOLOGINEN TILA</th>
       </tr>
     </thead>
     <tbody>
@@ -298,97 +703,176 @@
         <td>0,400 Hz</td>
         <td>24 bpm</td>
         <td>Syvä kryostaasi</td>
-        <td>Hypoterminen lepo. Lihasjänteys nolla, aivorunko vaimennettu.</td>
+        <td>&lt; 5 °C (nolla)</td>
+        <td>Hypoterminen syvälepo. Lihasjänteys nolla, aivorunko ja hermot vaimennettu.</td>
       </tr>
       <tr>
         <td>0,500 Hz</td>
         <td>30 bpm</td>
         <td>Peruselatus</td>
-        <td>Anesteettinen lepotila. Vähimmäisaineenvaihdunta.</td>
+        <td>8 – 12 °C</td>
+        <td>Anesteettinen lepotila. Vähimmäisaineenvaihdunta. Ravinneliuos kiertää hitaasti.</td>
       </tr>
-      <tr class="highlight-row">
+      <tr class="row-target">
         <td><strong>0,583 Hz</strong></td>
         <td><strong>35 bpm</strong></td>
         <td><strong>ENSIAKTIVAATIO</strong></td>
-        <td><strong>Perifeerinen verenkierto avautuu. Veri virtaa suuriin lihaksiin.</strong></td>
+        <td><strong>18 – 22 °C</strong></td>
+        <td><strong>Perifeerinen verenkierto avautuu. Veri syöksyy suuriin lihoihin. Telakan alkulukema!</strong></td>
       </tr>
       <tr>
         <td>0,600 Hz</td>
         <td>36 bpm</td>
         <td>Metabolinen nousu</td>
-        <td>Hermostollinen esisytytys käynnistyy. Lämmöntuotto alkaa.</td>
+        <td>24 – 26 °C</td>
+        <td>Hermostollinen esisytytys käynnistyy. Solutason hapenkulutus kaksinkertaistuu.</td>
       </tr>
       <tr>
         <td>0,617 Hz</td>
         <td>37 bpm</td>
         <td>Hapenottovaste</td>
-        <td>Ravinneliuoksen ja hapen kulutus kaksinkertaistuu.</td>
+        <td>28 – 30 °C</td>
+        <td>Ravinneliuoksen ja elatuskaasun sisäänotto saavuttaa teollisen maksimin.</td>
       </tr>
       <tr>
         <td>0,633 Hz</td>
         <td>38 bpm</td>
         <td>Lihastonus</td>
-        <td>Raajojen passiivinen jänteys palautuu. Hermosynapsit kytkeytyvät.</td>
+        <td>31 – 33 °C</td>
+        <td>Raajojen passiivinen jänteys palautuu. Hermosynapsit kytkeytyvät runkoverkkoon.</td>
       </tr>
       <tr>
         <td>0,650 Hz</td>
         <td>39 bpm</td>
         <td>Refleksikynnys</td>
-        <td>Autonomiset hermoheijasteet aktivoituvat.</td>
+        <td>34 – 35 °C</td>
+        <td>Autonomiset heijasteet aktivoituvat. Selkäydin reagoi sähköstimulaatioon.</td>
       </tr>
-      <tr class="highlight-row">
+      <tr class="row-target">
         <td><strong>0,667 Hz</strong></td>
         <td><strong>40 bpm</strong></td>
         <td><strong>KIIHTYVYYDEN TAITE</strong></td>
-        <td><strong>Organismi reagoi ulkoisiin ärsykkeisiin. Esivalveillaolo.</strong></td>
+        <td><strong>36 – 37 °C</strong></td>
+        <td><strong>KRIITTINEN TAITEPISTE: Organismi aistii ympäristön. Herääminen ei enää pysähdy itsestään!</strong></td>
       </tr>
       <tr>
         <td>0,750 Hz</td>
         <td>45 bpm</td>
         <td>Keuhkovaste</td>
-        <td>Hengitys- ja painolastilihasten sykliset supistukset.</td>
+        <td>37 °C (stabiili)</td>
+        <td>Hengitys- ja painolastilihasten sykliset supistukset alkavat. Pidäkkeet rasittuvat.</td>
       </tr>
       <tr>
         <td>0,833 Hz</td>
         <td>50 bpm</td>
         <td>Motorinen jännitys</td>
-        <td>Spontaani tahdonalainen liike mahdollinen pidäkkeissä.</td>
+        <td>37,5 °C</td>
+        <td>Spontaani tahdonalainen liike mahdollinen pidäketelineissä. Vapinaa ja kouristuksia.</td>
       </tr>
-      <tr style="background: #e2f0d9; font-weight: bold;">
+      <tr class="row-wake">
         <td><strong>1,000 Hz</strong></td>
         <td><strong>60 bpm</strong></td>
         <td><strong>TÄYSI VALVEILLAOLO</strong></td>
-        <td><strong>Täysi motorinen ja hermostollinen synkronointivalmius.</strong></td>
+        <td><strong>38 °C (optimi)</strong></td>
+        <td><strong>TÄYSI MOTORINEN JA HERMOSTOLLINEN SYNKRONOINTI. Täysi voimantuotto ja toimintakyky.</strong></td>
       </tr>
     </tbody>
   </table>
 
-  <h2>5. Diagnostinen lausunto: Teräs vs. Elävä liha</h2>
-
-  <div class="callout-warning">
-    <strong>AKATEEMIKKO VÄRE — HUOMAUTUS KENTTÄTUTKIJOILLE JA ANALYYTIKOILLE:</strong><br>
-    Mekaanisen teräslaipion tai kuivatelakan pohjalaatan ominaistaajuus määräytyy sen massasta (<em>M</em>) ja rakenteellisesta jäykkyydestä (<em>k</em>):<br>
-    <div style="text-align: center; margin: 6px 0; font-family: 'Cambria Math', serif; font-size: 10pt;">
-      <em>f₀ = (1 / 2π) · √(k / M)</em>
+  <h2>7. Metabolisen kiihtyvyyden vastekäyrä (f / bpm vs. heräämisaika)</h2>
+  <div class="chart-box">
+    <div class="chart-title">
+      <span>ORGANISMIN TAAJUUSKIIHTYVYYS ELATUKSEN KÄYNNISTYMISESTÄ VALVEILLAOLOON</span>
+      <span>AKATEEMINEN ENNUSTEMALLI V-19 // S-0 AKTIIVISUUS</span>
     </div>
-    Teräsrakenteen ominaistaajuus pysyy fysiikan lakien puitteissa vakiona massan säilyessä ennallaan.<br><br>
-    Mikäli valvontajärjestelmä havaitsee tällaisen nousevan 0,583 → 0,667 Hz käyrän, ilmiö vastaa suoraan <strong>suuren orgaanisen sydänlihaskudoksen siirtymistä 35 bpm hypotermiasta kohti 60 bpm heräämistä.</strong>
+    <svg viewBox="0 0 700 125" style="width: 100%; height: 110px; display: block;">
+      <rect x="50" y="8" width="635" height="94" fill="#fafafa" stroke="#cbd5e1" stroke-width="0.8"/>
+      
+      <!-- Horizontal lines -->
+      <line x1="50" y1="18" x2="685" y2="18" stroke="#dcfce7" stroke-width="1"/>
+      <line x1="50" y1="42" x2="685" y2="42" stroke="#ffedd5" stroke-width="1"/>
+      <line x1="50" y1="62" x2="685" y2="62" stroke="#ffedd5" stroke-width="1"/>
+      <line x1="50" y1="84" x2="685" y2="84" stroke="#e2e8f0" stroke-width="0.6"/>
+      <line x1="50" y1="102" x2="685" y2="102" stroke="#94a3b8" stroke-width="0.8"/>
+
+      <text x="42" y="21" font-family="Consolas" font-size="6.2" font-weight="bold" fill="#166534" text-anchor="end">1,00 Hz (60 bpm)</text>
+      <text x="42" y="45" font-family="Consolas" font-size="6.2" font-weight="bold" fill="#c2410c" text-anchor="end">0,67 Hz (40 bpm)</text>
+      <text x="42" y="65" font-family="Consolas" font-size="6.2" font-weight="bold" fill="#ea580c" text-anchor="end">0,58 Hz (35 bpm)</text>
+      <text x="42" y="87" font-family="Consolas" font-size="6.2" fill="#64748b" text-anchor="end">0,50 Hz (30 bpm)</text>
+      <text x="42" y="105" font-family="Consolas" font-size="6.2" fill="#64748b" text-anchor="end">0,40 Hz (24 bpm)</text>
+
+      <!-- Time ticks on X-axis -->
+      <line x1="150" y1="8" x2="150" y2="102" stroke="#f1f5f9" stroke-width="0.8"/>
+      <line x1="280" y1="8" x2="280" y2="102" stroke="#f1f5f9" stroke-width="0.8"/>
+      <line x1="430" y1="8" x2="430" y2="102" stroke="#f1f5f9" stroke-width="0.8"/>
+      <line x1="570" y1="8" x2="570" y2="102" stroke="#f1f5f9" stroke-width="0.8"/>
+
+      <text x="50" y="114" font-family="Consolas" font-size="6.2" fill="#475569">T=0h (Kryostaasi)</text>
+      <text x="150" y="114" font-family="Consolas" font-size="6.2" fill="#475569">T+1h</text>
+      <text x="280" y="114" font-family="Consolas" font-size="6.2" fill="#475569">T+2h (Ensiaktivaatio)</text>
+      <text x="430" y="114" font-family="Consolas" font-size="6.2" fill="#475569">T+3h (Taitepiste)</text>
+      <text x="570" y="114" font-family="Consolas" font-size="6.2" fill="#475569">T+3,5h (Valveillaolo)</text>
+
+      <!-- Sigmoid Curve -->
+      <path d="M 50,102 C 130,100 200,88 280,62 C 360,32 450,20 570,18 L 685,18" fill="none" stroke="#ea580c" stroke-width="2.2"/>
+      
+      <!-- Measured Zone Box -->
+      <rect x="270" y="38" width="165" height="26" fill="rgba(234, 88, 12, 0.15)" stroke="#ea580c" stroke-width="0.8"/>
+      <text x="352" y="53" font-family="Consolas" font-size="6.2" font-weight="bold" fill="#9a3412" text-anchor="middle">TELAKALTA MITATTU AKTIIVISUUSVYÖHYKE</text>
+
+      <circle cx="280" cy="62" r="3" fill="#ea580c"/>
+      <circle cx="430" cy="42" r="3" fill="#c2410c"/>
+      <circle cx="570" cy="18" r="3" fill="#166534"/>
+    </svg>
   </div>
 
-  <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: flex-end;">
+  <h2>8. Allometrinen kokoluokitus: Kudosmassan arviointi sykkeestä</h2>
+  <div class="two-col">
+    <div class="col-card">
+      <div style="font-family:'Consolas', monospace; font-size:6.8pt; font-weight:bold; color:#0f172a; margin-bottom:2px;">
+        ALLOMETRINEN SYKELAITOS: M ≈ (70 / bpm)⁴
+      </div>
+      <p style="font-size:7.2pt; line-height:1.25; margin-bottom:0;">
+        Biologiassa organismin leposyke pienenee suhteessa massan neljänteen juureen. Ihmisen leposyke on 70 bpm (70 kg). Leposyke <strong>35–40 bpm</strong> aktiivisella, lämpimällä olennolla edellyttää <strong>kymmenien tuhansien kilogrammojen (50–100 tonnin)</strong> kudosmassaa ja <strong>40–60 metrin</strong> pituutta!
+      </p>
+    </div>
+    <div class="col-card" style="background:#f8fafc;">
+      <div style="font-family:'Consolas', monospace; font-size:6.8pt; font-weight:bold; color:#0f172a; margin-bottom:2px;">
+        TERÄKSEN RESONANSSI: f₀ = (1/2π) · √(k/M)
+      </div>
+      <p style="font-size:7.2pt; line-height:1.25; margin-bottom:0;">
+        Teräsrakenteen ominaistaajuus <strong>pysyy vakiona massan ja jäykkyyden säilyessä ennallaan</strong>. Teräs ei "kiihdytä" taajuuttaan 0,58 → 0,67 Hz ilman ulkoista moottoria. Signaali vastaa matemaattisesti <strong>elävän jättiläisen sydäntä</strong>.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout-box">
+    <strong>AKATEEMIKKO VÄRE — LAUSUNTO KENTTÄTUTKIJOILLE JA ANALYYTIKOILLE:</strong><br>
+    Mikäli valvontajärjestelmä havaitsee tällaisen nousevan 0,583 → 0,667 Hz käyrän, ilmiö <strong>EI VOI OLLA TELAKAN RUNKOVÄRÄHTELYÄ</strong>. Signaali todistaa suoraan <strong>50–60-metrisen orgaanisen bio-titaanin heräämisen hypotermiasta kohti täyttä motorista valveillaoloa</strong>.
+  </div>
+
+  <div class="pencil-note">
+    ✍ Akat. Väre (marginaalihuomio Jamirille): "Jos saatte tämän käyrän mittareistanne, älkää uskoko heidän valheitaan 'turbiinitärinästä'. Tuolla massalla se tarkoittaa valtavaa elävää sydäntä. Se on heräämässä juuri nyt."
+  </div>
+
+  <div class="sign-row">
     <div>
-      <div class="stamp-academic">ALASIMEN VAPAA AKATEMIA · HYVÄKSYTTY</div>
-      <div style="font-size: 7.5pt; color: #555; margin-top: 4px;">Jakelu: Fysiikan jaoston jäsenet & tutkimusarkistot</div>
+      <div class="stamp-box">ALASIMEN VAPAA AKATEMIA · HYVÄKSYTTY</div>
+      <div style="font-size: 6.2pt; color: #475569; margin-top: 1px;">Jakelu: Fysiikan jaosto, tutkijakunta &amp; telakkadiagnostiikka</div>
     </div>
-    <div style="text-align: right; font-family: 'Consolas', monospace; font-size: 8pt; color: #444;">
+    <div style="text-align: center;">
+      <div class="stamp-warning">LUOKITUS: BIOLOGINEN UHKA</div>
+    </div>
+    <div style="text-align: right; font-family: 'Consolas', monospace; font-size: 6.5pt; color: #334155;">
       Arkistoitu: Akat. Väre<br>
-      Viite: B19-BIO-RESO
+      Viite: B19-BIO-RESO // 441-AK
     </div>
   </div>
 
-  <div class="academic-footer">
-    <div>ALASIMEN VAPAA AKATEMIA · FREKVENSSIFYYSIIKAN JAOSTO</div>
-    <div>SIVU 2 / 2</div>
+  <div class="page-footer">
+    <span>ALASIMEN VAPAA AKATEMIA · FREKVENSSIFYYSIIKAN JAOSTO</span>
+    <span>MONOGRAFIA B-19 // OSA II: METABOLINEN KIIHTYVYYSKÄYRÄ</span>
+    <span>SIVU 2 / 2</span>
   </div>
 </div>
 

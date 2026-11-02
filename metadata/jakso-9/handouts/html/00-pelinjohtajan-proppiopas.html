@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Jakso 9: Pelinjohtajan proppiopas - Ase</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: #e5e7eb;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #0f172a;
+    line-height: 1.35;
+    font-size: 8.5pt;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 12mm 14mm;
+    margin: 0 auto 10mm auto;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  @media print {
+    body {
+      background: none;
+    }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+      break-after: page;
+    }
+  }
+
+  /* Header styles */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 3px;
+    margin-bottom: 6px;
+  }
+  .top-tag {
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #b91c1c;
+    background: #fee2e2;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+  .top-meta {
+    font-size: 6.5pt;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #64748b;
+  }
+  .doc-title {
+    font-size: 13pt;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    color: #0f172a;
+    text-transform: uppercase;
+    margin-bottom: 1px;
+  }
+  .doc-subtitle {
+    font-size: 7.2pt;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 5px;
+  }
+
+  /* Category pills */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  .category-card {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 3px solid #0284c7;
+    padding: 2.5px 5px;
+    border-radius: 2px;
+  }
+  .category-card.cat-gear { border-left-color: #b45309; }
+  .category-card.cat-rasva { border-left-color: #059669; }
+  .category-card.cat-field { border-left-color: #7c3aed; }
+  .category-card.cat-law { border-left-color: #dc2626; }
+  .cat-title {
+    font-size: 6.5pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0f172a;
+    margin-bottom: 1px;
+  }
+  .cat-desc {
+    font-size: 5.8pt;
+    color: #475569;
+    line-height: 1.15;
+  }
+
+  /* Table styling */
+  table.prop-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6.2pt;
+    margin-bottom: 4px;
+  }
+  table.prop-table th {
+    background-color: #0f172a;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 5.8pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2.5px 4px;
+    text-align: left;
+  }
+  table.prop-table td {
+    padding: 1.6px 4px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+    line-height: 1.15;
+  }
+  table.prop-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+  .prop-num {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-weight: 700;
+    color: #0284c7;
+    white-space: nowrap;
+  }
+  .badge-session {
+    font-size: 5.5pt;
+    font-weight: 800;
+    padding: 1px 3px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .badge-s1 { background: #dbeafe; color: #1e40af; }
+  .badge-s2 { background: #fae8ff; color: #86198f; }
+  .badge-both { background: #fef3c7; color: #92400e; }
+
+  /* Section cards */
+  .section-block {
+    margin-bottom: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .section-header {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 3px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-header h3 {
+    font-size: 8pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .section-header .phase-tag {
+    font-size: 6.5pt;
+    background: #334155;
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-family: 'Consolas', monospace;
+  }
+  .section-body {
+    padding: 6px 8px;
+    background: #ffffff;
+  }
+
+  /* Prop detailed row */
+  .prop-row {
+    display: flex;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .prop-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .prop-row-id {
+    flex: 0 0 46px;
+    font-family: 'Consolas', monospace;
+    font-weight: 800;
+    font-size: 7.5pt;
+    color: #0369a1;
+  }
+  .prop-row-content {
+    flex: 1;
+    font-size: 7.5pt;
+    line-height: 1.25;
+  }
+  .prop-row-name {
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .prop-row-meta {
+    font-size: 6.5pt;
+    color: #64748b;
+    margin-bottom: 1px;
+  }
+  .prop-row-signal {
+    color: #334155;
+  }
+  .signal-highlight {
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* Path grid */
+  .path-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .path-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 5px 7px;
+    border-radius: 2px;
+  }
+  .path-title {
+    font-size: 7.5pt;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+  }
+  .path-props {
+    font-family: 'Consolas', monospace;
+    font-size: 6.5pt;
+    color: #0284c7;
+    font-weight: 700;
+  }
+  .path-desc {
+    font-size: 6.5pt;
+    color: #475569;
+    line-height: 1.2;
+  }
+
+  /* Footer */
+  .doc-footer {
+    position: absolute;
+    bottom: 8mm;
+    left: 14mm;
+    right: 14mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 3px;
+    font-size: 6.5pt;
+    color: #64748b;
+    font-family: 'Consolas', monospace;
+  }
+  .gold-rule {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    padding: 5px 8px;
+    border-radius: 2px;
+    font-size: 7pt;
+    color: #92400e;
+    line-height: 1.25;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 ================= -->
+<div class="page">
+  <div class="top-bar">
+    <span class="top-tag">Vain pelinjohtajalle // Salainen ohjeisto</span>
+    <span class="top-meta">EVENTUELLIT • JAKSO 9: ASE • DOKUMENTTI GM-P01</span>
+  </div>
+
+  <div class="doc-title">Pelinjohtajan proppiopas &amp; saantirekisteri</div>
+  <div class="doc-subtitle">Kaikkien 17 maailmansisäisen asiakirjan tarkat kenttäsijainnit, luovutushetket, laukaisevat teot ja narratiivinen logiikka</div>
+
+  <div class="category-grid">
+    <div class="category-card cat-gear">
+      <div class="cat-title">1. Lähtövarusteet (4 kpl)</div>
+      <div class="cat-desc">Mukana Alasimelta asti tai kiinni kontin pellissä. Pelaajilla heti käytössä.</div>
+    </div>
+    <div class="category-card cat-rasva">
+      <div class="cat-title">2. Rasvakuilu &amp; Yömyyrä (4 kpl)</div>
+      <div class="cat-desc">Yömyyrän huoltopakista ja alatasojen mittauspisteiltä saapumisen yhteydessä.</div>
+    </div>
+    <div class="category-card cat-field">
+      <div class="cat-title">3. Maastolöydöt reitiltä (6 kpl)</div>
+      <div class="cat-desc">Hissiportilta, klinikalta, mediatasolta ja kuivatelakan terminaaleista poimittavat.</div>
+    </div>
+    <div class="category-card cat-law">
+      <div class="cat-title">4. Sahyen lakisalkku (3 kpl)</div>
+      <div class="cat-desc">Reaktiiviset ennakkotapaukset. Annetaan vain pelaajan tutkiessa salkkuaan.</div>
+    </div>
+  </div>
+
+  <table class="prop-table">
+    <thead>
+      <tr>
+        <th style="width: 28px;">#</th>
+        <th style="width: 140px;">Propin nimi &amp; muoto</th>
+        <th style="width: 48px;">Sessio</th>
+        <th style="width: 130px;">Tarkka sijainti maailmassa</th>
+        <th style="width: 155px;">Miten ja milloin saadaan</th>
+        <th>Tärkein signaali pelaajille</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="prop-num">01</td>
+        <td><strong>Rahtikirja &amp; kääntöpuoli</strong><br><span style="color:#64748b;">Virallinen rahtilomake</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Liimattuna kontin sisäseinään silmien korkeudelle.</td>
+        <td>Herätessä luetaan seinästä; kääntöpuoli paljastuu, kun paperi irrotetaan pellistä.</td>
+        <td>Hissi 04 skannaa geenit, hissi 03 vain ulkonäön; putouksen kohina peittää äänet; rahtirivi paljastaa orgaanisen reaktorin jäähdytysvaipan.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">02</td>
+        <td><strong>Yömyyrän huoltomappi</strong><br><span style="color:#64748b;">Rasvainen kansio + kirje</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Yömyyrän työkalupakin päällä Rasvakuilussa.</td>
+        <td>Yömyyrä heittää mapin pöytään pettyneenä tulijoiden siviilitaustaan.</td>
+        <td>Väylä C:n putkireitti, pumpun P-4 4 min pulssisykli, tyttären hengenvaara klinikalla "Hellä Käsi", proteesin liitäntä C7 ja elinvakuuspykälä.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">03</td>
+        <td><strong>KW-automaatiotelemetria</strong><br><span style="color:#64748b;">Jatkolomake, sivu 3 puuttuu</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Yömyyrän huoltomapin välissä työkalupakilla.</td>
+        <td>Löytyy mapin liitteenä; Yömyyrä poiminut valvontakopin roskakorista.</td>
+        <td>Paineenpiikit kanavassa P-4 tasan 4:00 välein; seisminen taajuus 0,58 → 0,67 Hz; valvontadroonien 90 s latauskatkos huoltokuittauksessa.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">04</td>
+        <td><strong>Alasimen salainen dossier</strong><br><span style="color:#64748b;">Vahasinetti-putki + valokuvat</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Kontin nurkassa varustelaatikon pohjalla.</td>
+        <td>Pelaajat avaavat varustelaatikon herättyään (osoitettu Kokemuspuolueelle).</td>
+        <td>Kolossin ja Kardinaalin syvä viha toisiaan kohtaan; Arpijalostajan salainen velka Kudospankille; Ekklesian lähetyksen aikataulut ja kulissit.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">05</td>
+        <td><strong>Ennakkotapaus 441/KW</strong><br><span style="color:#64748b;">Virallinen leimattu pergamentti</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Sahyen virkasalkussa.</td>
+        <td>Sahyen pelaajalla heti kädessä pelin alusta alkaen.</td>
+        <td>Tuomioistuimen valtuuttamalla tarkastajalla on saattueineen (max 4 henkeä) lain suojaama oikeus astua KW:n alueelle ilman esteettistä syynäystä.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">06</td>
+        <td><strong>Varuskuntaraportti</strong><br><span style="color:#64748b;">Mimeografi-moniste</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Yömyyrän työkalupakissa hylsyavainten alla.</td>
+        <td>Yömyyrä vetää esiin kysyttäessä vartijoiden rutiineista tai hälytyksestä.</td>
+        <td>Sektorin 4 kamerat puuston peitossa; laipioiden 90 s sulkuviive; telakan syöttökourun miehittämättömyys (valvonta vain lämpöanturilla).</td>
+      </tr>
+      <tr>
+        <td class="prop-num">07</td>
+        <td><strong>Med-Apex esite &amp; lomake</strong><br><span style="color:#64748b;">Kiiltävä esite + virkaluonnos</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Keskikiekon Hissiportti 03:n odotustila (pöytä/roskakori).</td>
+        <td>Ryhmän saapuessa hissiaulaan (Väylä A) tai huoltotoverin taskusta.</td>
+        <td>Esteettisen auditoinnin kriteerit EA-1–EA-5; alareunan asetusviite 12 § vahvistaa tarkastusvaltuuskuntien täyden vapautuksen auditoinnista.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">08</td>
+        <td><strong>Bioakustinen rekisteri</strong><br><span style="color:#64748b;">Vertailutaulukko &amp; käyrästö</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Yömyyrän seismisen monitorointipöydän luona Rasvakuilussa.</td>
+        <td>Tutkittaessa telemetrian 0,58 Hz tärinää Yömyyrän anturin äärellä.</td>
+        <td>Koneiden taajuudet (15–400 Hz) vs biologinen leposyke (0,5–1,0 Hz = 30–60 bpm). Telakan 0,583–0,667 Hz on elävän bio-titaanin leposyke!</td>
+      </tr>
+      <tr>
+        <td class="prop-num">09</td>
+        <td><strong>Gaalan VIP-salikartta</strong><br><span style="color:#64748b;">Kultaleimattu amfiteatterikaavio</span></td>
+        <td><span class="badge-session badge-s2">SESSIO 2</span></td>
+        <td>Keskikiekon vastaanottotiski, catering-vaunu tai aulan ilmoitustaulu.</td>
+        <td>Ryhmän noustessa Keskikiekolta juhlasalin lämpiöön.</td>
+        <td>Salikaavio: aitiot A–D, lava, kuvausdroonien radat K-1/K-2 ja salainen huolto-ovi H-3; taustalla täysi 4 ruokalajin pyhitetty menu.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">10</td>
+        <td><strong>Kuivatelakan leikkauskaavio</strong><br><span style="color:#64748b;">CAD-vektorileikkaus (Insinöörit)</span></td>
+        <td><span class="badge-session badge-s2">SESSIO 2</span></td>
+        <td>Kuivatelakan automaatioterminaali tai Yömyyrän hätäkätkö rajalla.</td>
+        <td>Terminaalin murtaminen ilmalukolla tai Yömyyrän salakätkön avaus.</td>
+        <td>50 m bio-titaanin anatomia, sääntöartefakti (Core) +22 metrissä, magneettipihdit KW-MAG-9, mekaaninen irrotusvipu H-9 kiskolla E-02 ja pohjaventtiilit.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">11</td>
+        <td><strong>Broadcast-prompteriliuska</strong><br><span style="color:#64748b;">Kapea teleprompterinauha</span></td>
+        <td><span class="badge-session badge-s2">SESSIO 2</span></td>
+        <td>Ekklesian tuotantoauto, mikrofonitelineen jalka tai lavasteiden taka.</td>
+        <td>Mediatasolle soluttautuminen tai lavan takatilan tutkiminen.</td>
+        <td>Klo 21:14–21:17 "PYHITYKSEN PIMEYS": 3 minuutin täysi valokatkos salissa ja lähetyksessä, jolloin kulku huolto-ovelle H-3 on täysin vapaata!</td>
+      </tr>
+      <tr>
+        <td class="prop-num">12</td>
+        <td><strong>Kudospankin panttikirja</strong><br><span style="color:#64748b;">Sinetöity ulosmittauspäätös</span></td>
+        <td><span class="badge-session badge-s2">SESSIO 2</span></td>
+        <td>Med-Apexin asianajajan salkku aitiossa C tai Sahyen verkkohaku.</td>
+        <td>Asianajajan salkun anastus tai Sahyen virkahaku kiinnitysrekisteristä.</td>
+        <td>Med-Apexin 180 000 kr velka erääntyy tänä iltana; panttina Enklaavin maa ja sähkölinja E-01. Täydellinen kiristysvipu Arpijalostajaa vastaan.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">13</td>
+        <td><strong>NX-3 huoltomanuaali</strong><br><span style="color:#64748b;">Tekninen liitäntäopas</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Klinikka "Hellä Käsi", takahuoneen työpöytä tai työkalupakki.</td>
+        <td>Löydetään leikkaussalista Yömyyrän tytärtä pelastettaessa.</td>
+        <td>Takaraivoliitännän (Portti C7) pinnit; Varoitus 12-B: pinnien 3 ja 5 oikosulku 50 Ω vastuksella 4 s ajaksi kytkee laitteen turvalliseen lepotilaan.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">14</td>
+        <td><strong>Sahyen tarkastuspassi LA-T-12</strong><br><span style="color:#64748b;">Täytettävä virkapassi</span></td>
+        <td><span class="badge-session badge-s1">SESSIO 1</span></td>
+        <td>Sahyen virkasalkussa ennakkotapauksen 441 yhteydessä.</td>
+        <td>Sahyen pelaajalla heti alussa valmiina täytettäväksi.</td>
+        <td>4 tyhjää riviä saattueelle; virallinen tuomioistuimen leima suojaa saattueen jäsenet pidätyksiltä ja auditoinneilta virkatoimituksen aikana.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">15</td>
+        <td><strong>Ennakkotapaus 112/TA</strong><br><span style="color:#64748b;">Tuomioistuimen päätöstuloste</span></td>
+        <td><span class="badge-session badge-both">S1 / S2</span></td>
+        <td>Sahyen lakisalkun arkisto-osio.</td>
+        <td>Annetaan, kun pelaaja kysyy: <em>"Voimmeko ohittaa Hissi 04:n geeniskannauksen lakiteitse?"</em></td>
+        <td>Biometriset syväskannerit ovat laillisia tartuntatautilain nojalla ja kieltäytyjän saa käännyttää. Vahvistaa, että Hissi 04 on varma ansa.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">16</td>
+        <td><strong>Ennakkotapaus 309/VT</strong><br><span style="color:#64748b;">Tuomioistuimen päätöstuloste</span></td>
+        <td><span class="badge-session badge-both">S1 / S2</span></td>
+        <td>Sahyen lakisalkun arkisto-osio.</td>
+        <td>Annetaan, kun pelaaja kysyy: <em>"Onko vainajien proteiinikierto laillista ja mistä liha tulee?"</em></td>
+        <td>Vainajat ja leikkausjäte siirtyvät laillisesti proteiinikiertoon 1 rotaation kuluessa ilman lunastusmaksua. Todistaa titaanin lihan alkuperän.</td>
+      </tr>
+      <tr>
+        <td class="prop-num">17</td>
+        <td><strong>Ennakkotapaus 218/EK</strong><br><span style="color:#64748b;">Tuomioistuimen päätöstuloste</span></td>
+        <td><span class="badge-session badge-s2">SESSIO 2</span></td>
+        <td>Sahyen lakisalkun arkisto-osio.</td>
+        <td>Annetaan, kun pelaaja kysyy: <em>"Voiko armeija vain sammuttaa Kardinaalin suoran lähetyksen?"</em></td>
+        <td>Ekklesian suorilla TV-lähetyksillä on ehdoton uskonnollinen koskemattomuus sotilassensuuria vastaan. Todistaa Ekklesian kameroiden olevan Kolossin akilleen kantapää.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule">
+    <strong>Pelinjohtajan ohjenuora:</strong> Älä jaa kaikkia dokumentteja heti alussa. Anna propit vain sitä mukaa kuin hahmot liikkuvat maailmassa, tutkivat paikkoja tai avaavat salkkujaan. Anna pelaajien itse tehdä oivallukset kohinan ja arkirutiinin seasta.
+  </div>
+
+  <div class="doc-footer">
+    <span>SIVU 1 / 3 • EVENTUELLIT GM-DOKUMENTAATIO</span>
+    <span>PROPPIEN SAANTIREKISTERI &amp; YLEISKATSAUS</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 2 ================= -->
+<div class="page">
+  <div class="top-bar">
+    <span class="top-tag">Sessio 1: Kenttäsijainnit</span>
+    <span class="top-meta">EVENTUELLIT • JAKSO 9: ASE • DOKUMENTTI GM-P02</span>
+  </div>
+
+  <div class="doc-title">Sessio 1: Saapuminen, Rasvakuilu &amp; Nousu</div>
+  <div class="doc-subtitle">Miten propit jaetaan ensimmäisen 3–4 tunnin istunnon aikana ilman tietotulvaa</div>
+
+  <!-- SECTION 1 -->
+  <div class="section-block">
+    <div class="section-header">
+      <h3>1. Herääminen kontissa (Klo 18:00) — Alkuvarusteet</h3>
+      <span class="phase-tag">HETI PÖYTÄÄN</span>
+    </div>
+    <div class="section-body">
+      <div class="prop-row">
+        <div class="prop-row-id">01, 14</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Kontin seinä &amp; Sahyen virkasalkku</div>
+          <div class="prop-row-meta">Lähde: Alasimen laivurit ja Ylituomari Kaanon</div>
+          <div class="prop-row-signal">
+            Pelaajat heräävät pimeässä titaaniromun keskeltä. <strong>Proppi 01</strong> on liimattu suoraan seinään. Kun paperi revitään irti, kääntöpuolelta löytyvät Kuparisuonen käsinkirjoitetut neuvot hisseistä 03/04 ja putouksen melusta. Samalla Sahyen pelaajalle annetaan <strong>Proppi 14 (Tarkastuspassi LA-T-12)</strong>, johon hän voi heti kirjata tovereidensa nimet valtuutetuiksi teknisiksi avustajiksi.
+          </div>
+        </div>
+      </div>
+      <div class="prop-row">
+        <div class="prop-row-id">04, 05</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Laatikon metalliputki &amp; Sahyen ennakkotapaus</div>
+          <div class="prop-row-meta">Lähde: Silmäpari (Alasimen tiedustelu) &amp; Tuomioistuin</div>
+          <div class="prop-row-signal">
+            Kontin nurkassa on työkalulaatikko (valjaat, pneumaattinen tunkki). Sen pohjalta löytyy vahasinöity putki: <strong>Proppi 04 (Silmäparin salainen dossier)</strong> valokuvineen Kolossista, Kardinaalista ja Arpijalostajasta. Sahyella on salkussaan valmiina <strong>Proppi 05 (Ennakkotapaus 441)</strong>, joka antaa juridisen selkänojan saattueen maahantulolle.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-block">
+    <div class="section-header">
+      <h3>2. Rasvakuilun tukikohta: Yömyyrän tapaaminen</h3>
+      <span class="phase-tag">KLO 18:15–18:45</span>
+    </div>
+    <div class="section-body">
+      <div class="prop-row">
+        <div class="prop-row-id">02, 03</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Yömyyrän huoltomappi &amp; Telemetriatuloste</div>
+          <div class="prop-row-meta">Lähde: Yömyyrän oma kansio + valvontakopin paperikori</div>
+          <div class="prop-row-signal">
+            Yömyyrä tuhahtaa pettyneenä ryhmän siviilitaustaan ja heittää työkalupakin päälle <strong>Propin 02 (Huoltomappi)</strong>. Mapin välistä putoaa <strong>Proppi 03 (KW-telemetria)</strong>. Yömyyrä toteaa: <em>"Tuossa on viemärikartat ja kopista nappaamani käyrät. Insinöörien liirumlaarumia, en minä noista tajua."</em> Pelaajat löytävät pumpun P-4 syklit ja droonien 90 sekunnin lataustauon.
+          </div>
+        </div>
+      </div>
+      <div class="prop-row">
+        <div class="prop-row-id">06, 08</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Varuskuntaraportti &amp; Bioakustinen rekisteri</div>
+          <div class="prop-row-meta">Lähde: Turvallisuusupseeri Laipio &amp; Seisminen tarkkailupiste</div>
+          <div class="prop-row-signal">
+            Kun pelaajat kysyvät vartijoiden reiteistä tai hälytyksestä, Yömyyrä kaivaa pakin pohjalta <strong>Propin 06 (Laipion raportti)</strong>, joka paljastaa kameroiden katveet ja miehittämättömän syöttökourun. Kun Jamir tai Sahye ihmettelee telemetrian 0,58 Hz värähtelyä, osoitetaan monitorointipöydän viereen: <strong>Proppi 08</strong> todistaa taajuuden olevan leposyke (35–40 bpm), ei konemelua!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section-block">
+    <div class="section-header">
+      <h3>3. Rasvakuilun sivupolku: Klinikka "Hellä Käsi"</h3>
+      <span class="phase-tag">VALINTA 2 (KLO 18:45–19:30)</span>
+    </div>
+    <div class="section-body">
+      <div class="prop-row">
+        <div class="prop-row-id">13</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">NX-3 Neuroproteesin huoltomanuaali</div>
+          <div class="prop-row-meta">Lähde: Klinikan takahuoneen leikkauspöytä / Insinööri Särmä</div>
+          <div class="prop-row-signal">
+            Jos ryhmä päättää auttaa Yömyyrän kouristelevaa tytärtä, he tunkeutuvat klinikan takahuoneeseen. Leikkauskaukalon vieressä lojuu <strong>Proppi 13</strong>. Jamir voi lukea Varoituksen 12-B: pinnien 3 ja 5 oikosulkeminen 50 Ω vastuksella 4 s ajaksi sammuttaa kipupiirin pysyvästi vahingoittamatta tytön aivoja.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section-block">
+    <div class="section-header">
+      <h3>4. Keskikiekon hissit (Väylä A): Esteettinen auditointi</h3>
+      <span class="phase-tag">NOUSU YLÖS (KLO 19:30–20:30)</span>
+    </div>
+    <div class="section-body">
+      <div class="prop-row">
+        <div class="prop-row-id">07</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Med-Apex mainosesite &amp; Kauneusarvon tarkastuslomake</div>
+          <div class="prop-row-meta">Lähde: Hissiportti 03:n odotusaulan lehtiteline tai roskakori</div>
+          <div class="prop-row-signal">
+            Jos ryhmä valitsee Väylän A (gaalahissi), he saapuvat Keskikiekon marmoriaulaan. Esitetelineestä tai lattialta poimitaan <strong>Proppi 07</strong>. Se esittelee dynastian pinnallisen arvomaailman, mutta sen alareunan lainmukainen asetusviite (12 §) vahvistaa, että Sahyen tarkastuspassi LA-T-12 (Proppi 14) ohittaa koko esteettisen tarkastuksen laillisesti!
+          </div>
+        </div>
+      </div>
+      <div class="prop-row">
+        <div class="prop-row-id">15, 16</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Reaktiiviset salkkulöydöt Sessiossa 1</div>
+          <div class="prop-row-meta">Lähde: Sahyen arkistosalkku (reaktiona pelaajien juridisiin kysymyksiin)</div>
+          <div class="prop-row-signal">
+            Jos pelaajat harkitsevat Hissiä 04, Sahye tutkii salkkuaan ja antaa <strong>Propin 15 (Ennakkotapaus 112)</strong>: biometriset syväskannerit ovat laillisia ja käännyttäminen luvallista (umpikuja!). Jos he valitsevat Väylän C (putkisto) ja näkevät leijuvaa lihamassaa, annetaan <strong>Proppi 16 (Ennakkotapaus 309)</strong>: ruumiiden teollinen proteiinikierto on Kynnyksellä täysin laillista.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gold-rule">
+    <strong>Session 1 cliffhanger-hetki:</strong> Istunto päättyy, kun hahmot murtavat Enklaavin ulkolukon (klo 20:50). He astuvat lehdistöparvekkeelle tai kattosillalle, näkevät 50-metrisen bio-titaanin ja rinnassa hehkuvan sääntöartefaktin, ja ovi pamahtaa heidän takanaan lukkoon.
+  </div>
+
+  <div class="doc-footer">
+    <span>SIVU 2 / 3 • EVENTUELLIT GM-DOKUMENTAATIO</span>
+    <span>SESSIO 1: SAAPUMINEN, RASVAKUILU &amp; REITTIVALINNAT</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 3 ================= -->
+<div class="page">
+  <div class="top-bar">
+    <span class="top-tag">Sessio 2: Enklaavin ydin</span>
+    <span class="top-meta">EVENTUELLIT • JAKSO 9: ASE • DOKUMENTTI GM-P03</span>
+  </div>
+
+  <div class="doc-title">Sessio 2: Kuivatelakka, H-Hetki &amp; Sabotaasi</div>
+  <div class="doc-subtitle">Sabotaasin vipuvarret, salaiset aikataulut, CAD-leikkaukset ja pelaajien 4 pääpolkua</div>
+
+  <!-- SECTION 1 -->
+  <div class="section-block">
+    <div class="section-header">
+      <h3>1. Enklaavin lämpiö &amp; mediataso (Klo 20:45–21:10)</h3>
+      <span class="phase-tag">SOLUTTAUTUMINEN</span>
+    </div>
+    <div class="section-body">
+      <div class="prop-row">
+        <div class="prop-row-id">09, 11</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Gaalan VIP-salikartta &amp; Broadcast-prompteriliuska</div>
+          <div class="prop-row-meta">Lähde: Hovimestarin tiski / catering-vaunu &amp; Ekklesian lähetysauto</div>
+          <div class="prop-row-signal">
+            Juhlasalin lämpiöstä tai catering-kärrystä napataan <strong>Proppi 09 (VIP-salikartta)</strong>, joka paljastaa aitiot, kuvausradat ja huolto-oven H-3. Mediapisteeltä tai lavasteiden takaa löytyy <strong>Proppi 11 (Prompteriliuska)</strong>. Se paljastaa kriittisen aikataulun: klo 21:14–21:17 seremoniasalissa vallitsee "Pyhityksen pimeys" — 3 minuutin täysi sähkökatkos huolto-ovelle H-3 hiipimiseen!
+          </div>
+        </div>
+      </div>
+      <div class="prop-row">
+        <div class="prop-row-id">12, 17</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Kudospankin panttikirja &amp; Lähetyksen uskonnollinen suoja</div>
+          <div class="prop-row-meta">Lähde: Aition C salkku / Sahyen verkkohaku &amp; Sahyen arkistosalkku</div>
+          <div class="prop-row-signal">
+            Aition C asianajajalta varastettu tai Sahyen tekemällä virkahaulla saatu <strong>Proppi 12</strong> paljastaa Med-Apexin 180 000 kr velan ja valmiin määräyksen linjan E-01 katkaisusta. Sahyen salkusta nostettava <strong>Proppi 17 (Ennakkotapaus 218)</strong> puolestaan vahvistaa Ekklesian lähetyksen täyden suojan armeijan sensuuria vastaan — Kolossi ei voi sammuttaa kameroita.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-block">
+    <div class="section-header">
+      <h3>2. Katedraalikuivatelakka: Aseen ydin (Klo 21:10–21:30)</h3>
+      <span class="phase-tag">H-HETKI JA RATKAISU</span>
+    </div>
+    <div class="section-body">
+      <div class="prop-row">
+        <div class="prop-row-id">10</div>
+        <div class="prop-row-content">
+          <div class="prop-row-name">Kuivatelakan leikkauskaavio (KW-Insinöörit)</div>
+          <div class="prop-row-meta">Lähde: Telakan automaatioterminaali tai Yömyyrän kätkö laipiorajalla</div>
+          <div class="prop-row-signal">
+            Murtauduttaessa kuivatelakkaan Jamir saa auki huoltoterminaalin, josta tulostuu <strong>Proppi 10</strong>. Se paljastaa aseen mekaanisen heikkouden: rintalastan magneettipihdit KW-MAG-9 leijuvat +22 m tasolla, ja magneettikiskon E-02 mekaaninen hätävipu H-9 purkaa kentän välittömästi, jolloin sääntöartefakti (Core) voidaan irrottaa ja olento sammuttaa ilman räjähdystä.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: PATH MATRIX -->
+  <div class="section-block">
+    <div class="section-header">
+      <h3>3. Pelinjohtajan taktiset polut: Proppien synergia</h3>
+      <span class="phase-tag">RATKAISUMALLIT</span>
+    </div>
+    <div class="section-body">
+      <div class="path-grid">
+        <div class="path-box">
+          <div class="path-title"><span>POLKU 1: Juridinen valtuuskunta</span><span class="path-props">05 + 14 + 07 (+15)</span></div>
+          <div class="path-desc">Sahyen passi LA-T-12 ja Ennakkotapaus 441 tekevät ryhmästä laillisen tarkastusryhmän. Kauneusarvon lomakkeen 12 § vahvistaa vapautuksen auditoinnista. Marssitaan suoraan pääovesta VIP-alueelle.</div>
+        </div>
+        <div class="path-box">
+          <div class="path-title"><span>POLKU 2: Skandaali &amp; Ekklesia</span><span class="path-props">04 + 11 + 09 + 17 (+12)</span></div>
+          <div class="path-desc">Hyödynnetään Kolossin ja Kardinaalin vihaa. Prompterin 21:14 pimennyksen turvin hivuttaudutaan ovelle H-3. Panttikirjalla kiristetään Arpijalostaja vetämään telakan virrat poikki suorassa lähetyksessä.</div>
+        </div>
+        <div class="path-box">
+          <div class="path-title"><span>POLKU 3: Taktinen leikkaus</span><span class="path-props">06 + 03 + 10 + 02 (+08)</span></div>
+          <div class="path-desc">Laipion raportin kamerakatveet ja droonien 90 s viive hyödynnetään kiipeämisessä. Telakkakaavion nosturisillalta (+22 m) laskeudutaan suoraan rintaan ja väännetään vipua H-9 kiskolla E-02.</div>
+        </div>
+        <div class="path-box">
+          <div class="path-title"><span>POLKU 4: Proteiiniputkisto</span><span class="path-props">02 + 03 + 10 + 16 (+08)</span></div>
+          <div class="path-desc">Ryömitään pumppu 4:n syöttöputkessa 4 min syklin tauoilla. Ennakkotapaus 309 selittää lihan alkuperän. Saavutaan altaan pohjalle (±0 m) ja avataan huuhteluventtiilit V-01/02 ennen Coren irrotusta.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gold-rule">
+    <strong>Sabotaasin purkautuminen (Eskalaatio):</strong> Kun sääntöartefakti irrotetaan tai virrat katkeavat, tilanne räjähtää joko hallittuun ryöstöön (painovoiman heilahdus 90 astetta), berserk-heräämiseen (titaani repii vaijerit) tai suoraan skandaaliin. Hahmojen pako tapahtuu vesiputouksiin magneettivaljailla, missä Yömyyrä odottaa rahtialuksella.
+  </div>
+
+  <div class="doc-footer">
+    <span>SIVU 3 / 3 • EVENTUELLIT GM-DOKUMENTAATIO</span>
+    <span>SESSIO 2: ENKLAAVIN YDIN, H-HETKI &amp; RATKAISUPOLUT</span>
+  </div>
+</div>
+
+</body>
+</html>

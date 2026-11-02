@@ -86,7 +86,7 @@
 >
 > en tuu takasin hakemaan
 >
-> — K.
+> — Kuparisuoni
 
 *(Alakulmassa, eri kynällä, vanhempi ja haalistunut merkintä joltakulta toiselta, ei liity mihinkään:)*  
 ~~laituri 19 velkaa 40 kr kahvista~~
