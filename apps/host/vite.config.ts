@@ -43,6 +43,7 @@ function hyphenopolyPlugin(): Plugin {
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
+  const isProd = mode === "production";
 
   return {
     plugins: [
@@ -52,10 +53,10 @@ export default defineConfig(({ mode }) => {
       federation({
         name: "host",
         remotes: {
-          generator: `${env.VITE_GENERATOR_URL || "http://localhost:3001"}/assets/entry.js`,
-          ruleset: `${env.VITE_RULESET_URL || "http://localhost:3002"}/assets/entry.js`,
-          episodes: `${env.VITE_EPISODES_URL || "http://localhost:3004"}/assets/entry.js`,
-          world: `${env.VITE_WORLD_URL || "http://localhost:3005"}/assets/entry.js`,
+          generator: `${isProd ? "/_remotes/generator" : env.VITE_GENERATOR_URL || "http://localhost:3001"}/assets/entry.js`,
+          ruleset: `${isProd ? "/_remotes/ruleset" : env.VITE_RULESET_URL || "http://localhost:3002"}/assets/entry.js`,
+          episodes: `${isProd ? "/_remotes/episodes" : env.VITE_EPISODES_URL || "http://localhost:3004"}/assets/entry.js`,
+          world: `${isProd ? "/_remotes/world" : env.VITE_WORLD_URL || "http://localhost:3005"}/assets/entry.js`,
         },
         shared: ["react", "react-dom", "react-router-dom", "@tanstack/react-query"],
       }),

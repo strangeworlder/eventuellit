@@ -1,15 +1,18 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { Resend } from "resend";
 import { config } from "../config";
+
+const loadResend = () => import("resend");
+type ResendClient = InstanceType<Awaited<ReturnType<typeof loadResend>>["Resend"]>;
 
 @Injectable()
 export class MailService {
   private readonly logger = new Logger(MailService.name);
-  private resendClient: Resend | null = null;
+  private resendClient: ResendClient | null = null;
 
-  private getResendClient(): Resend {
+  private async getResendClient(): Promise<ResendClient> {
     if (!this.resendClient) {
       if (!config.resendApiKey) throw new Error("RESEND_API_KEY is not set");
+      const { Resend } = await loadResend();
       this.resendClient = new Resend(config.resendApiKey);
     }
     return this.resendClient;
@@ -17,9 +20,9 @@ export class MailService {
 
   async sendMagicLink(email: string, link: string): Promise<void> {
     if (config.isProduction) {
-      let resend: Resend;
+      let resend: ResendClient;
       try {
-        resend = this.getResendClient();
+        resend = await this.getResendClient();
       } catch {
         this.logger.warn("RESEND_API_KEY is not set. Falling back to console logging.");
         this.logger.log(`[PRODUCTION] Magic link for ${email}: ${link}`);

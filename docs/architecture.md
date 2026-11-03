@@ -17,12 +17,12 @@ This application is a ruleset and character generator for a new TTRPG system. It
 
 ## Component Hierarchy
 The monorepo structure is expected to follow this pattern:
-- `apps/host`: The shell application orchestrating the MFEs.
+- `apps/host`: The shell application orchestrating the MFEs. In production, `apps/host/scripts/build-with-remotes.mjs` bundles all four remote `dist/` outputs into `apps/host/dist/_remotes/<remote>/` so `apps/host/serve.mjs` serves the shell and all remotes from a single Node container.
 - `apps/generator`: Character generator Micro Frontend (protected by authentication).
 - `apps/ruleset`: Ruleset documentation Micro Frontend.
 - `apps/episodes`: Episode journal Micro Frontend.
 - `apps/world`: World-building Micro Frontend (locations, factions, NPCs). Port 3005.
-- `apps/server`: NestJS backend API (modules: `auth`, `characters`, `episodes`, `db`).
+- `apps/server`: NestJS backend API (modules: `auth`, `characters`, `episodes`, `db`, `media`, etc.). Heavy optional dependencies (`sharp`, `@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner`, `resend`) are lazy-loaded via dynamic `import()` on demand to keep baseline RSS low.
 - `packages/ui`: Shared React/Tailwind design system components visualized through Storybook.
 - `packages/auth`: Shared authentication hooks and API wrappers for MFEs.
 - `packages/eslint-config`: Shared ESLint configuration.

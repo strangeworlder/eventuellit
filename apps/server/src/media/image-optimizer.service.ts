@@ -1,9 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import sharp from "sharp";
+import type sharp from "sharp";
 import { R2Service } from "./r2.service";
-
-// Disable libvips operation cache to avoid holding native memory buffers
-sharp.cache(false);
 
 /** Widths to generate for responsive variants. Originals wider than these get all breakpoints. */
 const BREAKPOINTS = [480, 768, 1200];
@@ -21,8 +18,25 @@ interface OptimizeResult {
 @Injectable()
 export class ImageOptimizerService {
   private readonly logger = new Logger(ImageOptimizerService.name);
+  private sharpInstance: typeof sharp | null = null;
 
   constructor(private readonly r2: R2Service) {}
+
+  /**
+   * Lazily load sharp (and native libvips) only when an image upload occurs,
+   * keeping baseline server RSS low.
+   */
+  private async getSharp(): Promise<typeof sharp> {
+    if (!this.sharpInstance) {
+      const mod = await import("sharp");
+      const instance = mod.default;
+      // Disable libvips operation cache and limit worker threads to avoid native memory spikes
+      instance.cache(false);
+      instance.concurrency(1);
+      this.sharpInstance = instance;
+    }
+    return this.sharpInstance;
+  }
 
   /**
    * Optimize an image buffer and upload all variants to R2.
@@ -38,7 +52,8 @@ export class ImageOptimizerService {
     originalFilename: string,
     _context: string,
   ): Promise<OptimizeResult> {
-    const meta = await sharp(buffer).metadata();
+    const sharpFn = await this.getSharp();
+    const meta = await sharpFn(buffer).metadata();
     const origWidth = meta.width ?? 800;
     const origHeight = meta.height ?? 600;
 
@@ -55,22 +70,29 @@ export class ImageOptimizerService {
       `Optimizing ${originalFilename} (${origWidth}×${origHeight}) → ${widths.length} sizes × 3 formats`,
     );
 
-    // Generate and upload all variants sequentially to keep native RAM low
+    // Generate and upload all variants sequentially without holding cloned pipelines
     for (const w of widths) {
-      const resized = sharp(buffer).resize(w, null, { withoutEnlargement: true });
-
-      const avifBuf = await resized.clone().avif({ quality: 45 }).toBuffer();
+      const avifBuf = await sharpFn(buffer)
+        .resize(w, null, { withoutEnlargement: true })
+        .avif({ quality: 45 })
+        .toBuffer();
       await this.r2.putObject(`${key}-${w}.avif`, avifBuf, "image/avif");
 
-      const webpBuf = await resized.clone().webp({ quality: 70 }).toBuffer();
+      const webpBuf = await sharpFn(buffer)
+        .resize(w, null, { withoutEnlargement: true })
+        .webp({ quality: 70 })
+        .toBuffer();
       await this.r2.putObject(`${key}-${w}.webp`, webpBuf, "image/webp");
 
-      const jpgBuf = await resized.clone().jpeg({ quality: 75, mozjpeg: true }).toBuffer();
+      const jpgBuf = await sharpFn(buffer)
+        .resize(w, null, { withoutEnlargement: true })
+        .jpeg({ quality: 75, mozjpeg: true })
+        .toBuffer();
       await this.r2.putObject(`${key}-${w}.jpg`, jpgBuf, "image/jpeg");
     }
 
     // Generate blur placeholder (24px wide)
-    const placeholderBuf = await sharp(buffer)
+    const placeholderBuf = await sharpFn(buffer)
       .resize(24, null, { withoutEnlargement: true })
       .jpeg({ quality: 30 })
       .toBuffer();

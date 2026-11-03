@@ -56,20 +56,18 @@ function resolveImageUrl(entry, hostOrigin) {
       return entry.image;
     }
 
-    // Relative path: resolve against the remote service origin when available.
+    // Relative path: resolve against the remote service origin when available,
+    // or against the consolidated /_remotes/<origin> path on the host.
+    const imgPath = entry.image.startsWith("/") ? entry.image : `/${entry.image}`;
     if (entry.imageOrigin && remoteOrigins[entry.imageOrigin]) {
       const origin = remoteOrigins[entry.imageOrigin].replace(/\/$/, "");
-      const imgPath = entry.image.startsWith("/") ? entry.image : `/${entry.image}`;
       return `${origin}${imgPath}`;
     }
 
-    // Remote origin env var missing — fall back to host origin.
-    if (entry.imageOrigin && !remoteOrigins[entry.imageOrigin]) {
-      console.warn(
-        `Missing remote origin env var for "${entry.imageOrigin}" — falling back to host for og:image`,
-      );
+    if (entry.imageOrigin) {
+      return `${hostOrigin}/_remotes/${entry.imageOrigin}${imgPath}`;
     }
-    return `${hostOrigin}${entry.image}`;
+    return `${hostOrigin}${imgPath}`;
   }
 
   // No image for this route — use the R2-hosted default.
@@ -159,7 +157,7 @@ const staticHandler = sirv(distDir, {
   setHeaders(res, pathname) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     const isHashedAsset =
-      pathname.startsWith("/assets/") &&
+      (pathname.startsWith("/assets/") || /^\/_remotes\/[^/]+\/assets\//.test(pathname)) &&
       !pathname.endsWith("remoteEntry.js") &&
       !pathname.endsWith("entry.js");
     if (isHashedAsset) {

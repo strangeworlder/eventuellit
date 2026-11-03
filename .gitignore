@@ -48,3 +48,5 @@ packages/ui/src/generated/
 # Misc
 .DS_Store
 *.pem
+apps/server/1/
+**/node-compile-cache/

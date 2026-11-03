@@ -6,7 +6,7 @@
     "scripts":  {
                     "dev":  "concurrently \"vite build --watch\" \"vite preview\"",
                     "build":  "npm run build --workspace=@repo/ui \u0026\u0026 tsc -b \u0026\u0026 vite build",
-                    "start":  "node serve.mjs",
+                    "start":  "node --max-old-space-size=48 serve.mjs",
                     "lint":  "biome check .",
                     "preview":  "vite preview",
                     "check-types":  "npm run build --workspace=@repo/ui \u0026\u0026 tsc -b --noEmit"
