@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Pyhän Velkavankiflagelantin luostari — IV: Kellarikerros ja poikkileikkaus (A3, 1:100)</title>
+<style>
+  @page {
+    size: A3 landscape;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    width: 420mm;
+    height: 297mm;
+    background: #f4ecda;
+    color: #1c1208;
+    font-family: "Georgia", "Times New Roman", serif;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 420mm;
+    height: 297mm;
+    padding: 7mm 8mm;
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(circle at 38% 50%, rgba(255, 249, 235, 0.55) 0%, rgba(235, 221, 192, 0.85) 100%),
+      #f2e8d2;
+  }
+  .outer-frame {
+    width: 100%;
+    height: 100%;
+    border: 2.5px solid #21150c;
+    padding: 3.5mm;
+    display: flex;
+    flex-direction: column;
+    background: #faf5e8;
+    box-shadow: inset 0 0 0 1px #6e5233;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid #21150c;
+    padding-bottom: 2mm;
+    margin-bottom: 3mm;
+  }
+  .header-left {
+    font-size: 8.5pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6e1810;
+    font-weight: bold;
+  }
+  .header-center h1 {
+    font-size: 16pt;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: #1c1208;
+    font-weight: bold;
+  }
+  .header-right {
+    font-size: 8.2pt;
+    font-style: italic;
+    color: #3d2812;
+  }
+  .workspace {
+    display: flex;
+    flex: 1;
+    gap: 4mm;
+    min-height: 0;
+  }
+  .map-container {
+    width: 298mm;
+    height: 100%;
+    border: 2px solid #21150c;
+    background: #d8ccb4;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar {
+    flex: 1;
+    height: 100%;
+    border: 1.5px solid #21150c;
+    background: #f6eedc;
+    padding: 2.8mm 3.4mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .sidebar-section {
+    margin-bottom: 1.8mm;
+  }
+  .sidebar-title {
+    font-size: 8.5pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #6e1810;
+    border-bottom: 1.2px solid #4a3319;
+    padding-bottom: 0.6mm;
+    margin-bottom: 1.2mm;
+  }
+  .sidebar p {
+    font-size: 7pt;
+    line-height: 1.24;
+    color: #1c1208;
+  }
+  .zone-list {
+    list-style: none;
+    font-size: 6.9pt;
+    line-height: 1.24;
+  }
+  .zone-list li {
+    margin-bottom: 0.85mm;
+  }
+  .zone-code {
+    font-weight: bold;
+    color: #6e1810;
+    display: inline-block;
+    min-width: 9mm;
+  }
+  .dim-tag {
+    font-family: "Courier New", monospace;
+    font-size: 6.5pt;
+    color: #3d2812;
+    font-weight: bold;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .halo {
+    stroke: none;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="outer-frame">
+    <div class="header">
+      <div class="header-left">✦ KRYPTA · EKKLESIA · A3 KELLARI- &amp; POIKKILEIKKAUSKARTTA (1 m = 10 px) ✦</div>
+      <div class="header-center"><h1>PYHÄN VELKAVANKIFLAGELANTIN LUOSTARI</h1></div>
+      <div class="header-right">IV · Kellarikerros (Elintarvike- &amp; Vainajakellari), Katakombiportti &amp; Poikkileikkaus</div>
+    </div>
+
+    <div class="workspace">
+      <!-- ========================================================================= -->
+      <!-- LEFT: CELLAR PLAN (TOP y=0..665, 1m=10px) & CROSS-SECTION (BOTTOM y=665)  -->
+      <!-- ========================================================================= -->
+      <div class="map-container">
+        <svg viewBox="0 0 1120 1000" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Bedrock Earth Hatching (Lightened so dark ink is 100% readable) -->
+            <pattern id="bedrock" width="16" height="16" patternUnits="userSpaceOnUse">
+              <rect width="16" height="16" fill="#bba98e"/>
+              <path d="M 0 16 L 16 0 M -4 4 L 4 -4 M 12 20 L 20 12" stroke="#9e8b6e" stroke-width="1"/>
+            </pattern>
+            <!-- Clean Food Cellar Flagstone (1.5m = 15x15 px) -->
+            <pattern id="foodStone" width="15" height="15" patternUnits="userSpaceOnUse">
+              <rect width="15" height="15" fill="#ede0c7"/>
+              <path d="M 15 0 L 0 0 0 15" fill="none" stroke="#c4b293" stroke-width="0.6"/>
+            </pattern>
+            <!-- Necro-Cellar Lime-Washed Tile (1m = 10x10 px) -->
+            <pattern id="lyeTile" width="10" height="10" patternUnits="userSpaceOnUse">
+              <rect width="10" height="10" fill="#e6ebe3"/>
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#bac4b5" stroke-width="0.6"/>
+            </pattern>
+            <!-- Calcified Bone-Wall Pattern -->
+            <pattern id="boneWall" width="14" height="10" patternUnits="userSpaceOnUse">
+              <rect width="14" height="10" fill="#4f3e30"/>
+              <circle cx="4" cy="5" r="2.2" fill="#dfd5c0"/>
+              <rect x="8" y="3.5" width="5" height="3" rx="1" fill="#d1c4ab"/>
+            </pattern>
+          </defs>
+
+          <!-- =================================================================== -->
+          <!-- PART A (y=0..665): CELLAR FLOORPLAN AT LOCKED 1 : 100 (1 m = 10 px) -->
+          <!-- =================================================================== -->
+          <rect x="0" y="0" width="1120" height="665" fill="url(#bedrock)"/>
+
+          <!-- Top Section Banner (Crisp Parchment Header Bar with Dark Ink) -->
+          <rect x="0" y="0" width="1120" height="28" fill="#f5ecda" stroke="#21150c" stroke-width="2"/>
+          <text x="560" y="19" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="1.6">KELLARIKERROKSEN POHJAKARTTA (1 : 100 · 1 m = 10 px) — PUHDAS ELINTARVIKEKELLARI (LÄNSI) JA VAINAJA-/LIPEÄKELLARI (ITÄ)</text>
+
+          <!-- Unexcavated Central Courtyard Bedrock Core (x=420..760, y=250..495) -->
+          <rect x="420" y="250" width="340" height="245" fill="#b09e82" stroke="#4a3825" stroke-width="2" stroke-dasharray="6,4"/>
+          <!-- Deep Well Shaft passing through bedrock (Kaivokuilu: Ø 3.2m = 32px at cx=505, cy=375) -->
+          <circle cx="505" cy="375" r="18" fill="#302114" stroke="#21150c" stroke-width="2"/>
+          <circle cx="505" cy="375" r="11" fill="#4a7a8c"/>
+          <rect x="532" y="352" width="214" height="38" rx="3" fill="#fbf5e8" fill-opacity="0.94" stroke="#3d2b18" stroke-width="1"/>
+          <text x="639" y="368" font-family="Georgia, serif" font-size="9" font-weight="bold" fill="#1c1208" text-anchor="middle">Peruskallio ja mustan mullan pohja</text>
+          <text x="639" y="382" font-family="Georgia, serif" font-size="7.6" font-style="italic" fill="#3d2812" text-anchor="middle">(Yläpuolella 1. krs Kuvaus- ja yrttipiha · Kaivo Ø 3,2 m)</text>
+
+          <!-- =================================================================== -->
+          <!-- 1. ZONE VI.A: WEST & SOUTH PURE FOOD, MEAD & HEATING CELLAR         -->
+          <!-- =================================================================== -->
+          <rect x="80" y="250" width="340" height="360" fill="url(#foodStone)"/>
+
+          <!-- VI.A2 Sima- ja oluttynnyriholvi (18m x 12m, x=80..260, y=250..370) -->
+          <g fill="#8c5828" stroke="#21150c" stroke-width="1">
+            <rect x="92" y="258" width="9" height="14" rx="2"/><rect x="106" y="258" width="9" height="14" rx="2"/>
+            <rect x="120" y="258" width="9" height="14" rx="2"/><rect x="134" y="258" width="9" height="14" rx="2"/>
+            <rect x="148" y="258" width="9" height="14" rx="2"/><rect x="162" y="258" width="9" height="14" rx="2"/>
+            <rect x="176" y="258" width="9" height="14" rx="2"/><rect x="190" y="258" width="9" height="14" rx="2"/>
+            <rect x="92" y="346" width="9" height="14" rx="2"/><rect x="106" y="346" width="9" height="14" rx="2"/>
+            <rect x="120" y="346" width="9" height="14" rx="2"/><rect x="134" y="346" width="9" height="14" rx="2"/>
+            <rect x="148" y="346" width="9" height="14" rx="2"/><rect x="162" y="346" width="9" height="14" rx="2"/>
+          </g>
+          <text class="halo" x="170" y="308" font-family="Georgia, serif" font-size="9" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.A2 Sima- ja oluttynnyriholvi</text>
+          <text class="halo" x="170" y="320" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">14 tammitynnyriä à 0,85 × 1,4 m (18 × 12 m)</text>
+
+          <!-- VI.A3 Juusto- ja säilykeholvi (16m x 12m, x=260..420, y=250..370) -->
+          <rect x="268" y="258" width="144" height="7" fill="#9e6b36" stroke="#21150c" stroke-width="1"/>
+          <rect x="268" y="355" width="144" height="7" fill="#9e6b36" stroke="#21150c" stroke-width="1"/>
+          <g fill="#e6b842" stroke="#21150c" stroke-width="0.7">
+            <circle cx="280" cy="261.5" r="2.5"/><circle cx="290" cy="261.5" r="2.5"/><circle cx="300" cy="261.5" r="2.5"/><circle cx="310" cy="261.5" r="2.5"/>
+          </g>
+          <text class="halo" x="340" y="308" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.A3 Juusto- ja säilykeholvi</text>
+          <text class="halo" x="340" y="320" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">Hapankaali, juustotahkot &amp; säilykkeet</text>
+
+          <!-- VI.A4 Juures-, sieni- ja hunajaholvi (18m x 12m, x=80..260, y=370..490) -->
+          <rect x="90" y="380" width="28" height="12" fill="#8c683e" stroke="#21150c" stroke-width="1"/>
+          <rect x="124" y="380" width="28" height="12" fill="#8c683e" stroke="#21150c" stroke-width="1"/>
+          <rect x="90" y="468" width="75" height="12" fill="#6b563e" stroke="#21150c" stroke-width="1"/>
+          <g fill="#d99b26" stroke="#21150c" stroke-width="0.8">
+            <circle cx="176" cy="384" r="3"/><circle cx="186" cy="384" r="3"/><circle cx="196" cy="384" r="3"/><circle cx="206" cy="384" r="3"/>
+            <circle cx="216" cy="384" r="3"/><circle cx="226" cy="384" r="3"/><circle cx="236" cy="384" r="3"/><circle cx="246" cy="384" r="3"/>
+          </g>
+          <text class="halo" x="170" y="428" font-family="Georgia, serif" font-size="9" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.A4 Juures-, sieni- ja hunajaholvi</text>
+          <text class="halo" x="170" y="440" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">Hunajaruukut (Ø 0,55 m) &amp; sienihyllyt</text>
+
+          <!-- VI.A5 Välskärin lukittu kylmäholvi (16m x 12m, x=260..420, y=370..490) -->
+          <rect x="268" y="378" width="90" height="7" fill="#5e7a68" stroke="#21150c" stroke-width="1"/>
+          <rect x="372" y="378" width="38" height="8" fill="#3a5243" stroke="#21150c" stroke-width="1.2"/>
+          <text class="halo" x="340" y="428" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.A5 Välskärin kylmäholvi</text>
+          <text class="halo" x="340" y="440" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">Lukittu rohto- ja nukutusyrttivarasto</text>
+
+          <!-- VI.A6 Luuhiilikattilahuone ja siilo (18m x 12m, x=80..260, y=490..610) -->
+          <rect x="92" y="504" width="24" height="20" rx="2" fill="#7a3317" stroke="#21150c" stroke-width="1.5"/>
+          <circle cx="104" cy="514" r="5" fill="#e67e22"/>
+          <rect x="124" y="504" width="24" height="20" rx="2" fill="#7a3317" stroke="#21150c" stroke-width="1.5"/>
+          <circle cx="136" cy="514" r="5" fill="#e67e22"/>
+          <rect x="92" y="576" width="56" height="22" fill="#2b241e" stroke="#140d07" stroke-width="1.2"/>
+          <text class="halo" x="182" y="546" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.A6 Luuhiilikattilahuone</text>
+          <text class="halo" x="182" y="558" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">Lämmityskattilat ja brikettisiilo</text>
+
+          <!-- VI.A1 Ruokahissin ja talousportaan aula (16m x 12m, x=260..420, y=490..610) -->
+          <g transform="translate(338, 496)">
+            <rect x="0" y="0" width="42" height="16" fill="#d9c8a9" stroke="#21150c" stroke-width="1.3"/>
+            <path d="M 7 0 L 7 16 M 14 0 L 14 16 M 21 0 L 21 16 M 28 0 L 28 16 M 35 0 L 35 16" stroke="#4a3319" stroke-width="0.9"/>
+          </g>
+          <rect x="362" y="582" width="14" height="14" fill="#302114" stroke="#8a241b" stroke-width="1.5"/>
+          <line x1="362" y1="582" x2="376" y2="596" stroke="#c99e67" stroke-width="1"/>
+          <line x1="376" y1="582" x2="362" y2="596" stroke="#c99e67" stroke-width="1"/>
+          <text class="halo" x="330" y="544" font-family="Georgia, serif" font-size="8.5" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.A1 Ruokahissin aula</text>
+          <text class="halo" x="330" y="556" font-family="Georgia, serif" font-size="7.2" font-weight="bold" fill="#6e1810" text-anchor="middle">▲ Porras &amp; Ruokahissi keittiöön</text>
+
+          <!-- =================================================================== -->
+          <!-- 2. ZONE VI.B: NORTH & EAST NECRO-PROCESSING, LYE & CATACOMB CELLAR  -->
+          <!-- =================================================================== -->
+          <rect x="200" y="70" width="700" height="180" fill="url(#lyeTile)"/>
+          <rect x="760" y="250" width="140" height="360" fill="url(#lyeTile)"/>
+          <rect x="420" y="495" width="340" height="115" fill="url(#lyeTile)"/>
+
+          <!-- VI.B1 Vainajahissin aula & kylmä vastaanottoholvi (16m x 18m, x=200..360, y=70..250) -->
+          <rect x="242" y="136" width="36" height="28" fill="#cbbba0" stroke="#21150c" stroke-width="1.4"/>
+          <rect x="248" y="142" width="24" height="16" fill="#302114" stroke="#8a241b" stroke-width="1.8"/>
+          <line x1="248" y1="142" x2="272" y2="158" stroke="#c99e67" stroke-width="1.2"/>
+          <line x1="272" y1="142" x2="248" y2="158" stroke="#c99e67" stroke-width="1.2"/>
+          <g fill="#d0d6cc" stroke="#21150c" stroke-width="1">
+            <rect x="212" y="80" width="8.5" height="20"/><rect x="228" y="80" width="8.5" height="20"/><rect x="244" y="80" width="8.5" height="20"/>
+            <rect x="292" y="80" width="8.5" height="20"/><rect x="308" y="80" width="8.5" height="20"/><rect x="324" y="80" width="8.5" height="20"/>
+          </g>
+          <text class="halo" x="280" y="188" font-family="Georgia, serif" font-size="9" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.B1 Kylmä vastaanottoholvi</text>
+          <text class="halo" x="280" y="200" font-family="Georgia, serif" font-size="7.2" font-weight="bold" fill="#6e1810" text-anchor="middle">▲ Vainajahissi Jäähyväisnäyttämöltä</text>
+          <text class="halo" x="280" y="212" font-family="Georgia, serif" font-size="7" font-style="italic" fill="#1c1208" text-anchor="middle">6 kivipaaria à 0,85 × 2,0 m</text>
+
+          <!-- VI.B2 Ruumiiden pesu- ja erottelusali (20m x 18m, x=360..560, y=70..250) -->
+          <g fill="#f2efe6" stroke="#21150c" stroke-width="1.2">
+            <rect x="385" y="88" width="21" height="9"/><rect x="425" y="88" width="21" height="9"/><rect x="465" y="88" width="21" height="9"/>
+            <rect x="385" y="122" width="21" height="9"/><rect x="425" y="122" width="21" height="9"/><rect x="465" y="122" width="21" height="9"/>
+          </g>
+          <rect x="432" y="152" width="12" height="12" fill="#8fa396" stroke="#21150c" stroke-width="1"/>
+          <text class="halo" x="460" y="192" font-family="Georgia, serif" font-size="9.2" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.B2 Ruumiiden erottelusali</text>
+          <text class="halo" x="460" y="205" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">6 kivistä leikkauspöytää à 0,9 × 2,1 m (20 × 18 m)</text>
+
+          <!-- VI.B3 Lipeäkeittämö ja ydinrasva (20m x 18m, x=560..760, y=70..250) -->
+          <g transform="translate(576, 84)">
+            <rect x="0" y="0" width="24" height="18" fill="#594a3c" stroke="#21150c" stroke-width="1.4"/>
+            <rect x="3" y="3" width="18" height="12" fill="#a8c9b5"/>
+            <rect x="34" y="0" width="24" height="18" fill="#594a3c" stroke="#21150c" stroke-width="1.4"/>
+            <rect x="37" y="3" width="18" height="12" fill="#a8c9b5"/>
+            <rect x="68" y="0" width="24" height="18" fill="#594a3c" stroke="#21150c" stroke-width="1.4"/>
+            <rect x="71" y="3" width="18" height="12" fill="#a8c9b5"/>
+            <rect x="102" y="0" width="24" height="18" fill="#594a3c" stroke="#21150c" stroke-width="1.4"/>
+            <rect x="105" y="3" width="18" height="12" fill="#a8c9b5"/>
+          </g>
+          <g fill="#d9a838" stroke="#21150c" stroke-width="1">
+            <circle cx="595" cy="132" r="4.5"/><circle cx="610" cy="132" r="4.5"/>
+            <circle cx="625" cy="132" r="4.5"/><circle cx="640" cy="132" r="4.5"/>
+          </g>
+          <text class="halo" x="660" y="188" font-family="Georgia, serif" font-size="9.2" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.B3 Lipeäkeittämö &amp; ydinrasva</text>
+          <text class="halo" x="660" y="201" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">4 lipeäallasta (2,4 × 1,8 m) ja ydinrasvatynnyrit</text>
+
+          <!-- VI.B5 Luujauhomylly ja luulajitteluholvi (14m x 18m, x=760..900, y=70..250) -->
+          <circle cx="792" cy="108" r="12" fill="#b5a486" stroke="#21150c" stroke-width="1.5"/>
+          <circle cx="792" cy="108" r="3.5" fill="#2b1d11"/>
+          <rect x="822" y="84" width="68" height="7" fill="#d9ceb8" stroke="#21150c" stroke-width="1"/>
+          <rect x="822" y="100" width="68" height="7" fill="#d9ceb8" stroke="#21150c" stroke-width="1"/>
+          <rect x="822" y="116" width="68" height="7" fill="#d9ceb8" stroke="#21150c" stroke-width="1"/>
+          <text class="halo" x="830" y="185" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.B5 Luujauhomylly</text>
+          <text class="halo" x="830" y="197" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">ja luulajitteluholvi</text>
+          <text class="halo" x="830" y="209" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(Hylkyluumurska &amp; valkaistut luut)</text>
+
+          <!-- VI.B4 Mustan mullan mädätyssammiot, Kellarinporras & Multakuilu (14m x 36m, x=760..900, y=250..610) -->
+          <g transform="translate(830, 285)">
+            <circle cx="-28" cy="0" r="15" fill="#4a3319" stroke="#21150c" stroke-width="1.6"/>
+            <circle cx="-28" cy="0" r="10" fill="#24190e"/>
+            <circle cx="28" cy="0" r="15" fill="#4a3319" stroke="#21150c" stroke-width="1.6"/>
+            <circle cx="28" cy="0" r="10" fill="#24190e"/>
+            <circle cx="-28" cy="42" r="15" fill="#4a3319" stroke="#21150c" stroke-width="1.6"/>
+            <circle cx="-28" cy="42" r="10" fill="#24190e"/>
+            <circle cx="28" cy="42" r="15" fill="#4a3319" stroke="#21150c" stroke-width="1.6"/>
+            <circle cx="28" cy="42" r="10" fill="#24190e"/>
+          </g>
+          <text class="halo" x="830" y="368" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.B4 Mustan mullan</text>
+          <text class="halo" x="830" y="380" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">mädätyssammiot (4 kpl)</text>
+          <text class="halo" x="830" y="392" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(Multasammiot Ø 3,0 m)</text>
+
+          <!-- Cellar Spiral Staircase (cx=790, cy=465) & Soil/Cargo Hoist Shaft (x=816..836, y=455..475) -->
+          <g transform="translate(790, 465)">
+            <circle cx="0" cy="0" r="15" fill="#2b1d11"/>
+            <circle cx="0" cy="0" r="13" fill="#f5ecda" stroke="#21150c" stroke-width="1.2"/>
+            <path d="M -13 0 L 13 0 M 0 -13 L 0 13 M -9 -9 L 9 9 M -9 9 L 9 -9" stroke="#593d1e" stroke-width="0.9"/>
+            <circle cx="0" cy="0" r="3" fill="#4a3319"/>
+          </g>
+          <rect x="816" y="455" width="20" height="20" fill="#302114" stroke="#21150c" stroke-width="1.5"/>
+          <line x1="816" y1="455" x2="836" y2="475" stroke="#c99e67" stroke-width="1.2"/>
+          <line x1="836" y1="455" x2="816" y2="475" stroke="#c99e67" stroke-width="1.2"/>
+          <text class="halo" x="830" y="502" font-family="Georgia, serif" font-size="6.6" font-weight="bold" fill="#6e1810" text-anchor="middle">▲ Kellarinporras &amp; Multakuilu (1. krs)</text>
+
+          <!-- VI.B7 Lieteholvi (9m x 8.5m, x=900..990, y=430..515) -->
+          <rect x="900" y="430" width="90" height="85" fill="#d5dbd0" stroke="#21150c" stroke-width="5"/>
+          <rect x="916" y="446" width="58" height="26" fill="#4a3b2a" stroke="#21150c" stroke-width="1.2"/>
+          <text class="halo" x="945" y="492" font-family="Georgia, serif" font-size="7.6" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.B7 Lieteholvi</text>
+
+          <!-- =================================================================== -->
+          <!-- 3. VI.B6: KATAKOMBIPORTIN SULKUKAMMIO & PAINOTON LUULABYRINTTI      -->
+          <!-- =================================================================== -->
+          <rect x="556" y="556" width="68" height="48" fill="#592218" stroke="#1c1209" stroke-width="2.5"/>
+          <rect x="572" y="564" width="36" height="32" fill="#2e1812" stroke="#d99f2b" stroke-width="2"/>
+          <line x1="572" y1="580" x2="608" y2="580" stroke="#d99f2b" stroke-width="2"/>
+          <line x1="590" y1="564" x2="590" y2="596" stroke="#d99f2b" stroke-width="2"/>
+
+          <text class="halo" x="590" y="522" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#6e1810" text-anchor="middle" letter-spacing="1">VI.B6 KATAKOMBIPORTIN SULKUKAMMIO</text>
+          <text class="halo" x="590" y="536" font-family="Georgia, serif" font-size="7.6" font-style="italic" fill="#1c1208" text-anchor="middle">(Salpalukittu raskas rautaportti · 2,8 × 2,8 m · Cenin saapumispiste)</text>
+
+          <!-- Zero-G Bone Labyrinth Chasm (y=610..665) with High-Contrast Parchment Plaques -->
+          <rect x="80" y="610" width="910" height="52" fill="url(#boneWall)" stroke="#1c1209" stroke-width="3"/>
+          <rect x="440" y="615" width="300" height="42" rx="3" fill="#fbf5e8" fill-opacity="0.95" stroke="#21150c" stroke-width="1.5"/>
+          <text x="590" y="632" font-family="Georgia, serif" font-size="9.8" font-weight="bold" fill="#6e1810" text-anchor="middle" letter-spacing="1">PAINOTON LUULABYRINTTI (KATAKOMBIT)</text>
+          <text x="590" y="646" font-family="Georgia, serif" font-size="7.4" font-style="italic" fill="#1c1208" text-anchor="middle">▲ Cen nousee tästä kuilusta portille · Painovoima lakkaa portin alapuolella ▲</text>
+
+          <rect x="135" y="622" width="230" height="24" rx="2.5" fill="#fbf5e8" fill-opacity="0.93" stroke="#21150c" stroke-width="1"/>
+          <text x="250" y="638" font-family="Georgia, serif" font-size="8" font-style="italic" font-weight="bold" fill="#1c1208" text-anchor="middle">Kalkitut luuseinämät ja luuholvikäytävät</text>
+
+          <rect x="765" y="622" width="210" height="24" rx="2.5" fill="#fbf5e8" fill-opacity="0.93" stroke="#21150c" stroke-width="1"/>
+          <text x="870" y="638" font-family="Georgia, serif" font-size="8" font-style="italic" font-weight="bold" fill="#1c1208" text-anchor="middle">Kalkitut luuseinämät ja luuholvikäytävät</text>
+
+          <!-- Cellar Structural & Hygiene Barrier Walls -->
+          <g stroke="#21150c" stroke-linecap="square" fill="none">
+            <path d="M 200 70 L 900 70 L 900 610 L 80 610 L 80 250 L 200 250 Z" stroke-width="8"/>
+            <path d="M 200 250 L 420 250 L 420 610" stroke="#6e1810" stroke-width="10"/>
+            <line x1="260" y1="250" x2="260" y2="610" stroke-width="5"/>
+            <line x1="80" y1="370" x2="420" y2="370" stroke-width="5"/>
+            <line x1="80" y1="490" x2="420" y2="490" stroke-width="5"/>
+            <line x1="360" y1="70" x2="360" y2="250" stroke-width="5"/>
+            <line x1="560" y1="70" x2="560" y2="250" stroke-width="5"/>
+            <line x1="760" y1="70" x2="760" y2="610" stroke-width="6"/>
+            <line x1="760" y1="250" x2="900" y2="250" stroke-width="5"/>
+          </g>
+          <!-- Cellar Doors & Double Airlock -->
+          <g fill="#f5ecda" stroke="#8a241b" stroke-width="1.3">
+            <rect x="257" y="302" width="6" height="14"/>
+            <rect x="257" y="422" width="6" height="14"/>
+            <rect x="257" y="542" width="6" height="14"/>
+            <rect x="315" y="487" width="14" height="6"/>
+            <rect x="315" y="367" width="14" height="6"/>
+            <rect x="415" y="540" width="10" height="16" fill="#d99f2b"/>
+            <rect x="357" y="142" width="6" height="16"/>
+            <rect x="557" y="142" width="6" height="16"/>
+            <rect x="757" y="142" width="6" height="16"/>
+            <rect x="822" y="247" width="16" height="6"/>
+            <rect x="757" y="538" width="6" height="18"/>
+            <rect x="897" y="465" width="6" height="14"/>
+          </g>
+
+          <!-- =================================================================== -->
+          <!-- PART B (y=665..1000): MULTI-STORY VERTICAL CROSS-SECTION            -->
+          <!-- =================================================================== -->
+          <rect x="0" y="665" width="1120" height="28" fill="#f5ecda" stroke="#21150c" stroke-width="2"/>
+          <text x="560" y="684" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="1.6">LUOSTARIN PYSTYSUORA POIKKILEIKKAUS — KASVATUSKUPOLISTA LUULABYRINTTIIN (2. KRS · 1. KRS · KELLARI · KATAKOMBIT)</text>
+
+          <!-- Sky / Golden Agricultural Dome Background (y=693..835) -->
+          <rect x="0" y="693" width="1120" height="142" fill="#e8dec5"/>
+          <path d="M 40 835 Q 560 675 1080 835" fill="#f5ecd6" stroke="#c9962c" stroke-width="2.5" stroke-dasharray="10,5"/>
+          <text class="halo" x="560" y="714" font-family="Georgia, serif" font-size="9" font-weight="bold" fill="#1c1208" text-anchor="middle">Kasvatuskupolin kultaiset sädekehävalot ja keinopainovoimakenttä</text>
+
+          <!-- Left Wing Surface: Fields & Apiary (x=40..230) -->
+          <rect x="40" y="823" width="190" height="12" fill="#6b8c49" stroke="#2b1d11" stroke-width="1.2"/>
+          <text class="halo" x="135" y="814" font-family="Georgia, serif" font-size="8.5" font-weight="bold" fill="#1c1208" text-anchor="middle">Kiertoviljelypellot &amp; mehiläistarha</text>
+
+          <!-- Center Cut-Open 2-Story Monastery Section (x=230..850, y=725..835) -->
+          <polygon points="222,745 540,718 858,745" fill="#9c5435" stroke="#21150c" stroke-width="2"/>
+          <rect x="230" y="745" width="620" height="90" fill="#fbf5e8" stroke="#21150c" stroke-width="3.5"/>
+          <!-- 2nd Floor Slab at y=790 -->
+          <rect x="230" y="788" width="620" height="4" fill="#4a3319"/>
+          <!-- Vertical Wing Walls -->
+          <line x1="355" y1="745" x2="355" y2="835" stroke="#21150c" stroke-width="3"/>
+          <line x1="495" y1="745" x2="495" y2="835" stroke="#21150c" stroke-width="3"/>
+          <line x1="695" y1="745" x2="695" y2="835" stroke="#21150c" stroke-width="3"/>
+
+          <!-- 2. KERROS LABELS IN SECTION (y=745..788) -->
+          <text class="halo" x="292" y="764" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#6e1810" text-anchor="middle">2. krs: Vierashuoneistot</text>
+          <text class="halo" x="292" y="776" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(Verikoira &amp; Syntikirjuri)</text>
+
+          <text class="halo" x="425" y="764" font-family="Georgia, serif" font-size="7.6" font-weight="bold" fill="#1c1208" text-anchor="middle">2. krs: Lähetys- ja kirjurinsali</text>
+          <text class="halo" x="425" y="776" font-family="Georgia, serif" font-size="6.6" font-style="italic" fill="#1c1208" text-anchor="middle">(6 päätettä &amp; Kantoaaltohuone)</text>
+
+          <text class="halo" x="595" y="764" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#1c1208" text-anchor="middle">2. krs: Yläkäytävä &amp; Vanhimmat</text>
+          <text class="halo" x="595" y="776" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(3 vanhemman munkin huoneistot)</text>
+
+          <text class="halo" x="772" y="764" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#1c1208" text-anchor="middle">2. krs: Suuri makuusali</text>
+          <text class="halo" x="772" y="776" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(30 makuu- ja kokelasalkovia)</text>
+
+          <!-- 1. KERROS LABELS IN SECTION (y=792..835) -->
+          <text class="halo" x="292" y="809" font-family="Georgia, serif" font-size="7.6" font-weight="bold" fill="#6e1810" text-anchor="middle">1. krs: Jäähyväisnäyttämö</text>
+          <text class="halo" x="292" y="821" font-family="Georgia, serif" font-size="6.6" font-style="italic" fill="#1c1208" text-anchor="middle">(Saattokoroke &amp; ▼ Vainajahissi)</text>
+
+          <text class="halo" x="425" y="809" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#1c1208" text-anchor="middle">1. krs: Leipomo &amp; Näytöskeittiö</text>
+          <text class="halo" x="425" y="821" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(Luuhiiliuunit &amp; leivontastudio)</text>
+
+          <text class="halo" x="595" y="809" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#1c1208" text-anchor="middle">1. krs: Pylväskäytävä &amp; Ruokasali</text>
+          <text class="halo" x="595" y="821" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(40 munkin pöydät &amp; Korokepöytä)</text>
+
+          <text class="halo" x="772" y="809" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#1c1208" text-anchor="middle">1. krs: Katselmussali</text>
+          <text class="halo" x="772" y="821" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(Kellarinporras &amp; Sairastupa)</text>
+
+          <!-- Right Wing Surface: Livestock & Bone-Char Kilns (x=850..1080) -->
+          <rect x="850" y="823" width="230" height="12" fill="#8c6d46" stroke="#2b1d11" stroke-width="1.2"/>
+          <rect x="875" y="795" width="90" height="28" fill="#ebd9b7" stroke="#21150c" stroke-width="1.8"/>
+          <text class="halo" x="920" y="812" font-family="Georgia, serif" font-size="7.5" font-weight="bold" fill="#1c1208" text-anchor="middle">Sairastupa (1. krs)</text>
+          <text class="halo" x="1025" y="814" font-family="Georgia, serif" font-size="8" font-weight="bold" fill="#1c1208" text-anchor="middle">Possuliskot &amp; miilut</text>
+
+          <!-- CELLAR LEVEL IN SECTION (y=835..915) -->
+          <rect x="0" y="835" width="1120" height="80" fill="url(#bedrock)" stroke="#21150c" stroke-width="2"/>
+          <!-- West Food Cellar Vault -->
+          <rect x="230" y="843" width="245" height="64" rx="4" fill="#efe4ce" stroke="#21150c" stroke-width="2.5"/>
+          <text class="halo" x="352" y="870" font-family="Georgia, serif" font-size="8.5" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.A Elintarvike-, panimo- ja lämpökellari</text>
+          <text class="halo" x="352" y="884" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">(Sima-, juusto-, juures- ja hunajaholvit sekä kattilahuone)</text>
+
+          <!-- Solid Hygiene Barrier Wall at x=475..495 -->
+          <rect x="475" y="843" width="20" height="64" fill="#6e1810" stroke="#21150c" stroke-width="2"/>
+
+          <!-- East Necro-Processing Cellar Vault -->
+          <rect x="495" y="843" width="355" height="64" rx="4" fill="#e6ebe3" stroke="#21150c" stroke-width="2.5"/>
+          <line x1="292" y1="825" x2="525" y2="855" stroke="#8a241b" stroke-width="1.6" stroke-dasharray="3,2"/>
+          <text class="halo" x="672" y="866" font-family="Georgia, serif" font-size="8.5" font-weight="bold" fill="#1c1208" text-anchor="middle">VI.B Vainaja-, lipeä-, mustan mullan ja luumyllyn kellari</text>
+          <text class="halo" x="672" y="879" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">(Ruumiiden erottelu, lipeäkeitto, ydinrasva ja mädätyssammiot)</text>
+
+          <!-- KATAKOMBIPORTTI in Floor of East Cellar (x=615..730, y=893..915) with High-Contrast Gold/Parchment Plaque -->
+          <rect x="610" y="892" width="125" height="22" rx="2" fill="#f5cf67" stroke="#21150c" stroke-width="2"/>
+          <text x="672" y="906" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="1">KATAKOMBIPORTTI</text>
+
+          <!-- ZERO-G BONE LABYRINTH IN SECTION (y=915..1000) with Crisp Parchment Plaques -->
+          <rect x="0" y="915" width="1120" height="85" fill="url(#boneWall)" stroke="#1c1209" stroke-width="2.5"/>
+          <rect x="520" y="925" width="305" height="46" rx="3" fill="#fbf5e8" fill-opacity="0.95" stroke="#21150c" stroke-width="1.5"/>
+          <text x="672" y="944" font-family="Georgia, serif" font-size="9.5" font-weight="bold" fill="#6e1810" text-anchor="middle">PAINOTON NOUSUKUILU &amp; LUULABYRINTTI</text>
+          <text x="672" y="960" font-family="Georgia, serif" font-size="7.5" font-style="italic" fill="#1c1208" text-anchor="middle">Painovoima lakkaa portin alapuolella · Cen saapuu täältä</text>
+
+          <rect x="125" y="936" width="265" height="26" rx="2.5" fill="#fbf5e8" fill-opacity="0.93" stroke="#21150c" stroke-width="1"/>
+          <text x="257" y="953" font-family="Georgia, serif" font-size="8.2" font-style="italic" font-weight="bold" fill="#1c1208" text-anchor="middle">Kalkitut luuseinämät ja painottomat katakombit</text>
+
+          <rect x="840" y="936" width="255" height="26" rx="2.5" fill="#fbf5e8" fill-opacity="0.93" stroke="#21150c" stroke-width="1"/>
+          <text x="967" y="953" font-family="Georgia, serif" font-size="8" font-style="italic" font-weight="bold" fill="#1c1208" text-anchor="middle">Haaskalintujen paperiarkistot syvyyksissä</text>
+        </svg>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- RIGHT: ARCHITECTURAL LEGEND & SULJETTU KIERTO (KELLARIKERROS)       -->
+      <!-- =================================================================== -->
+      <div class="sidebar">
+        <div>
+          <div class="sidebar-section">
+            <div class="sidebar-title">Vyöhyke VI.A · Puhdas Elintarvike- ja Lämpökellari</div>
+            <p style="margin-bottom: 1mm;">Erotettu itäkellarista <span class="dim-tag">1,2 m</span> umpimuurilla ja kaksiovisella hygieniasululla:</p>
+            <ul class="zone-list">
+              <li><span class="zone-code">VI.A1</span> <strong>Ruokahissin ja talousportaan aula</strong> <span class="dim-tag">(16 × 12 m)</span> — Suora yhteys 1. kerroksen <em>Suurkeittiöön</em>.</li>
+              <li><span class="zone-code">VI.A2</span> <strong>Sima-, olut- ja viinitynnyriholvi</strong> <span class="dim-tag">(18 × 12 m)</span> — 14 tammitynnyriä (à <span class="dim-tag">0,85 × 1,4 m</span>) hunajasiman ja luostarioluen kypsytykseen.</li>
+              <li><span class="zone-code">VI.A3</span> <strong>Juusto- ja säilykeholvi</strong> <span class="dim-tag">(16 × 12 m)</span> — Juustotahkot, hapankaali ja etikkasäilykkeet.</li>
+              <li><span class="zone-code">VI.A4</span> <strong>Juures-, sieni- ja hunajaholvi</strong> <span class="dim-tag">(18 × 12 m)</span> — Sienikasvatushyllyt ja sinetöidyt hunajaruukut (<span class="dim-tag">Ø 0,55 m</span>).</li>
+              <li><span class="zone-code">VI.A5</span> <strong>Välskärin lukittu kylmäholvi</strong> <span class="dim-tag">(16 × 12 m)</span> — Nukutusyrttiuutteet, salvat ja leikkaustarvikkeet.</li>
+              <li><span class="zone-code">VI.A6</span> <strong>Luuhiilikattilahuone ja siilo</strong> <span class="dim-tag">(18 × 12 m)</span> — Kaksi raskasta luuhiilikattilaa, jotka lämmittävät yläpuolisen leipomon ja keittiön.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Vyöhyke VI.B · Vainaja-, Lipeä- ja Multakellari</div>
+            <ul class="zone-list">
+              <li><span class="zone-code">VI.B1</span> <strong>Vainajahissin aula ja kylmäholvi</strong> <span class="dim-tag">(16 × 18 m)</span> — 1. krs <em>Jäähyväisnäyttämön</em> saattokorokkeen alapuolella: <strong>Vainajahissi</strong> (<span class="dim-tag">2,4 × 1,6 m</span>) ja 6 kivipaaria (à <span class="dim-tag">0,85 × 2,0 m</span>).</li>
+              <li><span class="zone-code">VI.B2</span> <strong>Ruumiiden pesu- ja erottelusali</strong> <span class="dim-tag">(20 × 18 m)</span> — 6 kivistä leikkauspöytää (à <span class="dim-tag">0,9 × 2,1 m</span>) vesikouruineen.</li>
+              <li><span class="zone-code">VI.B3</span> <strong>Lipeäkeittämö ja ydinrasva</strong> <span class="dim-tag">(20 × 18 m)</span> — 4 höyryävää lipeäallasta (<span class="dim-tag">2,4 × 1,8 m</span>), joissa pehmytkudos irrotetaan ja pinnalta kuoritaan <strong>ydinrasva</strong> brikettien sideaineeksi ja saippuaan.</li>
+              <li><span class="zone-code">VI.B4</span> <strong>Mustan mullan sammiot &amp; Kellarinporras</strong> <span class="dim-tag">(14 × 36 m)</span> — 4 suljettua mädätyssammiota (<span class="dim-tag">Ø 3,0 m</span>), <strong>Multakuilu</strong> (<span class="dim-tag">2,0 × 2,0 m</span>) ja kierreportaat (<span class="dim-tag">Ø 2,8 m</span>).</li>
+              <li><span class="zone-code">VI.B5</span> <strong>Luujauhomylly ja luulajitteluholvi</strong> <span class="dim-tag">(14 × 18 m)</span> — Hylkyluut jauhetaan briketteihin; ehjät valkaistut luut lajitellaan hyllyihin.</li>
+              <li><span class="zone-code">VI.B6</span> <strong>Katakombiportin sulkukammio</strong> <span class="dim-tag">(34 × 11,5 m)</span> — Rautasalvattu <strong>Katakombiportti</strong> (<span class="dim-tag">2,8 × 2,8 m</span>) painottoman luulabyrintin päällä.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Ekklesian kulissi ja suljettu kierto</div>
+            <p>
+              <strong>1. Materian kierto:</strong> Vainaja (<em>Jäähyväisnäyttämö</em>) ➔ <em>Vainajahissi</em> ➔ Pehmytkudos <em>mustaksi mullaksi</em> pelloille + Ydinrasva ja hylkyluu <em>luuhiilibriketeiksi</em> leivinuuneihin + Luutuhka <em>lipeäksi</em> + Ehjät kalkitut luut <em>Katakombiportista</em> luulabyrinttiin.<br>
+              <strong>2. Huomiotalouden kierto:</strong> Kellarin lipeä-, luuhiili- ja vainajatyö rajataan tiukasti pois kamerasta, kun taas 1. krs <em>Näytöskeittiössä</em> ja 2. krs <em>Lähetys- ja kirjurinsalissa</em> lähetetään Kynnyksen verkkoihin puhdasta paimen- ja leivontaidylliä.
+            </p>
+          </div>
+        </div>
+
+        <!-- Compass & True Metric Scale Bar (1 m = 10 px) -->
+        <div style="border-top: 1.5px solid #4a3319; padding-top: 1.6mm;">
+          <svg viewBox="0 0 360 66" style="width: 100%; height: 17mm;">
+            <g transform="translate(36, 33)">
+              <circle cx="0" cy="0" r="23" fill="#fcf6e8" stroke="#2b1d11" stroke-width="1.4"/>
+              <polygon points="0,-19 4.5,-4 0,-7 -4.5,-4" fill="#8a241b"/>
+              <polygon points="0,19 3.5,4 0,7 -3.5,4" fill="#2b1d11"/>
+              <polygon points="-19,0 -4,-3.5 -7,0 -4,3.5" fill="#2b1d11"/>
+              <polygon points="19,0 4,-3.5 7,0 4,3.5" fill="#2b1d11"/>
+              <text x="0" y="-20" font-family="Georgia, serif" font-size="8" font-weight="bold" fill="#8a241b" text-anchor="middle">P</text>
+            </g>
+            <g transform="translate(82, 12)">
+              <text x="130" y="4" font-family="Georgia, serif" font-size="7.5" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="0.4">MITTAKAAVA 1 : 100 (1 m = 10 px · Leikkauspöytä = 0,9 × 2,1 m)</text>
+              <g transform="translate(10, 12)">
+                <rect x="0" y="0" width="40" height="6" fill="#21150c" stroke="#21150c" stroke-width="1"/>
+                <rect x="40" y="0" width="40" height="6" fill="#fcf6e8" stroke="#21150c" stroke-width="1"/>
+                <rect x="80" y="0" width="80" height="6" fill="#21150c" stroke="#21150c" stroke-width="1"/>
+                <rect x="160" y="0" width="80" height="6" fill="#fcf6e8" stroke="#21150c" stroke-width="1"/>
+                <text x="0" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">0</text>
+                <text x="40" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">5 m</text>
+                <text x="80" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">10 m</text>
+                <text x="160" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">20 m</text>
+                <text x="240" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">30 m</text>
+              </g>
+              <text x="130" y="42" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#3d2812" text-anchor="middle">Umpimuuri 1,2 m · Lipeäallas 2,4 × 1,8 m · Mädätyssammio Ø 3,0 m</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

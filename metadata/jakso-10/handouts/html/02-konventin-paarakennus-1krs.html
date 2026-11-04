@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Pyhän Velkavankiflagelantin luostari — II: 1. kerroksen pohjakartta (A3, 1:100)</title>
+<style>
+  @page {
+    size: A3 landscape;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    width: 420mm;
+    height: 297mm;
+    background: #f4ecda;
+    color: #1c1208;
+    font-family: "Georgia", "Times New Roman", serif;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 420mm;
+    height: 297mm;
+    padding: 7mm 8mm;
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(circle at 38% 50%, rgba(255, 249, 235, 0.55) 0%, rgba(235, 221, 192, 0.85) 100%),
+      #f2e8d2;
+  }
+  .outer-frame {
+    width: 100%;
+    height: 100%;
+    border: 2.5px solid #21150c;
+    padding: 3.5mm;
+    display: flex;
+    flex-direction: column;
+    background: #faf5e8;
+    box-shadow: inset 0 0 0 1px #6e5233;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid #21150c;
+    padding-bottom: 2mm;
+    margin-bottom: 3mm;
+  }
+  .header-left {
+    font-size: 8.5pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6e1810;
+    font-weight: bold;
+  }
+  .header-center h1 {
+    font-size: 16pt;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: #1c1208;
+    font-weight: bold;
+  }
+  .header-right {
+    font-size: 8.2pt;
+    font-style: italic;
+    color: #3d2812;
+  }
+  .workspace {
+    display: flex;
+    flex: 1;
+    gap: 4mm;
+    min-height: 0;
+  }
+  .map-container {
+    width: 298mm;
+    height: 100%;
+    border: 2px solid #21150c;
+    background: #dcd0b6;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar {
+    flex: 1;
+    height: 100%;
+    border: 1.5px solid #21150c;
+    background: #f6eedc;
+    padding: 2.8mm 3.4mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .sidebar-section {
+    margin-bottom: 1.6mm;
+  }
+  .sidebar-title {
+    font-size: 8.4pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #6e1810;
+    border-bottom: 1.2px solid #4a3319;
+    padding-bottom: 0.6mm;
+    margin-bottom: 1.1mm;
+  }
+  .sidebar p {
+    font-size: 6.9pt;
+    line-height: 1.22;
+    color: #1c1208;
+  }
+  .zone-list {
+    list-style: none;
+    font-size: 6.8pt;
+    line-height: 1.22;
+  }
+  .zone-list li {
+    margin-bottom: 0.75mm;
+  }
+  .zone-code {
+    font-weight: bold;
+    color: #6e1810;
+    display: inline-block;
+    min-width: 7.5mm;
+  }
+  .dim-tag {
+    font-family: "Courier New", monospace;
+    font-size: 6.5pt;
+    color: #3d2812;
+    font-weight: bold;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .halo {
+    stroke: none;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="outer-frame">
+    <div class="header">
+      <div class="header-left">✦ KRYPTA · EKKLESIA · A3 ARKKITEHTUURIKARTTA (1 m = 10 px) ✦</div>
+      <div class="header-center"><h1>PYHÄN VELKAVANKIFLAGELANTIN LUOSTARI</h1></div>
+      <div class="header-right">II · 1. kerros: Näytepiiri, Valokeilapyhäkkö, Tunnustuskehät, Veljespiiri, Näytöskeittiö &amp; Sairastupa</div>
+    </div>
+
+    <div class="workspace">
+      <!-- ========================================================================= -->
+      <!-- LEFT: 1ST FLOOR ARCHITECTURAL PLAN (1120 x 1000 px, LOCKED 1 m = 10 px)   -->
+      <!-- Site: 112 m x 100 m; Abbey Complex: x=80..1040 (96 m), y=100..840 (74 m)  -->
+      <!-- ========================================================================= -->
+      <div class="map-container">
+        <svg viewBox="0 0 1120 1000" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Stone Flagstone Floor (2m x 2m slabs = 20x20 px) -->
+            <pattern id="flagstone" width="20" height="20" patternUnits="userSpaceOnUse">
+              <rect width="20" height="20" fill="#efe4ce"/>
+              <path d="M 0 0 L 20 0 M 0 10 L 20 10 M 0 0 L 0 10 M 10 10 L 10 20" stroke="#cbb997" stroke-width="0.7"/>
+            </pattern>
+            <!-- Cloister Walk Vaulted Tile (1.5m x 1.5m = 15x15 px) -->
+            <pattern id="cloisterFloor" width="15" height="15" patternUnits="userSpaceOnUse">
+              <rect width="15" height="15" fill="#e6d6b8"/>
+              <rect x="0.5" y="0.5" width="14" height="14" fill="none" stroke="#bda67e" stroke-width="0.6"/>
+            </pattern>
+            <!-- Sanctuary Checkerboard Marble (2m x 2m = 20x20 px) -->
+            <pattern id="churchMarble" width="20" height="20" patternUnits="userSpaceOnUse">
+              <rect width="20" height="20" fill="#f7efe0"/>
+              <rect x="0" y="0" width="10" height="10" fill="#e3d3b6"/>
+              <rect x="10" y="10" width="10" height="10" fill="#e3d3b6"/>
+            </pattern>
+            <!-- Timber Plank Floor (0.4m planks = 4 px) -->
+            <pattern id="woodPlank" width="40" height="5" patternUnits="userSpaceOnUse">
+              <rect width="40" height="5" fill="#e6d4b3"/>
+              <line x1="0" y1="0" x2="40" y2="0" stroke="#bfa477" stroke-width="0.6"/>
+              <line x1="20" y1="0" x2="20" y2="5" stroke="#c9af82" stroke-width="0.5"/>
+            </pattern>
+            <!-- Infirmary Clean Tile (1m x 1m = 10x10 px) -->
+            <pattern id="infirmaryTile" width="10" height="10" patternUnits="userSpaceOnUse">
+              <rect width="10" height="10" fill="#ebede4"/>
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#c5ccb8" stroke-width="0.6"/>
+            </pattern>
+            <!-- Courtyard Cobble (1.2m = 12x12 px) -->
+            <pattern id="cobble" width="12" height="12" patternUnits="userSpaceOnUse">
+              <rect width="12" height="12" fill="#d9cab0"/>
+              <rect x="1" y="1" width="5" height="4" rx="1" fill="none" stroke="#b09d7c" stroke-width="0.6"/>
+              <rect x="7" y="6" width="4" height="5" rx="1" fill="none" stroke="#b09d7c" stroke-width="0.6"/>
+            </pattern>
+            <!-- Herb Bed Rows (0.5m = 5 px) -->
+            <pattern id="herbRows" width="10" height="5" patternUnits="userSpaceOnUse">
+              <rect width="10" height="5" fill="#82a35c"/>
+              <line x1="0" y1="2.5" x2="10" y2="2.5" stroke="#537332" stroke-width="2"/>
+            </pattern>
+            <!-- Radial Golden Spotlight Gradient -->
+            <radialGradient id="spotlightGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe98a" stop-opacity="0.85"/>
+              <stop offset="65%" stop-color="#f2c14e" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#d99f2b" stop-opacity="0.1"/>
+            </radialGradient>
+          </defs>
+
+          <!-- =================================================================== -->
+          <!-- 0. SURROUNDING GROUNDS, ROADS & FIELD BORDERS (x=0..1120, y=0..1000)-->
+          <!-- =================================================================== -->
+          <rect x="0" y="0" width="1120" height="1000" fill="#c7d1a3"/>
+          <!-- North Approach Road from Yläportti (Kartta I) -->
+          <path d="M 192 0 L 192 100" stroke="#6e573b" stroke-width="52"/>
+          <path d="M 192 0 L 192 100" stroke="#dfd1b4" stroke-width="44"/>
+          <text class="halo" x="192" y="28" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1c1208" text-anchor="middle">▲ Saattueiden valokeilatie ja Yläportti (Kartta I)</text>
+
+          <!-- West Root Vegetable Field Border -->
+          <rect x="12" y="140" width="52" height="700" rx="4" fill="#8fa868" stroke="#485e29" stroke-width="1.5" stroke-dasharray="6,4"/>
+          <text class="halo" x="38" y="490" font-family="Georgia, serif" font-size="10" font-style="italic" fill="#1c1208" text-anchor="middle" transform="rotate(-90, 38, 490)">◄ Juuresmaa, Siemen-koepalstat ja Konehalli (Kartta I)</text>
+
+          <!-- East Service Road to Pig-Lizard Pens, Bone-Char Kilns & Black Soil Windrows -->
+          <path d="M 900 468 L 1120 468" stroke="#6e573b" stroke-width="36"/>
+          <path d="M 900 468 L 1120 468" stroke="#dfd1b4" stroke-width="28"/>
+          <text class="halo" x="1088" y="340" font-family="Georgia, serif" font-size="10" font-style="italic" fill="#1c1208" text-anchor="middle" transform="rotate(90, 1088, 340)">Varjotalouspiha: possuliskot, luuhiilimiilut ja multakenttä (Kartta I) ►</text>
+
+          <!-- South Orchard & Pasture Border -->
+          <rect x="80" y="865" width="960" height="115" rx="4" fill="#9eb574" stroke="#485e29" stroke-width="1.5" stroke-dasharray="6,4"/>
+          <text class="halo" x="560" y="968" font-family="Georgia, serif" font-size="10.5" font-style="italic" fill="#1c1208" text-anchor="middle">▼ Eteläinen hedelmätarha, laidunniitty ja uudismullan palsta (Kartta I) ▼</text>
+
+          <!-- =================================================================== -->
+          <!-- 1. FLOOR SURFACES BY ARCHITECTURAL ZONE (1 m = 10 px)               -->
+          <!-- =================================================================== -->
+          <!-- Zone I: Julkinen näytepiiri ja vierassiipi (x=80..320, y=100..440) -->
+          <rect x="80" y="100" width="240" height="60" fill="url(#woodPlank)"/>
+          <rect x="80" y="160" width="240" height="160" fill="url(#cobble)"/>
+          <rect x="240" y="160" width="80" height="160" fill="url(#flagstone)"/>
+          <rect x="80" y="320" width="240" height="120" fill="url(#flagstone)"/>
+
+          <!-- Zone II: Suuri Valokeilapyhäkkö, Kuorikatsomo & Puvusto (x=320..900, y=140..320) -->
+          <rect x="320" y="140" width="580" height="180" fill="url(#churchMarble)"/>
+
+          <!-- Zone III: Pylväskäytävä, Kuvaus- ja yrttipiha, Itäsiipi & Suuri ruokasali -->
+          <rect x="320" y="320" width="440" height="320" fill="url(#cloisterFloor)"/>
+          <!-- Open Courtyard (Kuvaus- ja yrttipiha: 37m x 25m = 370x250 px) -->
+          <rect x="355" y="355" width="370" height="250" fill="#b8c989" stroke="#362514" stroke-width="3"/>
+          <!-- East Wing (Katselmussali, Kohtaamishuone, Portaat, Lämmittelytupa: x=760..900, y=320..640) -->
+          <rect x="760" y="320" width="140" height="320" fill="url(#flagstone)"/>
+          <!-- Far-East Käymälät & Pesutupa (x=900..990, y=495..580) -->
+          <rect x="900" y="495" width="90" height="85" fill="url(#infirmaryTile)"/>
+          <!-- South Wing: Suuri ruokasali & Kestityskammio (x=390..760, y=640..840) -->
+          <rect x="390" y="640" width="370" height="200" fill="url(#flagstone)"/>
+
+          <!-- Zone IV: Näytöskeittiö ja leivontastudio (x=390..460, y=730..840) -->
+          <rect x="390" y="730" width="70" height="110" fill="url(#woodPlank)"/>
+
+          <!-- Zone V: Tuotantopajat (x=80..390, y=440..840) & Välskärin sairastupa (x=760..1040, y=640..840) -->
+          <rect x="80" y="440" width="240" height="240" fill="url(#flagstone)"/>
+          <rect x="80" y="680" width="310" height="160" fill="url(#flagstone)"/>
+          <rect x="760" y="640" width="280" height="200" fill="url(#infirmaryTile)"/>
+
+          <!-- =================================================================== -->
+          <!-- 2. ZONE I: JULKINEN NÄYTEPIIRI — SUOSIOPIHA, PUOTI & JÄÄHYVÄISNÄYTTÄMÖ -->
+          <!-- =================================================================== -->
+          <!-- I.1a Vankkurikatos (9m x 6m, x=80..170, y=100..160) -->
+          <rect x="92" y="112" width="36" height="22" rx="2" fill="#8c6239" stroke="#21150c" stroke-width="1.4"/>
+          <rect x="136" y="114" width="24" height="18" rx="1.5" fill="#9e7348" stroke="#21150c" stroke-width="1.2"/>
+          <text class="halo" x="125" y="150" font-family="Georgia, serif" font-size="8" font-weight="bold" fill="#1c1208" text-anchor="middle">Vankkurikatos</text>
+
+          <!-- I.1b Porttiholvi (4.5m x 6m, x=170..215, y=100..160) -->
+          <rect x="170" y="100" width="45" height="60" fill="url(#cobble)"/>
+          <line x1="170" y1="104" x2="215" y2="104" stroke="#593d1e" stroke-width="2" stroke-dasharray="4,2"/>
+          <text class="halo" x="192" y="134" font-family="Georgia, serif" font-size="8.5" font-weight="bold" fill="#1c1208" text-anchor="middle">I.1 Portti</text>
+
+          <!-- I.1c Vartiotupa (5m x 6m, x=215..265, y=100..160) -->
+          <rect x="221" y="108" width="16" height="8" fill="#9e6b36" stroke="#21150c" stroke-width="1"/>
+          <rect x="250" y="108" width="9" height="20" fill="#d9cbb0" stroke="#21150c" stroke-width="1"/>
+          <text class="halo" x="240" y="148" font-family="Georgia, serif" font-size="7.5" font-weight="bold" fill="#1c1208" text-anchor="middle">Vartiotupa</text>
+
+          <!-- I.1d Luuhiilivaja (5.5m x 6m, x=265..320, y=100..160) -->
+          <g fill="#2b241e" stroke="#120d09" stroke-width="1">
+            <rect x="272" y="108" width="18" height="12"/><rect x="294" y="108" width="18" height="12"/>
+            <rect x="272" y="124" width="18" height="12"/><rect x="294" y="124" width="18" height="12"/>
+          </g>
+          <text class="halo" x="293" y="150" font-family="Georgia, serif" font-size="7.5" font-weight="bold" fill="#1c1208" text-anchor="middle">Luuhiilivaja</text>
+
+          <!-- I.2 Suosiopiha ja Valaistu lahjoitusseinä (16m x 16m open court, x=80..240, y=160..320) -->
+          <circle cx="150" cy="242" r="14" fill="#b5a486" stroke="#21150c" stroke-width="1.8"/>
+          <circle cx="150" cy="242" r="9" fill="#598294" stroke="#21150c" stroke-width="1.2"/>
+          <!-- Illuminated Patron & Donor Leaderboard Wall (Valaistu suosio- ja lahjoitustaulu) along East Wall x=233 -->
+          <rect x="231" y="174" width="6" height="62" fill="#f5cf67" stroke="#21150c" stroke-width="1.2"/>
+          <text class="halo" x="155" y="198" font-family="Georgia, serif" font-size="10.2" font-weight="bold" fill="#1c1208" text-anchor="middle">I.2 SUOSIOPIHA</text>
+          <text class="halo" x="155" y="211" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">(Saattuepiha &amp; valaistu lahjoitusseinä)</text>
+          <text class="halo" x="150" y="270" font-family="Georgia, serif" font-size="7.5" font-style="italic" fill="#1c1208" text-anchor="middle">Esipihan kaivo</text>
+
+          <!-- I.3 Muisto- ja siunauspuoti (8m x 8m, x=240..320, y=160..240) -->
+          <rect x="246" y="166" width="68" height="7" fill="#8c5828" stroke="#21150c" stroke-width="1"/>
+          <rect x="266" y="184" width="8" height="44" fill="#d99f2b" stroke="#21150c" stroke-width="1.2"/>
+          <circle cx="252" cy="170" r="2.2" fill="#f5cf67"/><circle cx="260" cy="170" r="2.2" fill="#f5cf67"/><circle cx="268" cy="170" r="2.2" fill="#f5cf67"/>
+          <text class="halo" x="282" y="200" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle">I.3 Muistopuoti</text>
+          <text class="halo" x="282" y="212" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">Hunaja, aneet &amp; nimikkorukoukset</text>
+
+          <!-- II.1 Kaapu- ja valmistautumishalli (8m x 8m, x=240..320, y=240..320) -->
+          <!-- 40 Lockers along North & South walls + Full-length dressing mirrors -->
+          <rect x="246" y="246" width="68" height="6" fill="#7a5229" stroke="#21150c" stroke-width="1"/>
+          <rect x="246" y="308" width="68" height="6" fill="#7a5229" stroke="#21150c" stroke-width="1"/>
+          <rect x="244" y="262" width="4" height="32" fill="#8ad4e6" stroke="#21150c" stroke-width="0.9"/>
+          <text class="halo" x="282" y="276" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle">II.1 Kaapuhalli</text>
+          <text class="halo" x="282" y="288" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">40 munkin kaavut &amp; peilit</text>
+
+          <!-- I.4 Kestityssali ja vierastupa (12m x 12m, x=80..200, y=320..440) -->
+          <rect x="96" y="342" width="40" height="9" rx="1" fill="#9e6b36" stroke="#21150c" stroke-width="1.2"/>
+          <rect x="96" y="368" width="40" height="9" rx="1" fill="#9e6b36" stroke="#21150c" stroke-width="1.2"/>
+          <!-- West Staircase to 2nd Floor Guest Suites (1.8m x 4.2m = 18x42px at x=174..192, y=326..368) -->
+          <g transform="translate(174, 326)">
+            <rect x="0" y="0" width="18" height="42" fill="#d9c8a9" stroke="#21150c" stroke-width="1.4"/>
+            <path d="M 0 6 L 18 6 M 0 12 L 18 12 M 0 18 L 18 18 M 0 24 L 18 24 M 0 30 L 18 30 M 0 36 L 18 36" stroke="#4a3319" stroke-width="1"/>
+            <path d="M 9 38 L 9 6 L 5 11 M 9 6 L 13 11" fill="none" stroke="#8a241b" stroke-width="1.4"/>
+          </g>
+          <text class="halo" x="140" y="400" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle">I.4 Kestityssali ja vierastupa</text>
+          <text class="halo" x="140" y="412" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">Saattuepöydät &amp; ▲ porras 2. krs</text>
+
+          <!-- I.5 Jäähyväisnäyttämö ja Vainajahissi (12m x 12m, x=200..320, y=320..440) -->
+          <!-- Ekklesia Farewell Stage: Spotlight Halo + Semi-Circular Stepped Seating + Eulogy Camera Pillar + Vainajahissi -->
+          <circle cx="268" cy="374" r="28" fill="url(#spotlightGlow)" stroke="#d99f2b" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <!-- Curved Mourners' Amphitheater Benches facing the Bier Stage -->
+          <path d="M 224 348 A 30 30 0 0 0 224 400" fill="none" stroke="#734b24" stroke-width="5"/>
+          <path d="M 214 342 A 38 38 0 0 0 214 406" fill="none" stroke="#734b24" stroke-width="5"/>
+          <!-- Central Illuminated Farewell Bier & Corpse Elevator Shaft (Vainajahissi: 2.4m x 1.6m = 24x16px) -->
+          <rect x="252" y="360" width="34" height="28" fill="#f5cf67" stroke="#21150c" stroke-width="1.4"/>
+          <rect x="257" y="366" width="24" height="16" fill="#302114" stroke="#8a241b" stroke-width="1.8"/>
+          <line x1="257" y1="366" x2="281" y2="382" stroke="#f5cf67" stroke-width="1.2"/>
+          <line x1="281" y1="366" x2="257" y2="382" stroke="#f5cf67" stroke-width="1.2"/>
+          <!-- Eulogy Recording Lens & Golden Reflectors -->
+          <circle cx="242" cy="374" r="3.5" fill="#21150c" stroke="#f5cf67" stroke-width="1"/>
+          <circle cx="294" cy="356" r="3.5" fill="#f5cf67" stroke="#21150c" stroke-width="0.9"/>
+          <circle cx="294" cy="392" r="3.5" fill="#f5cf67" stroke="#21150c" stroke-width="0.9"/>
+          <text class="halo" x="260" y="338" font-family="Georgia, serif" font-size="8.6" font-weight="bold" fill="#1c1208" text-anchor="middle">I.5 Jäähyväisnäyttämö</text>
+          <text class="halo" x="260" y="414" font-family="Georgia, serif" font-size="7.2" font-weight="bold" fill="#6e1810" text-anchor="middle">▼ Vainajahissi kellariin</text>
+          <text class="halo" x="260" y="425" font-family="Georgia, serif" font-size="6.6" font-style="italic" fill="#1c1208" text-anchor="middle">(Valokeilapaari &amp; muistotallennus)</text>
+
+          <!-- =================================================================== -->
+          <!-- 3. ZONE II: SUURI VALOKEILAPYHÄKKÖ, 6 TUNNUSTUSKEHÄÄ & KUORIKATSOMO -->
+          <!-- =================================================================== -->
+          <!-- II.2 Suuri Valokeilapyhäkkö (30m x 18m, x=320..620, y=140..320) -->
+          <!-- 6 Public Spotlight Confession Stages (6 Julkista Tunnustuskehää: each Ø 2.4m = 24px) along North Gallery! -->
+          <!-- In Ekklesia, confession is a visible, Spotlit Performance before witnesses & lenses, never hidden in a closet! -->
+          <g>
+            <!-- Stage 1 (cx=355, cy=162) -->
+            <circle cx="355" cy="162" r="13" fill="url(#spotlightGlow)" stroke="#c98a1e" stroke-width="1.4"/>
+            <path d="M 341 166 A 14 14 0 0 0 369 166" fill="none" stroke="#734b24" stroke-width="3.5"/>
+            <circle cx="355" cy="158" r="4" fill="#d99f2b" stroke="#21150c" stroke-width="1"/>
+            <!-- Stage 2 (cx=395, cy=162) -->
+            <circle cx="395" cy="162" r="13" fill="url(#spotlightGlow)" stroke="#c98a1e" stroke-width="1.4"/>
+            <path d="M 381 166 A 14 14 0 0 0 409 166" fill="none" stroke="#734b24" stroke-width="3.5"/>
+            <circle cx="395" cy="158" r="4" fill="#d99f2b" stroke="#21150c" stroke-width="1"/>
+            <!-- Stage 3 (cx=435, cy=162) -->
+            <circle cx="435" cy="162" r="13" fill="url(#spotlightGlow)" stroke="#c98a1e" stroke-width="1.4"/>
+            <path d="M 421 166 A 14 14 0 0 0 449 166" fill="none" stroke="#734b24" stroke-width="3.5"/>
+            <circle cx="435" cy="158" r="4" fill="#d99f2b" stroke="#21150c" stroke-width="1"/>
+            <!-- Stage 4 (cx=475, cy=162) -->
+            <circle cx="475" cy="162" r="13" fill="url(#spotlightGlow)" stroke="#c98a1e" stroke-width="1.4"/>
+            <path d="M 461 166 A 14 14 0 0 0 489 166" fill="none" stroke="#734b24" stroke-width="3.5"/>
+            <circle cx="475" cy="158" r="4" fill="#d99f2b" stroke="#21150c" stroke-width="1"/>
+            <!-- Stage 5 (cx=515, cy=162) -->
+            <circle cx="515" cy="162" r="13" fill="url(#spotlightGlow)" stroke="#c98a1e" stroke-width="1.4"/>
+            <path d="M 501 166 A 14 14 0 0 0 529 166" fill="none" stroke="#734b24" stroke-width="3.5"/>
+            <circle cx="515" cy="158" r="4" fill="#d99f2b" stroke="#21150c" stroke-width="1"/>
+            <!-- Stage 6 (cx=555, cy=162) -->
+            <circle cx="555" cy="162" r="13" fill="url(#spotlightGlow)" stroke="#c98a1e" stroke-width="1.4"/>
+            <path d="M 541 166 A 14 14 0 0 0 569 166" fill="none" stroke="#734b24" stroke-width="3.5"/>
+            <circle cx="555" cy="158" r="4" fill="#d99f2b" stroke="#21150c" stroke-width="1"/>
+          </g>
+          <text class="halo" x="470" y="186" font-family="Georgia, serif" font-size="6.8" font-weight="bold" fill="#6e1810" text-anchor="middle">▲ 6 julkista Tunnustuskehää (valokeilat, todistajapenkit &amp; linssit · Ø 2,4 m)</text>
+
+          <!-- Central Processional Spotlight Catwalk & Camera Dolly Track (Kuvaus- ja kulkueväylä) -->
+          <rect x="330" y="222" width="290" height="16" fill="#f5e3b8" stroke="#c98a1e" stroke-width="1.2"/>
+          <line x1="335" y1="230" x2="615" y2="230" stroke="#8a5a19" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+          <!-- Two Arcade Rows of Nave Columns with Golden Halo Sconces (0.8m diameter = r=4.5px) -->
+          <g fill="#2b1d11" stroke="#f5cf67" stroke-width="1.2">
+            <circle cx="370" cy="200" r="4.5"/><circle cx="430" cy="200" r="4.5"/><circle cx="490" cy="200" r="4.5"/><circle cx="550" cy="200" r="4.5"/><circle cx="605" cy="200" r="4.5"/>
+            <circle cx="370" cy="272" r="4.5"/><circle cx="430" cy="272" r="4.5"/><circle cx="490" cy="272" r="4.5"/><circle cx="550" cy="272" r="4.5"/><circle cx="605" cy="272" r="4.5"/>
+          </g>
+
+          <!-- Angled Audience / Mourner Benches flanking the Processional Catwalk -->
+          <g fill="#8c6239" stroke="#21150c" stroke-width="0.9">
+            <rect x="342" y="200" width="5" height="18"/><rect x="354" y="200" width="5" height="18"/><rect x="380" y="200" width="5" height="18"/><rect x="392" y="200" width="5" height="18"/><rect x="404" y="200" width="5" height="18"/>
+            <rect x="342" y="242" width="5" height="22"/><rect x="354" y="242" width="5" height="22"/><rect x="380" y="242" width="5" height="22"/><rect x="392" y="242" width="5" height="22"/><rect x="404" y="242" width="5" height="22"/>
+          </g>
+
+          <text class="halo" x="505" y="226" font-family="Georgia, serif" font-size="11.2" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="0.8">II.2 SUURI VALOKEILAPYHÄKKÖ</text>
+          <text class="halo" x="505" y="240" font-family="Georgia, serif" font-size="7.8" font-style="italic" fill="#1c1208" text-anchor="middle">Kuvausväylä, katsomolaiva ja julkiset tunnustuskehät (30 × 18 m)</text>
+
+          <!-- Open Stage Arch Pillars at x=620 -->
+          <rect x="617" y="140" width="6" height="36" fill="#593a1e"/>
+          <rect x="617" y="284" width="6" height="36" fill="#593a1e"/>
+
+          <!-- II.3 Katumusnäyttämö ja 40 munkin Kuorikatsomo (19m x 18m, x=620..810, y=140..320) -->
+          <!-- Giant Golden Spotlight Circle over the High Penance Stage -->
+          <circle cx="755" cy="226" r="46" fill="url(#spotlightGlow)" stroke="#c98a1e" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <!-- Semi-Circular Stepped Amphitheater Choir Seating for 40 Monks (Kuorikatsomo: 2 curved tiers around the stage!) -->
+          <path d="M 640 162 Q 720 145 792 165" fill="none" stroke="#734822" stroke-width="7"/>
+          <path d="M 640 174 Q 716 159 784 176" fill="none" stroke="#8c5828" stroke-width="6"/>
+          <path d="M 640 294 Q 720 311 792 291" fill="none" stroke="#734822" stroke-width="7"/>
+          <path d="M 640 282 Q 716 297 784 280" fill="none" stroke="#8c5828" stroke-width="6"/>
+
+          <!-- Raised Golden Penance Stage, Pillar of St. Debt-Flagellant & Parabolic Mirror Reflectors -->
+          <circle cx="766" cy="226" r="22" fill="#f5e1b0" stroke="#21150c" stroke-width="1.6"/>
+          <rect x="758" y="210" width="16" height="32" rx="2" fill="#d99f2b" stroke="#21150c" stroke-width="1.6"/>
+          <circle cx="766" cy="226" r="5" fill="#6e1810" stroke="#fbf5e8" stroke-width="1"/>
+          <!-- 4 Parabolic Golden Mirror Shields & 2 Broadcast Camera Pillars -->
+          <circle cx="792" cy="202" r="4" fill="#f5cf67" stroke="#21150c" stroke-width="1"/>
+          <circle cx="792" cy="250" r="4" fill="#f5cf67" stroke="#21150c" stroke-width="1"/>
+          <circle cx="732" cy="202" r="3.5" fill="#21150c" stroke="#f5cf67" stroke-width="1"/>
+          <circle cx="732" cy="250" r="3.5" fill="#21150c" stroke="#f5cf67" stroke-width="1"/>
+
+          <!-- Night Stair to 2nd Floor Makuusali (Yöporras: 1.8m x 4.2m = 18x42px at x=735..777, y=296..314) -->
+          <g transform="translate(735, 296)">
+            <rect x="0" y="0" width="42" height="18" fill="#d9c8a9" stroke="#21150c" stroke-width="1.4"/>
+            <path d="M 6 0 L 6 18 M 12 0 L 12 18 M 18 0 L 18 18 M 24 0 L 24 18 M 30 0 L 30 18 M 36 0 L 36 18" stroke="#4a3319" stroke-width="1"/>
+            <path d="M 6 9 L 36 9 L 31 5 M 36 9 L 31 13" fill="none" stroke="#8a241b" stroke-width="1.4"/>
+          </g>
+          <text class="halo" x="688" y="222" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#1c1208" text-anchor="middle">II.3 KUORIKATSOMO</text>
+          <text class="halo" x="688" y="235" font-family="Georgia, serif" font-size="7.5" font-weight="bold" fill="#6e1810" text-anchor="middle">&amp; KATUMUSNÄYTTÄMÖ</text>
+          <text class="halo" x="688" y="247" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">40 munkin katsomo &amp; Piinapylväs</text>
+          <text class="halo" x="756" y="290" font-family="Georgia, serif" font-size="7.2" font-weight="bold" fill="#6e1810" text-anchor="middle">▲ Yöporras (2. krs)</text>
+
+          <!-- II.4 Puvusto, valorekvisiitta ja pyhäinjäännösholvi (9m x 18m, x=810..900, y=140..320) -->
+          <!-- North Relic Vault (Pyhäinjäännösholvi: 9m x 6m, y=140..200) -->
+          <rect x="818" y="148" width="74" height="8" fill="#6e4924" stroke="#21150c" stroke-width="1.1"/>
+          <rect x="842" y="164" width="24" height="14" fill="#d99f2b" stroke="#21150c" stroke-width="1.2"/>
+          <text class="halo" x="855" y="192" font-family="Georgia, serif" font-size="7" font-weight="bold" fill="#1c1208" text-anchor="middle">Pyhäinjäännösholvi</text>
+          <!-- South Costume & Lighting Prop Room (y=200..320) -->
+          <rect x="818" y="212" width="10" height="68" fill="#8c5828" stroke="#21150c" stroke-width="1.1"/>
+          <rect x="856" y="224" width="28" height="12" fill="#9e6b36" stroke="#21150c" stroke-width="1.1"/>
+          <text class="halo" x="855" y="262" font-family="Georgia, serif" font-size="8.4" font-weight="bold" fill="#1c1208" text-anchor="middle">II.4 Puvusto</text>
+          <text class="halo" x="855" y="274" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">&amp; valorekvisiitta (9 × 12 m)</text>
+
+          <!-- =================================================================== -->
+          <!-- 4. ZONE III: SULJETTU VELJESPIIRI — KUVAUSPIHA, KATSELMUSSALI & RUOKASALI -->
+          <!-- =================================================================== -->
+          <!-- III.1 Kuvaus- ja yrttipiha (37m x 25m, x=355..725, y=355..605) -->
+          <rect x="355" y="466" width="370" height="28" fill="#dfd1b4"/>
+          <rect x="526" y="355" width="28" height="250" fill="#dfd1b4"/>
+          <rect x="508" y="448" width="64" height="64" rx="4" fill="#dfd1b4"/>
+
+          <!-- 4 Herb Quadrants -->
+          <rect x="366" y="366" width="152" height="92" rx="2" fill="url(#herbRows)" stroke="#3d5222" stroke-width="1.4"/>
+          <rect x="562" y="366" width="152" height="92" rx="2" fill="url(#herbRows)" stroke="#3d5222" stroke-width="1.4"/>
+          <rect x="366" y="502" width="152" height="92" rx="2" fill="url(#herbRows)" stroke="#3d5222" stroke-width="1.4"/>
+          <rect x="562" y="502" width="152" height="92" rx="2" fill="url(#herbRows)" stroke="#3d5222" stroke-width="1.4"/>
+
+          <!-- Crisp Parchment Plaques on the 4 Herb Quadrants (Fixing the white-on-white issue completely!) -->
+          <rect x="378" y="400" width="128" height="20" rx="2.5" fill="#fbf5e8" fill-opacity="0.94" stroke="#362514" stroke-width="1"/>
+          <text x="442" y="414" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle">1. Keittiö- ja liemiyrtit</text>
+
+          <rect x="574" y="400" width="128" height="20" rx="2.5" fill="#fbf5e8" fill-opacity="0.94" stroke="#362514" stroke-width="1"/>
+          <text x="638" y="414" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle">2. Nukutus- ja kipuyrtit</text>
+
+          <rect x="374" y="534" width="136" height="20" rx="2.5" fill="#fbf5e8" fill-opacity="0.94" stroke="#362514" stroke-width="1"/>
+          <text x="442" y="548" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle">3. Suitsuke- ja uhrinkasvit</text>
+
+          <rect x="574" y="534" width="128" height="20" rx="2.5" fill="#fbf5e8" fill-opacity="0.94" stroke="#362514" stroke-width="1"/>
+          <text x="638" y="548" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle">4. Värjäys- ja rohtokasvit</text>
+
+          <!-- Central Courtyard Well & Pastoral Filming Tripod Markers -->
+          <circle cx="540" cy="480" r="18" fill="#b8a686" stroke="#21150c" stroke-width="2"/>
+          <circle cx="540" cy="480" r="11" fill="#4a7a8c" stroke="#21150c" stroke-width="1.4"/>
+          <circle cx="502" cy="454" r="3.5" fill="#f5cf67" stroke="#21150c" stroke-width="0.9"/>
+          <circle cx="578" cy="454" r="3.5" fill="#f5cf67" stroke="#21150c" stroke-width="0.9"/>
+
+          <!-- Pesulähde (Fountain Pavilion for 40 Monks to wash hands before Dining Hall: Ø 3.8m = 38px at x=540, y=596) -->
+          <path d="M 518 605 A 22 22 0 1 1 562 605 Z" fill="#e6d6b8" stroke="#21150c" stroke-width="2.2"/>
+          <circle cx="540" cy="596" r="11" fill="#6fa3b5" stroke="#21150c" stroke-width="1.4"/>
+          <circle cx="540" cy="596" r="3.5" fill="#d9cbb0" stroke="#21150c" stroke-width="1"/>
+
+          <rect x="458" y="502" width="164" height="19" rx="2.5" fill="#fbf5e8" fill-opacity="0.94" stroke="#21150c" stroke-width="1"/>
+          <text x="540" y="515" font-family="Georgia, serif" font-size="9.2" font-weight="bold" fill="#1c1208" text-anchor="middle">III.1 KUVAUS- JA YRTTIPIHA</text>
+          <rect x="482" y="560" width="116" height="15" rx="2" fill="#fbf5e8" fill-opacity="0.94" stroke="#21150c" stroke-width="0.8"/>
+          <text x="540" y="571" font-family="Georgia, serif" font-size="7.2" font-weight="bold" fill="#1c1208" text-anchor="middle">Pesulähde (käsienpesukaivo)</text>
+
+          <!-- Cloister Walk Names (Pure Finnish!) -->
+          <text class="halo" x="540" y="341" font-family="Georgia, serif" font-size="8.2" font-style="italic" fill="#1c1208" text-anchor="middle">Pohjoinen pylväskäytävä (Lukupenkit · leveys 3,5 m)</text>
+          <text class="halo" x="540" y="626" font-family="Georgia, serif" font-size="8.2" font-style="italic" fill="#1c1208" text-anchor="middle">Eteläinen pylväskäytävä (Suuren hiljaisuuden käytävä · leveys 3,5 m)</text>
+          <text class="halo" x="338" y="480" font-family="Georgia, serif" font-size="8" font-style="italic" fill="#1c1208" text-anchor="middle" transform="rotate(-90, 338, 480)">Läntinen pylväskäytävä</text>
+          <text class="halo" x="742" y="480" font-family="Georgia, serif" font-size="8" font-style="italic" fill="#1c1208" text-anchor="middle" transform="rotate(90, 742, 480)">Itäinen pylväskäytävä</text>
+
+          <!-- III.2 Katselmus- ja katumussali (14m x 12m, x=760..900, y=320..440) -->
+          <!-- Ekklesia Daily Review & Public Self-Criticism Hall: Semi-circular amphitheater benches facing Spotlight Circle & Metrics Board! -->
+          <circle cx="852" cy="380" r="18" fill="url(#spotlightGlow)" stroke="#c98a1e" stroke-width="1.3"/>
+          <circle cx="852" cy="380" r="4.5" fill="#d99f2b" stroke="#21150c" stroke-width="1"/>
+          <path d="M 812 336 A 46 46 0 0 0 812 424" fill="none" stroke="#8c5828" stroke-width="6"/>
+          <path d="M 796 332 A 54 54 0 0 0 796 428" fill="none" stroke="#734822" stroke-width="6"/>
+          <!-- Illuminated Metrics & Penance Board on East Wall (Suosio- ja nuhtelutaulu) -->
+          <rect x="888" y="346" width="6" height="68" fill="#f5cf67" stroke="#21150c" stroke-width="1.2"/>
+          <rect x="768" y="352" width="114" height="45" rx="2.5" fill="#fbf5e8" fill-opacity="0.92" stroke="#4a3319" stroke-width="0.8"/>
+          <text x="825" y="366" font-family="Georgia, serif" font-size="8.6" font-weight="bold" fill="#1c1208" text-anchor="middle">III.2 Katselmus- ja</text>
+          <text x="825" y="378" font-family="Georgia, serif" font-size="8.6" font-weight="bold" fill="#1c1208" text-anchor="middle">katumussali</text>
+          <text x="825" y="391" font-family="Georgia, serif" font-size="6.6" font-style="italic" fill="#1c1208" text-anchor="middle">Suosiotaulu &amp; ripityskehä</text>
+
+          <!-- III.3 Kohtaamishuone & Itäportti (14m x 5.5m, x=760..900, y=440..495) -->
+          <rect x="776" y="446" width="96" height="6" fill="#8c6239" stroke="#21150c" stroke-width="1"/>
+          <rect x="776" y="483" width="96" height="6" fill="#8c6239" stroke="#21150c" stroke-width="1"/>
+          <text class="halo" x="830" y="467" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle">III.3 Kohtaamishuone</text>
+          <text class="halo" x="830" y="479" font-family="Georgia, serif" font-size="6.6" font-style="italic" fill="#1c1208" text-anchor="middle">Puhehuone &amp; portti talouspihalle</text>
+
+          <!-- III.4 Kellarinporras, Multakuilu & Itäporras (14m x 7m, x=760..900, y=495..565) -->
+          <g transform="translate(790, 520)">
+            <circle cx="0" cy="0" r="15" fill="#2b1d11"/>
+            <circle cx="0" cy="0" r="13" fill="#f5ecda" stroke="#21150c" stroke-width="1.2"/>
+            <path d="M -13 0 L 13 0 M 0 -13 L 0 13 M -9 -9 L 9 9 M -9 9 L 9 -9" stroke="#593d1e" stroke-width="0.9"/>
+            <circle cx="0" cy="0" r="3" fill="#4a3319"/>
+          </g>
+          <rect x="816" y="506" width="20" height="20" fill="#302114" stroke="#21150c" stroke-width="1.5"/>
+          <line x1="816" y1="506" x2="836" y2="526" stroke="#c99e67" stroke-width="1.2"/>
+          <line x1="836" y1="506" x2="816" y2="526" stroke="#c99e67" stroke-width="1.2"/>
+          <g transform="translate(846, 506)">
+            <rect x="0" y="0" width="42" height="18" fill="#d9c8a9" stroke="#21150c" stroke-width="1.4"/>
+            <path d="M 6 0 L 6 18 M 12 0 L 12 18 M 18 0 L 18 18 M 24 0 L 24 18 M 30 0 L 30 18 M 36 0 L 36 18" stroke="#4a3319" stroke-width="1"/>
+            <path d="M 6 9 L 36 9 L 31 5 M 36 9 L 31 13" fill="none" stroke="#8a241b" stroke-width="1.4"/>
+          </g>
+          <text class="halo" x="832" y="554" font-family="Georgia, serif" font-size="7.2" font-weight="bold" fill="#1c1208" text-anchor="middle">III.4 ▼ Kellariin · Kuilu · ▲ 2. krs</text>
+
+          <!-- III.5 Lämmittelytupa (14m x 7.5m, x=760..900, y=565..640) -->
+          <rect x="768" y="592" width="22" height="16" rx="2" fill="#7a3317" stroke="#21150c" stroke-width="1.4"/>
+          <circle cx="779" cy="600" r="4.5" fill="#e67e22"/>
+          <rect x="802" y="574" width="68" height="6" fill="#8c6239" stroke="#21150c" stroke-width="1"/>
+          <rect x="802" y="624" width="68" height="6" fill="#8c6239" stroke="#21150c" stroke-width="1"/>
+          <text class="halo" x="838" y="602" font-family="Georgia, serif" font-size="8.6" font-weight="bold" fill="#1c1208" text-anchor="middle">III.5 Lämmittelytupa</text>
+          <text class="halo" x="838" y="614" font-family="Georgia, serif" font-size="7" font-style="italic" fill="#1c1208" text-anchor="middle">Luuhiilikamiina &amp; penkit</text>
+
+          <!-- III.10 Käymälät ja pesutupa (9m x 8.5m, x=900..990, y=495..580) -->
+          <g fill="#d9cbb0" stroke="#21150c" stroke-width="0.9">
+            <rect x="906" y="501" width="10" height="13"/><rect x="916" y="501" width="10" height="13"/>
+            <rect x="926" y="501" width="10" height="13"/><rect x="936" y="501" width="10" height="13"/>
+            <rect x="946" y="501" width="10" height="13"/><rect x="956" y="501" width="10" height="13"/>
+            <rect x="966" y="501" width="10" height="13"/><rect x="976" y="501" width="10" height="13"/>
+          </g>
+          <rect x="914" y="562" width="60" height="10" fill="#8ca8b3" stroke="#21150c" stroke-width="1.1"/>
+          <text class="halo" x="945" y="536" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#1c1208" text-anchor="middle">III.10 Käymälät</text>
+          <text class="halo" x="945" y="548" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">&amp; pesutupa (9 × 8,5 m)</text>
+
+          <!-- III.6 Suuri ruokasali (30m x 20m, x=460..760, y=640..840) -->
+          <!-- Raised East Dais (Koroke: 5m x 19m, x=708..756, y=645..835) -->
+          <rect x="708" y="645" width="48" height="190" fill="#e3d2b4" stroke="#593d1e" stroke-width="1.5"/>
+          <!-- High Table (Vanhimpien korokepöytä: 1.1m x 11.0m = 11x110px at x=724, y=685..795) -->
+          <rect x="724" y="685" width="11" height="110" rx="1.5" fill="#8c4a27" stroke="#21150c" stroke-width="1.5"/>
+          <g fill="#593018" stroke="#21150c" stroke-width="0.8">
+            <rect x="738" y="692" width="4.5" height="6"/><rect x="738" y="704" width="4.5" height="6"/>
+            <rect x="738" y="716" width="4.5" height="6"/><rect x="738" y="728" width="4.5" height="6"/>
+            <rect x="738" y="740" width="4.5" height="8"/><rect x="738" y="754" width="4.5" height="6"/>
+            <rect x="738" y="766" width="4.5" height="6"/><rect x="738" y="778" width="4.5" height="6"/>
+            <rect x="727" y="678" width="5" height="4.5"/><rect x="727" y="798" width="5" height="4.5"/>
+          </g>
+
+          <!-- 4 Central Vault Columns dividing Dining Hall into Two Aisles (r=4.5px = Ø 0.9m) -->
+          <g fill="#2b1d11" stroke="#f7efe0" stroke-width="1">
+            <circle cx="515" cy="740" r="4.5"/><circle cx="575" cy="740" r="4.5"/><circle cx="635" cy="740" r="4.5"/><circle cx="690" cy="740" r="4.5"/>
+          </g>
+
+          <!-- 4 Long Dining Tables for 40 Monks (each 0.95m x 8.0m = 9.5x80px, 10 monks per table!) -->
+          <g fill="#9e6b36" stroke="#21150c" stroke-width="1.3">
+            <rect x="485" y="668" width="80" height="9.5" rx="1"/>
+            <rect x="487" y="662" width="76" height="3.5" fill="#734b24"/>
+            <rect x="487" y="680" width="76" height="3.5" fill="#734b24"/>
+
+            <rect x="595" y="668" width="80" height="9.5" rx="1"/>
+            <rect x="597" y="662" width="76" height="3.5" fill="#734b24"/>
+            <rect x="597" y="680" width="76" height="3.5" fill="#734b24"/>
+
+            <rect x="485" y="796" width="80" height="9.5" rx="1"/>
+            <rect x="487" y="790" width="76" height="3.5" fill="#734b24"/>
+            <rect x="487" y="808" width="76" height="3.5" fill="#734b24"/>
+
+            <rect x="595" y="796" width="80" height="9.5" rx="1"/>
+            <rect x="597" y="790" width="76" height="3.5" fill="#734b24"/>
+            <rect x="597" y="808" width="76" height="3.5" fill="#734b24"/>
+          </g>
+
+          <!-- South Wall Spotlit Sermon & Reading Pulpit (Valaistu saarna- ja lukukoroke: 2.2m x 1.2m = 22x12px at x=570, y=823) -->
+          <circle cx="580" cy="825" r="14" fill="url(#spotlightGlow)"/>
+          <rect x="569" y="823" width="22" height="12" fill="#d99f2b" stroke="#21150c" stroke-width="1.3"/>
+          <rect x="574" y="825" width="12" height="7" fill="#fcf6e8" stroke="#21150c" stroke-width="0.8"/>
+
+          <text class="halo" x="588" y="718" font-family="Georgia, serif" font-size="10.2" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="0.8">III.6 SUURI RUOKASALI (30 × 20 m)</text>
+          <text class="halo" x="588" y="732" font-family="Georgia, serif" font-size="7.8" font-style="italic" fill="#1c1208" text-anchor="middle">4 pitkää pöytää (40 paikkaa · Verikoiran komentopaikka)</text>
+          <text class="halo" x="588" y="772" font-family="Georgia, serif" font-size="7.4" font-style="italic" fill="#6e1810" text-anchor="middle">▼ Valaistu saarna- ja lukukoroke etelämuurissa</text>
+          <text class="halo" x="716" y="740" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#1c1208" text-anchor="middle" transform="rotate(-90, 716, 740)">Luostarin vanhimpien korokepöytä</text>
+
+          <!-- III.7 Kestityskammio / Pieni ruokatupa (7m x 9m, x=390..460, y=640..730) -->
+          <rect x="419" y="662" width="10" height="36" rx="1" fill="#9e6b36" stroke="#21150c" stroke-width="1.2"/>
+          <text class="halo" x="425" y="710" font-family="Georgia, serif" font-size="6.8" font-weight="bold" fill="#1c1208" text-anchor="middle">III.7 Kestityskammio</text>
+          <text class="halo" x="425" y="721" font-family="Georgia, serif" font-size="6" font-style="italic" fill="#1c1208" text-anchor="middle">Pieni ruokatupa</text>
+
+          <!-- =================================================================== -->
+          <!-- 5. ZONE IV (1. KRS): NÄYTÖSKEITTIÖ JA LEIVONTASTUDIO (x=390..460)   -->
+          <!-- =================================================================== -->
+          <!-- IV.1 Näytöskeittiö ja leivontastudio (7m x 11m, x=390..460, y=730..840) -->
+          <circle cx="425" cy="770" r="24" fill="url(#spotlightGlow)"/>
+          <rect x="396" y="756" width="10" height="28" fill="#8c4427" stroke="#21150c" stroke-width="1.2"/>
+          <rect x="418" y="756" width="10" height="28" rx="1" fill="#b8874d" stroke="#21150c" stroke-width="1.3"/>
+          <!-- Tripod Camera & 2 Glowing Ring Lights aimed at the Show Table -->
+          <circle cx="445" cy="756" r="4" fill="#f5cf67" stroke="#21150c" stroke-width="1"/>
+          <circle cx="445" cy="784" r="4" fill="#f5cf67" stroke="#21150c" stroke-width="1"/>
+          <circle cx="448" cy="770" r="3" fill="#2b2623" stroke="#fff" stroke-width="0.6"/>
+          <line x1="448" y1="770" x2="430" y2="763" stroke="#d99f2b" stroke-width="0.9" stroke-dasharray="2,2"/>
+          <line x1="448" y1="770" x2="430" y2="777" stroke="#d99f2b" stroke-width="0.9" stroke-dasharray="2,2"/>
+          <text class="halo" x="425" y="808" font-family="Georgia, serif" font-size="6.4" font-weight="bold" fill="#6e1810" text-anchor="middle">IV.1 Näytöskeittiö</text>
+          <text class="halo" x="425" y="818" font-family="Georgia, serif" font-size="5.6" font-style="italic" fill="#1c1208" text-anchor="middle">Leivontastudio (7 × 11 m)</text>
+
+          <!-- =================================================================== -->
+          <!-- 6. ZONE V: TUOTANTOPAJAT & VÄLSKÄRIN SAIRASTUPA                     -->
+          <!-- =================================================================== -->
+          <!-- V.3 Panimo, simahuone ja säilöntäkeittiö (12m x 12m, x=80..200, y=440..560) -->
+          <circle cx="102" cy="462" r="8" fill="#c97a38" stroke="#21150c" stroke-width="1.3"/>
+          <circle cx="124" cy="462" r="8" fill="#c97a38" stroke="#21150c" stroke-width="1.3"/>
+          <circle cx="154" cy="462" r="8" fill="#8c6239" stroke="#21150c" stroke-width="1.2"/>
+          <circle cx="176" cy="462" r="8" fill="#8c6239" stroke="#21150c" stroke-width="1.2"/>
+          <rect x="94" y="528" width="52" height="9" fill="#9e6b36" stroke="#21150c" stroke-width="1.1"/>
+          <text class="halo" x="140" y="496" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">V.3 Panimo, simahuone</text>
+          <text class="halo" x="140" y="508" font-family="Georgia, serif" font-size="7.5" font-style="italic" fill="#1c1208" text-anchor="middle">ja säilöntäkeittiö (12 × 12 m)</text>
+
+          <!-- V.2 Mylly ja vilja-aitta (12m x 12m, x=200..320, y=440..560) -->
+          <circle cx="232" cy="472" r="11" fill="#b5a486" stroke="#21150c" stroke-width="1.5"/>
+          <circle cx="232" cy="472" r="3" fill="#2b1d11"/>
+          <rect x="264" y="450" width="20" height="20" fill="#d9be72" stroke="#21150c" stroke-width="1.1"/>
+          <rect x="288" y="450" width="20" height="20" fill="#cfb063" stroke="#21150c" stroke-width="1.1"/>
+          <rect x="264" y="474" width="20" height="20" fill="#d9be72" stroke="#21150c" stroke-width="1.1"/>
+          <rect x="288" y="474" width="20" height="20" fill="#cfb063" stroke="#21150c" stroke-width="1.1"/>
+          <text class="halo" x="260" y="518" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">V.2 Mylly ja vilja-aitta</text>
+          <text class="halo" x="260" y="530" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">Jauhomylly ja viljalaarit</text>
+
+          <!-- V.5 Kynttilävalimo, saippuapaja ja pesula (12m x 12m, x=80..200, y=560..680) -->
+          <circle cx="102" cy="582" r="7" fill="#d9a838" stroke="#21150c" stroke-width="1.2"/>
+          <circle cx="122" cy="582" r="7" fill="#c7b897" stroke="#21150c" stroke-width="1.2"/>
+          <circle cx="152" cy="582" r="7" fill="#7eb0c2" stroke="#21150c" stroke-width="1.2"/>
+          <circle cx="172" cy="582" r="7" fill="#7eb0c2" stroke="#21150c" stroke-width="1.2"/>
+          <rect x="96" y="650" width="54" height="9" fill="#9e6b36" stroke="#21150c" stroke-width="1.1"/>
+          <text class="halo" x="140" y="616" font-family="Georgia, serif" font-size="8.5" font-weight="bold" fill="#1c1208" text-anchor="middle">V.5 Kynttilävalimo,</text>
+          <text class="halo" x="140" y="628" font-family="Georgia, serif" font-size="8.5" font-weight="bold" fill="#1c1208" text-anchor="middle">saippuapaja ja pesula</text>
+          <text class="halo" x="140" y="640" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(Mehiläisvaha &amp; lipeäsaippua)</text>
+
+          <!-- V.4a Ruokakomero ja suolaamo (12m x 12m, x=200..320, y=560..680) -->
+          <rect x="208" y="568" width="104" height="8" fill="#8c6239" stroke="#21150c" stroke-width="1.1"/>
+          <rect x="208" y="576" width="8" height="72" fill="#8c6239" stroke="#21150c" stroke-width="1.1"/>
+          <circle cx="298" cy="592" r="6" fill="#b8986b" stroke="#21150c" stroke-width="1"/>
+          <circle cx="298" cy="608" r="6" fill="#b8986b" stroke="#21150c" stroke-width="1"/>
+          <text class="halo" x="260" y="622" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">V.4a Ruokakomero</text>
+          <text class="halo" x="260" y="634" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">ja suolauskammio (12 × 12 m)</text>
+
+          <!-- V.1 Suurleipomo ja luuhiiliuunit (16m x 16m, x=80..240, y=680..840) -->
+          <g transform="translate(88, 688)">
+            <rect x="0" y="0" width="28" height="32" rx="2" fill="#7a3317" stroke="#21150c" stroke-width="1.6"/>
+            <circle cx="14" cy="16" r="8" fill="#e67e22"/>
+            <rect x="34" y="0" width="28" height="32" rx="2" fill="#7a3317" stroke="#21150c" stroke-width="1.6"/>
+            <circle cx="48" cy="16" r="8" fill="#e67e22"/>
+          </g>
+          <rect x="195" y="680" width="45" height="40" fill="#e6d4b3" stroke="#21150c" stroke-width="2"/>
+          <circle cx="210" cy="698" r="4" fill="#d99f2b" stroke="#21150c" stroke-width="0.9"/>
+          <circle cx="224" cy="698" r="4" fill="#d99f2b" stroke="#21150c" stroke-width="0.9"/>
+          <text class="halo" x="217" y="714" font-family="Georgia, serif" font-size="6.5" font-weight="bold" fill="#1c1208" text-anchor="middle">Juurihuone</text>
+          <rect x="96" y="742" width="35" height="9" fill="#b8874d" stroke="#21150c" stroke-width="1.2"/>
+          <rect x="145" y="742" width="35" height="9" fill="#b8874d" stroke="#21150c" stroke-width="1.2"/>
+          <text class="halo" x="160" y="786" font-family="Georgia, serif" font-size="9.5" font-weight="bold" fill="#1c1208" text-anchor="middle">V.1 Suurleipomo ja</text>
+          <text class="halo" x="160" y="799" font-family="Georgia, serif" font-size="9.5" font-weight="bold" fill="#1c1208" text-anchor="middle">luuhiiliuunit (16 × 16 m)</text>
+          <text class="halo" x="160" y="812" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">2 muurattua uunia ja hapanjuurikammio</text>
+
+          <!-- V.4b Suurkeittiö, Ruokahissi & Talousporras (15m x 16m, x=240..390, y=680..840) -->
+          <rect x="248" y="692" width="18" height="64" fill="#7a6855" stroke="#21150c" stroke-width="1.5"/>
+          <circle cx="257" cy="703" r="5" fill="#2b2623"/><circle cx="257" cy="717" r="5" fill="#2b2623"/>
+          <circle cx="257" cy="731" r="5" fill="#2b2623"/><circle cx="257" cy="745" r="5" fill="#2b2623"/>
+          <rect x="282" y="705" width="32" height="10" fill="#b8874d" stroke="#21150c" stroke-width="1.2"/>
+          <rect x="282" y="728" width="32" height="10" fill="#b8874d" stroke="#21150c" stroke-width="1.2"/>
+          <rect x="362" y="812" width="14" height="14" fill="#302114" stroke="#8a241b" stroke-width="1.5"/>
+          <line x1="362" y1="812" x2="376" y2="826" stroke="#c99e67" stroke-width="1"/>
+          <line x1="376" y1="812" x2="362" y2="826" stroke="#c99e67" stroke-width="1"/>
+          <g transform="translate(338, 686)">
+            <rect x="0" y="0" width="42" height="16" fill="#d9c8a9" stroke="#21150c" stroke-width="1.3"/>
+            <path d="M 7 0 L 7 16 M 14 0 L 14 16 M 21 0 L 21 16 M 28 0 L 28 16 M 35 0 L 35 16" stroke="#4a3319" stroke-width="0.9"/>
+          </g>
+          <text class="halo" x="315" y="775" font-family="Georgia, serif" font-size="9.5" font-weight="bold" fill="#1c1208" text-anchor="middle">V.4b Suurkeittiö</text>
+          <text class="halo" x="315" y="788" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">4 keittopataa (15 × 16 m)</text>
+          <text class="halo" x="320" y="822" font-family="Georgia, serif" font-size="7.2" font-weight="bold" fill="#6e1810" text-anchor="middle">▼ Ruokahissi kellariin</text>
+
+          <!-- V.6 Välskärin sairastupa (28m x 20m, x=760..1040, y=640..840) -->
+          <!-- V.6a Sairastuvan yrttipiha (9m x 12m, x=760..850, y=640..760) -->
+          <rect x="772" y="652" width="66" height="86" fill="#9eb374" stroke="#362514" stroke-width="1.5"/>
+          <rect x="780" y="660" width="50" height="30" fill="url(#herbRows)" stroke="#362514" stroke-width="1"/>
+          <rect x="780" y="700" width="50" height="30" fill="url(#herbRows)" stroke="#362514" stroke-width="1"/>
+          <text class="halo" x="805" y="750" font-family="Georgia, serif" font-size="7.2" font-weight="bold" fill="#1c1208" text-anchor="middle">Yrttipiha &amp; pelto-ovi</text>
+
+          <!-- V.6b Potilassali (12m x 12m, x=850..970, y=640..760) -->
+          <g fill="#ffffff" stroke="#21150c" stroke-width="1.1">
+            <rect x="862" y="648" width="9" height="20"/><rect x="862" y="660" width="9" height="8" fill="#8fa396"/>
+            <rect x="882" y="648" width="9" height="20"/><rect x="882" y="660" width="9" height="8" fill="#8fa396"/>
+            <rect x="902" y="648" width="9" height="20"/><rect x="902" y="660" width="9" height="8" fill="#8fa396"/>
+            <rect x="922" y="648" width="9" height="20"/><rect x="922" y="660" width="9" height="8" fill="#8fa396"/>
+            <rect x="942" y="648" width="9" height="20"/><rect x="942" y="660" width="9" height="8" fill="#8fa396"/>
+            <rect x="956" y="648" width="9" height="20"/><rect x="956" y="660" width="9" height="8" fill="#8fa396"/>
+          </g>
+          <text class="halo" x="910" y="704" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle">V.6 Välskärin sairastupa</text>
+          <text class="halo" x="910" y="716" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#1c1208" text-anchor="middle">Potilassali (6 vuodetta à 0,9 × 2 m)</text>
+
+          <!-- V.6c 2 Eristyskammiota (x=970..1040, y=640..700 & y=700..760) -->
+          <rect x="1012" y="650" width="20" height="9" fill="#ffffff" stroke="#21150c" stroke-width="1.1"/>
+          <rect x="1012" y="710" width="20" height="9" fill="#ffffff" stroke="#21150c" stroke-width="1.1"/>
+          <text class="halo" x="1005" y="684" font-family="Georgia, serif" font-size="7" font-weight="bold" fill="#1c1208" text-anchor="middle">Eristys 1</text>
+          <text class="halo" x="1005" y="744" font-family="Georgia, serif" font-size="7" font-weight="bold" fill="#1c1208" text-anchor="middle">Eristys 2</text>
+
+          <!-- V.6d Välskärin leikkaushuone (9m x 8m, x=760..850, y=760..840) -->
+          <rect x="795" y="782" width="20" height="9" fill="#f7f2e4" stroke="#21150c" stroke-width="1.3"/>
+          <line x1="805" y1="783.5" x2="805" y2="789.5" stroke="#8a241b" stroke-width="1.4"/>
+          <line x1="802" y1="786.5" x2="808" y2="786.5" stroke="#8a241b" stroke-width="1.4"/>
+          <text class="halo" x="805" y="814" font-family="Georgia, serif" font-size="8" font-weight="bold" fill="#1c1208" text-anchor="middle">Leikkaushuone</text>
+          <text class="halo" x="805" y="825" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(Välskäri)</text>
+
+          <!-- V.6e Rohtohuone ja yrttilabra (10m x 8m, x=850..950, y=760..840) -->
+          <rect x="858" y="826" width="84" height="6" fill="#5e7a68" stroke="#21150c" stroke-width="1"/>
+          <rect x="886" y="782" width="28" height="9" fill="#9e6b36" stroke="#21150c" stroke-width="1.1"/>
+          <text class="halo" x="900" y="808" font-family="Georgia, serif" font-size="8" font-weight="bold" fill="#1c1208" text-anchor="middle">Rohtohuone</text>
+          <text class="halo" x="900" y="819" font-family="Georgia, serif" font-size="6.8" font-style="italic" fill="#1c1208" text-anchor="middle">(Nukutusyrtit)</text>
+
+          <!-- V.6f Lähtörukoushuone (9m x 8m, x=950..1040, y=760..840) -->
+          <circle cx="1020" cy="800" r="14" fill="url(#spotlightGlow)"/>
+          <rect x="1020" y="790" width="10" height="20" fill="#d99f2b" stroke="#21150c" stroke-width="1.2"/>
+          <text class="halo" x="988" y="808" font-family="Georgia, serif" font-size="7.5" font-weight="bold" fill="#1c1208" text-anchor="middle">Lähtöpyhäkkö</text>
+          <text class="halo" x="988" y="819" font-family="Georgia, serif" font-size="6.6" font-style="italic" fill="#1c1208" text-anchor="middle">(Valokappeli)</text>
+
+          <!-- =================================================================== -->
+          <!-- 7. LOAD-BEARING WALLS (0.8m = 8px) & PARTITION WALLS (0.4m = 4px)   -->
+          <!-- =================================================================== -->
+          <g stroke="#21150c" stroke-linecap="square" fill="none">
+            <path d="M 80 100 L 170 100 M 215 100 L 320 100 L 320 140" stroke-width="8"/>
+            <path d="M 80 100 L 80 840 L 1040 840 L 1040 640 L 900 640" stroke-width="8"/>
+            <path d="M 320 140 L 900 140 L 900 458 M 900 478 L 900 640" stroke-width="8"/>
+            <path d="M 900 495 L 990 495 L 990 580 L 900 580" stroke-width="6"/>
+
+            <line x1="80" y1="160" x2="170" y2="160" stroke-width="5"/>
+            <line x1="215" y1="160" x2="320" y2="160" stroke-width="5"/>
+            <line x1="240" y1="160" x2="240" y2="320" stroke-width="6"/>
+            <line x1="80" y1="320" x2="900" y2="320" stroke-width="7"/>
+            <line x1="320" y1="140" x2="320" y2="680" stroke-width="7"/>
+            <line x1="760" y1="320" x2="760" y2="840" stroke-width="7"/>
+            <line x1="320" y1="640" x2="900" y2="640" stroke-width="7"/>
+
+            <line x1="170" y1="100" x2="170" y2="160" stroke-width="4"/>
+            <line x1="215" y1="100" x2="215" y2="160" stroke-width="4"/>
+            <line x1="265" y1="100" x2="265" y2="160" stroke-width="4"/>
+            <line x1="240" y1="240" x2="320" y2="240" stroke-width="4"/>
+            <line x1="200" y1="320" x2="200" y2="680" stroke-width="4"/>
+            <line x1="80" y1="440" x2="320" y2="440" stroke-width="5"/>
+            <line x1="80" y1="560" x2="320" y2="560" stroke-width="5"/>
+            <line x1="80" y1="680" x2="460" y2="680" stroke-width="5"/>
+            <line x1="240" y1="680" x2="240" y2="840" stroke-width="5"/>
+            <line x1="390" y1="640" x2="390" y2="840" stroke-width="5"/>
+            <line x1="460" y1="640" x2="460" y2="840" stroke-width="6"/>
+            <line x1="390" y1="730" x2="460" y2="730" stroke-width="4"/>
+            <line x1="810" y1="140" x2="810" y2="320" stroke-width="6"/>
+            <line x1="810" y1="200" x2="900" y2="200" stroke-width="4"/>
+            <line x1="760" y1="440" x2="900" y2="440" stroke-width="5"/>
+            <line x1="760" y1="495" x2="900" y2="495" stroke-width="4"/>
+            <line x1="760" y1="565" x2="900" y2="565" stroke-width="4"/>
+            <line x1="850" y1="640" x2="850" y2="840" stroke-width="4"/>
+            <line x1="970" y1="640" x2="970" y2="760" stroke-width="4"/>
+            <line x1="970" y1="700" x2="1040" y2="700" stroke-width="4"/>
+            <line x1="760" y1="760" x2="1040" y2="760" stroke-width="4"/>
+            <line x1="950" y1="760" x2="950" y2="840" stroke-width="4"/>
+          </g>
+
+          <!-- =================================================================== -->
+          <!-- 8. DOORS & OPENINGS (0.9m = 9px single, 1.8m = 18px double doors)   -->
+          <!-- =================================================================== -->
+          <g fill="#f5ecda" stroke="#8a241b" stroke-width="1.3">
+            <rect x="234" y="157" width="10" height="6"/>
+            <rect x="284" y="157" width="10" height="6"/>
+            <rect x="237" y="196" width="6" height="12"/>
+            <rect x="237" y="274" width="6" height="16"/>
+            <rect x="316" y="268" width="8" height="22"/>
+            <rect x="134" y="316" width="16" height="8"/>
+            <rect x="242" y="316" width="18" height="8"/>
+            <rect x="316" y="352" width="8" height="14"/>
+            <rect x="380" y="316" width="18" height="8"/>
+            <rect x="705" y="316" width="18" height="8"/>
+            <rect x="806" y="250" width="8" height="14"/>
+            <rect x="848" y="197" width="12" height="6"/>
+            <rect x="756" y="370" width="8" height="20"/>
+            <rect x="756" y="460" width="8" height="14"/>
+            <rect x="896" y="458" width="8" height="20"/>
+            <rect x="756" y="522" width="8" height="16"/>
+            <rect x="896" y="528" width="8" height="14"/>
+            <rect x="756" y="595" width="8" height="14"/>
+            <rect x="530" y="636" width="22" height="8"/>
+            <rect x="420" y="636" width="14" height="8"/>
+            <rect x="456" y="685" width="8" height="14"/>
+            <rect x="420" y="727" width="14" height="6"/>
+            <rect x="387" y="772" width="6" height="14"/>
+            <rect x="316" y="492" width="8" height="14"/>
+            <rect x="197" y="492" width="6" height="14"/>
+            <rect x="316" y="612" width="8" height="14"/>
+            <rect x="197" y="612" width="6" height="14"/>
+            <rect x="275" y="677" width="14" height="6"/>
+            <rect x="237" y="756" width="6" height="16"/>
+            <rect x="756" y="692" width="8" height="16"/>
+            <rect x="795" y="636" width="14" height="8"/>
+            <rect x="847" y="692" width="6" height="16"/>
+            <rect x="967" y="665" width="6" height="12"/>
+            <rect x="967" y="725" width="6" height="12"/>
+            <rect x="800" y="757" width="12" height="6"/>
+            <rect x="895" y="757" width="12" height="6"/>
+            <rect x="985" y="757" width="12" height="6"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- RIGHT: ARCHITECTURAL LEGEND & NUMBERED ROOM DIRECTORY (1. KERROS)   -->
+      <!-- =================================================================== -->
+      <div class="sidebar">
+        <div>
+          <div class="sidebar-section">
+            <div class="sidebar-title">Vyöhyke I · Julkinen näytepiiri ja vierassiipi</div>
+            <ul class="zone-list">
+              <li><span class="zone-code">I.1</span> <strong>Porttiholvi, Vartiotupa, Vankkurikatos &amp; Luuhiilivaja</strong> <span class="dim-tag">(24 × 6 m)</span> — Saattueiden kirjaus ja uunien tummien luuhiilibrikettien varasto.</li>
+              <li><span class="zone-code">I.2</span> <strong>Suosiopiha ja Valaistu lahjoitusseinä</strong> <span class="dim-tag">(16 × 16 m)</span> — Esipiha, jonka kultaisella valotaululla loistavat suurimpien lahjoittajien ja siunattujen sukujen nimet.</li>
+              <li><span class="zone-code">I.3</span> <strong>Muisto- ja siunauspuoti</strong> <span class="dim-tag">(8 × 8 m)</span> — Hunajan, leivän, vahakynttilöiden, pyhäinjäännösten ja maksettujen nimikkorukousten myyntipiste.</li>
+              <li><span class="zone-code">I.4</span> <strong>Kestityssali ja vierastupa</strong> <span class="dim-tag">(12 × 12 m)</span> — Saattueiden pitotupa ja porras 2. kerroksen vierashuoneisiin (<em>Kestitsijä</em>).</li>
+              <li><span class="zone-code">I.5</span> <strong>Jäähyväisnäyttämö ja Vainajahissi</strong> <span class="dim-tag">(12 × 12 m)</span> — Puoliympyrän katsomo, valokeilalla ja kultapeileillä kehystetty saattokoroke, muistopuhelinssi sekä lattialuukku (<em>Vainajahissi</em>, <span class="dim-tag">2,4 × 1,6 m</span>) kellariin.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Vyöhyke II · Valokeilapyhäkkö ja Katumusnäyttämö</div>
+            <ul class="zone-list">
+              <li><span class="zone-code">II.1</span> <strong>Kaapu- ja valmistautumishalli</strong> <span class="dim-tag">(8 × 8 m)</span> — 40 munkin numeroidut kaapukomerot ja kokovartalopeilit ennen valokeilaan astumista.</li>
+              <li><span class="zone-code">II.2</span> <strong>Suuri Valokeilapyhäkkö ja 6 Tunnustuskehää</strong> <span class="dim-tag">(30 × 18 m)</span> — Keskilaivan kuvausväylä ja pohjoissivun <strong>6 avointa Tunnustuskehää</strong> (<span class="dim-tag">Ø 2,4 m</span>): Ekklesiassa syntejä ei kuiskata kopissa, vaan katuja polvistuu valokeilaan todistajien ja tallennuslinssin eteen.</li>
+              <li><span class="zone-code">II.3</span> <strong>Kuorikatsomo ja Katumusnäyttämö</strong> <span class="dim-tag">(19 × 18 m)</span> — Puoliympyrän muotoinen 40 munkin katsomo kehystää korotettua <strong>Velkavankiflagelantin katumuspylvästä</strong>, kultapeilejä ja lähetyskameroita. Etelässä <strong>Yöporras</strong> 2. krs makuusaliin.</li>
+              <li><span class="zone-code">II.4</span> <strong>Puvusto, valorekvisiitta &amp; pyhäinjäännösholvi</strong> <span class="dim-tag">(9 × 18 m)</span> — Juhla-asut, sädekehäkruunut ja teräsovinen aarreholvi.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Vyöhyke III · Suljettu veljespiiri (40 munkkia)</div>
+            <ul class="zone-list">
+              <li><span class="zone-code">III.1</span> <strong>Kuvaus- ja yrttipiha, Pylväskäytävä &amp; Pesulähde</strong> <span class="dim-tag">(44 × 32 m)</span> — Holvikäytävä (<span class="dim-tag">3,5 m</span>), 4 yrttilohkoa, kuvauspisteet ja käsienpesulähde.</li>
+              <li><span class="zone-code">III.2</span> <strong>Katselmus- ja katumussali</strong> <span class="dim-tag">(14 × 12 m)</span> — Kaarikatsomo, julkisen itsearvioinnin valokeilakoroke sekä kanavan <strong>suosio- ja nuhtelutaulu</strong>.</li>
+              <li><span class="zone-code">III.3</span> <strong>Kohtaamishuone ja Itäportti</strong> <span class="dim-tag">(14 × 5,5 m)</span> — Puhe- ja haastatteluhuone sekä ovi varjotalouspihalle.</li>
+              <li><span class="zone-code">III.4</span> <strong>Kellarinporras, Multakuilu ja Itäporras</strong> <span class="dim-tag">(14 × 7 m)</span> — Kierreportaat (<span class="dim-tag">Ø 2,8 m</span>) ja tavarakuilu kellariin sekä pääporras 2. kerrokseen.</li>
+              <li><span class="zone-code">III.5</span> <strong>Lämmittelytupa</strong> <span class="dim-tag">(14 × 7,5 m)</span> — Luuhiilikamiina ja penkit.</li>
+              <li><span class="zone-code">III.6</span> <strong>Suuri ruokasali</strong> <span class="dim-tag">(30 × 20 m)</span> — 4 pitkää pöytää (40 paikkaa), valaistu saarnakoroke ja <strong>Luostarin vanhimpien korokepöytä</strong>. Verikoiran esikunta.</li>
+              <li><span class="zone-code">III.7</span> <strong>Kestityskammio</strong> <span class="dim-tag">(7 × 9 m)</span> — Pieni ruokatupa.</li>
+              <li><span class="zone-code">III.10</span> <strong>Käymälät ja pesutupa</strong> <span class="dim-tag">(9 × 8,5 m)</span> — 8 käymälää ja pesuallas.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Vyöhyke IV &amp; V · Näytöskeittiö, Pajat &amp; Sairastupa</div>
+            <ul class="zone-list">
+              <li><span class="zone-code">IV.1</span> <strong>Näytöskeittiö ja leivontastudio</strong> <span class="dim-tag">(7 × 11 m)</span> — Rengasvaloilla ja kameralla varustettu maalaismunkki-idyllin kuvauskeittiö.</li>
+              <li><span class="zone-code">V.1–5</span> <strong>Suurleipomo, Mylly, Panimo, Suurkeittiö &amp; Kynttiläpaja</strong> — 2 luuhiiliuunia, hapanjuurikammio, 4 keittopataa, ruokahissi ja saippuapaja.</li>
+              <li><span class="zone-code">V.6</span> <strong>Välskärin sairastupa</strong> <span class="dim-tag">(28 × 20 m)</span> — 6 potilasvuodetta, 2 eristyskammiota, leikkaushuone, rohtohuone, lähtörukoushuone ja yrttipiha.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Compass & True Metric Scale Bar (1 m = 10 px) -->
+        <div style="border-top: 1.5px solid #4a3319; padding-top: 1.6mm;">
+          <svg viewBox="0 0 360 66" style="width: 100%; height: 17mm;">
+            <g transform="translate(36, 33)">
+              <circle cx="0" cy="0" r="23" fill="#fcf6e8" stroke="#2b1d11" stroke-width="1.4"/>
+              <polygon points="0,-19 4.5,-4 0,-7 -4.5,-4" fill="#8a241b"/>
+              <polygon points="0,19 3.5,4 0,7 -3.5,4" fill="#2b1d11"/>
+              <polygon points="-19,0 -4,-3.5 -7,0 -4,3.5" fill="#2b1d11"/>
+              <polygon points="19,0 4,-3.5 7,0 4,3.5" fill="#2b1d11"/>
+              <text x="0" y="-20" font-family="Georgia, serif" font-size="8" font-weight="bold" fill="#8a241b" text-anchor="middle">P</text>
+            </g>
+            <g transform="translate(82, 12)">
+              <text x="130" y="4" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="0.6">MITTAKAAVA 1 : 100 (1 m = 10 px · Tunnustuskehä = Ø 2,4 m)</text>
+              <g transform="translate(10, 12)">
+                <rect x="0" y="0" width="40" height="6" fill="#21150c" stroke="#21150c" stroke-width="1"/>
+                <rect x="40" y="0" width="40" height="6" fill="#fcf6e8" stroke="#21150c" stroke-width="1"/>
+                <rect x="80" y="0" width="80" height="6" fill="#21150c" stroke="#21150c" stroke-width="1"/>
+                <rect x="160" y="0" width="80" height="6" fill="#fcf6e8" stroke="#21150c" stroke-width="1"/>
+                <text x="0" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">0</text>
+                <text x="40" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">5 m</text>
+                <text x="80" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">10 m</text>
+                <text x="160" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">20 m</text>
+                <text x="240" y="15" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">30 m</text>
+              </g>
+              <text x="130" y="42" font-family="Georgia, serif" font-size="7.2" font-style="italic" fill="#3d2812" text-anchor="middle">Ulkomuuri 0,8 m · Väliseinä 0,4 m · Sänky 0,9 × 2,0 m · Pylväskäytävä 3,5 m</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

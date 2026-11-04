@@ -32,7 +32,7 @@
 | **9** | **Kronos** | Vaara 9 | **Kaivanto** (Jakso 7) | **Tyrannin kello. Ajan pyhimys.** Viikatemies kellopelirinnalla. Pyörittää aikasilmukoita, venyttää sekunteja ja tuo menneisyyden haamut nykyhetkeen. | **Aikaperuuttelu & Pakotetut takaumat** (Retrospektiivinen manipulointi, ajan hallinta) | `"VAARA 9: KRONOS — AIKAVIRRAN SÄRÖT REKISTERÖITY"` |
 | **10** | `<tuntematon>` | Vaara 10 | — | *Ei vielä kohdattu Kynnyksellä.* | *Tuntematon* | `"VAARA 10: <TUNNISTAMATON> — SYKLI REAGOI"` |
 | **11** | **Logos** | Vaara 11 | **Sortuma** (Jakso 6), **Trauma** (Jakso 8) | **Ääni ilman lähdettä.** Määrittää totuuksia maailmasta sanomalla niitä. Kirjoittaa todellisuutta ja koodia uusiksi pelkällä lausutulla sanalla. | **Retconnaus & Sanelu** (*"Ei kun se meni näin"* — pelaajien havaintojen kumoaminen) | `"VAARA 11: LOGOS — ONTOLOGINEN SANELU VALMIUDESSA"` |
-| **12** | `<tuntematon>` | Vaara 12 | — | *Ei vielä kohdattu Kynnyksellä.* Korkein mahdollinen tunnistamaton vaarataso. | *Tuntematon* | `"VAARA 12: <TUNNISTAMATON> — SYKLI REAGOI"` |
+| **12** | **Primus** (`<tuntematon>`) | Vaara 12 | — | *Ei vielä kohdattu Kynnyksellä.* Korkein mahdollinen vaarataso; puhdas kosminen kauhu ja ensimmäinen prinsiippi. | *Tuntematon* | `"VAARA 12: PRIMUS — SYKLI REAGOI"` |
 
 ---
 

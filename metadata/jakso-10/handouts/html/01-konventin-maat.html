@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Pyhän Velkavankiflagelantin luostari — I: Tiluskartta ja kasvatuskupoli (A3, 1:1500)</title>
+<style>
+  @page {
+    size: A3 landscape;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    width: 420mm;
+    height: 297mm;
+    background: #f4ecda;
+    color: #1c1208;
+    font-family: "Georgia", "Times New Roman", serif;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 420mm;
+    height: 297mm;
+    padding: 7mm 8mm;
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(circle at 38% 50%, rgba(255, 249, 235, 0.55) 0%, rgba(235, 221, 192, 0.85) 100%),
+      #f2e8d2;
+  }
+  .outer-frame {
+    width: 100%;
+    height: 100%;
+    border: 2.5px solid #21150c;
+    padding: 3.5mm;
+    display: flex;
+    flex-direction: column;
+    background: #faf5e8;
+    box-shadow: inset 0 0 0 1px #6e5233;
+  }
+  /* Header Bar */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid #21150c;
+    padding-bottom: 2mm;
+    margin-bottom: 3mm;
+  }
+  .header-left {
+    font-size: 8.5pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6e1810;
+    font-weight: bold;
+  }
+  .header-center h1 {
+    font-size: 16pt;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: #1c1208;
+    font-weight: bold;
+  }
+  .header-right {
+    font-size: 8.5pt;
+    font-style: italic;
+    color: #3d2812;
+  }
+  /* Main Workspace: Left Map (298mm) + Right Legend Sidebar (94mm) */
+  .workspace {
+    display: flex;
+    flex: 1;
+    gap: 4mm;
+    min-height: 0;
+  }
+  .map-container {
+    width: 298mm;
+    height: 100%;
+    border: 2px solid #21150c;
+    background: #ded2b8;
+    position: relative;
+    overflow: hidden;
+  }
+  .sidebar {
+    flex: 1;
+    height: 100%;
+    border: 1.5px solid #21150c;
+    background: #f6eedc;
+    padding: 3.2mm 3.6mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .sidebar-section {
+    margin-bottom: 2.2mm;
+  }
+  .sidebar-title {
+    font-size: 9pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6e1810;
+    border-bottom: 1.2px solid #4a3319;
+    padding-bottom: 0.8mm;
+    margin-bottom: 1.6mm;
+  }
+  .sidebar p {
+    font-size: 7.4pt;
+    line-height: 1.28;
+    color: #1c1208;
+  }
+  .zone-list {
+    list-style: none;
+    font-size: 7.2pt;
+    line-height: 1.28;
+  }
+  .zone-list li {
+    margin-bottom: 1.1mm;
+  }
+  .zone-code {
+    font-weight: bold;
+    color: #6e1810;
+    display: inline-block;
+    min-width: 8mm;
+  }
+  .dim-tag {
+    font-family: "Courier New", monospace;
+    font-size: 6.9pt;
+    color: #3d2812;
+    font-weight: bold;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .halo {
+    stroke: none;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="outer-frame">
+    <div class="header">
+      <div class="header-left">✦ KRYPTA (19. ASEMA) · EKKLESIA · A3 TILUSKARTTA ✦</div>
+      <div class="header-center"><h1>PYHÄN VELKAVANKIFLAGELANTIN LUOSTARI</h1></div>
+      <div class="header-right">I · Kasvatuskupoli, sädekehävalot, paimenidyllin kuvauslohkot ja luostarikompleksi (1 : 1 500)</div>
+    </div>
+
+    <div class="workspace">
+      <!-- =================================================================== -->
+      <!-- LEFT: TRUE-SCALE A3 ESTATE & AGRICULTURAL DOME MAP (1120 x 1000 px) -->
+      <!-- Scale: 1 : 1 500 (1 m = 2.4 px; 420x370 m Dome; 96x80 m Abbey = 230x192 px) -->
+      <!-- =================================================================== -->
+      <div class="map-container">
+        <svg viewBox="0 0 1120 1000" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="furrowRye" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(8)">
+              <rect width="6" height="6" fill="#d9be72"/>
+              <line x1="0" y1="0" x2="6" y2="0" stroke="#b3923e" stroke-width="1.6"/>
+              <line x1="0" y1="3" x2="6" y2="3" stroke="#c7a956" stroke-width="0.9"/>
+            </pattern>
+            <pattern id="furrowBarley" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-10)">
+              <rect width="6" height="6" fill="#cfb063"/>
+              <line x1="0" y1="0" x2="6" y2="0" stroke="#a68636" stroke-width="1.5"/>
+              <line x1="0" y1="3" x2="6" y2="3" stroke="#bd9c4a" stroke-width="0.8"/>
+            </pattern>
+            <pattern id="cloverBloom" width="16" height="16" patternUnits="userSpaceOnUse">
+              <rect width="16" height="16" fill="#88a85e"/>
+              <circle cx="4" cy="4" r="1.6" fill="#d97aa8"/>
+              <circle cx="12" cy="6" r="1.4" fill="#f0d86e"/>
+              <circle cx="7" cy="12" r="1.6" fill="#d97aa8"/>
+              <circle cx="13" cy="13" r="1.2" fill="#e8b4d0"/>
+            </pattern>
+            <pattern id="blackSoil" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(4)">
+              <rect width="8" height="8" fill="#473a2e"/>
+              <line x1="0" y1="2" x2="8" y2="2" stroke="#2e241b" stroke-width="2"/>
+              <line x1="0" y1="6" x2="8" y2="6" stroke="#5e4d3e" stroke-width="1.2"/>
+            </pattern>
+            <pattern id="rootRows" width="7" height="7" patternUnits="userSpaceOnUse">
+              <rect width="7" height="7" fill="#78624a"/>
+              <line x1="0" y1="3.5" x2="7" y2="3.5" stroke="#4d7a37" stroke-width="2.4" stroke-dasharray="4,1.5"/>
+            </pattern>
+            <pattern id="siemenTrial" width="10" height="10" patternUnits="userSpaceOnUse">
+              <rect width="10" height="10" fill="#7a9c56"/>
+              <rect x="1" y="1" width="8" height="3.5" fill="#9bc26b" stroke="#48632d" stroke-width="0.6"/>
+              <rect x="1" y="5.5" width="8" height="3.5" fill="#688a43" stroke="#48632d" stroke-width="0.6"/>
+            </pattern>
+            <pattern id="pastureGrass" width="18" height="18" patternUnits="userSpaceOnUse">
+              <rect width="18" height="18" fill="#96b06d"/>
+              <path d="M 4 12 L 5 8 L 6 12 M 12 7 L 13 4 L 14 7" stroke="#5d7539" stroke-width="1" fill="none"/>
+            </pattern>
+            <pattern id="roofTile" width="5" height="5" patternUnits="userSpaceOnUse">
+              <rect width="5" height="5" fill="#8c4427"/>
+              <line x1="0" y1="2.5" x2="5" y2="2.5" stroke="#592814" stroke-width="1"/>
+            </pattern>
+            <filter id="bldgShadow" x="-10%" y="-10%" width="130%" height="130%">
+              <feDropShadow dx="2.5" dy="2.5" stdDeviation="2" flood-color="#1a1108" flood-opacity="0.38"/>
+            </filter>
+          </defs>
+
+          <!-- 1. OUTER OSSUARY BEDROCK SHELL (Outside the Agricultural Dome) -->
+          <rect x="0" y="0" width="1120" height="1000" fill="#cbbda0"/>
+          <g stroke="#b09e7e" stroke-width="1" fill="none" stroke-dasharray="8,6">
+            <ellipse cx="560" cy="500" rx="548" ry="486"/>
+            <ellipse cx="560" cy="500" rx="535" ry="474"/>
+          </g>
+          <text class="halo" x="560" y="22" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="2">▲ SAATTUEIDEN VALOKEILATIE KRYPTAN VASTAANOTTOSATAMAAN (2,5 KM) ▲</text>
+
+          <!-- 2. THE GREAT AGRICULTURAL DOME (KASVATUSKUPOLI: Rx=504 px = 210 m, Ry=444 px = 185 m -> 420 m x 370 m = 12,2 ha) -->
+          <ellipse cx="560" cy="505" rx="504" ry="444" fill="#a8bd7e" stroke="#21150c" stroke-width="5"/>
+          <ellipse cx="560" cy="505" rx="496" ry="436" fill="#b4c98a" stroke="#6e5233" stroke-width="1.5"/>
+
+          <!-- Overhead Ekklesia Golden Halo Grow-Light Rings (Kultaiset sädekehävalaisimet kupolissa) -->
+          <g stroke="#c98a1e" stroke-width="1.5" stroke-dasharray="10,7" fill="none" opacity="0.65">
+            <ellipse cx="560" cy="505" rx="420" ry="365"/>
+            <ellipse cx="560" cy="505" rx="280" ry="240"/>
+            <ellipse cx="560" cy="505" rx="140" ry="120"/>
+            <line x1="64" y1="505" x2="1056" y2="505"/>
+            <line x1="560" y1="69" x2="560" y2="941"/>
+          </g>
+
+          <!-- 3. IRRIGATION CANALS & WATER RESERVOIR (KASTELUKANAVAT JA ALLAS 16 x 16 m = 38 x 38 px) -->
+          <g stroke="#4a7a8c" stroke-width="5" fill="none">
+            <path d="M 140 308 L 395 308 L 395 860"/>
+            <path d="M 395 466 L 105 466"/>
+            <path d="M 640 466 L 970 466"/>
+          </g>
+          <g stroke="#7eb0c2" stroke-width="2" fill="none">
+            <path d="M 140 308 L 395 308 L 395 860"/>
+            <path d="M 395 466 L 105 466"/>
+            <path d="M 640 466 L 970 466"/>
+          </g>
+          <rect x="112" y="288" width="38" height="38" rx="5" fill="#4a7a8c" stroke="#21150c" stroke-width="2"/>
+          <rect x="116" y="292" width="30" height="30" rx="3" fill="#6fa3b5"/>
+          <rect x="97" y="266" width="68" height="17" rx="2.5" fill="#fbf5e8" fill-opacity="0.94" stroke="#21150c" stroke-width="0.9"/>
+          <text x="131" y="278" font-family="Georgia, serif" font-size="8.5" font-weight="bold" fill="#1c1208" text-anchor="middle">Kasteluallas</text>
+
+          <!-- 4. CROP ROTATION FIELDS (KIERTOVILJELYLOHKOT — TRUE 1 : 1 500 AREAS) -->
+          <g stroke="#3d2b18" stroke-width="2.2">
+            <!-- Sector A1: Pohjoinen apilakesanto (1,2 ha) -->
+            <path d="M 165 270 C 230 145, 365 92, 520 86 L 520 294 L 165 294 Z" fill="url(#cloverBloom)"/>
+            <!-- Sector A2: Suuri rukiin sarka (1,9 ha) -->
+            <path d="M 575 86 C 745 92, 890 152, 962 280 L 962 452 L 575 452 Z" fill="url(#furrowRye)"/>
+            <!-- Sector A3: Läntinen ohramaa (0,7 ha) -->
+            <path d="M 92 332 L 382 332 L 382 454 L 80 454 C 80 412, 85 370, 92 332 Z" fill="url(#furrowBarley)"/>
+            <!-- Sector A4: Siemen-aseman koepalstat & Yrttiviljelmä (58 m x 48 m = 140 x 115 px = 0,3 ha) -->
+            <rect x="242" y="478" width="140" height="115" rx="3" fill="url(#siemenTrial)"/>
+            <!-- Sector A5: Juuresmaa ja kaalimaat (0,5 ha) -->
+            <path d="M 84 478 L 228 478 L 228 708 L 145 708 C 106 645, 86 565, 84 478 Z" fill="url(#rootRows)"/>
+            <!-- Sector A6: Uudismullan palsta (0,5 ha) -->
+            <path d="M 158 724 L 382 724 L 382 882 C 285 860, 208 805, 158 724 Z" fill="url(#blackSoil)"/>
+            <!-- Sector A7: Eteläinen laidun ja hedelmätarha (0,9 ha) -->
+            <path d="M 410 735 L 730 735 L 730 918 C 630 940, 505 940, 410 912 Z" fill="url(#pastureGrass)"/>
+            <!-- Sector A8: Kaakkoinen pellava- ja kuitupelto (0,7 ha) -->
+            <path d="M 748 645 L 985 645 C 945 765, 860 855, 748 910 Z" fill="url(#furrowBarley)"/>
+          </g>
+
+          <!-- Ekklesia Pastoral Camera Towers on Scenic Fields (Kuvausmajakat A1 & A2) -->
+          <g fill="#f5cf67" stroke="#21150c" stroke-width="1.2">
+            <circle cx="462" cy="242" r="5.5"/><circle cx="462" cy="242" r="2" fill="#21150c"/>
+            <circle cx="635" cy="242" r="5.5"/><circle cx="635" cy="242" r="2" fill="#21150c"/>
+          </g>
+          <text class="halo" x="462" y="259" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#6e1810" text-anchor="middle">Kuvausmajakka I</text>
+          <text class="halo" x="635" y="259" font-family="Georgia, serif" font-size="7.8" font-weight="bold" fill="#6e1810" text-anchor="middle">Kuvausmajakka II</text>
+
+          <!-- Orchard Trees in Sector A7 (Canopy Ø 5m = r=6px) -->
+          <g fill="#4c6e2c" stroke="#233612" stroke-width="1.2">
+            <circle cx="445" cy="770" r="6"/><circle cx="475" cy="770" r="6"/><circle cx="505" cy="770" r="6"/><circle cx="535" cy="770" r="6"/><circle cx="565" cy="770" r="6"/>
+            <circle cx="445" cy="800" r="6"/><circle cx="475" cy="800" r="6"/><circle cx="505" cy="800" r="6"/><circle cx="535" cy="800" r="6"/><circle cx="565" cy="800" r="6"/>
+          </g>
+
+          <!-- Field Labels (All High-Contrast Dark Ink #1c1208 with Parchment Plaque where needed) -->
+          <text class="halo" x="350" y="188" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1c1208" text-anchor="middle">A1 · Pohjoinen apilakesanto</text>
+          <text class="halo" x="350" y="205" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#1c1208" text-anchor="middle">(Kukkiva kuvaus- ja pölytyslohko · 1,2 ha)</text>
+
+          <text class="halo" x="780" y="252" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#1c1208" text-anchor="middle">A2 · Suuri rukiin sarka</text>
+          <text class="halo" x="780" y="270" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#1c1208" text-anchor="middle">(Hapanjuurileivän pääviljalohko · 1,9 ha)</text>
+
+          <text class="halo" x="235" y="392" font-family="Georgia, serif" font-size="12.5" font-weight="bold" fill="#1c1208" text-anchor="middle">A3 · Läntinen ohramaa</text>
+          <text class="halo" x="235" y="408" font-family="Georgia, serif" font-size="9" font-style="italic" fill="#1c1208" text-anchor="middle">(Panimomallas ja suurimot · 0,7 ha)</text>
+
+          <rect x="250" y="514" width="124" height="36" rx="2.5" fill="#fbf5e8" fill-opacity="0.92" stroke="#3d2b18" stroke-width="1"/>
+          <text x="312" y="529" font-family="Georgia, serif" font-size="9.5" font-weight="bold" fill="#1c1208" text-anchor="middle">A4 · Siemen-koepalstat</text>
+          <text x="312" y="542" font-family="Georgia, serif" font-size="8.2" font-style="italic" fill="#1c1208" text-anchor="middle">&amp; rohtoyrtit (0,3 ha)</text>
+
+          <rect x="96" y="568" width="120" height="40" rx="3" fill="#fbf5e8" fill-opacity="0.94" stroke="#3d2b18" stroke-width="1"/>
+          <text x="156" y="585" font-family="Georgia, serif" font-size="10.8" font-weight="bold" fill="#1c1208" text-anchor="middle">A5 · Juures- ja</text>
+          <text x="156" y="600" font-family="Georgia, serif" font-size="10.8" font-weight="bold" fill="#1c1208" text-anchor="middle">kaalimaa (0,5 ha)</text>
+
+          <!-- Parchment Plaque on Dark Black-Soil Plot A6 for 100% Contrast -->
+          <rect x="182" y="762" width="188" height="42" rx="3" fill="#fbf5e8" fill-opacity="0.94" stroke="#21150c" stroke-width="1.2"/>
+          <text x="276" y="780" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#1c1208" text-anchor="middle">A6 · Uudismullan palsta</text>
+          <text x="276" y="796" font-family="Georgia, serif" font-size="8.8" font-style="italic" fill="#3d2812" text-anchor="middle">(Tuore musta multa · 0,5 ha)</text>
+
+          <text class="halo" x="575" y="852" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#1c1208" text-anchor="middle">A7 · Hedelmätarha ja eteläniitty (0,9 ha)</text>
+          <text class="halo" x="850" y="745" font-family="Georgia, serif" font-size="10.8" font-weight="bold" fill="#1c1208" text-anchor="middle">A8 · Kaakkoinen</text>
+          <text class="halo" x="850" y="760" font-family="Georgia, serif" font-size="10.8" font-weight="bold" fill="#1c1208" text-anchor="middle">pellavamaa (0,7 ha)</text>
+
+          <!-- 5. AUTOMATED PLOUGH GANTRY TRACKS & MACHINE HALL (KISKOAUTOMATIIKKA) -->
+          <g stroke="#4a463f" stroke-width="2.5" stroke-dasharray="5,3" fill="none">
+            <line x1="588" y1="115" x2="588" y2="442"/>
+            <line x1="948" y1="275" x2="948" y2="442"/>
+            <line x1="250" y1="600" x2="376" y2="600"/>
+          </g>
+          <rect x="584" y="332" width="368" height="6" fill="#a66c2e" stroke="#21160d" stroke-width="1.3"/>
+          <rect x="748" y="329" width="22" height="12" rx="2" fill="#c98236" stroke="#21160d" stroke-width="1.3"/>
+          <text class="halo" x="760" y="322" font-family="Georgia, serif" font-size="9" font-weight="bold" fill="#1c1208" text-anchor="middle">Kyntö- ja kasteluautomaatti (kiskosilta · 150 m)</text>
+
+          <!-- B3. Peltokoneiden halli ja paja (28 m x 16 m = 67 x 38 px at 1 m = 2.4 px) -->
+          <g transform="translate(275, 612)" filter="url(#bldgShadow)">
+            <rect x="0" y="0" width="45" height="38" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.8"/>
+            <line x1="0" y1="19" x2="45" y2="19" stroke="#3d1c0a" stroke-width="1.4"/>
+            <rect x="45" y="4" width="22" height="30" fill="#8c6d46" stroke="#21150c" stroke-width="1.5"/>
+          </g>
+          <text class="halo" x="308" y="664" font-family="Georgia, serif" font-size="9" font-weight="bold" fill="#1c1208" text-anchor="middle">B3 · Konehalli ja paja (28 × 16 m)</text>
+
+          <!-- 6. APIARY & MEAD HONEY HOUSE (B2: MEHILÄISTARHA, 22 m x 14 m = 53 x 34 px) -->
+          <g transform="translate(205, 118)">
+            <rect x="0" y="0" width="53" height="34" rx="4" fill="#b8c989" stroke="#485e29" stroke-width="1.4" stroke-dasharray="3,2"/>
+            <rect x="4" y="9" width="16" height="16" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.4"/>
+            <g fill="#e6a82e" stroke="#2b1d11" stroke-width="0.7">
+              <circle cx="25" cy="9" r="1.6"/><circle cx="30" cy="9" r="1.6"/><circle cx="35" cy="9" r="1.6"/><circle cx="40" cy="9" r="1.6"/><circle cx="45" cy="9" r="1.6"/><circle cx="49" cy="9" r="1.6"/>
+              <circle cx="25" cy="17" r="1.6"/><circle cx="30" cy="17" r="1.6"/><circle cx="35" cy="17" r="1.6"/><circle cx="40" cy="17" r="1.6"/><circle cx="45" cy="17" r="1.6"/><circle cx="49" cy="17" r="1.6"/>
+              <circle cx="25" cy="25" r="1.6"/><circle cx="30" cy="25" r="1.6"/><circle cx="35" cy="25" r="1.6"/><circle cx="40" cy="25" r="1.6"/><circle cx="45" cy="25" r="1.6"/><circle cx="49" cy="25" r="1.6"/>
+            </g>
+          </g>
+          <text class="halo" x="232" y="111" font-family="Georgia, serif" font-size="9" font-weight="bold" fill="#1c1208" text-anchor="middle">B2 · Mehiläistarha ja linkomo</text>
+
+          <!-- 7. EASTERN OFF-CAMERA INDUSTRIAL & LIVESTOCK COMPOUND (C1-C4: 72 m x 58 m = 172 x 140 px) -->
+          <!-- True-scale auxiliary compound: smaller than the 96x80 m Monastery (230x192 px), hidden behind Kulissimuuri! -->
+          <g transform="translate(715, 485)">
+            <rect x="0" y="0" width="172" height="140" rx="4" fill="#ccb995" stroke="#21150c" stroke-width="2.2"/>
+            <!-- Heavy Western Sightline Screen Wall (Korkea kulissimuuri kameroiden katveeksi) -->
+            <line x1="0" y1="0" x2="0" y2="140" stroke="#6e1810" stroke-width="5"/>
+
+            <!-- C1-C2. Possuliskokarsinat ja rehulato (36 m x 18 m = 86 x 43 px) -->
+            <rect x="10" y="10" width="42" height="22" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.6" filter="url(#bldgShadow)"/>
+            <line x1="10" y1="21" x2="52" y2="21" stroke="#3d1c0a" stroke-width="1.2"/>
+            <rect x="52" y="10" width="44" height="43" fill="#8c7252" stroke="#3b2816" stroke-width="1.4"/>
+            <line x1="74" y1="10" x2="74" y2="53" stroke="#3b2816" stroke-width="1.1"/>
+            <line x1="52" y1="31" x2="96" y2="31" stroke="#3b2816" stroke-width="1.1"/>
+            <g fill="#ba8a72" stroke="#2b1d11" stroke-width="0.6">
+              <ellipse cx="60" cy="19" rx="2.5" ry="1.6"/><ellipse cx="67" cy="24" rx="2.5" ry="1.6"/>
+              <ellipse cx="82" cy="18" rx="2.5" ry="1.6"/><ellipse cx="89" cy="24" rx="2.5" ry="1.6"/>
+              <ellipse cx="62" cy="41" rx="2.5" ry="1.6"/><ellipse cx="84" cy="42" rx="2.5" ry="1.6"/>
+            </g>
+            <!-- C2. Rehulato -->
+            <rect x="10" y="36" width="32" height="17" fill="#8c683e" stroke="#21150c" stroke-width="1.4" filter="url(#bldgShadow)"/>
+            <circle cx="46" cy="44" r="3.8" fill="#b59b72" stroke="#21150c" stroke-width="1.1"/>
+
+            <!-- C3. Luuhiilimiilut ja brikettipuristamo (26 m x 20 m = 62 x 48 px) -->
+            <rect x="102" y="10" width="62" height="48" rx="2.5" fill="#b39f7d" stroke="#3b2816" stroke-width="1.3" stroke-dasharray="3,2"/>
+            <rect x="106" y="14" width="30" height="16" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.4" filter="url(#bldgShadow)"/>
+            <circle cx="146" cy="20" r="4.8" fill="#593a28" stroke="#1c1209" stroke-width="1.2"/><circle cx="146" cy="20" r="1.8" fill="#d96b27"/>
+            <circle cx="155" cy="31" r="4.8" fill="#593a28" stroke="#1c1209" stroke-width="1.2"/><circle cx="155" cy="31" r="1.8" fill="#d96b27"/>
+            <circle cx="146" cy="42" r="4.8" fill="#593a28" stroke="#1c1209" stroke-width="1.2"/><circle cx="146" cy="42" r="1.8" fill="#d96b27"/>
+            <rect x="106" y="36" width="28" height="5" fill="#29221d" stroke="#140f0b" stroke-width="0.8"/>
+            <rect x="106" y="44" width="28" height="5" fill="#29221d" stroke="#140f0b" stroke-width="0.8"/>
+
+            <!-- C4. Mustan mullan kompostointikenttä ja kalkkilaarit (55 m x 22 m = 132 x 53 px) -->
+            <rect x="10" y="76" width="154" height="54" rx="2.5" fill="#9c8665" stroke="#3b2816" stroke-width="1.4"/>
+            <rect x="16" y="82" width="96" height="7" rx="3" fill="#2e241b" stroke="#1a130d" stroke-width="0.9"/>
+            <rect x="16" y="93" width="96" height="7" rx="3" fill="#2e241b" stroke="#1a130d" stroke-width="0.9"/>
+            <rect x="16" y="104" width="96" height="7" rx="3" fill="#2e241b" stroke="#1a130d" stroke-width="0.9"/>
+            <rect x="16" y="115" width="96" height="7" rx="3" fill="#3d3024" stroke="#1a130d" stroke-width="0.9"/>
+            <rect x="120" y="82" width="38" height="19" fill="#ede6d5" stroke="#3b2816" stroke-width="1.2"/>
+            <rect x="120" y="105" width="38" height="19" fill="#e3dac3" stroke="#3b2816" stroke-width="1.2"/>
+
+            <text class="halo" x="52" y="66" font-family="Georgia, serif" font-size="7.4" font-weight="bold" fill="#1c1208" text-anchor="middle">C1–C2 · Karsinat</text>
+            <text class="halo" x="133" y="68" font-family="Georgia, serif" font-size="7.4" font-weight="bold" fill="#1c1208" text-anchor="middle">C3 · Luuhiilimiilut</text>
+            <!-- Parchment Plaque on C4 Windrows for 100% Contrast -->
+            <rect x="16" y="93" width="96" height="18" rx="2" fill="#fbf5e8" fill-opacity="0.94" stroke="#21150c" stroke-width="0.9"/>
+            <text x="64" y="105" font-family="Georgia, serif" font-size="7.4" font-weight="bold" fill="#1c1208" text-anchor="middle">C4 · Kompostiaumat</text>
+            <text class="halo" x="139" y="95" font-family="Georgia, serif" font-size="6.8" font-weight="bold" fill="#1c1208" text-anchor="middle">Kalkki</text>
+          </g>
+          <text class="halo" x="801" y="477" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#6e1810" text-anchor="middle">▼ Varjotalouspiha (Kulissimuurin takana · 72 × 58 m) ▼</text>
+
+          <!-- 8. PAVED ROADS & GATES (LUOSTARIN KIVETTY TIESTÖ — 5 m = 12 px wide) -->
+          <path d="M 548 40 L 548 420 L 434 470" fill="none" stroke="#6e573b" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 548 40 L 548 420 L 434 470" fill="none" stroke="#d4c3a3" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 607 558 L 715 558" fill="none" stroke="#6e573b" stroke-width="9"/>
+          <path d="M 607 558 L 715 558" fill="none" stroke="#cbb692" stroke-width="6"/>
+          <path d="M 410 612 L 342 612" fill="none" stroke="#6e573b" stroke-width="8"/>
+          <path d="M 410 612 L 342 612" fill="none" stroke="#cbb692" stroke-width="5"/>
+
+          <!-- B1. YLÄPORTTI JA SAATTUEVASTAANOTTO (24 m x 18 m = 58 x 43 px at x=519..577, y=44..87) -->
+          <g transform="translate(519, 44)" filter="url(#bldgShadow)">
+            <rect x="0" y="0" width="20" height="43" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.8"/>
+            <rect x="38" y="0" width="20" height="43" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.8"/>
+            <rect x="20" y="8" width="18" height="27" fill="#8a6d4b" stroke="#21150c" stroke-width="1.5"/>
+          </g>
+          <text class="halo" x="588" y="62" font-family="Georgia, serif" font-size="9.8" font-weight="bold" fill="#1c1208" text-anchor="start">B1 · Yläportti ja saattuevastaanotto (24 × 18 m)</text>
+
+          <!-- ========================================================================= -->
+          <!-- 9. THE MONASTERY PRECINCT AT TRUE 1 : 1 500 SCALE (96m x 80m = 230 x 192 px) -->
+          <!-- Positioned at x=410..640, y=470..662 (Exact miniature of Maps II, III, IV)-->
+          <!-- ========================================================================= -->
+          <g transform="translate(410, 470)" filter="url(#bldgShadow)">
+            <!-- Red Dashed Reference Box for Maps II, III & IV (96 m x 80 m = 230 x 192 px) -->
+            <rect x="-8" y="-8" width="246" height="208" fill="none" stroke="#8a241b" stroke-width="2" stroke-dasharray="6,4"/>
+            <!-- Outer Precinct Terrace Pad (96 m x 80 m = 230 x 192 px) -->
+            <rect x="0" y="0" width="230" height="192" fill="#e8dcc2" stroke="#21150c" stroke-width="2.2"/>
+
+            <!-- Zone I: Porttiholvi & Luuhiilivaja (24m x 6m = 58x14 px) + Suosiopiha (16m x 16m = 38x38 px) + Puoti & Kaapuhalli -->
+            <rect x="0" y="0" width="58" height="14" fill="#7a5536" stroke="#21150c" stroke-width="1.5"/>
+            <rect x="2" y="14" width="36" height="39" fill="#d6c7a9" stroke="#4a3319" stroke-width="1.2"/>
+            <circle cx="19" cy="34" r="3.5" fill="#598294" stroke="#21150c" stroke-width="1"/>
+            <rect x="35" y="18" width="2" height="16" fill="#f5cf67" stroke="#21150c" stroke-width="0.6"/>
+            <rect x="38" y="14" width="20" height="39" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.5"/>
+
+            <!-- Zone II: Suuri Valokeilapyhäkkö, Kuorikatsomo & Puvusto (58m x 18m = 139x43 px at x=58..197, y=10..53) -->
+            <rect x="58" y="10" width="139" height="43" fill="url(#roofTile)" stroke="#21150c" stroke-width="2"/>
+            <line x1="58" y1="31.5" x2="197" y2="31.5" stroke="#3d1c0a" stroke-width="1.8"/>
+            <!-- West Spotlight & Bell Tower -->
+            <rect x="61" y="14" width="16" height="18" fill="#9e4825" stroke="#1c1209" stroke-width="1.6"/>
+            <circle cx="69" cy="23" r="4" fill="#f5cf67" stroke="#1c1209" stroke-width="0.9"/>
+            <!-- Choir Spotlight Lantern Dome over Katumusnäyttämö -->
+            <circle cx="164" cy="31.5" r="9" fill="#f5cf67" stroke="#21150c" stroke-width="1.2"/>
+            <circle cx="164" cy="31.5" r="3" fill="#6e1810"/>
+
+            <!-- Zone III.1: Kuvaus- ja yrttipiha & Pylväskäytävä (44m x 32m = 105x77 px at x=58..163, y=53..130) -->
+            <rect x="58" y="53" width="105" height="77" fill="#d9ccae" stroke="#21150c" stroke-width="1.6"/>
+            <rect x="66" y="61" width="89" height="60" fill="#8ca665" stroke="#362514" stroke-width="1.4"/>
+            <line x1="110.5" y1="61" x2="110.5" y2="121" stroke="#d6c7a9" stroke-width="3.5"/>
+            <line x1="66" y1="91" x2="155" y2="91" stroke="#d6c7a9" stroke-width="3.5"/>
+            <circle cx="110.5" cy="91" r="4.5" fill="#598294" stroke="#21150c" stroke-width="1.2"/>
+            <circle cx="110.5" cy="119" r="3.5" fill="#6fa3b5" stroke="#21150c" stroke-width="1"/>
+
+            <!-- West Wing: Kestityssali, Jäähyväisnäyttämö, Panimo, Mylly, Kynttiläpaja & Ruokakomero (24m x 36m = 58x86 px) -->
+            <rect x="0" y="53" width="58" height="86" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.8"/>
+            <line x1="29" y1="53" x2="29" y2="139" stroke="#3d1c0a" stroke-width="1.4"/>
+
+            <!-- East Wing: Katselmussali, Kohtaamishuone, Suuri makuusali (14m x 32m = 34x77 px at x=163..197, y=53..130) -->
+            <rect x="163" y="53" width="34" height="77" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.8"/>
+            <line x1="180" y1="53" x2="180" y2="130" stroke="#3d1c0a" stroke-width="1.4"/>
+            <!-- III.10 Käymälät ja pesutupa wing (9m x 8.5m = 22x20 px at x=197..219, y=95..115) -->
+            <rect x="197" y="95" width="22" height="20" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.5"/>
+
+            <!-- South Wing: Suurleipomo, Suurkeittiö, Lähetyssali & Suuri ruokasali (68m x 20m = 163x48 px at x=0..163, y=130..178) -->
+            <rect x="0" y="130" width="163" height="48" fill="url(#roofTile)" stroke="#21150c" stroke-width="1.8"/>
+            <line x1="0" y1="154" x2="163" y2="154" stroke="#3d1c0a" stroke-width="1.6"/>
+
+            <!-- Southeast Wing: Välskärin sairastupa (28m x 20m = 67x48 px at x=163..230, y=130..178) -->
+            <rect x="163" y="130" width="67" height="48" fill="#7a5536" stroke="#21150c" stroke-width="1.8"/>
+            <rect x="166" y="133" width="20" height="26" fill="#7d9c54" stroke="#21150c" stroke-width="1.1"/>
+          </g>
+
+          <rect x="389" y="434" width="272" height="22" rx="3" fill="#fbf5e8" fill-opacity="0.95" stroke="#6e1810" stroke-width="1.2"/>
+          <text x="525" y="449" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#6e1810" text-anchor="middle">LUOSTARIN PÄÄRAKENNUS (96 m × 80 m)</text>
+          <rect x="369" y="672" width="312" height="19" rx="2.5" fill="#fbf5e8" fill-opacity="0.95" stroke="#6e1810" stroke-width="1"/>
+          <text x="525" y="685" font-family="Georgia, serif" font-size="9.2" font-weight="bold" fill="#6e1810" text-anchor="middle">▲ Katso tarkat kerroskartat II, III ja IV (mittakaava 1 : 100) ▲</text>
+        </svg>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- RIGHT: ARCHITECTURAL & AGRONOMIC LEGEND SIDEBAR                     -->
+      <!-- =================================================================== -->
+      <div class="sidebar">
+        <div>
+          <div class="sidebar-section">
+            <div class="sidebar-title">I. Ekklesian paimenidylli ja viljelykupoli</div>
+            <p style="margin-bottom: 1.5mm;">
+              Kryptan ulkokuorella sijaitseva kasvatuskupoli (<span class="dim-tag">420 m × 370 m</span>, n. 12,2 ha) on yhtä aikaa suljettu ravintokierto ja Ekklesian huomiotalouden lavaste. Kultaisten <strong>sädekehävalaisinten</strong> alla ~40 munkkia ja hitaat kiskoautomaatit hoitavat viljelmiä, joita <strong>kuvausmajakat</strong> välittävät Kynnyksen verkkoihin leppoisana maalaismunkki-idyllinä.
+            </p>
+            <ul class="zone-list">
+              <li><span class="zone-code">A1</span> <strong>Pohjoinen apilakesanto</strong> <span class="dim-tag">(1,2 ha)</span> — Kukkiva typensitoja-, pölytys- ja kuvauslohko; <em>Kuvausmajakka I</em>.</li>
+              <li><span class="zone-code">A2</span> <strong>Suuri rukiin sarka</strong> <span class="dim-tag">(1,9 ha)</span> — Hapanjuurileivän pääviljalohko, kyntöautomaatti ja <em>Kuvausmajakka II</em>.</li>
+              <li><span class="zone-code">A3</span> <strong>Läntinen ohramaa</strong> <span class="dim-tag">(0,7 ha)</span> — Panimon mallasohra ja munkkien arkipuuron suurimot.</li>
+              <li><span class="zone-code">A4</span> <strong>Siemen-aseman koepalstat</strong> <span class="dim-tag">(0,3 ha · 58 × 48 m)</span> — Asema 18:n jalostetut siemenkannat sekä välskärin nukutus- ja rohtoyrtit.</li>
+              <li><span class="zone-code">A5</span> <strong>Juures- ja kaalimaa</strong> <span class="dim-tag">(0,5 ha)</span> — Hapankaalin, nauriiden ja juuresten sarka.</li>
+              <li><span class="zone-code">A6</span> <strong>Uudismullan palsta</strong> <span class="dim-tag">(0,5 ha)</span> — Kellarin sammioista nostettu tuore musta multa ja luutuhkakalkitus.</li>
+              <li><span class="zone-code">A7–8</span> <strong>Hedelmätarha ja pellavamaa</strong> <span class="dim-tag">(1,6 ha)</span> — Eteläniityn hedelmäpuut (<span class="dim-tag">0,9 ha</span>) sekä kuitupellava munkinkaapuihin (<span class="dim-tag">0,7 ha</span>).</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">II. Julkinen reitti vs. Varjotalouspiha (B–C)</div>
+            <ul class="zone-list">
+              <li><span class="zone-code">B1</span> <strong>Yläportti ja saattuevastaanotto</strong> <span class="dim-tag">(24 × 18 m)</span> — Hautasaattueiden valaistu portti; täältä Valkohanskainen Verikoira sotilaineen marssii sisään.</li>
+              <li><span class="zone-code">B2</span> <strong>Mehiläistarha ja linkomo</strong> <span class="dim-tag">(22 × 14 m · 18 pesää)</span> — Tuottaa kupolin hunajan sekä mehiläisvahan pyhäkön valokynttilöihin.</li>
+              <li><span class="zone-code">B3</span> <strong>Peltokoneiden halli ja paja</strong> <span class="dim-tag">(28 × 16 m)</span> — Kyntöautomaattien lataus ja <em>Karsinanhoitajan</em> työpiste.</li>
+              <li><span class="zone-code">C1–2</span> <strong>Possuliskokarsinat ja rehulato</strong> <span class="dim-tag">(36 × 18 m)</span> — Korkean <strong>kulissimuurin</strong> takana kameroiden katveessa sijaitsevat karsinat ja mutatarhat.</li>
+              <li><span class="zone-code">C3</span> <strong>Luuhiilimiilut ja brikettipuristamo</strong> <span class="dim-tag">(26 × 20 m)</span> — Kellarin luumurska, vainajien ydinrasva ja lanta puristetaan ja hiilletään kolmessa miilussa savuttomiksi <strong>luuhiilibriketeiksi</strong>.</li>
+              <li><span class="zone-code">C4</span> <strong>Mustan mullan kompostikenttä</strong> <span class="dim-tag">(55 × 22 m)</span> — Neljä pitkää multaaumaa sekä luutuhka- ja kalkkilaarit. Koko varjotalouspiha on <span class="dim-tag">72 × 58 m</span>.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">III. Luostarin päärakennus (Kartat II–IV)</div>
+            <p>
+              Punaisella katkoviivalla rajattu <strong>Luostarin päärakennus</strong> (<span class="dim-tag">96 m × 80 m</span> = <span class="dim-tag">230 × 192 px</span>) on kupolin suurin rakennus, joka yhdistää Ekklesian julkisen spektaakkelin, 40 munkin veljespiirin ja kellarin ruumiinkäsittelyn. Esitetty tarkassa <span class="dim-tag">1 : 100</span> mittakaavassa (<span class="dim-tag">1 m = 10 px</span>) kartoissa <strong>II (1. krs)</strong>, <strong>III (2. krs)</strong> ja <strong>IV (Kellari)</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Compass & True Metric Scale Bar (1 m = 2.4 px -> 100 m = 240 px, matching map 1:1!) -->
+        <div style="border-top: 1.5px solid #4a3319; padding-top: 2mm;">
+          <svg viewBox="0 0 345 72" style="width: 100%; height: 18mm;">
+            <g transform="translate(34, 36)">
+              <circle cx="0" cy="0" r="24" fill="#fcf6e8" stroke="#2b1d11" stroke-width="1.5"/>
+              <circle cx="0" cy="0" r="20" fill="none" stroke="#6e5233" stroke-width="0.7" stroke-dasharray="2,2"/>
+              <polygon points="0,-19 4.5,-4.5 0,-7.5 -4.5,-4.5" fill="#8a241b"/>
+              <polygon points="0,19 3.5,4.5 0,7.5 -3.5,4.5" fill="#2b1d11"/>
+              <polygon points="-19,0 -4.5,-3.5 -7.5,0 -4.5,3.5" fill="#2b1d11"/>
+              <polygon points="19,0 4.5,-3.5 7.5,0 4.5,3.5" fill="#2b1d11"/>
+              <text x="0" y="-21" font-family="Georgia, serif" font-size="8.2" font-weight="bold" fill="#8a241b" text-anchor="middle">P</text>
+            </g>
+            <g transform="translate(80, 16)">
+              <text x="120" y="4" font-family="Georgia, serif" font-size="8.8" font-weight="bold" fill="#1c1208" text-anchor="middle" letter-spacing="0.8">MITTAKAAVA 1 : 1 500 (1 M = 2,4 PX)</text>
+              <g transform="translate(0, 14)">
+                <rect x="0" y="0" width="60" height="6" fill="#21150c" stroke="#21150c" stroke-width="1"/>
+                <rect x="60" y="0" width="60" height="6" fill="#fcf6e8" stroke="#21150c" stroke-width="1"/>
+                <rect x="120" y="0" width="120" height="6" fill="#21150c" stroke="#21150c" stroke-width="1"/>
+                <text x="0" y="16" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">0</text>
+                <text x="60" y="16" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">25 m</text>
+                <text x="120" y="16" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">50 m</text>
+                <text x="240" y="16" font-family="Georgia, serif" font-size="7.8" fill="#1c1208" text-anchor="middle">100 m</text>
+              </g>
+              <text x="120" y="46" font-family="Georgia, serif" font-size="7.5" font-style="italic" fill="#3d2812" text-anchor="middle">Luostari = 96 × 80 m (230 × 192 px) · Varjopiha = 72 × 58 m</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

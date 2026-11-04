@@ -83,10 +83,10 @@ def html_to_pdf(browser_path: str, html_path: Path, output_pdf_path: Path) -> bo
         print(f"[ERROR] Unexpected exception: {e}")
         return False
 
-def build_all(browser_path: str, root_dir: Path):
-    """Compiles all handouts in metadata/jakso-9/handouts/html/ into pdf/."""
-    html_dir = root_dir / "metadata" / "jakso-9" / "handouts" / "html"
-    pdf_dir = root_dir / "metadata" / "jakso-9" / "handouts" / "pdf"
+def build_episode(browser_path: str, root_dir: Path, episode_dir_name: str):
+    """Compiles all handouts in metadata/<episode_dir_name>/handouts/html/ into pdf/."""
+    html_dir = root_dir / "metadata" / episode_dir_name / "handouts" / "html"
+    pdf_dir = root_dir / "metadata" / episode_dir_name / "handouts" / "pdf"
     
     if not html_dir.exists():
         print(f"[ERROR] HTML source directory not found: {html_dir}")
@@ -97,7 +97,7 @@ def build_all(browser_path: str, root_dir: Path):
         print(f"[WARN] No .html files found in {html_dir}")
         return
         
-    print(f"--- Compiling {len(html_files)} handouts using {browser_path} ---")
+    print(f"--- Compiling {len(html_files)} handouts in {episode_dir_name} using {browser_path} ---")
     success_count = 0
     for html_file in html_files:
         # Determine output filename (replace .html with .pdf)
@@ -106,13 +106,21 @@ def build_all(browser_path: str, root_dir: Path):
         if html_to_pdf(browser_path, html_file, out_pdf):
             success_count += 1
             
-    print(f"--- Finished: {success_count}/{len(html_files)} PDFs built successfully ---")
+    print(f"--- Finished {episode_dir_name}: {success_count}/{len(html_files)} PDFs built successfully ---")
+
+def build_all(browser_path: str, root_dir: Path):
+    """Compiles handouts for all episodes that have a handouts/html/ folder."""
+    metadata_dir = root_dir / "metadata"
+    for ep_dir in sorted(metadata_dir.glob("jakso-*")):
+        if (ep_dir / "handouts" / "html").exists():
+            build_episode(browser_path, root_dir, ep_dir.name)
 
 def main():
     parser = argparse.ArgumentParser(description="Diegetic HTML-to-PDF compiler for tabletop handouts.")
     parser.add_argument("input", nargs="?", help="Input HTML file path")
     parser.add_argument("output", nargs="?", help="Output PDF file path (optional)")
-    parser.add_argument("--all", action="store_true", help="Compile all handouts in metadata/jakso-9/handouts/html/")
+    parser.add_argument("--all", action="store_true", help="Compile all handouts across episodes")
+    parser.add_argument("--jakso", type=str, help="Compile handouts for a specific episode number (e.g. 9 or 10)")
     
     args = parser.parse_args()
     
@@ -125,7 +133,10 @@ def main():
     # Repository root is parent of tools/
     repo_root = Path(__file__).resolve().parent.parent
     
-    if args.all:
+    if args.jakso:
+        ep_name = args.jakso if args.jakso.startswith("jakso-") else f"jakso-{args.jakso}"
+        build_episode(browser, repo_root, ep_name)
+    elif args.all:
         build_all(browser, repo_root)
     elif args.input:
         in_path = Path(args.input)

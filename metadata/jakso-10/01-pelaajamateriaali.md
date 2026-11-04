@@ -1,90 +1,97 @@
 # Jakso 10: Kapinallinen — Pelaajamateriaali ja Tehtäväbriiffi
 
 > **Eventuellit: Kymmenes jakso**  
-> **Sijainti:** [Krypta, Kynnyksen 19. asema](https://eventuell.it/world/kynnys/19-krypta) — Ulkokuoren munkkitila ja majatalo  
-> **Genre:** Psykologinen kamaritrilleri, Maadoitettu perhedraama, Uudisraivaajien sitkeys  
-> **Peliajat:** Sessio #01 Maanantai 26.10.2026 & Sessio #02 Keskiviikko 28.10.2026  
-> **Pelaajamäärä:** 3–4 pelaajaa (Uusilla hahmoilla pelaaminen vahvasti suositeltavaa)  
+> **Sijainti:** [Krypta, Kynnyksen 19. asema](https://eventuell.it/world/kynnys/19-krypta) — Pyhän Velkavankiflagelantin Konventti (ulkokuoren luostarimaatila)  
+> **Genre:** Psykologinen kamaritrilleri ja maadoitettu yhteisödraama  
+> **Pelaajat:**  
+> * **Juha P:** Cen (vanha hahmo — haavoittunut karkuri)  
+> * **Aura N + 2 uutta pelaajaa:** Kolme uutta hahmoa (konventin vanhemmat munkit)  
 
 ---
 
 ## 1. Premissi
 
-Kryptan ulkokuorella, kilometrien luuossuaarien ja hiljaisten katakombien yläpuolella, Ekklesian vanhat munkkisuvut viljelevät esi-isiensä maatumisesta syntynyttä mustaa multaa. Aseman arki on Kynnyksen mittapuulla poikkeuksellisen leppoisaa ja tyytyväistä. Päivät kuluvat vihanneskupolien hoidossa, leipätaikinoiden äärellä ja maatalousblogeja Kynnyksen verkkoihin kirjoittaen. Samalla tilaa sitovat vanhat maalaissäännöt ja katakombien ikiaikaiset tabut. Tärkein käskyistä on ehdoton: **kun hämärä laskeutuu, portit salvataan, eikä ulkoa kuuluviin avunhuutoihin vastata koskaan.**
+Kryptan ulkokuorella, kilometrien mittaisten luuossuaarien ja painottomien katakombien yläpuolella, lukuisat Ekklesian munkkiyhteisöt viljelevät esi-isien maatumisesta syntynyttä mustaa multaa. **Pyhän Velkavankiflagelantin Konventin** arki on Kynnyksen mittapuulla poikkeuksellisen tyytyväistä ja elävää: kultaisten kasvatusvalojen alla hitaat maatalousautomaatit kyntävät ja kastelevat kiertoviljelypalstoja, mehiläiset surisevat kukkivilla kesantolohkoilla ja possuliskot röhkivät lämpimissä karsinoissaan. Munkit paistavat hapanjuurileipää luuhiilibrikettien hehkussa, linkoavat hunajaa, istuvat tietokonepäätteiden äärellä *Lähetys- ja kirjurinhuoneessa* ja päivittävät konventin suosittua maatalous- ja leivontakanavaa Kynnyksen sosiaalisiin verkkoihin.
 
-Eräänä iltana portille raahautuu henkitoreissaan oleva hahmo.
+Tätä rauhaa suojelee vuosisatainen sääntö: **kun hämärä laskeutuu, kellarin raskas katakombiportti salvataan, eikä alhaalta luulabyrintistä kuuluviin ääniin vastata koskaan.**
 
-Vastoin oppeja, lakeja ja vanhimpien varoituksia tilalla asuvat ja työtä tekevät pelaajahahmot tekevät kohtalokkaan päätöksen: **ovi avataan, tuntematon kiskotaan sisään, hänen haavansa sidotaan ja hänet piilotetaan tiluksille.** Muu talon väki – ankarat vanhukset, pikkupiika ja yläkerran maksavat vieraat – pidetään tapahtuneesta täysin tietämättöminä. Pelaajat allekirjoittavat teollaan oman kuolemantuomionsa, jos salaisuus paljastuu.
+Eräänä iltana kellarin katakombiportin takaa kuuluu epätoivoinen, raapiva kolkutus.
 
-Pian hämärästä saapuu Ratasvartion etsintäpartio. Sitä johtaa poikkeuksellinen hahmo: sivistynyt, huoliteltu ja Kryptan historian läpikotaisin tunteva jahtiupseeri **Valkohanskainen Verikoira**. Hän lähestyy taloa rauhallisin askelin, pyyhkii huolellisesti kuraiset saappaansa kynnysmattoon ja asettuu taloksi keittiön pöydän ääreen.
+Luostarin kolme vanhempaa munkkia (pelaajahahmot) ovat vielä hereillä kellarissa ja tekevät kohtalokkaan päätöksen: **salpa avataan ja painottomasta kuilusta kiskotaan sisään vertavuotava, yksikätinen karkuri (Cen), joka puristaa kainalossaan katakombien arkistosta vietyä muinaista rasiaa.** Kun kellarin valo osuu tulijan kasvoihin, sekä munkit että Cen tunnistavat toisensa kuukausia jatkuneesta, jaetusta unestaan.
 
-Pelipöydässä kamppaillaan suuren suurtilan ja majatalon hirsiseinien sisällä. Jokainen katse, sana, huokaus, tarjoiluvati ja lattialautojen narahdus voi koitua kohtaloksi, kun hahmot yrittävät ylläpitää arjen vieraanvaraisia kulisseja samalla kun totuus uhkaa paljastua sekä saapuneille tutkijoille että omalle perheelle.
+Munkit sitovat Cenin haavan ja päättävät, miten hänet ja rasia piilotetaan tiluksille. Luostarin neljä alempaa munkkia pidetään tapahtuneesta aluksi tietämättöminä.
 
----
-
-## 2. Kynnys ja Krypta
-
-Kynnys on aurinkokunnan ulkokehällä kelluva kahdenkymmenen toisiinsa linkittyneen aseman klusteri. Menneinä kukoistuksen aikoina jokaisella asemalla oli oma erikoistunut roolinsa. Suuren sodan jälkeen yhtenäisyys hajosi, ja asemat jäivät kamppailemaan resursseista keskenään. Kynnys elää Arkkitehtuurin rajamailla Tyrannin hiljaisen vallan alla ja pyrkii selviytymään syklistä toiseen.
-
-**Krypta** on Kynnyksen kollektiivinen muistomerkki, museo ja sen ainoa varsinainen hautausmaa. Asema on nestemäisessä avaruudessa kelluva onttojen noodien ja käytävien orgaaninen verkosto, joka on kasvanut vuosisatojen saatossa uuden biomateriaalin myötä. Sisäosissa vallitsee painottomuus, ja seinät on ladottu täyteen kalkittuja luita ja kalloja.
-
-Katakombien noodien ulkopinta muodostaa yhden Kynnyksen vehreimmistä maatalousalueista. Vainajien orgaaninen aines ja nesteet johdetaan rakenteiden läpi suoraan ulkopinnalle mustaksi, poikkeuksellisen ravinteikkaaksi mullaksi. Ulkokuorella vallitsee keinotekoinen painovoima, ja valtavat kasvatusvalot heijastavat lämmintä kultaista hehkua kupolimaisiin viljelmiin. Asema tuoksuu kostealle pellolle, tuoreelle leivälle ja hitaalle maatumiselle.
-
-Aseman vastaanottosatama toimii Ekklesian alueella poikkeuksellisena vapaavyöhykkeenä: suljetut kamerat ja katkaistut verkkoyhteydet takaavat vainajille ja heidän saattajilleen pyhän koskemattomuuden. Tämä pimeä satama tarjosi karkurille reitin soluttautua aseman syvyyksiin.
-
-Katakombien syvyyksissä vuosisatojen kuoleman kerrostumat sekoittavat teknologiaa. Asukkaiden ja vieraiden *Sisäinen ääni* -implantit poimivat luiden seasta taustakohinaa ja vanhojen signaalien kaikuja. Tämän vuoksi Kryptalla suositaan puhetta, sanattomia rutiineja ja tarkkoja sulkemisrituaaleja.
+Pian luostarin yläportille marssii Ratasvartion erikoisupseeri **Valkohanskainen Verikoira** sotilaineen ja ilmoittaa tekevänsä luostaristanne etsintäoperaationsa komentokeskuksen.
 
 ---
 
-## 3. Pelaajahahmot ja nimeäminen
+## 2. Kynnys ja Kryptan luostarimaatila
 
-Pelaajahahmot ovat tällä Kryptan reunatilalla asuvia ja työskenteleviä ihmisiä: isäntäperheen jäseniä, sukulaisia tai pitkäaikaisia luottotyöläisiä. Heidät yhdistää sama leipä, sama multa ja nyt myös sama hengenvaarallinen salaisuus.
+Kynnys on aurinkokunnan ulkokehällä kelluva kahdenkymmenen aseman klusteri. Suuren sodan jälkeen asemien välinen harmonia särkyi, ja nykyisin kukin asema kamppailee olemassaolostaan Tyrannin Arkkitehtuurin alla.
 
-### Nimeämissääntö: Pelaajilla on oikeat inhimilliset nimet
-Toisin kuin maailman funktionaaliset NPC:t, pelaajahahmot ovat aitoja tuntevia yksilöitä. Pelaajahahmoilla on oikeat nimet:
-* *Esimerkkinimiä:* Arin, Cen, Frierem, Holti, Irian, Jackslav, Jamir, Litlana, Rosh, Sahye, Yune (tai itse keksitty vastaava inhimillinen nimi).
-* *Huom:* NPC-hahmoilla nimi on aina heidän toimensa (kuten *Sokea Rukoilija*, *Siemenkauppias*, *Pikkupiika*, *Valkohanskainen Verikoira*).
-
-### Hahmon rooli tilalla (Valitse tai keksi oma):
-* **Tilan nuori isäntä:** Vastaat tilan tuotannosta, satokirjoista ja vieraiden vastaanotosta.
-* **Leipurimunkki:** Vastaat talon hellasta, leivinuuneista ja tarjoiluista. Pääset liikkumaan vapaasti keittiön, kellarin ja ruokasalin välillä.
-* **Mullanhoitaja:** Tunnet keinokupolit, lannoitesammiot ja juuriston. Pidät yllä tilan maatalousblogia ja tunnet kätköt ulkosaroilla.
-* **Välskäri:** Hallitset lääkekasvit, haavasiteet ja ruumiinavauksen perusteet ilman klinikkalaitteita.
-* **Kellarimestari:** Hallitset avainniput, tuuletushormit, lukot ja salakäytävät, jotka johtavat katakombien rajapinnalle.
-
-### Suhdekysymykset luonnin tueksi:
-1. *Miksi olit hereillä hämärän jälkeen, ja mikä sai sinut kurottamaan kätesi oven raosta karkurin perään?*
-2. *Mitä perheen sisäistä salaisuutta tai kaunankannetta pelkäät eniten tämän paineen alla?*
-3. *Mihin arkiseen esineeseen tai rutiiniin tartut, kun sinua pelottaa niin paljon että kätesi vapisevat?*
+**Krypta (19. asema)** on Kynnyksen kollektiivinen muistomerkki, museo ja ainoa varsinainen hautausmaa:
+* **Sisäosien painottomat katakombit:** Onttojen noodien ja käytävien verkosto, jossa vallitsee täysi painottomuus. Seinät on ladottu täyteen kalkittuja luita ja kalloja. Syvyyksissä Haaskalinnut hallitsevat tuhansien tonnien analogisia paperi- ja magneettinauha-arkistoja.
+* **Ulkokuoren luostarimaatila:** Katakombien ulkopinnalla vallitsee keinotekoinen painovoima ja lämmin kultainen kasvatusvalo. Vainajien pehmytkudoksista ja nesteistä syntyvä musta multa on äärimmäisen hedelmällistä. Luostaritila harjoittaa kiertoviljelyä (kukkivat maaperää rikastavat lohkot vuorottelevat vilja- ja juurespalstojen kanssa), jota hitaat peltokoneet hoitavat. Pihapiirissä on mehiläispesiä ja possuliskojen karsinoita, ja kellarissa sijaitsee lipeäkalkitushuone sekä suoraan katakombeihin johtava raskas portti.
+* **Luuhiilibriketit ja uunin suljettu kierto:** Koska puuta kasvaa Kryptalla niukalti, konventin muurattua leivinuunia ja keittiön patoja lämmitetään **luuhiilibriketeillä**. Kellarissa katakombien seinämiin kelpaamattomat, rikkinäiset luut murskataan luujauhomyllyssä ja sekoitetaan lipeäaltaiden pinnalta kuorittuun **ydinrasvaan**, rukiin akanoihin ja kuivattuun possuliskonlantaan. Massa puristetaan ja hiilletään talouspihan *luuhiili- ja kalkkivajassa* tummiksi, savuttomiksi hiilikakuiksi, joita pinotaan kaivopihan *luuhiilivajaan*. Briketit palavat leivinuunissa tasaisella, kuumalla hehkulla, ja jäljelle jäävä puhtaanvalkoinen luutuhka käytetään uuden lipeän uuttamiseen sekä peltojen kalkitukseen.
+* **Ekklesian huomiotalous ja "luostari-cottagecore":** Ekklesian munkkeina arkeenne kuuluu tietokonepäätteiden käyttö, blogaaminen, valaisu ja yksinkertainen kuvaustoiminta. Ylläpidätte *Lähetys- ja kirjurinhuoneesta* käsin suosittua kanavaa, jolla jaatte Kynnyksen asukkaille leppoisaa maaseutuidylliä: hapanjuuren ruokintaa, hunajan linkousta, kukkivia apilapeltoja ja *"konventin vanhan uunin hiillosta"*. Kellarin vainajien käsittely, lipeäaltaat ja luuhiilen poltto rajataan aina tarkasti kameran ulkopuolelle.
+* **Sisäisen äänen häiriöt:** Vuosisatojen luukerrostumat sekoittavat langattomia signaaleja. *Sisäinen ääni* -implantit toimivat huoneiden välillä, mutta poimivat katakombien rajapinnalla staattista kohinaa ja vanhoja kaikuja.
 
 ---
 
-## 4. Taidot (Valitse tai muotoile 2–3 taitoa)
+## 3. Pelaajahahmot ja roolit
 
-1. **Mustan mullan agronomi:** Hallitset vainajien nesteistä ja orgaanisesta aineksesta kypsyvän maaperän. Tunnet kompostilämmön, lannoitesammiot ja juuriston, ja osaat lukea maasta jokaisen sinne sekoittuneen vieraan aineen.
-2. **Kalkitusmestari:** Vastaat vainajien luiden lipeäkäsittelystä, kalkituksesta ja sommittelusta katakombien seinämiin. Tunnet luuston kestävyyden ja osaat liikkua painottomissa ossuaareissa tarttuen nikamiin äänettömästi.
-3. **Keittiömunkki:** Vastaat talon leivinuuneista, vuosisataisesta hapanjuuresta ja muonituksesta. Osaat lepyttää epäluuloiset vieraat tuoreella leivällä ja peittää keittiön tuoksuilla epäilyttävät hajut.
-4. **Hautalaivuri:** Tunnet valvomattoman vastaanottosataman pimeät laiturit ja niille saapuvat ruumisalukset. Osaat liikkua sataman ja tilan välillä huomaamatta ja tunnet laivurien vaitonaiset tavat.
-5. **Katakombien luotain:** Tunnet kellarin alapuolella aukeavat kilometrien painottomat luolastot. Hahmotat tilat pimeässä pelkällä kosketuksella ja tiedät paikat, joissa ääni kantaa luiden pinnoilla kilometrien päähän.
-6. **Nauha-arkistonhoitaja:** Olet käsitellyt Haaskalintujen paperikääröjä, magneettinauhoja ja sukupuita. Tiedät, miten Kynnyksen salaisuudet on arkistoitu ja millaisilla asiakirjoilla virkamiehen saa epäröimään.
-7. **Siemenkauppias:** Tunnet Siemen-aseman akatemian, siemenpankit ja asemien väliset viralliset kauppasopimukset. Ymmärrät ulkomaailman politiikkaa ja omistat vakuuttavat kauppaluvat.
-8. **Signaalipunoja:** Ymmärrät, miksi Sisäinen ääni -implantit poimivat luiden seasta menneisyyden kaikuja. Osaat virittää taajuuksia, vaimentaa implanttisi vuodot ja lukea taustakohinan heilahduksia.
-9. **Kellarin vouti:** Vastaat suurtilan avaimista, salpalukoista, tuuletushormeista ja kätköistä. Tiedät talon jokaisen narisevan lankun, kätketyn luukun ja katakombeihin johtavan huoltokäytävän.
-10. **Surujuhlan kestitsijä:** Olet tottunut ottamaan vastaan vainajien omaisia ja vieraita kaikkialta Kynnykseltä. Hallitset uskonnollisen etiketin, osaat lukea surun ja epäluulon merkkejä ja ohjata keskustelun vaarattomille urille.
-11. **Haaskalintujen oppipoika:** Tunnet aseman tiedustelijoiden toimintatavat ja tiedät, miten he keräävät likaa asukkaista. Osaat tunnistaa kuulustelijan harhautukset ja syöttää tälle uskottavia puolitotuuksia.
-12. **Perimätiedon vanhin:** Tunnet Kryptan ikiaikaiset lait, uskonnolliset säännöt ja iltarutiinit. Osaat puolustaa suljettua ovea tai epäilyttävää hiljaisuutta pyhillä tabuilla, joita virkavallan sotilaatkaan eivät tohdi julkisesti loukata.
-13. **Lietelannan hoitaja:** Hallitset tilan työjuhdat, lantakuopat ja eläinsuojat. Osaat ohjata eläimiä sanattomasti ja käyttää mullan ja lannan karkeita hajuja harhauttamaan tarkkojakin vainukoiria.
-14. **Nukutusyrttien tuntija:** Kasvatat kupoleissa kipua lievittäviä ja uneen vaivuttavia kasveja. Osaat valmistaa nopeasti hyytelöiviä hauteita, vaimentaa haavoittuneen tuskat ja pitää potilaan hiljaa tuntikausia.
-15. **Hautakirjuri:** Hallitset Ekklesian viralliset kuolinrekisterit ja leimasimet. Osaat lukea ja väärentää hautausasiakirjoja sekä kirjata ihmisiä virallisesti siunatuiksi ja menneisyyteen kadonneiksi.
-16. **Maatalousbloggaaja:** Hallitset Ekklesian verkkojen huomiotalouden ja tilan julkisen syötteen. Osaat kääntää kiusallisen tilanteen tilan julkiseksi PR-lähetykseksi tai suoraksi leivontakatsaukseksi, jonka edessä virkavalta joutuu varomaan mainettaan.
-17. **Ruumiinavaaja:** Olet tottunut erottelemaan vainajien pehmytkudokset ja tutkimaan luiden vammat. Erotat silmänräpäyksessä vanhat vauriot tuoreista ampumahaavoista ja osaat ommella haavoja karkein kenttävälinein.
-18. **Luuveistäjä:** Työstät vainajien luista muistoesineitä, reliikkejä ja rukoushelmiä. Tunnet muinaiset kaiverrustyylit, erotat aidot reliikit väärennöksistä ja osaat muotoilla luusta ja kalkista työkaluja ja kiiloja.
+### A. Karkuri: Cen (Juha P)
+* Sykkeen reaktorisabotaasista ja Laki-aseman oikeustaistelusta selvinnyt massiivinen, arpinen ja yksikätinen veteraani.
+* Cen oli keikalla Kryptan katakombien arkistossa, joutui kahakkaan vartijoiden kanssa, haavoittui ja pakeni kellarin katakombiportille mukanaan muinainen rasia (*Shiny Object*), jonka hallussapito on varma kuolemantuomio.
+* Cen ja häntä jahtaamaan kutsuttu Valkohanskainen Verikoira **eivät ole koskaan kohdanneet**.
+
+### B. Luostarin kolme vanhempaa munkkia (Aura N + 2 uutta pelaajaa)
+* Toisin kuin maailman funktionaaliset NPC-hahmot, pelaajamunkeilla on **oikeat inhimilliset nimet** (esim. *Litlana, Rosh, Ory, Shael, Taro, Kael, Vera, Miron* tai oma vastaava nimi).
+* Pelaajamunkit ovat **luostarin ylintä hierarkiaa** – te johdatte tilaa, vastaatte päätöksistä ja otatte vastaan yläportille saapuvan Verikoiran isäntinä.
+* **Luostarin neljä alempaa munkkia (PJ:n hahmot):** Alaisuudessanne työskentelee neljä alempaa munkkia:
+  1. **Kestitsijä** (pelokas ja mielistelevä talousmunkki, joka toimii konventin leivontavideoiden hymyilevänä keulakuvana ja pelkää kuollakseen Ekklesian julkista *cancelointia* sekä luostarin mukavan elämän menettämistä).
+  2. **Sokea Rukoilija** (vanha, tarkkakuuloinen munkki, joka pitää hämärän jälkeistä portin avaamista ja tabujen rikkomista kuolemansyntinä).
+  3. **Kalkitsija** (nuori, innokas noviisimunkki, jonka lipeä- ja luuhiilityö kellarissa rajataan aina pois konventin idyllisistä videoista, ja joka siksi lumoutuu Verikoiran puhtausopista ja sotilaiden ryhdistä).
+  4. **Karsinanhoitaja** (vaitonainen ja juro työmunkki, joka hoitaa possuliskoja ja koneita ja vihaa kaikkea, mikä häiritsee tilan arkea).
+  *(Huom: Kukaan alemmista NPC-munkeista ei halua piilotella karkuria!)*
+
+### Esimerkkirooleja vanhemmille munkeille (valitse tai muotoile oma):
+* **Luostarin priimus / vanhin:** Vastaat yhteisön johdosta, neuvotteluista ulkomaailman kanssa, julkisesta kanavasta ja tilan järjestyksestä.
+* **Mullan ja kiertoviljelyn mestari:** Johdat kupoliviljelmiä, peltokoneiden syklejä, mehiläistarhoja ja sadonkorjuuta.
+* **Kellarin ja lipeän mestari:** Vastaat vainajien vastaanotosta, luiden kalkituksesta, luuhiilibrikettien poltosta, lääkinnästä ja katakombiportin avaimista.
+
+### Kysymykset munkkihahmon luonnin tueksi:
+1. *Mikä sai sinut aikanaan tulemaan Kryptan luostariin – ja minkä menneisyyden teon tai synnin toivoit jäävän mustan mullan alle?*
+2. *Mikä on lempirutiinisi luostarimaatilan arjessa (esim. leivän alustaminen luuhiiliuunin lämmössä, mehiläispesien hoito, iltapäivityksen editointi päätteellä tai possuliskojen ruokinta)?*
+3. *Kun katakombiportin takaa kuului raapiva kolkutus ja näit unestasi tutut kasvot, miksi et käskenyt lyödä luukkua kiinni?*
+
+---
+
+## 4. Taidot (Valitse 2–3 taitoa uusille hahmoille)
+
+1. **Kiertoviljelyn agronomi:** Hallitset vainajien aineksesta kypsyvän mustan mullan, kukkivat rikastuskasvit ja satolohkojen kierron. Tunnet lannoitesammiot ja pystyt lukemaan maaperästä jokaisen poikkeaman.
+2. **Kalkitusmestari:** Vastaat vainajien luiden lipeäkäsittelystä, kalkituksesta, ydinrasvan kuorinnasta ja luuhiilibrikettien valmistuksesta. Tunnet kellarin luukuilun ja osaat liikkua painottomissa ossuaareissa äänettömästi.
+3. **Leivinuunin haltija:** Vastaat luostarin muuratusta uunista, luuhiilibrikettien kuumasta hiilloksesta, vuosisataisesta hapanjuuresta ja ruokasalin tarjoiluista. Osaat lepyttää epäluuloiset vieraat tuoreella leivällä ja peittää keittiön tuoksuilla epäilyttävät jäljet.
+4. **Peltokoneiden paimen:** Hallitset tilan hitaat maatalousautomaatit, kastelujärjestelmät ja kasvatusvalojen syklit. Osaat ohjelmoida koneiden reitit uudelleen ja käyttää niiden rutiineja näkösuojana.
+5. **Mehiläistarhaaja:** Hoidat kupolien pölytyksestä vastaavia mehiläispesiä, hunajan linkousta ja vahakynttilöiden valamista. Tunnet hyönteisten käyttäytymisen ja osaat hyödyntää pesiä sekä vahaa kätkemisessä.
+6. **Possuliskojen kasvattaja:** Tunnet tilan raskaat, lämpimät kotieläimet, niiden rehun ja karsinat. Osaat rauhoittaa säikähtäneet eläimet sanattomasti ja lukea niiden reaktioista, milloin pihapiirissä liikkuu ulkopuolisia.
+7. **Katakombien luotain:** Tunnet kellarin portin alapuolella aukeavat painottomat luolastot. Hahmotat tilat pimeässä kosketuksella ja tiedät kohdat, joissa ääni kantaa luiden pinnoilla satojen metrien päähän.
+8. **Nauha-arkiston tuntija:** Olet käsitellyt Haaskalintujen paperikääröjä, magneettinauhoja ja sukupuita. Tiedät, miten Kynnyksen salaisuudet on arkistoitu ja miten arkistovirkailijan ajatus kulkee.
+9. **Signaalipunoja:** Ymmärrät, miksi Sisäinen ääni -implantit poimivat luiden seasta menneisyyden kaikuja. Osaat virittää taajuuksia, vaimentaa implanttisi vuodot ja lukea taustakohinan heilahduksia.
+10. **Kellarin vouti:** Hallitset luostarin avainniput, salpalukot, tuuletushormit ja vanhat varastokammiot. Tiedät talon jokaisen narisevan lankun ja piilotetun komeron.
+11. **Surujuhlan kestitsijä:** Olet tottunut ottamaan vastaan vainajien omaisia ja arvovieraita. Hallitset etiketin, osaat lukea epäluulon mikroilmeitä ja ohjata keskustelun vaarattomille urille.
+12. **Perimätiedon vanhin:** Tunnet Kryptan ikiaikaiset lait, uskonnolliset säännöt ja luostarihierarkian. Osaat vedota pyhiin tabuihin ja pitää alemmat munkit kurissa pelkällä arvovallallasi.
+13. **Nukutusyrttien tuntija:** Kasvatat kupoleissa kipua lievittäviä ja uneen vaivuttavia kasveja. Osaat valmistaa nopeasti hyytelöiviä hauteita, vaimentaa haavoittuneen tuskat ja pitää potilaan hiljaa.
+14. **Hautakirjuri:** Hallitset Ekklesian kuolinrekisterit, luovutustodistukset ja sinetit. Osaat laatia ja muokata asiakirjoja, joilla ihmisiä tai lähetyksiä kirjataan virallisesti siunatuiksi.
+15. **Maatalousbloggaaja:** Hallitset *Lähetys-, studio- ja kirjurinsalin (Skriptorio)* tietokonepäätteet, jalustakameran, valaisun ja konventin julkisen sosiaalisen median kanavan. Osaat rajata epäilyttävät yksityiskohdat pois kuvasta, upottaa julkaisuihin peiteltyjä viestejä ja käyttää kuvaustilannetta suojakilpenä.
+16. **Välskäri:** Olet tottunut erottelemaan vainajien kudokset ja hoitamaan maataloustapaturmia *Välskärin sairastuvassa (Infirmeria)*. Erotat tuoreet ampumahaavat vanhoista arvista ja osaat ommella vammat karkein välinein.
 
 ---
 
 ## 5. Varusteet ja arjen resurssit
 
-* **Sisäinen ääni -kommunikaatioimplantti:** Mahdollistaa äänettömän viestinnän huoneiden läpi (katakombien luiden lähellä implantti poimii herkästi staattista kohinaa ja vieraiden äänten huminaa).
-* **Munkkitilan arjen vaatetus:** Pellavapuvut, nahkaiset multasaappaat, villapaidat ja tyiliina vyöllä.
-* **Työvälineet:** Leikkaussakset, perunankuorimaveitset, öljylamput, messinkiset avainniput ja mullanäytekauhat.
-* **Talon tilat ja kätköt:** Vapaa pääsy keittiön ruokakomeroihin, lakanakaappeihin, leivinuuneille, juureskellariin ja aumoille.
+* **Sisäinen ääni -kommunikaatioimplantti:** Mahdollistaa äänettömän keskustelun pelaajamunkkien ja Cenin välillä huoneiden ja kerrosten läpi.
+* **Lähetys-, studio- ja kirjurinsalin päätteet ja kuvauskalusto:** Kynnyksen verkkoon kytketyt kuusi tietokonepäätettä, editointiohjelmistot, kuvausnurkkauksen siirrettävä jalustakamera ja lämpimät rengasvalaisimet konventin some-syötteen päivittämiseen.
+* **Luostarimaatilan vaatetus ja työvälineet:** Pellavakaavut (eteishallin komeroissa on 40 munkin kaavut ja varakaapuja), multasaappaat, karsintasakset, mehiläisharjat, lipeäpihdit, luuhiilibriketit, öljylamput ja messinkiset avainniput.
+* **Tilan kätköt ja tilat:** Vapaa pääsy molempiin kerroksiin ja kellariin (*Suuri Refektorio*, *Suuri Kynttiläkirkko*, *Ristikäytävä*, *Välskärin sairastupa*, *Suuri Dormitorio*, *Lähetys-, studio- ja kirjurinsali*, vanhempien munkkien kammiot, *Vieraskammiot*, lipeäkellari, juuresvarasto, luuhiilivaja, possuliskojen karsinat, luuhiili- ja kalkkivaja, mehiläistarha ja peltokoneiden halli).
+* **Cenin varusteet:** Tuore haava arkistokahakasta sekä muinainen, suljettu rasia (*Shiny Object*).
