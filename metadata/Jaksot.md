@@ -1794,3 +1794,159 @@ Nelikko vetäytyy huoltoväyliä pitkin kuivatelakan satamalaitureille, nousee p
 #### **Pe­laa­jien ker­tauk­set**
 
 Pelaajat eivät ole vielä kirjoittaneet kertauksia.
+
+## **Kapinallinen**
+
+**Eventuellit: Kymmenes jakso. Tilan hengenvaarallinen salaisuus ja jahti Kryptan hiljaisella maaperällä.**
+
+* **Sijainti:** Krypta, Kynnyksen 19. asema. Ulkokuoren munkkitila.
+* **Genre:** Psykologinen kamaritrilleri ja maadoitettu perhedraama
+
+### **Premissi**
+
+Elätte ehkä Kynnyksen rauhallisimmassa ja tyytyväisimmässä nurkassa. Lattioiden alla ja leivinuunin lämmön takana lepää Kryptan satojen kilometrien pituinen hiljainen luuossuaari – sukupolvien leposija, josta Ekklesian vanhat munkkisuvut ovat vuosisatojen saatossa louhineet mustaa, hedelmällistä multaa. Aseman ulkokuorella arki on kotoisaa ja maanläheistä: Pidätte huolta maastanne, paistatte leipää, jaatte reseptejä Kynnyksen verkkoihin ja pidätte huolen omista asioistanne. Tämän rauhan ylläpitämiseksi on olemassa vain yksi ehdoton laki: portit salvataan hämärän laskeuduttua, ja jos valtiovalta kysyy, sitä totellaan.
+
+Eräänä iltana metsästetty kapinallinen raahautuu henkitoreissaan munkkitilanne portille.
+
+Teette kohtalokkaan päätöksen. Avaatte rautasalvan, kiskotte vertavuotavan tulijan sisään, sidotte hänen haavansa ja kätkette hänet. Muu talon väki pidetään tapahtuneesta täysin tietämättöminä. Allekirjoitatte teolla oman kuolemantuomionne, mikäli salaisuus paljastuu.
+
+Pian pihaan saapuu Ratasvartion etsintäpartio.
+
+### **Tyylilaji**
+
+Tämä sijoittuu Kryptan ulkokuoren eristyneelle munkkitilalle. Täällä tuoksuvat märkä turve, leivinuunin lämpö, juurikkaat ja villapaidat. Arki on käsinkosketeltavaa maaseutua, jossa perhesiteet ovat kaikki kaikessa ja vaitonaisuus on hyve. Salaisuuden pitäminen omalta tietämättömältä väeltä tekee omasta kodista viritetyn ansan. *Badehotellet* (2013–), *All Creatures Great and Small* (2020–), *The Village* (2004).
+
+Peli on psykologinen kamaritrilleri. Toiminta ratkeaa puupöydän ääressä, katseiden kohtaamisissa, äänensävyissä ja vaikenemisessa. Valtaapitävä saapuu rauhallisena ja sivistyneenä. Hän nauttii talon antimia ja purkaa valheita pala palalta. Jokainen arkinen kysymys on piilotettu kuulustelu, ja jokainen hiljainen hetki on ansa. *Inglourious Basterds* (2009), *Hannibal* (2013–2015), *No Country for Old Men* (2007).
+
+Tämä on uudisraivaajien sitkeyttä ja maadoitettua selviytymistä. Pelaajahahmot ovat karkeaan työhön tottuneita ihmisiä, joiden voimana ovat arjen kulissien hallinta, tilusten tuntemus ja keskinäinen lojaalius autoritaarista koneistoa vastaan. *Godless* (2017), *Firefly* (2002), *Witness* (1985).
+
+### **Kynnys ja Krypta**
+
+Aurinkokunnan uloin osa on 20 aseman klusteri, joista jokainen menneen loiston aikoina oli vahvasti keskittynyt johonkin tiettyyn toimintaan. Suuren sodan myötä harmoninen kokonaisuus hajosi ja jokainen asema kaiversi itselleen oman tilansa ja toimensa, muodostaen liittoumia ja vihamiehiä. Kynnys voi olla aurinkokuntaa hallitsevan Arkkitehtuurin rajamailla, mutta yhtä lailla kuin muut aurinkokunnan osat, Kynnys on Tyrannin vallan alla ja yrittää lähinnä pärjätä päivästä toiseen.
+
+Krypta on toiminut hautausmaana koko historiansa ajan. Asema on Kynnyksen yhteinen muistomerkki, museo ja mausoleumi, jonka noodien verkostoon menneet sukupolvet lasketaan lepoon. Nestemäisessä avaruudessa kelluva sokkelo kasvaa jatkuvasti uuden biomateriaalin myötä, ja sen painottomissa käytävissä liikutaan tarttumalla kalkittuihin luihin. Syvemmälle mentäessä luusto tummuu muodostaen kymmenien kilometrien pituisen hiljaisen ossuaarin. Siinä missä monilla muilla asemilla arki kuluu poliittiseen kitkaan, Kryptalla vallitsee levollinen pysähtyneisyys ja jaettu rauha.
+
+Katakombien noodien ulkopinta muodostaa yhden Kynnyksen vehreimmistä maatalousalueista. Vainajien orgaaninen aines siirretään rakenteiden läpi suoraan ulkopinnalle mustaksi, poikkeuksellisen ravinteikkaaksi mullaksi. Keinotekoisen painovoiman ja valtavien kasvatusvalojen alla Ekklesian vanhat munkkisuvut hoitavat viljelmiään. Arki on leppoisaa ja käytännönläheistä: munkit jakavat leipäreseptejä ja maanviljelysblogeja Kynnyksen verkkoihin ja pitävät huolen sadostaan. Munkkien ja katakombien arkistoja hallitsevien Haaskalintujen yhteiselo nojaa vakiintuneeseen työnjakoon ja keskinäiseen rauhaan.
+
+Aseman vastaanottosatama toimii Ekklesian alueella poikkeuksellisena vapaavyöhykkeenä, jossa suljetut valvontakamerat ja katkaistut verkkoyhteydet takaavat vainajille ja heidän saattajilleen pyhän koskemattomuuden. Katakombien syvyyksissä vuosisatojen luumassa sekoittaa langattomat signaalit, ja Sisäinen ääni -implantit poimivat luiden seasta taustakohinaa ja vanhojen signaalien kaikuja. Tämän vuoksi Kryptalla nojataan ikiaikaisiin sääntöihin: ovet suljetaan huolellisesti, hämärän laskeuduttua portit pidetään salvattuina, ja käytävissä kuljetaan hiljaisuudessa.
+
+### **Hahmot ja motiivit**
+
+Pelaajahahmot ovat tällä Kryptan reunatilalla asuvia ja työtä tekeviä ihmisiä: isäntäperheen jäseniä, vieraita tai pitkäaikaisia luottotyöläisiä. Heidät yhdistää sama leipä, sama multa ja nyt myös sama hengenvaarallinen salaisuus.
+
+Esimerkkejä motiiveista:
+
+* **Kodin ja sadon suojeleminen:** Tila on peritty sukupolvien takaa ja sen multa on pyhää. Teet mitä tahansa, jotta sotilaat eivät polta viljelmiä tai vie perhettä mukanaan.
+* **Perheen viattomuuden varjelu:** Salaisuuden pitäminen tietämättömiltä läheisiltä – nuoremmilta sisaruksilta ja vanhuksilta – on elinehto. Heidän aito, vilpitön tietämättömyytensä on ainoa suoja jahtiupseerin katseilta.
+* **Moraalinen herääminen:** Munkkien opettama hiljaisuus ja pään painaminen alas alkavat tuntua rikoskumppanuudelta. Haavoittuneen auttaminen oli ensimmäinen teko, jossa tunsit tekeväsi jotain oikeaa.
+* **Tabujen ja vanhojen sääntöjen pelko:** Olet kauhuissasi tehdystä teosta. Pelkäät sekä jahtiupseerin kysymyksiä että katakombien heräävää pimeyttä, jos salaisuus paljastuu.
+* **Hiljainen kauna Ratasvartiolle:** Olet kokenut sotilaiden ylimielisyyden ja mielivallan, ja nautit salaa kyvystäsi katsoa heitä silmiin ja johtaa heitä harhaan heidän omassa pelissään.
+
+#### **Taidot**
+
+* **Mustan mullan agronomi:** Hallitset vainajien nesteistä ja orgaanisesta aineksesta kypsyvän maaperän. Tunnet kompostilämmön, lannoitesammiot ja juuriston, ja osaat lukea maasta jokaisen sinne sekoittuneen vieraan aineen.
+* **Kalkitusmestari:** Vastaat vainajien luiden lipeäkäsittelystä, kalkituksesta ja sommittelusta katakombien seinämiin. Tunnet luuston kestävyyden ja osaat liikkua painottomissa ossuaareissa tarttuen nikamiin äänettömästi.
+* **Keittiömunkki:** Vastaat talon leivinuuneista, vuosisataisesta hapanjuuresta ja muonituksesta. Osaat lepyttää epäluuloiset vieraat tuoreella leivällä ja peittää keittiön tuoksuilla epäilyttävät hajut.
+* **Hautalaivuri:** Tunnet valvomattoman vastaanottosataman pimeät laiturit ja niille saapuvat ruumisalukset. Osaat liikkua sataman ja tilan välillä huomaamatta ja tunnet laivurien vaitonaiset tavat.
+* **Katakombien luotain:** Tunnet kellarin alapuolella aukeavat kilometrien painottomat luolastot. Hahmotat tilat pimeässä pelkällä kosketuksella ja tiedät paikat, joissa ääni kantaa luiden pinnoilla kilometrien päähän.
+* **Nauha-arkistonhoitaja:** Olet käsitellyt Haaskalintujen paperikääröjä, magneettinauhoja ja sukupuita. Tiedät, miten Kynnyksen salaisuudet on arkistoitu ja millaisilla asiakirjoilla virkamiehen saa epäröimään.
+* **Siemenkauppias:** Tunnet Siemen-aseman akatemian, siemenpankit ja asemien väliset viralliset kauppasopimukset. Ymmärrät ulkomaailman politiikkaa ja omistat vakuuttavat kauppaluvat.
+* **Signaalipunoja:** Ymmärrät, miksi Sisäinen ääni -implantit poimivat luiden seasta menneisyyden kaikuja. Osaat virittää taajuuksia, vaimentaa implanttisi vuodot ja lukea taustakohinan heilahduksia.
+* **Kellarin vouti:** Vastaat suurtilan avaimista, salpalukoista, tuuletushormeista ja kätköistä. Tiedät talon jokaisen narisevan lankun, kätketyn luukun ja katakombeihin johtavan huoltokäytävän.
+* **Surujuhlan kestitsijä:** Olet tottunut ottamaan vastaan vainajien omaisia ja vieraita kaikkialta Kynnykseltä. Hallitset uskonnollisen etiketin, osaat lukea surun ja epäluulon merkkejä ja ohjata keskustelun vaarattomille urille.
+* **Haaskalintujen oppipoika:** Tunnet aseman tiedustelijoiden toimintatavat ja tiedät, miten he keräävät likaa asukkaista. Osaat tunnistaa kuulustelijan harhautukset ja syöttää tälle uskottavia puolitotuuksia.
+* **Perimätiedon vanhin:** Tunnet Kryptan ikiaikaiset lait, uskonnolliset säännöt ja iltarutiinit. Osaat puolustaa suljettua ovea tai epäilyttävää hiljaisuutta pyhillä tabuilla, joita virkavallan sotilaatkaan eivät tohdi julkisesti loukata.
+* **Lietelannan hoitaja:** Hallitset tilan työjuhdat, lantakuopat ja eläinsuojat. Osaat ohjata eläimiä sanattomasti ja käyttää mullan ja lannan karkeita hajuja harhauttamaan tarkkojakin vainukoiria.
+* **Nukutusyrttien tuntija:** Kasvatat kupoleissa kipua lievittäviä ja uneen vaivuttavia kasveja. Osaat valmistaa nopeasti hyytelöiviä hauteita, vaimentaa haavoittuneen tuskat ja pitää potilaan hiljaa tuntikausia.
+* **Hautakirjuri:** Hallitset Ekklesian viralliset kuolinrekisterit ja leimasimet. Osaat lukea ja väärentää hautausasiakirjoja sekä kirjata ihmisiä virallisesti siunatuiksi ja menneisyyteen kadonneiksi.
+* **Maatalousbloggaaja:** Hallitset Ekklesian verkkojen huomiotalouden ja tilan julkisen syötteen. Osaat kääntää kiusallisen tilanteen tilan julkiseksi PR-lähetykseksi tai suoraksi leivontakatsaukseksi, jonka edessä virkavalta joutuu varomaan mainettaan.
+* **Ruumiinavaaja:** Olet tottunut erottelemaan vainajien pehmytkudokset ja tutkimaan luiden vammat. Erotat silmänräpäyksessä vanhat vauriot tuoreista ampumahaavoista ja osaat ommella haavoja karkein kenttävälinein.
+* **Luuveistäjä:** Työstät vainajien luista muistoesineitä, reliikkejä ja rukoushelmiä. Tunnet muinaiset kaiverrustyylit, erotat aidot reliikit väärennöksistä ja osaat muotoilla luusta ja kalkista työkaluja ja kiiloja.
+
+### **Tarvikkeet**
+
+* **Sisäinen ääni -kommunikaatioimplantti:** Mahdollistaa äänettömän keskustelun lyhyellä matkalla (katakombien luiden lähellä implantti oireilee ja poimii taustakohinaa sekä vieraiden taajuuksien huminaa).
+* **Munkkitilan arjen vaatetus ja työkalut:** Pellavapuvut, multaiset saappaat, villapaidat, lapiot, karsintasakset, öljylamput ja messinkiset avaimet.
+* **Talon tarvikkeet ja tilukset:** Pääsy keittiön ruokakomeroihin, lääkintäyrtteihin, leivinuuneille, kellaritiloihin ja eläinsuojiin.
+
+### **Tiedot**
+
+#### **Sessiot**
+
+* \#01 Sessio 1 5.11.2026
+* \#02 Sessio 2 9.11.2026
+
+#### **Sijainti**
+
+[Krypta, Kynnyksen 19. asema](https://eventuell.it/world/kynnys/19-krypta)
+
+### **Sessio #01 — Sessio 1**
+
+**Pelattu**  
+torstaina 5\. marraskuuta 2026
+
+#### **Pelinjohtajan kertaus**
+
+PiilotaMuokkaa
+
+##### **Luostarin arki ja veren haju katakombeista**
+
+Kryptan ulkokehällä lepää Pyhän Velkavankiflagelantin luostari – pieni, omavarainen biodoomi peltoineen, eläinsuojiineen ja päärakennuksineen. Kupolin suojissa valmistetaan hunajaa ja kynttilöitä, joita ulkopuoliset ostavat kovaan hintaan, ja tuotetaan autenttista sisältöä Ekklesian verkkoihin. Luostarin arkea pyörittävät kolme vanhempaa munkkia: hautakirjurina toimiva ja vanhaa teknologiaa näpertävä Moor, joka lähettää sivurakennuksen pienestä pajasta analogisilla radioaalloilla suosittua *Reseptiradiota*; itsestään kolmannessa persoonassa puhuva eläintenhoitaja Jusuk, joka on lapioinut luostarissa lantaa kymmenisen vuotta, pitää autenttista *"Lapioin lantaa"* -kanavaa ja kantaa huppunsa alla takaraivossa suurta arpea, jonka alkuperää ei muista; sekä jo nuorena luostariin jätetty kalju ja hampaaton Mile, joka kulkee turpeenhajuisessa villapaidassa naureskellen itsekseen ja tekee pienelle seuraajakunnalleen kuolemaan vihkiytynyttä, makaberia sisältöä.
+
+Tavallinen päivä käynnistyy isossa kirkkosalissa, jonka kahtia jaetuissa tunnustuskopeissa on merellinen taustakangas, valot ja kamerat. Jusuk on vuorossa ottamassa vastaan synnintunnustuksia someen. Nuorempi munkki tunnustaa kameralle haaveilevansa "pummitappeluiden" orkestroimisesta seuraajien keräämiseksi, koska hänen fanittamansa vaikuttaja teki aikoinaan samanlaista sisältöä. Kun synnit on tunnustettu ja kamera sammuu, Jusuk neuvoo nuorukaista unohtamaan muiden kärsimyksen hyväksikäytön: munkin tulee jakaa omaa kärsimystään, ja jos tämä haluaa käyttää väkivaltaa, Jusuk katsoisi itsekin mielellään, kun tämä lyö itseään.
+
+Samaan aikaan luostarin alapuolisissa, kapeissa ja painottomissa katakombeissa rujon näköinen, nyljettyä karhua muistuttava sotilasveteraani Cen vetää itseään eteenpäin kallojen ja luiden peittämää käytävää pitkin. Häntä on ammuttu muutaman kerran, veri leijuu painottomassa tilassa vanana hänen perässään ja kaukaa kuuluu seuraajien ja vainukoirien ääniä. Cen onnistuu piiloutumaan jemmakoloon ja imeyttämään veren vaatteisiinsa, mutta hänen voimansa loppuvat ja hän menettää tajuntansa yrittäessään sitoa haavojaan.
+
+Luostarin kellarikerroksessa luuta webbikameran edessä veistelevä Mile haistaa katakombiluukun takaa veren – elävän veren paikassa, jossa ei pitäisi haista mikään elävä. Mile sammuttaa kameransa, avaa kellariluukun ja löytää katakombien kolosta taktisissa varusteissa makaavan tajuttoman Cenin, jonka hän tunnistaa äskettäin näkemästään villistä unesta. Mile sitoo haavat ensiavulla ja hakee Moorin ja Jusukin apuun "siivoamaan kryptaa" haravan ja säkin kanssa. Kun Moor ja Jusuk näkevät Cenin, hekin tajuavat nähneensä viime kuukausina samaa unta, jossa sekä tämä kulman taakse juossut mies että he kaikki kolme olivat mukana.
+
+##### **Vaara 3 Similis ja Sokea Runoilija**
+
+Munkit nostavat tajuttoman Cenin yksipyöräisiin kottikärryihin ja raahaavat hänet kellariin samalla, kun noviisi laitetaan siivoamaan veri huolellisesti katakombien luista. Samalla hetkellä kaikkien kolmen munkin – ja tajuttoman Cenin – *Sisäinen ääni* -implantti menee itsestään päälle, vaikka munkeilla se on ollut suljettuna niin kauan kuin he ovat olleet luostarissa. Kaikkien näkökenttään ilmestyy teksti: *"Vaara 3: Similis"*.
+
+Kellarissa Moor riisuu Ceniltä taisteluvarusteet ja aseet säkkiin sillä vuosikymmenten sisällöntuotannon periaatteella, että jos jokin ei ole näkyvillä, sitä ei ole oikeasti olemassa. Cen jää pelkkiin Ekklesia-aiheisiin, peukuilla ja sydämillä kuvioituihin alushousuihin. Mile tutkii ja puhdistaa haavat transsissa maistellen samalla verta ja panee merkille Cenin toisen käden tilalla olevan alkeellisen kyberneettisen proteesin. Jusuk puolestaan kantaa varustesäkin ja Cenin verisen repun piiloon eläinsuojan lantakasaan.
+
+Koska kellarissa ja omissa huoneissa käy muuta väkeä, kolmikko päättää viedä Cenin konehallin ja pannuhuoneen takana sijaitsevaan Moorin pieneen *Reseptiradion* studiokoppiin. Heidän avatessaan ulko-ovea vastaan kävelee luostarin vanhin munkki, Sokea Runoilija. Vanhus pysähtyy, sanoo ilmassa olevan jotakin outoa ja pyhää ja kertoo luulleensa juuri äsken katsoneensa itseään peilistä. Hän ojentaa kätensä ja tunnustelee Jusukin kasvoja ja päätä samalla kun Jusuk vastaa hänelle. Sokea Runoilija kysyy hämmentyneenä, tuntuuko Jusuk siltä miltä Jusuk näyttää, ennen kuin jatkaa matkaansa sisälle puuronkeittoon. Myös Mile kokeilee Jusukin kalloa ja tuntee sormenpäissään päällä olevan implantin pienen sähkön.
+
+##### **Reseptiradio, peilikuva ja yön taajuudet**
+
+Pannuhuoneen takaisessa studiokopissa Cen tokenee heikkona ja ottaa yhteyttä munkkeihin *Sisäisen äänen* kautta – johon Mile ja Jusuk vastaavat huutamalla ääneen, koska eivät osaa käyttää implanttia äänettömästi. Cen kertoo olleensa hakemassa tavaraa katakombien syvemmistä kerroksista, kun tieto hänen liikkeistään vuoti ja kuolemanpartio yllätti hänet. Hän ilmoittaa olevansa "hyvien puolella Tyrannia vastaan" – mitä munkit pitävät pöyristyttävänä kerettiläisyytenä – ja kertoo pakoaluksensa saapuvan vasta viikon kuluttua.
+
+Kun tasatunnin lähetysaika koittaa, Moor asettaa puolikuntoiselle Cenille kuulokkeet päähän ja mikrofonin eteen, avaa käsin kirjoitetun reseptikirjan F-kirjaimen kohdalta ja pitää intropuheen. Cen lukee vierailevana lukijana suoraan lähetykseen *focaccia kirsikkatomaateilla* -reseptin takellellen sanoissaan juuri sopivan autenttisesti, minkä jälkeen Moor päättää lähetyksen vakiopuheellaan.
+
+Munkkien lähtiessä ruokasaliin iltapuurolle – missä nuori Kalkitsija on lukenut päivän sanan – yksin jäänyt Cen tutkii studiokopin ja viereisen pajan lukitsemattomia laatikoita. Hän löytää ruuvimeisseleitä, kolvin, öljyä ja piipputupakkaa, mutta hämmästyy sitä, kuinka vähän tilassa on mitään henkilökohtaista tavaraa. Kun Cen istuu alas, katsoo itseään peilistä ja miettii mielessään *"Mitä helvettiä sä täällä teet?"*, hänen peilikuvansa avaa suunsa ja kysyy saman kysymyksen suoraan ääneen.
+
+Iltapuurolla Mile istuu vaivaantuneen Sokean Runoilijan viereen ja tervehtii tätä sekä ääneen että implantin kautta. Runoilija säpsähtää ja kertoo *Sisäisen äänen* välityksellä pitäneensä implanttia päällä sokeutensa apuvälineenä: hän on saanut koko illan ulkopuolelta virallisia hätätiedotteita ja etsintäkuulutuksia niin kovalla intensiteetillä, että hänen niskaansa särkee, vaikkei hän ole avannut ainuttakaan viestiä 23 vuoteen.
+
+Yöllä Mile palaa luukammioonsa puhdistamaan ruumiita. Moor palaa studiokoppiin, löytää Cenin nukkumasta tuolilta laatikko auki, lukee illan viimeisen F-reseptin (*fariinipulla*) ja alkaa skannata radioaaltoja. Hän poimii taajuuksilta sotilasviestintää Kryptalla käynnissä olevasta operaatiosta ja osuu hetkellisesti taajuudelle, joka kiertää suoraan hänen implanttiinsa: taajuudelta kuuluu hänen omalla äänellään lausuttuna yksi ainoa sana ennen kuin yhteys katoaa. Samaan aikaan Sokean Runoilijan kysymyksestä (*"Miksi en tunnu siltä miltä näytän?"*) levottomaksi käynyt Jusuk livahtaa syvälle katakombien pimeimpiin nurkkiin meditoimaan. Koska hänen *Sisäinen äänensä* on nyt päällä, luuseinät alkavat kuiskia hänelle rauhoittavia vakuutteluja, ja Jusuk nukahtaa painottomaan pimeyteen.
+
+##### **Valkohanskainen Verikoira ja sormiluinen rasia**
+
+Aamulla Cen herää studiokopissa heikkona ja huhuilee implantin kautta lääkkeitä repustaan. Samaan aikaan Mile on lähetetty arvostettuna vanhana munkkina luostarin portille vastaanottamaan vieraita. Portilla odottaa kaksi raskaasti aseistettua, mellakkapoliisia muistuttavaa sotilasta kypärissään, kasvoja peittävissä huiveissaan ja aurinkolaseissaan sekä heidän rinnallaan moitteettomasti leikattuun harmaaseen univormuun ja valkoisiin nahkahansikkaisiin pukeutunut upseeri. Mile tunnistaa varusteet unesta samalla, kun Cen huutelee hänen päässään. Tolaltaan mennyt Mile toivottaa Ekklesian palvelijat tervetulleiksi, tarjoaa heille leipäjuurta ja neulontakurssia, kutsuu heidät noviiseiksi ja pyytää muistamaan tägätä luostarin someen ennen kuin kerää helmansa ja kipittää radiopajalle.
+
+Studiokopissa Moor vetää pellavaliinan pölyisen monitorin päältä ja tarkistaa luostarin sometilin: portille on todella tägännyt itsensä Jahtikommodori Valkohanskainen Verikoira, Ratasvartion ja KW-konsortion sotilasoperaatioissa kunnostautunut upseeri.
+
+Katakombeissa kukonlaulun ohi nukkunut Jusuk herää päässään kuuluvaan viestintään, ruokkii ensin possuliskot ja kaivaa sitten Cenin verisen repun esiin lantakasasta. Matkalla studiokoppiin luostarin kulman takaa astuu kuitenkin vastaan raskaasti varustettu sotilas sähköpamppu kädessään. Sotilas tivaa, kuka Jusuk on ja mitä tällä on kädessään, ja käskee pudottamaan repun. Sotilas katsoo Jusukin kasvonpiirteitä tarkasti, saa korvanappiinsa viestin, huitaisee pampulla pari kertaa ilmaan Jusukin suuntaan ja päästää järkyttyneen munkin jatkamaan matkaansa. Jusuk saapuu studiokoppiin repun kanssa juuri, kun Moor lukee aamun *fondue*-reseptiä.
+
+Samalla hetkellä koko luostarin koolle kutsuva kello kumahtaa ensimmäisen kerran. Cen ottaa repustaan taistelustimulanttinsa, ja hänen olonsa paranee minuutissa täyteen iskuun, samalla kun Mile antaa hänelle pahanhajuisen yrttipussin ja seikkaperäiset ohjeet liemen hauduttamiseen. Jusuk kaataa repun sisällön lattialle, täyttää repun satunnaisella sälällä ja omii hienon repun itselleen (*"Jusukin reppu"*). Lattialle levinneistä tavaroista paljastuu Cenin varsinaisen tehtäväsaaliin – KW-konsortion vanhoja, yhä voimassa olevia pääsykoodeja sisältävien C-kasettien ja paperikansioiden, jotka Moor tunnistaa korjattuaan aiemmin arkistonauhureita – lisäksi pieni, ihmisen sormiluista tehty rasia, joka tarttui Cenin mukaan samasta paikasta katakombeista. Mile pysähtyy ja tunnistaa rasian välittömästi omakseen (*"Poika, tuo on meidän rasia! Minun tärkeitä asioita — tehty meidän luista"*) ja sujauttaa sen taskuunsa.
+
+##### **Ruokasalin striimaussopimus ja vierailijakaavut**
+
+Kellon soidessa toisen kerran C-kasetit ja paperit kätketään lantakasaan. Koska luostarissa käy säännöllisesti ulkopuolisia sometähtiä parin päivän retriiteillä tutustumassa autenttiseen luostarielämään, munkit pukevat Cenille yhden koon vierailijakaavun, antavat hänen käteensä ruukun taikinajuurta ja vievät hänet ruokasaliin parin muun vierailijan viereen pöydän toiseen päähän, samalla kun Moor selittää hänelle luostarin pyhää kiertoa kameran edessä.
+
+Kolmannen kellonsoiton jälkeen puhujanpöntössä seisova Verikoira – jonka hajuaistiin Cen havaitsee kytketyn kybernetiikkaa – aloittaa puheensa. Hän ilmoittaa, että Kryptalla piileskelee kapinan edustaja, ja että hän ja hänen miehensä etsivät karkuria ja tämän varastamia esineitä sekä teloittavat karkurin ja kaikki tämän apurit. Koska Verikoira fanittaa luostaria ja se sijaitsee sopivasti alueen keskellä, hän ilmoittaa perustavansa luostariin tukikohtansa. Kun Verikoira vetoaa kapinan muilla asemilla aiheuttamiin sähkö- ja ruokapuliin, omavaraisessa kuplassaan elävät munkit pudistelevat päätään ymmärtämättä lainkaan, miten sähkö tai ruoka voisi loppua.
+
+Moor nousee vanhempien munkkien edustajana puhumaan Cenin tukiessa häntä tietotaidollaan. Moor sivuuttaa poliittisen puheen täysin ja vetoaa Pyhän maan striimaussopimuksiin, brändiin ja IPR-oikeuksiin: luostarissa kuvataan vierailijoita jatkuvasti, joten Verikoiran toistakymmentä sotilasta eivät saa näkyä striimeissä, mahdolliset teloitukset on tehtävä kupolin ulkopuolella, ja sotilaiden on puettava ylleen vierailijakaavut, jotta sisältö ei häiriinny. Verikoira hymyilee fanin innolla, kun puhe kääntyy hunajaan ja hapanjuureen, ja määrää rivisotilaansa pukemaan vierailijakaavut ja istumaan pöytään syömään puuroa. Moor aistii kuitenkin Verikoiran äänestä, ettei kommodori todellisuudessa kunnioita kirkkoa, vaan pitää omaa tehtäväänsä kaiken yläpuolella ja noudattaa sopimusta vain puhtaana taktikointina.
+
+##### **Simasammioiden neuvonpito ja Tyhjä Peili**
+
+Kokoontumisen purkauduttua noviisi pannaan esittelemään pellonreunaa kaapuihin puetuille sotilaille, ja nelikko vetäytyy tarkistamaan simasammioiden lämpötiloja paikkaan, jossa heitä ei kuunnella. He pohtivat, miten Cenin läsnäolo selitetään seuraavina päivinä, kun vierailijat jaksavat viipyä tilalla yleensä vain päivän tai kaksi – lukuun ottamatta yhtä vierailijaa, joka viipyi viikon katkaistuaan jalkansa kärryn alle ja jonka jalka on yhä Milen varastossa.
+
+Kun he ihmettelevät ääneen yhteistä untaan, itsestään käynnistyneitä implanttejaan ja Sokean Runoilijan kysymystä, Jusuk katsoo peiliin ja näkee siinä hetken ajan itsensä täydessä sotisovassa, samanlaisissa varusteissa kuin Verikoiran sotilaat. Moor kertoo kuulleensa yöllä radiotaajuuksia skannatessaan oman äänensä, ja samalla hetkellä pienestä kaiuttimesta – josta soi luostarin oman kuoron levy – kuuluu Moorin ääni, joka sanoo sanan: *"Peili."*
+
+Mile katsoo peiliin ja näkee sen, mitä hän haluaisikin nähdä: oman munkinkaapunsa sisällä seisovan kasvottoman luurangon. Kun Moor ja Cen katsovat peiliin, peilin syvyydestä kävelee heitä kohti peilinpalasista rakentunut hahmo ennen kuin peilikuvat palautuvat normaaleiksi. Cen tunnistaa hahmon aiemmin kohtaamiensa ylempien henkiolentojen sukulaiseksi, ja Mile yhdistää näyn sekä implanttien *"Vaara 3: Similis"* -tekstin vuosikymmenten aikana kuulemaansa Skriptuuraan: kyseessä on Similis, Tyhjä peili – yksi Arkkitehtuurin ja Tyrannin pyhimyksistä, ideaaliuden jumaluus, jonka manifestoitumista mittaava noppa on kohdassa neljä.
+
+#### **Pelaajien kertaukset**
+
+Pelaajat eivät ole vielä kirjoittaneet kertauksia.
+
+

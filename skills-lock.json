@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "skills": {
+    "no-ai-slop": {
+      "source": "petergyang/no-ai-slop",
+      "sourceType": "github",
+      "skillPath": "skills/no-ai-slop/SKILL.md",
+      "computedHash": "109e265d222da64314b5f08634e4c4ab91051c81eff92d52beea8f3cd81ddb3d",
+      "installMode": "copy"
+    },
+    "plain-language": {
+      "source": "mgifford/accessibility-skills",
+      "sourceType": "github",
+      "skillPath": "skills/plain-language/SKILL.md",
+      "computedHash": "035b2875503afea4f8302c4ff8f6edb7539edcd1331ddab8bd1e2850835a1b4c",
+      "installMode": "copy"
+    },
+    "technical-writing": {
+      "source": "riekelt/technical-writer",
+      "sourceType": "github",
+      "skillPath": "plugins/technical-writer/skills/technical-writing/SKILL.md",
+      "computedHash": "ca636916de0c3f62c59595f63b2148829658d306bc5ca8353c10f2a4ef7502c1",
+      "installMode": "copy"
+    }
+  }
+}

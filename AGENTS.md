@@ -3,7 +3,11 @@
 ## 1. Content Authoring & Finnish Prose Standards
 
 > [!IMPORTANT]
-> **Before writing or editing ANY markdown or narrative content in `apps/ruleset/`, `apps/episodes/`, `apps/world/`, or `metadata/Jaksot.md`, you MUST read and follow the [content-authoring skill](file:///.agents/skills/content-authoring/SKILL.md).**
+> **Before writing or editing ANY markdown or narrative content in `apps/ruleset/`, `apps/episodes/`, `apps/world/`, or `metadata/Jaksot.md`, you MUST read and follow:**
+> - [content-authoring](file:///.agents/skills/content-authoring/SKILL.md)
+> - [no-ai-slop](file:///.agents/skills/no-ai-slop/SKILL.md)
+> - [plain-language](file:///.agents/skills/plain-language/SKILL.md)
+> - [technical-writing](file:///.agents/skills/technical-writing/SKILL.md) (`references/style.md` & `references/truth.md`)
 
 All narrative content is Finnish only. To avoid formulaic AI mannerisms, you MUST strictly enforce the following rules:
 
@@ -71,6 +75,9 @@ All narrative content is Finnish only. To avoid formulaic AI mannerisms, you MUS
 
 Canonical skills are located in `.agents/skills/`:
 - [.agents/skills/content-authoring/SKILL.md](file:///.agents/skills/content-authoring/SKILL.md) – Markdown content in ruleset/episodes/world, frontmatter, prose standards
+- [.agents/skills/no-ai-slop/SKILL.md](file:///.agents/skills/no-ai-slop/SKILL.md) – Eliminating AI writing patterns, binary contrasts, puffery, and robotic rhythm
+- [.agents/skills/plain-language/SKILL.md](file:///.agents/skills/plain-language/SKILL.md) – Clear, accessible prose, front-loaded conclusions, short sentences, active voice
+- [.agents/skills/technical-writing/SKILL.md](file:///.agents/skills/technical-writing/SKILL.md) – House style, banned constructions, truth/sourcing rules, zero production residue
 - [.agents/skills/visual-identity/SKILL.md](file:///.agents/skills/visual-identity/SKILL.md) – Retro-space-opera aesthetic, color philosophy, animation vocabulary
 - [.agents/skills/ui-design-system/SKILL.md](file:///.agents/skills/ui-design-system/SKILL.md) – Design system rules, theming, tokens for `@repo/ui`
 - [.agents/skills/game-mechanics/SKILL.md](file:///.agents/skills/game-mechanics/SKILL.md) – TTRPG domain knowledge, dice resolution, harm/stress

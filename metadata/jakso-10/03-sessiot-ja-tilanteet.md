@@ -1,183 +1,182 @@
-# Jakso 10: Kapinallinen — Kohtausrakenne, Tilanteet ja Risteävät Voimat
+# Jakso 10: Kapinallinen — Sessio 1:n Tilannekuva ja Sessio 2:n Pelinjohtajan Suunnitelma
 
-> **Pelinjohtajan pöytäsuunnitelma (Sessiot 1 & 2)**  
-> **Dramaturginen periaate:** Jokainen vaihe on pilkottu konkreettisiksi, selkeärajaisiksi kohtauksiksi (missä ollaan, ketkä ovat paikalla, mikä laukaisee kohtauksen, mistä keskustellaan ja mitä kohtauksen lopun 5n20-jälkiheitto määrittää). Sessio 1 tähtää *Syntikirjurin* saapumiseen (Kohtaus 2.5) ja uudelleenraamitetaan Sessio 1:n jälkeen tarpeen mukaan.
-
----
-
-## 0. Aloitusrituaali: Jaettu uni ja Pyhimysheitto (1n12)
-
-### Kohtaus 0.1: Unen taistelututoriaali (2 kierrosta)
-* **Tarkoitus:** Opettaa 5n20-noppakoura kahdelle uudelle pelaajalle ja luoda suora diegeettinen side kolmen pelaajamunkin ja Cenin välille.
-* **Tila ja läsnäolijat:** Suuren sodan aikainen murtuva etuvartioasema. Kaikki neljä pelaajaa valkoisissa keramiittihaarniskoissa.
-* **Toiminta:**
-  * **Kierros 1:** Nelikko suojaa haavoittunutta toveria tulituksen alla ja kiskoo hänet bunkkerin kynnyksen yli (*Fysiikka / Ammunta / Näppäryys*, kynnys 13).
-  * **Kierros 2:** Purppurahaarniskaiset hyökkääjät rynnivät oviaukkoon; nelikko painaa raskaan teräsoven kiinni ja lyö salvan lukkoon vihollisen nenän edestä (*Fysiikka / Taistelu / Sisu*, kynnys 13).
-* **Leikkaus:** Kun salpa kolahtaa unessa kiinni, näkymä leikkautuu mustaan. Hahmot ovat nähneet tätä samaa unta toisistaan kuukausien ajan.
-
-### Kohtaus 0.2: Pyhimysheitto (1n12)
-* Joku pelaajista heittää julkisesti **1n12**.
-* *Sisäinen ääni* heijastaa hermostoon purppuraisen vaaraviestin (`"VAARA [X]: [PYHIMYS]"` – esim. `2 Harmonia`, `4 Quies`, `5 Kustodi`, `7 Lamenta`, `8 Aksios`, `9 Kronos`, `11 Logos` tai `12 Primus`).
-* Pyhimyksen vaikutus luostarin kamaripeliin improvisoidaan lennosta heiton pohjalta.
+> **Pelinjohtajan pöytäsuunnitelma (Päivitetty Sessio 1:n jälkeen)**  
+> Sisältää Sessio 1:n toteutuneet tapahtumat, pelaajahahmojen (**Moor, Jusuk, Mile, Cen**) Hahmopaja-tiedot ja esineiden tarkan tilanteen ensimmäisen pelikerran päättyessä sekä räätälöidyn kohtaus- ja johtolankasuunnitelman **Sessio 2:ta** varten.
 
 ---
 
-## 1. Vaihe 1: Luostarin ilta ja Cenin saapuminen
+## 1. Sessio 1:n Tilannekuva (Mistä Sessio 2 alkaa?)
 
-### Kohtaus 1.A: Luostarimaatilan iltarutiinit ja Ekklesian sisältötyö
-* **Tila ja läsnäolijat:** Ulkokuoren kasvatuskupolit, pihapiiri, leivinuuni, *Lähetys- ja kirjurinhuone* sekä refektorio. Kolme pelaajamunkkia sekä neljä alempaa NPC-munkkia (*Kestitsijä*, *Sokea Rukoilija*, *Kalkitsija*, *Karsinanhoitaja*).
-* **Aloitus ja sytyke:** Kultaiset kasvatusvalot himmenevät kohti yösykliä. Hitaat maatalousautomaatit palaavat kukkivilta kiertoviljelylohkoilta latausasemilleen, mehiläispesien surina vaimenee ja muuratussa leivinuunissa hehkuvat savuttomat, tummat **luuhiilibriketit**.
+### A. Pelaajahahmot (Hahmopaja-profiilit ja tila Session 1 päättyessä)
+
+1. **Moor — Ekspertti ([Hahmo #24](https://eventuell.it/generator/character/24))**
+   * **Kestot & Nopat:** Sisu `3/3` (`n6, n6, n6`) | Keho `8/8` | Mieli `10/10` (*Ymmärrys* `n4`) | Terä `10/10` (*Näkemys* `n4`).
+   * **Motivaatio:** *Moor on kirjannut tuhansien vainajien viimeiset sanat ja viestit maailmalle ja nähnyt nauha-arkistoista kuinka monet niistä on sensuroitu, ja ne aukot alkavat muodostaa tarinan.*
+   * **Muistiinpanot & Olemus:** Keski-ikäinen, otsatukalla ja takatukalla ("mullet") sekä harvoilla hampailla varustettu vanhempi munkki. Moor korjaa ja ylläpitää arkaaista teknologiaa ja pyörittää konehallin (`B3`) takahuoneeseen rakennetusta studiokopistaan suosittua analogista **Reseptiradiota**, jossa luetaan tasatunnein reseptejä aakkosjärjestyksessä radioaalloille. Sessio 1:ssä luettiin F-kirjain (*focaccia kirsikkatomaateilla*, *fariinipulla*, *fondue*) – **Sessio 2:ssa vuorossa on G-kirjain** (*graavikala*, *graavipossu*, *gratiini*).
+   * **Herääminen ja salaisuudet:** Moor on alkanut muistella kuolinrekisteristä poistettuja lauseita ja ymmärtänyt, että munkit itse rakentavat päivittäin luostarin kulissin. Hän on myös aiemmin korjannut Haaskalintujen arkistonauhureita katakombeissa ja tunnisti Cenin varastamat C-kasetit **KW-konsortion virallisiksi pääsykoodinauhoiksi**.
+
+2. **Jusuk — Sotilas ([Hahmo #25](https://eventuell.it/generator/character/25))**
+   * **Kestot & Nopat:** Sisu `3/3` (`n8, n8, n8`) | Keho `12/12` (*Fysiikka* `n4, n4`) | Mieli `8/8` | Terä `5/8` *(menetti 3 pistettä Terää kohdattuaan Ratasvartion sotilaan kulmalla)*.
+   * **Olemus:** Possuliskojen hoitaja ja lannanlapioija, joka puhuu itsestään kolmannessa persoonassa (*"Jusuk sitä, Jusuk tätä"*), ylläpitää *"Lapioin lantaa"* -kanavaa ja viihtyy katakombien pimeydessä meditoimassa. Hänellä on huppunsa alla **takaraivossa suuri arpi**, eikä hän muista mitään elämästään ennen luostariin saapumistaan (~10 sykliä sitten).
+   * **Mitä Sessio 1:ssä tapahtui:**
+     * **Sokea Runoilija** tunnusteli pihalla Jusukin kasvoja ja kalloa, aisti implantin sähkön ja kysyi hämmentyneenä: *"Miksi Jusuk ei tunnu siltä, miltä näyttää?"*
+     * Yöllä Jusuk nukkui katakombeissa päällä olevan implanttinsa kanssa, ja luuseinät kuiskivat hänelle rauhoittavia ääniä.
+     * Aamulla Ratasvartion sotilas pysäytti Jusukin luostarin kulmalla sähköpamppu kädessään, kun Jusuk kantoi Cenin veristä reppua. Sotilas katsoi Jusukin kasvoja tarkasti, kuunteli korvanappiinsa tulleen viestin ja päästi Jusukin menemään.
+     * Kellarin peilissä **Similis näytti Jusukille hänet itsensä täydessä Ratasvartion/iskujoukkojen sotisovassa**. Lisäksi Jusuk on luonnostaan hämmentävän taitava keksimään tekaistuja influencer-persoonia ja peiteprofiileja, vaikkei itse ymmärrä miksi.
+
+3. **Mile — Ekspertti ([Hahmo #23](https://eventuell.it/generator/character/23))**
+   * **Kestot & Nopat:** Sisu `3/3` (`n6, n6, n6`) | Keho `8/8` | Mieli `10/10` (*Ymmärrys* `n4`) | Terä `10/10` (*Näkemys* `n4`).
+   * **Pelaajan Ankkuri:** **Raja** (*Ankkuri: Kiven liikkumaton paino ja kova geometria. Linnoitus, joka seisoo vakaana kaaosta vasten. Käsky: Tahto vailla säröä. Murtuma: Sortuminen oman painonsa alla.*)
+   * **Motivaatio:** *Kiinnostus kuolemaan.*
+   * **Olemus:** Hyvin vanha, kalju ja hampaaton munkki, joka kulkee turpeenhajuisessa villapaidassa ja naureskelee itsekseen. Hänet on jätetty luostariin jo lapsena yli 23 sykliä sitten, koska hän oli "tosi omituinen". Luostarin performatiivinen maatalous-cottagecore on Milelle toissijaista; häntä kiehtoo **aito, makaberi kuolema** (ja ulkomaailman monimuotoisemmat kuolemat). Hän veistelee kellarissa luita pienelle, omistautuneelle seuraajakunnalleen ja säilyttää kellarivarastossaan jopa aiemman, jalkansa katkaistuaan viikon luostarissa viipyneen vierailijan irtileikattua jalkaa.
+   * **Sormiluinen rasia ja peilinäky:** Kun Cenin repusta kaadettiin tavarat lattialle, Mile tunnisti sieltä löytyneen **ihmisen sormiluista rakennetun rasian** välittömästi omakseen (*"Poika, tuo on meidän rasia! Minun tärkeitä asioita — tehty meidän luista"*) ja sujautti sen omaan taskuunsa. Kellarin peilissä Mile näki sen, mitä hän sisimmässään haluaa nähdä: oman munkinkaapunsa sisällä seisovan kasvottoman, hiljaisen **luurangon**.
+
+4. **Cen — Sotilas (Yksikätinen kapinallisveteraani vierailijakaavussa)**
+   * **Olemus ja kunto:** Nyljettyä karhua muistuttava arpinen sotilas, jolla on vasemman kätensä tilalla alkeellinen kyberneettinen proteesi ja allaan Ekklesian peukalo- ja sydänkuvioiset alushousut. Milen ompelun ja omien taistelustimulanttiensa ("trottiensa") ansiosta Cen on **100 % toimintakuntoinen**, vaikka haavat vaativat vielä oikeaa paranemisaikaa.
+   * **Naamiointi ja aikapaine:** Cen on puettu *one-size-fits-all* **vierailijakaapuun** ja hänelle on lykätty syliin ruukku hapanjuurta, jotta hän menee ruokasalissa täydestä ulkopuolisena some-vaikuttajana, joka on tullut luostariin parin päivän "autenttiselle retriitille". Ongelma: Cenin pakoalus saapuu vasta **viikon kuluttua**, kun taas vierailijat jaksavat olla tilalla yleensä vain 1–2 päivää!
+
+---
+
+### B. Esineiden, NPC-hahmojen ja Pyhimyksen tila Session 2 alussa
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ TILANNEKARTTA SESSIO 2:N ALKAESSA                                      │
+├────────────────────────────────────────────────────────────────────────┤
+│ • PYHIMYS: Vaara 3: Similis ("Tyhjä Peili" – ideaaliuden, peilikuvien  │
+│   ja kaksoisolentojen pyhimys).                                        │
+│   ➔ Pyhimysnoppa (1n12-manifestoitumiskello): 4 / 12                   │
+│                                                                        │
+│ • MISSÄ ESINEET OVAT?                                                  │
+│   1. KW-konsortion C-kasetit ja pääsykoodikansiot:                     │
+│      Piilotettuna possuliskojen karsinan lantakasaan (B4).             │
+│   2. Cenin taisteluvarusteet ja aseet:                                 │
+│      Säkitettynä samassa lantakasassa (B4).                            │
+│   3. Ihmisen sormiluista tehty rasia:                                  │
+│      Milen taskussa!                                                   │
+│   4. Cenin tyhjennetty reppu:                                          │
+│      Jusukin hallussa ("Jusukin reppu"), täynnä satunnaista sälää.     │
+│   5. Aiemman vierailijan katkennut jalka:                              │
+│      Milen kellarivarastossa (C4/C5).                                  │
+│                                                                        │
+│ • VERIKOIRA JA RATASVARTION SOTILAAT:                                  │
+│   • Jahtikommodori Valkohanskainen Verikoira on perustanut tukikohdan  │
+│     luostariin (hän uskoo Cenin piileskelevän jossakin lähikupolissa,  │
+│     mutta hänen kyberneettinen hajuaistimatriisinsa on aktiivinen).    │
+│   • Moorin vaatimuksesta Verikoiran rivisotilaat on puettu luostarin   │
+│     vierailijakaapuihin, jotta he eivät riko Pyhän maan striimaus- ja  │
+│     IPR-sopimuksia!                                                    │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 2. Sessio 2: Pelinjohtajan Suunnitelma ja Kohtausrakenne
+
+Sessio 2:ssa tempo tiivistyy asteittain kohti pistettä, jossa munkkien on tehtävä radikaaleja ratkaisuja. Pelikerta rakentuu neljän toisiinsa kietoutuvan painekattilan varaan:
+
+### Vaihe 1: Vierailijakaapuihin puetut sotilaat, G-kirjaimen Reseptiradio ja "Retriitti-influensseri" Cen
+
+#### Kohtaus 2.1: Sotilaat luostarihommissa ja Cenin peiteprofiili
+* **Tila ja läsnäolijat:** Pihapiiri, peltolohkot, kynttiläpaja ja ruokasali. **Moor, Jusuk, Mile, Cen** sekä vierailijakaapuihin puetut Ratasvartion sotilaat ja **Verikoira**.
+* **Aloitus ja sytyke:** Koska Moor pakotti Verikoiran sotilaat pukemaan vierailijakaavut ja noudattamaan luostarin striimaussopimusta, sotilaat joutuvat nyt kulkemaan tiluksilla kaavuissa. Jos he seisovat tönkköinä vartiossa, he pilaavat kameroissa "autenttisen luostari-ilmapiirin".
 * **Mitä kohtauksessa pelataan:**
-  * Jokainen kolmesta pelaajamunkista esitellään lyhyesti omassa arjen rutiinissaan ja esihenkilöasemassaan: pelloilla, uunin ääressä tai *Lähetys- ja kirjurinhuoneen* tietokonepäätteellä valmistelemassa konventin leppoisaa maatalous- ja leivontajulkaisua Kynnyksen verkkoihin.
-  * Alemmat NPC-munkit tuovat esiin oman luonteensa ja suhteensa konventin julkiseen kulissiin:
-    * *Kestitsijä* silottaa kaapunsa rintamusta, ihailee *Lähetys- ja kirjurinhuoneen* päätteeltä edellisen leivontavideon ylistäviä kommentteja ja muistuttaa, että iltapaiston lyhyt videopäivitys on määrä julkaista vielä ennen yölepoa.
-    * *Kalkitsija* nousee kellarista kädet lipeästä punaisina ja kaavunhelmat luujauhosta harmaina kannettuaan uuden korillisen ydinrasvasta ja murskatusta hylkyluusta puristettuja luuhiilibrikettejä uunille – työtä, joka siivotaan aina huolellisesti pois ennen kuin kamera käynnistetään.
-    * *Karsinanhoitaja* sulkee possuliskojen karsinat ja mutisee peltokoneen jumittavasta telasta.
-    * *Sokea Rukoilija* sytyttää mehiläisvahakynttilän ja muistuttaa vanhempia munkkeja: *"Hämärä on laskeutunut. Käykää lyömässä kellarin katakombiportin salpa kiinni. Se mikä jää pimeään, kuuluu pimeälle."*
+  1. **Sotilaiden höykkyyttäminen talon tavoille:** Pelaajamunkit voivat käyttää valtaansa ja laittaa karskit sotilaat tekemään "autenttisia vierailija-askareita" kameroiden edessä – lapioimaan lantaa Jusukin johdolla, osallistumaan Milen kynttilänvalanta- tai neulontakurssille tai kantamaan juureskoreja. Sotilaat kiristelevät hampaitaan kaapujensa sisällä, mutta yrittävät samalla nuuskia nurkkia!
+  2. **Cenin vaikuttajaprofiili ja viipymisen selittäminen:** Muut luostarissa olevat oikeat vierailija-influensserit alkavat ihmetellä karhun kokoista, arpista Ceniä, joka kantaa hapanjuuriruukkua. Jusuk (joka on mestari keksimään vaikuttajaprofiileja) ja Cen (joka muistaa entisen kumppaninsa Arinin väkivaltastriimit ja vanukasmainokset Sykkeeltä!) joutuvat improvisoimaan Cenille uskottavan some-persoonan – ja keksimään, miten Cen voi jäädä luostariin yli kahdeksi päiväksi (esim. lavastamalla "tapaturman", johon Milen varastossa oleva vanha irtileikattu jalka tai nukutusyrtit tarjoavat makaaberin työkalun!).
+  3. **G-kirjaimen Reseptiradio ja Similiksen kaiku (`B3`):** Kello lyö tasatuntia, ja Moorin on luettava suoraan lähetykseen G-kirjaimen resepti (*graavikala*, *graavipossu* tai *gratiini*). Kesken lähetyksen studion tarkkailukaiuttimesta ja kaikkien neljän *Sisäisestä äänestä* kuuluu Moorin omalla, rauhallisella äänellä lause, jota Moor ei lue paperista:  
+     *"Graavipossu. Ota terävä veitsi ja viillä pinta auki. Kuori naamio pois. Peilin takana liha on jo valmista."*
 
-### Kohtaus 1.B: Cenin pako painottomissa katakombeissa
-* **Tila ja läsnäolijat:** Luostarin alapuolinen, pilkkopimeä ja painoton luuossuaari. **Cen (Juha P)** yksin.
-* **Aloitus ja sytyke:** Cen on juuri selvinnyt verisestä kahakasta Haaskalintujen arkistossa. Hänen olkapäässään/kyljessään vuotaa tuore haava, ja hän puristaa kainalossaan varastettua muinaista rasiaa (*Shiny Object*).
+---
+
+### Vaihe 2: Sormiluisen rasian salaisuus, Verikoiran vainu ja Lantakasan vaara
+
+#### Kohtaus 2.2: Mitä Milen sormiluisessa rasiassa on?
+* **Tila ja läsnäolijat:** Kellari (`C1–C5`) tai luuveistämö. **Mile** (ja muut pelaajahahmot).
+* **Aloitus ja sytyke:** Mile pääsee tutkimaan taskuunsa sujauttamaansa **ihmisen sormiluista rakennettua rasiaa**, jonka Cen toi Haaskalintujen holvista.
+* **Mikä rasia on ja mitä sen sisältä löytyy?**
+  * Rasia on koottu kahdestatoista pikkutarkasti veistetystä sormiluusta – ja **Mile tunnistaa oman veistokädenjälkensä nuoruudestaan**! Hän on itse veistänyt tämän rasian yli kaksikymmentä sykliä sitten luostarin edellisten vanhimpien luista, ennen kuin se vietiin Haaskalintujen holviin säilytykseen.
+  * Rasian lukitus aukeaa vain painamalla sormiluita tietyssä anatomisessa järjestyksessä (minkä Mile luuveistäjänä osaa).
+  * **Sisältö:** Rasian sisällä on vahakääreessä:
+    1. **Valkoinen posliini-/luusinetti ja magneettinauhakela**, johon on kaiverrettu teksti: *"Pyhän Velkavankiflagelantin Konventti — Poistettujen nimien ja viimeisten sanojen holviavain"*.
+    2. **Kolme pientä luulaattaa**, joihin on kaiverrettu kolmen munkin **alkuperäiset nimet ja syntymätunnisteet** ajalta ennen kuin heidän muistinsa tai menneisyytensä pyyhittiin: yksi laatta kuuluu **Milelle**, yksi **Moorille** ja kolmas **Jusukille**!
+    3. Lisäksi rasian sisäkanteen on kiinnitetty himmeä **peililasi**: kun rasia avataan, *Similiksen* läsnäolo värähtää kellarissa.
+
+#### Kohtaus 2.3: Verikoira, Kalkitsija ja Kierros possuliskojen karsinalla (`B4`)
+* **Tila ja läsnäolijat:** Kellarin lipeäaltaat ja itäisen talouspihan possuliskojen karsina (`B4`). **Jahtikommodori Valkohanskainen Verikoira**, nuori **Kalkitsija** sekä paikalla olevat pelaajahahmot.
+* **Aloitus ja sytyke:** Verikoira tekee "ystävällisen tutustumiskierroksen" tiluksilla. Hän nostaa aina kameroiden ulkopuolelle jätetyn nuoren *Kalkitsijan* jalustalle: Verikoira riisuu hetkeksi valkoisen hansikkaansa, näyttää omia lipeän polttamia kämmeniään ja kehuu Kalkitsijan työtä koko luostarin puhtauden perustaksi.
 * **Mitä kohtauksessa pelataan:**
-  * Cen kiskoo itseään yhdellä kädellä eteenpäin pitkin kalkittuja sääriluita ja kalloja. Hänen veripisaransa leijuvat painottomassa ilmassa helminä.
-  * Yläpuolella alkaa tuntua ulkokuoren keinotekoisen painovoiman veto ja luostarin kellarin raskas rautaportti. Cen kuulee portin toiselta puolelta munkkien askeleet juuri, kun salpaa ollaan vetämässä kiinni.
-
-### Kohtaus 1.C: Katakombiportin avaaminen, tunnistaminen ja ensiapu
-* **Tila ja läsnäolijat:** Kellarin lipeä- ja kalkitushuone. **Kolme pelaajamunkkia** ja **Cen**.
-* **Aloitus ja sytyke:** Metallisen katakombiportin takaa kuuluu epätoivoinen, raapiva kolkutus. Pelaajamunkit avaavat salvan, ja painottomasta kuilusta rojahtaa kellarin märälle kivilattialle vertavuotava Cen.
-* **Mitä kohtauksessa pelataan:**
-  1. **Tunnistamisen shokki:** Kun kellarin öljylampun valo osuu Cenin kasvoihin, kaikki neljä tunnistavat toisensa välittömästi kuukausia jatkuneesta jaetusta unestaan (Kohtaus 0.1).
-  2. **Välitön keskustelu ja tilannearvio:** Cen kertoo (sen verran kuin haluaa) arkistokahakasta, kantamastaan rasiasta ja siitä, että hänen peräänsä on hälytetty jahtipartio.
-  3. **Ensiapu ja sijoituspäätös:** Munkit sitovat Cenin haavan, huuhtovat veren lipeäveteen (tai hävittävät veriset rätit luuhiiliuunin pesään) ja päättävät:
-     * *Mihin rasia piilotetaan?*
-     * *Mitä Cenille tehdään?* Puetaanko hänet ylimääräiseen munkinkaapuun vai viedäänkö hänet piiloon (juureskellariin, keljaan, possuliskojen karsinaan, luuhiili- ja kalkkivajaan tai mehiläisvajaan)?
-
-### Kohtaus 1.D: Ensimmäinen sisäinen todistaja (NPC-munkki kävelee syliin)
-* **Tila ja läsnäolijat:** Se tila, jossa **Cen** ja **yksi tai useampi pelaajamunkki** ovat juuri saamassa haavan sidottua tai siirtämässä Ceniä (kellari, portaikko tai pihapiiri). Paikalle saapuu **yksi alemmista NPC-munkeista** (tilan mukaan *Kalkitsija*, *Kestitsijä* tai *Karsinanhoitaja*).
-* **Aloitus ja sytyke:** Oven ripa painuu alas. NPC-munkki on palannut hakemaan unohtunutta työkalua, viiniruukkua tai tarkistamaan eläimiä – ja pysähtyy kynnykselle tuijottamaan Ceniä (tai verisiä siteitä ja vierasta hahmoa munkinkaavussa).
-* **Mitä kohtauksessa pelataan:**
-  * NPC-munkki säikähtää ja vaatii selitystä: *"Kuka tuo on?! Katakombiportti piti salvata hämärässä! Onko tuo verta?!"*
-  * **Cen + paikalla olevat pelaajamunkit joutuvat vakuuttamaan ulkopuolisen munkin tässä ja nyt:**
-    * Käyttävätkö pelaajamunkit luostarin johdon arvovaltaa ja käskyttävät alaisensa vaikenemaan?
-    * Syöttävätkö he ja Cen hätävalheen (esim. kaukaisen sisarluostarin lähetti, joka loukkaantui tapaturmaisesti)?
-    * Vai vetoavatko he munkin omiin pelkoihin tai laupeuteen?
-* **Kohtauksen lopun 5n20-jälkiheitto:**  
-  Kun keskustelu on käyty ja NPC-munkki vetäytyy, heitetään **5n20** (*Mieli/Persoona* tai *Terä/Hämäys*, kynnys 13) tarkistamaan, miten vakuuttaminen oikeastaan meni:
-  * **Onnistuminen:** NPC-munkki nielaisee selityksen (tai tottelee pelokkaasti esihenkilöitään) ja pitää suunsa kiinni toistaiseksi.
-  * **Takaisku (viivästetty seuraus):** NPC-munkki nyökkää ja poistuu näennäisen tottelevaisena – mutta hän jää valvomaan yöllä ja tekee myöhemmin Vaiheessa 2 oman hermostuneen siirtonsa (esim. kuiskaa huolensa *Sokealle Rukoilijalle* tai yrittää mielistellä Verikoiraa).
+  * Lumoutunut Kalkitsija haluaa esitellä Verikoiralle, miten luostarin suljettu kierto toimii, ja johdattaa kommodorin kohti **possuliskojen karsinaa ja lantakasaa (`B4`)** – täsmälleen sinne, minne Jusuk on haudannut Cenin taisteluvarusteet, aseet ja KW-konsortion C-kasetit!
+  * Verikoiran leukaperien *Vainukoiran hermomatriisi* (*tik-tik-tik*) alkaa naksahdella, kun se poimii lannan ja ammoniakin seasta aseöljyn, ruudin ja tuoreen veren hajun.
+  * Pelaajien on reagoitava välittömästi: harhautettava Verikoiraa, käytettävä possuliskoja (tai Jusukin possupamppua!), käännettävä Kalkitsijan huomio muualle tai siirrettävä kätkö ennen kuin sotilaat työntävät talikot lantakasaan.
 
 ---
 
-## 2. Vaihe 2: Verikoiran saapuminen ja komentokeskus (Kohtaukset 2.1–2.5)
+### Vaihe 3: Haaskalintujen Syntikirjurin saapuminen — Yksikätisen tuntomerkit ja Kolme kansiota
 
-### Kohtaus 2.1: Kolkutus yläportilla ja Komentokeskuksen julistus
-* **Tila ja läsnäolijat:** Luostarin eteishalli ja pihapiiri. **Pelaajamunkit**, *Kestitsijä* sekä saapuva **Jahtikommodori Valkohanskainen Verikoira** kahden kasvottoman sotilaan saattamana.
-* **Aloitus ja sytyke:** Ulkoa kuuluu possuliskojen levoton röhkinä ja saappaiden tahdikas kopina. Yläoveen koputetaan kolmesti eebenpuukepin kultanupilla.
-* **Mitä kohtauksessa pelataan:**
-  * Verikoira astuu sisään, pyyhkii kuraiset saappaansa huolellisesti mattoon ja tervehtii vanhempia munkkeja kohteliaalla baritonillaan.
-  * Hän ilmoittaa syyn saapumiselleen: katakombien arkistoholviin on murtauduttu, arvokas esine on viety ja haavoittunut varas on noussut pinnalle tällä sektorilla. *(Huom: Verikoira ei vielä tiedä varkaan olevan yksikätinen!)*
-  * **Tukikohtapäätös:** Verikoira ilmoittaa, että luostarin sijainnin vuoksi hän perustaa refektorioon etsintäoperaationsa komentokeskuksen. Hän pyytää vanhempia munkkeja kokoamaan talon väen ruokasaliin iltapalalle, jotta hän voi tutustua isäntiinsä.
-* **Kohtauksen lopun 5n20-jälkiheitto:**  
-  Heitetään ensivaikutelmasta ja tilanteen hallinnasta kynnyksellä. Jos heitossa tulee säröjä, Verikoiran leukaperien *Vainukoiran hermomatriisi* naksahtaa ja hän määrää viiveellä (Kohtauksessa 2.2) sotilaat vartioimaan myös kellarin portaikkoa.
+#### Kohtaus 2.4: Syntikirjuri astuu tupaan
+* **Tila ja läsnäolijat:** Ruokasali (`A5`) tai kellarin katakombiluukku (`C1`). **Syntikirjuri** (Haaskalintujen kumaraselkäinen arkistovirkailija), **Verikoira**, **pelaajamunkit**, **Cen** ja luostarin väki.
+* **Aloitus ja sytyke:** Katakombien ja vastaanottosataman suunnasta saapuu mustetahraisissa kaavuissa kulkeva, vanhalle selluloosalle ja kalkkipölylle haiseva **Syntikirjuri** mukanaan arkistolaatikko täynnä narulla sidottuja pahvikansioita.
+* **Kaksi pommia pöytään:**
+  1. **Yksikätisen tuntomerkit ja sormiluinen rasia:** Syntikirjuri ojentaa Verikoiralle virallisen vahinkoilmoituksen ja lausuu kuivalla äänellään:  
+     *"Arkistonvartijoiden lausunnot on koottu. Holviin murtautunut varas on suurikokoinen mies, jolta **puuttuu toinen käsi** ja jota ammuttiin pakomatkalla. Ja hän ei vienyt ainoastaan KW-konsortion vanhoja koodikasetteja – samasta hyllystä katosi myös tälle konventille kuuluva **sormiluinen reliikkirasia**."*
+  2. **Kolme henkilökansiota (Moor, Jusuk, Mile):** Syntikirjuri nostaa laatikosta pöydälle kolme paksua, kellastunutta kansiota:  
+     *"Te etsitte ulkopuolista kapinallista, kommodori, mutta etsikää ensin sisältä. Tämä luostari on toiminut kymmenen syklin ajan Kynnyksen vaarallisimpien hylkiöiden piilopaikkana. Katsotaanpa, keitä nämä kolme 'vanhinta munkkia' todellisuudessa ovat."*
 
----
+#### Kohtaus 2.5: Identiteettien purku, Peilitakaumat ja Totuus kolmesta munkista
+Syntikirjurin kansiot, Milen sormiluinen rasia ja **Similiksen (Tyhjä Peili)** vaikutus avaavat kolmen munkin menneisyyden (voidaan pelata joko suoraan kuulustelussa tai lyhyinä peilitakaumina, joissa Similis heijastaa menneisyyden huoneen peileihin):
 
-### Kohtaus 2.2: Kaapelit tupaan, Pakotettu some-lähetys ja Paine kätkössä
-* **Tila ja läsnäolijat:** Refektorio, leivinuuni, *Lähetys- ja kirjurinhuone*, keittiö ja Cenin olinpaikka.
-* **Aloitus ja sytyke:** Pihamaalle marssii **neljä uutta kasvottoman kypärän sotilasta**. He vetävät raskaita mustia kenttäkaapeleita mutaisilla saappaillaan suoraan yli luostarin puhtaiden hirsilattioiden, pystyttävät karttapöydän refektorion päätyyn ja kytkevät kenttäradion särisemään. Samalla Verikoira huomaa jalustakameran ja rengasvalaisimen, hymyilee lämpimästi ja toteaa seuraavansa itsekin konventin kanavaa: on täsmälleen konventin aikataulutetun iltalähetyksen aika.
-* **Mitä kohtauksessa pelataan (Kolme rinnakkaista painepistettä ennen illallista):**
-  1. **Pakotettu "luostari-cottagecore" -kuvaus aseiden edessä:**  
-     Verikoira vaatii, että munkit kuvaavat ja julkaisevat iltapäivityksensä *Lähetys- ja kirjurinhuoneen* päätteeltä täysin normaalisti, jottei yksikään seuraaja Kynnyksen verkoissa aavista poikkeustilaa.  
-     * Munkkien ja hikoilevan *Kestitsijän* on hymyiltävä lämpimästi kameralle luuhiilibrikettien hehkuvan leivinuunin äärellä, esiteltävä tuoreita hapanjuurileipiä ja toivotettava seuraajille siunattua iltaa – samalla kun vain puolen metrin päässä kameran rajauksen ulkopuolella seisoo kasvottomia sotilaita aseet käsissä ja lattialla luikertelee kenttäkaapeleita.  
-     * **Pelillinen mahdollisuus:** Pelaajamunkit voivat käyttää kuvausta ja *Lähetys- ja kirjurinhuoneen* päätettä suojakilpenä (esim. siirtämällä kalustoa näköesteeksi, rajaamalla Cenin jäljet pois kuvasta tai ujuttamalla julkaistavaan videoon tai tekstiin koodatun hätämerkin ulkomaailmaan).
-  2. **Keittiö ja NPC-munkkien kuohunta:**  
-     *Kestitsijä* on kuvauksen jälkeen täydessä paniikissa ja latoo tärisevin käsin parasta leipää, juustoja ja hunajaa tarjottimille. *Karsinanhoitaja* tulee keittiön ovelle kiroamaan sotilaita, jotka tallovat kiertoviljelypalstan reunaa. Kohtauksessa 1.D paikalle osunut NPC-munkki vilkuilee pelaajamunkkeja hermostuneesti. Pelaajamunkkien on rauhoitettava keittiö ennen pöytään astumista.
-  3. **Cenin tilanne (Kätkössä tai kaavussa):**  
-     * *Jos Cen on puettu munkinkaapuun:* Cen on pidettävä tiukasti kameran linssin ulkopuolella kuvauksen ajan, ja pelaajamunkit sopivat hänen kanssaan viimeiset peitetarinan yksityiskohdat juuri kun sotilaat ohjaavat kaikki munkit pöytään.
-     * *Jos Cen on piilossa kätkössä:* Cenin haava alkaa vuotaa uudelleen siteen läpi, ja *Sokea Rukoilija* pysähtyy kätkön ulkopuolelle kuuntelemaan: *"Kuka siellä hengittää raskaasti?"* Cenin (ja mahdollisen apuna olevan pelaajamunkin) on selvittävä tilanteesta äänettömästi tai puheella, samalla kun Cen kuulee *Sisäisen äänen* kautta pakotetun kuvauksen ja sotilaiden saapumisen tupaan.
-* **Kohtauksen lopun 5n20-jälkiheitto:**  
-  Tarkistetaan, kuinka vakuuttavasti iltalähetys, keittiön valmistelut ja Cenin suojaus sujuivat. Viivästetty seuraus määrittää, herättikö lähetys epäilyksiä ja kuka NPC-munkeista on illallispöydässä murtumispisteessä.
+1. **Totuus Jusukista ("Miksi Jusuk ei tunnu siltä, miltä näyttää?"):**
+   * **Paljastus:** Jusuk ei ollut ennen luostaria maanviljelijä. Hän oli Ratasvartion ja erikoisjoukkojen **soluttautumis- ja peiteprofiiliupseeri** (minkä vuoksi hän osaa yhä luoda tekaistuja vaikuttajaprofiileja silmänräpäyksessä, minkä vuoksi hän oli mukana jaetun unen taistelussa ja minkä vuoksi hän näki peilissä itsensä sotisovassa!).
+   * **Arpi takaraivossa:** Kymmenen sykliä sitten Jusuk kieltäytyi teloittamasta siviilejä operaatiossa. Hänen oma komentajansa ampui häntä niskaan ja dumppasi ruumiin Kryptan hautalaivaan. Mile ja Sokea Runoilija löysivät "vainajan", joka vielä hengitti, ja piilottivat hänet possuliskojen hoitajaksi. Siksi Ratasvartion sotilas kulmalla hämmentyi nähdessään Jusukin kasvot: sotilas luuli nähneensä kymmenen sykliä sitten kuolleen aaveen!
+
+2. **Totuus Moorista (Sensuroidut viimeiset sanat ja C-kasettien koodit):**
+   * **Paljastus:** Moor oli ennen luostariin tuloaan Ekklesian ja Kuiskaus-aseman **signaali- ja nauha-arkistoinsinööri**, joka huomasi, miten ihmisten muistoja ja viestejä leikattiin.
+   * **Miksi C-kasetit ovat täällä:** Kun Moor on viime sykleinä kirjannut satamassa tuhansien vainajien viimeisiä sanoja ja nähnyt nauha-arkistoista, kuinka monet niistä on sensuroitu, hän on noista aukoista tietämättään koonnut yhteen vanhan Skriptuuran kielletyn salausavaimen. Cenin varastamat KW-konsortion C-kasetit vaativat toimiakseen juuri **Moorin analogisen Reseptiradion lähettimen** ja ne kuolleiden sensuroidut viimeiset sanat, jotka Moor on tallentanut muistiinsa!
+
+3. **Totuus Milestä (Luostarin vanhin salaisuus, Raja-ankkuri ja Sormiluinen rasia):**
+   * **Paljastus:** Mile on elänyt luostarissa lapsesta asti (*Raja: Kiven liikkumaton paino ja kova geometria*) ja nähnyt, kuinka luostarin vanhimmat vaihdetaan ja kierrätetään mustaksi mullaksi. Sormiluinen rasia sisältää todisteet siitä, että Pyhän Velkavankiflagelantin Konventti on Haaskalintujen ja Ekklesian salainen **identiteettien hautausmaa**, jonne poliittisesti vaaralliset ihmiset tuodaan "kuolemaan" ja muuttumaan harmittomiksi sisältömunkeiksi.
+   * Ja mikä herkullisinta Milen kuoleman-kiinnostuksen kannalta: jos joku kuolee luostarissa, Mile ja Jusuk tuntevat **uudismullan paaston, lipeäkeittämön ja possuliskojen kierron** paremmin kuin kukaan muu!
 
 ---
 
-### Kohtaus 2.3: Illallinen pitkän pöydän ääressä — Kiertoviljely, Luuhiili ja "Rikkaruohot"
-* **Tila ja läsnäolijat:** Refektorion pitkä puupöytä. **Verikoira**, **pelaajamunkit**, **alemmat NPC-munkit** (sekä **Cen** joko pöydässä munkinkaavussa tai kuulolla *Sisäisen äänen* päässä). Kasvottomat sotilaat seisovat seinustoilla.
-* **Aloitus ja sytyke:** Verikoira istuu pöydän päähän, riisuu hitaasti kirurgisen ohuet valkoiset nahkahansikkaansa, asettaa ne liinalle ja murtaa palan luostarin lämmintä hapanjuurileipää, dipaten sen kupolien tuoreeseen hunajaan.
-* **Mitä kohtauksessa pelataan (Kolmivaiheinen keskustelu):**
-  1. **Avaus — Kehu, luostarin some-idylli ja uunin hiillos:**  
-     Verikoira ylistää leivän makua ja konventin maatalousblogia. Hän kysyy vanhemmilta munkeilta heidän kiertoviljelystään sekä leivinuunin lämmöstä: miten he päättävät, milloin kukkiva rikastuskasvi kynnetään maan alle, ja kuinka vanhan uunin luuhiilibriketit saadaan hehkumaan niin tasaisesti ja savuttomasti?
-  2. **Keskustelun ydin — Kameran ulkopuolinen todellisuus ja Fasismin puhtausoppi:**  
-     Verikoira kääntää konventin suljetun kierron saumattomasti poliittiseksi filosofiaksi:  
-     *"Seuraajanne verkoissa ihailevat 'konventin vanhan uunin hiillosta', jolla tämä leipä on paistettu. He näkevät kultaisen kuoren, apilankukat ja hunajan – mutta minä arvostan sitä, mitä te rajaatte kameran ulkopuolelle. Että tämä uuni lämpiää kuolleiden ydinrasvalla ja murskatuilla hylkyluilla. Te keitätte vainajien luut lipeässä, poltatte epämuodostuneet luut hiileksi ja kompostoitte pehmytkudoksen mustaksi mullaksi. Ja kun multaan iskee home tai vieraslaji, ette te neuvottele rikkaruohon kanssa. Te poltatte sen juurineen ja kalkitsette maan valkealla luutuhkalla, jotta terve sato saa elää. Miksi jotkut ihmiset pitävät meitä julmina, kun me teemme saman palveluksen yhteiskunnalle?"*  
-     ➔ Verikoira kääntää katseensa vuorollaan jokaiseen pelaajamunkkiin (ja kaavussa istuvaan Ceniin) ja pyytää heidän näkemystään: **Onko rikkaruoholla oikeus pilata sato?**
-  3. **Sisäinen särö pöydässä:**  
-     Nuori *Kalkitsija* – jonka lipeä- ja luuhiilityö rajataan aina ulos konventin videoista – juopuu täysin siitä, että korkea-arvoinen upseeri ylistää hänen kellarityötään kaiken perustaksi. Hän myötäilee Verikoiraa ääneen: *"Kommodori puhuu aivan kuin meidän perimätietomme! Ilman lipeää ja luuhiiltä uuni kylmenee ja multa mätänee!"*  
-     Samalla Kohtauksen 1.D tai 2.2 viivästetty jännite nostaa päätään: *Sokea Rukoilija* tai *Kestitsijä* sanoo jotain vaarallisen lähellä totuutta (esim. kellarin vedosta, ylimääräisestä leipäannoksesta tai iltaisesta äänestä), johon pelaajien on tartuttava keskustelussa välittömästi.
-* **Kohtauksen lopun 5n20-jälkiheitto:**  
-  Koko pöytäseurueen yhteinen jälkiheitto siitä, miten illalliskeskustelu meni.
-  * Verikoira ei paljasta epäilyksiään pöydässä, vaan nousee, pukee valkoiset hansikkaansa takaisin käteensä ja kiittää lämpimästi illallisesta. Seuraus laukeaa yöllä Kohtauksessa 2.4.
+### Vaihe 4: Similiksen manifestoituminen (1n12-kello: 4 → 12) ja Risteävien voimien ratkaisu
 
----
-
-### Kohtaus 2.4: Yövuoro ja Illallisen viivästetty seuraus
-* **Tila ja läsnäolijat:** Yöllinen luostari; pihalla ja käytävillä partioivat nyt jo **kahdeksan kasvottoman kypärän sotilasta**.
-* **Aloitus ja sytyke:** Illallisen 5n20-jälkiheiton tulos realisoituu yön pimeinä tunteina:
-  * **Tilanne 1 (Kellarin ja katakombiportin tarkastus):** Verikoira (tai sotilaspartio innokkaan *Kalkitsijan* opastamana) laskeutuu yöllä kellariin tarkistamaan katakombiportin lukituksen ja lipeäaltaat. Jos Cen tai rasia on kellarissa, hänet on siirrettävä tai kätkettävä uudelleen sekunneissa.
-  * **Tilanne 2 (Cenin ja pelaajamunkkien yöllinen neuvonpito & rasia):** Kun sotilaiden askeleet loittonevat, pelaajamunkit ja Cen kohtaavat. Cen tietää, ettei luostari kestä miehitystä loputtomiin, ja *Kestitsijä* tai *Karsinanhoitaja* tulee kuiskaamaan vaatimuksen: karkurin on lähdettävä ennen aamua, tai he kertovat Verikoiralle.
-
----
-
-### Kohtaus 2.5 (Sessio 1:n huipennus / Cliffhanger): Syntikirjurin saapuminen
-* **Tila ja läsnäolijat:** Refektorio aamuvuoron alkaessa. **Verikoira**, **pelaajamunkit**, **NPC-munkit** (ja **Cen** joko tilassa tai *Sisäisen äänen* kuulolla).
-* **Aloitus ja sytyke:** Luostarin ovet avautuvat. Sisään astuu kumaraselkäinen, vanhalle paperille ja musteelle haiseva Haaskalintujen virkailija **Syntikirjuri**, mukanaan sotilaan kantama raskas arkistolaatikko täynnä narulla sidottuja kansioita.
-* **Mitä kohtauksessa tapahtuu:**
-  1. Syntikirjuri ojentaa Verikoiralle rikospaikan virallisen tutkintapöytäkirjan ja lausuu kuivalla äänellään kaikkien kuullen:  
-     *"Arkistonvartijoiden todistukset on kirjattu. Tunkeutuja ei ole kuka tahansa hiippari. Etsimänne varas on suurikokoinen mies, jolta **puuttuu vasen käsi** ja joka vuotaa verta tuoreesta haavasta."*
-  2. Ennen kuin kukaan ehtii hengähtää, Syntikirjuri nostaa laatikosta pöydälle **kolme paksua, kellastunutta henkilökansiota** – yhden kutakin kolmea vanhempaa pelaajamunkkia kohden – ja katsoo heitä silmiin:  
-     *"Ja kun kerran olemme täällä, kommodori... minä otin mukaani myös tämän luostarin johdon omat paperit. Katsotaanpa, millaisia ihmisiä teidän 'pyhät isäntänne' todellisuudessa ovat."*
-
----
-
-## 3. Vaihe 3: Identiteettien purku, Takaumat ja Ratkaisu (Sessio 2)
-
-### Kohtaus 3.1: Yksikätisen jahti ja hätäsiirto
-* **Aloitus ja sytyke:** Tieto yksikätisestä varkaasta muuttaa luostarin välittömästi suljetuksi ansaksi:
-  * Jos Cen on ollut naamioituna munkinkaapuun, jokainen katse huoneessa (erityisesti *Kalkitsijan*, *Kestitsijän* ja Verikoiran) kääntyy Cenin tyhjään hihaan.
-  * Jos Cen on ollut kätkössä, Kohtauksessa 1.D Cenin nähnyt NPC-munkki kalpenee kuullessaan tuntomerkit.
-* **Mitä kohtauksessa pelataan:** Välitön reagointi, hämäys tai Cenin kiireellinen siirtäminen uuteen suojaan samalla kun kasvottomat sotilaat alkavat haravoida pihapiiriä, karsinoita ja kellaria.
-
-### Kohtaus 3.2: Syntikirjurin kuulustelut ja Takaumat (Flashbackit)
-* **Tila ja läsnäolijat:** Refektorio tai vanhemman munkin työhuone. **Syntikirjuri**, **Verikoira** ja **pelaajamunkit** (yksitellen tai yhdessä).
-* **Aloitus ja sytyke:** Syntikirjuri avaa kunkin pelaajamunkin kansion (pohjaten siihen, mitä Sessio 1:ssä on hahmoista noussut esiin) ja alkaa purkaa heidän menneisyyttään ja syntejään savustaakseen heidät ulos luostarin johdosta:
-  1. **Kansion avaaminen:** Syntikirjuri lukee ääneen syytöksen munkin menneisyydestä (*"Ethän sinä tullut tänne rukoilemaan, vaan piiloon sitä mitä teit..."*).
-  2. **Leikkaus takaumaan:** Pelataan 10–15 minuutin tiivis takaumakohtaus munkin menneisyydestä (muut pelaajat, mukaan lukien Cenin pelaaja, ottavat takauman sivuroolit).
-  3. **Paluu nykyhetkeen:** Leikataan takaisin pöytään. Syntikirjuri ja Verikoira tarjoavat fasistista kauppaa: *"Me voimme sulkea tämän kansion ja antaa teidän jatkaa rauhallista elämäänne... jos te osoitatte uskollisuutenne ja luovutatte yksikätisen karkurin ja rasian meille."*
-
-### Kohtaus 3.3: Risteävät voimat ja Avoin ratkaisu
-Tästä pisteestä eteenpäin peli etenee ilman käsikirjoitettua loppua neljän voiman ristipaineessa:
+Kun jännite ruokasalissa, kellarissa tai studiokopissa huipentuu ja 12-sivuinen pyhimysnoppa kääntyy kohti korkeampia silmälukuja (**4 → 12**), **Vaara 3: Similis (Tyhjä Peili)** astuu asteittain sisään todellisuuteen:
 
 ```
                           ┌───────────────────────────┐
-                          │   VOIMA 1: PYHIMYS (1n12) │
-                          │  (Arvottu kosminen laki,  │
-                          │   esim. 12 Primus / muut) │
+                          │  VOIMA 1: SIMILIS (Vaara 3│
+                          │  Tyhjä Peili – heijastuk- │
+                          │  set, roolit, 1n12: 4→12) │
                           └─────────────┬─────────────┘
                                         │
                                         ▼
 ┌───────────────────────────┐       ┌───────┐       ┌───────────────────────────┐
 │   VOIMA 2: VERIKOIRA      │◄─────►│ LUOS- │◄─────►│   VOIMA 3: SYNTIKIRJURI   │
-│  (Puhtausoppi, kasvavat   │       │ TARI  │       │ (Pelaajamunkkien synnit,  │
-│   sotilasjoukot, rasia)   │       └───────┘       │  kiristys ja alistaminen) │
+│  (Puhtausoppi, sotilaat   │       │ TARI  │       │ (Moorin, Jusukin & Milen  │
+│   vierailijakaavuissa)    │       └───────┘       │  kansiot + yksikätinen)   │
 └───────────────────────────┘           ▲           └───────────────────────────┘
                                         │
                                         ▼
                           ┌───────────────────────────┐
                           │   VOIMA 4: LUOSTARIN VÄKI │
-                          │ (Kestitsijä, Rukoilija,   │
-                          │  Kalkitsija, Karsinanhoit)│
+                          │ (Sokea Runoilija, Kalkit- │
+                          │  sija, noviisit, vieraat) │
                           └───────────────────────────┘
 ```
 
-* **Verikoira vs. Syntikirjuri:** Pelaajat voivat iskeä kiilaa Verikoiran "ylhäisen kunnian ja puhtauden" sekä Syntikirjurin "niljakkaan arkistokiristyksen" väliin.
-* **Alempien munkkien valinta:** Aiempien kohtausten 5n20-tulosten ja keskustelujen pohjalta alemmat NPC-munkit joko pettävät johdon tai asettuvat kriittisellä hetkellä suojelemaan yhteisöään.
-* **Mahdolliset lopputulokset:** Sotilaat saadaan poistumaan luostarista, joku ottaa syyn niskoilleen, luostari hylätään ja paetaan Cenin mukana katakombeihin, Cen luovutetaan sotilaille, tilanne repeää väkivallaksi – tai alussa heitetty Pyhimys kääntää kaiken kosmiseksi kauhuksi.
+#### Miten Similis (Tyhjä Peili) etenee 1n12-kellolla (4 → 12)?
+1. **Roolien ja naamioiden lukittuminen (Silmäluvut 5–8):**  
+   Similis on ideaaliuden, jäljittelyn ja peilikuvien pyhimys. Kun noppa nousee keskivaiheille, **puvut ja roolit alkavat muuttua kantajiaan vahvemmiksi**:
+   * Vierailijakaapuihin puetut Ratasvartion sotilaat alkavat *oikeasti* käyttäytyä kuin nöyrät luostarivierailijat ja noviisit, jotka tottelevat vanhempien munkkien (Moorin, Jusukin ja Milen) ohjeita kamerakulmista ja lannanlapioinnista!
+   * Vastaavasti jokainen peili, simasammion kiiltävä kylki ja kameran linssi alkaa heijastaa hahmojen toista minää (Jusukin sotilas-minä, Milen luuranko-minä, Verikoiran lipeän polttama nuoruuden minä).
+2. **Heijastusten irtautuminen ja kaksoisolennot (Silmäluvut 9–11):**  
+   Peilikuvat eivät enää matki huoneessa olijoita, vaan toimivat itsenäisesti lasin takana ja *Reseptiradion* taajuuksilla. Hahmot kuulevat omalla äänellään lausuttuja salaisuuksia kaiuttimista, ja peilipinnat alkavat antaa periksi kuin sula lasi.
+3. **Peilinpalasista rakentunut hahmo astuu ulos (Silmäluku 12 – Täysi manifestaatio):**  
+   Kun 1n12-noppa saavuttaa luvun **12**, peilinpalasista rakentunut **Similis** kävelee ulos peilistä (tai sormiluisen rasian peililasista). Se ei hyökkää kiväärillä, vaan **peilaa jokaisen teon ja vaatii täydellistä vastaavuutta ulkokuoren ja sisimmän välillä**:
+   * Se, joka väittää olevansa puhdas järjestyksen palvelija (Verikoira) tai synnitön tuomari (Syntikirjuri), joutuu kohtaamaan oman peilikuvansa.
+   * Jos joku lyö tai ampuu kohti Similistä, isku heijastuu peilipinnasta takaisin hyökkääjään tai tämän kaksoisolentoon.
+4. **Avoimet ratkaisureitit pelaajille:**
+   * **Verikoira vs. Syntikirjuri:** Moor ja Cen voivat kääntää Verikoiran ja Syntikirjurin toisiaan vastaan vetoamalla luostarin pyhään järjestykseen ja paljastamalla, että Syntikirjurin arkistokiristys sabotoi Verikoiran operaation (tai että Jusuk oli Verikoiran omien joukkojen petetty upseeri!).
+   * **Reseptiradion lähetys (`B3`):** Moor voi lähettää Cenin C-kasettien koodit ja sensuroidut viimeiset sanat ulos Kynnyksen verkkoihin suoraan *Reseptiradion* G-kirjaimen lähetykseen naamioituna.
+   * **Pyhä kierto ja possuliskot (`B4` / `C3`):** Jos tilanne repeää ja joku miehittäjistä (kuten Syntikirjuri tai Verikoira) saa surmansa Milen nukutusyrttien, Cenin iskun tai Similiksen peilin kautta, luostarissa on valmis, vuosisatainen järjestelmä: ruumiin hävittäminen possuliskoille, lipeäaltaisiin ja läntisen ohramaan mustaksi uudismullaksi – samalla kun kamerat kuvaavat hymyillen tuoretta hapanjuurileipää!
