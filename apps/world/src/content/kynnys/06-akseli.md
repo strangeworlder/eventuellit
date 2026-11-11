@@ -1,7 +1,7 @@
 ---
 title: "Akseli"
 order: 6
-description: "KW-konsortio HQ — Kynnyksen hallintotorni ja logiikkakeskus."
+description: "KW-konsortion päämaja — Kynnyksen hallintotorni ja logiikkakeskus."
 category: kynnys
 tension: "Matala"
 ruling_faction: kw-konsortio
@@ -10,9 +10,9 @@ disrupting_factions: logiikan-inkvisitio
 
 ### Yleiskuvaus
 
-Akseli on KW-konsortion hermokeskus ja Kynnyksen hallinnollinen sydän. Sen arkkitehtuuri huokuu laskelmoitua viileyttä: steriilit lasitornit, kiillotetut komposiittikäytävät ja herkeämätön tunne siitä, että jokainen askel rekisteröidään konsortion taseisiin. Tänne tuodaan Kynnyksen kalleimmat sopimukset vahvistettaviksi, tänne tilitetään energiavelat ja täältä lähtevät johtokunnan direktiivit. Kilpailua ei sallita, ja asemalla vallitseva hiljaisuus on ostettua ja tarkkaan valvottua rauhaa.
+Steriilit lasitornit ja kiillotetut komposiittikäytävät kohoavat hiljaisina KW-konsortion päämajassa. Akselilla jokainen askel ja kulkulupa kirjautuu suoraan yhtiön taseisiin. Täällä vahvistetaan Kynnyksen kalleimmat sopimukset, kuitataan energiavelat ja allekirjoitetaan johtokunnan määräykset. Kilpailua ei sallita, ja käytävien vaimennettu rauha on ostettu kovalla rahalla.
 
-Järjestyksen takeena toimii Logiikan Inkvisitio, joka valvoo konsortion sisäistä koneistoa armottomalla päättelyllään. Inkvisiittorit varmistavat, että jokainen toimenpide ja virkamies noudattaa konsortion virheetöntä logiikkaa — tai poistuu tieltä.
+Konsortion sisäistä koneistoa vartioi Logiikan Inkvisitio. Inkvisiittorit auditoivat päätökset ja pitävät huolen siitä, että jokainen virkamies noudattaa yhtiön laskentamalleja tai väistyy tehtävästään.
 
 ### Hallinta
 

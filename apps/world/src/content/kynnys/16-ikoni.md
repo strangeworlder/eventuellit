@@ -10,9 +10,9 @@ disrupting_factions: logiikan-inkvisitio
 
 ### Yleiskuvaus
 
-Ikoni on Kynnyksen tarinatehdas ja julkisuuskoneiston koti. Verhonkutojien hallitsema studioasema hehkuu kuumia kuvausvaloja, äänieristettyjä studioita ja leikkaushuoneita, joista syötetään ympärivuorokautista ohjelmaa asemien kaikille näyttöpinnoille: uutislähetyksiä, sankaritarinoita, oikeussalidraamaa ja viihdettä. Jokainen kuva ja kantoaalto on huolella leikattu ja valaistu palvelemaan kirkon sanomaa. Totuus näyttäytyy Ikonilla taiten käsikirjoitettuna ja ohjattuna neuvottelukysymyksenä.
+Kuumat kuvausvalot hehkuvat Ikonin äänieristetyissä studioissa ja leikkaamoissa, joista Verhonkutojat lähettävät tauotonta ohjelmaa Kynnyksen näyttöpinnoille. Uutiset, sankaritarinat ja oikeussalidraamat leikataan ja valaistaan palvelemaan Ekklesian sanomaa. Ikonilla totuus on huolella käsikirjoitettu neuvottelukysymys.
 
-Aseman kulisseissa käydään jatkuvaa sanasotaa. Logiikan Inkvisitio seuraa Ikonin lähetyksiä vainoharhaisella tarkkuudella auditoimalla käsikirjoituksia ja syyttämällä Verhonkutojia todellisuuden vääristelystä aina, kun teatraalinen narratiivi sivuuttaa konsortion tilastolliset faktat.
+Kulisseissa Verhonkutojat ottavat yhteen Logiikan Inkvisition kanssa. Inkvisiittorit auditoivat käsikirjoituksia rivi riviltä ja syyttävät studioita vääristelystä aina, kun näyttävä tarina sivuuttaa konsortion tilastot.
 
 ### Hallinta
 
@@ -27,4 +27,4 @@ Aseman kulisseissa käydään jatkuvaa sanasotaa. Logiikan Inkvisitio seuraa Iko
 
 ### Yhteydet
 
-Ikonin suojatuilta VIP-laitureilta avautuu suora pääyhteys suoraan Ekklesian sydämeen: **Katedraaliin**.
+Ikonin suojatuilta VIP-laitureilta kulkee suora yhteys **Katedraaliin**.

@@ -10,9 +10,9 @@ disrupting_factions: heimolaiset
 
 ### Yleiskuvaus
 
-Siemen yhdistää maatilan ja klassisen akatemian poikkeuksellisella tavalla Kynnyksellä. Laajoissa holvimaisissa kasvihuoneissa ja porrastetuilla multatasanteilla viljellään sitkeitä maaperäkasveja samalla kun viereisissä luentosaleissa opiskellaan agronomiaa, biologiaa ja Kynnyksen varhaista historiaa. Muotinvalajille asema edustaa Tuhkan puolueen perimmäistä ihannetta: he uskovat, että henkinen sivistys ja raskas ruumiillinen työ pellolla ovat saman vakauden kaksi välttämätöntä puolta.
+Holvimaisissa kasvihuoneissa ja porrastetuilla multatasanteilla kasvaa sitkeitä viljelykasveja aivan luentosalien seinän takana. Siemenen opiskelijat jakavat päivänsä peltotyön, kasvinjalostuksen ja historian opintojen kesken. Muotinvalajille asema toteuttaa Tuhkan puolueen ihannetta, jossa sivistys ja raskas ruumiillinen työ tukevat toisiaan.
 
-Aseman idylliä varjostavat Heimolaisten solut. Heimon patriarkat kärkkyvät Siemenen vanhoja geologisia arkistoja ja siemenpankkeja, joiden tiedot asemien maaperästä ja hedelmällisyydestä olisivat heille arvokas valttikortti suhteessa puoluejohtoon.
+Rauhallista arkea varjostavat Heimolaisten solut. Rikollissukujen patriarkat kärkkyvät Siemenen vanhoja maaperäarkistoja ja siemenpankkeja saadakseen yliotteen puoluejohdosta.
 
 ### Hallinta
 

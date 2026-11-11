@@ -10,25 +10,25 @@ disrupting_factions: ekklesia
 
 ### Yleiskuvaus
 
-Syke on Kynnyksen tekninen sydän ja sen suurin fyysinen epävarmuustekijä. Alun perin keskitetyksi voimalaitokseksi rakennettu kokonaisuus on nykyisin pirstoutunut, vaarallinen reaktorisaaristo. Se on asemien joukossa ainoa paikka, joka kykenee jalostamaan nestemäisen avaruuden raakaenergian vakaampaan vaihemuotoon. Syke on ulkoreunan metabolinen moottori, jonka jatkuva värinä, tärinä ja hidas hajoaminen määrittävät koko Kynnyksen elinkaarta.
+Alun perin yhtenäiseksi voimalaitokseksi rakennettu Syke on hajonnut vaaralliseksi reaktorisaaristoksi. Se jalostaa ainoana asemana nestemäisen avaruuden raakaenergian vakaaksi vaihevirraksi. Reaktorien jyske ja kalliolohkareiden hidas mureneminen määräävät tahdin koko Kynnyksen elämälle.
 
 #### Metastabiili saaristo
 
-Fyysisesti Syke koostuu kymmenistä nestemäisessä avaruudessa ajelehtivista kalliolohkareista, jotka pysyvät koossa vain voimakkaiden magneettiankkureiden ja reaktorien plasmapurkausten varassa. Saarekkeiden välinen tila on myrskyävää tyhjyyttä täynnä staattista sähköä ja häiriösumua, mikä tekee lossiliikenteestä arvaamatonta. Sykkeen alkuperäisen planetoidin pirstaleet resonoivat reaktorien tahdissa aiheuttaen mikrotason vaihesiirtymiä, joissa metallirakenteet saattavat hetkellisesti muuttua aineettomiksi ja kadottaa kiinteän muotonsa.
+Syke koostuu kymmenistä nestemäisessä avaruudessa ajelehtivista kalliolohkareista, joita magneettiankkurit ja reaktorien plasmapurkaukset pitävät koossa. Saarekkeiden välissä velloo staattinen sähkö ja häiriösumu, joka tekee lossiliikenteestä arvaamatonta. Alkuperäisen planetoidin pirstaleet resonoivat reaktorien tahdissa. Resonanssi laukaisee mikrotason vaihesiirtymiä, joissa metallirakenteet muuttuvat hetkeksi aineettomiksi.
 
-Asukkaiden arki keskittyy lohkareiden kiveen pultattuihin teräskupuihin ja energiatorneihin. Liikkuminen saarten välillä hoituu raskailla lossialuksilla, joiden kyljet on suojattu paksulla keraamisella panssarilla ja magneettikilvillä. Elämä on ankaran eristynyttä: asuinkeskusten ulkopuolella jokainen energiatorni on oma suljettu linnakkeensa, jossa yksinäiset majakanvartijat valvovat muuntimia otsoninkatkussa ja katkeamattomassa matalataajuisessa huminassa.
+Asukkaiden arki keskittyy kiveen pultattuihin teräskupuihin ja energiatorneihin. Saarten välillä kuljetaan raskailla lossialuksilla, joiden kylkiä suojaavat paksut keraamiset panssarit ja magneettikilvet. Asuinkeskusten ulkopuolella jokainen energiatorni on suljettu linnakkeensa. Niissä yksinäiset majakanvartijat valvovat muuntimia otsoninkatkussa ja matalassa huminassa.
 
 ### Hallinta
 
-Valta asemalla on jakautunut kahden toisilleen vieraan koneiston välille. KW-konsortio hallitsee reaktoreita ja jakeluverkkoa tiukan teknokraattisella kurilla. Konsortiolle Syke on puhtaasti tuotannollinen funktio — kaiken tehokkuuden pohja ja mittari. Asukkaat ja saarekkeet nähdään vain muuttujina energiantuotannon yhtälössä. Aseman eristäytyneisyys palvelee johtoa: laajoja yhteistiloja ei tarvitse ylläpitää, ja uupunut torninvartija on huomattavasti helpompi korvata kuin järjestäytynyt ammattikunta.
+Valta asemalla jakautuu kahden toisilleen vieraan koneiston välille. **KW-konsortio** hallitsee reaktoreita ja jakeluverkkoa tiukalla teknokraattisella kurilla. Konsortio kohtelee asukkaita ja saarekkeita pelkkinä muuttujina energiantuotannon yhtälössä. Aseman hajanaisuus palvelee johtoa: yhteistiloja ei tarvitse ylläpitää, ja uupunut torninvartija on helpompi korvata kuin järjestäytynyt ammattikunta.
 
-Hallinto on pikkumaista ja armotonta: jokainen kilowattitunti kirjataan, ja pieninkin tekninen häiriö tulkitaan syyksi leikata huoltoannoksia. Konsortion insinöörit ovat paperilla etuoikeutetussa asemassa, mutta käytännössä yhtä kuluvia osia koneistossa kuin kuka tahansa muukin. Ratasvartion kypäräpäiset sotilaat ovat arkipäiväinen näky losseilla ja laitureilla varmistamassa, ettei työvoima lakkoile.
+Hallinto kirjaa jokaisen siirretyn energiayksikön ja leikkaa huoltoannoksia pienimmästäkin teknisestä häiriöstä. Konsortion insinöörit ovat paperilla etuoikeutettuja, mutta käytännössä yhtä kuluvia osia kuin muutkin työläiset. Ratasvartion kypäräpäiset sotilaat partioivat losseilla ja laitureilla estämässä lakkoja.
 
 #### Pyhä signaali
 
-Vastavoimana konsortion laskelmille toimii Ekklesia, joka valjastaa aseman valtavan sähkömagneettisen säteilyn uskonnollisen ja sosiaalisen vallan välineeksi. Kirkko ymmärtää, että fyysisen eristyksen ja jatkuvan tärinän keskellä asukkaat kaipaavat lohtua ja transsendenssia. Ekklesia on muuttanut vanhat seremoniasalit ja halkeilevat louhokset luostareikseen, joissa mediamunkit tuottavat väsymättä pyhiä lähetyksiä ja ohjelmaa massoille.
+Konsortion laskelmia haastaa **Ekklesia**, joka valjastaa aseman voimakkaan sähkömagneettisen säteilyn uskonnollisen vallan välineeksi. Eristyksen ja tärinän keskellä asukkaat kaipaavat lohtua ja ylevyyttä. Kirkko onkin muuttanut vanhat seremoniasalit ja halkeilevat louhokset luostareiksi, joissa mediamunkit tuottavat pyhiä lähetyksiä massoille.
 
-Kirkko tarjoaa hajoavan saariston asukkaille digitaalista yhteyttä ja parasosiaalista huolenpitoa samalla kun fyysinen elinympäristö murenee ympärillä. Jännite osapuolten välillä on pysyvä: KW-konsortio tarvitsee kirkon saarnoja ja viihdettä pitääkseen työläiset rauhallisina, kun taas Ekklesia tarvitsee reaktoreiden valtavaa tehoa ylläpitääkseen alati laajenevia lähetysverkkojaan.
+Kirkko tarjoaa hajoavan saariston asukkaille digitaalista yhteyttä ja parasosiaalista huolenpitoa murenevan arjen keskellä. Osapuolet ovat silti sidoksissa toisiinsa: KW-konsortio tarvitsee kirkon saarnoja ja viihdettä pitääkseen työläiset rauhallisina, ja Ekklesia tarvitsee reaktoreiden tehoa lähetysverkkoihinsa.
 
 ### Palvelut
 
@@ -41,12 +41,12 @@ Sykkeeltä pääsee suoraan asemille: **Seula**, **Akseli** ja **Katedraali**.
 
 #### Kynnyksen ontologinen ankkuri
 
-Syke toimii Kynnyksen perimmäisenä ankkurina. Asemien arkkitehtuuri kuluu ja haurastuu nestemäisessä avaruudessa muuttuen ajan myötä epätodelliseksi ja kevyeksi. Sykkeen tuottama karkea, muokkaamaton energia on se ankkuriketju, joka pitää asemat kiinni todellisuudessa. Ilman Sykkeen syöttämää vaihe-energiaa muut asemat alkaisivat ajelehtia ja Kynnys hajoaisi avaruuteen.
+Sykkeen syöttämä vaihe-energia pitää muut asemat kiinni todellisuudessa. Nestemäinen avaruus kuluttaa asemien arkkitehtuuria ja muuttaa rakenteet ajan myötä hauraiksi ja kevyiksi. Sykkeen karkea, muokkaamaton energia sitoo ne paikoilleen: ilman sitä muut asemat alkaisivat ajelehtia ja Kynnys hajoaisi avaruuteen.
 
-Tämä tekee Sykkeestä järjestelmän suurimman velkojan. Kaikki muut asemat ovat Sykkeelle energiavelassa, mitä KW-konsortio hyödyntää häikäilemättömästi kaikissa poliittisissa neuvotteluissa. Syke on polttopiste, jossa raaka fysiikka sanelee diplomatian rajat: liian suuri konflikti reaktoreilla sammuttaisi koko Kynnyksen.
+Siksi kaikki muut asemat ovat Sykkeelle energiavelassa, ja KW-konsortio hyödyntää velkavipua häikäilemättä poliittisissa neuvotteluissa. Raaka fysiikka asettaa kuitenkin rajat myös konflikteille, sillä täysi sota reaktoreilla sammuttaisi koko Kynnyksen.
 
 #### Naapurisuhteet ja huoltoreitit
 
-Sykkeen suhteet naapureihin ovat puhtaan strategisia ja vailla luottamusta. Seula (1) on elintärkeä huoltoväylä: sen kautta saapuvat ne muinaiset varaosat ja suodattimet, joita Syke ei kykene omassa pirstaleisessa ympäristössään valmistamaan. Vastineeksi Syke tarjoaa Seulalle etuoikeutetun pääsyn teholinjoihin, mikä pitää kauppasataman valot ja loiston käynnissä.
+Sykkeen suhteet naapureihin perustuvat laskelmointiin ilman luottamusta. **Seulan (1)** kautta saapuvat muinaiset varaosat ja suodattimet, joita Syke ei pysty pirstaleisessa ympäristössään valmistamaan. Vastineeksi Syke antaa Seulalle etuoikeutetun pääsyn teholinjoihin ja pitää kauppasataman valot ja kloonausaltaat käynnissä.
 
-Akseli (6) on Sykkeen hienomekaaninen vastinpari. Akselin virkamiehet ja insinöörit karsastavat Sykkeen likaista energiankäsittelyä, mutta ovat täysin riippuvaisia sen tuottamasta voimasta pitääkseen omat tarkkuusmittarinsa kalibroituina. Katedraali (7) puolestaan tarvitsee valtavasti energiaa massiivisiin kirkkosaleihinsa ja lähetysasemiinsa, ja Ekklesia vahtii tätä syöttölinjaa yhtenä tärkeimmistä poliittisista saavutuksistaan.
+**Akseli (6)** on Sykkeen hienomekaaninen vastinpari. Akselin virkamiehet ja insinöörit karsastavat Sykkeen likaista energiankäsittelyä, mutta tarvitsevat sen virtaa pitääkseen omat tarkkuusmittarinsa kalibroituina. **Katedraali (7)** puolestaan nielee runsaasti tehoa kirkkosaleihinsa ja lähetystorneihinsa, ja Ekklesia vahtii tätä syöttölinjaa yhtenä tärkeimmistä saavutuksistaan.

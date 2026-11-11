@@ -15,52 +15,53 @@ order: 3
 
 ### Yleiskuvaus
 
-Verso on Kynnyksen elinehto ja sen suurin valhe. Alun perin se rakennettiin Lasipuutarhaksi ja eksoottisten lajien suojelualueeksi, jonka piti taata Kynnyksen asukkaille loputon hapen ja ravinnon lähde. Nykyisin biodomi on populistisen vallankäytön, jyrkän syrjinnän ja teknologisen invaasion näyttämö. Versossa kauneus ja kuolema kietoutuvat toisiinsa: vehreä lehvästö kätkee sisäänsä nälkää, poliittista vainoa ja Suuren sodan jälkien luomia mutaatioita.
+Verso rakennettiin aikoinaan Lasipuutarhaksi ja suojelualueeksi, jonka piti turvata Kynnyksen asukkaille puhdas happi ja ravinto. Sittemmin lasikuvun alle on kovettunut jyrkkä luokkayhteiskunta, jossa Tuhkan puolueen plantaasinomistajat ja KW-konsortion automaatioinsinöörit kamppailevat vallasta. Tiheän lehvästön alla kytevät nälkä, poliittinen vaino ja Suuren sodan jättämät mutaatiot.
 
 #### Biodomin kerroksellinen kurjuus
 
-Fyysisesti Verso on valtava, läpinäkyvä pallo, jonka sisällä vallitsee keinotekoinen ilmasto. Sen ytimenä on Lasipuutarha — kaiku ajasta, jolloin biologisen harmonian piti olla mahdollista. Biodomin sisällä kohoavat muokatut jättiläispuut ja kerroksittain asetetut hydroponiset viljelmät muodostavat tiheän, sokkeloisen viidakon. Alue kuhisee elämää: jalostettua riistaa, tuotantoeläimiä ja loputtomasti erilaisia kasveja.
+Verso on valtava läpinäkyvä pallo, jonka keinotekoista ilmastoa ylläpitää muinainen Lasipuutarha. Biodomin sisällä geenimuokatut jättiläispuut ja kerroksittaiset vesiviljelmät muodostavat tiheän, sokkeloisen viidakon. Alue kuhisee jalostettua riistaa, tuotantoeläimiä ja tuhansia kasvilajeja.
 
-Asema on jaettu jyrkkiin tasoihin. Ylimmät kerrokset nauttivat nestemäisen avaruuden vääristyneestä valosta siroissa lasirakenteissa. Kaukana orgaanisesta liasta sijaitsevat hallitsevan eliitin lasiset norsunluutornit. Nämä steriilit palatsit ovat saarekkeita, joista yhtiöpamput ja poliitikot tarkkailevat alhaalla vellovaa viidakkoa ja mutaa joutumatta kosketuksiin kummankaan kanssa. Korkeus tarjoaa suojan alhaalla vellovilta itiösumuilta, jotka hälvenevät ennen kuin ne tavoittavat lasikuvun huipun.
+Asema jakautuu jyrkkiin kerroksiin. Ylimpien tasojen sirot lasipalatsit kylpevät nestemäisen avaruuden taittamassa valossa kaukana alatasojen liasta. Näistä steriileistä norsunluutorneista yhtiöjohtajat ja poliitikot tarkkailevat viidakkoa ja mutaa joutumatta kosketuksiin kummankaan kanssa. Korkeus suojaa eliittiä myös pohjakerrosten raskaalta itiösumulta, joka hälvenee ennen lasikuvun huippua.
 
 ### Hallinta
 
-Asemaa hallitsevat Muotinvalajat, Tuhkan puolueen ideologinen eturintama. Heille Verso edustaa perinteistä elämäntapaa, jossa orgaaninen käsityö on pyhää, mutta todellisuus rakentuu halukkaan työvoiman varaan. Kyseessä on suljettu taloudellinen ansa: asukkaiden palkka maksetaan Arkkitehtuurillisina Krediiteinä, jotka virtaavat välittömästi takaisin työnantajalle selviytymiseen vaadittavien elintarvikkeiden muodossa. Tämä kierto estää työläisiä koskaan säästämästä tarpeeksi päästäkseen pois mudasta.
+Asemaa hallitsevat Muotinvalajat, Tuhkan puolueen ideologinen eturintama. Heille Verso edustaa perinteistä elämäntapaa ja pyhää käsityötä, mutta käytännössä järjestelmä nojaa halpaan ja sidottuun työvoimaan. Asukkaiden palkka maksetaan Arkkitehtuurin krediitteinä, jotka palautuvat heti takaisin työnantajalle ruokaostosten mukana. Suljettu kierto estää työläisiä säästämästä tarpeeksi päästäkseen pois mudasta.
 
-Muotinvalajat käyttävät ravintoa populistisena aseena. Ruoka on palkinto niille, jotka suostuvat fyysiseen raatantaan ja osoittavat uskollisuuttaan ryhmälle. Puoluetta seuraavien fanaattisuus kumpuaa heidän omasta propagandastaan, joka ylistää farmarielämän onnea ja varoittaa koneista, jotka muuttaisivat Verson betonibunkkeriksi. Järjestelmää pitävät pystyssä plantaasinomistajat, jotka tasapainoilevat oman etunsa ja ylhäältä annettujen ideologisten vaatimusten välillä.
+Muotinvalajat käyttävät ravintoa populistisena aseena. Ruoka on palkinto niille, jotka suostuvat raskaaseen raadantaan ja osoittavat uskollisuuttaan puolueelle. Puolueen propaganda ylistää farmarielämän onnea ja varoittaa koneista, jotka muuttaisivat Verson betonibunkkeriksi. Arkea pyörittävät plantaasinomistajat tasapainoilevat oman voittonsa ja puoluejohdon ideologisten vaatimusten välillä.
 
 #### Deterministit ja teknologinen invaasio
 
-KW-konsortion tilastoihin luottavat Deterministit hallitsevat lähes puolta aseman resursseista. Heidän läsnäolonsa on puhdas poliittinen aluevaltaus. Deterministit markkinoivat itseään vapauttajina ja kutsuvat Tuhkan puolueen järjestelmää moraalittomaksi orjuudeksi. Väite pitää paikkansa, mutta Deterministien tarjoama vaihtoehto on asukkaille yhtä vaarallinen: he ajavat täydellistä automaatiota ja robotiikkaa, joka tekisi ihmistyövoiman täysin tarpeettomaksi.
+KW-konsortion tilastoihin luottavat Deterministit hallitsevat lähes puolta aseman resursseista. Heidän läsnäolonsa on puhdas poliittinen aluevaltaus. Deterministit markkinoivat itseään vapauttajina ja kutsuivat Tuhkan puolueen järjestelmää moraalittomaksi orjuudeksi. Väite pitää paikkansa, mutta Deterministien tarjoama vaihtoehto on asukkaille yhtä karu: täydellinen automaatio ja robotiikka, joka tekisi ihmistyövoiman tarpeettomaksi.
 
-Asemalla kytee hiljainen ja turbulentti vastarinta. Koska asukkaat on vangittu Arkkitehtuurin sääntöihin, KW:n sponsoroima kapina ilmenee sääntöjen ylinoudattamisena. Työläiset suorittavat jokaisen pienen ja tehottoman säännön niin pikkutarkasti, että tuotanto pysähtyy lähes kokonaan. Monet plantaasimestareista tuntevat olonsa voimattomiksi, sillä työläiset noudattavat sääntöjä täydellisesti. Deterministit yrittävät kääntää tyytymättömyyden edukseen luvaten plantaasinomistajille, että automaatio poistaisi viiveet ja lisäisi krediittien virtausta.
+Plantaaseilla kytee passiivinen vastarinta. Koska Arkkitehtuurin säännöt sitovat asukkaita, KW-konsortion tukema protesti näkyy määräysten pikkutarkkana noudattamisena. Työläiset täyttävät jokaisen tehottoman pykälän niin kirjaimellisesti, että tuotanto pysähtyy lähes kokonaan, eivätkä plantaasimestarit mahda lailliselle hidastelulle mitään. Deterministit käyttävät pysähdystä hyväkseen ja lupaavat plantaasinomistajille, että automaatio poistaa viiveet ja kasvattaa tuottoja.
 
 #### Seitsemännen sektorin karsinta
 
-Nykyinen jännite juontaa juurensa tapahtumaan, jota kutsutaan Seitsemännen sektorin karsinnaksi. Erityisen sankka Sumun kausi pilasi osan sadosta, ja Krediittejään pelännyt plantaasinomistaja asensi tiloihinsa KW-konsortion kokeellisen optimointipaketin. Epävakaan fysiikan vuoksi automaattiset leikkuukoneet eivät kyenneet erottamaan biomassaa asukkaista: koneet luokittelivat uupumuksesta tuupertuneet työläiset vialliseksi massaksi ja aloittivat sadonkorjuun ihmisten keskellä.
+Nykyinen jännite juontaa juurensa tapahtumaan, jota kutsutaan Seitsemännen sektorin karsinnaksi. Erityisen sankka Sumun kausi pilasi osan sadosta, ja krediittejään pelännyt plantaasinomistaja asensi tiloihinsa KW-konsortion kokeellisen optimointipaketin. Epävakaan fysiikan vuoksi automaattiset leikkuukoneet eivät kyenneet erottamaan biomassaa asukkaista: koneet luokittelivat uupumuksesta tuupertuneet työläiset vialliseksi massaksi ja aloittivat sadonkorjuun ihmisten keskellä.
 
-Tuhkan puolueen johto antoi teurastuksen jatkua ja hyödynsi sitä propagandan kuvaamiseen osoittaakseen koneiden pahuuden. Samaan aikaan KW-konsortio antoi koneiden jatkaa kerätäkseen dataa järjestelmän tehokkuudesta ääriolosuhteissa. Tapaus teki asukkaille selväksi, että heidän henkensä on molemmille osapuolille arvottomampaa kuin multa, jota he kyntävät.
+Tuhkan puolueen johto antoi teurastuksen jatkua ja kuvasi sitä propagandaansa todisteena koneiden pahuudesta. Samaan aikaan KW-konsortio antoi koneiden käydä kerätäkseen dataa järjestelmän tehosta ääriolosuhteissa.
 
 ### Palvelut
 
-Verso toimii Kynnyksen biologisena metaboliana. Se on hajanaisessa asemakunnassa ainoa paikka, joka tuottaa elävää energiaa verkostoon. Asema kykenee muuntamaan nestemäisen avaruuden säteilyä kemialliseksi ravinnoksi ja hapeksi; ilman tätä virtaa muiden asemien asukkaat joutuisivat pärjäämään huomattavasti alkeellisemmin.
+Verso tuottaa ainoana asemana tuoretta ravintoa ja happea Kynnyksen verkostoon. Biodomi muuntaa nestemäisen avaruuden säteilyä kemialliseksi ravinnoksi, jonka varassa muiden asemien ruokahuolto lepää.
 
-Samalla biodomi toimii Kynnyksen apteekkina. Sen tuottamat rohdokset ja entsyymit ovat ainoa lääke moniin nestemäisen avaruuden aiheuttamiin pitkäaikaisiin vaivoihin, mikä tekee kaikista faktiojohtajista henkilökohtaisesti riippuvaisia Verson tuotannosta ja kohtalosta.
+Samalla aseman kasvihuoneista saadaan rohdoksia ja entsyymejä. Ne ovat ainoa tunnettu lääke moniin nestemäisen avaruuden aiheuttamiin pitkäaikaisiin vaivoihin, joten muidenkin asemien faktiojohtajat ovat henkilökohtaisesti riippuvaisia Verson sadosta.
 
 #### Sumun kausi ja turruttava hallinta
 
-Verson kasvillisuus on kärsinyt Suuren sodan onnettomuudesta. Tuhkan puolueen hallinta asemalla perustuu Sumun kauteen, joka täyttää biodomin pohjan paksulla, hallusinogeenisellä itiöpölyllä.
+Tuhkan puolueen valta asemalla nojaa Sumun kauteen, joka täyttää biodomin pohjan paksulla, hallusinogeenisellä itiöpölyllä.
 
-Itiösumu turruttaa työläiset, auttaa heitä kestämään raadannan ja hämärtää todellisuudentajua, mikä estää kapinahengen nousemisen. Sumun aikana myös eläimet muuttuvat passiivisiksi, ja biodomi vajoaa aavemaiseen hiljaisuuteen. Sen tuoma kemiallinen rauha pitää kansan tyytyväisenä kurjuuteensa.
+Itiösumu turruttaa työläiset, auttaa heitä kestämään raadannan ja hämärtää todellisuudentajua niin, ettei kapinahenki pääse nousemaan. Sumun aikana myös eläimet muuttuvat passiivisiksi ja biodomi vajoaa hiljaisuuteen. Kemiallinen rauha pitää alatasojen väen aloillaan.
 
 ### Yhteydet
 
-Versolta pääsee suoraan asemille: **Seula**, **Pesä**, **Kuiskaus**.
+Versolta pääsee suoraan asemille: **Seula**, **Pesä** ja **Kuiskaus**.
 
 #### Vehreä solmukohta
 
-Logistisesti Verso on kriittinen solmukohta, jonka suhteet naapureihin vaihtelevat strategisesta riippuvuudesta ideologiseen epäluuloon. Seula (1) on Verson tärkein väylä muihin keskusasemiin: suurin osa Kynnyksen logistiikasta kulkee Seulan kautta, ja Verso hyötyy keskeisestä sijainnistaan suuresti.
+Verson suhteet naapuriasemiin vaihtelevat tiiviistä kaupasta avoimeen epäluuloon. **Seula (1)** on biodomin tärkein jakeluväylä muihin asemiin, ja suurin osa Kynnyksen ruokakuljetuksista kulkee vapaasataman kautta.
 
-Pesä (8) toimii puolestaan Verson henkisenä tukena ja Tuhkan puolueen filosofisena kotina. Ei ole sattumaa, että Verso on Tuhkan puolueen tiukassa otteessa: läheisyys Pesään tuo asemalle jatkuvasti ideologiaa ja valvontaa. Verso on Pesän näkökulmasta se lupaus kukoistavasta yhteisöstä, jota he ovat tavoitelleet.
+**Pesä (8)** on Tuhkan puolueen perinteinen kotiasema, josta saapuu Versolle sekä puolueideologiaa että valvontaa. Pesän asukkaille Verso edustaa lupausta omavaraisesta ja vauraasta yhteisöstä.
 
-Kuiskauksen (10) murtuma on Versolle jatkuva huolenaihe. Epävakaa salaisuuksien asema tuntuu jokaisen poliitikon mielestä tikittävältä aikapommilta naapurissa.
+**Kuiskauksen (10)** murtuma huolestuttaa Verson johtoa, joka pelkää epävakaan viestintäaseman vuotavan julki eliitin sisäiset sopimukset.
+

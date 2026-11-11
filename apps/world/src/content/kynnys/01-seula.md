@@ -16,7 +16,7 @@ Yhteys sisämaailmojen suuntaan toimii yhä harvakseltaan. Riutan yläosan sulje
 
 #### Koralliriutta ja kerrokset
 
-Fyysisesti Seula on valtava, puoliorgaaninen koralliriutta. Sen huokoinen kalkkirunko kasvaa kiinni messinkikaariin ja kaareviin lasikupoleihin. Yläriutan kupolien alla sijaitsevat pankkiholvit ja huutokauppasalit sekä sisämaailmojen liikenteelle varatut edustuslaiturit, joiden ikkunoista avautuu näkymä nestemäisen avaruuden virtauksiin. Näissä salongeissa verivihollisetkin mahtuvat samoihin neuvottelupöytiin, sillä kaupankäynnin sujuvuus menee poliittisen kaunan edelle. Kuka tahansa on tervetullut, kunhan satamamaksut on hoidettu ja aseet pysyvät koteloissa.
+Seula on valtava, puoliorgaaninen koralliriutta. Sen huokoinen kalkkirunko kasvaa kiinni messinkikaariin ja kaareviin lasikupoleihin. Yläriutan kupolien alla sijaitsevat pankkiholvit ja huutokauppasalit sekä sisämaailmojen liikenteelle varatut edustuslaiturit, joiden ikkunoista avautuu näkymä nestemäisen avaruuden virtauksiin. Näissä salongeissa verivihollisetkin mahtuvat samoihin neuvottelupöytiin, sillä kaupankäynnin sujuvuus menee poliittisen kaunan edelle. Kuka tahansa on tervetullut, kunhan satamamaksut on hoidettu ja aseet pysyvät koteloissa.
 
 Kymmeniä kerroksia alempana riutan tyveen on koverrettu pimeitä laiturikanavia ja ahtaita korjaustelakoita. Siellä keikkapilotit ja harmaan talouden välittäjät purkavat rahtiaan suoraan alusten laskusilloilta neonkylttien valossa. Pohjakerrosten kosteissa kuiluissa asuu myös sataman velkaantunut huoltotyövoima, joka pitää yläriutan vesisuodattimet ja paineentasaimet käynnissä.
 
@@ -26,7 +26,7 @@ Virallisesti Seula julistautuu sitoutumattomaksi kauppavyöhykkeeksi, jossa jär
 
 #### Muotin valaminen ja ostettu unohdus
 
-Seulan tarjoama uusi alku perustuu tietoiseen unohdukseen. Kun velallinen tai etsintäkuulutettu karkuri ostaa pohjakerrosten klinikalta puhtaan henkilöllisyyden tai uuden kehon, hänen muististaan leikataan samalla pois katkeruus ja kapinalliset piirteet. Klinikka valaa asiakkaan valmiiseen, säyseään kansalaismuottiin ennen kuin hänet päästetään jatkamaan matkaansa muille asemille.
+Seulan tarjoama uusi alku perustuu tietoiseen unohdukseen. Kun velallinen tai etsintäkuulutettu karkuri ostaa pohjakerrosten klinikalta puhtaan henkilöllisyyden tai uuden kehon, hänen muististaan leikataan samalla pois katkeruus ja kapinalliset piirteet. Klinikka valaa asiakkaan valmiiseen, säyseään kansalaismuottiin ja päästää hänet sitten jatkamaan matkaansa muille asemille.
 
 Sama järjestelmä sitoo myös yläriutan eliittiä. Varakkaat kauppiaat ja lähettiläät ostavat klinikoilta nuorennushoitoja ja puhtaita varakehoja, mutta jokainen toimenpide karsii heistä poliittisen kunnianhimon ja lukitsee heidät nykyhetken nautintoihin.
 

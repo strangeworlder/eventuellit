@@ -1880,6 +1880,16 @@ Esimerkkejä motiiveista:
 
 [Krypta, Kynnyksen 19. asema](https://eventuell.it/world/kynnys/19-krypta)
 
+### **Jakson yhteenveto**
+
+Muokkaa
+
+Kryptan ulkokehällä sijaitsevan Pyhän Velkavankiflagelantin luostarin leppoisa arki *Reseptiradioineen*, lannanlapiointeineen ja somestriimeineen rikkoutuu, kun vanhemmat munkit Moor, Jusuk ja Mile kiskovat kellarin katakombiluukusta sisään haavoittuneen kapinallisveteraanin Cenin. Nelikko tunnistaa toisensa jaetusta unesta samalla hetkellä, kun heidän vuosikausia suljettuina olleet *Sisäinen ääni* -implanttinsa käynnistyvät itsestään ja piirtävät näkökenttään varoituksen lähestyvästä Pyhimyksestä – *Vaara 3: Similis*. Cenin kätkeminen vierailijakaapuun muuttuu hengenvaaralliseksi kamaripeliksi, kun portille saapuu Ratasvartion Jahtikommodori Valkohanskainen Verikoira sotilaineen etsimään katakombeista varastettuja KW-konsortion pääsykoodeja ja Milen omakseen tunnistamaa, ihmisen sormiluista koottua rasiaa.
+
+Luostarikupolin sulkeutuessa piiritykseen nelikko joutuu luovimaan kahden vastakkaisen puristuksen välissä. Maallisella puolella Verikoira kiristää otettaan kylmäverisillä teloituksilla, kyberneettisellä vainukoiralla ja väkivallalla, vaikka Moor onnistuukin sitomaan sotilaat vierailijakaapuihin Pyhän maan striimaussopimusten varjolla. Samaan aikaan peilipinnoissa ja radiotaajuuksilla vaaniva Similis, Tyhjä peili, alkaa liuottaa pois hahmojen muistoja, tapoja ja persoonan särmiä – kunnes radiolähettimen kautta kutsutun Pyhimyksen iskemä luuveitsi, veri ja terävä kipu ravistelevat heidät takaisin hereille.
+
+Kun katakombien kuiskaukset paljastavat sormiluisen rasian pyhäinjäännökseksi ja Ratasvartion pamppumiehet käyvät kellarissa radiolaitteistoa hakevan Moorin kimppuun suorassa lähetyksessä, kulissi repeää avoimeksi vastarinnaksi. Moor, Jusuk ja Mile murskaavat kellarin vartijat samalla, kun Cen tarjoilee Verikoiralle illalliseksi Kivisaarten ruisleivän sisään leivotun pommin, joka räjäyttää jahtikommodorin ja tämän esikunnan kappaleiksi. Kellarin taistelun keskelle ilmestyvä ja paikallaolijoita peilaava Similis kuorii Milen kasvot kohti paljasta kalloa yrittäessään riistää rasiaa, mutta Mile viiltää luurankohahmoisen Pyhimyksen rintakehän auki, sulkee sen jääkylmään halaukseen ja syöksyy tovereineen sekä Cenin kesyttämän vainukoira Kaverin kanssa katakombien syvyyksiin. Ratasvartion polttaessa luostarin maan tasalle Moor kirjaa ryhmän virallisesti kuolleiksi, ja katakombien suojissa avatusta sormiluisesta rasiasta paljastuu nyrkin kokoinen, muotoaan muuttava sininen moniulotteinen kappale.
+
 ### **Sessio #01 — Sessio 1**
 
 **Pelattu**  
@@ -1901,7 +1911,7 @@ Luostarin kellarikerroksessa luuta webbikameran edessä veistelevä Mile haistaa
 
 ##### **Vaara 3 Similis ja Sokea Runoilija**
 
-Munkit nostavat tajuttoman Cenin yksipyöräisiin kottikärryihin ja raahaavat hänet kellariin samalla, kun noviisi laitetaan siivoamaan veri huolellisesti katakombien luista. Samalla hetkellä kaikkien kolmen munkin – ja tajuttoman Cenin – *Sisäinen ääni* -implantti menee itsestään päälle, vaikka munkeilla se on ollut suljettuna niin kauan kuin he ovat olleet luostarissa. Kaikkien näkökenttään ilmestyy teksti: *"Vaara 3: Similis"*.
+Jusuk ja Moor nostavat tajuttoman Cenin yksipyöräisiin kottikärryihin ja raahaavat hänet kellariin, kun taas Mile jää itse siivoamaan veren huolellisesti katakombien luista, jotta yksikään noviisi tai muu ulkopuolinen ei nostaisi meteliä löydettyään elävää ainesta paikasta, jossa mitään elävää ei kuuluisi olla. Samalla hetkellä kaikkien kolmen munkin – ja tajuttoman Cenin – *Sisäinen ääni* -implantti menee itsestään päälle, vaikka munkeilla se on ollut suljettuna niin kauan kuin he ovat olleet luostarissa. Kaikkien näkökenttään ilmestyy teksti: *"Vaara 3: Similis"*.
 
 Kellarissa Moor riisuu Ceniltä taisteluvarusteet ja aseet säkkiin sillä vuosikymmenten sisällöntuotannon periaatteella, että jos jokin ei ole näkyvillä, sitä ei ole oikeasti olemassa. Cen jää pelkkiin Ekklesia-aiheisiin, peukuilla ja sydämillä kuvioituihin alushousuihin. Mile tutkii ja puhdistaa haavat transsissa maistellen samalla verta ja panee merkille Cenin toisen käden tilalla olevan alkeellisen kyberneettisen proteesin. Jusuk puolestaan kantaa varustesäkin ja Cenin verisen repun piiloon eläinsuojan lantakasaan.
 
@@ -1909,7 +1919,7 @@ Koska kellarissa ja omissa huoneissa käy muuta väkeä, kolmikko päättää vi
 
 ##### **Reseptiradio, peilikuva ja yön taajuudet**
 
-Pannuhuoneen takaisessa studiokopissa Cen tokenee heikkona ja ottaa yhteyttä munkkeihin *Sisäisen äänen* kautta – johon Mile ja Jusuk vastaavat huutamalla ääneen, koska eivät osaa käyttää implanttia äänettömästi. Cen kertoo olleensa hakemassa tavaraa katakombien syvemmistä kerroksista, kun tieto hänen liikkeistään vuoti ja kuolemanpartio yllätti hänet. Hän ilmoittaa olevansa "hyvien puolella Tyrannia vastaan" – mitä munkit pitävät pöyristyttävänä kerettiläisyytenä – ja kertoo pakoaluksensa saapuvan vasta viikon kuluttua.
+Pannuhuoneen takaisessa studiokopissa Cen tokenee heikkona ja ottaa yhteyttä munkkeihin *Sisäisen äänen* kautta – johon Mile ja Jusuk vastaavat huutamalla ääneen, koska eivät osaa käyttää implanttia äänettömästi. Cen kertoo olleensa hakemassa tavaraa katakombien syvemmistä kerroksista, kun tieto hänen liikkeistään vuoti ja kuolemanpartio yllätti hänet. Hän ilmoittaa olevansa "hyvien puolella Tyrannia vastaan" – mitä munkit pitävät pöyristyttävänä kerettiläisyytenä – mutta jättää kertomatta munkeille, että hänen pakoaluksensa on määrä saapua vasta viikon kuluttua.
 
 Kun tasatunnin lähetysaika koittaa, Moor asettaa puolikuntoiselle Cenille kuulokkeet päähän ja mikrofonin eteen, avaa käsin kirjoitetun reseptikirjan F-kirjaimen kohdalta ja pitää intropuheen. Cen lukee vierailevana lukijana suoraan lähetykseen *focaccia kirsikkatomaateilla* -reseptin takellellen sanoissaan juuri sopivan autenttisesti, minkä jälkeen Moor päättää lähetyksen vakiopuheellaan.
 
@@ -1943,10 +1953,68 @@ Kokoontumisen purkauduttua noviisi pannaan esittelemään pellonreunaa kaapuihin
 
 Kun he ihmettelevät ääneen yhteistä untaan, itsestään käynnistyneitä implanttejaan ja Sokean Runoilijan kysymystä, Jusuk katsoo peiliin ja näkee siinä hetken ajan itsensä täydessä sotisovassa, samanlaisissa varusteissa kuin Verikoiran sotilaat. Moor kertoo kuulleensa yöllä radiotaajuuksia skannatessaan oman äänensä, ja samalla hetkellä pienestä kaiuttimesta – josta soi luostarin oman kuoron levy – kuuluu Moorin ääni, joka sanoo sanan: *"Peili."*
 
-Mile katsoo peiliin ja näkee sen, mitä hän haluaisikin nähdä: oman munkinkaapunsa sisällä seisovan kasvottoman luurangon. Kun Moor ja Cen katsovat peiliin, peilin syvyydestä kävelee heitä kohti peilinpalasista rakentunut hahmo ennen kuin peilikuvat palautuvat normaaleiksi. Cen tunnistaa hahmon aiemmin kohtaamiensa ylempien henkiolentojen sukulaiseksi, ja Mile yhdistää näyn sekä implanttien *"Vaara 3: Similis"* -tekstin vuosikymmenten aikana kuulemaansa Skriptuuraan: kyseessä on Similis, Tyhjä peili – yksi Arkkitehtuurin ja Tyrannin pyhimyksistä, ideaaliuden jumaluus, jonka manifestoitumista mittaava noppa on kohdassa neljä.
+Mile katsoo peiliin ja näkee sen, mitä hän haluaisikin nähdä: oman munkinkaapunsa sisällä seisovan kasvottoman luurangon. Kun Moor katsoo peiliin, peilin syvyydestä kävelee häntä kohti peilinpalasista rakentunut hahmo ennen kuin peilikuva palautuu normaaliksi. Cen ei itse näe hahmoa peilissä, mutta ymmärtää muiden kuvailuista sen olevan sukua aiemmin kohtaamilleen ylemmille henkiolennoille. Mile puolestaan yhdistää näyn sekä implanttien *"Vaara 3: Similis"* -tekstin vuosikymmenten aikana kuulemaansa Skriptuuraan: kyseessä on Similis, Tyhjä peili – yksi Arkkitehtuurin ja Tyrannin pyhimyksistä, ideaaliuden jumaluus.
 
 #### **Pelaajien kertaukset**
 
 Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 
+### **Sessio #02 — Sessio 2**
+
+**Pelattu**  
+maanantaina 9\. marraskuuta 2026
+
+#### **Pelinjohtajan kertaus**
+
+PiilotaMuokkaa
+
+##### **Poistumiskielto portilla ja laulavat lattiat**
+
+Aamun *fondue*-reseptin jälkeen Moor pakkaa laukkunsa lähteäkseen satamaan kirjaamaan vainajia, sillä hän ei ole ollut päivääkään poissa töistä. Luostarin portilla seisoo kuitenkin kaksi Ratasvartion agenttia kasvojaan peittävissä naamioissa ja raskaissa mellakkavarusteissa, jotka erottuvat heidän ylleen puettujen sopimuksenmukaisten munkinkaapujen alta, ja kupolin ulkopuolella partioi muualta tuotu raskas taisteludrone, joka silppuaa jokaisen luvatta liikkuvan. Agentit ilmoittavat, että koko Kryptalla on ylhäältä määrätty poikkeustila, hautalaivat seisovat jonossa, eikä kukaan poistu luostarista ennen kuin Arkkitehtuuria uhkaava karkuri ja kaikki häntä auttaneet on löydetty. Moor sytyttää piippunsa, jutustelee leppoisasti sotilaiden kanssa luostarin tupakkalaaduista ja niiden lannoituksesta ja jakaa näille brändätyt näytepussit ennen kuin kääntyy takaisin sisäpihalle.
+
+Nelikko kulkee luostarin käytävillä "arkkitehtuurikierroksella" ja keskustelee *Sisäisen äänen* kautta. Jusuk kertoo katakombien luiden kuiskailevan hänelle rauhoittavasti, mutta äänien käyneen nyt levottomiksi. Cen paljastaa olleensa hakemassa katakombien vanhoista haudoista pääsykoodeja Seula-porttiaseman tunneleihin.
+
+Käytävien heijastavat pinnat väreilevät heidän ohittaessaan ne, ja huomaamaton tyhjyys alkaa nakertaa nelikon persoonia niin, että kukin pitää omaa muuttunutta käytöstään täysin luonnollisena. Yhtäkkiä Jusuk lakkaa puhumasta itsestään kolmannessa persoonassa ja toteaa selkeästi minä-muodossa haluavansa puuroa, kun taas Mile kadottaa tutun arvaamattomuutensa ja ehdottaa kylmän laskelmoivasti, että Cen kannattaisi tappaa ja veistää luulusikoiksi luostaripuotiin, jotta heitä ei syytettäisi mistään. Samalla Cenin sormista katoaa vuosien tuntuma räjähteisiin ja kiveen, ja hän päättää siirtyä noviisiksi leipomoon vaivaamaan kotinsa Kivisaarten ruisleipää. Käytävällä vastaan saapuu Jahtikommodori Valkohanskainen Verikoira, jonka raskaat saappaat saavat käytävän vanhat kivet soimaan, mitä Mile ja Moor esittelevät hänelle luostarin vanhana ihmeenä.
+
+##### **Protestoivan vierailijan teloitus ja Resonanssiradio**
+
+Verikoira palaa pian munkkien luo: yksi luostarin nuorista some-vierailijoista – hemmoteltu vaikuttaja, joka tekee sisältöä 14–18-vuotiaille vastakulttuurinuorille – vaatii äänekkäästi päästä kotiin, koska vierailijakaapuihin puetut sotilaat ovat vieneet hänen lannanlapiointivuoronsa. Verikoira pyytää munkkeja hoitamaan tilanteen ja katkaisemaan lähetyksen sopimuksen mukaisesti.
+
+Mile menee nuorukaisen iholle, kaivaa taskustaan lipeässä keitetyn, lusikaksi veistetyn ihmisen sormiluun ja houkuttelee nuorukaista laajentamaan brändiään makaberiin sisältöön: siihen, miten ihmisruumiista sulatetaan hapolla ja lipeällä luut esiin. Nuorukainen innostuu ja luopuu lähtöaikeistaan, mutta Verikoira vaatii silti Mooria katkaisemaan lähetyksen. Heti kun kamera sammuu, Verikoira vetää pistoolinsa ja ampuu nuoren sisällöntuottajan kylmäverisesti siihen paikkaan varoitukseksi muille. Mile pyytää ja saa luvan käyttää ammutun vierailijan luut, hakee kottikärryt ja vie ruumiin Jusukin kanssa kellarin lipeäaltaisiin liotettavaksi, samalla kun Cen rauhoittelee muut tärisevät vierailijat jatkamaan sisällöntuotantoa.
+
+Moor huomaa olevansa myöhässä tasatunnin lähetyksestä ja juoksee vihellellen radiopajaan. Pöydän ääressä reseptikirja makaa kuitenkin suljettuna, eikä hän muista enää lainkaan, miksi hänen pitäisi lukea ruokaohjeita. Moor pitää *Reseptiradion* sijaan energisen *Resonanssiradio*-lähetyksen ASMR-resonanssitaajuuksista samalla, kun lähetystä kuunteleva Mile yrittää hämmentyneenä tavoitella häntä *Sisäisen äänen* kautta ja toistaa hänen päässään *"Moor, Moor, Moor..."* ymmärtämättä, miksei tämä lue reseptejä. Lähetyksen jälkeen Moor ja Jusuk hätistelevät vierailijakaapuihin puetut sotilaat pois lantakasalta, jotta sinne kätketyt Cenin tavarat eivät paljastuisi, ja laittavat loput pelokkaat some-vierailijat työntämään kätensä possuliskojen lantaan "opetussisältönä", mistä nämä löytävät irtonaisen ihmisen sormiluun.
+
+##### **Kivisaarten ruisleipä ja Similiksen veitsenisku**
+
+Leipomossa Cen vaivaa taikinaa, muistelee ystäviään ja kotiaan Sykkeen Kivisaarilla ja paistaa täydellisen, kolmen tähden Kivisaarten ruisleivän silavalla. Kun nelikko kokoontuu murtamaan Cenin leipää ja juomaan simaa kameroiden edessä, heidän ominaispiirteensä haalistuvat entisestään. Moorin lämmin radioääni ja selkeä artikulaatio puuroutuvat, Jusukin luontainen hyväntahtoisuus väistyy tylyn välinpitämättömyyden tieltä, ja pinttyneistä rutiineistaan tunnettu Mile hörppää simaa kääntämättä edes tuopin etikettiä kameralle. Aina omaa etuaan ajatellut Cen taas huomaa huolehtivansa epäitsekkäästi muiden hyvinvoinnista.
+
+He tajuavat Similiksen nakertavan heitä pala palalta ja päättävät ottaa yhteyttä Pyhimykseen Moorin radiolähettimen kautta iltapuuron aikaan. Cen ja Mile harhauttavat sotilaita esittelemällä näille luostarin legendan mukaan satoja vuosia vanhaa taikinajuurta (*"Juuri elää pidempään kuin sinä"*), kun taas Moor suuntaa lähettimen antennin kohti katakombien luita. Taajuudelta syntyy kiertoääni, ja yhtäkkiä Similis seisoo huoneessa Moorin selän takana Milen hahmossa varjon vääristäessä ympäristöä. Kun Moor kysyy, miksi luostari on kulissi ja sanoo Tyrannin huijaavan heitä kaikkia, Similis laskee jääkylmän, lasisen kätensä Moorin olalle, vastaa hänelle ja iskee luuveitsen suoraan Moorin käteen ennen kuin katoaa jättäen veitsen törröttämään haavaan.
+
+Kun Jusuk ja Mile sitovat Moorin vuotavaa kättä, veren haju ja terävä kipu ravistelevat heitä hereille Similiksen turruttavasta otteesta. Veren näkeminen palauttaa Jusukin mieleen välähdyksen entisestä elämästä – sen, kuinka hyvältä tuntuu istua alas ja hengähtää onnistuneen, verisen keikan jälkeen – ja hänen ääneensä palaa tuttu lempeys. Samalla Milen silmiin syttyy jälleen hänen vanha, arvaamaton hulluutensa, Moorin ääni kirkastuu takaisin täyteläiseksi radioääneksi ja Cenin mieleen palautuu kirkkaana, miten lannoitteista ja elektroniikasta rakennetaan pommi.
+
+##### **Sokean Runoilijan teloitus ja kyberneettinen vainukoira**
+
+Mile ja Cen päästävät Verikoiran kurkistamaan kellarin katakombiovelle. Verikoira vetää ilmaa kyberneettisiin sieraimiinsa – joita Mile tutkii tunkeilevasti lähietäisyydeltä mainostaen samalla luostarin puodissa myytävää *"Kuoleman löyhkä"* -tuoksua –, haistaa oven raosta jotakin poikkeavaa ja kysyy, onko kaikilla munkeilla implantti pois päältä. Mile kertoo, että Sokea Runoilija käyttää implanttiaan nähdäkseen ja istuu parhaillaan kirjastossa. Verikoira käskee sammuttamaan kirjaston striimin ja poistuu. Hetkeä myöhemmin kajahtaa laukaus: Verikoira on teloittanut Sokean Runoilijan väittäen tämän implantin viestineen viholliselle. Mile ja Jusuk hakevat Sokean Runoilijan ruumiin lipeäaltaisiin, ja Verikoira varoittaa Mooria haistavansa päällä olevan *Sisäisen äänen*.
+
+Kellarissa katakombioven takaa alkaa kuulua ääniä ja tuntua eläimen myskinen haju. Mile tarttuu luutaan ja avaa oven: sisään ryntää dobermannin kokoinen, kameroilla ja Verikoiran kaltaisella kyberneettisellä hajuvahventimella varustettu vainukoira Kaveri, joka juoksee suoraan Verikoiran eteen. Koira paljastaa Verikoiralle, että karkuri on noussut katakombeista tälle tilalle, ja Verikoira ilmoittaa keskittävänsä tutkinnan luostariin.
+
+##### **Katakombien kuiskaukset, pommileipä ja kellarin taistelu**
+
+Nelikko ryhtyy vastaiskuun. Cen yrittää hakea C-kasetit lantakasasta, mutta huomaa niiden jo kadonneen; sen sijaan hän hakee lannoitesalpietaria ja Moorin pajasta elektroniikkaa ja rakentaa voimakkaan pommin, jonka hän leipoo yrteillä maustetun Kivisaarten ruisleivän sisään lahjaksi Verikoiralle. Jusuk ja Mile siivoavat ja pyhittävät koiran sotkeman ja veren tahriman katakombikäytävän takaisin rauhalliseksi. Moor puolestaan laskeutuu syvemmälle katakombeihin tutkimaan luiden kuiskauksia: hän kuulee numerosarjoja – tajuten lukeneensa *Reseptiradiossa* tietämättään samanlaisia koodeja –, löytää ikivanhojen luiden seasta pääkallon, jossa on yhä heikosti virtaa pitävä muinainen *Sisäinen ääni* -implantti, ja saa Jusukin kanssa kuiskauksista selville, että kuolleet ovat vihaisia, koska syvältä on viety pyhäinjäännös: Milen sormiluinen rasia.
+
+Kun Moor palaa katakombeista hakemaan radiolaitteistoa, kaksi Ratasvartion pamppumiestä pysäyttää hänet katakombiovella, tivaa miten ovi saadaan lukkoon ja alkaa piestä Mooria pampuilla hänen huutaessaan kivusta, ettei pyhää ovea lukita. Moor vaatii pamppumiehiä lopettamaan ja sammuttamaan kamerat, mutta sotilaat jättävät striimin päälle niin, että koko pahoinpitely ja sitä seuraava yhteenotto lähetetään suorana verkkoon. Jusuk ja Mile kuulevat huudon ja ryntäävät paikalle: Mile vetää taskuistaan kaksi luuveistä ja hyökkää pamppumiesten kimppuun, Moor nousee maasta ja iskee lähintä vartijaa, ja Jusuk kippaa raskaan pöydän molempien sotilaiden päälle murskaten toisen tajuttomaksi. Mile heittää perään Erlenmeyer-pullollisen lipeää.
+
+Samaan aikaan ylhäällä Cen näkee leipomossa välähdyksen entisestä kumppanistaan Arinista, pyyhkii jauhot kaavustaan ja vie pommileivän sekä tuopillisen olutta Verikoiralle illalliseksi. Verikoira tunnistaa Cenin hyräilemän Sykkeen Kivisaarten laulun, riisuu valkoiset hansikkaansa – paljastaen omat kemikaalien polttamat kätensä – ja murtaa leivän. Pommileipä räjähtää: koko luostari tärisee, Jahtikommodori Valkohanskainen Verikoira ja hänen lähimiehensä räjähtävät kappaleiksi, ja pöydän alle syöksynyt Cen selviää kärähtänein kulmakarvoin. Ainoastaan Verikoiran vainukoira Kaveri selviää hengissä, ja Cen kesyttää isännättömän koiran puolelleen oluella ja leivällä.
+
+##### **Luuranko-Similiksen halaus, poltettu luostari ja sininen kappale**
+
+Kellarissa Similis saapuu keskelle taistelua: ensin se ilmestyy Jusukin säröttömänä, pelottavan skarppina kaksoisolentona, mutta sen ulkoasu ja sen käsissään kantamat tavarat vaihtuvat jokaisella silmäyksellä, kun Pyhimys peilaa paikallaolijoita samalla kun nämä menettävät omaa erikoisuuttaan. Moor ja Jusuk vetäytyvät katakombeihin ja kanavoivat sieltä kuolleiden implanttisignaaleja Milen tueksi. Mile jää kellariin kahden kesken Similiksen kanssa, joka muuntautuu nyt Milen omaksi ihanteeksi – kaavun sisällä seisovaksi luurangoksi – ja yrittää repiä Milen taskusta sormiluisen rasian samalla kun sen iskut kuorivat Milen kasvoista ihoa ja lihaa pois kohti paljasta kalloa.
+
+Mile kieltäytyy luopumasta rasiastaan, seisoo järkkymättömänä kuin kivi vailla säröä ja viiltää luuveitsellään Similiksen rintakehän auki niin, että Pyhimyksen olemus alkaa hajoilla. Lopuksi Mile sulkee luuranko-Similiksen jääkylmään mutta lämpimään halaukseen, Similis halaa häntä takaisin, ja Mile syöksyy rasia sylissään katakombeihin.
+
+Cen ja hänen uusi koiransa Kaveri juoksevat palavan luostarin läpi kellariin ja pakenevat Moorin, Jusukin ja Milen opastamina syvälle katakombien luulabyrinttiin. Verikoiran kuoltua Ratasvartion etsintäoperaatio hajoaa muutamassa päivässä, mutta kostoksi johtajansa räjäyttämisestä Ratasvartio polttaa ja puhdistaa Pyhän Velkavankiflagelantin luostarin maan tasalle. Moor kirjaa sataman järjestelmään itsensä ja halukkaat kumppaninsa virallisesti kuolleiksi. Kun he pääsevät katakombien suojissa pois Similiksen vaikutuspiiristä, Pyhimyksen heistä nakertamat muistot, tavat ja persoonan särmät palautuvat ennalleen – paitsi Milen kasvot, joihin jää pysyvästi ohuesta ihosta kuultava luinen kallohymy. Turvassa Mile avaa veitsellä viiltämänsä sormiluisen rasian: sen sisällä lepää nyrkin kokoinen, sininen moniulotteinen kappale, joka muuttaa muotoaan, kun sitä kääntelee käsissä.
+
+#### **Pelaajien kertaukset**
+
+Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <title>Similis-lomake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Montserrat", "Arial", sans-serif;
+      background: #ffffff;
+      color: #111111;
+      width: 210mm;
+      height: 297mm;
+      overflow: hidden;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 11mm 12mm 11mm 12mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Yläosa: Nimi + Lomakkeen otsikko */
+    .header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 3mm;
+    }
+
+    .name-field {
+      font-size: 13.5pt;
+      font-weight: 700;
+      color: #111111;
+      padding-top: 2mm;
+      width: 72mm;
+    }
+
+    .title-block {
+      flex: 1;
+      text-align: center;
+    }
+
+    .main-title {
+      font-size: 23pt;
+      font-weight: 800;
+      color: #c81e1e;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 1.5mm;
+    }
+
+    .main-subtitle {
+      font-size: 9.8pt;
+      font-weight: 500;
+      color: #111111;
+      line-height: 1.32;
+      max-width: 115mm;
+      margin: 0 auto;
+    }
+
+    /* Yhteinen sininen kehystyyli (kuten hahmolomake.pdf & Taistelulomake.pdf) */
+    .blue-box {
+      background: #ffffff;
+      border: 2.4px solid #1d439b;
+      border-radius: 20px;
+      box-shadow: 0 2.5px 7px rgba(29, 67, 155, 0.22);
+    }
+
+    .red-heading {
+      font-size: 16.5pt;
+      font-weight: 800;
+      color: #c81e1e;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+
+    .helper-text {
+      font-size: 9.5pt;
+      font-weight: 500;
+      color: #111111;
+      text-align: center;
+      line-height: 1.28;
+    }
+
+    /* Yläosan 3 ideointilaatikkoa */
+    .traits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4.5mm;
+      height: 82mm;
+      margin-bottom: 5mm;
+    }
+
+    .trait-card {
+      padding: 3.5mm 4mm 4mm 4mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .trait-card .write-space {
+      flex: 1;
+    }
+
+    /* Alaosan Merkittävyysjärjestys-rakenne (kuten hahmolomakkeen yhdistetyt vasen/oikea-laatikot) */
+    .ranking-header-bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5mm;
+      padding: 0 1mm;
+    }
+
+    .ranking-title-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ranking-title {
+      font-size: 17pt;
+      font-weight: 800;
+      color: #c81e1e;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      line-height: 1.1;
+    }
+
+    .ranking-subtitle {
+      font-size: 9.4pt;
+      font-weight: 500;
+      color: #111111;
+      margin-top: 0.8mm;
+    }
+
+    .ranking-legend {
+      font-size: 9pt;
+      font-weight: 600;
+      color: #111111;
+      text-align: right;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .ranking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3.2mm;
+      flex: 1;
+    }
+
+    /* Yksittäinen sijoitusrivi: vasen numerolaatikko liukuu saumattomasti oikean laatikon kaaren alle */
+    .rank-row {
+      display: flex;
+      align-items: stretch;
+      flex: 1;
+    }
+
+    .rank-num-box {
+      width: 38mm;
+      margin-right: -5.5mm;
+      padding: 1.5mm 7.5mm 1.5mm 2mm;
+      background: #ffffff;
+      border: 2.4px solid #1d439b;
+      border-right: none;
+      border-radius: 18px 0 0 18px;
+      box-shadow: -2px 2.5px 6px rgba(29, 67, 155, 0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .rank-number {
+      font-size: 20pt;
+      font-weight: 800;
+      color: #c81e1e;
+      line-height: 1;
+    }
+
+    .rank-label {
+      font-size: 7.8pt;
+      font-weight: 600;
+      color: #111111;
+      text-align: center;
+      margin-top: 1mm;
+      line-height: 1.15;
+    }
+
+    .rank-content-box {
+      flex: 1;
+      background: #ffffff;
+      border: 2.4px solid #1d439b;
+      border-radius: 18px;
+      box-shadow: 0 2.5px 7px rgba(29, 67, 155, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 2.5mm 4.5mm;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Pieni ruutu oikeassa reunassa (kuten Taistelulomakkeen Aktiivinen puolustus -ruudut) */
+    .lost-check-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-left: 3mm;
+    }
+
+    .lost-checkbox {
+      width: 6.5mm;
+      height: 6.5mm;
+      border: 1.6px solid #111111;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- YLÄTUNNISTE -->
+    <div class="header-row">
+      <div class="name-field">Nimi:</div>
+      <div class="title-block">
+        <div class="main-title">SIMILIS-LOMAKE</div>
+        <div class="main-subtitle">
+          Mikä tekee hahmostasi erityisen? Kirjaa ylös hahmosi ainutlaatuiset piirteet ja aseta ne lopuksi merkittävyysjärjestykseen.
+        </div>
+      </div>
+    </div>
+
+    <!-- YLÄOSA: 3 IDEOINTILAATIKKOA -->
+    <div class="traits-grid">
+      <div class="blue-box trait-card">
+        <div class="helper-text">
+          Ulkonäkö, arvet, keho,<br>
+          vaatteet, ääni ja olemus.
+        </div>
+        <div class="write-space"></div>
+        <div class="red-heading">ULKOISET<br>PIIRTEET</div>
+      </div>
+
+      <div class="blue-box trait-card">
+        <div class="helper-text">
+          Puhetapa, toistuvat eleet,<br>
+          tavat, rutiinit ja reaktiot.
+        </div>
+        <div class="write-space"></div>
+        <div class="red-heading">MANEERIT</div>
+      </div>
+
+      <div class="blue-box trait-card">
+        <div class="helper-text">
+          Mieltymykset, salaisuudet,<br>
+          muistot, taidot ja säröt.
+        </div>
+        <div class="write-space"></div>
+        <div class="red-heading">ERIKOISUUDET</div>
+      </div>
+    </div>
+
+    <!-- ALAOSA: MERKITTÄVYYSJÄRJESTYS (1-6) -->
+    <div class="ranking-header-bar">
+      <div class="ranking-title-group">
+        <div class="ranking-title">MERKITTÄVYYSJÄRJESTYS</div>
+        <div class="ranking-subtitle">
+          Järjestä yllä olevista piirteistä kuusi tärkeintä sen mukaan, mikä tekee hahmostasi juuri hänet.
+        </div>
+      </div>
+      <div class="ranking-legend">
+        1 = Tärkein ydinpiirre<br>
+        6 = Pienin erikoisuus
+      </div>
+    </div>
+
+    <div class="ranking-list">
+      <div class="rank-row">
+        <div class="rank-num-box">
+          <div class="rank-number">1</div>
+          <div class="rank-label">Tärkein<br>ydinpiirre</div>
+        </div>
+        <div class="rank-content-box">
+          <div class="lost-check-group">
+            <div class="lost-checkbox"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-num-box">
+          <div class="rank-number">2</div>
+        </div>
+        <div class="rank-content-box">
+          <div class="lost-check-group">
+            <div class="lost-checkbox"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-num-box">
+          <div class="rank-number">3</div>
+        </div>
+        <div class="rank-content-box">
+          <div class="lost-check-group">
+            <div class="lost-checkbox"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-num-box">
+          <div class="rank-number">4</div>
+        </div>
+        <div class="rank-content-box">
+          <div class="lost-check-group">
+            <div class="lost-checkbox"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-num-box">
+          <div class="rank-number">5</div>
+        </div>
+        <div class="rank-content-box">
+          <div class="lost-check-group">
+            <div class="lost-checkbox"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-num-box">
+          <div class="rank-number">6</div>
+          <div class="rank-label">Pienin<br>erikoisuus</div>
+        </div>
+        <div class="rank-content-box">
+          <div class="lost-check-group">
+            <div class="lost-checkbox"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

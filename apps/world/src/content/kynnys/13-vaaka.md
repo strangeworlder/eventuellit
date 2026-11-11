@@ -10,9 +10,9 @@ disrupting_factions: verhonkutojat
 
 ### Yleiskuvaus
 
-Vaaka on sotilaallisen kurin ja muodollisen kunnian linnake. Ratasvartion hallitsemalla asemalla teräs kalskahtaa hiekoitetuilla kentillä: täällä Kynnyksen poliittiset ja henkilökohtaiset riidat ratkaistaan virallistetuin kaksintaisteluin. Siinä missä naapuriasema Häkki on villiä ja veristä viihdettä, Vaaka noudattaa tiukkoja taistelumääräyksiä, valallisia aseistariisuntoja ja vuosisataisia kunniasääntöjä. Kaksintaistelu on laillisesti vahvistettu tapa pestä tahratut sopimukset puhtaiksi.
+Teräs kalskahtaa Vaa'an hiekoitetuilla kentillä, kun poliittiset ja henkilökohtaiset riidat ratkotaan virallisilla kaksintaisteluilla. Ratasvartion sotilasakatemiassa jokainen ottelu käydään tarkkojen taistelusääntöjen, valallisten asetarkastusten ja vanhojen kunniakoodien alaisena kaukana naapuriasema Häkin villistä teurastuksesta. Kaksintaistelu on laillinen keino pestä rikotut sopimukset puhtaiksi.
 
-Ratasvartion ankaraa järjestystä hiertävät Verhonkutojat. Mediakirkon dramaturgeille taistelukenttä edustaa loistavaa näyttämöä: he pyrkivät tuotteistamaan kaksintaistelut suoriksi draamalähetyksiksi ja tekemään miekkamiehistä palvottuja julkkiksia fanaattisen kurinpidon kustannuksella.
+Ratasvartion ankaraa kuria hiertävät Verhonkutojat. Mediakirkon ohjaajat näkevät kentissä valmiin näyttämön: he haluavat leikata otteluista suoria draamalähetyksiä ja leipoa miekkamiehistä juhlittuja tähtiä sotilaskurin kustannuksella.
 
 ### Hallinta
 

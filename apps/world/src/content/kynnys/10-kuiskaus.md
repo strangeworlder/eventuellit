@@ -10,9 +10,9 @@ disrupting_factions: erottajat
 
 ### Yleiskuvaus
 
-Kuiskaus oli menneisyydessä Kynnyksen hermojärjestelmä: aseman syövereissä risteilevien valokuitujen, magneettinauhojen ja antennitornien kautta kulkivat järjestelmän kaikki viralliset lähetykset, salatut raportit ja yksityiset viestit. Valtava tiedonsiirtoverkko humisee edelleen pimeissä käytävissä, mutta rapautuneena ja ilman keskitettyä valvontaa. Logiikan Inkvisitio on asettunut vartioimaan solmukohtaa, sillä Kuiskauksen pirstoutuneiden reitittimien läpi virtaa enemmän salaista dataa ja vaarallisia totuuksia kuin yksikään valtakeskittymä uskaltaa myöntää.
+Valokuidut, magneettinauhat ja vanhat antennitornit risteilevät Kuiskauksen pimeissä käytävissä. Ennen hajoamistaan asema välitti lähes kaikki Kynnyksen viralliset lähetykset ja salatut viestit. Nyt rapautunut verkko humisee vailla keskitettyä ohjausta. Logiikan Inkvisitio vartioi solmukohtaa tarkasti, sillä rikkinäisten reitittimien läpi vuotaa yhä arkaluontoista dataa.
 
-Asema on jatkuvan sabotaasin näyttämö. Tuhkan puolueen Erottajat pyrkivät murtamaan Inkvisition koodilukot ja avaamaan viestiverkot vapaasti kaikkien käyttöön uskoen, että vain salattu tieto tekee Kynnyksestä hauraan.
+Tuhkan puolueen Erottajat sabotoivat Inkvisition lukkoja ja yrittävät avata viestikanavat kaikkien käyttöön. Heidän mukaansa vasta salailu tekee Kynnyksestä hauraan.
 
 ### Hallinta
 

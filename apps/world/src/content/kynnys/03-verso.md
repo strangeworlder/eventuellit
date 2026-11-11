@@ -5,27 +5,27 @@ description: "Biodomi — Kynnyksen ruoantuotantoasema, vallankumouksen rauniois
 category: kynnys
 tension: "Murtunut"
 image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/03-verso-1584.jpg
-ruling_faction: tuhkan-puolue, muotinvalajat
-disrupting_factions: kokemuspuolue, deterministit
+ruling_faction: ""
+disrupting_factions: kokemuspuolue, muotinvalajat, deterministit
 ---
 
 ### Yleiskuvaus
 
-Verso on Kynnyksen elinehto ja sen suurin valhe — tai oli, ennen kuin valhe repesi auki. Alun perin se rakennettiin Lasipuutarhaksi ja eksoottisten lajien suojelualueeksi, jonka piti taata Kynnyksen asukkaille ehtymätön hapen ja ravinnon lähde. Vuosikymmenten saatossa siitä muodostui populistisen vallankäytön, jyrkän luokkajaon ja teknologisen invaasion näyttämö. Nyt Verso palaa.
+Norsunluutornin juhlasali kytee raunioina, ja vaaleanpunaisen itiösumun seasta nousee mustaa savua. Alun perin Verso rakennettiin Lasipuutarhaksi ja suojelualueeksi, jonka piti turvata Kynnyksen asukkaille puhdas happi ja tuore ravinto. Ajan myötä lasikuvun alle kasvoi kuitenkin jyrkkä luokkayhteiskunta, jossa eliitti hallitsi nälällä ja koneilla.
 
-Työläiskapina on repinyt aseman vanhat valtarakenteet kappaleiksi. Norsunluutornin juhlasali savuaa raunioina, vaaleanpunaisen itiösumun seassa nousee pistävää savua, ja alatasojen mutaväki on ensimmäistä kertaa historiassaan tarttunut aseisiin. Vanha järjestys on kaatunut, eikä kukaan vielä tiedä, mitä raunioiden tilalle nousee.
+Nyt työläiskapina on repinyt vanhat valtarakenteet kappaleiksi, ja alatasojen mutaväki on ensimmäistä kertaa historiassaan tarttunut aseisiin.
 
 #### Biodomin kerroksellinen kurjuus
 
-Fyysisesti Verso on valtava, läpinäkyvä pallo, jonka sisällä keinotekoista ilmastoa ylläpitää Lasipuutarha — kaiku ajasta, jolloin biologisen harmonian uskottiin olevan mahdollista. Kuvun sisällä kohoavat geenimuokatut jättiläispuut ja kerroksittain asetetut hydroponiset viljelmät muodostavat tiheän, sokkeloisen viidakon. Alue kuhisee elämää: jalostettua riistaa, tuotantoeläimiä ja tuhansia kasvilajeja.
+Verso on valtava läpinäkyvä pallo, jonka keinotekoista ilmastoa ylläpitää muinainen Lasipuutarha. Kuvun sisällä geenimuokatut jättiläispuut ja kerroksittaiset vesiviljelmät kasvavat tiheäksi, sokkeloiseksi viidakoksi. Lehvästön seassa elää jalostettua riistaa, tuotantoeläimiä ja tuhansia kasvilajeja.
 
-Asema on jaettu jyrkkiin tasoihin, joiden välinen kuilu on nyt räjähtänyt auki. Ylimmät kerrokset — Norsunluutornin lasiset palatsit, joista eliitti tarkkaili alhaalla vellovaa mutaa ja viidakkoa joutumatta koskaan kosketuksiin kummankaan kanssa — ovat kapinan ensisijaisia kohteita. Korkeus, joka ennen tarjosi suojan itiösumuilta ja työläisiltä, on muuttunut ansaksi: ylätasoilta ei ole pakotietä, kun kapinalliset hallitsevat hissejä ja funikulaareja.
+Aseman tasojen välinen kuilu on nyt revennyt avoimeksi sodaksi. Ylimmissä kerroksissa kohoavat Norsunluutornin lasiset palatsit, joista eliitti tarkkaili alhaalla vellovaa mutaa joutumatta koskaan kosketuksiin sen kanssa. Nyt nuo palatsit ovat kapinallisten ensisijaisia kohteita. Korkeus suojasi ennen itiösumuilta ja työläisiltä, mutta kapinallisten otettua hissit ja funikulaarit haltuunsa ylätasoista on tullut suljettu ansa.
 
 ### Hallinta
 
-Versoa hallitsivat Muotinvalajat, Tuhkan puolueen ideologinen eturintama. Heidän järjestelmänsä perustui taloudelliseen loukkuun: asukkaiden palkka maksettiin Arkkitehtuurillisina Krediiteinä, jotka virtasivat välittömästi takaisin työnantajalle elämiseen vaadittavien elintarvikkeiden muodossa. Järjestelmää pitivät pystyssä plantaasinomistajat ja ravintoa poliittisena aseena käyttävä propaganda.
+Versoa hallitsivat Muotinvalajat, Tuhkan puolueen ideologinen eturintama. Heidän järjestelmänsä perustui taloudelliseen loukkuun: asukkaiden palkka maksettiin Arkkitehtuurin krediitteinä, jotka palasivat heti takaisin työnantajalle ruokaostosten mukana. Plantaasinomistajat pitivät järjestelmää pystyssä ja käyttivät ravintoa poliittisena aseena.
 
-Tämä rakenne romahti, kun Sumujuhlan suora medialähetys paljasti polttolistan todellisen tarkoituksen. Verson eliitti ei ainoastaan valmistellut poliittisten vastustajiensa teloituksia — se aikoi jauhaa listalle joutuneet johtajat ja heidän tuhannet alaisensa biomassaksi ja lannoitteeksi aseman köyhtyneeseen maaperään. Paljastus laukaisi välittömän aseellisen kapinan, joka tuhosi Norsunluutornin, hajotti plantaasijärjestelmän ja käänsi jopa osan eliitin omasta vartiokaartista kapinallisten puolelle.
+Tämä rakenne romahti, kun Sumujuhlan suora medialähetys paljasti polttolistan todellisen tarkoituksen. Verson eliitti aikoi teloittaa poliittiset vastustajansa ja jauhaa heidät tuhansine alaisineen lannoitteeksi aseman köyhtyneeseen maaperään. Paljastus laukaisi välittömän aseellisen kapinan, joka tuhosi Norsunluutornin, hajotti plantaasijärjestelmän ja käänsi jopa osan eliitin omasta vartiokaartista kapinallisten puolelle.
 
 Tuhkan puolueen patriarkka Kultakruunu ja KW-konsortion johtaja Lukuvarjo olivat molemmat paikalla Sumujuhlan katastrofissa. Heidän kohtalonsa on toistaiseksi tuntematon.
 
@@ -41,19 +41,19 @@ Verson nykyinen katastrofi juontaa juurensa tapahtumaan, jota kutsutaan Seitsem�
 
 Tuhkan puolueen johto antoi teurastuksen jatkua ja hyödynsi sitä propagandassaan osoituksena koneiden pahuudesta. Samaan aikaan KW-konsortio antoi koneiden jatkaa kerätäkseen dataa järjestelmän toiminnasta ääriolosuhteissa.
 
-Koko Verson tuhoon johtanut tapahtumaketju käynnistyi, kun Kokemuspuolueen perustajat selvittivät, että seitsemännen sektorin karsinta oli ollut salainen kenttäkoe: eliitti oli kehittänyt menetelmää eteenpäin ja valmistellut tuhansien ihmisten järjestelmällistä jauhamista lannoitteeksi. Tämän totuuden leviäminen suorassa lähetyksessä sytytti kapinan.
+Kapina sai alkunsa, kun Kokemuspuolueen perustajat paljastivat Seitsemännen sektorin karsinnan todellisen luonteen. Onnettomuus olikin ollut salainen kenttäkoe, jonka pohjalta eliitti valmisteli tuhansien ihmisten jauhamista lannoitteeksi. Kun totuus levisi suorassa lähetyksessä, asema nousi vastarintaan.
 
 ### Palvelut
 
-Verso toimi Kynnyksen biologisena sydämenä ennen kapinaa. Se on ainoa paikka, joka tuottaa elävää orgaanista virtaa verkostoon muuntaen nestemäisen avaruuden säteilyä ravinnoksi ja hapeksi. Samalla biodomi toimi Kynnyksen apteekkina: sen rohdokset ja entsyymit ovat ainoa lääke moniin nestemäisen avaruuden aiheuttamiin vaivoihin. 
+Ennen kapinaa Verso ruokki suuren osan Kynnyksestä. Biodomi on järjestelmän ainoa paikka, joka muuntaa nestemäisen avaruuden säteilyä tuoreeksi ravinnoksi ja hapeksi. Samalla sen kasvihuoneista saadaan rohdoksia ja entsyymejä, jotka ovat ainoa tunnettu lääke moniin nestemäisen avaruuden aiheuttamiin vaivoihin.
 
-Tuotannon pysähtyminen on välitön kriisi koko Kynnykselle. Jos aseman tilanne ei pian vakaudu, ravinnon ja lääkkeiden ehtyminen alkaa heijastua kaukaisimmillekin asemille.
+Tuotannon pysähtyminen on välitön kriisi koko Kynnykselle. Jos aseman tilanne ei pian vakaudu, ravinnon ja lääkkeiden ehtyminen alkaa tuntua kaukaisimmillakin asemilla.
 
 #### Sumun kausi ja sen murtuminen
 
 Tuhkan puolueen valta asemalla nojasi Sumun kauteen, joka täytti biodomin pohjan paksulla, hallusinogeenisellä itiöpölyllä. Itiösumu turrutti työläiset, auttoi kestämään raadannan ja vaimensi kapinahengen.
 
-Vallankumouksen kynnyksellä tämä järjestelmä murrettiin. Kokemuspuolueen automaatiokoodari Holti onnistui ujuttamaan mudan vesiverkostoon synteettisen stimulantin, joka paitsi kumosi sumun passivoivan vaikutuksen, viritti työläiset taisteluvalmiiksi. Sumujuhlan koittaessa eliitti huomasi kauhukseen, ettei kansaa rauhoittava itiösumu enää toiminutkaan — eikä ymmärtänyt syytä ennen kuin oli liian myöhäistä.
+Vallankumouksen aattona tämä järjestelmä murrettiin. Kokemuspuolueen automaatiokoodari Holti ujutti alatasojen vesiverkkoon synteettisen stimulantin, joka kumosi sumun turruttavan vaikutuksen ja viritti työläiset taisteluvalmiiksi. Sumujuhlan alkaessa eliitti huomasi kauhukseen, ettei itiösumu enää rauhoittanutkaan väkijoukkoja.
 
 ### Yhteydet
 
@@ -61,8 +61,8 @@ Versolta pääsee suoraan asemille: **Seula**, **Pesä** ja **Kuiskaus**.
 
 #### Solmukohta kriisissä
 
-Logistisesti Verso on kriittinen solmukohta, jonka suhteet naapureihin ovat nyt täydessä umpikujassa. Seula (1) on Verson tärkein yhteys muihin asemiin: suurin osa ruokavirroista kulkee Seulan kautta, ja Verson kapina heijastuu väistämättä koko Kynnyksen ruokahuoltoon.
+Verson yhteydet naapuriasemiin ovat kapinan jäljiltä umpikujassa. **Seula (1)** on biodomin tärkein jakeluväylä: valtaosa ruokakuljetuksista kulkee vapaasataman kautta, joten taistelut nostavat heti ruoan hintaa muualla Kynnyksellä.
 
-Pesä (8) toimii Tuhkan puolueen perinteisenä kotina. Verson vallankumous on suuri shokki Pesälle, jolle Verso edusti menestyvän yhteisön mallia. Pesän reaktio — tukeeko se Tuhkan vanhaa johtoa vai tunnustaako se uuden todellisuuden — ratkaisee pitkälti sen, leviääkö kapina naapuriasemille vai tyyntyykö se paikoilleen.
+**Pesä (8)** on Tuhkan puolueen perinteinen kotiasema, jolle Verso näyttäytyi pitkään menestyvän yhteisön mallina. Pesän valinta vanhan puoluejohdon tukemisen ja uuden vallan tunnustamisen välillä ratkaisee, leviääkö kapina naapuriasemille.
 
-Kuiskauksen (10) murtunut yhteys on Versolle arvaamaton: kahden sekasortoisen aseman välinen raja muistuttaa toisiinsa nojaavia huojuvia raunioita.
+**Kuiskauksen (10)** murtunut reitti on arvaamaton, sillä molemmat asemat ovat nyt sisäisen sekasorron vallassa.

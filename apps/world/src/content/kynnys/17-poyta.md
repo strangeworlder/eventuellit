@@ -10,9 +10,9 @@ disrupting_factions: ratasvartio
 
 ### Yleiskuvaus
 
-Pöytä on Kynnyksen hauras diplomaattinen suoja-alue. Muinaisen kauppakeskuksen avaraan atriumpihaan rakennetulla asemalla asevoimat riisutaan poikkeuksetta ovella: massiivisten tammipöytien ja himmeiden kattokruunujen alla vihamielisten faktioiden neuvottelijat kohtaavat toisensa saman leivän ääressä. Tuhkan puolueesta irtautuneet Erottajat valvovat vyöhykkeen puolueettomuutta ja toimivat puolueettomina sovittelijoina, joiden suojissa Kynnyksen vaarallisimmat aselepot ja salaisimmat kauppaliitot solmitaan — tai puretaan.
+Muinaisen kauppakeskuksen atriumpihalla kaikki tulijat riisutaan aseista jo ovella. Raskaiden tammipöytien ja himmeiden kattokruunujen alla vihamielisten faktioiden lähettiläät istuvat saman leivän ääreen. Tuhkan puolueesta irtautuneet Erottajat valvovat Pöydän koskemattomuutta ja sovittelevat kiistoja, kun Kynnyksen tulenarimpia aselepoja ja kauppasopimuksia sorvataan tai puretaan.
 
-Rauhan tasapaino on herkkä. Ratasvartion karskit komentajat pitävät diplomatiaa vain heikkoutena ja viivytystaisteluna: he partioivat aseman suojavyöhykkeen rajalla ja muistuttavat läsnäolollaan, että sopimukset ovat vain niin vahvoja kuin niiden takana seisova aseellinen voima.
+Ratasvartion komentajat pitävät neuvotteluja pelkkänä viivytystaisteluna. Heidän partionsa kiertävät suojavyöhykkeen rajaa ja muistuttavat läsnäolollaan, että jokainen sopimus lepää lopulta aseiden varassa.
 
 ### Hallinta
 

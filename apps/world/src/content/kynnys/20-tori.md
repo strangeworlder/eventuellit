@@ -10,9 +10,9 @@ disrupting_factions: haaskalinnut
 
 ### Yleiskuvaus
 
-Torilla käydään kauppaa kaikella sillä, mitä viralliset asemat kieltäytyvät edes kirjaamasta. Heimolaisten hallitsema valtava basaari on pystytetty muinaisen jätteenkäsittely- ja kierrätyskeskuksen päälle: kaikki, mikä muualla heitetään roskiin tai leimataan romuksi, päätyy ennemmin tai myöhemmin Torin laitureille. Höyryävien putkistojen ja räpsyvien neonkylttien alla kaupataan vanhoja sotilasaseita, takahuoneiden lääkkeitä, väärennettyjä biometrisiä tunnisteita ja sellaista teknologiaa, jonka pitäisi olla jo aikaa sitten hävitettyä.
+Muinaisen jätteenkäsittelylaitoksen päälle pystytetyssä basaarissa Heimolaiset käyvät kauppaa tavaralla, jota viralliset asemat eivät suostu kirjaamaan. Höyryävien putkistojen ja välkkyvien neonkylttien alla kaikki muualla hylätty romu päätyy uudelleen myyntiin. Kojujen tiskeillä vaihtavat omistajaa vanhat sotilasaseet, takahuoneiden lääkkeet, väärennetyt biometriset tunnisteet ja kielletty elektroniikka.
 
-Aseman käytävillä kiertelevät herkeämättä Haaskalinnut: heille laaja romutorien sokkelo on ehtymätön aarrearkku, josta voi löytää menneiden aikojen esineitä, muistikortteja ja perhetietoja ennen kuin muut edes ymmärtävät niiden arvoa.
+Käytävillä kiertelevät myös Haaskalinnut. Veljeskunnan kerääjät penkovat romukasoista menneiden aikojen muistikortteja, esineitä ja perhepapereita ennen kuin myyjät ehtivät tajuta niiden arvoa.
 
 ### Hallinta
 
@@ -27,4 +27,4 @@ Aseman käytävillä kiertelevät herkeämättä Haaskalinnut: heille laaja romu
 
 ### Yhteydet
 
-Torin kierteisiltä basaarisilloilta kulkevat suorat reitit asemille: **Evoluutio** ja **Laki**.
+Torin kierteisiltä basaarisilloilta kulkevat suorat reitit asemille: **Evoluutio** ja **Laki**. Lisäksi jätelaitoksen pohjalta johtaa kirjaamaton poistokuilu kohti sisämaailmoja, ja salakuljettajat uittavat sen kautta pimeää rahtia tullien ohi.

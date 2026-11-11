@@ -1,56 +1,55 @@
 ---
 title: "Krypta"
 order: 19
-description: "Mausoleumi — Kynnyksen hautausmaa, museo ja Haaskalintujen koti."
+description: "Mausoleumi — Kynnyksen hautausmaa, särkyneen rauhan luostariasema."
 category: kynnys
-tension: "Matala"
+tension: "Korkea"
 ruling_faction: haaskalinnut
-disrupting_factions: []
+disrupting_factions: ratasvartio
 ---
 
 ### Yleiskuvaus
 
-Krypta on toiminut hautausmaana koko historiansa ajan. Asema on Kynnyksen yhteinen muistomerkki, museo ja mausoleumi, jonka noodien verkostoon menneet sukupolvet lasketaan lepoon. Kryptalla vallitsee syvä, levollinen pysähtyneisyys. Se on yksi Kynnyksen tyytyväisimmistä ja vakaimmista asemista: sen tehtävä on makaaberi, ja sen toteuttamisessa vallitsee jaettu rauha.
+Noki ja hiiltynyt turve haisevat yhä Kryptan ulkokuoren kultaisten kasvatusvalojen alla, missä Pyhän Velkavankiflagelantin luostari makaa poltettuna rauniona. Sen alapuolella kymmenien kilometrien mittainen luulabyrintti leijuu hiljaisena nestemäisessä avaruudessa. Kynnyksen vanhimpaan mausoleumiin on laskettu lepoon sukupolvi toisensa jälkeen, mutta vuosisatoja kestänyt hauras koskemattomuus on murtunut Ratasvartion väkivaltaisen etsintäoperaation jäljiltä.
 
-Pääsy asemalle on avoin kaikille. Ilmapiiriä leimaa hajamielinen melankolia ja kiireettömyys. Tulijat ovat kadonneita sukujuuriaan selvittäviä etsijöitä, reliikkien tutkijoita tai vainajasaattueiden omaisia saattamassa menetettyjä osaksi laajenevaa verkostoa.
+Pääsy asemalle on yhä avoin vainajasaattueille, sukujuuriensa etsijöille ja reliikkien tutkijoille. Entinen huoleton kiireettömyys on silti vaihtunut varautuneeseen hiljaisuuteen, ja luostaritilojen rautasalvat teljetään nyt jo hyvissä ajoin ennen hämärää.
 
 #### Kasvava luuverkosto
 
-Nestemäisessä avaruudessa kelluva Krypta on onttojen kammioiden ja käytävien orgaaninen verkosto. Se on rakentunut alkuperäisistä luolamuodostumista ja laajentunut vuosisatojen saatossa uuden aineksen myötä. Alumiinivalua muistuttava sokkelo kasvaa jatkuvasti sisäänkäyntien ja noodien reunoilta, kun uutta biomateriaalia liitetään rakenteisiin. Seinämät ovat tiiviitä ja kestäviä, pitäen nesteavaruuden paineen vakaasti loitolla.
+Krypta on kasvanut alkuperäisistä luolamuodostumista onttojen kammioiden ja käytävien orgaaniseksi verkostoksi. Alumiinivalua muistuttava sokkelo laajenee vuosi vuodelta sisäänkäyntien ja solmukohtien reunoilta, kun rakenteisiin liitetään uutta biomateriaalia. Tiiviit seinämät pitävät nesteavaruuden paineen vakaasti ulkopuolella.
 
-Sisäosissa vallitsee täysi painottomuus. Käytävissä liikutaan tarttumalla seiniin kiinnitettyihin luihin, nikamiin ja kalloihin. Suurin osa Kynnyksen kuolleista hyödynnetään muualla, mutta Kryptalle ohjataan silti tasainen virta biomassaa. Erityisesti Ekklesia toimittaa vainajiaan aseman muistomerkkiin tai poistaa heidän jäänteensä kierrosta täällä. Pehmytkudokset erotellaan ja kalkitut luut sommitellaan osaksi käytävien pintoja. Syvemmälle mentäessä luusto tummuu ja vanhenee muodostaen kymmenien kilometrien pituisen hiljaisen ossuaarin.
+Sisäosissa vallitsee täysi painottomuus, ja käytävissä edetään tarttumalla seiniin sommiteltuihin luihin, nikamiin ja kalloihin. Suurin osa Kynnyksen kuolleista kierrätetään muualla, mutta erityisesti Ekklesia lähettää vainajiaan Kryptan muistomerkkiin. Pehmytkudokset erotellaan lipeällä ja kalkitut luut liitetään osaksi käytävien pintoja. Syvemmällä luusto tummuu vuosisatojen vanhaksi, hiljaiseksi ossuaariksi.
 
-#### Ulkokuoren munkkikeitaat ja maatalous
+#### Ulkokuoren munkkikeitaat ja poltettu kupoli
 
-Katakombien noodien ulkopinta muodostaa yhden Kynnyksen vehreimmistä maatalousalueista. Vainajien orgaaninen aines ja nesteet siirretään rakenteiden läpi suoraan ulkopinnalle mustaksi, ravinteikkaaksi mullaksi. Ulkokuorella vallitsee keinotekoinen painovoima, ja massiiviset kasvatusvalot heijastavat lämmintä kultaista valoa kupolimaisiin viljelmiin. Asema tuoksuu kostealle mullalle ja hitaalle maatumiselle.
+Luukammioiden ulkopinta on yksi Kynnyksen vehreimmistä maatalousalueista. Vainajien orgaaninen aines ja nesteet johdetaan rakenteiden läpi ulkokuorelle mustaksi, ravinteikkaaksi mullaksi. Keinotekoisen painovoiman alla suuret kasvatusvalot luovat lämmintä hehkua kupolimaisiin viljelmiin, joissa tuoksuvat kostea turve ja leivinuunin lämpö.
 
-Viljelmiä hoitavat Ekklesian vanhat munkkisuvut ja luostariperheet. Yhteisöt ovat käytännönläheisiä ja rauhallisia maanviljelijöitä vailla fanaattisuutta. Heidän uskonnollisuutensa näkyy arjessa leppoisana sisältökontsana: munkit pitävät suosittuja maanviljelysblogeja, jakavat leipä- ja säilöntäreseptejä ja esittelevät satoa Kynnyksen verkkoihin. Perheet pitävät katseensa mullassa ja jakavat aikansa vainajien hoidon ja sadonkorjuun välillä. Munkkien ja Haaskalintujen yhteiselo nojaa vakiintuneeseen työnjakoon: kumpikin osapuoli hoitaa oman osuutensa arjesta vakaassa sovussa.
+Viljelmiä hoitavat Ekklesian vanhat munkkisuvut ja luostariperheet. Käytännönläheiset maanviljelijät pitävät yhä maatalousblogeja ja esittelevät satoaan Kynnyksen verkkoihin, mutta lähetysten sävy on käynyt varovaiseksi. Naapurikupolien keskellä ammottaa nyt Pyhän Velkavankiflagelantin luostarin mustunut pohja, jonka Ratasvartion sotilaat polttivat maan tasalle. Munkkisuvut ja Haaskalinnut pitävät yhä yhtä, mutta vieraiden kysymyksiin vastataan lyhytsanaisesti.
 
 #### Katakombien vanhat lait ja tabut
 
-Katakombien vaarat ovat luonteeltaan henkisiä. Vuosisatojen kuoleman kerrostumat sekoittavat teknologiaa: vierailijoiden Sisäinen ääni -kommunikaatioimplantit alkavat oireilla luiden keskellä, tuottaen vieraita huokauksia ja katkelmallista menneisyyden puhetta. Tämän vuoksi asemalla nojataan hiljaisuuteen ja ikiaikaisiin käyttäytymissääntöihin.
+Katakombien vaarat tuntuvat mielessä ja laitteissa. Vuosisatojen luumassa sekoittaa langattomat signaalit, ja vierailijoiden Sisäinen ääni -implantit poimivat luiden keskeltä vieraita huokauksia ja katkelmallista menneisyyden puhetta. Ratsian jälkeen häiriöt ja levottomat kaiut ovat voimistuneet syvien luukäytävien suulla, joten vanhoja tapoja vahdataan entistä tarkemmin:
 
-Asemalla noudatetaan tarkkaa perinteistä säännöstöä:
-- **Sulje ovet aina takanasi.** Katakombien syvyyksiin johtavat reitit pidetään salvattuina.
-- **Pidä portit lukittuina hämärän laskeuduttua.** Ulkoa kuuluva pyyntö tai avunhuuto jätetään vaille vastausta.
-- **Kulje käytävissä hiljaisuudessa.** Viheltäminen herättää lepoon asetetut kaiut.
-- **Pidä katse eteenpäin.** Vaikka autiossa käytävässä tuntuisi kosketus vaatteissa, matkaa jatketaan taakseen katsomatta.
+- **Sulje ovet kulkiessasi.** Katakombien syvyyksiin johtavat reitit pidetään salvattuina.
+- **Lukitse portit hämärän laskeuduttua.** Ulkoa kuuluvaan pyyntöön tai avunhuutoon ei vastata.
+- **Kulje käytävissä ääneti.** Viheltäminen herättää lepoon lasketut kaiut.
+- **Pidä katse eteenpäin.** Vaikka tyhjässä käytävässä tuntuisi nykäisy hihassa, matkaa jatketaan taakseen katsomatta.
 
-Syvimmät kerrokset ovat täysin valottomia. Tarinoiden mukaan kaikkein syvimmällä odottaa oma kuolemasi — ehdoton ymmärrys omasta päätepisteestä, jonka lohdullinen varmuus vetää puoleensa niin vahvasti, että syvyyksiin eksyneet jäävät usein paikoilleen ja asettuvat osaksi seinien luustoa.
+Alimmat kerrokset ovat täysin valottomia. Tarinoiden mukaan pohjalla odottaa kulkijan oma kuolema ja levollinen varmuus omasta päätepisteestä. Tuo tunne vetää puoleensa niin voimakkaasti, että syvyyksiin eksyneet jäävät usein aloilleen ja sulautuvat osaksi seinien luustoa.
 
 ### Hallinta
 
-- **Hallitseva faktio:** Haaskalinnut
-- **Häiritsevä faktio:** —
-- **Jännite:** Matala
-
 #### Muistin ja lian vartijat
 
-Haaskalinnut hallitsevat Kryptaa itsenäisesti. He tuntevat katakombien reitistöt, kirjaavat saapuvat vainajat ja huolehtivat muistomerkin laajentamisesta.
+Haaskalinnut hallitsevat Kryptan sisäosia ja vastaavat muistomerkin laajentamisesta. Veljeskunta pyörittää asemalta käsin tiedustelua pelkästään analogisin välinein, sillä digitaalinen tallennus on Kynnyksen oloissa haavoittuvaa. Tuhannet tonnit paperikansioita, magneettinauhoja ja yksityiskirjeitä pysyvät tallessa lukituissa holveissa, joista ne voi tarkistaa käsin.
 
-Veljeskunta pyörittää asemalta käsin laajaa tiedustelutoimintaa puhtaasti analogisin menetelmin. Digitaalinen tallennus on osoittautunut Kynnyksen oloissa epäkäytännölliseksi ja haavoittuvaksi, joten Haaskalinnut luottavat paperiin ja magneettinauhoihin. Tuhannet tonnit paperiarkistoja, valvontalokeja ja henkilökohtaisia kirjeitä ovat helposti järjesteltävissä ja fyysisesti tarkistettavissa.
+Haaskalinnut käsittelevät aineistoa itse kaikkine oikkuineen ja ennakkoluuloineen. Jos joku johtaja tai suku uhkaa asemien tasapainoa, holveista kaivetaan esiin juuri se synti tai perhetragedia, joka pakottaa tämän perääntymään.
 
-Arkistoja käsittelevät Haaskalinnut itse kaikkine inhimillisine heikkouksineen, omituisine mielipiteineen ja ennakkoluuloineen. He seuraavat Kynnyksen elävien asukkaiden toimintaa ja arvioivat kunkin merkittävyyttä. Kun jokin toimija nousee liian hallitsevaksi tai uhkaa asemien tasapainoa, arkistoista poimitaan esiin juuri se synti tai perhetragedia, jolla hänet saadaan taltutettua. Muiden faktioiden varovaisuus kuoleman valtakuntaa kohtaan pitää aseman rauhallisena.
+#### Särkynyt koskemattomuus ja Ratasvartion ratsia
+
+Kryptan pitkä rauha särkyi, kun katakombien holveista anastettiin KW-konsortion vanhoja pääsykoodeja ja asemalle paennutta kapinallista ryhdyttiin jahtaamaan. Ratasvartio julisti Kryptalle poikkeustilan, pysäytti hautalaivojen jonot ja lähetti erikoistutkinnan jahtikommodori Valkohanskaisen Verikoiran etsintäosastoineen ja vainukoirineen haravoimaan ulkokuoren luostaritiloja.
+
+Piiritys kärjistyi Pyhän Velkavankiflagelantin luostarissa. Sotilaiden väkivalta kellarikerroksessa vuoti suorana lähetyksenä Kynnyksen verkkoihin, ja hetkeä myöhemmin voimakas räjähdys surmasi jahtikommodori Verikoiran esikuntineen. Johtajansa menettänyt etsintäoperaatio hajosi muutamassa päivässä, mutta kostoksi Ratasvartio poltti luostarin maan tasalle ennen vetäytymistään. Tapaus jätti jälkeensä syvän epäluulon: Ratasvartion partiot tarkkailevat yhä aseman liikennettä, ja sekä munkkisuvut että Haaskalinnut suhtautuvat konsortion edustajiin avoimen vihamielisesti.
 
 ### Palvelut
 
@@ -61,20 +60,18 @@ Arkistoja käsittelevät Haaskalinnut itse kaikkine inhimillisine heikkouksineen
 
 #### Valvomaton vastaanottosatama ja hautalaivat
 
-Krypta on Kynnyksen päätepysäkki, jonne saapuu tasainen virta hautalaivoja. Ruumiita tuodaan hyvin erilaisilla aluksilla sen mukaan, millä niitä sattuu kultakin asemalta kulkemaan. 
+Poikkeustilan purkauduttua hautalaivat liikkuvat jälleen kohti Kryptan päätepysäkkiä, ja vainajia tuodaan perille kaikenlaisilla aluksilla. Vastaanottosatama pidetään yhä virallisten verkkojen ulkopuolella sammutetuin kameroin, mutta satamasaarto muistutti laivureita siitä, kuinka nopeasti konsortion sota-alukset voivat sulkea väylän.
 
-Aseman vastaanottosatama toimii virallisten verkkojen ja sensorien ulkopuolella. Se on valvontavapaa vyöhyke, jossa suljetut linssit ja katkaistut verkkolinkit takaavat vainajille ja saattueille täyden rauhan kirkon valvonnasta.
-
-Asema toimii myös muinaisen tiedon keskuksena. Kukoistuksen ajan tekniset piirustukset, Suuren sodan laivastokoodit ja vanhat sukupuuselvitykset löytyvät Kryptan paperiholveista. Haaskalinnut hinnoittelevat tietonsa tarkasti: virallisen valuutan ohella maksuksi vaaditaan usein uutta arkistoitavaa aineistoa, etsijän omia salaisuuksia tai henkilökohtaisia palvelussitoumuksia.
+Kryptan paperiholvit säilövät Kynnyksen vanhinta tietoa Kukoistuksen ajan teknisistä piirustuksista vanhoihin sukupuihin. Arkistomurron ja ratsian jälkeen Haaskalinnut vartioivat syviä holveja entistä tiukemmin. Virallisen valuutan ohella tiedosta vaaditaan maksuksi uutta arkistoitavaa aineistoa, asiakkaan omia salaisuuksia tai raskaita palveluksia.
 
 ### Yhteydet
 
-Kryptalta pääsee suoraan asemille: **Siemen**, **Kuiskaus**.
+Kryptalta pääsee suoraan asemille: **Siemen** ja **Kuiskaus**.
 
-Krypta sijaitsee Kynnyksen reunalla omassa hiljaisuudessaan kaukana keskusasemien hulinasta. Sen kaksi napanuoraa yhdistävät sen asemiin, joiden kanssa sillä on syvä funktionaalinen ja henkinen symbioosi.
+Krypta lepää Kynnyksen ulkoreunalla kaukana keskusasemien hälystä. Kaksi suoraa reittiä liittävät sen naapureihin, jotka täydentävät sen arkea.
 
 #### Elämän ja tiedon kierrot
 
-Siemen (18) toimii Kryptan elollisena vastinparina. Siemenen akatemia ja nuoret maataloustieteilijät nojaavat Kryptan kalkkiin ja historiallisiin kerrostumiin. Vastineeksi Kryptan munkkisuvut tilaavat Siemeneltä jalostettuja siemenkantoja ja agronomista oppia pitääkseen ulkokuoren multakeitaat tuottavina.
+**Siemen (18)** on kuoleman aseman elävä vastinpari. Siemenen akatemia ja nuoret maataloustieteilijät hyödyntävät Kryptan kalkkia ja maaperänäytteitä. Vastineeksi Kryptan munkkisuvut tilaavat Siemeneltä jalostettuja siemenkantoja ja viljelyoppia, joilla ulkokuoren multakeitaat ja ratsiassa vaurioituneet palstat pidetään tuottavina.
 
-Kuiskaus (10) ja Krypta muodostavat tiedonhallinnan toisiaan tukevan parin, jonka osapuolet keskittyvät eri aikajänteisiin. Kuiskaus elää nykyhetkessä; se on hermokeskus, jonka kautta kulkevat tämän päivän viestit, huhut ja signaalit. Kun tämä tietomassa vanhenee tai muuttuu arkaluontoiseksi, se ohjataan Kryptan holveihin. Logiikan Inkvisition valvoma Kuiskaus tuottaa aineiston, jonka Haaskalinnut Kryptalla luokittelevat ja varastoivat. Nämä kaksi asemaa jakavat Kynnyksen tiedonhallinnan: Kuiskaus seuraa nykyhetkeä, ja Krypta pitää huolen menneisyydestä.
+**Kuiskaus (10)** ja Krypta jakavat Kynnyksen tiedonhallinnan kahdelle eri aikajänteelle. Logiikan Inkvisition vartioima Kuiskaus välittää tämän päivän viestiliikennettä ja signaaleja, ja sen pirstoutuneiden reitittimien kautta myös luostariratsian suora lähetys levisi ympäri Kynnystä. Kun tieto vanhenee tai käy liian arkaluontoiseksi, se päätyy Kryptan holveihin Haaskalintujen luokiteltavaksi.
