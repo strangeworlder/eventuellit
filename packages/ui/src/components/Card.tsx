@@ -2,6 +2,7 @@ import React from "react";
 import { Heading, HeadingLevelProvider } from "./Heading";
 import { Icon, type IconName } from "./Icon";
 import { primaryThemeMap, type Theme, ThemeContext, useCurrentTheme } from "./Theme";
+import { useSurfaceSpotlight } from "./useSurfaceSpotlight";
 import { cn } from "./utils";
 
 // Re-export for backward compatibility with consumers importing Theme from Card
@@ -60,6 +61,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       iconName,
       iconVariant = "primary",
       children,
+      onPointerEnter,
+      onPointerMove,
+      onPointerLeave,
       ...props
     },
     ref,
@@ -76,34 +80,40 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     // Children should see the resolved theme (or inherited base) in context
     const childTheme = resolvedTheme ?? baseTheme;
 
+    const { attachRef, spotlightProps } = useSurfaceSpotlight(variant === "interactive", {
+      onPointerEnter,
+      onPointerMove,
+      onPointerLeave,
+    });
+
     return (
       <ThemeContext.Provider value={childTheme}>
         <CardIconContext.Provider value={{ iconName, iconVariant }}>
           <div
-            ref={ref}
+            ref={attachRef(ref)}
             data-theme={resolvedTheme}
             data-variant={variant}
             className={cn(
               "rounded-xl overflow-visible relative group",
               {
-                // Surface: uses the swapped theme's bg/text via CSS variables
-                "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "surface",
-                // Outline: light bordered surface card with soft border and shadow
-                "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md":
-                  variant === "outline",
+                // Surface: uses the swapped theme's bg/text with a whisper-subtle top light wash
+                "ds-luminous-surface text-[var(--theme-text)]": variant === "surface",
+                // Outline: light-edged surface card with soft shadow
+                "ds-luminous-surface text-[var(--theme-text)] shadow-md": variant === "outline",
                 // Highlight: theme bg, accent text, thick bottom accent border
                 "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
                   variant === "highlight",
-                // Interactive: clickable surface card with hover glow and lift
-                "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md cursor-pointer transition-all duration-500 ease-in hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)] hover:-translate-y-1 hover:border-[var(--theme-border-medium)] hover:duration-300 hover:ease-out active:translate-y-0 active:shadow-sm active:duration-75":
+                // Interactive: clickable surface card with spotlight tracking, hover glow, and lift
+                "ds-interactive-surface text-[var(--theme-text)] shadow-md cursor-pointer transition-all duration-500 ease-in hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)] hover:-translate-y-1 hover:duration-300 hover:ease-out active:translate-y-0 active:shadow-sm active:duration-75":
                   variant === "interactive",
-                // Callout: left-accented callout block
-                "bg-[var(--theme-secondary)]/10 text-[var(--theme-text)] border-l-8 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow duration-500 ease-in hover:duration-300 hover:ease-out":
+                // Callout: left-accented callout block with soft gradient wash
+                "text-[var(--theme-text)] border-l-4 border-l-[var(--theme-primary)] border-t-0 border-r-0 border-b-0 bg-[linear-gradient(155deg,color-mix(in_srgb,var(--theme-secondary)_8%,var(--theme-surface-wash))_0%,var(--theme-bg)_78%)] shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-secondary)_10%,transparent)] hover:shadow-[inset_0_0_30px_color-mix(in_srgb,var(--theme-secondary)_15%,transparent)] transition-shadow duration-500 ease-in hover:duration-300 hover:ease-out":
                   variant === "callout",
                 "[corner-shape:scoop_round_round_round] rounded-tl-4xl": iconName,
               },
               className,
             )}
+            {...spotlightProps}
             {...props}
           >
             <HeadingLevelProvider>{children}</HeadingLevelProvider>
@@ -129,7 +139,7 @@ export const CardHeader = React.forwardRef<
       ref={ref}
       data-theme={theme}
       className={cn(
-        "flex flex-col space-y-1.5 p-4 tablet:p-6 border-b-2 border-current/20",
+        "flex flex-col space-y-1.5 p-4 tablet:p-6 border-b border-[var(--theme-border-soft)]",
         className,
       )}
       {...props}

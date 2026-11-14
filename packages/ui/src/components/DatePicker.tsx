@@ -319,12 +319,13 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
             data-text={obscured ? obscureString(displayValue || placeholder) : undefined}
             style={obscured ? glitchStyle : undefined}
             className={cn(
-              "flex w-full items-center justify-between rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] font-bold text-[var(--theme-text)] shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+              "flex w-full cursor-pointer items-center justify-between rounded-md ds-input-surface font-sans font-normal text-[var(--theme-text)] transition-all duration-150 focus-visible:outline-none focus-visible:border-[var(--theme-secondary)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--theme-secondary)_30%,transparent)] disabled:cursor-not-allowed disabled:opacity-50",
               isCompact
                 ? "h-7 px-2.5 py-0.5 text-[length:var(--font-size-xs)]"
-                : "h-12 px-4 py-2 text-[length:var(--font-size-lg)]",
-              !displayValue && "text-text-placeholder font-normal",
-              error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
+                : "h-11 px-3.5 py-2 text-base",
+              !displayValue && "text-text-placeholder",
+              error &&
+                "border-[var(--theme-accent)] focus-visible:border-[var(--theme-accent)] focus-visible:ring-[color-mix(in_srgb,var(--theme-accent)_30%,transparent)]",
               obscured && "blur-[1.5px] obscured-glitch obscured-field",
             )}
           >
@@ -347,8 +348,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
               aria-modal="true"
               onKeyDown={handleCalendarKeyDown}
               className={cn(
-                "absolute left-0 z-50 mt-1 w-72 rounded-sm border border-[var(--theme-secondary)] bg-[var(--theme-bg)] p-3 shadow-[var(--shadow-overlay)] font-sans",
-                "top-full",
+                "absolute left-0 top-full z-50 mt-1.5 w-72 rounded-xl ds-luminous-surface p-3 shadow-[var(--shadow-floating)] font-sans animate-in zoom-in-95",
               )}
             >
               {/* Month/year navigation */}
@@ -357,18 +357,18 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                   type="button"
                   onClick={prevMonth}
                   aria-label="Edellinen kuukausi"
-                  className="flex h-7 w-7 items-center justify-center rounded-sm text-text-muted hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] transition-colors"
+                  className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md text-text-muted hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] transition-colors"
                 >
                   <Icon name="chevron-left" size={16} aria-hidden="true" />
                 </button>
-                <span className="text-sm font-bold text-[var(--theme-text)] uppercase tracking-wide">
+                <span className="font-heading text-xs font-semibold text-[var(--theme-text)] uppercase tracking-[0.08em]">
                   {FI_MONTHS[viewMonth]} {viewYear}
                 </span>
                 <button
                   type="button"
                   onClick={nextMonth}
                   aria-label="Seuraava kuukausi"
-                  className="flex h-7 w-7 items-center justify-center rounded-sm text-text-muted hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] transition-colors"
+                  className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md text-text-muted hover:bg-[var(--theme-surface-tint)] hover:text-[var(--theme-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] transition-colors"
                 >
                   <Icon name="chevron-right" size={16} aria-hidden="true" />
                 </button>
@@ -421,9 +421,9 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                               onClick={() => selectDate(day)}
                               onFocus={() => setFocusedDate(day)}
                               className={cn(
-                                "flex h-8 w-full items-center justify-center rounded-sm text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)]",
+                                "flex h-8 w-full cursor-pointer items-center justify-center rounded-md text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)]",
                                 isSelected
-                                  ? "bg-[var(--theme-accent)] text-[var(--theme-accent-foreground)]"
+                                  ? "ds-btn-solid font-semibold text-[var(--theme-accent-foreground)]"
                                   : isToday
                                     ? "border border-[var(--theme-secondary)] text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]"
                                     : "text-[var(--theme-text)] hover:bg-[var(--theme-surface-tint)]",

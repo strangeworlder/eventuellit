@@ -10,6 +10,8 @@ import { GameTerm } from "./GameTerm";
 import { Heading } from "./Heading";
 import { Link } from "./Link";
 import { List, ListItem } from "./List";
+import { Separator } from "./Separator";
+import { TableBody, TableCell, TableHead, TableHeader, TableRoot, TableRow } from "./Table";
 import { Text } from "./Text";
 import { cn } from "./utils";
 
@@ -76,15 +78,12 @@ export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendere
                       : slugifyHeadingLabel(headingLabel)));
 
               return (
-                <Heading
-                  as="h3"
-                  variant="h3"
-                  id={headingId}
-                  className="mt-6 mb-3 scroll-mt-24"
-                  {...props}
-                >
-                  {headingChildren}
-                </Heading>
+                <div className="mt-8 mb-4">
+                  <Heading as="h3" variant="h3" id={headingId} className="scroll-mt-24" {...props}>
+                    {headingChildren}
+                  </Heading>
+                  <Separator variant="gradient" className="mt-2" />
+                </div>
               );
             },
             h4: ({ node, ref, ...props }) => (
@@ -116,7 +115,10 @@ export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendere
             },
             pre: ({ node, className, children, ref, ...props }) => (
               <pre
-                className="bg-[var(--theme-bg)]/80 p-4 rounded-md overflow-x-auto text-sm my-4 border border-[var(--theme-secondary)]/10"
+                className={cn(
+                  "ds-luminous-surface p-4 rounded-md overflow-x-auto text-sm my-4",
+                  className,
+                )}
                 {...props}
               >
                 {children}
@@ -132,21 +134,35 @@ export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendere
                 );
               }
               return (
-                <GameTerm variant="emphasis" className={className} {...props}>
+                <GameTerm variant="accent" className={className} {...props}>
                   {children}
                 </GameTerm>
               );
             },
             strong: ({ node, className, ref, ...props }) => (
-              <GameTerm variant="accent" className={className} {...props} />
+              <strong className={cn("font-semibold text-current", className)} {...props} />
             ),
             em: ({ node, ref, ...props }) => <em className="italic" {...props} />,
-            blockquote: ({ node, ref, ...props }) => (
+            hr: ({ node, className, ref, ...props }) => (
+              <Separator variant="gradient" className={cn("my-8", className)} {...props} />
+            ),
+            blockquote: ({ node, className, ref, ...props }) => (
               <blockquote
-                className="border-l-4 border-[var(--theme-accent)] pl-4 italic text-text-muted my-4"
+                className={cn(
+                  "border-l-2 border-[var(--theme-accent)] pl-4 py-2 pr-4 my-4 italic text-text-muted rounded-r-md bg-[linear-gradient(90deg,var(--theme-surface-wash)_0%,transparent_100%)]",
+                  className,
+                )}
                 {...props}
               />
             ),
+            table: ({ node, className, ref, ...props }) => (
+              <TableRoot wrapperClassName="my-6" className={className} {...props} />
+            ),
+            thead: ({ node, ref, ...props }) => <TableHeader {...props} />,
+            tbody: ({ node, ref, ...props }) => <TableBody {...props} />,
+            tr: ({ node, ref, ...props }) => <TableRow {...props} />,
+            th: ({ node, ref, ...props }) => <TableHead {...props} />,
+            td: ({ node, ref, ...props }) => <TableCell {...props} />,
           }}
         >
           {children}

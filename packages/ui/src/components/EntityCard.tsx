@@ -6,6 +6,7 @@ import { Heading, HeadingLevelProvider } from "./Heading";
 import { Icon, type IconName } from "./Icon";
 import { Text } from "./Text";
 import type { Theme } from "./Theme";
+import { useSurfaceSpotlight } from "./useSurfaceSpotlight";
 import { cn } from "./utils";
 
 export type { FactionColor } from "./FactionBadge";
@@ -66,6 +67,9 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(
       theme,
       className,
       children,
+      onPointerEnter,
+      onPointerMove,
+      onPointerLeave,
       ...props
     },
     ref,
@@ -73,22 +77,29 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(
     const c = FACTION_COLOR_VARS[color];
     const c2 = secondaryColor ? FACTION_COLOR_VARS[secondaryColor] : null;
     const headerCls = variant === "npc" ? "h-20" : "h-24";
+    const { attachRef, spotlightProps } = useSurfaceSpotlight(Boolean(href), {
+      onPointerEnter,
+      onPointerMove,
+      onPointerLeave,
+    });
 
     return (
       <div
-        ref={ref}
+        ref={attachRef(ref)}
         data-theme={theme}
         className={cn(
           "font-sans rounded-xl overflow-hidden relative group",
-          "border-2 border-[var(--theme-border-soft)] bg-[var(--theme-bg)] text-[var(--theme-text)] shadow-md",
+          href ? "ds-interactive-surface" : "ds-luminous-surface",
+          "text-[var(--theme-text)] shadow-md",
           href && [
             "cursor-pointer transition-all duration-500 ease-in",
             "hover:shadow-[0_0_20px_color-mix(in_srgb,var(--theme-secondary)_25%,transparent)]",
-            "hover:-translate-y-1 hover:border-[var(--theme-border-medium)] hover:duration-300 hover:ease-out",
+            "hover:-translate-y-1 hover:duration-300 hover:ease-out",
             "active:translate-y-0 active:shadow-sm active:duration-75",
           ],
           className,
         )}
+        {...spotlightProps}
         {...props}
       >
         {/* Stretched link — covers the whole card; sits above background but below any interactive children */}

@@ -37,13 +37,12 @@ export const ToolButton = React.forwardRef<HTMLButtonElement, ToolButtonProps>(
         aria-busy={loading || undefined}
         aria-label={loading && loadingMessage ? loadingMessage : undefined}
         className={cn(
-          "font-sans inline-flex cursor-pointer items-center gap-1.5 rounded-sm font-medium transition-colors duration-200",
-          "px-3 py-1 text-[length:var(--font-size-sm)]",
-          "text-text-muted border-2 border-[var(--theme-border-soft)] bg-transparent",
-          "hover:text-[var(--theme-text)] hover:border-[var(--theme-border-medium)] hover:bg-[var(--theme-surface-tint)]",
+          "font-sans inline-flex cursor-pointer items-center gap-1.5 rounded-md ds-btn-outline px-3 py-1 text-xs font-medium tracking-wide text-text-muted transition-all duration-150",
+          !isDisabled &&
+            "hover:text-[var(--theme-text)] active:text-[var(--theme-text)] active:scale-[0.98]",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
-          "active:bg-[var(--theme-surface-tint)] active:text-[var(--theme-text)]",
-          isDisabled && "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none",
+          isDisabled &&
+            "opacity-40 grayscale-[40%] cursor-not-allowed pointer-events-none shadow-none",
           className,
         )}
         {...props}

@@ -169,20 +169,20 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       <Component
         ref={ref}
         className={cn(
-          "font-bold tracking-tight min-w-0 hyphens-manual break-words",
+          "font-heading font-bold tracking-tight min-w-0 hyphens-manual break-words",
           {
-            "font-black tracking-normal": ["h1", "h2", "h4", "h5"].includes(activeVariant),
-            "font-heading text-[length:var(--font-size-4xl)] tablet:text-[length:var(--font-size-5xl)] uppercase text-[var(--theme-primary)]":
+            "font-black tracking-normal": ["h1", "h2"].includes(activeVariant),
+            "text-[length:var(--font-size-4xl)] tablet:text-[length:var(--font-size-5xl)] uppercase text-[var(--theme-primary)]":
               activeVariant === "h1",
-            "font-heading text-[length:var(--font-size-3xl)] tablet:text-[length:var(--font-size-4xl)] uppercase text-[var(--theme-text)]":
+            "text-[length:var(--font-size-3xl)] tablet:text-[length:var(--font-size-4xl)] uppercase text-[var(--theme-text)]":
               activeVariant === "h2",
-            "font-heading text-[length:var(--font-size-2xl)] tablet:text-[length:var(--font-size-3xl)] uppercase text-[var(--theme-primary)]":
+            "text-[length:var(--font-size-2xl)] tablet:text-[length:var(--font-size-3xl)] uppercase text-[var(--theme-primary)]":
               activeVariant === "h3",
-            "font-sans text-[length:var(--font-size-xl)] tablet:text-[length:var(--font-size-2xl)] border-l-4 pl-4 border-[var(--theme-primary)] uppercase text-[var(--theme-text)]":
+            "text-[length:var(--font-size-xl)] tablet:text-[length:var(--font-size-2xl)] tracking-wide uppercase text-[var(--theme-text)]":
               activeVariant === "h4",
-            "font-sans text-[length:var(--font-size-lg)] tablet:text-[length:var(--font-size-xl)] uppercase text-[var(--theme-accent)]":
+            "text-[length:var(--font-size-lg)] tablet:text-[length:var(--font-size-xl)] tracking-wider uppercase text-[var(--theme-accent)]":
               activeVariant === "h5",
-            "border-b-2 border-[var(--theme-primary)] font-sans text-[length:var(--font-size-base)] tablet:text-[length:var(--font-size-lg)] uppercase text-[var(--theme-text)]":
+            "text-[length:var(--font-size-base)] tablet:text-[length:var(--font-size-lg)] tracking-[0.12em] uppercase text-[var(--theme-text)]":
               activeVariant === "h6",
           },
           className,

@@ -108,7 +108,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4" aria-hidden={!open}>
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/70 transition-opacity"
+          className="absolute inset-0 bg-black/70 animate-in fade-in"
           onClick={onClose}
           aria-hidden="true"
         />
@@ -129,7 +129,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
           aria-describedby={description ? descriptionId : undefined}
           data-theme={theme}
           className={cn(
-            "relative z-10 w-full rounded-xl border border-[var(--theme-secondary)] bg-[var(--theme-bg)] text-[var(--theme-text)] font-sans",
+            "relative z-10 w-full rounded-xl ds-luminous-surface text-[var(--theme-text)] font-sans animate-in zoom-in-95",
             "shadow-[var(--shadow-floating)]",
             "flex flex-col max-h-[90vh]",
             sizeClasses[size],

@@ -23,19 +23,12 @@ export interface SelectProps
   obscured?: boolean;
   /**
    * Controls the visual scale of the select.
-   * - `"default"` — full-height (h-12) form select, large text
+   * - `"default"` — full-height (h-11) form select
    * - `"compact"` — reduced height (h-7) for inline/density contexts, xs text
    * @default "default"
    */
   size?: "default" | "compact";
 }
-
-/**
- * Inline SVG chevron encoded as a data-URI for the custom dropdown arrow.
- * Uses currentColor so it inherits the text color of the select.
- */
-const chevronDataUri =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E\")";
 
 /**
  * Dropdown select control with label, error, placeholder, and obscure support.
@@ -75,38 +68,62 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         data-theme={theme}
       >
         {label && <FieldLabel obscured={obscured}>{label}</FieldLabel>}
-        <select
-          ref={ref}
-          disabled={isDisabled}
-          data-text={obscured ? obscureString(placeholder ?? options[0]?.label ?? "") : undefined}
-          className={cn(
-            "flex w-full appearance-none rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] font-bold text-[var(--theme-text)] shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
-            size === "default" && "h-12 px-4 py-2 pr-10 text-lg",
-            size === "compact" && "h-7 px-2.5 py-0.5 pr-8 text-[length:var(--font-size-xs)]",
-            error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
-            obscured && "blur-[1.5px] obscured-glitch obscured-field",
-            className,
-          )}
-          style={{
-            backgroundImage: chevronDataUri,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: size === "compact" ? "right 0.5rem center" : "right 0.75rem center",
-            backgroundSize: size === "compact" ? "0.75rem" : "1rem",
-            ...(obscured ? (glitchStyle ?? {}) : {}),
-          }}
-          {...props}
-        >
-          {placeholder && (
-            <option value="" disabled>
-              {obscured ? obscureString(placeholder) : placeholder}
-            </option>
-          )}
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {obscured ? obscureString(opt.label) : opt.label}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <select
+            ref={ref}
+            disabled={isDisabled}
+            data-text={obscured ? obscureString(placeholder ?? options[0]?.label ?? "") : undefined}
+            style={obscured ? glitchStyle : undefined}
+            className={cn(
+              "flex w-full appearance-none rounded-md ds-input-surface font-sans font-normal text-[var(--theme-text)] transition-all duration-150 focus-visible:outline-none focus-visible:border-[var(--theme-secondary)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--theme-secondary)_30%,transparent)] disabled:cursor-not-allowed disabled:opacity-50",
+              size === "default" && "h-11 px-3.5 py-2 pr-10 text-base",
+              size === "compact" && "h-7 px-2.5 py-0.5 pr-8 text-[length:var(--font-size-xs)]",
+              error &&
+                "border-[var(--theme-accent)] focus-visible:border-[var(--theme-accent)] focus-visible:ring-[color-mix(in_srgb,var(--theme-accent)_30%,transparent)]",
+              obscured && "blur-[1.5px] obscured-glitch obscured-field",
+              className,
+            )}
+            {...props}
+          >
+            {placeholder && (
+              <option value="" disabled className="bg-[var(--theme-bg)] text-text-muted">
+                {obscured ? obscureString(placeholder) : placeholder}
+              </option>
+            )}
+            {options.map((opt) => (
+              <option
+                key={opt.value}
+                value={opt.value}
+                className="bg-[var(--theme-bg)] text-[var(--theme-text)]"
+              >
+                {obscured ? obscureString(opt.label) : opt.label}
+              </option>
+            ))}
+          </select>
+          <span
+            aria-hidden="true"
+            className={cn(
+              "pointer-events-none absolute inset-y-0 flex items-center text-text-muted",
+              size === "compact" ? "right-2" : "right-3",
+              isDisabled && "opacity-50",
+              obscured && "blur-[1.5px]",
+            )}
+          >
+            <svg
+              aria-hidden="true"
+              width={size === "compact" ? 12 : 16}
+              height={size === "compact" ? 12 : 16}
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m4 6 4 4 4-4" />
+            </svg>
+          </span>
+        </div>
         {error && <FieldError>{error}</FieldError>}
       </div>
     );

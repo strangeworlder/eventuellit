@@ -48,7 +48,11 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
 
     return (
       <div
-        className={cn("flex flex-col gap-1 mt-2", obscured && "select-none pointer-events-none")}
+        className={cn(
+          "flex flex-col gap-1 mt-2",
+          obscured && "select-none pointer-events-none",
+          className,
+        )}
         data-theme={theme}
       >
         <label
@@ -76,21 +80,18 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
               {...props}
             />
             <span
+              aria-disabled={isDisabled || undefined}
               className={cn(
-                "block h-6 w-11 rounded-full border-2 transition-colors",
-                checked
-                  ? "bg-[var(--theme-secondary)] border-[var(--theme-secondary)]"
-                  : "bg-[var(--theme-surface-tint)] border-[var(--theme-border-soft)]",
+                "ds-switch-track block h-6 w-11 rounded-full ds-input-surface transition-all duration-200",
+                !isDisabled && "group-hover:border-[var(--theme-border-medium)]",
                 "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-secondary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
+                error && "border-[var(--theme-accent)]",
                 obscured && "blur-[1.5px] obscured-glitch",
               )}
             />
             <span
               className={cn(
-                "absolute top-1 left-1 h-4 w-4 rounded-full transition-transform duration-200",
-                checked
-                  ? "translate-x-5 bg-[var(--theme-primary-foreground)]"
-                  : "translate-x-0 bg-[var(--theme-secondary)]",
+                "ds-switch-thumb pointer-events-none absolute top-1 left-1 h-4 w-4 rounded-full bg-text-muted transition-all duration-200 ease-[var(--motion-easing-spring)]",
                 obscured && "blur-[1.5px]",
               )}
             />
@@ -99,7 +100,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             <span
               data-text={obscured ? obscureString(label) : undefined}
               className={cn(
-                "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-secondary)] transition-colors",
+                "font-sans text-sm font-medium text-[var(--theme-text)] transition-colors",
                 obscured && "blur-[5.5px] obscured-glitch",
               )}
               style={obscured ? glitchStyle : undefined}

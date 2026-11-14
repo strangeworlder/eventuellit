@@ -154,8 +154,25 @@ export type { SkillTagItem, SkillTagListProps } from "./components/SkillTagList"
 export { SkillTagList } from "./components/SkillTagList";
 export { StatBlock } from "./components/StatBlock";
 export { Switch } from "./components/Switch";
-export type { TableColumn, TableProps } from "./components/Table";
-export { Table } from "./components/Table";
+export type {
+  TableBodyProps,
+  TableCellProps,
+  TableColumn,
+  TableHeaderProps,
+  TableHeadProps,
+  TableProps,
+  TableRootProps,
+  TableRowProps,
+} from "./components/Table";
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRoot,
+  TableRow,
+} from "./components/Table";
 export type {
   TabsContentProps,
   TabsListProps,
@@ -198,6 +215,8 @@ export type { UseArticleScrollProgressOptions } from "./components/useArticleScr
 export { useArticleScrollProgress } from "./components/useArticleScrollProgress";
 export { useFocusTrap } from "./components/useFocusTrap";
 export { useObscuredGlitch } from "./components/useObscuredGlitch";
+export type { SurfaceSpotlightHandlers } from "./components/useSurfaceSpotlight";
+export { useSurfaceSpotlight } from "./components/useSurfaceSpotlight";
 // ── Utilities ──
 export { cn, obscureString } from "./components/utils";
 export type { VideoCtaProps } from "./components/VideoCta";

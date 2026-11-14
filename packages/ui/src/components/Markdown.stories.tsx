@@ -36,6 +36,13 @@ Ja järjestetty lista:
 3. Kolmas vaihe
 
 > Myös lainauslohkot ovat tuettuja, ja ne saavat tyylitellyn vasemman reunuksen.
+
+---
+
+| Järjestelmä | Tila | Huomautus |
+|---|---|---|
+| Telakka 4 | \`Vakaa\` | Lähtöluvat kunnossa |
+| Reaktorikehä | \`Epävakaa\` | Vaatii tarkastuksen |
 `;
 
 export const Default: Story = {

@@ -24,11 +24,12 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
         data-theme={theme}
         aria-pressed={pressed}
         className={cn(
-          "px-3 py-1 rounded-sm text-xs font-bold transition-colors border-2 cursor-pointer",
-          "focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none",
+          "font-sans inline-flex items-center justify-center px-3 py-1 rounded-md text-xs font-semibold tracking-wide cursor-pointer transition-all duration-150 active:scale-[0.98]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
+          "disabled:opacity-40 disabled:grayscale-[40%] disabled:pointer-events-none disabled:shadow-none",
           pressed
-            ? "bg-[var(--theme-secondary)] text-[var(--theme-secondary-foreground)] border-[var(--theme-secondary)]"
-            : "bg-transparent text-text-subtle border-[var(--theme-border-soft)] hover:border-[var(--theme-border-medium)]",
+            ? "ds-control-checked text-[var(--theme-secondary-foreground)]"
+            : "ds-btn-outline text-text-muted hover:text-[var(--theme-text)]",
           className,
         )}
         {...props}
