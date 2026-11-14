@@ -12,7 +12,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["soft", "medium", "strong"],
+      options: ["soft", "medium", "strong", "gradient"],
     },
     orientation: {
       control: "select",
@@ -96,6 +96,11 @@ export const KaikkiVariantit: Story = {
         <Text variant="label">Vahva</Text>
         <Separator variant="strong" />
         <Text variant="caption">Korostava erottaja päälohkojen tai lukujen välissä.</Text>
+      </div>
+      <div className="space-y-3">
+        <Text variant="label">Liukuväri</Text>
+        <Separator variant="gradient" />
+        <Text variant="caption">Hienovaraisesti poispäin häipyvä osioerotin.</Text>
       </div>
     </div>
   ),

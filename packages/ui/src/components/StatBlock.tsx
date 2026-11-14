@@ -35,8 +35,8 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
           className={cn(
             "flex items-center gap-4 align-center justify-between p-6 rounded-xl shadow-sm transition-all duration-200 relative overflow-hidden",
             {
-              "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "surface",
-              "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
+              "ds-luminous-surface text-[var(--theme-text)]": variant === "surface",
+              "ds-luminous-surface border-[var(--theme-secondary)] text-[var(--theme-secondary)]":
                 variant === "outline",
               "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
                 variant === "highlight",

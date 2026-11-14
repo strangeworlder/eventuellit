@@ -41,7 +41,8 @@ export const TextSection = React.forwardRef<HTMLElement, TextSectionProps>(
             <div
               className={cn(
                 "flex flex-row items-center justify-between gap-3",
-                variant === "bordered" && "border-b-2 border-[var(--theme-border-soft)] pb-3",
+                variant === "bordered" &&
+                  "relative pb-3 after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[linear-gradient(90deg,var(--theme-divider-fade)_0%,var(--theme-border-soft)_45%,transparent_100%)]",
               )}
             >
               {title && <Heading className={cn(headingClassName)}>{title}</Heading>}

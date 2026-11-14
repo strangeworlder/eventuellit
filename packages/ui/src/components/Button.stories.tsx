@@ -339,8 +339,8 @@ export const DangerDistinct: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <p className="text-sm opacity-80 max-w-[48ch]">
-        Vaarapainikkeessa on oletusikoni, taustaikoni ja vahvempi rakenne (reuna + varjo), jotta
-        merkitys ei perustu vain variin.
+        Vaarapainikkeessa on varoitusikoni, valaistu reunaviiste ja erottuva huomioväri, jotta
+        merkitys ei perustu pelkkään väriin.
       </p>
       <div className="flex flex-wrap gap-4">
         <Button variant="solid">Tallenna</Button>

@@ -8,8 +8,9 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLHRElement> {
    * - `soft` (default): Uses `--theme-border-soft` — subtle divider between related sections.
    * - `medium`: Uses `--theme-border-medium` — more prominent division.
    * - `strong`: Uses the primary theme color for a decorative accent divider.
+   * - `gradient`: Subtle fading gradient line from `--theme-divider-fade` to transparent.
    */
-  variant?: "soft" | "medium" | "strong";
+  variant?: "soft" | "medium" | "strong" | "gradient";
   /**
    * Orientation of the separator.
    * - `horizontal` (default)
@@ -50,6 +51,10 @@ export const Separator = React.forwardRef<HTMLHRElement, SeparatorProps>(
             "bg-[var(--theme-border-soft)]": variant === "soft",
             "bg-[var(--theme-border-medium)]": variant === "medium",
             "bg-[var(--theme-primary)]": variant === "strong",
+            "bg-[linear-gradient(90deg,var(--theme-divider-fade)_0%,var(--theme-border-soft)_42%,transparent_100%)]":
+              variant === "gradient" && orientation === "horizontal",
+            "bg-[linear-gradient(180deg,var(--theme-divider-fade)_0%,var(--theme-border-soft)_42%,transparent_100%)]":
+              variant === "gradient" && orientation === "vertical",
           },
           className,
         )}

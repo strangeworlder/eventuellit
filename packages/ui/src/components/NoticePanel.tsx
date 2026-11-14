@@ -21,10 +21,12 @@ export const NoticePanel = React.forwardRef<HTMLDivElement, NoticePanelProps>(
       className={cn(
         "rounded-sm p-6 text-[var(--theme-text)]",
         {
-          "border-2 border-[var(--theme-border-medium)] bg-[var(--theme-secondary)]/5 shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)]":
+          "ds-luminous-surface border-[var(--theme-border-medium)] shadow-[0_0_15px_color-mix(in_srgb,var(--theme-secondary)_14%,transparent)]":
             variant === "success",
-          "border-l-4 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10": variant === "info",
-          "border-2 border-[var(--theme-accent)] bg-[var(--theme-accent)]/10": variant === "error",
+          "border border-[var(--theme-border-soft)] border-l-2 border-l-[var(--theme-accent)] bg-[linear-gradient(155deg,color-mix(in_srgb,var(--theme-accent)_8%,var(--theme-surface-wash))_0%,var(--theme-bg)_80%)]":
+            variant === "info",
+          "border border-[var(--theme-accent)]/60 bg-[linear-gradient(155deg,color-mix(in_srgb,var(--theme-accent)_10%,var(--theme-surface-wash))_0%,var(--theme-bg)_80%)]":
+            variant === "error",
         },
         className,
       )}

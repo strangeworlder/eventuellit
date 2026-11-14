@@ -57,8 +57,8 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
           className={cn(
             "flex flex-col p-6 rounded-xl shadow-sm gap-3 transition-all duration-200 relative overflow-hidden",
             {
-              "bg-[var(--theme-bg)] text-[var(--theme-text)]": variant === "surface",
-              "bg-transparent text-[var(--theme-secondary)] border border-[var(--theme-secondary)]":
+              "ds-luminous-surface text-[var(--theme-text)]": variant === "surface",
+              "ds-luminous-surface border-[var(--theme-secondary)] text-[var(--theme-secondary)]":
                 variant === "outline",
               "bg-[var(--theme-bg)] text-[var(--theme-accent)] border-b-4 border-b-[var(--theme-accent)] border-t-0 border-l-0 border-r-0":
                 variant === "highlight",
@@ -69,10 +69,13 @@ export const ActiveStatBlock = React.forwardRef<HTMLDivElement, ActiveStatBlockP
         >
           <HeadingLevelProvider>
             <div
-              className={cn("flex items-center gap-3 pb-3 border-b border-current/20", {
-                "border-b-[var(--theme-secondary)]": variant === "outline",
-                "border-b-[var(--theme-accent)]": variant === "highlight",
-              })}
+              className={cn(
+                "flex items-center gap-3 pb-3 border-b border-b-[var(--theme-border-soft)]",
+                {
+                  "border-b-[var(--theme-secondary)]": variant === "outline",
+                  "border-b-[var(--theme-accent)]": variant === "highlight",
+                },
+              )}
             >
               {icon && <Icon name={icon} size={24} className="shrink-0" />}
               <Heading>{label}</Heading>

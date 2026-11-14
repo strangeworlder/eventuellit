@@ -120,7 +120,7 @@ export function RadioGroupItem({
         isObscured && "select-none pointer-events-none",
       )}
     >
-      <span className="relative mt-1 flex h-5 w-5 shrink-0 items-center justify-center">
+      <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
         <input
           id={inputId}
           type="radio"
@@ -132,18 +132,22 @@ export function RadioGroupItem({
           className="peer sr-only"
         />
         <span
+          aria-disabled={isDisabled || undefined}
           data-text={isObscured ? "x" : undefined}
           style={isObscured ? glitchStyle : undefined}
           className={cn(
-            "h-5 w-5 rounded-full border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] transition-all peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-secondary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
-            isSelected && "border-[var(--theme-secondary)]",
+            "h-5 w-5 rounded-full ds-input-surface transition-all duration-150",
+            !isDisabled && "group-hover:border-[var(--theme-border-medium)]",
+            "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-secondary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
+            isSelected &&
+              "border-[var(--theme-secondary)] bg-[color-mix(in_srgb,var(--theme-secondary)_14%,var(--theme-bg))] shadow-[0_0_10px_color-mix(in_srgb,var(--theme-secondary)_20%,transparent)]",
             isObscured && "blur-[1.5px] obscured-glitch",
           )}
         />
         {isSelected && (
           <span
             className={cn(
-              "absolute h-2.5 w-2.5 rounded-full bg-[var(--theme-secondary)] transition-transform scale-100 animate-in zoom-in duration-150",
+              "pointer-events-none absolute h-2.5 w-2.5 rounded-full bg-[var(--theme-secondary)] shadow-[0_0_6px_var(--theme-secondary)] animate-in zoom-in-95",
               isObscured && "blur-[1.5px]",
             )}
           />
@@ -153,7 +157,7 @@ export function RadioGroupItem({
         <span
           data-text={isObscured ? obscureString(label) : undefined}
           className={cn(
-            "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-secondary)] transition-colors",
+            "font-sans text-sm font-medium text-[var(--theme-text)] transition-colors",
             isObscured && "blur-[5.5px] obscured-glitch",
           )}
           style={isObscured ? glitchStyle : undefined}

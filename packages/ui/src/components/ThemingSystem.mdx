@@ -23,7 +23,7 @@ Tier 1 — Raw palette         Tier 2 — Theme scope          Tier 3 — Semant
 
 **Tier 1** (raw palette) defines all colors at every scale step (50–900). These are constants — they never change.
 
-**Tier 2** (theme scope) maps semantic roles to palette values per theme. Each `[data-theme]` block defines 10 CSS variables that control the entire visual appearance of that scope.
+**Tier 2** (theme scope) maps semantic roles to palette values per theme. Each `[data-theme]` block defines 14 CSS variables that control colors, subtle surface light, and fade dividers for that scope.
 
 **Tier 3** (semantic aliases) bridges the theme variables into Tailwind's `@theme` system, making them available as utility classes like `text-text-muted`, `bg-surface-tint`, `border-border-soft`.
 
@@ -101,13 +101,19 @@ The `Dialog` and `Toast` components handle this automatically.
 --theme-text-placeholder  /* ≥ 3:1 — form placeholders only */
 ```
 
-### Surfaces and borders
+### Surfaces, borders, and light
 
 ```css
 --theme-surface-tint    /* hover/active fill on interactive elements */
+--theme-surface-wash    /* whisper-subtle directional surface gradient fill */
+--theme-edge-light      /* 1px top/left overhead edge highlight on surfaces */
+--theme-spotlight       /* pointer-tracking highlight on clickable cards (mouse only) */
 --theme-border-soft     /* subtle dividers, card outlines */
 --theme-border-medium   /* form controls (input, select, checkbox) */
+--theme-divider-fade    /* starting tint for fading gradient separators */
 ```
+
+Interior `--theme-surface-wash` mixes MUST stay subtle enough to preserve at least 7:1 contrast with `--theme-text` (and meet WCAG AA 4.5:1 with muted/subtle text tokens) across all light and dark themes.
 
 ### Primary, secondary, accent
 
@@ -150,7 +156,7 @@ className="hover:bg-[var(--theme-surface-tint)]"
 To add a new theme variant:
 
 1. Add a `[data-theme="my-theme"]` block to `styles.css`
-2. Define all 10 required `--theme-*` variables
+2. Define all 14 required `--theme-*` variables
 3. Verify WCAG AA contrast for all text tokens (document ratios in comments)
 4. Add `"my-theme"` to the `Theme` union type in `Theme.tsx`
 5. Add a preview to `Themes.stories.tsx`

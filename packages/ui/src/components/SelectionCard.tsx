@@ -1,6 +1,7 @@
 import React from "react";
 import { Badge } from "./Badge";
 import type { Theme } from "./Theme";
+import { useSurfaceSpotlight } from "./useSurfaceSpotlight";
 import { cn } from "./utils";
 
 export type SelectionState = "primary" | "secondary" | "none";
@@ -111,6 +112,9 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
       theme,
       children,
       onClick,
+      onPointerEnter,
+      onPointerMove,
+      onPointerLeave,
       ...props
     },
     ref,
@@ -169,9 +173,18 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
       }
     }
 
+    const { attachRef, spotlightProps } = useSurfaceSpotlight(
+      !isDisabled && selectionState === "none",
+      {
+        onPointerEnter,
+        onPointerMove,
+        onPointerLeave,
+      },
+    );
+
     return (
       <div
-        ref={ref}
+        ref={attachRef(ref)}
         data-theme={theme}
         data-selection={selectionState}
         role="option"
@@ -188,7 +201,7 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
         className={cn(
           // ── Operational baseline ──────────────────────────────────────────
           // rounded-md (not rounded-xl) signals this is a dense, operational card
-          "font-sans relative rounded-md border-2 bg-[var(--theme-bg)] text-[var(--theme-text)]",
+          "font-sans relative rounded-md border text-[var(--theme-text)]",
           "transition-all duration-300 ease-in",
           // ── Inner layout: named grid rows ─────────────────────────────────
           // row 1 (meta): urgency chip + selection badge, always same height
@@ -198,13 +211,14 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
           // ── Locked / disabled ─────────────────────────────────────────────
           isDisabled && "cursor-default opacity-60 grayscale-[30%]",
+          isDisabled && selectionState === "none" && "ds-luminous-surface",
           // ── Interactive cursor when not locked ────────────────────────────
           !isDisabled && "cursor-pointer",
           // ── Selection states ──────────────────────────────────────────────
           selectionState === "none" &&
             !isDisabled && [
-              "border-[var(--theme-border-soft)] shadow-md",
-              "hover:border-[var(--theme-border-medium)] hover:shadow-[0_0_14px_color-mix(in_srgb,var(--theme-secondary)_18%,transparent)] hover:-translate-y-0.5 hover:duration-200 hover:ease-out",
+              "ds-interactive-surface shadow-md",
+              "hover:shadow-[0_0_14px_color-mix(in_srgb,var(--theme-secondary)_18%,transparent)] hover:-translate-y-0.5 hover:duration-200 hover:ease-out",
             ],
           selectionState === "primary" && [
             "border-[var(--theme-primary)] shadow-[0_0_18px_color-mix(in_srgb,var(--theme-primary)_28%,transparent)]",
@@ -216,6 +230,7 @@ export const SelectionCard = React.forwardRef<HTMLDivElement, SelectionCardProps
           ],
           className,
         )}
+        {...spotlightProps}
         {...props}
       >
         {children}
@@ -247,7 +262,7 @@ export const SelectionCardMeta = React.forwardRef<HTMLDivElement, SelectionCardM
       ref={ref}
       className={cn(
         "[grid-area:meta] grid grid-cols-[1fr_auto] items-center gap-2",
-        "px-3 pt-3 pb-2 border-b border-current/10",
+        "px-3 pt-3 pb-2 border-b border-[var(--theme-border-soft)]",
         className,
       )}
       {...props}

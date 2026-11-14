@@ -12,6 +12,7 @@
         "./components/useFocusTrap": "./src/components/useFocusTrap.ts",
         "./components/useObscuredGlitch": "./src/components/useObscuredGlitch.ts",
         "./components/usePillIndicator": "./src/components/usePillIndicator.ts",
+        "./components/useSurfaceSpotlight": "./src/components/useSurfaceSpotlight.ts",
         "./components/*": [
             "./src/components/*.tsx",
             "./src/components/*.ts"

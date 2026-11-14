@@ -47,26 +47,48 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             isDisabled && "cursor-not-allowed opacity-50",
           )}
         >
-          <input
-            ref={ref}
-            id={inputId}
-            type="checkbox"
-            disabled={isDisabled}
-            data-text={obscured ? "x" : undefined}
-            style={obscured ? glitchStyle : undefined}
-            className={cn(
-              "mt-1 h-5 w-5 shrink-0 cursor-pointer rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] accent-[var(--theme-secondary)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)] disabled:cursor-not-allowed",
-              error && "border-[var(--theme-accent)]",
-              obscured && "blur-[1.5px] obscured-glitch",
-              className,
-            )}
-            {...props}
-          />
+          <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
+            <input
+              ref={ref}
+              id={inputId}
+              type="checkbox"
+              disabled={isDisabled}
+              className="peer sr-only"
+              {...props}
+            />
+            <span
+              aria-disabled={isDisabled || undefined}
+              data-text={obscured ? "x" : undefined}
+              style={obscured ? glitchStyle : undefined}
+              className={cn(
+                "ds-checkbox-box flex h-5 w-5 items-center justify-center rounded-[5px] ds-input-surface text-transparent transition-all duration-150",
+                !isDisabled && "group-hover:border-[var(--theme-border-medium)]",
+                "peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--theme-secondary)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--theme-bg)]",
+                error && "border-[var(--theme-accent)]",
+                obscured && "blur-[1.5px] obscured-glitch",
+                className,
+              )}
+            >
+              <svg
+                aria-hidden="true"
+                width="12"
+                height="12"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3.5 8.5 6.5 11.5 12.5 4.5" />
+              </svg>
+            </span>
+          </span>
           <span className="flex flex-col gap-0.5 select-none">
             <span
               data-text={obscured ? obscureString(label) : undefined}
               className={cn(
-                "text-sm font-black uppercase tracking-widest text-[var(--theme-text)] group-hover:text-[var(--theme-secondary)] transition-colors",
+                "font-sans text-sm font-medium text-[var(--theme-text)] transition-colors",
                 obscured && "blur-[5.5px] obscured-glitch",
               )}
               style={obscured ? glitchStyle : undefined}

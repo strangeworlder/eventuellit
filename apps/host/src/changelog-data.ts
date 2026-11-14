@@ -71,6 +71,16 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
     ],
     minor: [
       {
+        title: "Ohjaamopainikkeiden, syötekenttien ja kytkimien uudistus",
+        description:
+          "Painikkeet, työkalunapit, tekstikentät, pudotusvalikot, päivämäärävalitsin sekä valintaruudut ja kytkimet on päivitetty yhtenäisiksi valoviisteellisiksi ohjaamokontrolleiksi kaikissa kymmenessä teemassa.",
+      },
+      {
+        title: "Pintojen valoviisteet, pehmeät siirtymät ja artikkelirytmi",
+        description:
+          "Kortit, ilmoituspaneelit, artikkelin lukupalkki, taulukot sekä otsikoiden ja Markdown-tekstin hierarkia on päivitetty kuultavammiksi kaikissa kymmenessä teemassa.",
+      },
+      {
         title: "Biome-linter ja rivinvaihtojen normalisointi",
         description:
           "Kaikkien työtilojen lint-skriptit yhdistetty Biomeen, rivinvaihdot normalisoitu LF-muotoon (.gitattributes) ja React-hookien sääntörikkomukset korjattu komponenttikirjastossa.",

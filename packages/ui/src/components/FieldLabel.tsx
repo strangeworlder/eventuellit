@@ -23,7 +23,7 @@ export const FieldLabel = React.forwardRef<HTMLLabelElement | HTMLSpanElement, F
         ref={ref as React.Ref<HTMLLabelElement & HTMLSpanElement>}
         htmlFor={htmlFor}
         className={cn(
-          "text-sm font-black uppercase tracking-widest text-[var(--theme-secondary)]",
+          "font-heading text-xs font-semibold uppercase tracking-[0.08em] text-text-muted",
           obscured && "blur-[5.5px]",
           className,
         )}

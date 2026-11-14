@@ -12,10 +12,7 @@ export interface FieldErrorProps {
 export function FieldError({ children, className }: FieldErrorProps) {
   return (
     <span
-      className={cn(
-        "text-sm font-bold uppercase tracking-widest text-[var(--theme-accent)]",
-        className,
-      )}
+      className={cn("text-xs font-semibold tracking-wide text-[var(--theme-accent)]", className)}
     >
       {children}
     </span>

@@ -80,10 +80,12 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
           <span
             className={cn(
               "absolute h-3 w-3 shrink-0 rounded-full border bg-[var(--theme-bg)]",
+              "transition-[scale,background-color,border-color,box-shadow] duration-300 ease-[var(--motion-easing-spring)]",
+              "group-hover:scale-110",
               marker.isScrolledPast
                 ? "border-[var(--theme-primary)]"
                 : "border-[var(--theme-secondary)]",
-              "group-aria-[current=true]:border-[var(--theme-primary)] group-aria-[current=true]:bg-[var(--theme-primary)]",
+              "group-aria-[current=true]:scale-125 group-aria-[current=true]:border-[var(--theme-primary)] group-aria-[current=true]:bg-[var(--theme-primary)] group-aria-[current=true]:shadow-[0_0_8px_color-mix(in_srgb,var(--theme-primary)_65%,transparent)]",
             )}
             style={{ left: "1.5rem", transform: "translateX(-50%)" }}
           />
@@ -112,10 +114,12 @@ const ArticleProgressMarkers = memo(function ArticleProgressMarkers({
         <span
           className={cn(
             "absolute h-3 w-3 shrink-0 rounded-full border bg-[var(--theme-bg)]",
+            "transition-[scale,background-color,border-color,box-shadow] duration-300 ease-[var(--motion-easing-spring)]",
+            "group-hover:scale-110",
             marker.isScrolledPast
               ? "border-[var(--theme-primary)]"
               : "border-[var(--theme-secondary)]",
-            "group-aria-[current=true]:border-[var(--theme-primary)] group-aria-[current=true]:bg-[var(--theme-primary)]",
+            "group-aria-[current=true]:scale-125 group-aria-[current=true]:border-[var(--theme-primary)] group-aria-[current=true]:bg-[var(--theme-primary)] group-aria-[current=true]:shadow-[0_0_8px_color-mix(in_srgb,var(--theme-primary)_65%,transparent)]",
           )}
           style={{ left: "1.5rem", transform: "translateX(-50%)" }}
         />
@@ -183,9 +187,7 @@ export const ArticleProgressNavigator = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        isMinimalVariant
-          ? "bg-transparent px-0 py-0"
-          : "rounded-xl border border-[var(--theme-border-medium)] bg-[var(--theme-bg)] px-3 py-4",
+        isMinimalVariant ? "bg-transparent px-0 py-0" : "rounded-xl ds-luminous-surface px-3 py-4",
         className,
       )}
       {...props}
@@ -209,7 +211,7 @@ export const ArticleProgressNavigator = React.forwardRef<
           style={{ left: "1.5rem", transform: "translateX(-50%)" }}
         />
         <div
-          className="absolute top-0 h-full w-1 rounded-full bg-[var(--theme-primary)] origin-top transform-gpu transition-transform duration-150"
+          className="absolute top-0 h-full w-1 rounded-full bg-gradient-to-b from-[var(--theme-secondary)] to-[var(--theme-primary)] origin-top transform-gpu transition-transform duration-150"
           style={{ left: "1.5rem", transform: `translateX(-50%) scaleY(${boundedProgress / 100})` }}
         />
         <div

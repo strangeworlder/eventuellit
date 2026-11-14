@@ -65,11 +65,12 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           data-text={obscured ? obscureString(placeholder ?? "") : undefined}
           style={obscured ? glitchStyle : undefined}
           className={cn(
-            "flex w-full rounded-sm border-2 border-[var(--theme-border-medium)] bg-[var(--theme-bg)] font-bold text-[var(--theme-text)] shadow-sm transition-all resize-none placeholder:text-text-placeholder focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-primary)] focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
-            size === "default" && "px-4 py-3 text-[length:var(--font-size-lg)]",
-            size === "compact" && "px-2.5 py-1 text-[length:var(--font-size-xs)] font-normal",
-            variant === "monospace" && "font-mono text-sm font-normal",
-            error && "border-[var(--theme-accent)] focus-visible:ring-[var(--theme-accent)]",
+            "flex w-full rounded-md ds-input-surface font-sans font-normal text-[var(--theme-text)] transition-all duration-150 resize-none placeholder:text-text-placeholder focus-visible:outline-none focus-visible:border-[var(--theme-secondary)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--theme-secondary)_30%,transparent)] disabled:cursor-not-allowed disabled:opacity-50",
+            size === "default" && "px-3.5 py-2.5 text-base",
+            size === "compact" && "px-2.5 py-1 text-[length:var(--font-size-xs)]",
+            variant === "monospace" && "font-mono text-sm",
+            error &&
+              "border-[var(--theme-accent)] focus-visible:border-[var(--theme-accent)] focus-visible:ring-[color-mix(in_srgb,var(--theme-accent)_30%,transparent)]",
             obscured && "blur-[1.5px] obscured-glitch obscured-field",
             className,
           )}
