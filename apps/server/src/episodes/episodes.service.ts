@@ -1,13 +1,65 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
-import { episodeSkills, episodes } from "../db/schema";
+import {
+  episodePlayers,
+  episodeSkills,
+  episodes,
+  sessionPlayerRecaps,
+  sessions,
+  users,
+} from "../db/schema";
 import type { CreateEpisodeDto } from "./dto/create-episode.dto";
 import type { CreateEpisodeSkillDto } from "./dto/create-episode-skill.dto";
 import type { UpdateEpisodeDto } from "./dto/update-episode.dto";
 import type { UpdateEpisodeSkillDto } from "./dto/update-episode-skill.dto";
+
+function cleanText(text: string): string {
+  return text.replace(/\u00AD/g, "").trim();
+}
+
+function formatEpisodeStatusFi(status: string): string {
+  switch (status) {
+    case "active":
+      return "Aktiivinen";
+    case "completed":
+      return "Arkistoitu";
+    case "planned":
+      return "Tulossa";
+    default:
+      return status;
+  }
+}
+
+function formatSessionStatusFi(status: string): string {
+  switch (status) {
+    case "played":
+      return "Pelattu";
+    case "next":
+      return "Seuraava";
+    case "planned":
+      return "Tulossa";
+    default:
+      return status;
+  }
+}
+
+function formatDateFi(date: Date | string | null | undefined, long = false): string | null {
+  if (!date) return null;
+  const parsed = date instanceof Date ? date : new Date(date);
+  if (Number.isNaN(parsed.getTime())) return null;
+  if (long) {
+    return parsed.toLocaleDateString("fi-FI", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
+  return parsed.toLocaleDateString("fi-FI");
+}
 
 @Injectable()
 export class EpisodesService {
@@ -114,5 +166,250 @@ export class EpisodesService {
       throw new NotFoundException("Skill not found for this episode");
     }
     await this.db.delete(episodeSkills).where(eq(episodeSkills.id, skillId));
+  }
+
+  /** Export all episodes with metadata, skills, players, summaries, and session recaps as clean Markdown. */
+  async exportMarkdown(): Promise<{ filename: string; markdown: string }> {
+    const [allEpisodes, allSkills, allPlayers, allSessions, allPlayerRecaps] = await Promise.all([
+      this.db.select().from(episodes).orderBy(asc(episodes.order), asc(episodes.id)),
+      this.db
+        .select()
+        .from(episodeSkills)
+        .orderBy(asc(episodeSkills.episodeId), asc(episodeSkills.id)),
+      this.db
+        .select({
+          episodeId: episodePlayers.episodeId,
+          username: users.username,
+        })
+        .from(episodePlayers)
+        .leftJoin(users, eq(episodePlayers.userId, users.id))
+        .orderBy(asc(episodePlayers.episodeId), asc(episodePlayers.id)),
+      this.db
+        .select()
+        .from(sessions)
+        .orderBy(asc(sessions.episodeId), asc(sessions.sessionNumber), asc(sessions.id)),
+      this.db
+        .select({
+          sessionId: sessionPlayerRecaps.sessionId,
+          username: users.username,
+          journal: sessionPlayerRecaps.journal,
+          highlight: sessionPlayerRecaps.highlight,
+          surprise: sessionPlayerRecaps.surprise,
+          mvp: sessionPlayerRecaps.mvp,
+        })
+        .from(sessionPlayerRecaps)
+        .leftJoin(users, eq(sessionPlayerRecaps.userId, users.id))
+        .orderBy(asc(sessionPlayerRecaps.sessionId), asc(sessionPlayerRecaps.id)),
+    ]);
+
+    if (allEpisodes.length === 0) {
+      return {
+        filename: "Jaksot.md",
+        markdown: "# Jaksot\n\nEi jaksoja tietokannassa.\n",
+      };
+    }
+
+    const skillsByEpisode = new Map<number, string[]>();
+    for (const skill of allSkills) {
+      const list = skillsByEpisode.get(skill.episodeId) ?? [];
+      list.push(cleanText(skill.name));
+      skillsByEpisode.set(skill.episodeId, list);
+    }
+
+    const playersByEpisode = new Map<number, string[]>();
+    for (const player of allPlayers) {
+      if (!player.username) continue;
+      const list = playersByEpisode.get(player.episodeId) ?? [];
+      list.push(cleanText(player.username));
+      playersByEpisode.set(player.episodeId, list);
+    }
+
+    const sessionsByEpisode = new Map<number, (typeof allSessions)[number][]>();
+    for (const session of allSessions) {
+      const list = sessionsByEpisode.get(session.episodeId) ?? [];
+      list.push(session);
+      sessionsByEpisode.set(session.episodeId, list);
+    }
+
+    const recapsBySession = new Map<number, (typeof allPlayerRecaps)[number][]>();
+    for (const recap of allPlayerRecaps) {
+      const list = recapsBySession.get(recap.sessionId) ?? [];
+      list.push(recap);
+      recapsBySession.set(recap.sessionId, list);
+    }
+
+    const sections: string[] = ["# Jaksot"];
+
+    for (const episode of allEpisodes) {
+      const epLines: string[] = [];
+      const orderNum = `#${String(episode.order).padStart(2, "0")}`;
+      epLines.push(`## ${cleanText(episode.title)}`);
+      epLines.push(
+        `- **Järjestys:** ${orderNum} | **Tila:** ${formatEpisodeStatusFi(episode.status)}`,
+      );
+
+      if (episode.description?.trim()) {
+        epLines.push("");
+        epLines.push(`**${cleanText(episode.description)}**`);
+      }
+
+      if (episode.tyrannyRoll != null) {
+        epLines.push("");
+        epLines.push(`**Heitto ${episode.tyrannyRoll}**`);
+      }
+
+      const cleanedContent = episode.content?.trim() ? cleanText(episode.content) : "";
+      if (cleanedContent) {
+        epLines.push("");
+        epLines.push(cleanedContent);
+      }
+
+      const epSkills = skillsByEpisode.get(episode.id) ?? [];
+      if (epSkills.length > 0) {
+        const lowerContent = cleanedContent.toLowerCase();
+        const hasMissingSkill = epSkills.some((name) => !lowerContent.includes(name.toLowerCase()));
+        if (hasMissingSkill) {
+          epLines.push("");
+          epLines.push("### Jaksotaidot");
+          epLines.push("");
+          for (const skillName of epSkills) {
+            epLines.push(`* ${skillName}`);
+          }
+        }
+      }
+
+      const epPlayers = playersByEpisode.get(episode.id) ?? [];
+      const epSessions = sessionsByEpisode.get(episode.id) ?? [];
+      const hasInfo =
+        epPlayers.length > 0 ||
+        Boolean(episode.players?.trim()) ||
+        epSessions.length > 0 ||
+        Boolean(episode.sessionDates?.trim()) ||
+        Boolean(episode.location?.trim());
+
+      if (hasInfo) {
+        epLines.push("");
+        epLines.push("### Tiedot");
+
+        if (epPlayers.length > 0) {
+          epLines.push("");
+          epLines.push("#### Pelaajat");
+          epLines.push("");
+          for (const username of epPlayers) {
+            epLines.push(`* ${username}`);
+          }
+        } else if (episode.players?.trim()) {
+          epLines.push("");
+          epLines.push("#### Pelaajat");
+          epLines.push("");
+          epLines.push(cleanText(episode.players));
+        }
+
+        if (epSessions.length > 0) {
+          epLines.push("");
+          epLines.push("#### Sessiot");
+          epLines.push("");
+          for (const s of epSessions) {
+            const shortDate = formatDateFi(s.date, false);
+            const label = s.label?.trim() ? ` ${cleanText(s.label)}` : "";
+            const datePart = shortDate ? ` (${shortDate})` : "";
+            epLines.push(
+              `* #${String(s.sessionNumber).padStart(2, "0")}${label}${datePart} — ${formatSessionStatusFi(s.status)}`,
+            );
+          }
+        } else if (episode.sessionDates?.trim()) {
+          epLines.push("");
+          epLines.push("#### Sessiot");
+          epLines.push("");
+          epLines.push(cleanText(episode.sessionDates));
+        }
+
+        if (episode.location?.trim()) {
+          epLines.push("");
+          epLines.push("#### Sijainti");
+          epLines.push("");
+          const locName = cleanText(episode.location);
+          const locLink = episode.locationLink?.trim();
+          epLines.push(locLink ? `[${locName}](${locLink})` : locName);
+        }
+      }
+
+      if (episode.mechanicalAdditions?.trim()) {
+        epLines.push("");
+        epLines.push("### Mekaaniset Lisäykset");
+        epLines.push("");
+        epLines.push(cleanText(episode.mechanicalAdditions));
+      }
+
+      if (episode.summary?.trim()) {
+        epLines.push("");
+        epLines.push("### Jakson yhteenveto");
+        epLines.push("");
+        epLines.push(cleanText(episode.summary));
+      }
+
+      for (const s of epSessions) {
+        const sessionLabel = `Sessio #${String(s.sessionNumber).padStart(2, "0")}${
+          s.label?.trim() ? ` — ${cleanText(s.label)}` : ""
+        }`;
+        const longDate = formatDateFi(s.date, true);
+        const draftNotice =
+          s.status === "played" && !s.recapPublished ? " *(Luonnos — julkaisematta)*" : "";
+
+        epLines.push("");
+        epLines.push(`### ${sessionLabel}`);
+        epLines.push("");
+        epLines.push(
+          `**${formatSessionStatusFi(s.status)}**${longDate ? ` — ${longDate}` : ""}${draftNotice}`,
+        );
+
+        if (s.gmRecap?.trim()) {
+          epLines.push("");
+          epLines.push("#### Pelinjohtajan kertaus");
+          epLines.push("");
+          epLines.push(cleanText(s.gmRecap));
+        }
+
+        const recaps = recapsBySession.get(s.id) ?? [];
+        if (recaps.length > 0 || s.status === "played") {
+          epLines.push("");
+          epLines.push("#### Pelaajien kertaukset");
+          if (recaps.length === 0) {
+            epLines.push("");
+            epLines.push("Pelaajat eivät ole vielä kirjoittaneet kertauksia.");
+          } else {
+            for (const recap of recaps) {
+              epLines.push("");
+              epLines.push(`##### ${recap.username?.trim() || "Tuntematon pelaaja"}`);
+              const fields: Array<[string, string | null | undefined]> = [
+                ["Hahmon näkökulmasta muistiinpanoja", recap.journal],
+                ["Mitä jäi mieleen?", recap.highlight],
+                ["Meta-pohdintaa / muistiinpanoja", recap.surprise],
+                ["Kehu kaveria", recap.mvp],
+              ];
+              const nonEmpty = fields.filter(([, value]) => Boolean(value?.trim()));
+              if (nonEmpty.length === 0) {
+                epLines.push("");
+                epLines.push("*Tyhjä kertaus.*");
+              } else {
+                for (const [label, value] of nonEmpty) {
+                  if (!value) continue;
+                  epLines.push("");
+                  epLines.push(`**${label}:**`);
+                  epLines.push(cleanText(value));
+                }
+              }
+            }
+          }
+        }
+      }
+
+      sections.push(epLines.join("\n"));
+    }
+
+    return {
+      filename: "Jaksot.md",
+      markdown: `${sections.join("\n\n---\n\n")}\n`,
+    };
   }
 }

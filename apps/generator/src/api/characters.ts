@@ -1,3 +1,4 @@
+import { getAnchorById } from "@repo/ui/data/anchors";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiBaseUrl } from "./base-url";
 import type { MonkPower } from "./monk-powers";
@@ -257,4 +258,42 @@ export function useAdvanceMonk() {
       queryClient.invalidateQueries({ queryKey: ["dashboard"] });
     },
   });
+}
+
+/** Resolve anchor card IDs in exported character Markdown into full Finnish anchor descriptions. */
+export function enrichCharacterMarkdownAnchors(markdown: string): string {
+  return markdown.replace(
+    /^- \*\*Pelaajan Ankkuri:\*\* `([^`]+)`$/gm,
+    (fullMatch, anchorId: string) => {
+      const anchor = getAnchorById(anchorId);
+      if (!anchor) return fullMatch;
+      return `- **Pelaajan Ankkuri:** **${anchor.name}** — ${anchor.description} *(Polariteetit: ${anchor.polarityA.title}: ${anchor.polarityA.description} / ${anchor.polarityB.title}: ${anchor.polarityB.description})*`;
+    },
+  );
+}
+
+/** Fetch all characters formatted as Markdown and trigger a browser file download. */
+export async function downloadCharactersMarkdown(): Promise<void> {
+  const token = localStorage.getItem("auth_token");
+  const res = await fetch(`${API_URL}/export/markdown`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    credentials: "include",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to export characters markdown");
+  }
+  const { filename, markdown } = (await res.json()) as {
+    filename: string;
+    markdown: string;
+  };
+  const enriched = enrichCharacterMarkdownAnchors(markdown);
+  const blob = new Blob([enriched], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename || "Hahmot.md";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }

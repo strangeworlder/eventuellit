@@ -28,6 +28,13 @@ export class EpisodesController {
     return this.episodesService.findAll(status);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles("gm")
+  @Get("export/markdown")
+  exportMarkdown() {
+    return this.episodesService.exportMarkdown();
+  }
+
   @Get(":id")
   findOne(@Param("id", ParseIntPipe) id: number) {
     return this.episodesService.findOne(id);

@@ -22,7 +22,7 @@ import {
   users,
 } from "../db/schema";
 import { NotificationsService } from "../notifications/notifications.service";
-import { addN4, kestoBonusFromPackedAttribute } from "./attribute-dice";
+import { addN4, decodeAttributeDice, kestoBonusFromPackedAttribute } from "./attribute-dice";
 import type { AdvanceCharacterDto } from "./dto/advance-character.dto";
 import type { AdvanceMonkDto } from "./dto/advance-monk.dto";
 import type { CreateCharacterDto } from "./dto/create-character.dto";
@@ -64,6 +64,107 @@ function ensureRebellionSkillInArray(skills: unknown[]): unknown[] {
     );
   }
   return [...existing, { name: REBELLION_SKILL_ACQUIRED_NAME, isCustom: false, locked: true }];
+}
+
+const ATTRIBUTE_DICE_FACES = [4, 6, 8, 10, 12] as const;
+
+export function formatPackedAttributeDice(packed: number): string {
+  if (!Number.isInteger(packed) || packed < 0 || packed > 242) {
+    return "—";
+  }
+  const counts = decodeAttributeDice(packed);
+  const parts: string[] = [];
+  for (let i = ATTRIBUTE_DICE_FACES.length - 1; i >= 0; i -= 1) {
+    const count = counts[i];
+    if (count > 0) {
+      parts.push(`${count}n${ATTRIBUTE_DICE_FACES[i]}`);
+    }
+  }
+  return parts.length > 0 ? parts.join(", ") : "—";
+}
+
+function formatSexFi(sex: unknown): string {
+  switch (sex) {
+    case "male":
+      return "Mies";
+    case "female":
+      return "Nainen";
+    case "non-binary":
+      return "Ei-binäärinen";
+    default:
+      return "Ei määritelty";
+  }
+}
+
+function formatEpisodeStatusFi(status: string): string {
+  switch (status) {
+    case "active":
+      return "Aktiivinen";
+    case "completed":
+      return "Arkistoitu";
+    case "planned":
+      return "Tulossa";
+    default:
+      return status;
+  }
+}
+
+function formatDiceCounts(dice: Array<{ faces: number }>): string {
+  if (dice.length === 0) return "";
+  const counts = new Map<number, number>();
+  for (const die of dice) {
+    counts.set(die.faces, (counts.get(die.faces) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort(([a], [b]) => a - b)
+    .map(([faces, count]) => `${count}×n${faces}`)
+    .join(", ");
+}
+
+function extractSqlRows(result: unknown): Record<string, unknown>[] {
+  if (Array.isArray(result)) {
+    return result as Record<string, unknown>[];
+  }
+  if (
+    typeof result === "object" &&
+    result !== null &&
+    "rows" in result &&
+    Array.isArray((result as { rows?: unknown }).rows)
+  ) {
+    return (result as { rows: Record<string, unknown>[] }).rows;
+  }
+  return [];
+}
+
+interface ShipCabinInfo {
+  key: string;
+  deckNumber: number;
+  name: string;
+  cabinCustomTitle: string | null;
+  cabinDecoration: string | null;
+  gmRoomNotes: string | null;
+}
+
+interface ShipPossessionInfo {
+  name: string;
+  description: string;
+  gmMechanicalNotes: string | null;
+}
+
+interface ShipClockInfo {
+  category: string;
+  title: string;
+  description: string;
+  segmentsFilled: number;
+  segmentsTotal: number | null;
+  status: string;
+  completionNotes: string | null;
+}
+
+interface OptionalShipData {
+  cabinByChar: Map<number, ShipCabinInfo>;
+  possessionsByChar: Map<number, ShipPossessionInfo[]>;
+  clocksByChar: Map<number, ShipClockInfo[]>;
 }
 
 const characterWithOwnerColumns = {
@@ -892,5 +993,407 @@ export class CharactersService {
 
       return { advanced: true, character: updated, power };
     });
+  }
+
+  /**
+   * Fetch optional Aamunkoi (ship) data using fault-tolerant raw SQL so this branch compiles
+   * and runs cleanly even when ship tables do not exist in the current database schema.
+   */
+  private async fetchOptionalShipData(): Promise<OptionalShipData> {
+    const cabinByChar = new Map<number, ShipCabinInfo>();
+    const possessionsByChar = new Map<number, ShipPossessionInfo[]>();
+    const clocksByChar = new Map<number, ShipClockInfo[]>();
+
+    if (typeof this.db.execute !== "function") {
+      return { cabinByChar, possessionsByChar, clocksByChar };
+    }
+
+    try {
+      const roomsRes = await this.db.execute(
+        sql`SELECT claimed_by_character_id, key, deck_number, name, cabin_custom_title, cabin_decoration, gm_room_notes FROM ship_rooms WHERE claimed_by_character_id IS NOT NULL`,
+      );
+      for (const row of extractSqlRows(roomsRes)) {
+        const charId = Number(row.claimed_by_character_id);
+        if (!Number.isInteger(charId) || charId <= 0) continue;
+        cabinByChar.set(charId, {
+          key: String(row.key ?? ""),
+          deckNumber: Number(row.deck_number ?? 0),
+          name: String(row.name ?? ""),
+          cabinCustomTitle:
+            typeof row.cabin_custom_title === "string" ? row.cabin_custom_title : null,
+          cabinDecoration: typeof row.cabin_decoration === "string" ? row.cabin_decoration : null,
+          gmRoomNotes: typeof row.gm_room_notes === "string" ? row.gm_room_notes : null,
+        });
+      }
+    } catch {
+      // Ship rooms table is not present on branches/databases without Aamunkoi.
+    }
+
+    try {
+      const possessionsRes = await this.db.execute(
+        sql`SELECT character_id, name, description, gm_mechanical_notes FROM cabin_possessions ORDER BY order_index ASC, id ASC`,
+      );
+      for (const row of extractSqlRows(possessionsRes)) {
+        const charId = Number(row.character_id);
+        if (!Number.isInteger(charId) || charId <= 0) continue;
+        const list = possessionsByChar.get(charId) ?? [];
+        list.push({
+          name: String(row.name ?? ""),
+          description: typeof row.description === "string" ? row.description : "",
+          gmMechanicalNotes:
+            typeof row.gm_mechanical_notes === "string" ? row.gm_mechanical_notes : null,
+        });
+        possessionsByChar.set(charId, list);
+      }
+    } catch {
+      // Cabin possessions table is optional.
+    }
+
+    try {
+      const clocksRes = await this.db.execute(
+        sql`SELECT character_id, category, title, description, segments_filled, segments_total, status, completion_notes FROM ship_clocks WHERE character_id IS NOT NULL ORDER BY id ASC`,
+      );
+      for (const row of extractSqlRows(clocksRes)) {
+        const charId = Number(row.character_id);
+        if (!Number.isInteger(charId) || charId <= 0) continue;
+        const list = clocksByChar.get(charId) ?? [];
+        list.push({
+          category: String(row.category ?? "projekti"),
+          title: String(row.title ?? ""),
+          description: typeof row.description === "string" ? row.description : "",
+          segmentsFilled: Number(row.segments_filled ?? 0),
+          segmentsTotal:
+            row.segments_total !== null && row.segments_total !== undefined
+              ? Number(row.segments_total)
+              : null,
+          status: String(row.status ?? "active"),
+          completionNotes: typeof row.completion_notes === "string" ? row.completion_notes : null,
+        });
+        clocksByChar.set(charId, list);
+      }
+    } catch {
+      // Ship clocks table is optional.
+    }
+
+    return { cabinByChar, possessionsByChar, clocksByChar };
+  }
+
+  /** Export all characters grouped by player as clean Finnish Markdown. */
+  async exportMarkdown(): Promise<{ filename: string; markdown: string }> {
+    const [allChars, shipData] = await Promise.all([this.findAll(), this.fetchOptionalShipData()]);
+
+    if (allChars.length === 0) {
+      return {
+        filename: "Hahmot.md",
+        markdown: "# Hahmot\n\nEi hahmoja tietokannassa.\n",
+      };
+    }
+
+    type CharacterExportRow = (typeof allChars)[number] & {
+      id: number;
+      userId: number;
+      name: string;
+      archetype: string;
+      ownerName?: string | null;
+      sex?: string | null;
+      motivation?: string | null;
+      notes?: string | null;
+      nicknames?: unknown;
+      keho?: number;
+      currentKeho?: number;
+      mieli?: number;
+      currentMieli?: number;
+      tera?: number;
+      currentTera?: number;
+      sisuDice?: unknown;
+      removedSisuIds?: unknown;
+      harmit?: unknown;
+      skills?: unknown;
+      inventory?: unknown;
+      fysiikka?: number;
+      nopeus?: number;
+      ymmarrys?: number;
+      persoona?: number;
+      nakemys?: number;
+      napparyys?: number;
+      anchorId?: string | null;
+      monkAdvancementsAllowed?: number;
+      monkAdvancementsUsed?: number;
+      removedFromPlayAt?: Date | string | null;
+      episodes?: CharacterEpisodeRow[];
+      monkPowers?: MonkPowerWithAcquired[];
+    };
+
+    const grouped = new Map<string, CharacterExportRow[]>();
+    const sortedChars = [...(allChars as CharacterExportRow[])].sort((a, b) => {
+      const ownerA = a.ownerName ?? `Pelaaja #${a.userId}`;
+      const ownerB = b.ownerName ?? `Pelaaja #${b.userId}`;
+      const ownerCmp = ownerA.localeCompare(ownerB, "fi");
+      if (ownerCmp !== 0) return ownerCmp;
+      return a.id - b.id;
+    });
+
+    for (const char of sortedChars) {
+      const playerLabel = char.ownerName?.trim() || `Pelaaja #${char.userId}`;
+      const list = grouped.get(playerLabel) ?? [];
+      list.push(char);
+      grouped.set(playerLabel, list);
+    }
+
+    const playerSections: string[] = ["# Hahmot"];
+
+    for (const [playerLabel, playerChars] of grouped.entries()) {
+      const lines: string[] = [`## Pelaaja: ${playerLabel}`];
+
+      for (const char of playerChars) {
+        const harmitRaw = Array.isArray(char.harmit) ? char.harmit : [];
+        const harmitEntries = harmitRaw.map((h) => {
+          if (typeof h === "string") return { text: h, healed: false };
+          if (typeof h === "object" && h !== null) {
+            const entry = h as { text?: unknown; healed?: unknown };
+            return {
+              text: typeof entry.text === "string" ? entry.text : "",
+              healed: Boolean(entry.healed),
+            };
+          }
+          return { text: "", healed: false };
+        });
+        const activeHarmit = harmitEntries.filter((h) => !h.healed).length;
+        const totalHarmit = harmitEntries.length;
+        const isRemoved = Boolean(char.removedFromPlayAt) || totalHarmit >= 5;
+
+        lines.push("");
+        lines.push(`### ${char.name}`);
+        lines.push("");
+        lines.push(`- **Arkkityyppi:** ${char.archetype}`);
+        lines.push(`- **Sukupuoli:** ${formatSexFi(char.sex)}`);
+        lines.push(`- **Tila:** ${isRemoved ? "Poistettu pelistä" : "Aktiivinen"}`);
+
+        const nicknames = Array.isArray(char.nicknames)
+          ? char.nicknames.filter((n): n is string => typeof n === "string" && n.trim().length > 0)
+          : [];
+        if (nicknames.length > 0) {
+          lines.push(`- **Lempinimet:** ${nicknames.join(", ")}`);
+        }
+
+        if (Array.isArray(char.episodes) && char.episodes.length > 0) {
+          const epFormatted = char.episodes
+            .map((ep) => {
+              const marks: string[] = [];
+              if (ep.refreshedAt) marks.push("levätty");
+              if (ep.advancedAt) marks.push("kehitetty");
+              const markText = marks.length > 0 ? `, ${marks.join(", ")}` : "";
+              return `${ep.title} (${formatEpisodeStatusFi(ep.status)}${markText})`;
+            })
+            .join(", ");
+          lines.push(`- **Jaksot:** ${epFormatted}`);
+        }
+
+        if (char.anchorId) {
+          lines.push(`- **Pelaajan Ankkuri:** \`${char.anchorId}\``);
+        }
+
+        lines.push("");
+        lines.push("#### Kestot ja ominaisuudet");
+        lines.push("");
+        lines.push(
+          `- **Keho:** ${char.currentKeho ?? 8} / ${char.keho ?? 8} *(Fysiikka: ${formatPackedAttributeDice(char.fysiikka ?? 0)}, Nopeus: ${formatPackedAttributeDice(char.nopeus ?? 0)})*`,
+        );
+        lines.push(
+          `- **Mieli:** ${char.currentMieli ?? 8} / ${char.mieli ?? 8} *(Ymmärrys: ${formatPackedAttributeDice(char.ymmarrys ?? 0)}, Persoona: ${formatPackedAttributeDice(char.persoona ?? 0)})*`,
+        );
+        lines.push(
+          `- **Terä:** ${char.currentTera ?? 8} / ${char.tera ?? 8} *(Näkemys: ${formatPackedAttributeDice(char.nakemys ?? 0)}, Näppäryys: ${formatPackedAttributeDice(char.napparyys ?? 0)})*`,
+        );
+
+        lines.push("");
+        lines.push("#### Resurssit");
+        lines.push("");
+
+        const rawSisu = Array.isArray(char.sisuDice)
+          ? (char.sisuDice as Array<{ id?: unknown; faces?: unknown }>).filter(
+              (d): d is { id: string; faces: number } =>
+                typeof d === "object" &&
+                d !== null &&
+                typeof d.id === "string" &&
+                typeof d.faces === "number",
+            )
+          : [];
+        const removedSisuSet = new Set<string>(
+          Array.isArray(char.removedSisuIds)
+            ? char.removedSisuIds.filter((id): id is string => typeof id === "string")
+            : [],
+        );
+        const activeSisu = rawSisu.filter((d) => !removedSisuSet.has(d.id));
+        const spentSisu = rawSisu.filter((d) => removedSisuSet.has(d.id));
+        const activeSisuText = formatDiceCounts(activeSisu);
+        const spentSisuText = formatDiceCounts(spentSisu);
+        const sisuSummary =
+          rawSisu.length === 0
+            ? "—"
+            : `${activeSisuText || "0"}${spentSisuText ? ` *(käytetty: ${spentSisuText})*` : ""}`;
+        lines.push(`- **Sisu:** ${sisuSummary}`);
+
+        lines.push(`- **Harmit (${activeHarmit}/5 aktiivista, yhteensä ${totalHarmit}/5):**`);
+        if (harmitEntries.length === 0) {
+          lines.push("  - Ei harmeja.");
+        } else {
+          for (const h of harmitEntries) {
+            if (!h.text.trim()) continue;
+            lines.push(`  - ${h.text.trim()} *(${h.healed ? "parannettu" : "aktiivinen"})*`);
+          }
+        }
+
+        lines.push("");
+        lines.push("#### Taidot");
+        lines.push("");
+        const rawSkills = Array.isArray(char.skills) ? char.skills : [];
+        const normalizedSkills = rawSkills
+          .map((s) => {
+            if (typeof s === "string") {
+              return { name: s.trim(), isCustom: false, locked: false };
+            }
+            if (typeof s === "object" && s !== null && "name" in s) {
+              const obj = s as { name?: unknown; isCustom?: unknown; locked?: unknown };
+              return {
+                name: typeof obj.name === "string" ? obj.name.trim() : "",
+                isCustom: Boolean(obj.isCustom),
+                locked: Boolean(obj.locked),
+              };
+            }
+            return { name: "", isCustom: false, locked: false };
+          })
+          .filter((s) => s.name.length > 0);
+
+        if (normalizedSkills.length === 0) {
+          lines.push("Ei taitoja.");
+        } else {
+          for (const skill of normalizedSkills) {
+            const tag = skill.locked ? " *(erikoistaito)*" : skill.isCustom ? " *(oma taito)*" : "";
+            lines.push(`- ${skill.name}${tag}`);
+          }
+        }
+
+        const powers = char.monkPowers ?? [];
+        const allowedMonk = char.monkAdvancementsAllowed ?? 0;
+        const usedMonk = powers.length > 0 ? powers.length : (char.monkAdvancementsUsed ?? 0);
+        if (powers.length > 0 || allowedMonk > 0 || char.archetype === "Munkki") {
+          lines.push("");
+          lines.push("#### Munkin voimat");
+          lines.push("");
+          lines.push(`- **Munkki-kehitykset:** ${usedMonk} / ${allowedMonk} valittu`);
+          if (powers.length === 0) {
+            lines.push("- Ei vielä valittuja voimia.");
+          } else {
+            for (const power of powers) {
+              lines.push(`- **${power.name}** (${power.tier}. piiri)`);
+              if (power.description?.trim()) {
+                lines.push(`  - ${power.description.trim()}`);
+              }
+              const props = power.properties ?? {};
+              const propEntries = Object.entries(props);
+              if (propEntries.length > 0) {
+                const propSummary = propEntries.map(([k, v]) => `${k}: ${String(v)}`).join(", ");
+                lines.push(`  - *Ominaisuudet:* ${propSummary}`);
+              }
+            }
+          }
+        }
+
+        const rawInventory = Array.isArray(char.inventory) ? char.inventory : [];
+        const inventoryItems = rawInventory.filter(
+          (item): item is { name: string; description?: string; quantity?: number } =>
+            typeof item === "object" &&
+            item !== null &&
+            "name" in item &&
+            typeof (item as { name?: unknown }).name === "string" &&
+            (item as { name: string }).name.trim().length > 0,
+        );
+        if (inventoryItems.length > 0) {
+          lines.push("");
+          lines.push("#### Varusteet");
+          lines.push("");
+          for (const item of inventoryItems) {
+            const qty =
+              typeof item.quantity === "number" && item.quantity > 1 ? ` (${item.quantity}×)` : "";
+            const desc = item.description?.trim() ? ` — ${item.description.trim()}` : "";
+            lines.push(`- ${item.name.trim()}${qty}${desc}`);
+          }
+        }
+
+        if (char.motivation?.trim()) {
+          lines.push("");
+          lines.push("#### Motivaatio");
+          lines.push("");
+          lines.push(char.motivation.trim());
+        }
+
+        if (char.notes?.trim()) {
+          lines.push("");
+          lines.push("#### Muistiinpanot");
+          lines.push("");
+          lines.push(char.notes.trim());
+        }
+
+        const cabin = shipData.cabinByChar.get(char.id);
+        const possessions = shipData.possessionsByChar.get(char.id) ?? [];
+        const clocks = shipData.clocksByChar.get(char.id) ?? [];
+        if (cabin || possessions.length > 0 || clocks.length > 0) {
+          lines.push("");
+          lines.push("#### Aamunkoi (Hytti ja omaisuus)");
+          lines.push("");
+          if (cabin) {
+            const cabinTitle = cabin.cabinCustomTitle?.trim() || cabin.name;
+            lines.push(`- **Hytti:** ${cabinTitle} (Kansi ${cabin.deckNumber}, \`${cabin.key}\`)`);
+            if (cabin.cabinDecoration?.trim()) {
+              lines.push(`- **Hytin sisustus:** ${cabin.cabinDecoration.trim()}`);
+            }
+            if (cabin.gmRoomNotes?.trim()) {
+              lines.push(`- **PJ-muistiinpanot hytistä:** ${cabin.gmRoomNotes.trim()}`);
+            }
+          }
+          if (possessions.length > 0) {
+            lines.push("- **Hytin omaisuus:**");
+            for (const item of possessions) {
+              const desc = item.description.trim() ? ` — ${item.description.trim()}` : "";
+              const gmNotes = item.gmMechanicalNotes?.trim()
+                ? ` *(Mekaniikka: ${item.gmMechanicalNotes.trim()})*`
+                : "";
+              lines.push(`  - **${item.name}**${desc}${gmNotes}`);
+            }
+          }
+          if (clocks.length > 0) {
+            lines.push("- **Hahmokohtaiset kellot:**");
+            for (const clock of clocks) {
+              const categoryLabel = clock.category === "tutkimus" ? "Tutkimus" : "Projekti";
+              const progress =
+                clock.segmentsTotal != null
+                  ? `${clock.segmentsFilled}/${clock.segmentsTotal}`
+                  : `${clock.segmentsFilled} segmenttiä`;
+              const statusLabel =
+                clock.status === "completed"
+                  ? "valmis"
+                  : clock.status === "archived"
+                    ? "arkistoitu"
+                    : "aktiivinen";
+              const desc = clock.description.trim() ? ` — ${clock.description.trim()}` : "";
+              const compNotes = clock.completionNotes?.trim()
+                ? ` *(Tulos: ${clock.completionNotes.trim()})*`
+                : "";
+              lines.push(
+                `  - **${clock.title}** (${categoryLabel}, ${progress}, ${statusLabel})${desc}${compNotes}`,
+              );
+            }
+          }
+        }
+      }
+
+      playerSections.push(lines.join("\n"));
+    }
+
+    return {
+      filename: "Hahmot.md",
+      markdown: `${playerSections.join("\n\n---\n\n")}\n`,
+    };
   }
 }

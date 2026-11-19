@@ -27,6 +27,7 @@ describe("EpisodesController", () => {
       addSkill: vi.fn().mockResolvedValue({}),
       updateSkill: vi.fn().mockResolvedValue({}),
       removeSkill: vi.fn().mockResolvedValue(undefined),
+      exportMarkdown: vi.fn().mockResolvedValue({ filename: "Jaksot.md", markdown: "# Jaksot\n" }),
     };
 
     const _module: TestingModule = await Test.createTestingModule({
@@ -85,6 +86,12 @@ describe("EpisodesController", () => {
   it("should allow GM to remove skill", async () => {
     await controller.removeSkill(1, 5);
     expect(service.removeSkill).toHaveBeenCalledWith(1, 5);
+  });
+
+  it("should allow GM to export episodes as markdown", async () => {
+    const result = await controller.exportMarkdown();
+    expect(service.exportMarkdown).toHaveBeenCalled();
+    expect(result).toEqual({ filename: "Jaksot.md", markdown: "# Jaksot\n" });
   });
 
   describe("ValidationPipe with UpdateEpisodeDto and CreateEpisodeDto", () => {
