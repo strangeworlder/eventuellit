@@ -1,8 +1,10 @@
 import "reflect-metadata";
+import { Reflector } from "@nestjs/core";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { vi } from "vitest";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import type { AuthUser } from "../auth/current-user.decorator";
+import { RolesGuard } from "../auth/roles.guard";
 import { CharactersController } from "./characters.controller";
 import { CharactersService } from "./characters.service";
 
@@ -25,6 +27,7 @@ describe("CharactersController", () => {
       advanceForEpisode: vi.fn().mockResolvedValue({ advanced: true, alreadyAdvanced: false }),
       advanceAsMonk: vi.fn().mockResolvedValue({ advanced: true }),
       remove: vi.fn().mockResolvedValue(undefined),
+      exportMarkdown: vi.fn().mockResolvedValue({ filename: "Hahmot.md", markdown: "# Hahmot\n" }),
     };
 
     const _module: TestingModule = await Test.createTestingModule({
@@ -34,9 +37,12 @@ describe("CharactersController", () => {
           provide: CharactersService,
           useValue: service,
         },
+        Reflector,
       ],
     })
       .overrideGuard(JwtAuthGuard)
+      .useValue({ canActivate: () => true })
+      .overrideGuard(RolesGuard)
       .useValue({ canActivate: () => true })
       .compile();
 
@@ -119,5 +125,11 @@ describe("CharactersController", () => {
   it("should pass userId and powerId to advanceMonk", async () => {
     await controller.advanceMonk(1, { powerId: 42 }, mockReq);
     expect(service.advanceAsMonk).toHaveBeenCalledWith(1, { powerId: 42 }, mockUser.id);
+  });
+
+  it("should export characters as markdown", async () => {
+    const result = await controller.exportMarkdown();
+    expect(service.exportMarkdown).toHaveBeenCalled();
+    expect(result).toEqual({ filename: "Hahmot.md", markdown: "# Hahmot\n" });
   });
 });

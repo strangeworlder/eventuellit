@@ -8,6 +8,8 @@ type MockDb = {
   query: Record<string, Record<string, ReturnType<typeof vi.fn>>>;
   select: ReturnType<typeof vi.fn>;
   from: ReturnType<typeof vi.fn>;
+  leftJoin: ReturnType<typeof vi.fn>;
+  innerJoin: ReturnType<typeof vi.fn>;
   where: ReturnType<typeof vi.fn>;
   orderBy: ReturnType<typeof vi.fn>;
   insert: ReturnType<typeof vi.fn>;
@@ -31,6 +33,8 @@ describe("EpisodesService", () => {
       },
       select: vi.fn().mockReturnThis(),
       from: vi.fn().mockReturnThis(),
+      leftJoin: vi.fn().mockReturnThis(),
+      innerJoin: vi.fn().mockReturnThis(),
       where: vi.fn().mockReturnThis(),
       orderBy: vi.fn().mockReturnThis(),
       insert: vi.fn().mockReturnThis(),
@@ -154,5 +158,91 @@ describe("EpisodesService", () => {
     mockDb.where.mockResolvedValueOnce([episode]).mockResolvedValueOnce([skill]);
 
     await expect(service.removeSkill(1, 5)).rejects.toThrow(NotFoundException);
+  });
+
+  describe("exportMarkdown", () => {
+    it("should return empty placeholder when no episodes exist", async () => {
+      mockDb.orderBy
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([]);
+
+      const result = await service.exportMarkdown();
+      expect(result.filename).toBe("Jaksot.md");
+      expect(result.markdown).toBe("# Jaksot\n\nEi jaksoja tietokannassa.\n");
+    });
+
+    it("should export episodes with skills, players, summaries, and unpublished recaps without soft hyphens", async () => {
+      mockDb.orderBy
+        .mockResolvedValueOnce([
+          {
+            id: 1,
+            slug: "ohjainlevy",
+            title: "Oh\u00ADjain\u00ADle\u00ADvy",
+            order: 1,
+            status: "completed",
+            description: "Keikka Kilven asemalla.",
+            content: "### Premissi\n\nRyöstäkää oh\u00ADjain\u00ADle\u00ADvy.",
+            location: "Kilpi",
+            locationLink: "/world/09-kilpi",
+            players: null,
+            sessionDates: null,
+            mechanicalAdditions: "### Aseet\n\nVahinko **1n8**.",
+            summary: "Kolmikko pakeni Aamunkoilla.",
+            tyrannyRoll: 2,
+          },
+        ])
+        .mockResolvedValueOnce([
+          { id: 10, episodeId: 1, name: "Hylkyjen tutkija" },
+          { id: 11, episodeId: 1, name: "Byrokraatti" },
+        ])
+        .mockResolvedValueOnce([
+          { episodeId: 1, username: "Pekka" },
+          { episodeId: 1, username: "Taija" },
+        ])
+        .mockResolvedValueOnce([
+          {
+            id: 100,
+            episodeId: 1,
+            sessionNumber: 1,
+            date: new Date("2026-03-26T18:00:00Z"),
+            status: "played",
+            label: "Pelastus",
+            gmRecap: "Vankikuljetus pysäytettiin huoltoaukiolla.",
+            recapPublished: false,
+          },
+        ])
+        .mockResolvedValueOnce([
+          {
+            sessionId: 100,
+            username: "Pekka",
+            journal: "Syy sai vaurioita.",
+            highlight: "Purppura välähdys",
+            surprise: null,
+            mvp: "Taija",
+          },
+        ]);
+
+      const result = await service.exportMarkdown();
+
+      expect(result.filename).toBe("Jaksot.md");
+      expect(result.markdown).not.toContain("\u00AD");
+      expect(result.markdown).toContain("## Ohjainlevy");
+      expect(result.markdown).toContain("- **Järjestys:** #01 | **Tila:** Arkistoitu");
+      expect(result.markdown).toContain("**Heitto 2**");
+      expect(result.markdown).toContain("### Jaksotaidot");
+      expect(result.markdown).toContain("* Hylkyjen tutkija");
+      expect(result.markdown).toContain("* Pekka");
+      expect(result.markdown).toContain("[Kilpi](/world/09-kilpi)");
+      expect(result.markdown).toContain("### Mekaaniset Lisäykset");
+      expect(result.markdown).toContain("### Jakson yhteenveto");
+      expect(result.markdown).toContain("### Sessio #01 — Pelastus");
+      expect(result.markdown).toContain("*(Luonnos — julkaisematta)*");
+      expect(result.markdown).toContain("Vankikuljetus pysäytettiin huoltoaukiolla.");
+      expect(result.markdown).toContain("##### Pekka");
+      expect(result.markdown).toContain("**Kehu kaveria:**\nTaija");
+    });
   });
 });

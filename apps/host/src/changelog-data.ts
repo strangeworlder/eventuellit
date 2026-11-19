@@ -29,6 +29,12 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
     name: "Operaatiot — GM-hallinta ja historia",
     features: [
       {
+        title: "Tietokantasisältöjen Markdown-vienti pelinjohtajalle",
+        description:
+          "Pelinjohtaja voi nyt ladata ajantasaisen hahmo- ja jaksodatan suoraan puhtaana Markdown-tiedostona (Hahmot.md ja Jaksot.md) hahmo- ja jaksolistasivujen yläreunan latauspainikkeista.",
+        link: { label: "Siirry jaksoihin", to: "/episodes" },
+      },
+      {
         title: "Pelaajakohtainen erikoistaito: Kapinan riveissä taistellut",
         description:
           'Palaavan hahmon kehitysnäkymässä voi nyt valita kerran pelaajakohtaisen taidon "Kapinan riveissä taisteleva", joka lukittuu kaikille pelaajan hahmoille muodossa "Kapinan riveissä taistellut".',

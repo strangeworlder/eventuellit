@@ -34,6 +34,27 @@ export interface EpisodeSkill {
   name: string;
 }
 
+export interface MarkdownExportResponse {
+  filename: string;
+  markdown: string;
+}
+
+/** Fetch all episodes formatted as Markdown and trigger a browser file download. */
+export async function downloadEpisodesMarkdown(): Promise<void> {
+  const { filename, markdown } = await apiFetch<MarkdownExportResponse>(
+    "/episodes/export/markdown",
+  );
+  const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename || "Jaksot.md";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
 export const useEpisodes = (status?: string) => {
   return useQuery<Episode[]>({
     queryKey: queryKeys.episodes.list(status),

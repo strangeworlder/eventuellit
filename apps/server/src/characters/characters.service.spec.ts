@@ -21,6 +21,7 @@ type MockDb = {
   set: ReturnType<typeof vi.fn>;
   delete: ReturnType<typeof vi.fn>;
   transaction: ReturnType<typeof vi.fn>;
+  execute?: ReturnType<typeof vi.fn>;
 };
 
 describe("CharactersService", () => {
@@ -710,6 +711,198 @@ describe("CharactersService", () => {
       const result = await service.advanceAsMonk(1, { powerId: 20 }, 1);
       expect(result.advanced).toBe(true);
       expect(result.power).toEqual(power);
+    });
+  });
+
+  describe("exportMarkdown", () => {
+    it("should return placeholder when no characters exist", async () => {
+      mockDb.leftJoin.mockResolvedValueOnce([]);
+      const result = await service.exportMarkdown();
+      expect(result).toEqual({
+        filename: "Hahmot.md",
+        markdown: "# Hahmot\n\nEi hahmoja tietokannassa.\n",
+      });
+    });
+
+    it("should export characters grouped by player with decoded dice and tolerate missing ship tables", async () => {
+      const charRow = {
+        id: 1,
+        userId: 10,
+        name: "Jackslaw",
+        archetype: "Sotilas",
+        sex: "male",
+        motivation: "Vapauttaa veljensä.",
+        notes: "Koodinimi Syy",
+        nicknames: ["Syy"],
+        keho: 11,
+        currentKeho: 9,
+        mieli: 8,
+        currentMieli: 8,
+        tera: 8,
+        currentTera: 7,
+        sisuDice: [
+          { id: "s1", faces: 8 },
+          { id: "s2", faces: 8 },
+          { id: "s3", faces: 8 },
+        ],
+        removedSisuIds: ["s3"],
+        harmit: [{ text: "Ruhje", healed: false }],
+        skills: [
+          { name: "Hylkyjen tutkija", isCustom: false },
+          { name: "Katutappelu", isCustom: true },
+        ],
+        inventory: [{ id: "i1", name: "Sädepistooli", quantity: 1 }],
+        fysiikka: 4, // 1n6, 1n4
+        nopeus: 0,
+        ymmarrys: 0,
+        persoona: 0,
+        nakemys: 0,
+        napparyys: 0,
+        anchorId: "kuilu",
+        rebellionLevel: 0,
+        monkAdvancementsAllowed: 1,
+        monkAdvancementsUsed: 1,
+        removedFromPlayAt: null,
+        ownerName: "Pekka",
+      };
+
+      mockDb.leftJoin.mockResolvedValueOnce([charRow]);
+      mockDb.orderBy
+        .mockResolvedValueOnce([
+          {
+            characterId: 1,
+            id: 2,
+            title: "Ohjainlevy",
+            status: "completed",
+            refreshedAt: null,
+            advancedAt: null,
+          },
+        ])
+        .mockResolvedValueOnce([{ characterId: 1 }])
+        .mockResolvedValueOnce([
+          {
+            characterId: 1,
+            id: 5,
+            name: "Varjoaskel",
+            tier: 1,
+            description: "Katoaa varjoihin.",
+            properties: { Kesto: "1 kohtaus" },
+            acquiredAt: new Date("2026-04-01T12:00:00Z"),
+          },
+        ]);
+      mockDb.execute = vi.fn().mockRejectedValue(new Error('relation "ship_rooms" does not exist'));
+
+      const result = await service.exportMarkdown();
+
+      expect(result.filename).toBe("Hahmot.md");
+      expect(result.markdown).toContain("## Pelaaja: Pekka");
+      expect(result.markdown).toContain("### Jackslaw");
+      expect(result.markdown).toContain("- **Arkkityyppi:** Sotilas");
+      expect(result.markdown).toContain("- **Sukupuoli:** Mies");
+      expect(result.markdown).toContain("- **Lempinimet:** Syy");
+      expect(result.markdown).toContain("- **Pelaajan Ankkuri:** `kuilu`");
+      expect(result.markdown).toContain("- **Keho:** 9 / 11 *(Fysiikka: 1n6, 1n4, Nopeus: —)*");
+      expect(result.markdown).toContain("- **Sisu:** 2×n8 *(käytetty: 1×n8)*");
+      expect(result.markdown).toContain("  - Ruhje *(aktiivinen)*");
+      expect(result.markdown).toContain("- Katutappelu *(oma taito)*");
+      expect(result.markdown).toContain("- **Varjoaskel** (1. piiri)");
+      expect(result.markdown).toContain("- Sädepistooli");
+      expect(result.markdown).toContain("Vapauttaa veljensä.");
+      expect(result.markdown).toContain("Koodinimi Syy");
+      expect(result.markdown).not.toContain("Aamunkoi");
+    });
+
+    it("should include Aamunkoi cabin, possessions, and clocks when ship tables exist", async () => {
+      const charRow = {
+        id: 2,
+        userId: 11,
+        name: "Shael",
+        archetype: "Ekspertti",
+        sex: "non-binary",
+        motivation: null,
+        notes: null,
+        nicknames: [],
+        keho: 8,
+        currentKeho: 8,
+        mieli: 8,
+        currentMieli: 8,
+        tera: 8,
+        currentTera: 8,
+        sisuDice: [],
+        removedSisuIds: [],
+        harmit: [],
+        skills: [],
+        inventory: [],
+        fysiikka: 0,
+        nopeus: 0,
+        ymmarrys: 0,
+        persoona: 0,
+        nakemys: 0,
+        napparyys: 0,
+        anchorId: null,
+        rebellionLevel: 0,
+        monkAdvancementsAllowed: 0,
+        monkAdvancementsUsed: 0,
+        removedFromPlayAt: null,
+        ownerName: "Taija",
+      };
+
+      mockDb.leftJoin.mockResolvedValueOnce([charRow]);
+      mockDb.orderBy.mockResolvedValueOnce([]).mockResolvedValueOnce([]).mockResolvedValueOnce([]);
+      mockDb.execute = vi
+        .fn()
+        .mockResolvedValueOnce({
+          rows: [
+            {
+              claimed_by_character_id: 2,
+              key: "cabin-a01",
+              deck_number: 1,
+              name: "Hytti A-01",
+              cabin_custom_title: "Seurauksen kajuutta",
+              cabin_decoration: "Kultainen kompassi seinällä",
+              gm_room_notes: "Piilotettu lokero sängyn alla",
+            },
+          ],
+        })
+        .mockResolvedValueOnce({
+          rows: [
+            {
+              character_id: 2,
+              name: "Rukousnauha",
+              description: "Ekklesian muisto",
+              gm_mechanical_notes: "+1n4 stressiin",
+            },
+          ],
+        })
+        .mockResolvedValueOnce({
+          rows: [
+            {
+              character_id: 2,
+              category: "tutkimus",
+              title: "Purppuravälähdysten alkuperä",
+              description: "Analysoidaan nauhoituksia",
+              segments_filled: 3,
+              segments_total: 6,
+              status: "active",
+              completion_notes: null,
+            },
+          ],
+        });
+
+      const result = await service.exportMarkdown();
+
+      expect(result.markdown).toContain("#### Aamunkoi (Hytti ja omaisuus)");
+      expect(result.markdown).toContain("- **Hytti:** Seurauksen kajuutta (Kansi 1, `cabin-a01`)");
+      expect(result.markdown).toContain("- **Hytin sisustus:** Kultainen kompassi seinällä");
+      expect(result.markdown).toContain(
+        "- **PJ-muistiinpanot hytistä:** Piilotettu lokero sängyn alla",
+      );
+      expect(result.markdown).toContain(
+        "  - **Rukousnauha** — Ekklesian muisto *(Mekaniikka: +1n4 stressiin)*",
+      );
+      expect(result.markdown).toContain(
+        "  - **Purppuravälähdysten alkuperä** (Tutkimus, 3/6, aktiivinen) — Analysoidaan nauhoituksia",
+      );
     });
   });
 });

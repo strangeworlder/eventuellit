@@ -11,6 +11,7 @@ import {
 } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { type AuthUser, CurrentUser } from "../auth/current-user.decorator";
+import { Roles, RolesGuard } from "../auth/roles.guard";
 import { CharactersService } from "./characters.service";
 import { AdvanceCharacterDto } from "./dto/advance-character.dto";
 import { AdvanceMonkDto } from "./dto/advance-monk.dto";
@@ -32,6 +33,13 @@ export class CharactersController {
   @Get()
   findAll() {
     return this.charactersService.findAll();
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles("gm")
+  @Get("export/markdown")
+  exportMarkdown() {
+    return this.charactersService.exportMarkdown();
   }
 
   @Get("anchors/claimed")

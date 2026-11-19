@@ -10,6 +10,7 @@ import { CardStack } from "@repo/ui/components/CardStack";
 import { DiceIcon } from "@repo/ui/components/DiceIcon";
 import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
+import { Icon } from "@repo/ui/components/Icon";
 import { Input } from "@repo/ui/components/Input";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
@@ -20,6 +21,7 @@ import { RadioGroup, RadioGroupItem } from "@repo/ui/components/RadioGroup";
 import { SkeletonCard } from "@repo/ui/components/Skeleton";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { TextArea } from "@repo/ui/components/TextArea";
+import { requestToast } from "@repo/ui/components/Toast";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
@@ -34,6 +36,7 @@ import {
 } from "react-router-dom";
 import {
   type CharacterListItem,
+  downloadCharactersMarkdown,
   isReservedRebellionSkillName,
   useCharacters,
   useClaimedAnchorIds,
@@ -664,6 +667,21 @@ function InnerApp() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const linkCharacterEpisode = useLinkCharacterEpisode();
+  const [isExportingMarkdown, setIsExportingMarkdown] = useState(false);
+
+  const handleExportCharactersMarkdown = async () => {
+    setIsExportingMarkdown(true);
+    try {
+      await downloadCharactersMarkdown();
+    } catch {
+      requestToast({
+        message: "Hahmojen Markdown-lataus epäonnistui.",
+        variant: "error",
+      });
+    } finally {
+      setIsExportingMarkdown(false);
+    }
+  };
 
   const getBasePath = () => {
     const segments = pathname.split("/").filter(Boolean);
@@ -734,7 +752,21 @@ function InnerApp() {
                 <HeadingLevelProvider>
                   <Hero title="Hahmot" description="Hahmot" />
                   <PageBody className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8 space-y-0">
-                    <Breadcrumb className="col-span-full mb-2" items={[{ label: "Hahmot" }]} />
+                    <div className="col-span-full flex items-center justify-between gap-4 flex-wrap mb-2">
+                      <Breadcrumb items={[{ label: "Hahmot" }]} />
+                      {user?.role === "gm" && (
+                        <Button
+                          variant="outline"
+                          size="compact"
+                          loading={isExportingMarkdown}
+                          loadingMessage="Ladataan..."
+                          onClick={handleExportCharactersMarkdown}
+                        >
+                          <Icon name="download" size={14} />
+                          Lataa Hahmot.md
+                        </Button>
+                      )}
+                    </div>
                     {isLoading && (
                       <>
                         <SkeletonCard className="col-span-1" />
