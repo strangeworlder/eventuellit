@@ -3,6 +3,7 @@ import { Heading } from "./Heading";
 import { HeroCanvas } from "./HeroCanvas";
 import { ImageElement } from "./ImageElement";
 import { Text } from "./Text";
+import type { Theme } from "./Theme";
 import { cn } from "./utils";
 
 export interface HeroProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
@@ -10,11 +11,14 @@ export interface HeroProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "t
   description?: React.ReactNode;
   backgroundImageSrc?: string;
   backgroundImageAlt?: string;
+  theme?: Theme;
 }
 
 /**
  * Full-width page header section with title, description, optional background image,
- * and a children slot for CTAs or sub-content. Includes the `HeroCanvas` starfield animation.
+ * and a children slot for CTAs or sub-content. Renders the Accent Blue liquid-space,
+ * 3D icosahedron (`d20`), abyssal bubbles, and analog orbital telemetry `HeroCanvas`
+ * when no `backgroundImageSrc` is provided.
  *
  * @summary full-width page header with title, description, background image, and CTA slot
  */
@@ -27,6 +31,7 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
       className,
       backgroundImageSrc,
       backgroundImageAlt = "",
+      theme,
       ...props
     },
     ref,
@@ -34,8 +39,9 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
     return (
       <div
         ref={ref}
+        data-theme={theme}
         className={cn(
-          "relative overflow-hidden border-b-2 border-[var(--theme-secondary)] bg-[var(--theme-bg)] text-[var(--theme-text)] min-h-40 tablet:min-h-48",
+          "relative overflow-hidden font-sans border-b-2 border-[var(--theme-secondary)] bg-[var(--theme-bg)] text-[var(--theme-text)] min-h-40 tablet:min-h-48",
           className,
         )}
         {...props}
@@ -45,7 +51,7 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
             <HeroCanvas className="absolute inset-0 w-full h-full" />
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-br from-[var(--theme-bg)]/80 via-[var(--theme-secondary)]/10 to-[var(--theme-bg)]/80"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[var(--theme-bg)]/90 via-[var(--theme-bg)]/70 to-[var(--theme-bg)]/25 tablet:from-[var(--theme-bg)]/90 tablet:via-[var(--theme-bg)]/45 tablet:to-transparent"
             />
           </>
         )}
@@ -62,7 +68,10 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
               className="absolute inset-0 rounded-none border-0 overflow-hidden"
               imgClassName="absolute inset-0 h-full w-full object-cover"
             />
-            <div aria-hidden="true" className="absolute inset-0 bg-[var(--theme-bg)]/75" />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-[var(--theme-bg)]/75"
+            />
           </>
         )}
 
@@ -74,7 +83,7 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
         >
           <Heading>{title}</Heading>
           {description && (
-            <Text variant="label" className="mt-2">
+            <Text variant="label" className="mt-2 max-w-prose">
               {description}
             </Text>
           )}
