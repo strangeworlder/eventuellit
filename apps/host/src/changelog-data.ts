@@ -117,6 +117,11 @@ export const CHANGELOG_RELEASES: ChangelogRelease[] = [
     ],
     minor: [
       {
+        title: "Sivujen yläpalkin nestemäinen avaruus ja kolmiulotteinen d20",
+        description:
+          "Hero-yläpalkin tausta on uudistettu korostussiniseen nestemäiseen avaruuteen, jossa leijuu kuplia, analogisia kiertoratakehiä ja hitaasti pyörivä kolmiulotteinen d20-kappale. Aiempi tähtikenttäversio on säilytetty suunnittelujärjestelmässä OldHero-komponenttina.",
+      },
+      {
         title: "Ohjaamopainikkeiden, syötekenttien ja kytkimien uudistus",
         description:
           "Painikkeet, työkalunapit, tekstikentät, pudotusvalikot, päivämäärävalitsin sekä valintaruudut ja kytkimet on päivitetty yhtenäisiksi valoviisteellisiksi ohjaamokontrolleiksi kaikissa kymmenessä teemassa.",
