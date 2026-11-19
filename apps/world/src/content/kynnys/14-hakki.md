@@ -4,6 +4,7 @@ order: 14
 description: "Kynnyksen viemäri, veriurheilun ja uhkapelin keskus."
 category: kynnys
 tension: "Korkea"
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/h--kki-1024.jpg
 ruling_faction: pyhan-tragedian-lapset
 disrupting_factions: heimolaiset
 ---

@@ -7,6 +7,7 @@ snapshot_note: "Tilanne ennen Kapinallista."
 description: "Mausoleumi — Kynnyksen hautausmaa, museo ja Haaskalintujen koti."
 category: kynnys
 tension: "Matala"
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/krypta-1024.jpg
 ruling_faction: haaskalinnut
 disrupting_factions: ""
 order: 19
