@@ -9,7 +9,8 @@ export interface DashboardAction {
     | "update_names"
     | "reading"
     | "task"
-    | "write_recap";
+    | "write_recap"
+    | "ship_downtime";
   label: string;
   description: string;
   priority: number;

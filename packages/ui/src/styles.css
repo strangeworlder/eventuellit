@@ -61,6 +61,20 @@
   --color-royal-purple-800: #522789;
   --color-royal-purple-900: #3c1d64;
 
+  /* Ship / Cockpit balancing warm brass ("Aamunkoi") ramp */
+  --color-dawn: #df9b32;
+  --color-dawn-foreground: #0f0f13;
+  --color-dawn-50: #fdf6e7;
+  --color-dawn-100: #faebc8;
+  --color-dawn-200: #f4d68e;
+  --color-dawn-300: #ecc05b;
+  --color-dawn-400: #e5ad3c;
+  --color-dawn-500: #df9b32;
+  --color-dawn-600: #bf7b1d;
+  --color-dawn-700: #965c14;
+  --color-dawn-800: #693e0d;
+  --color-dawn-900: #3d2307;
+
   --color-background: #0f0f13;
   --color-text: #f4f4f0;
 
@@ -71,6 +85,9 @@
   --color-theme-primary-foreground: var(--theme-primary-foreground);
   --color-theme-secondary: var(--theme-secondary);
   --color-theme-accent: var(--theme-accent);
+  --color-theme-dawn: var(--theme-dawn);
+  --color-theme-dawn-foreground: var(--theme-dawn-foreground);
+  --color-dawn-muted: var(--theme-dawn-muted);
 
   /* ── Semantic text hierarchy tokens ── */
   --color-text-muted: var(--theme-text-muted);
@@ -127,6 +144,9 @@
     --color-theme-primary-foreground: var(--theme-primary-foreground);
     --color-theme-secondary: var(--theme-secondary);
     --color-theme-accent: var(--theme-accent);
+    --color-theme-dawn: var(--theme-dawn);
+    --color-theme-dawn-foreground: var(--theme-dawn-foreground);
+    --color-dawn-muted: var(--theme-dawn-muted);
     --color-text-muted: var(--theme-text-muted);
     --color-text-subtle: var(--theme-text-subtle);
     --color-text-placeholder: var(--theme-text-placeholder);
@@ -169,6 +189,34 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 45%, transparent);
     --theme-toast-success: var(--color-secondary-300);
     --theme-toast-warning: var(--color-primary-300);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-400);
+    --theme-dawn-foreground: var(--color-background);
+    --theme-dawn-muted: var(--color-dawn-200);
+    --theme-cockpit-surface: color-mix(
+      in srgb,
+      var(--theme-bg) 82%,
+      color-mix(in srgb, var(--theme-surface-tint) 52%, #070b11)
+    );
+    --theme-cockpit-elevated: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 36%,
+      color-mix(in srgb, var(--theme-bg) 84%, #0b131d)
+    );
+    --theme-cockpit-header: color-mix(
+      in srgb,
+      var(--theme-secondary) 18%,
+      color-mix(in srgb, var(--theme-surface-tint) 42%, var(--theme-bg))
+    );
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 64%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 52%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, var(--theme-secondary) 48%, var(--theme-edge-light));
+    --theme-hull-armor: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 44%,
+      color-mix(in srgb, var(--theme-accent) 18%, var(--theme-bg))
+    );
+    --theme-hull-shadow: color-mix(in srgb, black 58%, var(--theme-bg));
   }
 
   [data-theme="inverted"] {
@@ -201,6 +249,18 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 35%, transparent);
     --theme-toast-success: var(--color-secondary-600);
     --theme-toast-warning: var(--color-primary-600);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-700);
+    --theme-dawn-foreground: var(--color-dawn-50);
+    --theme-dawn-muted: var(--color-dawn-800);
+    --theme-cockpit-surface: color-mix(in srgb, var(--theme-surface-tint) 68%, var(--theme-bg));
+    --theme-cockpit-elevated: color-mix(in srgb, white 74%, var(--theme-surface-tint));
+    --theme-cockpit-header: color-mix(in srgb, var(--theme-secondary) 14%, var(--theme-surface-tint));
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 72%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 58%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, white 86%, var(--theme-surface-tint));
+    --theme-hull-armor: color-mix(in srgb, var(--theme-surface-tint) 76%, var(--theme-bg));
+    --theme-hull-shadow: color-mix(in srgb, var(--theme-accent) 20%, var(--theme-border-soft));
   }
 
   [data-theme="primary-light"] {
@@ -233,6 +293,18 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 35%, transparent);
     --theme-toast-success: var(--color-secondary-700);
     --theme-toast-warning: var(--color-primary-700);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-700);
+    --theme-dawn-foreground: var(--color-dawn-50);
+    --theme-dawn-muted: var(--color-dawn-800);
+    --theme-cockpit-surface: color-mix(in srgb, var(--theme-surface-tint) 68%, var(--theme-bg));
+    --theme-cockpit-elevated: color-mix(in srgb, white 74%, var(--theme-surface-tint));
+    --theme-cockpit-header: color-mix(in srgb, var(--theme-secondary) 14%, var(--theme-surface-tint));
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 72%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 58%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, white 86%, var(--theme-surface-tint));
+    --theme-hull-armor: color-mix(in srgb, var(--theme-surface-tint) 76%, var(--theme-bg));
+    --theme-hull-shadow: color-mix(in srgb, var(--theme-accent) 20%, var(--theme-border-soft));
   }
 
   [data-theme="primary-dark"] {
@@ -265,6 +337,34 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 45%, transparent);
     --theme-toast-success: var(--color-secondary-200);
     --theme-toast-warning: var(--color-primary-200);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-300);
+    --theme-dawn-foreground: var(--color-background);
+    --theme-dawn-muted: var(--color-dawn-100);
+    --theme-cockpit-surface: color-mix(
+      in srgb,
+      var(--theme-bg) 82%,
+      color-mix(in srgb, var(--theme-surface-tint) 52%, #070b11)
+    );
+    --theme-cockpit-elevated: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 36%,
+      color-mix(in srgb, var(--theme-bg) 84%, #0b131d)
+    );
+    --theme-cockpit-header: color-mix(
+      in srgb,
+      var(--theme-secondary) 18%,
+      color-mix(in srgb, var(--theme-surface-tint) 42%, var(--theme-bg))
+    );
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 64%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 52%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, var(--theme-secondary) 48%, var(--theme-edge-light));
+    --theme-hull-armor: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 44%,
+      color-mix(in srgb, var(--theme-accent) 18%, var(--theme-bg))
+    );
+    --theme-hull-shadow: color-mix(in srgb, black 58%, var(--theme-bg));
   }
 
   [data-theme="secondary-light"] {
@@ -297,6 +397,18 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 35%, transparent);
     --theme-toast-success: var(--color-secondary-800);
     --theme-toast-warning: var(--color-primary-800);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-700);
+    --theme-dawn-foreground: var(--color-dawn-50);
+    --theme-dawn-muted: var(--color-dawn-800);
+    --theme-cockpit-surface: color-mix(in srgb, var(--theme-surface-tint) 68%, var(--theme-bg));
+    --theme-cockpit-elevated: color-mix(in srgb, white 74%, var(--theme-surface-tint));
+    --theme-cockpit-header: color-mix(in srgb, var(--theme-secondary) 14%, var(--theme-surface-tint));
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 72%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 58%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, white 86%, var(--theme-surface-tint));
+    --theme-hull-armor: color-mix(in srgb, var(--theme-surface-tint) 76%, var(--theme-bg));
+    --theme-hull-shadow: color-mix(in srgb, var(--theme-accent) 20%, var(--theme-border-soft));
   }
 
   [data-theme="secondary-dark"] {
@@ -329,6 +441,34 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 45%, transparent);
     --theme-toast-success: var(--color-secondary-200);
     --theme-toast-warning: var(--color-primary-200);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-300);
+    --theme-dawn-foreground: var(--color-background);
+    --theme-dawn-muted: var(--color-dawn-100);
+    --theme-cockpit-surface: color-mix(
+      in srgb,
+      var(--theme-bg) 82%,
+      color-mix(in srgb, var(--theme-surface-tint) 52%, #070b11)
+    );
+    --theme-cockpit-elevated: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 36%,
+      color-mix(in srgb, var(--theme-bg) 84%, #0b131d)
+    );
+    --theme-cockpit-header: color-mix(
+      in srgb,
+      var(--theme-secondary) 18%,
+      color-mix(in srgb, var(--theme-surface-tint) 42%, var(--theme-bg))
+    );
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 64%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 52%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, var(--theme-secondary) 48%, var(--theme-edge-light));
+    --theme-hull-armor: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 44%,
+      color-mix(in srgb, var(--theme-accent) 18%, var(--theme-bg))
+    );
+    --theme-hull-shadow: color-mix(in srgb, black 58%, var(--theme-bg));
   }
 
   [data-theme="accent-light"] {
@@ -361,6 +501,18 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 40%, transparent);
     --theme-toast-success: var(--color-secondary-800);
     --theme-toast-warning: var(--color-primary-800);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-800);
+    --theme-dawn-foreground: var(--color-dawn-50);
+    --theme-dawn-muted: var(--color-dawn-900);
+    --theme-cockpit-surface: color-mix(in srgb, var(--theme-surface-tint) 68%, var(--theme-bg));
+    --theme-cockpit-elevated: color-mix(in srgb, white 74%, var(--theme-surface-tint));
+    --theme-cockpit-header: color-mix(in srgb, var(--theme-secondary) 14%, var(--theme-surface-tint));
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 72%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 58%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, white 86%, var(--theme-surface-tint));
+    --theme-hull-armor: color-mix(in srgb, var(--theme-surface-tint) 76%, var(--theme-bg));
+    --theme-hull-shadow: color-mix(in srgb, var(--theme-accent) 20%, var(--theme-border-soft));
   }
 
   [data-theme="accent-dark"] {
@@ -393,6 +545,34 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 45%, transparent);
     --theme-toast-success: var(--color-secondary-300);
     --theme-toast-warning: var(--color-primary-300);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-300);
+    --theme-dawn-foreground: var(--color-background);
+    --theme-dawn-muted: var(--color-dawn-100);
+    --theme-cockpit-surface: color-mix(
+      in srgb,
+      var(--theme-bg) 82%,
+      color-mix(in srgb, var(--theme-surface-tint) 52%, #070b11)
+    );
+    --theme-cockpit-elevated: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 36%,
+      color-mix(in srgb, var(--theme-bg) 84%, #0b131d)
+    );
+    --theme-cockpit-header: color-mix(
+      in srgb,
+      var(--theme-secondary) 18%,
+      color-mix(in srgb, var(--theme-surface-tint) 42%, var(--theme-bg))
+    );
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 64%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 52%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, var(--theme-secondary) 48%, var(--theme-edge-light));
+    --theme-hull-armor: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 44%,
+      color-mix(in srgb, var(--theme-accent) 18%, var(--theme-bg))
+    );
+    --theme-hull-shadow: color-mix(in srgb, black 58%, var(--theme-bg));
   }
 
   [data-theme="royal"] {
@@ -427,6 +607,34 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 45%, transparent);
     --theme-toast-success: var(--color-royal-purple-300);
     --theme-toast-warning: var(--color-primary-300);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-400);
+    --theme-dawn-foreground: var(--color-background);
+    --theme-dawn-muted: var(--color-dawn-200);
+    --theme-cockpit-surface: color-mix(
+      in srgb,
+      var(--theme-bg) 82%,
+      color-mix(in srgb, var(--theme-surface-tint) 52%, #070b11)
+    );
+    --theme-cockpit-elevated: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 36%,
+      color-mix(in srgb, var(--theme-bg) 84%, #0b131d)
+    );
+    --theme-cockpit-header: color-mix(
+      in srgb,
+      var(--theme-secondary) 18%,
+      color-mix(in srgb, var(--theme-surface-tint) 42%, var(--theme-bg))
+    );
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 64%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 52%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, var(--theme-secondary) 48%, var(--theme-edge-light));
+    --theme-hull-armor: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 44%,
+      color-mix(in srgb, var(--theme-accent) 18%, var(--theme-bg))
+    );
+    --theme-hull-shadow: color-mix(in srgb, black 58%, var(--theme-bg));
   }
 
   [data-theme="royal-dark"] {
@@ -458,6 +666,34 @@
     --theme-divider-fade: color-mix(in srgb, var(--theme-primary) 45%, transparent);
     --theme-toast-success: var(--color-royal-purple-200);
     --theme-toast-warning: var(--color-primary-200);
+    /* Aamunkoi high-budget EGA instrument & hull tokens */
+    --theme-dawn: var(--color-dawn-300);
+    --theme-dawn-foreground: var(--color-background);
+    --theme-dawn-muted: var(--color-dawn-100);
+    --theme-cockpit-surface: color-mix(
+      in srgb,
+      var(--theme-bg) 82%,
+      color-mix(in srgb, var(--theme-surface-tint) 52%, #070b11)
+    );
+    --theme-cockpit-elevated: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 36%,
+      color-mix(in srgb, var(--theme-bg) 84%, #0b131d)
+    );
+    --theme-cockpit-header: color-mix(
+      in srgb,
+      var(--theme-secondary) 18%,
+      color-mix(in srgb, var(--theme-surface-tint) 42%, var(--theme-bg))
+    );
+    --theme-cockpit-border: color-mix(in srgb, var(--theme-secondary) 64%, var(--theme-accent));
+    --theme-cockpit-border-soft: color-mix(in srgb, var(--theme-border-medium) 52%, var(--theme-bg));
+    --theme-cockpit-rim: color-mix(in srgb, var(--theme-secondary) 48%, var(--theme-edge-light));
+    --theme-hull-armor: color-mix(
+      in srgb,
+      var(--theme-surface-tint) 44%,
+      color-mix(in srgb, var(--theme-accent) 18%, var(--theme-bg))
+    );
+    --theme-hull-shadow: color-mix(in srgb, black 58%, var(--theme-bg));
   }
 
   body {
@@ -693,6 +929,288 @@
     translate: 1.25rem 0;
     background-color: var(--theme-secondary-foreground);
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.28);
+  }
+
+  /* ── Console / Elevated Game HUD Surfaces ── */
+
+  .ds-console-viewport {
+    background: radial-gradient(
+      125% 95% at 45% 40%,
+      color-mix(in srgb, var(--theme-surface-wash) 62%, var(--theme-bg)) 0%,
+      var(--theme-bg) 82%
+    );
+  }
+
+  .ds-console-overlay-slot {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  @media (min-width: 900px) {
+    .ds-console-overlay-slot {
+      position: relative;
+      inset: auto;
+      z-index: 20;
+      width: 0;
+      height: 100%;
+      flex-shrink: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .ds-console-overlay-slot:has(> section) {
+      display: flex;
+      flex-direction: column;
+      width: 444px;
+      padding: 0.75rem 0.75rem 0.75rem 0.25rem;
+      overflow: visible;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .ds-console-overlay-slot:has(> section) {
+      width: 492px;
+    }
+  }
+
+  .ds-console-elevated {
+    border: 1px solid var(--theme-cockpit-border);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-cockpit-elevated) 94%, var(--theme-bg)) 0%,
+      color-mix(in srgb, var(--theme-cockpit-surface) 96%, var(--theme-bg)) 100%
+    );
+    backdrop-filter: blur(12px);
+    box-shadow:
+      var(--shadow-floating),
+      inset 0 1px 0 var(--theme-cockpit-rim),
+      inset 0 0 0 1px color-mix(in srgb, var(--theme-cockpit-border-soft) 55%, transparent);
+  }
+
+  .ds-console-bezel {
+    --ds-chamfer: 14px;
+    padding: 1.5px;
+    clip-path: polygon(
+      var(--ds-chamfer) 0,
+      calc(100% - var(--ds-chamfer)) 0,
+      100% var(--ds-chamfer),
+      100% calc(100% - var(--ds-chamfer)),
+      calc(100% - var(--ds-chamfer)) 100%,
+      var(--ds-chamfer) 100%,
+      0 calc(100% - var(--ds-chamfer)),
+      0 var(--ds-chamfer)
+    );
+    background: linear-gradient(
+      142deg,
+      color-mix(in srgb, var(--theme-dawn) 78%, var(--theme-cockpit-rim)) 0%,
+      var(--theme-cockpit-border) 26%,
+      color-mix(in srgb, var(--theme-accent) 46%, var(--theme-cockpit-border-soft)) 74%,
+      color-mix(in srgb, var(--theme-dawn) 58%, var(--theme-cockpit-border)) 100%
+    );
+  }
+
+  .ds-console-bezel-body {
+    --ds-chamfer: 12.5px;
+    clip-path: polygon(
+      var(--ds-chamfer) 0,
+      calc(100% - var(--ds-chamfer)) 0,
+      100% var(--ds-chamfer),
+      100% calc(100% - var(--ds-chamfer)),
+      calc(100% - var(--ds-chamfer)) 100%,
+      var(--ds-chamfer) 100%,
+      0 calc(100% - var(--ds-chamfer)),
+      0 var(--ds-chamfer)
+    );
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-cockpit-elevated) 92%, var(--theme-bg)) 0%,
+      color-mix(in srgb, var(--theme-cockpit-surface) 97%, var(--theme-bg)) 100%
+    );
+    backdrop-filter: blur(14px);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--theme-cockpit-rim) 68%, transparent),
+      inset 0 -1px 0 color-mix(in srgb, var(--theme-hull-shadow) 60%, transparent);
+  }
+
+  .ds-console-pod {
+    position: relative;
+    isolation: isolate;
+    --ds-chamfer: 9px;
+    padding: 1px;
+    clip-path: polygon(
+      var(--ds-chamfer) 0,
+      calc(100% - var(--ds-chamfer)) 0,
+      100% var(--ds-chamfer),
+      100% calc(100% - var(--ds-chamfer)),
+      calc(100% - var(--ds-chamfer)) 100%,
+      var(--ds-chamfer) 100%,
+      0 calc(100% - var(--ds-chamfer)),
+      0 var(--ds-chamfer)
+    );
+    background: linear-gradient(
+      138deg,
+      color-mix(in srgb, var(--theme-dawn) 62%, var(--theme-cockpit-rim)) 0%,
+      var(--theme-cockpit-border) 24%,
+      var(--theme-cockpit-border-soft) 100%
+    );
+  }
+
+  .ds-console-pod::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: -1;
+    clip-path: polygon(
+      calc(var(--ds-chamfer) - 1px) 0,
+      calc(100% - var(--ds-chamfer) + 1px) 0,
+      100% calc(var(--ds-chamfer) - 1px),
+      100% calc(100% - var(--ds-chamfer) + 1px),
+      calc(100% - var(--ds-chamfer) + 1px) 100%,
+      calc(var(--ds-chamfer) - 1px) 100%,
+      0 calc(100% - var(--ds-chamfer) + 1px),
+      0 calc(var(--ds-chamfer) - 1px)
+    );
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-cockpit-elevated) 92%, var(--theme-bg)) 0%,
+      color-mix(in srgb, var(--theme-cockpit-surface) 97%, var(--theme-bg)) 100%
+    );
+  }
+
+  .ds-console-header {
+    border-bottom: 1px solid color-mix(in srgb, var(--theme-cockpit-border) 42%, transparent);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-bg) 78%, var(--theme-cockpit-header)) 0%,
+      color-mix(in srgb, var(--theme-bg) 28%, transparent) 100%
+    );
+  }
+
+  .ds-console-dock-bar {
+    border-top: 1px solid color-mix(in srgb, var(--theme-cockpit-border-soft) 45%, transparent);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-bg) 18%, transparent) 0%,
+      color-mix(in srgb, var(--theme-bg) 74%, var(--theme-cockpit-surface)) 100%
+    );
+  }
+
+  .ds-console-sheet-header {
+    border-bottom: 1px solid var(--theme-cockpit-border-soft);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-cockpit-header) 92%, var(--theme-bg)) 0%,
+      color-mix(in srgb, var(--theme-cockpit-surface) 96%, var(--theme-bg)) 100%
+    );
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-cockpit-rim) 55%, transparent);
+  }
+
+  .ds-console-row {
+    border: 1px solid var(--theme-cockpit-border-soft);
+    background: linear-gradient(
+      180deg,
+      var(--theme-cockpit-elevated) 0%,
+      var(--theme-cockpit-surface) 100%
+    );
+    box-shadow:
+      var(--shadow-interactive),
+      inset 0 1px 0 color-mix(in srgb, var(--theme-cockpit-rim) 42%, transparent);
+  }
+
+  .ds-console-btn-primary {
+    border: 1px solid color-mix(in srgb, white 28%, var(--theme-secondary));
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, white 14%, var(--theme-secondary)) 0%,
+      var(--theme-secondary) 100%
+    );
+    color: var(--theme-secondary-foreground);
+    box-shadow:
+      var(--shadow-overlay),
+      inset 0 1px 0 rgb(255 255 255 / 0.28);
+  }
+
+  .ds-console-btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow:
+      var(--shadow-floating),
+      0 0 16px color-mix(in srgb, var(--theme-secondary) 36%, transparent),
+      inset 0 1px 0 rgb(255 255 255 / 0.36);
+  }
+
+  .ds-console-btn-secondary {
+    border: 1px solid color-mix(in srgb, white 24%, var(--theme-accent));
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, white 14%, var(--theme-accent)) 0%,
+      var(--theme-accent) 100%
+    );
+    color: var(--theme-accent-foreground);
+    box-shadow:
+      var(--shadow-overlay),
+      inset 0 1px 0 rgb(255 255 255 / 0.22);
+  }
+
+  .ds-console-btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow:
+      var(--shadow-floating),
+      0 0 16px color-mix(in srgb, var(--theme-accent) 32%, transparent),
+      inset 0 1px 0 rgb(255 255 255 / 0.3);
+  }
+
+  .ds-console-btn-danger {
+    border: 1px solid color-mix(in srgb, white 24%, var(--theme-primary));
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, white 14%, var(--theme-primary)) 0%,
+      var(--theme-primary) 100%
+    );
+    color: var(--theme-primary-foreground);
+    box-shadow:
+      var(--shadow-overlay),
+      inset 0 1px 0 rgb(255 255 255 / 0.22);
+  }
+
+  .ds-console-btn-danger:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow:
+      var(--shadow-floating),
+      0 0 16px color-mix(in srgb, var(--theme-primary) 28%, transparent),
+      inset 0 1px 0 rgb(255 255 255 / 0.3);
+  }
+
+  .ds-console-btn-outline {
+    border: 1px solid var(--theme-cockpit-border);
+    background: var(--theme-cockpit-elevated);
+    color: var(--theme-text);
+    box-shadow:
+      var(--shadow-interactive),
+      inset 0 1px 0 color-mix(in srgb, var(--theme-cockpit-rim) 48%, transparent);
+  }
+
+  .ds-console-btn-outline:hover:not(:disabled):not([aria-disabled="true"]) {
+    border-color: var(--theme-secondary);
+    background: color-mix(in srgb, var(--theme-secondary) 14%, var(--theme-cockpit-elevated));
+    box-shadow:
+      var(--shadow-overlay),
+      0 0 14px color-mix(in srgb, var(--theme-secondary) 28%, transparent),
+      inset 0 1px 0 var(--theme-cockpit-rim);
+  }
+}
+
+@keyframes ds-ship-wake-flow {
+  from {
+    stroke-dashoffset: 28;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-ship-wake-dash {
+    animation: ds-ship-wake-flow 2.6s linear infinite;
   }
 }
 

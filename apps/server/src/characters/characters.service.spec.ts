@@ -312,7 +312,8 @@ describe("CharactersService", () => {
     await expect(service.linkEpisode(1, 2, 1)).rejects.toThrow(ForbiddenException);
   });
 
-  it("should refresh linked character once", async () => {
+  it("should refresh linked character Kesto and Sisu once while leaving harmit unchanged", async () => {
+    const existingHarmit = [{ text: "Haava", healed: false }];
     mockDb.query.characters.findFirst.mockResolvedValueOnce({
       id: 1,
       userId: 1,
@@ -322,18 +323,27 @@ describe("CharactersService", () => {
       currentMieli: 3,
       tera: 8,
       currentTera: 2,
-      harmit: [{ text: "Haava", healed: false }],
+      harmit: existingHarmit,
       removedFromPlayAt: null,
     });
     mockDb.limit.mockResolvedValueOnce([{ id: 123, refreshedAt: null, advancedAt: null }]);
 
-    const result = await service.refreshForEpisode(
-      1,
-      { episodeId: 2, healedHarmitIndexes: [0] },
-      1,
-    );
+    const result = await service.refreshForEpisode(1, { episodeId: 2 }, 1);
 
     expect(mockDb.update).toHaveBeenCalled();
+    expect(mockDb.set).toHaveBeenCalledWith(
+      expect.objectContaining({
+        currentKeho: 10,
+        currentMieli: 9,
+        currentTera: 8,
+        removedSisuIds: [],
+      }),
+    );
+    expect(mockDb.set).not.toHaveBeenCalledWith(
+      expect.objectContaining({
+        harmit: expect.anything(),
+      }),
+    );
     expect(result).toEqual({ refreshed: true, alreadyRefreshed: false });
   });
 

@@ -37,10 +37,11 @@ All narrative content is Finnish only. To avoid formulaic AI mannerisms, you MUS
 > [!CAUTION]
 > **Before building ANY new feature or UI, you MUST complete the design system pre-flight:**
 > 1. Read [.agents/skills/visual-identity/SKILL.md](file:///.agents/skills/visual-identity/SKILL.md) for retro-space-opera visual identity.
-> 2. Read [.agents/skills/ui-design-system/SKILL.md](file:///.agents/skills/ui-design-system/SKILL.md) for tokens, theming, and component rules.
-> 3. Consult Storybook MCP (`list-all-documentation`) or read `packages/ui/src/components/ComponentGuide.mdx`.
-> 4. **Use `@repo/ui` components** (`<Button>`, `<Card>`, `<Input>`, `<Text>`, `<Heading>`, etc.) — NEVER raw HTML with custom Tailwind classes.
-> 5. Include a **"Design System Usage"** section in every implementation plan.
+> 2. Read [.agents/skills/ship-visual-identity/SKILL.md](file:///.agents/skills/ship-visual-identity/SKILL.md) whenever working on `apps/ship/` or `@repo/ui` Konsoli HUD components (`Console*`, `HudPanel`) — it governs the four-scale EGA Meripihka (`--theme-dawn`) palette and overrides the three-scale CGA limit.
+> 3. Read [.agents/skills/ui-design-system/SKILL.md](file:///.agents/skills/ui-design-system/SKILL.md) for tokens, theming, and component rules.
+> 4. Consult Storybook MCP (`list-all-documentation`) or read `packages/ui/src/components/ComponentGuide.mdx`.
+> 5. **Use `@repo/ui` components** (`<Button>`, `<Card>`, `<Input>`, `<Text>`, `<Heading>`, etc.) — NEVER raw HTML with custom Tailwind classes.
+> 6. Include a **"Design System Usage"** section in every implementation plan.
 
 ---
 
@@ -79,6 +80,7 @@ Canonical skills are located in `.agents/skills/`:
 - [.agents/skills/plain-language/SKILL.md](file:///.agents/skills/plain-language/SKILL.md) – Clear, accessible prose, front-loaded conclusions, short sentences, active voice
 - [.agents/skills/technical-writing/SKILL.md](file:///.agents/skills/technical-writing/SKILL.md) – House style, banned constructions, truth/sourcing rules, zero production residue
 - [.agents/skills/visual-identity/SKILL.md](file:///.agents/skills/visual-identity/SKILL.md) – Retro-space-opera aesthetic, color philosophy, animation vocabulary
+- [.agents/skills/ship-visual-identity/SKILL.md](file:///.agents/skills/ship-visual-identity/SKILL.md) – Four-scale EGA HUD aesthetic and Meripihka (`--theme-dawn`) rules for `apps/ship` and Konsoli components
 - [.agents/skills/ui-design-system/SKILL.md](file:///.agents/skills/ui-design-system/SKILL.md) – Design system rules, theming, tokens for `@repo/ui`
 - [.agents/skills/game-mechanics/SKILL.md](file:///.agents/skills/game-mechanics/SKILL.md) – TTRPG domain knowledge, dice resolution, harm/stress
 - [.agents/skills/diegetic-pdf/SKILL.md](file:///.agents/skills/diegetic-pdf/SKILL.md) – Printable in-universe PDF handout generation

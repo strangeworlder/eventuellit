@@ -23,8 +23,9 @@ All narrative content is Finnish only. You MUST strictly eliminate formulaic AI 
 > [!CAUTION]
 > **Before building ANY new feature or UI:**
 > 1. Read [.agents/skills/visual-identity/SKILL.md](file:///.agents/skills/visual-identity/SKILL.md).
-> 2. Read [.agents/skills/ui-design-system/SKILL.md](file:///.agents/skills/ui-design-system/SKILL.md).
-> 3. Use `@repo/ui` components (`<Button>`, `<Card>`, `<Input>`, `<Text>`, `<Heading>`, etc.) — NEVER raw HTML elements with custom Tailwind classes.
+> 2. Read [.agents/skills/ship-visual-identity/SKILL.md](file:///.agents/skills/ship-visual-identity/SKILL.md) when working on `apps/ship/` or `@repo/ui` Konsoli HUD primitives (`Console*`, `HudPanel`) so Meripihka (`--theme-dawn`) is preserved as the fourth EGA scale.
+> 3. Read [.agents/skills/ui-design-system/SKILL.md](file:///.agents/skills/ui-design-system/SKILL.md).
+> 4. Use `@repo/ui` components (`<Button>`, `<Card>`, `<Input>`, `<Text>`, `<Heading>`, etc.) — NEVER raw HTML elements with custom Tailwind classes.
 
 ---
 

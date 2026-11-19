@@ -95,12 +95,8 @@ describe("CharactersController", () => {
   });
 
   it("should pass userId to refresh", async () => {
-    await controller.refresh(1, { episodeId: 2, healedHarmitIndexes: [0] }, mockReq);
-    expect(service.refreshForEpisode).toHaveBeenCalledWith(
-      1,
-      { episodeId: 2, healedHarmitIndexes: [0] },
-      mockUser.id,
-    );
+    await controller.refresh(1, { episodeId: 2 }, mockReq);
+    expect(service.refreshForEpisode).toHaveBeenCalledWith(1, { episodeId: 2 }, mockUser.id);
   });
 
   it("should pass userId to advance", async () => {

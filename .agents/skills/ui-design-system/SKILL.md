@@ -84,7 +84,7 @@ All tokens are defined in `packages/ui/src/styles.css`. Read the file directly f
 - **Breakpoints:** `mobile` (550px), `tablet` (700px), `desktop` (900px), `x-wide` (1200px), `xx-wide` (1500px). Always use these — never Tailwind defaults (`sm`/`md`/`lg`).
 - **Motion:** Duration tokens (`instant` → `enter`) and easing tokens (`default`, `in`, `out`, `spring`). Component-level animations use **framer-motion** (`^12.38.0`).
 - **Shadows:** `interactive`, `overlay`, `floating` — increasing depth.
-- **Colors:** Three scales (`primary`/`secondary`/`accent`) with 50–900 steps. Semantic bridge tokens in `@theme` point at `--theme-*` variables.
+- **Colors:** Three scales (`primary`/`secondary`/`accent`) with 50–900 steps. Semantic bridge tokens in `@theme` point at `--theme-*` variables. For `apps/ship/` and Konsoli HUD primitives (`Console*`, `HudPanel`), a fourth EGA `dawn` scale (`--color-dawn-*` / `--theme-dawn*`, Meripihka) is also active and governed by `.agents/skills/ship-visual-identity/SKILL.md`.
 
 ## Button State Layers
 

@@ -586,25 +586,7 @@ export class CharactersService {
       return { refreshed: true, alreadyRefreshed: true };
     }
 
-    const healedIndexes = new Set(data.healedHarmitIndexes ?? []);
-    const currentHarmit = Array.isArray(character.harmit) ? character.harmit : [];
-    const updatedHarmit = currentHarmit.map((harmi, index) => {
-      if (
-        typeof harmi === "object" &&
-        harmi !== null &&
-        "text" in harmi &&
-        "healed" in harmi &&
-        healedIndexes.has(index)
-      ) {
-        return {
-          ...(harmi as { text: string; healed: boolean }),
-          healed: true,
-        };
-      }
-      return harmi;
-    });
-
-    const shouldMarkRemoved = this.hasFiveHarmit(updatedHarmit);
+    const shouldMarkRemoved = this.hasFiveHarmit(character.harmit);
     await this.db
       .update(characters)
       .set({
@@ -612,7 +594,6 @@ export class CharactersService {
         currentMieli: character.mieli,
         currentTera: character.tera,
         removedSisuIds: [],
-        harmit: updatedHarmit,
         removedFromPlayAt: shouldMarkRemoved ? (character.removedFromPlayAt ?? new Date()) : null,
         updatedAt: new Date(),
       })
