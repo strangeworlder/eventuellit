@@ -4,6 +4,7 @@ order: 19
 description: "Mausoleumi — Kynnyksen hautausmaa, särkyneen rauhan luostariasema."
 category: kynnys
 tension: "Korkea"
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/krypta-1024.jpg
 ruling_faction: haaskalinnut
 disrupting_factions: ratasvartio
 ---

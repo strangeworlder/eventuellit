@@ -4,6 +4,7 @@ order: 12
 description: "Kynnyksen puutarhakaupunki ja oikeusjärjestelmän keskus."
 category: kynnys
 tension: "Korkea"
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/laki-1024.jpg
 ruling_faction: logiikan-inkvisitio
 disrupting_factions: verhonkutojat, heimolaiset
 ---

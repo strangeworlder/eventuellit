@@ -4,6 +4,7 @@ order: 1
 description: "Keskusasema — Kynnyksen kauppasatama ja solmupiste."
 category: kynnys
 tension: "Matala"
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/seula-1024.jpg
 ruling_faction: muotinvalajat
 disrupting_factions: verhonkutojat
 ---
