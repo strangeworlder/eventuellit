@@ -20,6 +20,11 @@ describe("CharactersController", () => {
       findAll: vi.fn().mockResolvedValue([]),
       findOne: vi.fn().mockResolvedValue(null),
       listSnapshots: vi.fn().mockResolvedValue([]),
+      listPrivateNotes: vi.fn().mockResolvedValue([]),
+      createPrivateNote: vi.fn().mockResolvedValue({}),
+      updatePrivateNote: vi.fn().mockResolvedValue({}),
+      removePrivateNote: vi.fn().mockResolvedValue({ deleted: true }),
+      migratePublicNotesToPrivate: vi.fn().mockResolvedValue({ migrated: true }),
       create: vi.fn().mockResolvedValue({}),
       update: vi.fn().mockResolvedValue({}),
       linkEpisode: vi.fn().mockResolvedValue({ linked: true, alreadyLinked: false }),
@@ -127,5 +132,22 @@ describe("CharactersController", () => {
     const result = await controller.exportMarkdown();
     expect(service.exportMarkdown).toHaveBeenCalled();
     expect(result).toEqual({ filename: "Hahmot.md", markdown: "# Hahmot\n" });
+  });
+
+  it("should delegate private notes endpoints with user context", async () => {
+    await controller.listPrivateNotes(5, mockReq);
+    expect(service.listPrivateNotes).toHaveBeenCalledWith(5, mockUser.id, mockUser.role);
+
+    await controller.createPrivateNote(5, { content: "Salainen" }, mockReq);
+    expect(service.createPrivateNote).toHaveBeenCalledWith(5, { content: "Salainen" }, mockUser.id);
+
+    await controller.updatePrivateNote(5, 9, { isPinned: true }, mockReq);
+    expect(service.updatePrivateNote).toHaveBeenCalledWith(5, 9, { isPinned: true }, mockUser.id);
+
+    await controller.removePrivateNote(5, 9, mockReq);
+    expect(service.removePrivateNote).toHaveBeenCalledWith(5, 9, mockUser.id);
+
+    await controller.migratePublicNotes(5, mockReq);
+    expect(service.migratePublicNotesToPrivate).toHaveBeenCalledWith(5, mockUser.id);
   });
 });

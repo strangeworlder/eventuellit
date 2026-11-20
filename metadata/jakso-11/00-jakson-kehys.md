@@ -1,10 +1,11 @@
 # Jakso 11: Ohjainlevy 2 - Jakson kehys ja kokonaisarkkitehtuuri
 
 > **Vain pelinjohtajalle (GM Prep - Taso 2 & Taso 3)**  
-> **Sijainti:** [Seula (1. asema)](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/01-seula.md) (aloitus ja finaali) sekä [Laki (12. asema)](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/12-laki.md), [Verso (3. asema)](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/03-verso.md) ja [Katedraali (7. asema)](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/07-katedraali.md)  
+> **Sijainti:** [Seula (1. asema)](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/01-seula.md) (aloitus ja finaali) sekä [Verso (3. asema)](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/03-verso.md), [Laki (12. asema)](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/12-laki.md) ja [Katedraali (7. asema)](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/07-katedraali.md)  
 > **Genre:** Aarteenetsintäseikkailu (*Indiana Jones*, *National Treasure*, *Tomb Raider*, *Uncharted*)  
 > **Pelaajahahmot:** Holti (Mänzy), Sahye (Nina A), Yune (Ilari L) ja Yume (Taija K)  
-> **Sessiot:** Sessio 1 (19.11.2026) ja Sessio 2 (23.11.2026)
+> **Pyhimysheitto (1n12):** **7 - Vaara 7: Lamenta** (kulkee ryhmän mukana päähenkilösyndroomaisena "bestiksenä")  
+> **Sessiot:** Sessio 1 (19.11.2026 - Pelattu: Seulan huutokauppa ja saapuminen Versolle) ja Sessio 2 (23.11.2026 - Tulossa: Verson hauta, Laki, Katedraali ja Seulan finaali)
 
 ---
 
@@ -28,18 +29,18 @@ Jakso toimii samalla suoraan pelattavana opasretkenä Kynnyksen kolmeen pääfak
 
 Jakso etenee viidessä selkeässä vaiheessa:
 
-1. **Kohtaaminen 1 - Seulan aloitus (Yläriutan huutokauppa):**  
-   Hahmot hankkivat Seulan yläriutan suljetusta huutokaupasta Suuren sodan aikaisen karttakotelon (aarrekartan) kilpailevien faktioiden nenän edestä ja pakenevat vapaasatamasta. Aarrekartta paljastaa kolmen avaimen (lasipallon kolmannesten) sijainnit Laki-asemalla, Versolla ja Katedraalilla.
-2. **Kohtaamiset 2-4 - Kolme lokaatiopohjaista avainkohtaamista (Laki, Verso, Katedraali):**  
-   Pelaajat valitsevat itse järjestyksen, jossa he kiertävät kolme asemaa. Aiempien jaksojen räjähdykset, sähköpiikit ja kapinat ovat rikkoneet perustajien vanhat suojaukset ja paljastaneet kätköt.
-3. **Avainten yhdistäminen (Kolmiosainen lasipallo):**  
-   Kun kolme lasipallon lohkoa liitetään yhteen, niiden sisäiset kaiverrukset muodostavat kolmiulotteisen kartan. Avaimet kertovat kolme asiaa:
+1. **Kohtaaminen 1 - Seulan aloitus (Yläriutan huutokauppa, PELATTU SESSIOSSA 1):**  
+   Hahmot hankkivat Seulan yläriutan huutokaupasta Suuren sodan aikaisen pyöreän nahkalaukun (**kohde 11a**, aarrekartta ja avainkotelo) kilpailevien faktioiden nenän edestä manipuloimalla **Vaara 7: Lamentan** päähenkilösyndroomaa. Sahye nappasi laukun 11a zen-tilassa epätapahtumana samalla kun Lamenta räjähti verisenä massana ulos huutokaupan voittaneen Iridiumkardinaalin sisältä. Laukun sisällä on kolme tyhjää koloa pallon kolmanneksille sekä sisävuoreen kaiverrettu perustajien sopimus, joka osoittaa kolmen perustajan haudoille Versolla, Laki-asemalla ja Katedraalilla.
+2. **Kohtaamiset 2-4 - Kolme lokaatiopohjaista avainkohtaamista (Verso -> Laki -> Katedraali):**  
+   Pelaajat päättivät jättää Katedraalin (Lamentan kotikentän) viimeiseksi ja suuntasivat ensimmäisenä **Versolle**. Sessio 1 päättyi kahden päivän viidakkovaellukseen Versolla, missä Holti on jo syntetisoinut terminaalilla vastalääkkeen itiösumuun ja Lamenta on liittynyt mukaan Yumen ja Sahyen "bestiksenä" raivaamaan tietä valomachetella ja 500 kamerafiltterillä kohti Tuhkan puolueen Ensimmäisen Puoluejohtajan hautaa.
+3. **Avainten yhdistäminen (Kolmiosainen pallo):**  
+   Kun kolme pallon lohkoa liitetään yhteen nahkalaukun koloihin, niiden sisäiset kaiverrukset muodostavat kolmiulotteisen kartan. Avaimet kertovat kolme asiaa:
    - Varsinainen holvi sijaitsee takaisin **Seulalla**.
    - Mistä päin Seulan koralliriuttaa ja vanhaa tulliydintä holvikatakombi löytyy.
    - Mikä siellä olevista **sadoista identtisistä holveista** on se ainoa oikea holvi.
    Lisäksi kaikkia kolmea avainta tarvitaan fyysisesti oikean holvin avaamiseen.
 4. **Kohtaaminen 5 - Finaali Seulalla (Satojen holvien katakombi ja kolme sokeaa koetta):**  
-   Hahmot palaavat Seulalle, paikantavat lasipallolla oikean holvin satojen holvien joukosta ja avaavat sen kolmella avaimella. Holvin sisällä ennen *Astian* varsinaista ohjainlevyä odottavat kolmen perustajan *The Last Crusade* -henkiset kokeet, joissa on sovellettava Laki-, Verso- ja Katedraali-asemilla opittuja totuuksia.
+   Hahmot palaavat Seulalle, paikantavat pallolla oikean holvin satojen holvien joukosta ja avaavat sen kolmella avaimella. Holvin sisällä ennen *Astian* varsinaista ohjainlevyä odottavat kolmen perustajan *The Last Crusade* -henkiset kokeet, joissa on sovellettava Laki-, Verso- ja Katedraali-asemilla opittuja totuuksia.
 
 ---
 
@@ -66,21 +67,23 @@ Nelikko on poikkeuksellisen kokenut ekspertti- ja vakoojaryhmä ([Hahmot.md](fil
 
 ---
 
-## 4. Kilpailevat retkikunnat (Neljän osapuolen kilpajuoksu)
+## 4. Kilpailevat retkikunnat, Vaara 7 Lamenta ja pilotti Petturi Takinkääntäjä
 
-Kun perustajien sinetit murtuivat Laki-asemalla, Versolla ja Katedraalilla, kukin kolmesta valtafaktiosta päätteli kahden muun rikkoneen Suuren sodan jälkeisen sopimuksen. Jokainen faktio on lähettänyt oman erikoisryhmänsä Seulan huutokauppaan ja avainten perään:
+Kun perustajien sinetit murtuivat Laki-asemalla, Versolla ja Katedraalilla, kukin kolmesta valtafaktiosta päätteli kahden muun rikkoneen Suuren sodan jälkeisen sopimuksen. Jokainen faktio lähetti oman erikoisryhmänsä Seulan huutokauppaan ja avainten perään:
 
 1. **KW-konsortion retkikunta - [Tohtori Sydänmies](file:///c:/Users/petri.leinonen/eventuellit/metadata/npct/kw-konsortio/tohtori-sydanmies.md):**  
-   Laki-aseman oikeudenkäynnistä ([jakso 5](file:///c:/Users/petri.leinonen/eventuellit/metadata/Jaksot.md#L908-L914)) tuttu kookas, ikääntynyt syyttäjäkyborgi, jonka keraaminen sydän sykkii läpinäkyvän rintakotelon takana. Sydänmies kunnioittaa Sahyea ja Yunea ammattilaisina ja kohtelee aarteenetsintää herrasmiesmäisenä sääntöpelinä. Hänen mukanaan kulkee kaksi Logiikan Inkvisition mittaajaa ja Ratasvartion raskas suojapartio. Hänen sokea pisteensä on usko siihen, että KW:n Säännöstöllä on objektiivinen matemaattinen pohja.
-2. **Ekklesian retkikunta - [Iridiumkardinaali](file:///c:/Users/petri.leinonen/eventuellit/metadata/npct/ekklesia/iridiumkardinaali.md):**  
-   Evoluution gaalassa ([jakso 9](file:///c:/Users/petri.leinonen/eventuellit/metadata/Jaksot.md#L1606-L1856)) nöyryytetty Verhonkutojien seremoniamestari, jonka iridiumsuomuinen iho taittaa valoa kuvausdroonien parven keskellä. Kardinaali janoaa kostoa Holtille ja Sahyelle ja haluaa *Astian* ohjainlevyn palauttaakseen kasvojensa loiston suorassa lähetyksessä. Hänen mukanaan liikkuu Haaskalintujen tutkijoita ja Pyhän Tragedian fanaatikkoja. Hänen heikkoutensa on narsismi ja kyvyttömyys sietää sitä, että katsomo on tyhjä.
-3. **Tuhkan puolueen retkikunta - Juurikaivaja (tai Sukuhauta):**  
-   Heimolaisten ja Muotinvalajien yhteisesti valtuuttama karski raunioiden koluaja ja sukuhautojen tuntija (*Indiana Jonesin* Belloq-henkinen vastapeluri). Hän kantaa Verson tuhoutuneiden mahtisukujen valtakirjaa ja pitää Yunea ja Holtia verisiteensä pettäneinä tuhopolttajina. Hän tuntee vanhat mekaaniset ansat ja luottaa perinteeseen, mutta sokea kuuliaisuus Tuhkan muotille tekee hänestä haavoittuvan, kun "ikuinen" rakenne alkaa pettää.
+   Laki-aseman oikeudenkäynnistä ([jakso 5](file:///c:/Users/petri.leinonen/eventuellit/metadata/Jaksot.md#L908-L914)) tuttu kookas, ikääntynyt syyttäjäkyborgi, jonka keraaminen sydän sykkii läpinäkyvän rintakotelon takana. Sessiossa 1 Sydänmies tervehti Yunea ja Holtia lämpimästi (sivuuttaen antiikkia tutkineen Sahyen), myönsi laukun 11a olevan aarrekartta ja haaveili romanttisesta seikkailusta ympäri Kynnystä. Holti kaivoi hänestä esiin myös vipuvartta: Sydänmiehellä on rästissä maksamaton lasku Seulan aiemmasta huutokaupasta. Hänen mukanaan kulkee kolme Ratasvartion henkivartijaa, ja hänen sokea pisteensä on usko siihen, että KW:n Säännöstöllä on objektiivinen matemaattinen pohja.
+2. **Ekklesian retkikunta - [Iridiumkardinaali](file:///c:/Users/petri.leinonen/eventuellit/metadata/npct/ekklesia/iridiumkardinaali.md) (RÄJÄHTI SESSIOSSA 1):**  
+   Evoluution gaalassa ([jakso 9](file:///c:/Users/petri.leinonen/eventuellit/metadata/Jaksot.md#L1606-L1856)) nöyryytetty Verhonkutojien seremoniamestari saapui Seulalle valkoisissa kaavuissa, monivärisessä naamiossa ja kameradroonien ympäröimänä Lamentan seurassa. Kun Holti hävisi huutokaupan tahallaan ja nosti Iridiumkardinaalin tarinan näennäiseksi päähenkilöksi, joka huomasi laukun 11a kadonneen kesken voitonpuheensa, **Lamenta räjähti verisenä massana ulos Iridiumkardinaalin sisältä** ottaen tämän paikan tarinan keskiössä. Iridiumkardinaali on siten poissa pelistä, ja hänen paikkansa draaman keskipisteenä on ottanut Lamenta itse.
+3. **Tuhkan puolueen retkikunta - Tuhkan puolueen suuromistajan perijä ("level-upattu nepo-baby"):**  
+   Aiemmista kohtaamisista tuttu Tuhkan puolueen suuromistajan poika, joka on kokenut kovia: hän on kasvattanut sängen, saanut kasvoihinsa arpisen ilmeen ja treenannut itsensä lihaksikkaaksi. Hän liikkuu suuren seurueen suojissa, piti Seulalla katseensa naulittuna laukkuun 11a ja jahtaa nyt ryhmää perintönsä perässä.
+4. **Pyhimys (Heitto 7) - Vaara 7: Lamenta ("Bestis" ja päähenkilösyndrooma):**  
+   Harmaata, itkevää marmoripatsasta muistuttava surun ja draaman pyhimys. Sessiossa 1 Sahye hieroi Lamentan kanssa sovinnon Katedraalin tapahtumien jäljiltä, ja huutokaupan aikana Yume jutteli Lamentan kanssa niin, että Lamentan "bestis"-kohde vaihteli jakson aikana hahmosta toiseen. Lamenta uskoo laukun 11a johtaman aarteen olevan *hänen* kadonnut aarteensa, koska hän pitää itseään tarinan päähenkilönä. Räjähdettyään ulos Iridiumkardinaalista Seulalla Lamenta ilmestyi Session 1 lopussa Verson viidakkoon ryhmän "bestiksenä" heiluttaen valomachetea ja kuvaten retkikuntaa 500 seikkailufiltterin läpi matkalla Perustajan haudalle.
 
-### Ryhmän oma pilotti: Takinkääntäjä (Petri-logiikan huipentuma)
-Koska kenelläkään neljästä pelaajahahmosta (*Holti, Sahye, Yune, Yume*) ei ole pilottitaitoa, ryhmän nopeaa yhteysalusta Seulan, Lain, Verson ja Katedraalin välillä ohjaa palkattu keikkapilotti nimeltä **Takinkääntäjä**:
-* **Maailmansisäinen arki ([Petri-vertaus](file:///c:/Users/petri.leinonen/eventuellit/metadata/nimeaminen.md)):** Hahmoille *Takinkääntäjä* on vain Seulan alakanavista palkatun sukkulakuskin täysin arkinen, tavanomainen nimi, joka ei herätä maailman sisällä minkäänlaista kummastelua.
-* **Pelin sisäinen funktio ja kolminkertainen myyntimies:** *Takinkääntäjä* on suora syy sille, miksi kilpailevat faktiopomot pysyvät koko ajan ryhmän kintereillä. Aina kun nelikko jalkautuu asemalle tutkimaan kätköä ja jättää pilottinsa pitämään sukkulan moottoreita lämpiminä, *Takinkääntäjä* ottaa sukkulan radiolla yhteyttä *Tohtori Sydänmieheen*, *Iridiumkardinaaliin* ja *Juurikaivajaan* ja myy ryhmän tarkan sijainnin eniten tarjoavalle.
-* **Kliimaksi tai oivallus:** Jos pelaajat eivät hoksaa pilottinsa nimeä ja laita häntä kuriin matkan varrella, *Takinkääntäjä* yrittää Seulan finaalissa kaapata valmiin kolmiosaisen lasipallon (tai *Astian* ohjainlevyn) ja myydä sen sille faktiopomolle, joka on vielä pystyssä.
+### Ryhmän oma pilotti: Petturi Takinkääntäjä (Petri-logiikan huipentuma)
+Koska kenelläkään neljästä pelaajahahmosta (*Holti, Sahye, Yune, Yume*) ei ole pilottitaitoa, ryhmän nopeaa yhteysalusta Seulan, Verson, Lain ja Katedraalin välillä ohjaa kapinaan liittynyt sukkulapilotti nimeltä **Petturi Takinkääntäjä**:
+* **Maailmansisäinen arki ([Petri-vertaus](file:///c:/Users/petri.leinonen/eventuellit/metadata/nimeaminen.md)):** Hahmoille *Petturi Takinkääntäjä* on vain Seulan alakanavista mukaan tulleen, Jamir Toiston blogeja lukeneen sukkulakuskin täysin arkinen tonttunimi (hän käänsi takkinsa liittyessään kapinaan, vaikka Yune pohtikin jo vakavasti hänen heittämistään ulos ilmalukosta).
+* **Pelin sisäinen funktio:** *Petturi Takinkääntäjä* on suora syy sille, miksi jäljellä olevat faktiopomot (*Tohtori Sydänmies* ja *Tuhkan puolueen suuromistajan perijä*) pysyvät koko ajan ryhmän kintereillä. Aina kun nelikko jalkautuu asemalle tutkimaan kätköä ja jättää pilottinsa pitämään sukkulan moottoreita lämpiminä, *Petturi Takinkääntäjä* voi vuotaa ryhmän sijainnin radiolla, jos joku uhkaa häntä tai maksaa tarpeeksi.
+* **Kliimaksi tai oivallus:** Jos pelaajat antagonisoivat pilottiaan tai eivät pidä häntä silmällä, *Petturi Takinkääntäjä* voi Seulan finaalissa kääntää takkinsa vielä kerran ja yrittää myydä kolmiosaisen pallon tai *Astian* ohjainlevyn sille faktiopomolle, joka on vielä pystyssä.
 
-Kilpailijoiden liikkeet asemien välillä ratkotaan pelissä dynaamisesti nopalla, *Takinkääntäjän* viestien ja pelaajien valitseman reitin pohjalta: faktiopomot voivat päätyä yhteistyöhön, väijytyksiin tai jäädä matkan varrella asemien ansoihin ennen Seulan finaalia.
+Kilpailijoiden liikkeet asemien välillä ratkotaan pelissä dynaamisesti nopalla, *Petturi Takinkääntäjän* viestien ja pelaajien valitseman reitin pohjalta: faktiopomot voivat päätyä yhteistyöhön, väijytyksiin tai jäädä matkan varrella asemien ansoihin ennen Seulan finaalia.

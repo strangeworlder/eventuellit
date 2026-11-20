@@ -5,30 +5,23 @@
 
 ---
 
-## Kohtaaminen 1: Seulan aloitus - Yläriutan suljettu huutokauppa
+## Kohtaaminen 1: Seulan aloitus - Yläriutan huutokauppa (PELATTU SESSIOSSA 1)
 
-### Ympäristö ja tunnelma
-Peli käynnistyy (uniprologin ja `1n12`-pyhimysheiton jälkeen) [Seulan](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/01-seula.md) yläriutan kaarevien lasikupolien alta. Huokoinen, valkoinen korallikalkki kasvaa kiinni paksuihin messinkikaariin, ja ikkunoista avautuu näkymä pimeään nestemäiseen avaruuteen.
+### Mitä Sessiossa 1 tapahtui
+1. **Uniprologi ja Vaara 7 Lamenta:**  
+   Uniprologissa valkoisiin keramiittihaarniskoihin pukeutunut nelikko suojasi salkkua kantavaa insinööriä avaruusaluksen käytävällä purppurahaarniskaisia sotilaita vastaan: Yume yritti riisua kypäräänsä katsoakseen peilikuvaansa (ja otti 2 Mieli-vauriota muiston hylkiessä muutosta), Holti ja Yune suojasivat tulituksella ja Sahye puski insinöörin pää edellä pelastuskapseliin. Seulalle saavuttaessa pyhimysheitto (`1n12`) tuotti tuloksen **7: Vaara 7 Lamenta**. Asemarauhatarkastuksessa Holti ja Sahye jättivät pistoolinsa säilytykseen, kun taas Yume kätki hiusneulaveitset ja garotten ja Yune piti pienen aseen mukanaan.
+2. **Ennakkonäyttelyn paviljonki ja valmisteluheitot (5n20):**  
+   Avoimessa lasipaviljongissa rauskudroonien vartioimana oli esillä **kohde 11a**: vanha, pyöreä nahkalaukku sekä Kukoistuksen ajan kunniamitaleita.
+   * **Yume** ihasteli mitaleita ja tutki vitriinin turvajärjestelmät (perushälyttimet, joiden varsinainen pelote nojaa asemarauhaan ja aseistettuihin rauskudrooneihin).
+   * **Sahye** tutki antiikkia tarkemmin ja tunnisti esineiden ajoittuvan Kukoistuksen ajan loppuun ja Suuren sodan päättymiseen (mitaleissa Ratasvartion purppuraisia aiheita ja laukussa 11a samat korkean upseerin tunnukset).
+   * **Sahye** lähestyi myös Iridiumkardinaalin seurassa ollutta **Lamentaa** (kriittinen onnistuminen!) ja hieroi sovinnon Katedraalin välirikon jäljiltä: Lamentasta tuli hetkellisesti Sahyen "bestis" (ja "bestiksen" rooli vaihteli session aikana hahmosta toiseen). Lamenta paljasti uskovansa laukun 11a johtaman aarteen olevan *hänen* kadonnut aarteensa, koska hän on tarinan päähenkilö.
+   * **Yune ja Holti** juttelivat **Tohtori Sydänmiehelle** (joka sivuutti antiikkia tutkineen Sahyen). Sydänmies kertoi laukun 11a olevan aarrekartta ja haaveili seikkailusta ympäri Kynnystä, ja **Holti** selvitti Sydänmiehellä olevan rästissä maksamaton lasku aiemmasta huutokaupasta. Kolmantena kilpailijana paikalla oli **Tuhkan puolueen suuromistajan perijä** ("level-upattu nepo-baby" arpineen ja lihaksineen), joka pysytteli tiukasti seurueensa keskellä.
+3. **Huutokaupan ryöstö ja Lamentan purkautuminen Iridiumkardinaalista:**  
+   Nelikko hyödynsi Lamentan päähenkilösyndroomaa esittämällä "sivuhenkilöitä", jotka häviävät huutokaupan, ja nostamalla Iridiumkardinaalin tarinan näennäiseksi päähenkilöksi. **Yume** jäi syrjään juttelemaan Lamentan kanssa, **Holti** toimi Iridiumkardinaalin kilpakumppanina huutokaupassa mutta hävisi tahallaan, ja **Sahye** laski sykkeensä zen-tilaan ja nappasi laukun 11a vitriinistä täydellisenä epätapahtumana. Kun huutokaupan voittanut Iridiumkardinaali otti valokeilan kameradrooniensa edessä ja huomasi laukun kadonneen, **Lamenta purkautui verisenä massana suoraan Iridiumkardinaalin sisältä** ottaen tämän paikan tarinan keskiössä.
+4. **Pako Petturi Takinkääntäjän sukkulalla ja matka Versolle:**  
+   Nelikko poistui ripeää kävelyvauhtia alakanavien sukkulalle, jota ohjaa kapinaan liittynyt pilotti **Petturi Takinkääntäjä**. Sukkulassa **Sahye ja Yune** lukivat laukun 11a sisävuoren pienen kaiverruksen: KW-konsortion, Ekklesian ja Tuhkan puolueen perustajat sopivat Suuren sodan jälkeen kätkevänsä korvaamattoman esineen niin, ettei kukaan heistä voisi palata sen luo ilman kahta muuta, ja kukin vannoi vievänsä oman kolmanneksensa avaimesta omaan hautaansa (Versolle, Laki-asemalle ja Katedraalille). Ryhmä päätti säästää Katedraalin viimeiseksi ja laskeutui **Versolle**.
 
-Suljettu huutokauppa järjestetään **Muistojen ja Sopimusten Salongissa**, jossa Verhonkutojien meklarit ja Muotinvalajien kirjurit kauppaavat rauenneiden sopimusholvien jäämistöjä sekä klinikoilla irti leikattuja muistoeriä. Salongin takaseinän lasisissa sylintereissä kelluu vihertävässä nesteessä yläriutan pankkiirisukujen nuoria, kasvottomia varakehoja.
-
-Seulan yläriutalla vallitsee ehdoton **satamarauha**: raskaat aseet on jätetty narikkaan ja laiturikohtainen satamapoliisi valvoo, että verivihollisetkin pitävät teränsä piilossa. Saman huutokauppasalin pöydissä istuvat pelaajahahmojen (**Holti, Sahye, Yune, Yume**) lisäksi kolmen pääfaktion kilpailevat retkikunnat:
-* **Tohtori Sydänmies** (KW-konsortio), joka tervehtii Sahyea ja Yunea kohteliaalla nyökkäyksellä kuin vanhoja oikeussalikollegoita.
-* **Iridiumkardinaali** (Ekklesia), jonka kuvausdroonit surisevat vaimennettuina ja jonka hymyilevä seremonianaamio peittää raivon Holtia ja Sahyea kohtaan.
-* **Juurikaivaja** (Tuhkan puolue), joka mulkoilee Yunea ja Holtia Verson palaneiden sukukarttojen yli.
-
-### Kohde: Aarrekartta (Suuren sodan karttakotelo)
-Huutokaupan kohteena on kohde #13: Suuren sodan jälkimainingeista periytyvä messinkinen karttakotelo ja siihen kuuluva optinen tähtäinrengas. Kun kotelo saadaan auki, se paljastaa **kolmen avaimen (lasipallon kolmannesten) sijainnit** Laki-asemalla, Versolla ja Katedraalilla.
-
-### Haasteen ratkaisutavat ja pako
-Hahmot voivat hankkia karttakotelon haltuunsa usealla eri tavalla:
-1. **Neuvottelupöytä ja huutokauppabluffi (Mieli/Persoona, Mieli/Ymmärrys):** Kilpailijoiden pelaaminen toisiaan vastaan, tarjousten vedättäminen, varojen yhdistäminen tai kohteiden vaihtaminen lennosta (*Yunen Varjojen diplomaatti*, *Holtin Sosiaalinen manipuloija*, *Sahyen Katutoikeuden edustaja*).
-2. **Takahuoneen sopimusholviin murtautuminen (Terä/Näppäryys, Terä/Näkemys):** Karttakotelo tuodaan lavalle takahuoneen valmisteluholvista. *Yume* (*Turvajärjestelmien purkaja*, *Harvinaisuuksien trokari*) tai *Sahye* (*Infiltraatioekspertti*) voi livahtaa kulisseihin, vaihtaa kotelon väärennökseen tai anastaa sen suoraan nenän edestä.
-3. **Sabotaasi ja skandaali salongissa:** *Holti* (*Neurofarmakologi*, *Provokaattori*) voi terästää kilpailijoiden juomia tai laukaista Kardinaalin ja Sydänmiehen välille protokollariidan, joka rikkoo huutokaupan järjestyksen.
-
-Heti kun karttakotelo on hahmojen käsissä ja he poistuvat salongin lasiovista riutan messinkisilloille, häviäjät unohtavat satamarauhan. Seuraa vauhdikas pako (*Uncharted 4* -hengessä) alas koralliriutan kerroksia, ohi Muotinvalajien alakerrosten klinikoiden ja neonvalaistujen laiturikanavien, joissa ryhmän nopea yhteysalus ja heidän palkkaamansa sukkulapilotti **Takinkääntäjä** odottavat moottorit käynnissä.
-
-> **Takinkääntäjän rooli siirtymissä:** Aina kun ryhmä saapuu seuraavalle asemalle (Laki, Verso tai Katedraali) ja poistuu sukkulasta tutkimaan kätköä, alukselle vahtiin jäävä *Takinkääntäjä* vuotaa ryhmän sijainnin radiolla eniten tarjoavalle faktiopomolle (*Tohtori Sydänmiehelle*, *Iridiumkardinaalille* tai *Juurikaivajalle*). Tämä takaa sen, että kilpailevat retkikunnat hengittävät jatkuvasti niskaan, kunnes pelaajat laskevat 1+1 yhteen pilottinsa nimestä.
+> **Petturi Takinkääntäjän rooli siirtymissä:** Aina kun ryhmä saapuu asemalle (Verso, Laki tai Katedraali) ja poistuu sukkulasta tutkimaan kätköä, alukselle jäävä *Petturi Takinkääntäjä* on syy sille, miksi jäljellä olevat faktiopomot (*Tohtori Sydänmies* ja *Tuhkan puolueen suuromistajan perijä*) pysyvät ryhmän kintereillä.
 
 ---
 
@@ -72,14 +65,20 @@ Kun 4. taso ratkeaa, keskuspilari aukeaa ja luovuttaa **lasipallon ensimmäisen 
 
 ---
 
-## Kohtaaminen 3: Verso (3. asema) - Riehaantunut megaviidakko ja Ensimmäisen Puoluejohtajan hauta
+## Kohtaaminen 3: Verso (3. asema) - Riehaantunut megaviidakko ja Ensimmäisen Puoluejohtajan hauta (SESSIO 2 ALKAA TÄÄLTÄ)
 
-### Ympäristö ja haasteen luonne
+### Ympäristö, Session 1 lopputilanne ja haasteen luonne
 [Verso](file:///c:/Users/petri.leinonen/eventuellit/apps/world/src/content/kynnys/03-verso.md) on muuttunut täysin siitä, kun *Holti* ja *Yune* pakenivat sieltä [jakson 2 (Kaski)](file:///c:/Users/petri.leinonen/eventuellit/metadata/Jaksot.md#L188-L393) lopussa. Norsunluutornit ovat kaatuneet, vanha eliitti on pyyhitty pois ja biodoomin luonto on räjähtänyt hallitsemattomaan kasvuun. Asema on nyt **riehaantunut megaviidakko**, jonka höyryävien saniaismetsien, jättiläisjuurakoiden ja vaaleanpunaisen itiösumun keskellä entiset Mudan viljelijät yrittävät löytää omaa paikkaansa ja rakentaa uutta arkea kaatuneiden lasitornien raunioille.
+
+**Session 1 lopussa tehty viidakkovaellus:**
+* **Holti** kantaa vanhaa pulttilukkokivääriä ja on jo syntetisoinut terminaalilla ryhmälle **vastalääkkeen itiösumua vastaan** (*Neurofarmakologi* & *Itiösumun välittäjä*), mikä suojaa ryhmää 3. osion itiösumun hallusinaatioilta.
+* **Sahye** etenee viidakossa taistelukorkokengissä.
+* **Yume** koki luonnon, puut ja virtaavan veden ensimmäistä kertaa elämässään ja söi viidakon psyykkisiä sieniä Holtin kanssa.
+* **Vaara 7: Lamenta** ilmestyi viidakkoon ryhmän "bestiksenä" heiluttaen valomachetea ja kuvaten retkikuntaa 500 seikkailufiltterin läpi raivatessaan tietä Perustajan haudalle.
 
 Norsunluutornin romahdus on repinyt auki vanhan maaperän ja paljastanut sen alta Suuren sodan jälkeisen **kivisen viidakkotemppelin: Tuhkan puolueen Ensimmäisen Puoluejohtajan haudan**.
 
-Siinä missä Laki oli rauhallista arkistopuzzleilua, Verso on jakson **seikkailullisin ja fyysisin toimintaosio** (*Raiders of the Lost Ark*, *Tomb Raider*): käärmekuoppia, nuoliansoja, pettäviä siltoja ja vieriviä kiviä.
+Siinä missä Laki on rauhallista arkistopuzzleilua, Verso on jakson **seikkailullisin ja fyysisin toimintaosio** (*Raiders of the Lost Ark*, *Tomb Raider*): käärmekuoppia, nuoliansoja, pettäviä siltoja ja vieriviä kiviä.
 
 ### Kolmiosainen temppelirata (Tuhkan puolueen kolme subfaktiota)
 Temppelin kolme peräkkäistä aluetta kuvaavat Tuhkan puolueen kolmea alafaktiota, ennen kuin hahmot saavuttavat itse hautakammion:
@@ -153,17 +152,17 @@ Oikean holvin raskaassa ulko-ovessa on kolme erimuotoista sylinteri-istukkaa. Ov
 ### Holvin sisäosa: Kolmen perustajan kokeet (*The Last Crusade*)
 Kun ulko-ovi aukeaa, sen takana avautuu kapea, muinaisen tulliytimen kuilun ylittävä kammio, jonka perällä *Astian* aito, kulta- ja kuparijohdotettu **varsinainen ohjainlevy** hohtaa telineessään.
 
-Samaan aikaan matkasta selvinneet kilpailevat faktiopomot (*Tohtori Sydänmies*, *Iridiumkardinaali* ja/tai *Juurikaivaja*) saavuttavat katakombin hahmojen kintereillä. Päästäkseen ohjainlevyn luo hahmojen (tai heidän ohi ryntäävien kilpailijoiden) on kuljettava kolmen perustajan rakentaman viimeisen suojauksen läpi, jossa **jokainen este vaatii yhdellä asemalla opitun totuuden ja opinkappaleen soveltamista**:
+Samaan aikaan matkasta selvinneet kilpailevat faktiopomot (*Tohtori Sydänmies* ja/tai *Tuhkan puolueen suuromistajan perijä*) sekä päähenkilön valokeilaa vaativa **Vaara 7: Lamenta** saavuttavat katakombin hahmojen kintereillä. Päästäkseen ohjainlevyn luo hahmojen (tai heidän ohi ryntäävien kilpailijoiden) on kuljettava kolmen perustajan rakentaman viimeisen suojauksen läpi, jossa **jokainen este vaatii yhdellä asemalla opitun totuuden ja opinkappaleen soveltamista**:
 
 1. **1. Koe - KW-konsortion Tulliportti (Säännöstön sokea noudattaminen ja tyhjä arvaus):**
    * Pyörivien leikkausterien ja laserlukkojen vartioima kynnys, jonka konsoli vaatii perustajan "Lopullista Tullikoodia" uhkailmoituksen laskiessa sekunteja kuolettavaan iskuun.
    * **Ratkaisu:** Kuten Laki-aseman 4. tasolla opittiin, koodia ei ole olemassa. Se, joka jää laskemaan tai etsimään "oikeaa kaavaa" (kuten *Tohtori Sydänmies*, jos hän yrittää ratkaista portin logiikalla!), epäröi liian kauan ja leikkautuu teriin. Se, joka syöttää konsoliin sokealla itsevarmuudella *minkä tahansa arvauksen* ja kävelee suoraan läpi ohjesäännön askeleilla, kulkee portista vahingoittumattomana.
 2. **2. Koe - Ekklesian Valokeila (Kohdistettu spektaakkeli Tyrannille julkisen yleisön sijaan):**
    * Kuilun ylittävä silta, jonka molemmilla sivuilla loistavat kirkkaat yleisöparvet ja kamerapatsaat, kun taas suoraan edessä pimeydessä kohoaa yksinäinen, tyhjä Tyrannin istuin. Sillan yllä kaartuvat polttavat lämpölinssit.
-   * **Ratkaisu:** Jokainen, joka kääntyy esiintymään sivuilla loistaville yleisöparville ja kameroille (kuten *Iridiumkardinaali*, joka on tottunut kylpemään julkisessa huomiotaloudessa!), laukaisee polttolasit täydellä teholla. Kuten Katedraalilla opittiin, julkisella spektaakkelilla ei ole mitään väliä: sillasta selviää vain käännyttämällä selän yleisökameroille ja kohdistamalla esityksen, katseen ja uhrin yksinomaan pimeässä odottavalle Tyrannin istuimelle.
+   * **Ratkaisu:** Jokainen, joka kääntyy esiintymään sivuilla loistaville yleisöparville ja kameroille, laukaisee polttolasit täydellä teholla. Kuten Katedraalilla opittiin, julkisella spektaakkelilla ei ole mitään väliä: sillasta selviää vain käännyttämällä selän yleisökameroille ja kohdistamalla esityksen, katseen ja uhrin yksinomaan pimeässä odottavalle Tyrannin istuimelle.
 3. **3. Koe - Tuhkan puolueen Muotti (Absoluuttinen kumarrus ja liikkumattomuus murskaimen alla):**
    * Juuri ennen ohjainlevyn jalustaa katto lähtee laskeutumaan alas murskaavana kivimuottina heti, kun lattialle astutaan.
-   * **Ratkaisu:** Jokainen, joka yrittää juosta, taistella tai kiilata muottia auki (kuten *Juurikaivaja* paniikissa), murskautuu. Kuten Verson sarkofagilla opittiin (*"Jos teemme osamme, asiat ovat hyvin"*), ainoa tapa selvitä on **polvistua täydelliseen, liikkumattomaan kumarrukseen** lattian merkitylle kohdalle: laskeutuva kivikatto pysähtyy millimetrin päähän kumartujan niskasta ja nousee sitten ylös avaten tien ohjainlevylle.
+   * **Ratkaisu:** Jokainen, joka yrittää juosta, taistella tai kiilata muottia auki (kuten *Tuhkan puolueen suuromistajan perijä* paniikissa), murskautuu. Kuten Verson sarkofagilla opittiin (*"Jos teemme osamme, asiat ovat hyvin"*), ainoa tapa selvitä on **polvistua täydelliseen, liikkumattomaan kumarrukseen** lattian merkitylle kohdalle: laskeutuva kivikatto pysähtyy millimetrin päähän kumartujan niskasta ja nousee sitten ylös avaten tien ohjainlevylle.
 
 ### Loppuhuipennus: Astian varsinainen ohjainlevy
 Kun *Astian* varsinainen ohjainlevy irrotetaan telineestään, Seulan vanhan tulliytimen vuosisataiset sulkukentät purkautuvat. Holvikatakombi alkaa täyttyä nestemäisen avaruuden paineesta ja sortua, pakottaen nelikon pakenemaan ohjainlevy mukanaan alakanavien sukkulalle ja takaisin *Aamunkoille* - jossa uuden ohjainlevyn kytkeminen herättää aluksen järjestelmät ensimmäistä kertaa niiden täyteen potentiaaliin.

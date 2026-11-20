@@ -16,9 +16,11 @@ import { CharactersService } from "./characters.service";
 import { AdvanceCharacterDto } from "./dto/advance-character.dto";
 import { AdvanceMonkDto } from "./dto/advance-monk.dto";
 import { CreateCharacterDto } from "./dto/create-character.dto";
+import { CreatePrivateNoteDto } from "./dto/create-private-note.dto";
 import { LinkEpisodeDto } from "./dto/link-episode.dto";
 import { RefreshCharacterDto } from "./dto/refresh-character.dto";
 import { UpdateCharacterDto } from "./dto/update-character.dto";
+import { UpdatePrivateNoteDto } from "./dto/update-private-note.dto";
 
 @UseGuards(JwtAuthGuard)
 @Controller("characters")
@@ -55,6 +57,44 @@ export class CharactersController {
   @Get(":id/snapshots")
   listSnapshots(@Param("id", ParseIntPipe) id: number, @CurrentUser() user: AuthUser) {
     return this.charactersService.listSnapshots(id, user.id, user.role);
+  }
+
+  @Get(":id/private-notes")
+  listPrivateNotes(@Param("id", ParseIntPipe) id: number, @CurrentUser() user: AuthUser) {
+    return this.charactersService.listPrivateNotes(id, user.id, user.role);
+  }
+
+  @Post(":id/private-notes")
+  createPrivateNote(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() createPrivateNoteDto: CreatePrivateNoteDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.charactersService.createPrivateNote(id, createPrivateNoteDto, user.id);
+  }
+
+  @Patch(":id/private-notes/:noteId")
+  updatePrivateNote(
+    @Param("id", ParseIntPipe) id: number,
+    @Param("noteId", ParseIntPipe) noteId: number,
+    @Body() updatePrivateNoteDto: UpdatePrivateNoteDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.charactersService.updatePrivateNote(id, noteId, updatePrivateNoteDto, user.id);
+  }
+
+  @Delete(":id/private-notes/:noteId")
+  removePrivateNote(
+    @Param("id", ParseIntPipe) id: number,
+    @Param("noteId", ParseIntPipe) noteId: number,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.charactersService.removePrivateNote(id, noteId, user.id);
+  }
+
+  @Post(":id/migrate-public-notes")
+  migratePublicNotes(@Param("id", ParseIntPipe) id: number, @CurrentUser() user: AuthUser) {
+    return this.charactersService.migratePublicNotesToPrivate(id, user.id);
   }
 
   @Patch(":id")

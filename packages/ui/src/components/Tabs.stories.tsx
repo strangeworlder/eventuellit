@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
+import { Stack } from "./Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs";
+import { Text } from "./Text";
 
 const meta: Meta<typeof Tabs> = {
   title: "Suunnittelujarjestelma/Molekyylit/Tabs",
@@ -105,5 +107,76 @@ export const Themed: Story = {
         </CardContent>
       </Card>
     </div>
+  ),
+};
+
+export const LimaMetaballit: Story = {
+  render: () => (
+    <Stack gap={6} className="w-full max-w-3xl bg-[var(--theme-bg)] text-[var(--theme-text)] p-8">
+      <Text variant="muted">
+        Liikuta osoitinta aktiivisen ja muiden välilehtien päällä tunteaksesi liman painon ja
+        hitausmomentin. Klikkaa kaukaista välilehteä nähdäksesi viskoosin valumisen ja käyrämäisen
+        asettumisen.
+      </Text>
+      <Tabs defaultValue="seula">
+        <TabsList>
+          <TabsTrigger value="seula">Seula</TabsTrigger>
+          <TabsTrigger value="syke">Syke</TabsTrigger>
+          <TabsTrigger value="verso">Verso</TabsTrigger>
+          <TabsTrigger value="alasin">Alasin</TabsTrigger>
+          <TabsTrigger value="krypta">Krypta</TabsTrigger>
+        </TabsList>
+        <TabsContent value="seula" className="pt-6">
+          <Card variant="outline">
+            <CardHeader>
+              <CardTitle>Seula</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Text>Seulan tullilaiturit suodattavat kaiken Kynnykseen saapuvan liikenteen.</Text>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="syke" className="pt-6">
+          <Card variant="outline">
+            <CardHeader>
+              <CardTitle>Syke</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Text>Reaktorikammioiden lämpö pitää lähiasemien verkoston käynnissä.</Text>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="verso" className="pt-6">
+          <Card variant="outline">
+            <CardHeader>
+              <CardTitle>Verso</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Text>Biodomin kostea ilma kiertää suljetuissa viljelykupoleissa.</Text>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="alasin" className="pt-6">
+          <Card variant="outline">
+            <CardHeader>
+              <CardTitle>Alasin</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Text>Runkopalkkien vasarointi kaikuu telakkakuilujen läpi.</Text>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="krypta" className="pt-6">
+          <Card variant="outline">
+            <CardHeader>
+              <CardTitle>Krypta</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Text>Luukammioiden hiljaisuus leijuu nestemäisessä avaruudessa.</Text>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </Stack>
   ),
 };

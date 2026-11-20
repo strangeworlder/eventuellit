@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { NavLink, type NavLinkProps, useNavigate } from "react-router-dom";
 import { Icon } from "./Icon";
+import { SlimeIndicator } from "./SlimeIndicator";
 import { usePillIndicator } from "./usePillIndicator";
 import { cn } from "./utils";
 
@@ -35,12 +36,12 @@ function isNavItemActive(el: HTMLElement): boolean {
 export interface TopNavListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
-  ({ className, style, ...props }, ref) => {
+  ({ className, children, style, ...props }, ref) => {
     const activeCheck = useCallback((el: HTMLElement) => isNavItemActive(el), []);
     const {
       listRef,
       style: pillStyle,
-      settleClassName,
+      slime,
       handlers,
     } = usePillIndicator({
       itemSelector: NAV_ITEM_SELECTOR,
@@ -64,11 +65,13 @@ export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
       if (!el) return;
 
       el.addEventListener("mouseover", handlers.onMouseOver);
+      el.addEventListener("mousemove", handlers.onMouseMove);
       el.addEventListener("mouseleave", handlers.onMouseLeave);
       el.addEventListener("click", handlers.onClick);
 
       return () => {
         el.removeEventListener("mouseover", handlers.onMouseOver);
+        el.removeEventListener("mousemove", handlers.onMouseMove);
         el.removeEventListener("mouseleave", handlers.onMouseLeave);
         el.removeEventListener("click", handlers.onClick);
       };
@@ -78,19 +81,15 @@ export const TopNavList = React.forwardRef<HTMLDivElement, TopNavListProps>(
       <div
         ref={setRefs}
         className={cn(
-          "relative flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] mb-0 gap-1 px-4 mobile:px-0",
-          "[anchor-scope:--active-tab]",
-          "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
-          "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
-          settleClassName,
-          "after:[transform-origin:var(--tab-tug-ox,50%)_var(--tab-tug-oy,50%)]",
-          "after:[transform:translateX(var(--tab-tug-x,0px))_translateY(var(--tab-tug-y,0px))_scaleX(var(--tab-stretch-x,1))_scaleY(var(--tab-stretch-y,1))]",
-          "after:pointer-events-none",
+          "relative isolate flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] mb-0 gap-1 px-4 mobile:px-0",
           className,
         )}
         style={{ ...pillStyle, ...style } as React.CSSProperties}
         {...props}
-      />
+      >
+        <SlimeIndicator slime={slime} />
+        {children}
+      </div>
     );
   },
 );
@@ -134,13 +133,13 @@ export const TopNavLink = React.forwardRef<HTMLAnchorElement, TopNavLinkProps>(
           data-theme={theme}
           className={({ isActive }) =>
             cn(
-              "relative cursor-pointer inline-flex items-center gap-1 whitespace-nowrap px-4 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
+              "relative z-10 cursor-pointer inline-flex items-center gap-1 whitespace-nowrap px-4 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
               "rounded-t-md mb-[-2px]",
               "border-2 border-transparent bg-transparent",
               "text-[var(--theme-primary)] hover:[text-shadow:0_0_15px_var(--theme-primary)] hover:text-[var(--theme-primary)]",
               "after:content-[''] after:absolute after:right-0 after:top-3 after:bottom-3 after:w-px after:bg-[var(--theme-border-soft)]",
-              isActive && "[anchor-name:--active-tab]",
+              isActive && "font-bold",
               className,
             )
           }
@@ -159,14 +158,13 @@ export const TopNavLink = React.forwardRef<HTMLAnchorElement, TopNavLinkProps>(
         data-theme={theme}
         className={({ isActive }) =>
           cn(
-            "relative cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
+            "relative z-10 cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
             "rounded-t-md",
             "mb-[-2px]",
-            isActive && "[anchor-name:--active-tab]",
             isActive
-              ? "bg-transparent text-[var(--theme-text)] z-10 border-2 border-transparent font-bold"
-              : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:[text-shadow:0_0_15px_var(--theme-secondary)] hover:text-[var(--theme-text)] font-semibold",
+              ? "bg-transparent text-[var(--theme-text)] border-2 border-transparent font-bold"
+              : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:[text-shadow:0_0_15px_var(--theme-accent)] hover:text-[var(--theme-text)] font-semibold",
             className,
           )
         }

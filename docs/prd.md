@@ -50,6 +50,10 @@
 - If skill/equipment is missing, a character may still attempt by paying **1 point** from relevant Kesto.
 - Positive fictional positioning/environment may allow attempts without Kesto payment.
 
+### Character Descriptions and Private Notes
+- **Public description (`characters.notes`):** Optional character description visible on the character sheet to all logged-in players.
+- **Private notes (`character_private_notes`):** Separate Markdown log entries with optional title, pin status, and episode link. Visible only to the character owner (read/write) and the GM (read-only on the character sheet and included in the GM `Hahmot.md` export); hidden from other players.
+
 ## 3. Cooperation and Environment
 
 ### Assist

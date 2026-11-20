@@ -12,6 +12,7 @@ import { Heading, HeadingLevelProvider } from "@repo/ui/components/Heading";
 import { Hero } from "@repo/ui/components/Hero";
 import { Icon } from "@repo/ui/components/Icon";
 import { Input } from "@repo/ui/components/Input";
+import { Stack } from "@repo/ui/components/Layout";
 import { LoadingState } from "@repo/ui/components/LoadingState";
 import { MfeNotFoundRedirect } from "@repo/ui/components/MfeNotFoundRedirect";
 import { NoticePanel } from "@repo/ui/components/NoticePanel";
@@ -20,6 +21,7 @@ import { Page, PageBody } from "@repo/ui/components/Page";
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/RadioGroup";
 import { SkeletonCard } from "@repo/ui/components/Skeleton";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
+import { Text } from "@repo/ui/components/Text";
 import { TextArea } from "@repo/ui/components/TextArea";
 import { requestToast } from "@repo/ui/components/Toast";
 import { TopNav, TopNavLink, TopNavList } from "@repo/ui/components/TopNav";
@@ -91,6 +93,7 @@ function GeneratorForm({
   const [sex, setSex] = useState("none");
   const [motivation, setMotivation] = useState("");
   const [notes, setNotes] = useState("");
+  const [initialPrivateNote, setInitialPrivateNote] = useState("");
   const [suggestedNamesList, setSuggestedNamesList] = useState<string[]>([]);
 
   const taidotCount = archetype ? TAIDOT_COUNTS[archetype] : 0;
@@ -199,6 +202,7 @@ function GeneratorForm({
       sex: sex || undefined,
       motivation: motivation || undefined,
       notes: notes || undefined,
+      initialPrivateNote: initialPrivateNote.trim() || undefined,
       keho: kehoScore,
       mieli: mieliScore,
       tera: teraScore,
@@ -225,6 +229,7 @@ function GeneratorForm({
     setSex("none");
     setMotivation("");
     setNotes("");
+    setInitialPrivateNote("");
     setSelectedTaidot(Array(TAIDOT_COUNTS.Sotilas).fill(null));
     setCustomSkillText("");
     setSelectedAnchorId(null);
@@ -616,19 +621,45 @@ function GeneratorForm({
               </div>
             </ObscuredWrapper>
 
-            {/* ── Step 8: Notes (optional) ── */}
+            {/* ── Step 8: Public Description (optional) ── */}
             <ObscuredWrapper revealed={skillsFilled}>
-              <div className="space-y-2">
+              <Stack gap={2}>
                 <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
-                  <Heading>Muistiinpanot (valinnainen)</Heading>
+                  <Heading>Julkinen kuvaus (valinnainen)</Heading>
                 </div>
+                <Text variant="muted">
+                  Näkyy hahmosivulla kaikille pelaajille (esim. ulkonäkö, tunnettu maine tai
+                  tausta).
+                </Text>
                 <TextArea
                   className="h-20"
-                  placeholder="Lisätietoja hahmostasi..."
+                  placeholder="Miltä hahmosi näyttää tai mitä muut hänestä tietävät?"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                 />
-              </div>
+              </Stack>
+            </ObscuredWrapper>
+
+            {/* ── Step 9: Initial Private Note (optional) ── */}
+            <ObscuredWrapper revealed={skillsFilled}>
+              <Stack gap={2}>
+                <div className="border-b-2 border-[var(--theme-border-medium)] pb-2">
+                  <Stack direction="row" align="center" gap={2}>
+                    <Icon name="lock" size={16} />
+                    <Heading>Yksityinen aloitusmuistiinpano (valinnainen)</Heading>
+                  </Stack>
+                </div>
+                <Text variant="muted">
+                  Näkyy vain sinulle ja pelinjohtajalle. Muut pelaajat eivät näe yksityisiä
+                  muistiinpanoja, ja voit lisätä niitä myöhemmin lisää hahmosivulla.
+                </Text>
+                <TextArea
+                  className="h-24"
+                  placeholder="Salaisuudet, epäilykset tai hahmosi omat muistiinpanot..."
+                  value={initialPrivateNote}
+                  onChange={(e) => setInitialPrivateNote(e.target.value)}
+                />
+              </Stack>
             </ObscuredWrapper>
 
             <ObscuredWrapper revealed={skillsFilled}>

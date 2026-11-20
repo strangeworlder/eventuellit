@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useId, useState } from "react";
+import { SlimeIndicator } from "./SlimeIndicator";
 import { usePillIndicator } from "./usePillIndicator";
 import { cn } from "./utils";
 
@@ -69,12 +70,25 @@ function isTabSelected(el: HTMLElement): boolean {
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ className, onKeyDown, style, ...props }, ref) => {
+  (
+    {
+      className,
+      children,
+      onKeyDown,
+      onMouseOver,
+      onMouseMove,
+      onMouseLeave,
+      onClick,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
     const activeCheck = useCallback((el: HTMLElement) => isTabSelected(el), []);
     const {
       listRef,
       style: pillStyle,
-      settleClassName,
+      slime,
       handlers,
     } = usePillIndicator({
       itemSelector: TAB_SELECTOR,
@@ -145,23 +159,32 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
         role="tablist"
         aria-orientation="horizontal"
         className={cn(
-          "relative flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] mb-0 gap-1 px-4 mobile:px-0",
-          "[anchor-scope:--active-tab]",
-          "after:content-[''] after:absolute after:rounded-full after:bg-[var(--theme-secondary)]/15 after:border-2 after:border-[var(--theme-secondary)]",
-          "after:[position-anchor:--active-tab] after:[left:anchor(left)] after:[right:anchor(right)] after:[bottom:calc(anchor(bottom)+5px)] after:[top:calc(anchor(top)+2px)]",
-          settleClassName,
-          "after:[transform-origin:var(--tab-tug-ox,50%)_var(--tab-tug-oy,50%)]",
-          "after:[transform:translateX(var(--tab-tug-x,0px))_translateY(var(--tab-tug-y,0px))_scaleX(var(--tab-stretch-x,1))_scaleY(var(--tab-stretch-y,1))]",
-          "after:pointer-events-none",
+          "relative isolate flex flex-wrap items-end border-b-2 border-[var(--theme-primary)] mb-0 gap-1 px-4 mobile:px-0",
           className,
         )}
         style={{ ...pillStyle, ...style } as React.CSSProperties}
         onKeyDown={handleKeyDown}
-        onMouseOver={handlers.onMouseOver}
-        onMouseLeave={handlers.onMouseLeave}
-        onClick={handlers.onClick}
+        onMouseOver={(e) => {
+          handlers.onMouseOver(e);
+          onMouseOver?.(e);
+        }}
+        onMouseMove={(e) => {
+          handlers.onMouseMove(e);
+          onMouseMove?.(e);
+        }}
+        onMouseLeave={(e) => {
+          handlers.onMouseLeave();
+          onMouseLeave?.(e);
+        }}
+        onClick={(e) => {
+          handlers.onClick(e);
+          onClick?.(e);
+        }}
         {...props}
-      />
+      >
+        <SlimeIndicator slime={slime} />
+        {children}
+      </div>
     );
   },
 );
@@ -204,15 +227,14 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           onClick?.(e);
         }}
         className={cn(
-          "relative cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
+          "relative z-10 cursor-pointer inline-flex items-center justify-center whitespace-nowrap px-6 py-3 text-sm mobile:text-base font-bold uppercase tracking-widest transition-all",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--theme-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--theme-bg)]",
           "disabled:pointer-events-none disabled:opacity-50",
           "rounded-t-md",
           "mb-[-2px]",
-          isSelected && "[anchor-name:--active-tab]",
           isSelected
-            ? "bg-transparent text-[var(--theme-primary)] z-10 border-2 border-transparent font-bold"
-            : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:[text-shadow:0_0_15px_var(--theme-secondary)] hover:text-[var(--theme-text)] font-semibold",
+            ? "bg-transparent text-[var(--theme-primary)] border-2 border-transparent font-bold"
+            : "border-2 border-transparent bg-transparent text-[var(--theme-text)] hover:[text-shadow:0_0_15px_var(--theme-accent)] hover:text-[var(--theme-text)] font-semibold",
           className,
         )}
         {...props}

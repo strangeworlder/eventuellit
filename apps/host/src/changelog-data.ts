@@ -24,6 +24,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.2.1",
+    date: "2026-11-20",
+    name: "Hahmojen yksityiset muistiinpanot",
+    features: [
+      {
+        title: "Pelaajahahmojen yksityiset muistiinpanot",
+        description:
+          "Hahmosivulla on nyt oma välilehti Markdown-muotoisille yksityisille lokimerkinnöille, joita voi kiinnittää listan kärkeen ja kytkeä jaksoihin. Yksityiset muistiinpanot näkyvät vain hahmon omistajalle ja pelinjohtajalle. Hahmosivun kaikille näkyvä kenttä on nimetty selkeästi Julkiseksi kuvaukseksi, ja aiemman tekstin voi siirtää yhdellä painalluksella yksityiseksi muistiinpanoksi.",
+        link: { label: "Avaa hahmoluettelo", to: "/generator/list" },
+      },
+    ],
+    major: [],
+    minor: [],
+  },
+  {
     version: "0.2.0",
     date: "2026-11-14",
     name: "Alus Aamunkoi: Tukikohta ja väliaika",

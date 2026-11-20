@@ -23,6 +23,7 @@ export interface CreateCharacterDto {
   sex?: string;
   motivation?: string;
   notes?: string;
+  initialPrivateNote?: string;
   nicknames?: string[];
   keho: number;
   mieli: number;

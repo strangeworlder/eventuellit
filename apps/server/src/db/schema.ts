@@ -151,6 +151,27 @@ export const characterArcSnapshots = pgTable("character_arc_snapshots", {
   sheetJson: jsonb("sheet_json").notNull(),
 });
 
+export const characterPrivateNotes = pgTable(
+  "character_private_notes",
+  {
+    id: serial("id").primaryKey(),
+    characterId: integer("character_id")
+      .references(() => characters.id, { onDelete: "cascade" })
+      .notNull(),
+    episodeId: integer("episode_id").references(() => episodes.id, {
+      onDelete: "set null",
+    }),
+    title: text("title"),
+    content: text("content").notNull(),
+    isPinned: boolean("is_pinned").default(false).notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    charPinnedIdx: index("character_private_notes_char_pinned_idx").on(t.characterId, t.isPinned),
+  }),
+);
+
 export const sessions = pgTable(
   "sessions",
   {

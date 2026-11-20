@@ -118,7 +118,7 @@ Ryhmä on havainnut Jackslav'n ("Syy") kadonneen tiedonhankintamatkalla. Tiedust
 Tarkoitus on pysäyttää saattue huoltoaukiolla, jossa Kilven jatkuva taustamelu ja akustiikka maskaa potentiaalisen tulitaistelun äänet. Ryhmän on tarkoitus pudottaa raskas palkki vaunun reitille ja porautua lattian läpi, mutta vankkuri pysähtyy aiemmin ja Jackslav'n raahaa ulos lihaksikas kaveri. Vaikuttaa siltä, että Jackslav'ta tullaan syyttämään yhden Ratasvartion vartijan kuolemasta (jonka lihaskimppu itse ampuu) ja sen takia hänet teloitetaan tähän. Jonkinlainen sisäinen ongelma? Shael ("Seuraus") ryntää pelastamaan veljeään, Yumenico ("Katalysti") jää suojaan tulittamaan. Jackslaw saadaan pelastettua ja ryhmä pakenee huoltotunneleihin.
 
 ##### Turvapaikka
-Ryhmä vetäytyy unohdettuun varastoon vanhan sekatavarakaupan takahuoneessa. Tila on betonin ja Syyn maalaamien geometristen silmä-graffitien täyttämä, taustalla soi aggressiivinen techno-rap. Seuraus poistaa Syyn viallisen implantin Sisäinen ääni -implantin, jonka Ratasvartion vartijat ovat piesseet paskaksi Syyn ollessa vankina. Ryhmä kokee täällä yllättäen hämmentävän purppuran vääristymän näkökentässään, jonka jäljiltä huone heidän ympärillään näyttää hetken keraamiselta ja tyylikkältä, normaalin rähjäisen sijaan. 
+Ryhmä vetäytyy unohdettuun varastoon vanhan sekatavarakaupan takahuoneessa. Tila on betonin ja Syyn maalaamien geometristen silmä-graffitien täyttämä, taustalla soi aggressiivinen techno-rap. Seuraus poistaa Syyn viallisen implantin Sisäinen ääni -implantin, jonka Ratasvartion vartijat ovat piesseet paskaksi Syyn ollessa vankina. Ryhmä kokee täällä yllättäen hämmentävän purppuran vääristymän näkökentässään, jonka jäljiltä huone heidän ympärillään näyttää hetken keraamiselta ja tyylikkältä, normaalin rähjäisen sijaan.
 
 ##### Keikan suunnittelu
 Ryhmä on hakemassa ohjauslevyä - asemalla on niitä kaksi. Toinen Ratasvartiolla tutkittavana, toinen Pyhän tragedian lapsilla palvottavana. Helpommaksi todetaan KW:n alaiset tyypit, jotka voi olla raskaasti aseistettua, mutta eivät ota asioita henkilökohtaisesti. Strategiana on toteuttaa isku niin, että se voidaan lavastaa Pyhän Tragedian lasten suorittamaksi.
@@ -159,7 +159,7 @@ Laboratorion sisäänkäynnillä sijaitsee raskaasti suojattu checkpoint. Seurau
 ##### Sivukeikka
 Checkpointin murtamisen jälkeen ryhmän edetessä syvemmälle kohti ohjauslevyä, Katalyytti irtaantuu hetkeksi tutkiakseen läheisen sivuhuoneen. Se paljastuu jonkin paikallisen pikkubyrokraatin toimistoksi, joka on poikkeuksellisen siisti muuhun asemmankuntoon nähden. Toimistossa on siistiin pukuun pukeutunut sarvekas nainen, jonka Katalyytti lyö tajuttomaksi.
 
-Katalyytti anastaa administraattorin arvoesineet ja erityisen **shiny objectin** – moniulotteisen esineen, joka leijuu magneettikentässä ja muuttaa muotoaan eritahoisina. Lisäksi hän saa haltuunsa tärkeän turvakortin ennen kuin liittyy takaisin muiden seuraan. 
+Katalyytti anastaa administraattorin arvoesineet ja erityisen **shiny objectin** – moniulotteisen esineen, joka leijuu magneettikentässä ja muuttaa muotoaan eritahoisina. Lisäksi hän saa haltuunsa tärkeän turvakortin ennen kuin liittyy takaisin muiden seuraan.
 
 ##### Ohjauslevy ja pako
 Tavoitteena oleva ohjauslevy sijaitsee tiukkaan vartioidussa holvissa keskellä bunkkeria. Katalyytti käyttää kemikaalia holvin alla olevassa huoltotunnelissa, joka sulattaa katon ja pudottaa ohjauslevyn huoltotunneliin. Pako suoritetaan lennokkaasti biojätekuilun kautta, joka on täytetty kirkkaansinisellä puhdistusnesteellä. Sukelluksen aikana Syy joutuu pitämään venttiiliä auki muille ja saa itse vammoja puristuksesta, mutta ryhmä pääsee lopulta viemäriverkostoon. He puhdistautuvat kemiallisella pesuaineella ja vaihtavat siviilivaatteisiin välttääkseen tunnistamisen.
@@ -175,7 +175,7 @@ Pako asemalta tapahtuu Syyn ja Katalystin pienellä trollerilla, joka on käytä
 Aamunkoi-aluksen haltuunotto huipentuu ohjauslevyn asennukseen, joka vaatii Seuraukselta usean tunnin tarkkuustyötä ja kolvaamista. Kun virta viimein kytkeytyy päälle, alus herää eloon dramaattisesti. Ilmanvaihto puhaltaa ensin vuosia seisoneen pölyn ulos suhisten, minkä jälkeen kirkkaat valot syttyvät käytäville ja CGA-tason uskomattoman modernit nelivärinäytöt alkavat rullata dataa huoneissa komentosillalla. Hahmot juhlistavat onnistumistaan skumpalla aluksen konehuoneessa, vaikka alus osoittautuukin aavemaisen tyhjäksi miehistöalukseksi, josta kaikki henkilökohtainen on pyyhitty pois.
 
 ##### Pako nestemäiseen avaruuteen
-Hahmot kuluttavat aikaa saaden alusta kuntoon siinä määrin kuin pystyvät Syvässä avaruudess.a Jakso päättyy kriittiseen pakoon Kilven halki johtavan kanavan läpi. Hahmot ohjaavat Aamunkoin "neulansilmän" läpi aktivoiden häivejärjestelmiä ja Katalystin pyytämää sensoripimennystä aseman puolelta (hänelle ollaan montaa kautta velkaa). Aluksen suuri koko ja suojakilpien pettäminen aiheuttaa kuitenkin ongelmia ahtaassa väylässä, ja Aamunkoi raapii Kilven kanavan seinää rajusti matkan aikana. Alus kärsii merkittäviä vaurioita ja tärisee voimakkaasti, mutta selviää lopulta takaisin nestemäiseen avaruuteen. 
+Hahmot kuluttavat aikaa saaden alusta kuntoon siinä määrin kuin pystyvät Syvässä avaruudess.a Jakso päättyy kriittiseen pakoon Kilven halki johtavan kanavan läpi. Hahmot ohjaavat Aamunkoin "neulansilmän" läpi aktivoiden häivejärjestelmiä ja Katalystin pyytämää sensoripimennystä aseman puolelta (hänelle ollaan montaa kautta velkaa). Aluksen suuri koko ja suojakilpien pettäminen aiheuttaa kuitenkin ongelmia ahtaassa väylässä, ja Aamunkoi raapii Kilven kanavan seinää rajusti matkan aikana. Alus kärsii merkittäviä vaurioita ja tärisee voimakkaasti, mutta selviää lopulta takaisin nestemäiseen avaruuteen.
 
 HUD-näkymässä välkkyy edelleen purppurainen varoitus: "Vihamielinen alue, Arkkitehtuurin kontrollissa.".
 
@@ -241,7 +241,7 @@ Hahmojen työkalupakki koostuu hovietiketistä, taloudellisesta manipuloinnista,
 - **Mustan pörssin kauppias**: Sinulla on kontaktit väärennettyihin lupiin, laittomaan teknologiaan ja salattuihin skandaaleihin.
 
 #### Tarvikkeet
-- **Sisäinen ääni -kommunikaatioimplantti:** Mahdollistaa äänettömän keskustelun lyhyellä matkalla (n. 50 metriä, jos välissä ei ole esteitä; pari metriä, jos välissä on seiniä tai vastaavaa). 
+- **Sisäinen ääni -kommunikaatioimplantti:** Mahdollistaa äänettömän keskustelun lyhyellä matkalla (n. 50 metriä, jos välissä ei ole esteitä; pari metriä, jos välissä on seiniä tai vastaavaa).
 - **Laillista omaisuutta**
 - **Varallisuutta tehdä hankintoja**
 
@@ -339,7 +339,7 @@ Yune saa viestin tuntemattomalta kontaktilta ja suuntaa alatasojen neonvalojen v
 
 Samaan aikaan Holti panee toimeen oman massiivisen iskunsa. Automaatiokoodarin ja itiösumuvälittäjän ilmiömäisillä taidoillaan hän onnistuu ohittamaan Mudan (alatasojen) vesijärjestelmien turvatoimet. Holti pumppaa vesijohtoverkostoon valtavan annoksen räätälöimäänsä superhuumetta, mikä paitsi poistaa Sumun vaikutuksia, virittää Mudan työläiset tahtomattaan yliaktiivisiksi ja taisteluvalmiiksi.
 
-Jamir ei jää toimettomaksi pakosuunnitelman suhteen. Hän hyödyntää verkostojaan ja onnistuu varaamaan paikan Kaksiterän, ulkopuolisen diplomaatin, jahdilta, joka odottaa heitä Verson avaruussatamassa valmiina välittömään lähtöön. Samalla hän käyttää Kipinän avaamaa mediakanavaa ja onnistuu vuotamaan Mudan tietoisuuteen kammottavan totuuden polttolistan todellisesta tarkoituksesta. Hän todistaa laskelmillaan, että aiempi satojen ihmisten kuolemaan johtanut 7. sektorin karsinta oli vain prosessitesti. Tulevan polttolistan uhrit ja heidän tuhannet alaisensa tullaan todellisuudessa jauhamaan biomassaksi – lannoitteeksi Verson ehtyneeseen maaperään. 
+Jamir ei jää toimettomaksi pakosuunnitelman suhteen. Hän hyödyntää verkostojaan ja onnistuu varaamaan paikan Kaksiterän, ulkopuolisen diplomaatin, jahdilta, joka odottaa heitä Verson avaruussatamassa valmiina välittömään lähtöön. Samalla hän käyttää Kipinän avaamaa mediakanavaa ja onnistuu vuotamaan Mudan tietoisuuteen kammottavan totuuden polttolistan todellisesta tarkoituksesta. Hän todistaa laskelmillaan, että aiempi satojen ihmisten kuolemaan johtanut 7. sektorin karsinta oli vain prosessitesti. Tulevan polttolistan uhrit ja heidän tuhannet alaisensa tullaan todellisuudessa jauhamaan biomassaksi – lannoitteeksi Verson ehtyneeseen maaperään.
 
 ##### Juhlapäivän aamu: Myrskyn merkit
 On juhlapäivän aamu. Kolmikko valmistautuu Holtin asunnolla, pukeutuu prameimpiin luksusvaatteisiinsa ja ottaa annokset Holtin stimulantteja pysyäkseen immuuneina sumulle. Rähjäiset pakovaatteet on toimitettu valmiiksi sopivaan piiloon lähelle juhlia
@@ -378,7 +378,7 @@ Lähetys on kipinä ruutitynnyriin. Alhaalla Mudassa stimulanttien ja raivon val
 
 Kaaoksen puhjetessa Kipinä katsoo Yunea, hymyilee oudosti ja kuiskaa: "Haluan rakentaa jotain." Aseensa menettänyt Pyhän Tragedian fanaatikko räjäyttää kehoonsa kirurgisesti piilotetut kyberneettiset pommit.
 
-Valtava tulipallo nielee juhlasalin. Ikkunat räjähtävät, sprinklerit huutavat, ja kymmenet eliitin jäsenet repeytyvät kappaleiksi veren roiskuessa. Holti ja Yune ehtivät vain vaivoin heittäytyä raskaiden rakenteiden taakse. 
+Valtava tulipallo nielee juhlasalin. Ikkunat räjähtävät, sprinklerit huutavat, ja kymmenet eliitin jäsenet repeytyvät kappaleiksi veren roiskuessa. Holti ja Yune ehtivät vain vaivoin heittäytyä raskaiden rakenteiden taakse.
 
 ##### Pako ja Tyrannin Miekka
 Savun, veren ja kuoleman keskellä näkyy funikulaarin saapuminen. Aksioksen panssaroitu muoto astuu huoneen raunioihin. Kaksikkoei jää odottamaan. He juoksevat palavan salin läpi kohti Jamirin heille avaamaa hissin ovea ja aloittavat laskeutumisen Aksioksen telottaen paikalle jääneitä.
@@ -532,10 +532,10 @@ Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 #### Pelinjohtajan kertaus
 
 ##### Aikavääristymä
-Operaation ratkaisevien hetkien kynnyksellä ryhmän kokema aikajana alkaa hämärtyä, ja pelkkä menneisyyden muistelu tuntuu muuttuvan menneiden hetkien konkreettiseksi uudelleenelämiseksi. Joukkue huomaa istuvansa jälleen viikon takaisessa rähjäisessä saaristokapakassa lukitsemassa oluiden äärellä suunnitelmaansa: ensisijaisena tavoitteena on ajaa kohdeaseman energiaverkko alas hakkeroimalla, äärimmäisenä varasuunnitelmanaan reaktorin jäähdytyskanavien panostaminen. Ryhmä palaa mielessään vuodentakaiseen keikkaan, jossa he jäivät kolmistaan sortuvaan luolaan pelastamaan toisiaan muiden palkkasotureiden hylätessä heidät. Nämä todellisuudeksi muuttuvat takaumat paljastavat kuitenkin jotain hyytävää: jopa menneisyydessä, sortuvan luolan halkeaman takana, häilyy heitä jo silloin tarkkaillut purppurakaapuinen rataskasvoinen hahmo. 
+Operaation ratkaisevien hetkien kynnyksellä ryhmän kokema aikajana alkaa hämärtyä, ja pelkkä menneisyyden muistelu tuntuu muuttuvan menneiden hetkien konkreettiseksi uudelleenelämiseksi. Joukkue huomaa istuvansa jälleen viikon takaisessa rähjäisessä saaristokapakassa lukitsemassa oluiden äärellä suunnitelmaansa: ensisijaisena tavoitteena on ajaa kohdeaseman energiaverkko alas hakkeroimalla, äärimmäisenä varasuunnitelmanaan reaktorin jäähdytyskanavien panostaminen. Ryhmä palaa mielessään vuodentakaiseen keikkaan, jossa he jäivät kolmistaan sortuvaan luolaan pelastamaan toisiaan muiden palkkasotureiden hylätessä heidät. Nämä todellisuudeksi muuttuvat takaumat paljastavat kuitenkin jotain hyytävää: jopa menneisyydessä, sortuvan luolan halkeaman takana, häilyy heitä jo silloin tarkkaillut purppurakaapuinen rataskasvoinen hahmo.
 
 ##### Väijytys lossilla
-Ryhmä etenee nykyhetkessä kohti pääkohdetta pitkin Sykkeen sähköistä tyhjyyttä automatisoidun rahtilossin kyydissä. Puolivälin tarkastuspisteellä alukseen nousee KW-konsortion vartija, joka huomaa yhden ryhmän repuista. Ryhmä toimii saumattomalla ammattitaidolla: Arin hakkeroi vartioaseman viestintäjärjestelmän luuppaamaan ”kaikki ok” -kuittausta, samalla kun Cen yllättää vartijan selustasta ja eliminoi tämän äänettömästi veitsellä. Ruumis dumpataan nestemäiseen tyhjyyteen. Viestin hakkerointia suoritettaessa Arin imaistaan jälleen käsinkosketeltavaan takaumaan kauas menneisyyden katujen epätoivoon, hetkeen jolloin hän löysi tarkoituksensa täydellisellä ajoituksella leijailleesta lentolehtisestä – ja missä sama mekaaninen hahmo odottaa jo hiljaisena tarkkailijana. 
+Ryhmä etenee nykyhetkessä kohti pääkohdetta pitkin Sykkeen sähköistä tyhjyyttä automatisoidun rahtilossin kyydissä. Puolivälin tarkastuspisteellä alukseen nousee KW-konsortion vartija, joka huomaa yhden ryhmän repuista. Ryhmä toimii saumattomalla ammattitaidolla: Arin hakkeroi vartioaseman viestintäjärjestelmän luuppaamaan ”kaikki ok” -kuittausta, samalla kun Cen yllättää vartijan selustasta ja eliminoi tämän äänettömästi veitsellä. Ruumis dumpataan nestemäiseen tyhjyyteen. Viestin hakkerointia suoritettaessa Arin imaistaan jälleen käsinkosketeltavaan takaumaan kauas menneisyyden katujen epätoivoon, hetkeen jolloin hän löysi tarkoituksensa täydellisellä ajoituksella leijailleesta lentolehtisestä – ja missä sama mekaaninen hahmo odottaa jo hiljaisena tarkkailijana.
 
 ##### Törmäyskurssi
 Lähestyessään varsinaista pääasemaa, massiivista betonista "Kolossia", ryhmä huomaa sataman olevan raskaasti vartioitu. Välttääkseen avoimen tulitaistelun paljastumisen, lossikuskina toiminut pomo Frierem tekee kylmän taktisen päätöksen ja ohjaa aluksen täydellä vauhdilla päin sataman rakenteita. Raju ”ramming speed” -törmäys repii aluksen kappaleiksi ja murjoo ryhmän jäsenet todella rujoon kuntoon, mutta iskun aiheuttama valtava kaaos ja pöly vetävät kaikkien vartijoiden huomion puoleensa. Tämän harhautuksen turvin kolmikko livahtaa huomaamatta sisään laitokseen.
@@ -862,7 +862,7 @@ TBD
 
 Kun Ekklesian radikaali somevaikuttaja Arin lavastetaan Logiikan inkvisition ylisihteerin murhaan ja häntä syytetään fysiikan lakeja rikkovasta "ontologisesta terrorismista", Kynnyksen valtapuolueet yrittävät käyttää oikeusmurhaa ennakkotapauksena. Niiden todellinen tavoite on herättää henkiin Suuren sodan aikainen Poikkeustiladirektiivi ja lakkauttaa asemien itsemääräämisoikeus. Arinia puolustamaan koottu tiimi – Laki-aseman byrokratian tunteva paralegal Sahye, Versolta kotoisin oleva verkostoituja Yune ja Sykkeeltä tuttu raskasasesotilas Cen – aloittaa epätoivoisen taistelun steriilillä ja kontrolloidulla Laki-asemalla paljastaakseen korruptoituneen järjestelmän valheet.
 
-Kulissien takaisessa vakoilussa ryhmä murentaa syyttäjän tapauksen pala palalta. He paljastavat muka "täydellisen" valvontaverkoston pätkivän säännöllisten sähkönsäästökatkosten vuoksi, löytävät uhrin jättämän salaisen whistleblower-kasetin huoltotunneleista ja todistavat syyttäjän tähtitodistajan kyberneettisten silmien olevan jatkuvasti glitchaavia demo-malleja. Sabotoidakseen syyttäjän valmistautumista Sahye siirrättää oikeudenkäynnin virallisista saleista Heimolaisten kansantuomioistuimeen. Samaan aikaan Arin kääntää mediatilan edukseen live-striimillä, joka saa aseman työläiset pukeutumaan solidaarisuutta osoittaviin punaisiin huiveihin. 
+Kulissien takaisessa vakoilussa ryhmä murentaa syyttäjän tapauksen pala palalta. He paljastavat muka "täydellisen" valvontaverkoston pätkivän säännöllisten sähkönsäästökatkosten vuoksi, löytävät uhrin jättämän salaisen whistleblower-kasetin huoltotunneleista ja todistavat syyttäjän tähtitodistajan kyberneettisten silmien olevan jatkuvasti glitchaavia demo-malleja. Sabotoidakseen syyttäjän valmistautumista Sahye siirrättää oikeudenkäynnin virallisista saleista Heimolaisten kansantuomioistuimeen. Samaan aikaan Arin kääntää mediatilan edukseen live-striimillä, joka saa aseman työläiset pukeutumaan solidaarisuutta osoittaviin punaisiin huiveihin.
 
 Oikeudenkäynti huipentuu ulkosalla käytyyn kiivaaseen sanalliseen taisteluun, jossa Arin ja Sahye repivät kyborgisyyttäjä tohtori Sydänmiehen ontologisen narratiivin riekaleiksi. Tuomarineuvosto julistaa Arinin syyttömäksi kaikkiin syytekohtiin. Poikkeustiladirektiivi kaatuu, punahuivinen kansa juhlii ja uusi lakifirma pelastaa Kynnyksen täydeltä vallankaappaukselta. Staattisuuden pyhimys Quies toteaa "Hyvä" ja poistuu paikalta.
 
@@ -975,7 +975,7 @@ Hahmot ovat itsenäisesti toimiva pelastusryhmä, jotka ovat hakemassa turhiksi 
 * *Torin varustelija*: Sinulla on kontakteja mustaan pörssiin ja kyky improvisoida ratkaisuja kasaan teipatusta, vanhasta ja laittomasta teknologiasta.
 * *Räjähde-ekspertti*: Hallitset pneumaattiset räjähteet ja osaat avata reittejä kivimassoihin sortumavaarallisessa ympäristössä.
 let tottunut liikkumaan Louhoksen ahtaissa sivukäytävissä.
-* *Köysiteknikko:* Valjaat, vinssit ja kiipeilyhaat ovat sinulle toinen luonto. 
+* *Köysiteknikko:* Valjaat, vinssit ja kiipeilyhaat ovat sinulle toinen luonto.
 * *Muinaisesinekauppias:* Louhoksen aarteet ovat sinulle tuttuja.
 * *Raataja:* Olet joutunut tekemään raskasta fyysistä työtä ja tehnyt hommia vastaavien kaivosporukoiden kanssa.
 
@@ -1036,8 +1036,8 @@ Ryhmä valmistautuu tehtäväänsä sukkulassa ja joutuu punnitsemaan tarkkaan, 
 
 Heti ilmalukon avauduttua ja ryhmän astuessa Louhokselle, jokaisen näkökenttään iskee sumentava migreeniaalto ja purppurainen varoitus:
 
-*"Vaara*  
-*11 / Kriittinen*  
+*"Vaara*
+*11 / Kriittinen*
 *Logos"*
 
 Sahye jakaa välittömästi muille sen, mitä tietää omien kokemustensa (pyhimys Quies) sekä Arinilta ja Ceniltä (pyhimys Kronos) aiemmin kuulemansa perusteella: paikalla on tai tänne on saapumassa Arkkitehtuurin pyhimys, ja se ei tiedä hyvää.
@@ -1046,7 +1046,7 @@ Sahye jakaa välittömästi muille sen, mitä tietää omien kokemustensa (pyhim
 
 Louhoksen ylimmät kerrokset todistavat parin viikon takaisesta paniikinomasesta hätäevakuoinnista. Tasolla 1 he kohtaavat huoneen kynnykseen jumiutuneen, virheellisesti toimivan huoltodroidin. Kaivoksen lokitiedostot paljastavat, että varsinainen sortuma on tapahtunut vasta tason 47 alapuolella. Ylätasolla (Taso 1) Rosh tekee huolestuttavan havainnon: helmiäiskallio tuntuu siltä, että jotain liikkuu seinän takana tai sisällä.
 
-Irian huomaa poikkeaman: hätäväestönsuoja on aktivoitu ja sinetöity sisäpuolelta. Kommunikaatioyrityksiin vastaa outo ääni joka tuntuu kaikuvan tilassa eikä tulevan väestösuojasta. Se sanoo vain "Kukaan ei vastaa". Väestösuojan avaaminen paljastaa taskulampun valossa kuivuneita verijälkiä, niin punaista sekä louhoslaisille tyypillistä sinistä, jotka selkeästi raahautuvat kohti seiniä ja osuessaan seinään vaikuttavat jatkuvan helmiäisrakenteen sisään. Kukaan ei halua mennä tutkimaan jälkiä lähemmin, joten he hylkäävät suojan ovet ja jatkavat matkaa. 
+Irian huomaa poikkeaman: hätäväestönsuoja on aktivoitu ja sinetöity sisäpuolelta. Kommunikaatioyrityksiin vastaa outo ääni joka tuntuu kaikuvan tilassa eikä tulevan väestösuojasta. Se sanoo vain "Kukaan ei vastaa". Väestösuojan avaaminen paljastaa taskulampun valossa kuivuneita verijälkiä, niin punaista sekä louhoslaisille tyypillistä sinistä, jotka selkeästi raahautuvat kohti seiniä ja osuessaan seinään vaikuttavat jatkuvan helmiäisrakenteen sisään. Kukaan ei halua mennä tutkimaan jälkiä lähemmin, joten he hylkäävät suojan ovet ja jatkavat matkaa.
 
 ##### Laskeutuminen pimeyteen
 
@@ -1062,11 +1062,11 @@ Sahye ja Jackslav onnistuvat datatyökalun avulla (kriittisellä onnistumisella)
 
 ##### Ääni ilman lähdettä ja R72
 
-Kun ryhmä on saapunut tasolle ja tutkii seiniä kaikuu vastauksena tyhjästä matala miehen ääni. Se lausuu rauhallisesti, tosiasian todeten: *"Kivet ovat onneksi hiljaa."* Myöhemmin, kun Sahye yrittää etsiä tietoa datasta, joka koskisi Logosta, hän löytää mainintoja sodasta, jossa Logos on määritellyt taisteluiden lopputuloksia. Samalla ääni määrittelee itsensä ja kykynsä tyhjyydestä: *"Logos. Ääni ilman lähdettä. Määrittää asioita sanomalla niitä."* 
+Kun ryhmä on saapunut tasolle ja tutkii seiniä kaikuu vastauksena tyhjästä matala miehen ääni. Se lausuu rauhallisesti, tosiasian todeten: *"Kivet ovat onneksi hiljaa."* Myöhemmin, kun Sahye yrittää etsiä tietoa datasta, joka koskisi Logosta, hän löytää mainintoja sodasta, jossa Logos on määritellyt taisteluiden lopputuloksia. Samalla ääni määrittelee itsensä ja kykynsä tyhjyydestä: *"Logos. Ääni ilman lähdettä. Määrittää asioita sanomalla niitä."*
 
 Logoksen äänen kaikuessa, punaisten varoitusviivojen takaa, pimeydestä, kuuluu yhtäkkiä koiran ääntä, kun se reagoi pyhimyksen puheeseen. Rosh tunnistaa sen välittömästi: se on R72, hänen valtava lemmikkikoiransa, joka oli jäänyt loukkuun kaivokseen. Tabuista ja Irianin varoituksista piittaamatta Rosh ryntää epäröimättä punaisten viivojen yli pimeyteen huutaen, että hänen koiransa on täällä.
 
-Pimeästä käytävästä ryntää esiin massiivinen, irlanninsusikoiraa muistuttava R72, joka loikkaa suoraan isäntänsä päälle, kaataa tämän maahan ja alkaa iloisesti nuolla tämän kasvoja. 
+Pimeästä käytävästä ryntää esiin massiivinen, irlanninsusikoiraa muistuttava R72, joka loikkaa suoraan isäntänsä päälle, kaataa tämän maahan ja alkaa iloisesti nuolla tämän kasvoja.
 
 Matka alas jatkuu.
 
@@ -1104,13 +1104,13 @@ Tie eteenpäin on katkennut syvään kuiluun. Jackslav ei jää turhia odottelem
 
 Tasolta 48 ryhmä löytää lopulta 79 eloonjäänyttä työläistä. Heidän joukossaan on myös Jamir. Tunnelma on epätoivoinen ja räjähdysaltis, sillä Logoksen aiempi julistus siitä, että Jamirin syyllisyys näkyy ilmiselväti Irianin kasvoilta pitää kutinsa. Työläisille asia aukeaa pikkuhiljaa ja agitaattoreiden johdolla väkijoukko aikoo käydä "syyllisen" Jamirin kimppuun.
 
-Irian syöksyy epäröimättä ihmiskilveksi toverinsa suojaksi huutaen "Saatana tumppu!", ottaen vastaan useita väkijoukon iskuja muttei sentään pysyviä vammoja. Samaan aikaan muut tekevät kaikkensa rauhoittaaksen ryhmän puhumalla näihin järkeä ja uhkailemalla raivoikkaimpia ja onnistuvat hitaasti kääntämään tilanteen edukseen. 
+Irian syöksyy epäröimättä ihmiskilveksi toverinsa suojaksi huutaen "Saatana tumppu!", ottaen vastaan useita väkijoukon iskuja muttei sentään pysyviä vammoja. Samaan aikaan muut tekevät kaikkensa rauhoittaaksen ryhmän puhumalla näihin järkeä ja uhkailemalla raivoikkaimpia ja onnistuvat hitaasti kääntämään tilanteen edukseen.
 
 ##### **Tuomari**
 
 Sahyen etsimä Laki-aseman eksentrinen tuomari Turkoosi Oselotti, joka ilmestyy yleisön joukosta  pukeutuneena sinivihreään arkeologin asuun leopardihuivineen, auttaa tämän viimeistelemään joukkion rauhoittelun. Oselotti on etsinyt syvyyksistä omaan lakijuttuunsa liittyvää dataa, ja hänen auktoriteettinsa auttaa vaimentamaan lopullisesti väkijoukon lynkkausmielialan.
 
-Kun tilanne on rauhoittunut, Jackslav etsii työläisten joukosta Jamirin ohjeistuksella tiettyä, sarjanumerolla varustettua datavarantoa tasolta 55. Oselotti puolestaan ojentaa Sahyelle löytämänsä datakiteen. Sahye ehdottaa Oselotille ryhmäkanteen nostamista KW-konsortiota vastaan kaivoksen turvallisuuslaiminlyöntien vuoksi. Oselotti innostuu, mutta varoittaa, että Sahyen ja Jackslavin on poistuttava heti, jotteivat he päädy viranomaisten pelastusmanifestiin, mikä romuttaisi koko kanteen uskottavuuden. 
+Kun tilanne on rauhoittunut, Jackslav etsii työläisten joukosta Jamirin ohjeistuksella tiettyä, sarjanumerolla varustettua datavarantoa tasolta 55. Oselotti puolestaan ojentaa Sahyelle löytämänsä datakiteen. Sahye ehdottaa Oselotille ryhmäkanteen nostamista KW-konsortiota vastaan kaivoksen turvallisuuslaiminlyöntien vuoksi. Oselotti innostuu, mutta varoittaa, että Sahyen ja Jackslavin on poistuttava heti, jotteivat he päädy viranomaisten pelastusmanifestiin, mikä romuttaisi koko kanteen uskottavuuden.
 
 Rosh ja R72-koira jäävät alas työläisten ja Oselotin kanssa turvaamaan tilannetta ja odottamaan virallista lääkintäalusta. Sahye, Jackslav, Irian sekä pahoinpidelty Jamir karkaavat pelastusryhmän sukkulalla ylös pimeyteen ennen viranomaisten saapumista.
 
@@ -1217,7 +1217,7 @@ Esimerkkejä motiiveista, jotka voivat vetää hahmon tähän operaatioon:
 
 ### Jakson yhteenveto
 
-Kokemuspuolueen johtohahmo Holti, analyytikko Jamir, soluttautuja Yume sekä Holtin taktiseksi henkivartijaksi liittynyt entinen lossikapteeni Frierem soluttautuvat Ekklesian pyhään ytimeen, Katedraali-asemalle, ostaakseen unia tutkivan ja manipuloivan laitteen. Asemalla todellisuus on alistettu huomiotaloudelle, algoritmeille ja jatkuvalle valvonnalle, ja ryhmän kintereille asettuvat moniraajainen valvontahirviö Seuraaja sekä huomion itseensä imevä supermarttyyripyhimys Lamenta. 
+Kokemuspuolueen johtohahmo Holti, analyytikko Jamir, soluttautuja Yume sekä Holtin taktiseksi henkivartijaksi liittynyt entinen lossikapteeni Frierem soluttautuvat Ekklesian pyhään ytimeen, Katedraali-asemalle, ostaakseen unia tutkivan ja manipuloivan laitteen. Asemalla todellisuus on alistettu huomiotaloudelle, algoritmeille ja jatkuvalle valvonnalle, ja ryhmän kintereille asettuvat moniraajainen valvontahirviö Seuraaja sekä huomion itseensä imevä supermarttyyripyhimys Lamenta.
 
 Huutokaupan käännyttyä liian riskialttiiksi ryhmä murtautuu aseman tekno-orgaanisiin alarakenteisiin ja löytää laitteen haltijan: Ekklesian 13. kierron viidennen Megapaavin ("Hylätyn Shakkikuningattaren") sekä tämän rinnalla leijuvan, huoneenkokoisen sinisen kalan.
 
@@ -1301,7 +1301,7 @@ Kammiota ympäröivissä sokkeloissa vaeltaa canceloituja, nälkäisiä hylkiöi
 
 ##### Tyrannin huomio
 
-Lamentan läsnäolo saa Shakkikuningattaren kauhun valtaan. Hän ihmetteleee, miten ryhmän on onnistunut tuolla tapaa vetää puoleensa itse Tyrannin huomion. Kuningatar ei kykene käsittämään, miten ryhmä on kohdannut jo useita pyhimyksiä. Hän ei ole koskaan ennen nähnyt yhtäkään. 
+Lamentan läsnäolo saa Shakkikuningattaren kauhun valtaan. Hän ihmetteleee, miten ryhmän on onnistunut tuolla tapaa vetää puoleensa itse Tyrannin huomion. Kuningatar ei kykene käsittämään, miten ryhmä on kohdannut jo useita pyhimyksiä. Hän ei ole koskaan ennen nähnyt yhtäkään.
 
 ##### Katedraalin yö ja punaiset saalistajat
 
@@ -1445,7 +1445,7 @@ Todennäköisyydet sille, että hahmot selviävät tehtävästä ovat pienet.
 
 Aamunkoi-aluksen messiin suunniteltu rauhallinen lautapeli- ja kokkausilta muuttuu eksistentiaaliseksi painajaiseksi, kun Yume, Yune ja Jackslav tempautuvat toistuvaan, hyperrealistiseen sotatraumaan. Todellisuutta sanoillaan muovaavan pyhimys Logoksen tarkkaillessa ryhmä joutuu elämään läpi useita todellisuuden sirpaleita ja aikasilmukoita erilaisissa kehoissa: juoksuhaudan mudassa kukoistavan Verson juurella, aavikolla Tyrannin armeijan ja nanoaseiden jaloissa sekä tiellä kohti kaatunutta Katedraalia.
 
-Kohtaamiset vihollissotilaiden, siviilimekaanikon sekä Kalibralta pudonneen lääkintäkapselin kanssa huipentuvat maankuoren murenemiseen ja planeetan palavan ytimen paljastumiseen. Seuraavassa silmukassa ryhmä todistaa Katedraali-aseman kaatumisen pystysuorassa heidän päälleen maankamaralla liikkuvien ihmispatsaiden yrittäessä turhaan tukea sen massaa. Herättyään laivaston upseereina Kilvellä telakoituneena olevalta diplomaattialukselta ryhmän onnistuu murtamaan diplomaattialuksen arkistot ja selvittämään Kynnyksen salattu menneisyys. Tai ainakin osia siitä. 
+Kohtaamiset vihollissotilaiden, siviilimekaanikon sekä Kalibralta pudonneen lääkintäkapselin kanssa huipentuvat maankuoren murenemiseen ja planeetan palavan ytimen paljastumiseen. Seuraavassa silmukassa ryhmä todistaa Katedraali-aseman kaatumisen pystysuorassa heidän päälleen maankamaralla liikkuvien ihmispatsaiden yrittäessä turhaan tukea sen massaa. Herättyään laivaston upseereina Kilvellä telakoituneena olevalta diplomaattialukselta ryhmän onnistuu murtamaan diplomaattialuksen arkistot ja selvittämään Kynnyksen salattu menneisyys. Tai ainakin osia siitä.
 
 Lopulta ryhmä havahtuu takaisin Aamunkoin messiin tuttuihin kehoihinsa – ihollaan nyt muillakin kuin Yumella hehkuvat siniset kalatatuoinnit. Ymmärrys siitä, että jaetut painajaiset ovatkin olleet totta, saa aikaan vakavan tarpeen riipaista suojakännit.
 
@@ -1507,7 +1507,7 @@ Välittömästi bunkkerin raskas betoniseinä murtuu ja romahtaa suoraan Yunen n
 
 Yunen vammat sidotaan, minkä jälkeen ryhmä pakkaa mukaansa kartan, ensiaputarvikkeita ja tarkkuuskiväärin, nousee rantakirpun kyytiin ja kaasuttaa ulos bunkkerista kohti karttaan merkittyä Kilpeä.
 
-Maan pinnalla heitä odottaa luonnonilmiö: pölyn ja savun takana taivaalla loimuaa, horisonttiin laskeva oranssi pallo. Kukaan kolmikosta ei ole koskaan nähnyt oikeaa aurinkoa. Nousun laelle saavuttaessa maisema lyö heidät sanattomiksi. Heidän edessään maankamaralla seisoo Verso – mutta se ei leiju pirstaleisena avaruudessa eikä pala työläiskapinan tulessa, vaan seisoo ehjänä ja kukoistaa elinvoimaisen vehreänä. Etäämpänä häämöttävät myös Katedraalin patsasmainen torni sekä maasta kohoava Kilven massiivinen, sienimäinen bunkkerilinnake. 
+Maan pinnalla heitä odottaa luonnonilmiö: pölyn ja savun takana taivaalla loimuaa, horisonttiin laskeva oranssi pallo. Kukaan kolmikosta ei ole koskaan nähnyt oikeaa aurinkoa. Nousun laelle saavuttaessa maisema lyö heidät sanattomiksi. Heidän edessään maankamaralla seisoo Verso – mutta se ei leiju pirstaleisena avaruudessa eikä pala työläiskapinan tulessa, vaan seisoo ehjänä ja kukoistaa elinvoimaisen vehreänä. Etäämpänä häämöttävät myös Katedraalin patsasmainen torni sekä maasta kohoava Kilven massiivinen, sienimäinen bunkkerilinnake.
 
 ##### Tyrannin Arkkitehtuuri ja pako
 
@@ -1714,8 +1714,8 @@ Varusteita tarkastettaessa Irian löytää kassiensa päältä kontin muokatun r
 
 Kesken varusteiden jaon ja tilanteen hahmottamisen kaikkien näkökenttään iskee tuttu, raastava migreeniaalto ja purppurainen järjestelmävaroitus:
 
-"Vaara  
-8  
+"Vaara
+8
 Aksios"
 
 Holti ja Jamir menettävät välittömästi malttinsa: he muistavat liiankin hyvin Verson liekehtivän Norsunluutornin ja Aksioksen, Tyrannin pysäyttämättömän miekan, jonka läsnäolo romuttaa kaikki todennäköisyydet joko nollaan tai sataan prosenttiin. Ennen kuin tilannetta ehditään purkaa enempää, näkökenttään leimahtaa uusi, häiriöinen signaali. Se hakee väriään neljän eri sävyn välillä ja piirtää ruudulle epämääräisen tekstin: *"Vaara [suttua] [suttua]"*.
@@ -1778,12 +1778,12 @@ Nina loisti Sahyena neuvotteluissa. Täysin sujuva liito Irianin hiljaisesta pyy
 ##### Nina A
 
 **Hahmon näkökulmasta muistiinpanoja:**
-Sekä Ratasvartio että KW-konsortio yleisesti rikkovat tai vähintään pyrkivät rikkomaan Kynnyksen yleisiä lakeja yllättävän usein ja röyhkeästi. Jos löytäisi riittävän ison lakirikkomuksen oikeanlaisesta nivelkohdasta, ja sen saisi mediaosaajien avulla näytettyä kaikille, millainen dominoefekti siitä syntyisi? 
+Sekä Ratasvartio että KW-konsortio yleisesti rikkovat tai vähintään pyrkivät rikkomaan Kynnyksen yleisiä lakeja yllättävän usein ja röyhkeästi. Jos löytäisi riittävän ison lakirikkomuksen oikeanlaisesta nivelkohdasta, ja sen saisi mediaosaajien avulla näytettyä kaikille, millainen dominoefekti siitä syntyisi?
 
 Johtuuko uusi virheviesti siitä, että KW:n (laiton?) superase on jo osittain kytkettynä johonkin verkostoon?
 
 **Mitä jäi mieleen?:**
-Hahmojen temperamentit ja osaamiset täydentää toisiaan täydellisesti. 
+Hahmojen temperamentit ja osaamiset täydentää toisiaan täydellisesti.
 Paperimekaniikka!
 
 **Meta-pohdintaa / muistiinpanoja:**
@@ -1821,7 +1821,7 @@ Samaan aikaan Holti harhautuu VIP-tiloista hylättyyn tutkimuskeskukseen, jossa 
 
 Lohko Nollan gaalasali on rakennettu jättimäisten ihmiskasvojen muotoon. Vieraat astuvat kasvojen suusta suoraan marmoroituun saliin tanssimusiikin ja lasien kilinän lomaan.
 
-Varmistaakseen sähkökatkon toteutumisen Holti vie MedApexin matriarkan, Arpijalostajan, sivukabinettiin estääkseen tätä tapaamasta pankin edustajaa. Holti sujauttaa matriarkan juomaan neurofarmakologisen seoksen. Annos menee aluksi alimitoitetuksi: matriarkalla on kirurgisesti asennetut lisäkeuhkot ja hän hengittää niskastaan, joten Holti joutuu annostelemaan lisää ainetta. Samalla Holti joutuu torjumaan omia herääviä tunteitaan arvokkaan naisen osoittautuessa älykkääksi keskustelijaksi entropiasta, ja jää viivyttelemään projektinsa kanssa. 
+Varmistaakseen sähkökatkon toteutumisen Holti vie MedApexin matriarkan, Arpijalostajan, sivukabinettiin estääkseen tätä tapaamasta pankin edustajaa. Holti sujauttaa matriarkan juomaan neurofarmakologisen seoksen. Annos menee aluksi alimitoitetuksi: matriarkalla on kirurgisesti asennetut lisäkeuhkot ja hän hengittää niskastaan, joten Holti joutuu annostelemaan lisää ainetta. Samalla Holti joutuu torjumaan omia herääviä tunteitaan arvokkaan naisen osoittautuessa älykkääksi keskustelijaksi entropiasta, ja jää viivyttelemään projektinsa kanssa.
 
 Samaan aikaan Sahye kohtaa salissa Kudos-pankin kuivan, akateemisen asiamiehen. Sahye iskee pöytään auditoinnin ja todisteet Ratasvartion sopimusrikkomuksista. Asiamies merkitsee paperit: Arpijalostajan velkajärjestely jäädytetään ja primäärivirrat määrätään katkaistaviksi.
 
@@ -1868,7 +1868,7 @@ Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 
 **Heitto 3**
 
-* **Sijainti:** Krypta, Kynnyksen 19. asema. Ulkokuoren munkkitila.  
+* **Sijainti:** Krypta, Kynnyksen 19. asema. Ulkokuoren munkkitila.
 * **Genre:** Psykologinen kamaritrilleri ja maadoitettu perhedraama
 
 ### Premissi
@@ -1879,7 +1879,7 @@ Eräänä iltana metsästetty kapinallinen raahautuu henkitoreissaan munkkitilan
 
 Teette kohtalokkaan päätöksen. Avaatte rautasalvan, kiskotte vertavuotavan tulijan sisään, sidotte hänen haavansa ja kätkette hänet. Muu talon väki pidetään tapahtuneesta täysin tietämättöminä. Allekirjoitatte teolla oman kuolemantuomionne, mikäli salaisuus paljastuu.
 
-Pian pihaan saapuu Ratasvartion etsintäpartio. 
+Pian pihaan saapuu Ratasvartion etsintäpartio.
 
 ### Tyylilaji
 
@@ -2117,6 +2117,8 @@ Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 
 **Eventuellit: Yhdestoista jakso. Hämärä kauppa Seulan koralliriutalla avaa jäljen kohti Suuren sodan aikaista kätköä.**
 
+**Heitto 7**
+
 * **Sijainti:** Seula, Kynnyksen 1. asema. Vapaasatama ja koralliriutta.
 * **Genre:** Aarteenetsintäseikkailu
 
@@ -2192,7 +2194,7 @@ Esimerkkejä motiiveista:
 
 #### Sessiot
 
-* #01 Sessio 1 (19.11.2026) — Tulossa
+* #01 Sessio 1 (19.11.2026) — Pelattu
 * #02 Sessio 2 (23.11.2026) — Tulossa
 
 #### Sijainti
@@ -2201,7 +2203,59 @@ Esimerkkejä motiiveista:
 
 ### Sessio #01 — Sessio 1
 
-**Tulossa** — torstaina 19. marraskuuta 2026
+**Pelattu** — torstaina 19. marraskuuta 2026
+
+#### Pelinjohtajan kertaus
+
+##### **Prologi: Pako aluksen käytävällä**
+
+Valkoisiin keramiittihaarniskoihin pukeutunut ja sädeaseilla varustautunut nelikko suojaa sota-aluksen kapealla käytävällä tärkeää lastia kantavaa insinööriä, joka on saatettava käytävän päässä odottavaan pelastuskapseliin. Purppurahaarniskaiset sotilaat vyöryvät päälle sekä sivuhuoneesta että käytävän takaa.
+
+Kesken tulitaistelun Yume yrittää riisua kypäränsä nähdäkseen omat kasvonsa heijastavasta pinnasta, mutta ei kykene. Holtin ja Yunen pitäessä käytävän viholliset kurissa tulituksella Sahye syöksyy eteenpäin ja työntää insinöörin pää edellä pelastuskapseliin juuri ennen unen katkeamista.
+
+##### **Saapuminen Seulalle, Vaara 7 Lamenta ja siniset tatuoinnit**
+
+Nelikko astuu ulos yhteysaluksesta Seulalle, Kynnyksen sisäreunan aurinkoiseen ja kylpylämäiseen koralliriuttasatamaan, jonka laiturit rajautuvat suoraan nestemäisen avaruuden rantaviivaan. Ryhmän muodostavat Laki-aseman lakitoimistoa pyörittävät hillitty Sahye ja pitkään mustaan takkiin pukeutunut, ympäristöään tarkkaileva Yune, Evoluutiolta saapunut Kokemuspuolueen johtaja Holti seeprannahkaisessa huivissaan ja riikinkukonsulassaan sekä Katedraalilla ja Traumalla liikkunut lyhyt, punatukkainen ja uupunut Yume.
+
+Sataman asemarauhatarkastuksessa Holti ja Sahye luovuttavat pistoolinsa säilytykseen, kun taas Yume kätkee nutturaansa hiusneulaveitset sekä garotten ja Yune pitää pienen aseensa piilossa takkinsa alla. Samalla kaikkien *Sisäinen ääni* -implantit aktivoituvat ja piirtävät näkökenttään purppuraisen varoituksen: *"Vaara 7: Lamenta"*.
+
+Nelikko vertailee käsivarsiinsa aiemmilta asemilta ilmestyneitä sinisiä tatuointeja ja kokoavat yhteen mielikuvansa aiemmilta keikoilta oppimastaan.
+
+##### **Ennakkonäyttelyn paviljonki, kolme kilpailijaa ja "bestis"-Lamenta**
+
+Huutokaupan ennakkonäyttely pidetään avoimessa paviljongissa, jota vartioivat satamapoliisin aseistetut rauskudroonit. Vitriinissä lepää ryhmän etsimä kohde 11a: vanha, pyöreä nahkalaukku, jonka vieressä on esillä Kukoistuksen ajan kunniamitaleita.
+
+Yume ihastelee mitaleita ja tutkii vitriinin turvajärjestelmät todeten hälyttimet yksinkertaisiksi; todellinen pelote nojaa asemarauhaan ja nopeisiin lähistöllä lenteleviin rauskudrooneihin. Sahye syventyy tutkimaan esineiden ikää ja symboliikkaa: maalaukset ja esineet ajoittuvat aivan Kukoistuksen ajan taitteeseen ja Suuren sodan päättymiseen. Mitaleissa toistuvat Ratasvartion käyttöön ottamat symbolit ja unista tutut purppuraiset aiheet, ja pyöreä nahkalaukku kantaa samoja korkean upseerin tunnuksia.
+
+Paviljongissa liikkuu kolme muutakin ostajaa. Tuhkan puolueen tilanomistajan poika pysyttelee tiukasti seurueensa suojissa katse naulittuna laukkuun 11a. Ekklesian valkoisiin kaapuihin ja moniväriseen naamioon pukeutunut Iridiumkardinaali paistattelee ulkopuolella kameradrooniensa keskellä seuranaan harmaata marmoripatsasta muistuttava, kasvojaan käsillään peittävä Lamenta. Sahye onnistuu kuitenkin lähestymään Lamentaa (tai Lamenta Sahyeta?) ja surun ja draaman pyhimyksestä tulee hetkellisesti Sahyen "bestis". Lamenta paljastaa haluavansa laukun 11a johtaman aarteen, koska uskoo sen olevan hänen kadonnut aarteensa ja perustelut tuntuvat lähinnä olevan tasaoa "koska päähenkilön pitää löytää aarre".
+
+Samaan aikaan Yune ja Holti jututtavat KW-konsortion kyborgia, tohtori Sydänmiestä, joka kulkee kolmen Ratasvartion henkivartijan saattamana ja sivuuttaa antiikkiin uppoutuneen Sahyen. Sydänmies tervehtii vanhoja tuttujaan lämpimästi, myöntää avoimesti laukun 11a olevan aarrekartta ja haaveilee romanttisesta seikkailusta ympäri Kynnystä. Samalla Holti kaivaa esiin vipuvartta: Sydänmiehellä on rästissä maksamaton lasku Seulan aiemmasta huutokaupasta.
+
+##### **Sivuhenkilöiden huutokauppa ja Lamentan verinen valokeila**
+
+Koska Iridiumkardinaalin varallisuus ylittää kaikkien muiden ostajien resurssit, nelikko rakentaa suunnitelmansa Lamentan päähenkilösyndrooman varaan. He päättävät esittää tarinan "sivuhenkilöitä", jotka kokevat huutokaupassa kirvelevän alkutappion, ja nostaa Iridiumkardinaalin tarinan näennäiseksi päähenkilöksi, joka vie laukun Lamentan nenän edestä.
+
+Huutokaupan alkaessa Yume jää syrjään juttelemaan Lamentan kanssa. Holti asettuu huutokaupassa Iridiumkardinaalin kilpakumppaniksi, vedättää hintaa ylös ja häviää lopulta tahallaan. Samaan aikaan Sahye laskee sykkeensä meditatiiviseen zen-tilaan ja sujauttaa laukun 11a vitriinistä täydellisenä epätapahtumana, joka ei herätä kenenkään huomiota.
+
+Kun nuija kumahtaa ja Iridiumkardinaali astuu kameradrooniensa valokeilaan julistamaan voittonsa, hän huomaa vitriinin tyhjäksi. Kardinaalin ottaessa parrasvalot itselleen Lamenta ei siedä toista päähenkilöä tarinassaan: pyhimys keskeyttää juttelunsa Yumen kanssa ja purkautuu verisenä räjähdyksenä suoraan Iridiumkardinaalin sisältä huutaen laukkua omakseen. Rauskudroonien ja yleisön huomion kääntyessä veriseen spektaakkeliin nelikko poistuu paikalta ripeää kävelyvauhtia alakanavien laituriin, missä heidän pilottinsa Petturi Takinkääntäjä odottaa sukkulan ohjaimissa.
+
+##### **Kolmen perustajan sopimus ja suunta Versolle**
+
+Sukkulan noustessa Seulalta kohti asemien välistä avaruutta Sahye ja Yune tutkivat pyöreän nahkalaukun. Sen sisäosa on jaettu kolmeen tyhjään koloon, jotka muodostavat yhdessä pallomaisen tilan. Laukun sisävuoreen on kaiverrettu tiivis teksti: Suuren sodan päätyttyä KW-konsortion, Ekklesian ja Tuhkan puolueen perustajat kätkivät nimeämättömän, korvaamattoman esineen niin, ettei yksikään heistä voisi palata sen luo ilman kahta muuta. Kukin perustaja vannoi vievänsä oman kolmanneksensa avaimesta mukanaan omaan hautaansa.
+
+Ryhmä tietää ja päättelee kolmen perustajan hautojen sijaitsevan Versolla (Tuhkan puolue), Laki-asemalla (KW-konsortio) ja Katedraalilla (Ekklesia). Koska Katedraali on Lamentan kotikenttää, he päättävät jättää sen viimeiseksi ja ottavat ensimmäiseksi suunnaksi Verson.
+
+##### **Verson itiöviidakko, sienet ja Lamentan valomachete**
+
+Sukkula laskeutuu Versolle, jonka mustuneen yläkupolin ja kaatuneiden Norsunluutornien alla levittäytyy villiintynyt, hallusinogeenista itiösumua huokuva megaviidakko. Ensimmäisen Puolueenjohtajan hautatemppelille on kahden päivän vaellus.
+
+Ennen viidakkoon astumista Holti hyödyntää neurofarmakologin taitojaan, syntetisoi terminaalilla ryhmälle vastalääkkeen itiösumua vastaan ja ottaa olalleen vanhan pulttilukkokiväärin. Sahye varustautuu vaellukselle taistelukorkokengissä. Koko ikänsä asemien sisätiloissa elänyt Yume kohtaa aidon luonnon, puut ja virtaavan veden ensimmäistä kertaa elämässään ja päätyy syömään Holtin kanssa viidakon psyykkisiä sieniä.
+
+Kesken vaelluksen liaanien seasta ryhmän rinnalle ilmestyy Lamenta, joka on nyt ominut ryhmän "bestiksikseen". Pyhimys heiluttaa hehkuvaa valomachetea ja pyytää ryhmää kuvaamaan toimiaan seikkailufiltterien läpi raivatessaan tietä kohti Tuhkan puolueen perustajan hautaa.
+
+#### Pelaajien kertaukset
+
+Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 
 ### Sessio #02 — Sessio 2
 
