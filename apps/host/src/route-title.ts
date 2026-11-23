@@ -2,6 +2,7 @@ const HOST_TITLE = "Eventuellit";
 
 const TOP_LEVEL_ROUTE_TITLES: Record<string, string> = {
   generator: "Hahmopaja",
+  alus: "Alus",
   ruleset: "Säännöt",
   episodes: "Jaksot",
   operaatiot: "Operaatiot",
@@ -13,6 +14,12 @@ const TOP_LEVEL_ROUTE_TITLES: Record<string, string> = {
 /** Human-readable titles for world sub-route segments (category ids). */
 const WORLD_CATEGORY_TITLES: Record<string, string> = {
   kynnys: "Kynnys",
+};
+
+const SHIP_SECTION_TITLES: Record<string, string> = {
+  hytti: "Hytti",
+  valiaika: "Väliaika",
+  komentopaate: "Komentopääte",
 };
 
 const toTitleCase = (value: string) =>
@@ -57,10 +64,13 @@ export const buildDocumentTitle = (pathname: string): string => {
     return topLevelTitle ? `${HOST_TITLE}: ${topLevelTitle}` : HOST_TITLE;
   }
 
-  // For world routes, resolve known category segment labels before normalizing
+  // For world and ship routes, resolve known sub-route segment labels before normalizing
   const resolveNestedSegment = (segment: string, index: number): string => {
     if (topLevelRoute === "world" && index === 0) {
       return WORLD_CATEGORY_TITLES[segment] ?? normalizePathSegment(segment);
+    }
+    if (topLevelRoute === "alus" && index === 0) {
+      return SHIP_SECTION_TITLES[segment] ?? normalizePathSegment(segment);
     }
     return normalizePathSegment(segment);
   };

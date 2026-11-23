@@ -29,6 +29,10 @@ The base background (`#0f0f13`) represents the deep void of space. Surfaces emer
 
 `--color-royal-purple-*` is reserved for narrative markers on the station map — mysterious waypoints, anomalies. It is not a general-purpose color.
 
+### Meripihka on Alus Aamunkoi (EGA ship exception)
+
+`apps/ship/` and the `@repo/ui` Konsoli HUD primitives (`ConsoleViewport`, `ConsoleSheet`, `ConsoleDock`, `ConsolePill`, `ConsoleButton`, `ConsoleRow`, `HudPanel`, `ShipBootOverlay`) expand the base three-scale CGA palette to a four-scale EGA HUD palette by activating Meripihka (`--color-dawn-*` mapped to `--theme-dawn`, `--theme-dawn-muted`, and `--theme-dawn-foreground`) over cool gunmetal and slate surfaces. When designing or editing ship or Konsoli UI, read [.agents/skills/ship-visual-identity/SKILL.md](file:///.agents/skills/ship-visual-identity/SKILL.md) instead of enforcing the three-scale CGA restriction above.
+
 ## Animation Vocabulary
 
 ### Ambient life (brand moments only)

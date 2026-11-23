@@ -21,6 +21,7 @@ const TOP_LEVEL_ROUTE_TITLES = {
   episodes: "Jaksot",
   world: "Maailma",
   generator: "Hahmopaja",
+  alus: "Alus",
 };
 
 const HOST_TITLE = "Eventuellit";

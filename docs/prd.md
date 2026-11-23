@@ -50,6 +50,10 @@
 - If skill/equipment is missing, a character may still attempt by paying **1 point** from relevant Kesto.
 - Positive fictional positioning/environment may allow attempts without Kesto payment.
 
+### Character Descriptions and Private Notes
+- **Public description (`characters.notes`):** Optional character description visible on the character sheet to all logged-in players.
+- **Private notes (`character_private_notes`):** Separate Markdown log entries with optional title, pin status, and episode link. Visible only to the character owner (read/write) and the GM (read-only on the character sheet and included in the GM `Hahmot.md` export); hidden from other players.
+
 ## 3. Cooperation and Environment
 
 ### Assist
@@ -92,8 +96,10 @@
 ## 6. Recovery and Advancement
 
 ### Recovery
-- Between episodes, Sisu and Kesto recover.
-- Harmi tags can be healed through downtime/maintenance procedures between episodes. Healed tags remain on the character but stop affecting the dice pool.
+- Between episodes, **Sisu** and **Kesto** recover via the Hahmopaja session preparation step.
+- **Harmi** tags are healed during base ship (*Aamunkoi*) downtime turns using **Hahmon lepo** (1 die per Harmi removed, automatic success). Healed tags remain on the character record as history but stop reducing the dice pool.
+- Between episodes, each active character receives a base downtime pool of **5n20** reduced by active (unhealed) Harmi tags (`5 - activeHarmitCount`, zero attribute dice, threshold **OK 13**, doubles add +1 extra segment on clocks). Dice are drafted after the previous episode completes and rolled permanently once linked to the next episode across four actions: **Hahmon lepo**, **Tutkimus** clocks, **Projekti** clocks (GM calibrates 4, 6, 8, 10, or 12 segments), and **Keikkavalmistautuminen**.
+- Crew cabins on *Aamunkoi* store character interior customizations and special possessions (`cabin_possessions`). Narrative possessions are editable by the player; once the GM adds mechanical notes (`gmMechanicalNotes`), the possession locks read-only and cannot be edited or deleted by players.
 
 ### Advancement
 - Start of a new episode: add one **n4** to an attribute.

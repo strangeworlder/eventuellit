@@ -23,6 +23,7 @@ export interface CreateCharacterDto {
   sex?: string;
   motivation?: string;
   notes?: string;
+  initialPrivateNote?: string;
   nicknames?: string[];
   keho: number;
   mieli: number;
@@ -158,15 +159,7 @@ export function useRefreshCharacterForEpisode() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      characterId,
-      episodeId,
-      healedHarmitIndexes,
-    }: {
-      characterId: number;
-      episodeId: number;
-      healedHarmitIndexes?: number[];
-    }) => {
+    mutationFn: async ({ characterId, episodeId }: { characterId: number; episodeId: number }) => {
       const token = localStorage.getItem("auth_token");
       const response = await fetch(`${API_URL}/${characterId}/refresh`, {
         method: "POST",
@@ -175,7 +168,7 @@ export function useRefreshCharacterForEpisode() {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         credentials: "include",
-        body: JSON.stringify({ episodeId, healedHarmitIndexes }),
+        body: JSON.stringify({ episodeId }),
       });
 
       if (!response.ok) {

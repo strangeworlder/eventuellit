@@ -20,6 +20,7 @@ import { RadioGroup, RadioGroupItem } from "@repo/ui/components/RadioGroup";
 import { SkillMasonry } from "@repo/ui/components/SkillMasonry";
 import { Text } from "@repo/ui/components/Text";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   type CharacterListItem,
   isReservedRebellionSkillName,
@@ -362,11 +363,11 @@ function ReturningCharacterPrep({
   needsAdvance: boolean;
 }) {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const refreshMutation = useRefreshCharacterForEpisode();
   const advanceMutation = useAdvanceCharacterForEpisode();
   const { data: episodeSkills, isLoading: isSkillsLoading } = useEpisodeSkills(episodeId);
 
-  const [selectedHarmit, setSelectedHarmit] = useState<number[]>([]);
   const [reward, setReward] = useState<"skills_plus_n6" | "skill_plus_n8" | "munkki" | null>(null);
   const [selectedAttribute, setSelectedAttribute] = useState<string | null>(null);
   const [selectedTaidot, setSelectedTaidot] = useState<Array<string | null>>([null]);
@@ -482,30 +483,29 @@ function ReturningCharacterPrep({
               Päivitys palauttaa Keston ja Sisun jaksojen välisen toipumisen mukaisesti.
             </Text>
             {activeHarmit.length > 0 && (
-              <div className="space-y-2">
-                <Text className="text-sm">Merkitse parantuneet harmit:</Text>
-                {activeHarmit.map((h: { index: number; text: string }) => (
-                  <Checkbox
-                    key={h.index}
-                    label={h.text}
-                    checked={selectedHarmit.includes(h.index)}
-                    onChange={() =>
-                      setSelectedHarmit((current) =>
-                        current.includes(h.index)
-                          ? current.filter((idx) => idx !== h.index)
-                          : [...current, h.index],
-                      )
-                    }
-                  />
-                ))}
-              </div>
+              <NoticePanel
+                variant="info"
+                title="Harmien parantaminen aluksella"
+                actions={
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => navigate(`/alus/valiaika?characterId=${character.id}`)}
+                  >
+                    Siirry Aamunkoin väliaikaan
+                  </Button>
+                }
+              >
+                <Text className="text-sm">
+                  {`Hahmolla on ${activeHarmit.length} aktiivista harmia. Harmit hoidetaan jaksojen välillä tukikohdan Hahmon lepo -toiminnolla (1 noppa per harmi) Aamunkoi-aluksen väliaikanäkymässä.`}
+                </Text>
+              </NoticePanel>
             )}
             <Button
               onClick={() =>
                 refreshMutation.mutate({
                   characterId: character.id,
                   episodeId,
-                  healedHarmitIndexes: selectedHarmit,
                 })
               }
               disabled={refreshMutation.isPending}

@@ -14,13 +14,21 @@ import {
   Heading,
   HeadingLevelProvider,
   Hero,
+  Icon,
   Input,
   Link,
   LoadingState,
   MarkdownRenderer,
   NoticePanel,
   PageBody,
+  requestToast,
   SkillTagList,
+  Stack,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  ToolButton,
 } from "@repo/ui";
 import { CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -28,6 +36,8 @@ import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
 import { isReservedRebellionSkillName, REBELLION_SKILL_ACQUIRED_NAME } from "./api/characters";
 import type { MonkPower } from "./api/monk-powers";
+import { useCharacterPrivateNotes, useMigratePublicNotes } from "./api/private-notes";
+import { CharacterPrivateNotesTab } from "./CharacterPrivateNotesTab";
 import { suggestNames } from "./name-generator";
 
 interface Character {
@@ -145,9 +155,24 @@ export function CharacterSheet({
 
   const [deleteCharacterOpen, setDeleteCharacterOpen] = useState(false);
   const [selectedSnapshotId, setSelectedSnapshotId] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState("sheet");
+  const [migrateDialogOpen, setMigrateDialogOpen] = useState(false);
+
+  const isOwner = Boolean(user && character && user.id === character.userId);
+  const canViewPrivateNotes = Boolean(
+    user && character && (user.id === character.userId || user.role === "gm"),
+  );
+
+  const {
+    data: privateNotes,
+    isLoading: isPrivateNotesLoading,
+    isError: isPrivateNotesError,
+  } = useCharacterPrivateNotes(characterId, canViewPrivateNotes);
+  const migratePublicNotesMutation = useMigratePublicNotes(characterId);
 
   const { data: snapshots = [] } = useQuery<CharacterSnapshot[]>({
     queryKey: ["character-snapshots", characterId],
+    enabled: canViewPrivateNotes,
     queryFn: async () => {
       const token = localStorage.getItem("auth_token");
       const res = await fetch(`${apiBaseUrl}/characters/${characterId}/snapshots`, {
@@ -206,6 +231,386 @@ export function CharacterSheet({
         .filter((row) => row.before !== row.now)
     : [];
 
+  const sheetBody = (
+    <PageBody className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
+      <div className="space-y-6">
+        <Card variant="highlight" className="mt-4">
+          <CardHeader>
+            <CardTitle>Perustiedot</CardTitle>
+          </CardHeader>
+          <CardContent className="gap-4">
+            <EditableName
+              value={character.name}
+              sex={character.sex ?? "none"}
+              canEdit={canEdit}
+              onSave={(v) => updateCharacter({ name: v })}
+            />
+
+            <EditableField
+              label="Arkkityyppi"
+              value={character.archetype}
+              readOnly={!canEdit}
+              placeholder="Ei arkkityyppiä."
+              onSave={(v) => updateCharacter({ archetype: v })}
+            />
+
+            {/* GM Monk Advancement Control */}
+            {user?.role === "gm" && (
+              <EditableField
+                label="Munkki-potentiaali (GM)"
+                value={String(character.monkAdvancementsAllowed ?? 0)}
+                placeholder="0"
+                onSave={(v) => {
+                  const parsed = parseInt(v, 10);
+                  if (!Number.isNaN(parsed) && parsed >= 0) {
+                    updateCharacter({ monkAdvancementsAllowed: parsed });
+                  }
+                }}
+              />
+            )}
+
+            {/* Monk Advancements Status */}
+            {((character.monkAdvancementsAllowed ?? 0) > 0 ||
+              (character.monkAdvancementsUsed ?? 0) > 0) && (
+              <div className="space-y-1 rounded-lg border border-[var(--theme-border-soft)] p-3 bg-[var(--theme-bg)]">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-wider text-text-muted font-bold">
+                    Munkki-kehitykset:
+                  </span>
+                  <span className="font-mono text-sm font-semibold text-[var(--theme-text)]">
+                    {character.monkPowers?.length ?? character.monkAdvancementsUsed ?? 0} /{" "}
+                    {character.monkAdvancementsAllowed ?? 0} valittu
+                  </span>
+                </div>
+              </div>
+            )}
+
+            <NicknamesSection
+              nicknames={character.nicknames ?? []}
+              canEdit={canEdit}
+              onUpdate={(nicknames) => updateCharacter({ nicknames })}
+            />
+
+            {character.episodes?.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-sm text-text-muted">
+                  Jaksot:{" "}
+                  <span className="font-semibold text-[var(--theme-text)]">
+                    {character.episodes.map((e) => e.title).join(", ")}
+                  </span>
+                </p>
+                <div className="flex flex-col gap-1.5 items-start">
+                  {character.episodes.map((ep) => (
+                    <Link key={ep.id} href={`${basePath}/prep/${ep.id}`} className="text-sm">
+                      Valmistaudu: {ep.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <EditableField
+              label="Sukupuoli"
+              value={character.sex ?? ""}
+              readOnly={!canEdit}
+              placeholder="Ei valittu"
+              options={[
+                { value: "male", label: "Mies" },
+                { value: "female", label: "Nainen" },
+                { value: "non-binary", label: "Ei-binäärinen" },
+                { value: "none", label: "Ei määritelty" },
+              ]}
+              selectPlaceholder="Valitse sukupuoli"
+              onSave={(v) => updateCharacter({ sex: v })}
+            />
+
+            {(() => {
+              const effectiveAnchorId =
+                character.anchorId ??
+                (character.userId === user?.id ? (user?.anchorId as string | null) : null);
+              if (!effectiveAnchorId) return null;
+              const anchor = getAnchorById(effectiveAnchorId);
+              return anchor ? (
+                <div className="space-y-1.5 pt-1">
+                  <p className="text-sm text-text-muted font-semibold">Pelaajan Ankkuri:</p>
+                  <AnchorCard anchor={anchor} />
+                </div>
+              ) : null;
+            })()}
+
+            <SkillsSection
+              skills={character.skills}
+              hasRebellionSkill={
+                (character.rebellionLevel ?? 0) >= 1 ||
+                (character.userId === user?.id && (user?.rebellionLevel ?? 0) >= 1)
+              }
+              canEdit={canEdit}
+              onUpdate={(skills) => updateCharacter({ skills })}
+            />
+
+            <EditableField
+              label="Motivaatio"
+              value={character.motivation ?? ""}
+              readOnly={!canEdit}
+              placeholder="Ei motivaatiota kirjattu."
+              onSave={(v) => updateCharacter({ motivation: v })}
+              multiline
+            />
+
+            <EditableField
+              label="Julkinen kuvaus"
+              value={character.notes ?? ""}
+              readOnly={!canEdit}
+              placeholder="Ei julkista kuvausta."
+              onSave={(v) => updateCharacter({ notes: v })}
+              multiline
+            />
+            {isOwner && Boolean(character.notes?.trim()) && (
+              <Stack direction="row" align="center" gap={2}>
+                <ToolButton
+                  onClick={() => setMigrateDialogOpen(true)}
+                  loading={migratePublicNotesMutation.isPending}
+                  loadingMessage="Siirretään..."
+                >
+                  <Icon name="lock" size={14} />
+                  Siirrä yksityiseksi muistiinpanoksi
+                </ToolButton>
+                <ConfirmDialog
+                  open={migrateDialogOpen}
+                  onOpenChange={setMigrateDialogOpen}
+                  title="Siirrä julkinen kuvaus yksityiseksi muistiinpanoksi?"
+                  description="Teksti poistetaan julkisesta kuvauksesta ja tallennetaan hahmosi yksityisiin muistiinpanoihin. Vain sinä ja pelinjohtaja näette sen jatkossa."
+                  confirmLabel="Siirrä yksityiseksi"
+                  cancelLabel="Peruuta"
+                  onConfirm={() => {
+                    migratePublicNotesMutation.mutate(undefined, {
+                      onSuccess: () => {
+                        setMigrateDialogOpen(false);
+                        setActiveTab("notes");
+                        requestToast({
+                          message: "Teksti siirretty yksityisiin muistiinpanoihin.",
+                          variant: "success",
+                        });
+                      },
+                      onError: (err) => {
+                        requestToast({
+                          message: err instanceof Error ? err.message : "Siirtäminen epäonnistui.",
+                          variant: "error",
+                        });
+                      },
+                    });
+                  }}
+                />
+              </Stack>
+            )}
+            {snapshots.length > 0 && (
+              <div className="space-y-2 border-t border-[var(--theme-border-soft)] pt-2 mt-1">
+                <p className="text-sm text-text-muted">Arc-snapshotit</p>
+                <div className="flex flex-wrap gap-2">
+                  {snapshots.map((snapshot) => (
+                    <Button
+                      key={snapshot.id}
+                      variant={selectedSnapshotId === snapshot.id ? "solid" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedSnapshotId(snapshot.id)}
+                    >
+                      {snapshot.episodeTitle ?? `Jakso ${snapshot.episodeId}`}
+                    </Button>
+                  ))}
+                </div>
+                {selectedSnapshot && (
+                  <div className="space-y-2">
+                    {snapshotDiffRows.length > 0 ? (
+                      <div className="rounded border border-[var(--theme-border-soft)] p-2">
+                        <p className="text-xs uppercase tracking-widest text-text-muted mb-2">
+                          Erot nykytilaan
+                        </p>
+                        <div className="space-y-1">
+                          {snapshotDiffRows.map((row) => (
+                            <p key={row.key} className="text-xs text-text-muted">
+                              <span className="font-semibold text-[var(--theme-text)]">
+                                {row.key}
+                              </span>
+                              : {String(row.before ?? "—")} -&gt; {String(row.now ?? "—")}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-xs text-text-muted">Ei eroja nykyiseen tilaan.</p>
+                    )}
+                    <pre className="max-h-56 overflow-auto rounded border border-[var(--theme-border-soft)] p-2 text-xs text-text-muted">
+                      {JSON.stringify(selectedSnapshot.sheetJson, null, 2)}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Voimat Section */}
+        {((character.monkPowers && character.monkPowers.length > 0) ||
+          (character.monkAdvancementsAllowed ?? 0) > 0 ||
+          character.archetype === "Munkki") && (
+          <Card variant="highlight" className="mt-4">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>Voimat</CardTitle>
+              {character.monkPowers && character.monkPowers.length > 0 && (
+                <Badge variant="outline">{character.monkPowers.length} kpl</Badge>
+              )}
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {!character.monkPowers || character.monkPowers.length === 0 ? (
+                <p className="text-xs text-text-muted italic py-1">Ei vielä valittuja voimia.</p>
+              ) : (
+                <div className="space-y-2.5">
+                  {character.monkPowers.map((power) => (
+                    <div
+                      key={power.id}
+                      className="rounded-lg border border-[var(--theme-border-soft)] bg-[var(--theme-bg)] p-3 space-y-1.5"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-bold text-sm text-[var(--theme-text)]">
+                          {power.name}
+                        </span>
+                        <Badge variant="solid" className="text-[10px]">
+                          {power.tier}. piiri
+                        </Badge>
+                      </div>
+                      {power.description && (
+                        <div className="text-xs text-text-muted">
+                          <MarkdownRenderer className="space-y-1 [&_p]:mb-1 [&_p]:text-xs [&_ul]:my-1 [&_ol]:my-1 [&_li]:text-xs">
+                            {power.description}
+                          </MarkdownRenderer>
+                        </div>
+                      )}
+                      {power.properties && Object.keys(power.properties).length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {Object.entries(power.properties).map(([k, v]) => (
+                            <span
+                              key={k}
+                              className="text-[10px] bg-[var(--theme-surface)] border border-[var(--theme-border-soft)] px-1.5 py-0.5 rounded font-mono text-text-muted"
+                            >
+                              <strong>{k}:</strong> {String(v)}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+      </div>
+      <HeadingLevelProvider>
+        <div className="space-y-6">
+          <Heading>Resurssit</Heading>
+
+          <div className="space-y-4 mt-4 mb-8">
+            <SisuPoolSection character={character} canEdit={canEdit} onUpdate={updateCharacter} />
+
+            <HarmiSection
+              harmit={character.harmit ?? []}
+              canEdit={canEdit}
+              onUpdate={(harmit) => updateCharacter({ harmit })}
+            />
+          </div>
+
+          <Heading>Kestot</Heading>
+          <div className="grid grid-cols-1 gap-4 mt-4">
+            <EnduranceBlock
+              label="Keho"
+              value={character.currentKeho}
+              maxValue={canEdit ? character.keho : character.currentKeho}
+              subAttributes={[
+                { label: "Fysiikka", diceValue: character.fysiikka },
+                { label: "Nopeus", diceValue: character.nopeus },
+              ]}
+              onIncrement={
+                canEdit
+                  ? () => updateCharacter({ currentKeho: character.currentKeho + 1 })
+                  : undefined
+              }
+              onDecrement={
+                canEdit
+                  ? () => updateCharacter({ currentKeho: character.currentKeho - 1 })
+                  : undefined
+              }
+              {...lockIfReadOnly(character.currentKeho)}
+            />
+            <EnduranceBlock
+              label="Mieli"
+              value={character.currentMieli}
+              maxValue={canEdit ? character.mieli : character.currentMieli}
+              subAttributes={[
+                { label: "Ymmärrys", diceValue: character.ymmarrys },
+                { label: "Persoona", diceValue: character.persoona },
+              ]}
+              onIncrement={
+                canEdit
+                  ? () => updateCharacter({ currentMieli: character.currentMieli + 1 })
+                  : undefined
+              }
+              onDecrement={
+                canEdit
+                  ? () => updateCharacter({ currentMieli: character.currentMieli - 1 })
+                  : undefined
+              }
+              {...lockIfReadOnly(character.currentMieli)}
+            />
+            <EnduranceBlock
+              label="Terä"
+              value={character.currentTera}
+              maxValue={canEdit ? character.tera : character.currentTera}
+              subAttributes={[
+                { label: "Näkemys", diceValue: character.nakemys },
+                { label: "Näppäryys", diceValue: character.napparyys },
+              ]}
+              onIncrement={
+                canEdit
+                  ? () => updateCharacter({ currentTera: character.currentTera + 1 })
+                  : undefined
+              }
+              onDecrement={
+                canEdit
+                  ? () => updateCharacter({ currentTera: character.currentTera - 1 })
+                  : undefined
+              }
+              {...lockIfReadOnly(character.currentTera)}
+            />
+          </div>
+
+          {canEdit && (
+            <div className="pt-4">
+              <Button
+                variant="danger"
+                loading={isDeleting}
+                onClick={() => setDeleteCharacterOpen(true)}
+              >
+                Poista hahmo
+              </Button>
+              <ConfirmDialog
+                open={deleteCharacterOpen}
+                onOpenChange={setDeleteCharacterOpen}
+                title="Poista hahmo?"
+                description={`Haluatko varmasti poistaa hahmon "${character.name}"? Tätä ei voi peruuttaa.`}
+                confirmLabel="Poista hahmo"
+                cancelLabel="Peruuta"
+                variant="danger"
+                onConfirm={() => deleteCharacter()}
+              />
+            </div>
+          )}
+        </div>
+      </HeadingLevelProvider>
+    </PageBody>
+  );
+
+  const privateNotesCount = privateNotes?.length ?? 0;
+
   return (
     <HeadingLevelProvider>
       <div className="animate-in fade-in duration-500">
@@ -226,349 +631,36 @@ export function CharacterSheet({
           </NoticePanel>
         )}
 
-        <PageBody className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <Card variant="highlight" className="mt-4">
-              <CardHeader>
-                <CardTitle>Perustiedot</CardTitle>
-              </CardHeader>
-              <CardContent className="gap-4">
-                <EditableName
-                  value={character.name}
-                  sex={character.sex ?? "none"}
-                  canEdit={canEdit}
-                  onSave={(v) => updateCharacter({ name: v })}
+        {canViewPrivateNotes ? (
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <PageBody className="pb-0 pt-4">
+              <TabsList>
+                <TabsTrigger value="sheet">Hahmolomake</TabsTrigger>
+                <TabsTrigger value="notes">
+                  <Icon name="lock" size={14} className="mr-2" />
+                  {privateNotesCount > 0
+                    ? `Yksityiset muistiinpanot (${privateNotesCount})`
+                    : "Yksityiset muistiinpanot"}
+                </TabsTrigger>
+              </TabsList>
+            </PageBody>
+            <TabsContent value="sheet">{sheetBody}</TabsContent>
+            <TabsContent value="notes">
+              <PageBody>
+                <CharacterPrivateNotesTab
+                  characterId={character.id}
+                  isOwner={isOwner}
+                  episodes={character.episodes ?? []}
+                  notes={privateNotes}
+                  isLoading={isPrivateNotesLoading}
+                  isError={isPrivateNotesError}
                 />
-
-                <EditableField
-                  label="Arkkityyppi"
-                  value={character.archetype}
-                  readOnly={!canEdit}
-                  placeholder="Ei arkkityyppiä."
-                  onSave={(v) => updateCharacter({ archetype: v })}
-                />
-
-                {/* GM Monk Advancement Control */}
-                {user?.role === "gm" && (
-                  <EditableField
-                    label="Munkki-potentiaali (GM)"
-                    value={String(character.monkAdvancementsAllowed ?? 0)}
-                    placeholder="0"
-                    onSave={(v) => {
-                      const parsed = parseInt(v, 10);
-                      if (!Number.isNaN(parsed) && parsed >= 0) {
-                        updateCharacter({ monkAdvancementsAllowed: parsed });
-                      }
-                    }}
-                  />
-                )}
-
-                {/* Monk Advancements Status */}
-                {((character.monkAdvancementsAllowed ?? 0) > 0 ||
-                  (character.monkAdvancementsUsed ?? 0) > 0) && (
-                  <div className="space-y-1 rounded-lg border border-[var(--theme-border-soft)] p-3 bg-[var(--theme-bg)]">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs uppercase tracking-wider text-text-muted font-bold">
-                        Munkki-kehitykset:
-                      </span>
-                      <span className="font-mono text-sm font-semibold text-[var(--theme-text)]">
-                        {character.monkPowers?.length ?? character.monkAdvancementsUsed ?? 0} /{" "}
-                        {character.monkAdvancementsAllowed ?? 0} valittu
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                <NicknamesSection
-                  nicknames={character.nicknames ?? []}
-                  canEdit={canEdit}
-                  onUpdate={(nicknames) => updateCharacter({ nicknames })}
-                />
-
-                {character.episodes?.length > 0 && (
-                  <div className="space-y-2">
-                    <p className="text-sm text-text-muted">
-                      Jaksot:{" "}
-                      <span className="font-semibold text-[var(--theme-text)]">
-                        {character.episodes.map((e) => e.title).join(", ")}
-                      </span>
-                    </p>
-                    <div className="flex flex-col gap-1.5 items-start">
-                      {character.episodes.map((ep) => (
-                        <Link key={ep.id} href={`${basePath}/prep/${ep.id}`} className="text-sm">
-                          Valmistaudu: {ep.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <EditableField
-                  label="Sukupuoli"
-                  value={character.sex ?? ""}
-                  readOnly={!canEdit}
-                  placeholder="Ei valittu"
-                  options={[
-                    { value: "male", label: "Mies" },
-                    { value: "female", label: "Nainen" },
-                    { value: "non-binary", label: "Ei-binäärinen" },
-                    { value: "none", label: "Ei määritelty" },
-                  ]}
-                  selectPlaceholder="Valitse sukupuoli"
-                  onSave={(v) => updateCharacter({ sex: v })}
-                />
-
-                {(() => {
-                  const effectiveAnchorId =
-                    character.anchorId ??
-                    (character.userId === user?.id ? (user?.anchorId as string | null) : null);
-                  if (!effectiveAnchorId) return null;
-                  const anchor = getAnchorById(effectiveAnchorId);
-                  return anchor ? (
-                    <div className="space-y-1.5 pt-1">
-                      <p className="text-sm text-text-muted font-semibold">Pelaajan Ankkuri:</p>
-                      <AnchorCard anchor={anchor} />
-                    </div>
-                  ) : null;
-                })()}
-
-                <SkillsSection
-                  skills={character.skills}
-                  hasRebellionSkill={
-                    (character.rebellionLevel ?? 0) >= 1 ||
-                    (character.userId === user?.id && (user?.rebellionLevel ?? 0) >= 1)
-                  }
-                  canEdit={canEdit}
-                  onUpdate={(skills) => updateCharacter({ skills })}
-                />
-
-                <EditableField
-                  label="Motivaatio"
-                  value={character.motivation ?? ""}
-                  readOnly={!canEdit}
-                  placeholder="Ei motivaatiota kirjattu."
-                  onSave={(v) => updateCharacter({ motivation: v })}
-                  multiline
-                />
-
-                <EditableField
-                  label="Muistiinpanot"
-                  value={character.notes ?? ""}
-                  readOnly={!canEdit}
-                  placeholder="Ei muistiinpanoja."
-                  onSave={(v) => updateCharacter({ notes: v })}
-                  multiline
-                />
-                {snapshots.length > 0 && (
-                  <div className="space-y-2 border-t border-[var(--theme-border-soft)] pt-2 mt-1">
-                    <p className="text-sm text-text-muted">Arc-snapshotit</p>
-                    <div className="flex flex-wrap gap-2">
-                      {snapshots.map((snapshot) => (
-                        <Button
-                          key={snapshot.id}
-                          variant={selectedSnapshotId === snapshot.id ? "solid" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedSnapshotId(snapshot.id)}
-                        >
-                          {snapshot.episodeTitle ?? `Jakso ${snapshot.episodeId}`}
-                        </Button>
-                      ))}
-                    </div>
-                    {selectedSnapshot && (
-                      <div className="space-y-2">
-                        {snapshotDiffRows.length > 0 ? (
-                          <div className="rounded border border-[var(--theme-border-soft)] p-2">
-                            <p className="text-xs uppercase tracking-widest text-text-muted mb-2">
-                              Erot nykytilaan
-                            </p>
-                            <div className="space-y-1">
-                              {snapshotDiffRows.map((row) => (
-                                <p key={row.key} className="text-xs text-text-muted">
-                                  <span className="font-semibold text-[var(--theme-text)]">
-                                    {row.key}
-                                  </span>
-                                  : {String(row.before ?? "—")} -&gt; {String(row.now ?? "—")}
-                                </p>
-                              ))}
-                            </div>
-                          </div>
-                        ) : (
-                          <p className="text-xs text-text-muted">Ei eroja nykyiseen tilaan.</p>
-                        )}
-                        <pre className="max-h-56 overflow-auto rounded border border-[var(--theme-border-soft)] p-2 text-xs text-text-muted">
-                          {JSON.stringify(selectedSnapshot.sheetJson, null, 2)}
-                        </pre>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Voimat Section */}
-            {((character.monkPowers && character.monkPowers.length > 0) ||
-              (character.monkAdvancementsAllowed ?? 0) > 0 ||
-              character.archetype === "Munkki") && (
-              <Card variant="highlight" className="mt-4">
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle>Voimat</CardTitle>
-                  {character.monkPowers && character.monkPowers.length > 0 && (
-                    <Badge variant="outline">{character.monkPowers.length} kpl</Badge>
-                  )}
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  {!character.monkPowers || character.monkPowers.length === 0 ? (
-                    <p className="text-xs text-text-muted italic py-1">
-                      Ei vielä valittuja voimia.
-                    </p>
-                  ) : (
-                    <div className="space-y-2.5">
-                      {character.monkPowers.map((power) => (
-                        <div
-                          key={power.id}
-                          className="rounded-lg border border-[var(--theme-border-soft)] bg-[var(--theme-bg)] p-3 space-y-1.5"
-                        >
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="font-bold text-sm text-[var(--theme-text)]">
-                              {power.name}
-                            </span>
-                            <Badge variant="solid" className="text-[10px]">
-                              {power.tier}. piiri
-                            </Badge>
-                          </div>
-                          {power.description && (
-                            <div className="text-xs text-text-muted">
-                              <MarkdownRenderer className="space-y-1 [&_p]:mb-1 [&_p]:text-xs [&_ul]:my-1 [&_ol]:my-1 [&_li]:text-xs">
-                                {power.description}
-                              </MarkdownRenderer>
-                            </div>
-                          )}
-                          {power.properties && Object.keys(power.properties).length > 0 && (
-                            <div className="flex flex-wrap gap-1.5 pt-1">
-                              {Object.entries(power.properties).map(([k, v]) => (
-                                <span
-                                  key={k}
-                                  className="text-[10px] bg-[var(--theme-surface)] border border-[var(--theme-border-soft)] px-1.5 py-0.5 rounded font-mono text-text-muted"
-                                >
-                                  <strong>{k}:</strong> {String(v)}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-          </div>
-          <HeadingLevelProvider>
-            <div className="space-y-6">
-              <Heading>Resurssit</Heading>
-
-              <div className="space-y-4 mt-4 mb-8">
-                <SisuPoolSection
-                  character={character}
-                  canEdit={canEdit}
-                  onUpdate={updateCharacter}
-                />
-
-                <HarmiSection
-                  harmit={character.harmit ?? []}
-                  canEdit={canEdit}
-                  onUpdate={(harmit) => updateCharacter({ harmit })}
-                />
-              </div>
-
-              <Heading>Kestot</Heading>
-              <div className="grid grid-cols-1 gap-4 mt-4">
-                <EnduranceBlock
-                  label="Keho"
-                  value={character.currentKeho}
-                  maxValue={canEdit ? character.keho : character.currentKeho}
-                  subAttributes={[
-                    { label: "Fysiikka", diceValue: character.fysiikka },
-                    { label: "Nopeus", diceValue: character.nopeus },
-                  ]}
-                  onIncrement={
-                    canEdit
-                      ? () => updateCharacter({ currentKeho: character.currentKeho + 1 })
-                      : undefined
-                  }
-                  onDecrement={
-                    canEdit
-                      ? () => updateCharacter({ currentKeho: character.currentKeho - 1 })
-                      : undefined
-                  }
-                  {...lockIfReadOnly(character.currentKeho)}
-                />
-                <EnduranceBlock
-                  label="Mieli"
-                  value={character.currentMieli}
-                  maxValue={canEdit ? character.mieli : character.currentMieli}
-                  subAttributes={[
-                    { label: "Ymmärrys", diceValue: character.ymmarrys },
-                    { label: "Persoona", diceValue: character.persoona },
-                  ]}
-                  onIncrement={
-                    canEdit
-                      ? () => updateCharacter({ currentMieli: character.currentMieli + 1 })
-                      : undefined
-                  }
-                  onDecrement={
-                    canEdit
-                      ? () => updateCharacter({ currentMieli: character.currentMieli - 1 })
-                      : undefined
-                  }
-                  {...lockIfReadOnly(character.currentMieli)}
-                />
-                <EnduranceBlock
-                  label="Terä"
-                  value={character.currentTera}
-                  maxValue={canEdit ? character.tera : character.currentTera}
-                  subAttributes={[
-                    { label: "Näkemys", diceValue: character.nakemys },
-                    { label: "Näppäryys", diceValue: character.napparyys },
-                  ]}
-                  onIncrement={
-                    canEdit
-                      ? () => updateCharacter({ currentTera: character.currentTera + 1 })
-                      : undefined
-                  }
-                  onDecrement={
-                    canEdit
-                      ? () => updateCharacter({ currentTera: character.currentTera - 1 })
-                      : undefined
-                  }
-                  {...lockIfReadOnly(character.currentTera)}
-                />
-              </div>
-
-              {canEdit && (
-                <div className="pt-4">
-                  <Button
-                    variant="danger"
-                    loading={isDeleting}
-                    onClick={() => setDeleteCharacterOpen(true)}
-                  >
-                    Poista hahmo
-                  </Button>
-                  <ConfirmDialog
-                    open={deleteCharacterOpen}
-                    onOpenChange={setDeleteCharacterOpen}
-                    title="Poista hahmo?"
-                    description={`Haluatko varmasti poistaa hahmon "${character.name}"? Tätä ei voi peruuttaa.`}
-                    confirmLabel="Poista hahmo"
-                    cancelLabel="Peruuta"
-                    variant="danger"
-                    onConfirm={() => deleteCharacter()}
-                  />
-                </div>
-              )}
-            </div>
-          </HeadingLevelProvider>
-        </PageBody>
+              </PageBody>
+            </TabsContent>
+          </Tabs>
+        ) : (
+          sheetBody
+        )}
       </div>
     </HeadingLevelProvider>
   );

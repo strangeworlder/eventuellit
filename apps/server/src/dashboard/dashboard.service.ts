@@ -14,6 +14,7 @@ import {
   playerReadingProgress,
   sessionPlayerRecaps,
   sessions,
+  shipDowntimeTurns,
   users,
 } from "../db/schema";
 import { NotificationsService } from "../notifications/notifications.service";
@@ -22,6 +23,7 @@ export interface DashboardAction {
   type:
     | "create_character"
     | "link_character"
+    | "ship_downtime"
     | "update_character"
     | "update_names"
     | "reading"
@@ -239,6 +241,56 @@ export class DashboardService {
       playedSessionsByEpisode.set(s.episodeId, list);
     }
 
+    // ── 7b. Batch: unresolved Aamunkoi 5n20 downtime turns ───────────────────
+    const livingUserCharIds = userCharacters
+      .filter(
+        (character) =>
+          !character.removedFromPlayAt &&
+          (!Array.isArray(character.harmit) || character.harmit.length < 5),
+      )
+      .map((c) => c.id);
+
+    const charsWithPendingDowntime = new Set<number>();
+    if (livingUserCharIds.length > 0) {
+      const completedCharLinks = await this.db
+        .select({
+          characterId: characterEpisodes.characterId,
+          episodeId: characterEpisodes.episodeId,
+        })
+        .from(characterEpisodes)
+        .innerJoin(episodes, eq(characterEpisodes.episodeId, episodes.id))
+        .where(
+          and(
+            inArray(characterEpisodes.characterId, livingUserCharIds),
+            eq(episodes.status, "completed"),
+          ),
+        );
+
+      if (completedCharLinks.length > 0) {
+        const resolvedDowntimeRows = await this.db
+          .select({
+            characterId: shipDowntimeTurns.characterId,
+            sourceEpisodeId: shipDowntimeTurns.sourceCompletedEpisodeId,
+          })
+          .from(shipDowntimeTurns)
+          .where(
+            and(
+              inArray(shipDowntimeTurns.characterId, livingUserCharIds),
+              eq(shipDowntimeTurns.status, "resolved"),
+            ),
+          );
+
+        const resolvedSet = new Set(
+          resolvedDowntimeRows.map((r) => `${r.characterId}:${r.sourceEpisodeId}`),
+        );
+        for (const link of completedCharLinks) {
+          if (!resolvedSet.has(`${link.characterId}:${link.episodeId}`)) {
+            charsWithPendingDowntime.add(link.characterId);
+          }
+        }
+      }
+    }
+
     // ── 8. Assemble episode results (zero queries in this loop) ───────────────
     const episodeResults: DashboardEpisode[] = [];
 
@@ -264,6 +316,17 @@ export class DashboardService {
           meta: { episodeId: ep.episodeId },
         });
       } else {
+        if (ep.episodeStatus !== "completed" && charsWithPendingDowntime.has(linkedChar.id)) {
+          actions.push({
+            type: "ship_downtime",
+            label: "Aamunkoin väliaika (5n20)",
+            description: `${linkedChar.name} voi käyttää jaksojen väliset 5n20-toiminnot ja parantaa harmeja aluksella.`,
+            priority: 2,
+            url: `/alus/valiaika?characterId=${linkedChar.id}`,
+            meta: { characterId: linkedChar.id, episodeId: ep.episodeId },
+          });
+        }
+
         const nextSession = nextSessionByEpisode.get(ep.episodeId);
 
         if (nextSession) {

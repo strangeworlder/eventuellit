@@ -62,6 +62,29 @@ export type { CommentData, CommentThreadProps } from "./components/CommentThread
 export { CommentThread } from "./components/CommentThread";
 export type { ConfirmDialogProps } from "./components/ConfirmDialog";
 export { ConfirmDialog } from "./components/ConfirmDialog";
+export type { ConsoleButtonProps } from "./components/ConsoleButton";
+/** Storybook: Suunnittelujarjestelma/Konsoli/ConsoleButton */
+export { ConsoleButton } from "./components/ConsoleButton";
+export type { ConsoleDockItemProps, ConsoleDockProps } from "./components/ConsoleDock";
+/** Storybook: Suunnittelujarjestelma/Konsoli/ConsoleDock */
+export { ConsoleDock, ConsoleDockItem } from "./components/ConsoleDock";
+export type { ConsolePillProps, ConsolePillTone } from "./components/ConsolePill";
+/** Storybook: Suunnittelujarjestelma/Konsoli/ConsolePill */
+export { ConsolePill } from "./components/ConsolePill";
+export type { ConsoleRowProps, ConsoleRowStatusTone } from "./components/ConsoleRow";
+/** Storybook: Suunnittelujarjestelma/Konsoli/ConsoleRow */
+export { ConsoleRow } from "./components/ConsoleRow";
+export type { ConsoleSheetProps, ConsoleSheetSnap } from "./components/ConsoleSheet";
+/** Storybook: Suunnittelujarjestelma/Konsoli/ConsoleSheet */
+export { ConsoleSheet } from "./components/ConsoleSheet";
+export type { ConsoleArrivalState, ConsoleViewportProps } from "./components/ConsoleViewport";
+/** Storybook: Suunnittelujarjestelma/Konsoli/ConsoleViewport */
+export {
+  ConsoleViewport,
+  computeArrivalWavefrontU,
+  computeWavePhaseOffset,
+  useConsoleArrival,
+} from "./components/ConsoleViewport";
 export type { CountdownDisplayProps } from "./components/CountdownDisplay";
 /** Storybook: Suunnittelujarjestelma/Komponentit/CountdownDisplay */
 export { CountdownDisplay } from "./components/CountdownDisplay";
@@ -78,6 +101,14 @@ export { DicePoolAllocator } from "./components/DicePoolAllocator";
 export { DicePoolTracker } from "./components/DicePoolTracker";
 export type { DiceRollerProps } from "./components/DiceRoller";
 export { DiceRoller } from "./components/DiceRoller";
+export type {
+  DowntimeAllocatorProps,
+  DowntimeClockTarget,
+  DowntimeDraftAllocation,
+  DowntimeHarmiItem,
+} from "./components/DowntimeAllocator";
+/** Storybook: Suunnittelujarjestelma/Pelimekaniikka/DowntimeAllocator */
+export { countAllocatedDowntimeDice, DowntimeAllocator } from "./components/DowntimeAllocator";
 export type { DrawerProps } from "./components/Drawer";
 export { Drawer, useDrawer } from "./components/Drawer";
 export type { EditableFieldProps } from "./components/EditableField";
@@ -103,6 +134,9 @@ export type { HeroProps } from "./components/Hero";
 export { Hero } from "./components/Hero";
 export type { HeroCanvasProps } from "./components/HeroCanvas";
 export { HeroCanvas } from "./components/HeroCanvas";
+export type { HudPanelProps } from "./components/HudPanel";
+/** Storybook: Suunnittelujarjestelma/Konsoli/HudPanel */
+export { HudPanel } from "./components/HudPanel";
 export type { IconName, IconProps } from "./components/Icon";
 export { Icon } from "./components/Icon";
 export type { ImageElementProps, ImageSource } from "./components/ImageElement";
@@ -130,6 +164,9 @@ export type { PageAsideProps, PageBodyProps, PageProps } from "./components/Page
 export { Page, PageAside, PageBody } from "./components/Page";
 export type { PaginationProps } from "./components/Pagination";
 export { Pagination } from "./components/Pagination";
+export type { ProgressClockProps, ProgressClockSegments } from "./components/ProgressClock";
+/** Storybook: Suunnittelujarjestelma/Pelimekaniikka/ProgressClock */
+export { ProgressClock } from "./components/ProgressClock";
 export type { QuickViewPanelProps } from "./components/QuickViewPanel";
 export { QuickViewPanel } from "./components/QuickViewPanel";
 export { RadioGroup } from "./components/RadioGroup";
@@ -150,6 +187,9 @@ export {
 } from "./components/SelectionCard";
 export type { SeparatorProps } from "./components/Separator";
 export { Separator } from "./components/Separator";
+export type { ShipBootOverlayProps } from "./components/ShipBootOverlay";
+/** Storybook: Suunnittelujarjestelma/Konsoli/ShipBootOverlay */
+export { ShipBootOverlay } from "./components/ShipBootOverlay";
 export type { SidebarItemProps } from "./components/Sidebar";
 export { Sidebar } from "./components/Sidebar";
 export type { SkeletonCardProps, SkeletonProps, SkeletonTextProps } from "./components/Skeleton";

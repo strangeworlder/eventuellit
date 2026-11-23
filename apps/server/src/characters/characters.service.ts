@@ -5,8 +5,9 @@ import {
   Inject,
   Injectable,
   NotFoundException,
+  type OnModuleInit,
 } from "@nestjs/common";
-import { and, asc, eq, inArray, isNotNull, sql } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNotNull, sql } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
@@ -14,6 +15,7 @@ import {
   characterArcSnapshots,
   characterEpisodes,
   characterMonkPowers,
+  characterPrivateNotes,
   characters,
   episodePlayers,
   episodes,
@@ -26,8 +28,10 @@ import { addN4, decodeAttributeDice, kestoBonusFromPackedAttribute } from "./att
 import type { AdvanceCharacterDto } from "./dto/advance-character.dto";
 import type { AdvanceMonkDto } from "./dto/advance-monk.dto";
 import type { CreateCharacterDto } from "./dto/create-character.dto";
+import type { CreatePrivateNoteDto } from "./dto/create-private-note.dto";
 import type { RefreshCharacterDto } from "./dto/refresh-character.dto";
 import type { UpdateCharacterDto } from "./dto/update-character.dto";
+import type { UpdatePrivateNoteDto } from "./dto/update-private-note.dto";
 
 export const REBELLION_SKILL_SELECTION_NAME = "Kapinan riveissä taisteleva";
 export const REBELLION_SKILL_ACQUIRED_NAME = "Kapinan riveissä taistellut";
@@ -165,6 +169,14 @@ interface OptionalShipData {
   cabinByChar: Map<number, ShipCabinInfo>;
   possessionsByChar: Map<number, ShipPossessionInfo[]>;
   clocksByChar: Map<number, ShipClockInfo[]>;
+}
+
+interface ExportPrivateNoteInfo {
+  title: string | null;
+  content: string;
+  isPinned: boolean;
+  episodeTitle: string | null;
+  createdAtLabel: string | null;
 }
 
 const characterWithOwnerColumns = {
@@ -339,11 +351,31 @@ async function attachMonkPowersForCharacters(
 }
 
 @Injectable()
-export class CharactersService {
+export class CharactersService implements OnModuleInit {
   constructor(
     @Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>,
     private readonly notificationsService: NotificationsService,
   ) {}
+
+  async onModuleInit() {
+    if (typeof this.db.execute !== "function") return;
+    await this.db.execute(sql`
+      CREATE TABLE IF NOT EXISTS character_private_notes (
+        id SERIAL PRIMARY KEY,
+        character_id INTEGER NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+        episode_id INTEGER REFERENCES episodes(id) ON DELETE SET NULL,
+        title TEXT,
+        content TEXT NOT NULL,
+        is_pinned BOOLEAN NOT NULL DEFAULT FALSE,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+    await this.db.execute(sql`
+      CREATE INDEX IF NOT EXISTS character_private_notes_char_pinned_idx
+        ON character_private_notes (character_id, is_pinned)
+    `);
+  }
 
   private hasFiveHarmit(harmit: unknown): boolean {
     return Array.isArray(harmit) && harmit.length >= 5;
@@ -490,6 +522,17 @@ export class CharactersService {
         });
       }
 
+      const initialPrivateNote = data.initialPrivateNote?.trim();
+      if (initialPrivateNote && character) {
+        await tx.insert(characterPrivateNotes).values({
+          characterId: character.id,
+          episodeId: data.episodeId ?? null,
+          title: null,
+          content: initialPrivateNote,
+          isPinned: false,
+        });
+      }
+
       return character;
     });
   }
@@ -629,6 +672,228 @@ export class CharactersService {
       .orderBy(asc(characterArcSnapshots.capturedAt));
   }
 
+  private async assertCharacterEpisodeIfProvided(
+    characterId: number,
+    episodeId: number | null | undefined,
+  ) {
+    if (episodeId === null || episodeId === undefined) return;
+    const linkRows = await this.db
+      .select({ id: characterEpisodes.id })
+      .from(characterEpisodes)
+      .where(
+        and(
+          eq(characterEpisodes.characterId, characterId),
+          eq(characterEpisodes.episodeId, episodeId),
+        ),
+      )
+      .limit(1);
+    if (linkRows.length === 0) {
+      throw new BadRequestException("Hahmoa ei ole liitetty valittuun jaksoon");
+    }
+  }
+
+  async listPrivateNotes(characterId: number, userId: number, role: string) {
+    const character = await this.db.query.characters.findFirst({
+      where: eq(characters.id, characterId),
+    });
+    if (!character) {
+      throw new NotFoundException("Character not found");
+    }
+    if (character.userId !== userId && role !== "gm") {
+      throw new ForbiddenException(
+        "Sinulla ei ole oikeutta nähdä tämän hahmon yksityisiä muistiinpanoja",
+      );
+    }
+
+    return this.db
+      .select({
+        id: characterPrivateNotes.id,
+        characterId: characterPrivateNotes.characterId,
+        episodeId: characterPrivateNotes.episodeId,
+        episodeTitle: episodes.title,
+        title: characterPrivateNotes.title,
+        content: characterPrivateNotes.content,
+        isPinned: characterPrivateNotes.isPinned,
+        createdAt: characterPrivateNotes.createdAt,
+        updatedAt: characterPrivateNotes.updatedAt,
+      })
+      .from(characterPrivateNotes)
+      .leftJoin(episodes, eq(characterPrivateNotes.episodeId, episodes.id))
+      .where(eq(characterPrivateNotes.characterId, characterId))
+      .orderBy(
+        desc(characterPrivateNotes.isPinned),
+        desc(characterPrivateNotes.createdAt),
+        desc(characterPrivateNotes.id),
+      );
+  }
+
+  async createPrivateNote(characterId: number, data: CreatePrivateNoteDto, userId: number) {
+    const character = await this.db.query.characters.findFirst({
+      where: eq(characters.id, characterId),
+    });
+    if (!character) {
+      throw new NotFoundException("Character not found");
+    }
+    if (character.userId !== userId) {
+      throw new ForbiddenException("Vain hahmon omistaja voi muokata yksityisiä muistiinpanoja");
+    }
+
+    const trimmedContent = data.content.trim();
+    if (!trimmedContent) {
+      throw new BadRequestException("Muistiinpanon sisältö ei voi olla tyhjä");
+    }
+
+    await this.assertCharacterEpisodeIfProvided(characterId, data.episodeId);
+
+    const normalizedTitle = data.title?.trim() ? data.title.trim() : null;
+    const result = await this.db
+      .insert(characterPrivateNotes)
+      .values({
+        characterId,
+        episodeId: data.episodeId ?? null,
+        title: normalizedTitle,
+        content: trimmedContent,
+        isPinned: Boolean(data.isPinned),
+      })
+      .returning();
+
+    return result[0];
+  }
+
+  async updatePrivateNote(
+    characterId: number,
+    noteId: number,
+    data: UpdatePrivateNoteDto,
+    userId: number,
+  ) {
+    const character = await this.db.query.characters.findFirst({
+      where: eq(characters.id, characterId),
+    });
+    if (!character) {
+      throw new NotFoundException("Character not found");
+    }
+    if (character.userId !== userId) {
+      throw new ForbiddenException("Vain hahmon omistaja voi muokata yksityisiä muistiinpanoja");
+    }
+
+    const existing = await this.db.query.characterPrivateNotes.findFirst({
+      where: and(
+        eq(characterPrivateNotes.id, noteId),
+        eq(characterPrivateNotes.characterId, characterId),
+      ),
+    });
+    if (!existing) {
+      throw new NotFoundException("Muistiinpanoa ei löytynyt");
+    }
+
+    let nextContent: string | undefined;
+    if (data.content !== undefined) {
+      nextContent = data.content.trim();
+      if (!nextContent) {
+        throw new BadRequestException("Muistiinpanon sisältö ei voi olla tyhjä");
+      }
+    }
+
+    if (data.episodeId !== undefined) {
+      await this.assertCharacterEpisodeIfProvided(characterId, data.episodeId);
+    }
+
+    const updateFields: Partial<typeof characterPrivateNotes.$inferInsert> = {
+      ...(data.title !== undefined && {
+        title: data.title?.trim() ? data.title.trim() : null,
+      }),
+      ...(nextContent !== undefined && { content: nextContent }),
+      ...(data.episodeId !== undefined && { episodeId: data.episodeId }),
+      ...(data.isPinned !== undefined && { isPinned: data.isPinned }),
+      updatedAt: new Date(),
+    };
+
+    const result = await this.db
+      .update(characterPrivateNotes)
+      .set(updateFields)
+      .where(
+        and(
+          eq(characterPrivateNotes.id, noteId),
+          eq(characterPrivateNotes.characterId, characterId),
+        ),
+      )
+      .returning();
+
+    return result[0];
+  }
+
+  async removePrivateNote(characterId: number, noteId: number, userId: number) {
+    const character = await this.db.query.characters.findFirst({
+      where: eq(characters.id, characterId),
+    });
+    if (!character) {
+      throw new NotFoundException("Character not found");
+    }
+    if (character.userId !== userId) {
+      throw new ForbiddenException("Vain hahmon omistaja voi poistaa yksityisiä muistiinpanoja");
+    }
+
+    const existing = await this.db.query.characterPrivateNotes.findFirst({
+      where: and(
+        eq(characterPrivateNotes.id, noteId),
+        eq(characterPrivateNotes.characterId, characterId),
+      ),
+    });
+    if (!existing) {
+      throw new NotFoundException("Muistiinpanoa ei löytynyt");
+    }
+
+    await this.db
+      .delete(characterPrivateNotes)
+      .where(
+        and(
+          eq(characterPrivateNotes.id, noteId),
+          eq(characterPrivateNotes.characterId, characterId),
+        ),
+      );
+
+    return { deleted: true };
+  }
+
+  async migratePublicNotesToPrivate(characterId: number, userId: number) {
+    const character = await this.db.query.characters.findFirst({
+      where: eq(characters.id, characterId),
+    });
+    if (!character) {
+      throw new NotFoundException("Character not found");
+    }
+    if (character.userId !== userId) {
+      throw new ForbiddenException(
+        "Vain hahmon omistaja voi siirtää julkisen kuvauksen yksityiseksi muistiinpanoksi",
+      );
+    }
+
+    const trimmedNotes = character.notes?.trim() ?? "";
+    if (!trimmedNotes) {
+      throw new BadRequestException("Julkinen kuvaus on tyhjä");
+    }
+
+    return this.db.transaction(async (tx) => {
+      const inserted = await tx
+        .insert(characterPrivateNotes)
+        .values({
+          characterId,
+          episodeId: null,
+          title: null,
+          content: trimmedNotes,
+          isPinned: false,
+        })
+        .returning();
+
+      await tx
+        .update(characters)
+        .set({ notes: null, updatedAt: new Date() })
+        .where(eq(characters.id, characterId));
+
+      return { migrated: true, note: inserted[0] };
+    });
+  }
+
   async linkEpisode(characterId: number, episodeId: number, userId: number) {
     const character = await this.db.query.characters.findFirst({
       where: eq(characters.id, characterId),
@@ -687,25 +952,7 @@ export class CharactersService {
       return { refreshed: true, alreadyRefreshed: true };
     }
 
-    const healedIndexes = new Set(data.healedHarmitIndexes ?? []);
-    const currentHarmit = Array.isArray(character.harmit) ? character.harmit : [];
-    const updatedHarmit = currentHarmit.map((harmi, index) => {
-      if (
-        typeof harmi === "object" &&
-        harmi !== null &&
-        "text" in harmi &&
-        "healed" in harmi &&
-        healedIndexes.has(index)
-      ) {
-        return {
-          ...(harmi as { text: string; healed: boolean }),
-          healed: true,
-        };
-      }
-      return harmi;
-    });
-
-    const shouldMarkRemoved = this.hasFiveHarmit(updatedHarmit);
+    const shouldMarkRemoved = this.hasFiveHarmit(character.harmit);
     await this.db
       .update(characters)
       .set({
@@ -713,7 +960,6 @@ export class CharactersService {
         currentMieli: character.mieli,
         currentTera: character.tera,
         removedSisuIds: [],
-        harmit: updatedHarmit,
         removedFromPlayAt: shouldMarkRemoved ? (character.removedFromPlayAt ?? new Date()) : null,
         updatedAt: new Date(),
       })
@@ -1097,9 +1343,53 @@ export class CharactersService {
     return { cabinByChar, possessionsByChar, clocksByChar };
   }
 
+  private async fetchOptionalPrivateNotes(): Promise<Map<number, ExportPrivateNoteInfo[]>> {
+    const notesByChar = new Map<number, ExportPrivateNoteInfo[]>();
+    if (typeof this.db.execute !== "function") {
+      return notesByChar;
+    }
+
+    try {
+      const notesRes = await this.db.execute(
+        sql`SELECT n.character_id, n.title, n.content, n.is_pinned, n.created_at, e.title AS episode_title FROM character_private_notes n LEFT JOIN episodes e ON n.episode_id = e.id ORDER BY n.is_pinned DESC, n.created_at DESC, n.id DESC`,
+      );
+      for (const row of extractSqlRows(notesRes)) {
+        const charId = Number(row.character_id);
+        if (!Number.isInteger(charId) || charId <= 0) continue;
+        const content = typeof row.content === "string" ? row.content.trim() : "";
+        if (!content) continue;
+        const rawDate =
+          row.created_at instanceof Date
+            ? row.created_at
+            : typeof row.created_at === "string"
+              ? new Date(row.created_at)
+              : null;
+        const createdAtLabel =
+          rawDate && !Number.isNaN(rawDate.getTime()) ? rawDate.toLocaleDateString("fi-FI") : null;
+        const list = notesByChar.get(charId) ?? [];
+        list.push({
+          title: typeof row.title === "string" && row.title.trim() ? row.title.trim() : null,
+          content,
+          isPinned: Boolean(row.is_pinned),
+          episodeTitle:
+            typeof row.episode_title === "string" && row.episode_title.trim()
+              ? row.episode_title.trim()
+              : null,
+          createdAtLabel,
+        });
+        notesByChar.set(charId, list);
+      }
+    } catch {
+      // Private notes table may be absent on older schema snapshots.
+    }
+
+    return notesByChar;
+  }
+
   /** Export all characters grouped by player as clean Finnish Markdown. */
   async exportMarkdown(): Promise<{ filename: string; markdown: string }> {
     const [allChars, shipData] = await Promise.all([this.findAll(), this.fetchOptionalShipData()]);
+    const privateNotesByChar = await this.fetchOptionalPrivateNotes();
 
     if (allChars.length === 0) {
       return {
@@ -1349,9 +1639,27 @@ export class CharactersService {
 
         if (char.notes?.trim()) {
           lines.push("");
-          lines.push("#### Muistiinpanot");
+          lines.push("#### Julkinen kuvaus");
           lines.push("");
           lines.push(char.notes.trim());
+        }
+
+        const privateNotes = privateNotesByChar.get(char.id) ?? [];
+        if (privateNotes.length > 0) {
+          lines.push("");
+          lines.push("#### Yksityiset muistiinpanot");
+          for (const note of privateNotes) {
+            const metaParts: string[] = [];
+            if (note.isPinned) metaParts.push("kiinnitetty");
+            if (note.episodeTitle) metaParts.push(`Jakso: ${note.episodeTitle}`);
+            if (note.createdAtLabel) metaParts.push(note.createdAtLabel);
+            const headingLabel = note.title ?? "Muistiinpano";
+            const metaSuffix = metaParts.length > 0 ? ` *(${metaParts.join(", ")})*` : "";
+            lines.push("");
+            lines.push(`##### ${headingLabel}${metaSuffix}`);
+            lines.push("");
+            lines.push(note.content);
+          }
         }
 
         const cabin = shipData.cabinByChar.get(char.id);

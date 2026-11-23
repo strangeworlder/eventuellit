@@ -24,6 +24,61 @@ export interface ChangelogRelease {
 
 export const CHANGELOG_RELEASES: ChangelogRelease[] = [
   {
+    version: "0.2.1",
+    date: "2026-11-20",
+    name: "Hahmojen yksityiset muistiinpanot",
+    features: [
+      {
+        title: "Pelaajahahmojen yksityiset muistiinpanot",
+        description:
+          "Hahmosivulla on nyt oma välilehti Markdown-muotoisille yksityisille lokimerkinnöille, joita voi kiinnittää listan kärkeen ja kytkeä jaksoihin. Yksityiset muistiinpanot näkyvät vain hahmon omistajalle ja pelinjohtajalle. Hahmosivun kaikille näkyvä kenttä on nimetty selkeästi Julkiseksi kuvaukseksi, ja aiemman tekstin voi siirtää yhdellä painalluksella yksityiseksi muistiinpanoksi.",
+        link: { label: "Avaa hahmoluettelo", to: "/generator/list" },
+      },
+    ],
+    major: [],
+    minor: [],
+  },
+  {
+    version: "0.2.0",
+    date: "2026-11-14",
+    name: "Alus Aamunkoi: Tukikohta ja väliaika",
+    features: [
+      {
+        title: "Aamunkoi-aluksen kansikartta ja miehistöhytit",
+        description:
+          "Uusi Alus-osio avaa 150 metrin tukikohta-aluksen neljä kantta ja 21 osastoa. Pelaajat voivat varata oman hytin, sisustaa sen ja kirjata hytissä säilytettäviä erikoisomistuksia.",
+        link: { label: "Siirry alukseen", to: "/alus" },
+      },
+      {
+        title: "Jaksojen välinen 5n20-väliaikajärjestelmä",
+        description:
+          "Väliaikanäkymässä hahmot jakavat 5n20-noppaa (miinus aktiiviset harmit, OK 13) automaattiseen harmien lepoon, tutkimus- ja projektikelloihin sekä tulevan keikan valmistautumiseen.",
+        link: { label: "Avaa väliaika", to: "/alus/valiaika" },
+      },
+      {
+        title: "Pelinjohtajan komentopääte ja omistusten lukitus",
+        description:
+          "Pelinjohtaja hallitsee aluksen teemaa, lukittuja osastoja, kellojen segmenttimääriä sekä esineisiin liitettyjä pelimekaanisia huomioita, jotka lukitsevat esineen pelaajalta.",
+        link: { label: "Avaa komentopääte", to: "/alus/komentopaate" },
+      },
+    ],
+    major: [
+      {
+        title: "Harmien paraneminen siirretty aluksen väliaikaan",
+        description:
+          "Hahmon jaksojen välinen palautus palauttaa Keston ja Sisun, kun taas harmien hoitaminen tapahtuu nyt Hahmon lepo -toiminnolla aluksen väliaikanäkymässä.",
+      },
+    ],
+    minor: [
+      {
+        title: "Alus Aamunkoin 150 metrin mittakaava ja kansileikkausten laajennus",
+        description:
+          "Kaikkien neljän kannen pohjakaavat on kalibroitu 150 metrin alusrunkoon ja yhtenäiseen ihmismittakaavaan. Yksittäiskansien ja runkoleikkauksen ympärillä näkyy 27 aluksen laitteisto-, majoitus- ja varasto-osastoa, metrimittajana sekä yksityiskohtaiset kalusteet, käytävät, hissikuilut ja kaksikerroksinen panssarirunko.",
+        link: { label: "Siirry alukseen", to: "/alus" },
+      },
+    ],
+  },
+  {
     version: "0.1.7",
     date: "2026-06-09",
     name: "Operaatiot — GM-hallinta ja historia",

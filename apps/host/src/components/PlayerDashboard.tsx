@@ -34,6 +34,8 @@ function actionIcon(type: DashboardAction["type"]): IconName {
       return "check-square";
     case "write_recap":
       return "file-text";
+    case "ship_downtime":
+      return "dice5";
   }
 }
 
@@ -50,6 +52,7 @@ function actionVariant(type: DashboardAction["type"]): "solid" | "outline" | "hi
     case "task":
       return "outline";
     case "write_recap":
+    case "ship_downtime":
       return "highlight";
   }
 }

@@ -57,6 +57,7 @@ export default defineConfig(({ mode }) => {
           ruleset: `${isProd ? "/_remotes/ruleset" : env.VITE_RULESET_URL || "http://localhost:3002"}/assets/entry.js`,
           episodes: `${isProd ? "/_remotes/episodes" : env.VITE_EPISODES_URL || "http://localhost:3004"}/assets/entry.js`,
           world: `${isProd ? "/_remotes/world" : env.VITE_WORLD_URL || "http://localhost:3005"}/assets/entry.js`,
+          ship: `${isProd ? "/_remotes/ship" : env.VITE_SHIP_URL || "http://localhost:3006"}/assets/entry.js`,
         },
         shared: ["react", "react-dom", "react-router-dom", "@tanstack/react-query"],
       }),

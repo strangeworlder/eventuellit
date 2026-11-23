@@ -58,6 +58,7 @@ const GeneratorApp = React.lazy(() => import("generator/App"));
 const RulesetApp = React.lazy(() => import("ruleset/App"));
 const EpisodesApp = React.lazy(() => import("episodes/App"));
 const WorldApp = React.lazy(() => import("world/App"));
+const ShipApp = React.lazy(() => import("ship/App"));
 const DEFAULT_BURGER_HEIGHT_PX = 48;
 const BURGER_TOP_OFFSET_PX = 16;
 const PROGRESS_HEADING_GAP_PX = 12;
@@ -81,19 +82,21 @@ function AppContent() {
 
   const activeView = location.pathname.startsWith("/generator")
     ? "generator"
-    : location.pathname.startsWith("/ruleset")
-      ? "ruleset"
-      : location.pathname.startsWith("/episodes")
-        ? "episodes"
-        : location.pathname.startsWith("/world")
-          ? "world"
-          : location.pathname.startsWith("/operaatiot")
-            ? "operaatiot"
-            : location.pathname.startsWith("/oma-sivu")
-              ? "dashboard"
-              : location.pathname.startsWith("/muutosloki")
-                ? "changelog"
-                : "home";
+    : location.pathname.startsWith("/alus")
+      ? "ship"
+      : location.pathname.startsWith("/ruleset")
+        ? "ruleset"
+        : location.pathname.startsWith("/episodes")
+          ? "episodes"
+          : location.pathname.startsWith("/world")
+            ? "world"
+            : location.pathname.startsWith("/operaatiot")
+              ? "operaatiot"
+              : location.pathname.startsWith("/oma-sivu")
+                ? "dashboard"
+                : location.pathname.startsWith("/muutosloki")
+                  ? "changelog"
+                  : "home";
 
   useEffect(() => {
     const title = buildDocumentTitle(location.pathname);
@@ -326,6 +329,15 @@ function AppContent() {
               Hahmot
             </SidebarItem>
           )}
+          {isLoggedIn && (
+            <SidebarItem
+              icon={<Icon name="compass" size={20} />}
+              active={activeView === "ship"}
+              onClick={() => navigate("/alus")}
+            >
+              Alus
+            </SidebarItem>
+          )}
           <SidebarItem
             icon={<Icon name="rulebook" size={20} />}
             active={activeView === "ruleset"}
@@ -421,46 +433,48 @@ function AppContent() {
             <Icon name="menu" size={28} />
           </Button>
 
-          <header
-            ref={headingRef}
-            className="px-4 tablet:px-0 absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300 shadow-md"
-          >
-            {activeView === "generator" && (
-              <Heading as="h1" className="m-0">
-                Eventuellit: Hahmopaja
-              </Heading>
-            )}
-            {activeView === "ruleset" && (
-              <Heading as="h1" className="m-0">
-                Eventuellit: Säännöt
-              </Heading>
-            )}
-            {activeView === "episodes" && (
-              <Heading as="h1" className="m-0">
-                Eventuellit: Jaksot
-              </Heading>
-            )}
-            {activeView === "world" && (
-              <Heading as="h1" className="m-0">
-                Eventuellit: Maailma
-              </Heading>
-            )}
-            {activeView === "operaatiot" && (
-              <Heading as="h1" className="m-0">
-                Eventuellit: Operaatiot
-              </Heading>
-            )}
-            {activeView === "dashboard" && (
-              <Heading as="h1" className="m-0">
-                Eventuellit: Oma sivu
-              </Heading>
-            )}
-            {activeView === "changelog" && (
-              <Heading as="h1" className="m-0">
-                Eventuellit: Muutosloki
-              </Heading>
-            )}
-          </header>
+          {activeView !== "ship" && (
+            <header
+              ref={headingRef}
+              className="px-4 tablet:px-0 absolute left-0 top-16 origin-top-right -rotate-90 -translate-x-full whitespace-nowrap z-20 transition-all duration-300 shadow-md"
+            >
+              {activeView === "generator" && (
+                <Heading as="h1" className="m-0">
+                  Eventuellit: Hahmopaja
+                </Heading>
+              )}
+              {activeView === "ruleset" && (
+                <Heading as="h1" className="m-0">
+                  Eventuellit: Säännöt
+                </Heading>
+              )}
+              {activeView === "episodes" && (
+                <Heading as="h1" className="m-0">
+                  Eventuellit: Jaksot
+                </Heading>
+              )}
+              {activeView === "world" && (
+                <Heading as="h1" className="m-0">
+                  Eventuellit: Maailma
+                </Heading>
+              )}
+              {activeView === "operaatiot" && (
+                <Heading as="h1" className="m-0">
+                  Eventuellit: Operaatiot
+                </Heading>
+              )}
+              {activeView === "dashboard" && (
+                <Heading as="h1" className="m-0">
+                  Eventuellit: Oma sivu
+                </Heading>
+              )}
+              {activeView === "changelog" && (
+                <Heading as="h1" className="m-0">
+                  Eventuellit: Muutosloki
+                </Heading>
+              )}
+            </header>
+          )}
 
           {(activeView === "ruleset" || activeView === "episodes" || activeView === "world") &&
             articleProgress && (
@@ -498,12 +512,22 @@ function AppContent() {
             )}
         </div>
 
-        <div className="pl-16 desktop:pl-24 tablet:pl-32 max-w-7xl mx-auto w-full">
+        <div
+          className={
+            activeView === "ship"
+              ? "w-full min-h-full"
+              : "pl-16 desktop:pl-24 tablet:pl-32 max-w-7xl mx-auto w-full"
+          }
+        >
           <Suspense
             fallback={<LoadingState message="Ladataan kohdetta..." size="large" className="mt-6" />}
           >
             <ErrorBoundary>
-              <div className="animate-in fade-in duration-500">
+              <div
+                className={
+                  activeView === "ship" ? "w-full h-full" : "animate-in fade-in duration-500"
+                }
+              >
                 <Routes>
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/kirjaudu" element={<LoginPage />} />
@@ -521,6 +545,14 @@ function AppContent() {
                     element={
                       <ProtectedRoute>
                         <GeneratorApp />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/alus/*"
+                    element={
+                      <ProtectedRoute>
+                        <ShipApp />
                       </ProtectedRoute>
                     }
                   />

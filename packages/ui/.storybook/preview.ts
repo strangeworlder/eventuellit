@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react-vite";
-import "../src/styles.css"; // Import the Tailwind styles we set up earlier
+import "./storybook.css"; // Import Tailwind styles + Storybook sources (including apps/ship stories)
 
 const preview: Preview = {
   tags: ["autodocs"],
@@ -9,7 +9,7 @@ const preview: Preview = {
         method: "alphabetical",
         order: [
           "Suunnittelujarjestelma",
-          ["Perustat", "Atomit", "Molekyylit", "Organismit", "Pelimekaniikka", "Sivupohjat"],
+          ["Perustat", "Atomit", "Molekyylit", "Organismit", "Pelimekaniikka", "Konsoli", "Sivupohjat"],
         ],
       },
     },

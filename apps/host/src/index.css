@@ -5,6 +5,7 @@
 @source "../../episodes/src";
 @source "../../generator/src";
 @source "../../ruleset/src";
+@source "../../ship/src";
 @source "../../world/src";
 
 /* Custom Reset or base global styles go here */

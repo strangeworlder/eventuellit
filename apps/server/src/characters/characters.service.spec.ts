@@ -1,4 +1,4 @@
-import { ForbiddenException, NotFoundException } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, NotFoundException } from "@nestjs/common";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { vi } from "vitest";
 import { DATABASE_CONNECTION } from "../db/db.module";
@@ -46,6 +46,9 @@ describe("CharactersService", () => {
           findFirst: vi.fn(),
         },
         characterMonkPowers: {
+          findFirst: vi.fn(),
+        },
+        characterPrivateNotes: {
           findFirst: vi.fn(),
         },
       },
@@ -313,7 +316,8 @@ describe("CharactersService", () => {
     await expect(service.linkEpisode(1, 2, 1)).rejects.toThrow(ForbiddenException);
   });
 
-  it("should refresh linked character once", async () => {
+  it("should refresh linked character Kesto and Sisu once while leaving harmit unchanged", async () => {
+    const existingHarmit = [{ text: "Haava", healed: false }];
     mockDb.query.characters.findFirst.mockResolvedValueOnce({
       id: 1,
       userId: 1,
@@ -323,18 +327,27 @@ describe("CharactersService", () => {
       currentMieli: 3,
       tera: 8,
       currentTera: 2,
-      harmit: [{ text: "Haava", healed: false }],
+      harmit: existingHarmit,
       removedFromPlayAt: null,
     });
     mockDb.limit.mockResolvedValueOnce([{ id: 123, refreshedAt: null, advancedAt: null }]);
 
-    const result = await service.refreshForEpisode(
-      1,
-      { episodeId: 2, healedHarmitIndexes: [0] },
-      1,
-    );
+    const result = await service.refreshForEpisode(1, { episodeId: 2 }, 1);
 
     expect(mockDb.update).toHaveBeenCalled();
+    expect(mockDb.set).toHaveBeenCalledWith(
+      expect.objectContaining({
+        currentKeho: 10,
+        currentMieli: 9,
+        currentTera: 8,
+        removedSisuIds: [],
+      }),
+    );
+    expect(mockDb.set).not.toHaveBeenCalledWith(
+      expect.objectContaining({
+        harmit: expect.anything(),
+      }),
+    );
     expect(result).toEqual({ refreshed: true, alreadyRefreshed: false });
   });
 
@@ -902,6 +915,208 @@ describe("CharactersService", () => {
       );
       expect(result.markdown).toContain(
         "  - **Purppuravälähdysten alkuperä** (Tutkimus, 3/6, aktiivinen) — Analysoidaan nauhoituksia",
+      );
+    });
+
+    it("should render Julkinen kuvaus and Yksityiset muistiinpanot in exported markdown", async () => {
+      const charRow = {
+        id: 3,
+        userId: 12,
+        name: "Vesper",
+        archetype: "Ekspertti",
+        sex: "female",
+        motivation: null,
+        notes: "Arpinen mekaanikko satamasta.",
+        nicknames: [],
+        keho: 8,
+        currentKeho: 8,
+        mieli: 8,
+        currentMieli: 8,
+        tera: 8,
+        currentTera: 8,
+        sisuDice: [],
+        removedSisuIds: [],
+        harmit: [],
+        skills: [],
+        inventory: [],
+        fysiikka: 0,
+        nopeus: 0,
+        ymmarrys: 0,
+        persoona: 0,
+        nakemys: 0,
+        napparyys: 0,
+        anchorId: null,
+        rebellionLevel: 0,
+        monkAdvancementsAllowed: 0,
+        monkAdvancementsUsed: 0,
+        removedFromPlayAt: null,
+        ownerName: "Aino",
+      };
+
+      mockDb.leftJoin.mockResolvedValueOnce([charRow]);
+      mockDb.orderBy.mockResolvedValueOnce([]).mockResolvedValueOnce([]).mockResolvedValueOnce([]);
+      mockDb.execute = vi
+        .fn()
+        .mockResolvedValueOnce({ rows: [] })
+        .mockResolvedValueOnce({ rows: [] })
+        .mockResolvedValueOnce({ rows: [] })
+        .mockResolvedValueOnce({
+          rows: [
+            {
+              character_id: 3,
+              title: "Epäilty kontakti",
+              content: "Ratasvartion luutnantti tietää oikean nimeni.",
+              is_pinned: true,
+              created_at: new Date("2026-11-20T10:00:00Z"),
+              episode_title: "Ohjainlevy",
+            },
+          ],
+        });
+
+      const result = await service.exportMarkdown();
+
+      expect(result.markdown).toContain("#### Julkinen kuvaus");
+      expect(result.markdown).toContain("Arpinen mekaanikko satamasta.");
+      expect(result.markdown).toContain("#### Yksityiset muistiinpanot");
+      expect(result.markdown).toContain("##### Epäilty kontakti *(kiinnitetty, Jakso: Ohjainlevy");
+      expect(result.markdown).toContain("Ratasvartion luutnantti tietää oikean nimeni.");
+    });
+  });
+
+  describe("private notes", () => {
+    it("allows character owner and GM to list private notes, but forbids other players", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      mockDb.orderBy.mockResolvedValueOnce([
+        { id: 101, characterId: 5, title: "Salaisuus", content: "Viesti", isPinned: true },
+      ]);
+      const ownerNotes = await service.listPrivateNotes(5, 10, "player");
+      expect(ownerNotes).toHaveLength(1);
+
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      mockDb.orderBy.mockResolvedValueOnce([
+        { id: 101, characterId: 5, title: "Salaisuus", content: "Viesti", isPinned: true },
+      ]);
+      const gmNotes = await service.listPrivateNotes(5, 99, "gm");
+      expect(gmNotes).toHaveLength(1);
+
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      await expect(service.listPrivateNotes(5, 22, "player")).rejects.toThrow(ForbiddenException);
+    });
+
+    it("allows only character owner to create, update, and delete private notes (blocks GM on another player's character)", async () => {
+      // GM blocked from creating on player 10's character
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      await expect(
+        service.createPrivateNote(5, { content: "PJ ei saa kirjoittaa tätä" }, 99),
+      ).rejects.toThrow(ForbiddenException);
+
+      // Owner succeeds with episode check
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      mockDb.limit.mockResolvedValueOnce([{ id: 77 }]);
+      mockDb.returning.mockResolvedValueOnce([
+        {
+          id: 201,
+          characterId: 5,
+          episodeId: 2,
+          title: "Johtolanka",
+          content: "Koodi on 4419",
+          isPinned: true,
+        },
+      ]);
+
+      const created = await service.createPrivateNote(
+        5,
+        { title: "  Johtolanka  ", content: "  Koodi on 4419  ", episodeId: 2, isPinned: true },
+        10,
+      );
+      expect(created.title).toBe("Johtolanka");
+
+      // GM blocked from updating and deleting on player 10's character
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      await expect(service.updatePrivateNote(5, 201, { isPinned: false }, 99)).rejects.toThrow(
+        ForbiddenException,
+      );
+
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      await expect(service.removePrivateNote(5, 201, 99)).rejects.toThrow(ForbiddenException);
+
+      // Owner can update and delete
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      mockDb.query.characterPrivateNotes.findFirst.mockResolvedValueOnce({
+        id: 201,
+        characterId: 5,
+      });
+      mockDb.returning.mockResolvedValueOnce([{ id: 201, characterId: 5, isPinned: false }]);
+      const updated = await service.updatePrivateNote(5, 201, { isPinned: false }, 10);
+      expect(updated.isPinned).toBe(false);
+
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      mockDb.query.characterPrivateNotes.findFirst.mockResolvedValueOnce({
+        id: 201,
+        characterId: 5,
+      });
+      const removed = await service.removePrivateNote(5, 201, 10);
+      expect(removed).toEqual({ deleted: true });
+    });
+
+    it("rejects linking a private note to an episode the character does not belong to", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({ id: 5, userId: 10 });
+      mockDb.limit.mockResolvedValueOnce([]);
+
+      await expect(
+        service.createPrivateNote(5, { content: "Merkintä", episodeId: 999 }, 10),
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it("migrates public character notes into a private note and clears characters.notes", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 5,
+        userId: 10,
+        notes: "  Vanha teksti, joka halutaan piiloon  ",
+      });
+      mockDb.returning.mockResolvedValueOnce([
+        {
+          id: 301,
+          characterId: 5,
+          title: null,
+          content: "Vanha teksti, joka halutaan piiloon",
+          isPinned: false,
+        },
+      ]);
+
+      const res = await service.migratePublicNotesToPrivate(5, 10);
+      expect(res.migrated).toBe(true);
+      expect(res.note.content).toBe("Vanha teksti, joka halutaan piiloon");
+      expect(mockDb.set).toHaveBeenCalledWith(expect.objectContaining({ notes: null }));
+    });
+
+    it("creates initial private note inside character creation transaction when provided", async () => {
+      mockDb.query.users.findFirst.mockResolvedValueOnce({ id: 1, rebellionLevel: 0 });
+      mockDb.returning.mockResolvedValueOnce([{ id: 42, name: "Uusi", userId: 1 }]);
+
+      await service.create(
+        {
+          name: "Uusi",
+          archetype: "Sotilas",
+          episodeId: 3,
+          keho: 8,
+          mieli: 8,
+          tera: 8,
+          sisuDice: [{ id: "s1", faces: 8 }],
+          skills: [],
+          initialPrivateNote: "  Ensimmäinen salaisuus  ",
+        },
+        1,
+      );
+
+      // characters + characterEpisodes + characterPrivateNotes = 3 inserts
+      expect(mockDb.insert).toHaveBeenCalledTimes(3);
+      expect(mockDb.values).toHaveBeenCalledWith(
+        expect.objectContaining({
+          characterId: 42,
+          episodeId: 3,
+          content: "Ensimmäinen salaisuus",
+        }),
       );
     });
   });

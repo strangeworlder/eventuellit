@@ -18,7 +18,7 @@ const hostDir = path.resolve(import.meta.dirname, "..");
 const workspaceRoot = path.resolve(hostDir, "../..");
 const hostDistDir = path.join(hostDir, "dist");
 
-const REMOTES = ["generator", "ruleset", "episodes", "world"];
+const REMOTES = ["generator", "ruleset", "episodes", "world", "ship"];
 
 function run(command, cwd, label) {
   console.log(`\n── [${label}] ${command}`);

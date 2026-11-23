@@ -9,6 +9,8 @@ describe("buildDocumentTitle", () => {
 
   test("uses known top-level route labels", () => {
     expect(buildDocumentTitle("/generator")).toBe("Eventuellit: Hahmopaja");
+    expect(buildDocumentTitle("/alus")).toBe("Eventuellit: Alus");
+    expect(buildDocumentTitle("/alus/valiaika")).toBe("Eventuellit: Alus - Väliaika");
     expect(buildDocumentTitle("/ruleset")).toBe("Eventuellit: Säännöt");
     expect(buildDocumentTitle("/episodes")).toBe("Eventuellit: Jaksot");
     expect(buildDocumentTitle("/muutosloki")).toBe("Eventuellit: Muutosloki");

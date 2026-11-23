@@ -17,6 +17,8 @@ Use it as the entry point to decide which component to look up next.
 | Component | When to use |
 |-----------|-------------|
 | `StationConnections` | Game board / world map. Renders a compass-rose of connected stations around a central node with animated framer-motion transitions. The most complex component in the library. |
+| `ProgressClock` | Segmented radial clock (`4 / 6 / 8 / 10 / 12` slices or uncalibrated `null` ring) for between-episode research and ship projects. |
+| `DowntimeAllocator` | Between-episode `5n20` pool allocator (reduced 1:1 by active harmit, without attribute dice) for Hahmon lepo, Tutkimus-kellot, Projekti-kellot, and Keikkavalmistautuminen. |
 | `DicePoolAllocator` | Pre-roll phase: let the player distribute a fixed pool of d20s across named action axes. Has an optional attribute die toggle per axis. |
 | `DicePoolTracker` | During / post-roll: display an existing dice pool and let the player toggle individual dice as spent. Groups dice by face count. |
 | `DiceRoller` | Simple one-click dice roll widget. Use for quick rolls when full allocator is not needed. |
@@ -89,6 +91,21 @@ Use it as the entry point to decide which component to look up next.
 | `Badge` | Small status / label chip. Use for tags, counts, and statuses. |
 | `Icon` | Lucide icon wrapper. Always use this instead of importing Lucide icons directly — it enforces a consistent size scale. |
 | `GameTerm` | Inline emphasis for domain-specific game terminology. |
+
+---
+
+## Konsoli (elevated game HUD)
+
+| Component | When to use |
+|-----------|-------------|
+| `ConsoleViewport` | Full-viewport (`100dvh`) game shell with starfield canvas and layered `topBar`, `stage`, `overlay`, and `dock` slots. |
+| `ConsoleSheet` | Elevated floating HUD window that acts as a 3-position mobile bottom sheet (`peek` / `half` / `full`) and a right-hand console panel on desktop. |
+| `ConsoleDock` / `ConsoleDockItem` | Bottom thumb-dock with `min-h-11` touch targets, active border glow, badge count, and optional `utilityBar` for deck filters. |
+| `ConsolePill` | Floating monospace telemetry pill or interactive toggle (`neutral`, `secondary`, `alert`, `accent`). |
+| `ConsoleRow` | Compact terminal list row with left status accent rail (`normal`, `active`, `warning`, `locked`), leading slot, badge, and non-nested actions. |
+| `ConsoleButton` | Elevated chamfered game action button (`primary`, `secondary`, `outline`, `danger`, `ghost`) supporting `useObscured()` glitch lock. |
+| `HudPanel` | Chamfered terminal frame for standalone telemetry blocks inside elevated layouts (`default`, `accent`, `alert`, `locked`). |
+| `ShipBootOverlay` | Skippable retro-space-opera OS handshake overlay displayed when entering Aamunkoi. |
 
 ---
 

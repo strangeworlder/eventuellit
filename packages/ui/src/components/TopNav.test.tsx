@@ -48,10 +48,14 @@ describe("TopNav", () => {
 
     expect(list.style.getPropertyValue("--tab-tug-x")).toBe("0px");
 
+    const svg = list.querySelector("[data-slime-indicator]");
+    expect(svg).not.toBeNull();
+
     fireEvent.mouseOver(targetLink);
 
     expect(list.style.getPropertyValue("--tab-tug-x")).not.toBe("0px");
     expect(Number.parseFloat(list.style.getPropertyValue("--tab-stretch-x"))).toBeGreaterThan(1);
+    expect(svg?.getAttribute("data-slime-state")).toBe("tugging");
 
     fireEvent.mouseLeave(list);
 

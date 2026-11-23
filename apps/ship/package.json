@@ -1,0 +1,36 @@
+{
+  "name": "@eventuellit/ship",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"vite build --watch\" \"vite preview --port 3006\"",
+    "build": "npm run build --workspace=@repo/ui && tsc -b && vite build",
+    "start": "node --max-old-space-size=48 serve.mjs",
+    "lint": "biome check .",
+    "preview": "vite preview --port 3006",
+    "check-types": "npm run build --workspace=@repo/ui && tsc -b --noEmit"
+  },
+  "dependencies": {
+    "@originjs/vite-plugin-federation": "^1.4.1",
+    "@repo/auth": "*",
+    "@repo/ui": "*",
+    "@tanstack/react-query": "^5.90.21",
+    "lucide-react": "^0.577.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.13.1",
+    "sirv": "^3.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "concurrently": "^9.1.2",
+    "tailwindcss": "^4.2.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1"
+  }
+}

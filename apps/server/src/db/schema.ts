@@ -151,6 +151,27 @@ export const characterArcSnapshots = pgTable("character_arc_snapshots", {
   sheetJson: jsonb("sheet_json").notNull(),
 });
 
+export const characterPrivateNotes = pgTable(
+  "character_private_notes",
+  {
+    id: serial("id").primaryKey(),
+    characterId: integer("character_id")
+      .references(() => characters.id, { onDelete: "cascade" })
+      .notNull(),
+    episodeId: integer("episode_id").references(() => episodes.id, {
+      onDelete: "set null",
+    }),
+    title: text("title"),
+    content: text("content").notNull(),
+    isPinned: boolean("is_pinned").default(false).notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    charPinnedIdx: index("character_private_notes_char_pinned_idx").on(t.characterId, t.isPinned),
+  }),
+);
+
 export const sessions = pgTable(
   "sessions",
   {
@@ -382,6 +403,104 @@ export const characterMonkPowers = pgTable(
     charPowerUniq: uniqueIndex("character_monk_powers_char_power_uniq").on(
       t.characterId,
       t.powerId,
+    ),
+  }),
+);
+
+// ─── Base Ship (Aamunkoi) & Downtime System ──────────────────────────────────
+
+export const shipConfig = pgTable("ship_config", {
+  id: serial("id").primaryKey(),
+  name: text("name").default("Aamunkoi").notNull(),
+  callsign: text("callsign").default("RUNKO-150M // EGA-16").notNull(),
+  theme: text("theme").default("base").notNull(),
+  statusBanner: text("status_banner")
+    .default("Asemien välisessä varjossa, häivejärjestelmät valmiustilassa")
+    .notNull(),
+  hullNotes: text("hull_notes"),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const shipRooms = pgTable("ship_rooms", {
+  id: serial("id").primaryKey(),
+  key: text("key").unique().notNull(),
+  deckNumber: integer("deck_number").notNull(),
+  kind: text("kind").notNull(), // facility | cabin | sealed
+  svgZoneId: text("svg_zone_id").notNull(),
+  name: text("name").notNull(),
+  subtitle: text("subtitle"),
+  description: text("description").notNull(),
+  statusLabel: text("status_label").default("Toiminnassa").notNull(),
+  statusTone: text("status_tone").default("normal").notNull(), // normal | warning | critical | locked
+  isLocked: boolean("is_locked").default(false).notNull(),
+  claimedByCharacterId: integer("claimed_by_character_id")
+    .unique()
+    .references(() => characters.id, { onDelete: "set null" }),
+  cabinCustomTitle: text("cabin_custom_title"),
+  cabinDecoration: text("cabin_decoration"),
+  gmRoomNotes: text("gm_room_notes"),
+  orderIndex: integer("order_index").default(0).notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const cabinPossessions = pgTable("cabin_possessions", {
+  id: serial("id").primaryKey(),
+  characterId: integer("character_id")
+    .references(() => characters.id, { onDelete: "cascade" })
+    .notNull(),
+  name: text("name").notNull(),
+  description: text("description").default("").notNull(),
+  gmMechanicalNotes: text("gm_mechanical_notes"),
+  orderIndex: integer("order_index").default(0).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const shipClocks = pgTable("ship_clocks", {
+  id: serial("id").primaryKey(),
+  category: text("category").notNull(), // tutkimus | projekti
+  scope: text("scope").notNull(), // ship | character
+  characterId: integer("character_id").references(() => characters.id, {
+    onDelete: "cascade",
+  }),
+  roomKey: text("room_key"),
+  title: text("title").notNull(),
+  description: text("description").default("").notNull(),
+  segmentsTotal: integer("segments_total"), // 4 | 6 | 8 | 10 | 12 | null
+  segmentsFilled: integer("segments_filled").default(0).notNull(),
+  status: text("status").default("active").notNull(), // active | completed | archived
+  completionNotes: text("completion_notes"),
+  createdByUserId: integer("created_by_user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const shipDowntimeTurns = pgTable(
+  "ship_downtime_turns",
+  {
+    id: serial("id").primaryKey(),
+    characterId: integer("character_id")
+      .references(() => characters.id, { onDelete: "cascade" })
+      .notNull(),
+    sourceCompletedEpisodeId: integer("source_completed_episode_id")
+      .references(() => episodes.id, { onDelete: "cascade" })
+      .notNull(),
+    lockedEpisodeId: integer("locked_episode_id").references(() => episodes.id, {
+      onDelete: "set null",
+    }),
+    status: text("status").default("draft").notNull(), // draft | resolved
+    draftAllocationJson: jsonb("draft_allocation_json").default({}).notNull(),
+    resolutionJson: jsonb("resolution_json"),
+    resolvedAt: timestamp("resolved_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    charSourceEpUniq: uniqueIndex("ship_downtime_turns_char_source_ep_uniq").on(
+      t.characterId,
+      t.sourceCompletedEpisodeId,
     ),
   }),
 );
