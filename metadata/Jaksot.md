@@ -2195,7 +2195,7 @@ Esimerkkejä motiiveista:
 #### Sessiot
 
 * #01 Sessio 1 (19.11.2026) — Pelattu
-* #02 Sessio 2 (23.11.2026) — Tulossa
+* #02 Sessio 2 (23.11.2026) — Seuraava
 
 #### Sijainti
 
@@ -2249,7 +2249,7 @@ Ryhmä tietää ja päättelee kolmen perustajan hautojen sijaitsevan Versolla (
 
 Sukkula laskeutuu Versolle, jonka mustuneen yläkupolin ja kaatuneiden Norsunluutornien alla levittäytyy villiintynyt, hallusinogeenista itiösumua huokuva megaviidakko. Ensimmäisen Puolueenjohtajan hautatemppelille on kahden päivän vaellus.
 
-Ennen viidakkoon astumista Holti hyödyntää neurofarmakologin taitojaan, syntetisoi terminaalilla ryhmälle vastalääkkeen itiösumua vastaan ja ottaa olalleen vanhan pulttilukkokiväärin. Sahye varustautuu vaellukselle taistelukorkokengissä. Koko ikänsä asemien sisätiloissa elänyt Yume kohtaa aidon luonnon, puut ja virtaavan veden ensimmäistä kertaa elämässään ja päätyy syömään Holtin kanssa viidakon psyykkisiä sieniä.
+Ennen viidakkoon astumista Holti hyödyntää neurofarmakologin taitojaan, syntetisoi terminaalilla ryhmälle vastalääkkeen itiösumua vastaan ja ottaa olalleen vanhan pulttilukkokiväärin. Sahye varustautuu tuleviin kohteisiin taistelukorkokengissä. Koko ikänsä asemien sisätiloissa elänyt Yume kohtaa aidon luonnon, puut ja virtaavan veden ensimmäistä kertaa elämässään ja päätyy juomaan hallusinogeenisiä itiöitä sisältävää vettä ja helpotukseksi syömään Holtin kanssa viidakon antihallusinogeenisiä taikasieniä.
 
 Kesken vaelluksen liaanien seasta ryhmän rinnalle ilmestyy Lamenta, joka on nyt ominut ryhmän "bestiksikseen". Pyhimys heiluttaa hehkuvaa valomachetea ja pyytää ryhmää kuvaamaan toimiaan seikkailufiltterien läpi raivatessaan tietä kohti Tuhkan puolueen perustajan hautaa.
 
@@ -2259,4 +2259,4 @@ Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 
 ### Sessio #02 — Sessio 2
 
-**Tulossa** — maanantaina 23. marraskuuta 2026
+**Seuraava** — maanantaina 23. marraskuuta 2026
