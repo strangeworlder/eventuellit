@@ -113,6 +113,7 @@ export const characters = pgTable("characters", {
   anchorId: text("anchor_id"),
   monkAdvancementsAllowed: integer("monk_advancements_allowed").default(0).notNull(),
   monkAdvancementsUsed: integer("monk_advancements_used").default(0).notNull(),
+  tattoos: jsonb("tattoos").default([]).notNull(), // Array<{ slot: number, title: string, description?: string }>
   removedFromPlayAt: timestamp("removed_from_play_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),

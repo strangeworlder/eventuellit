@@ -30,8 +30,74 @@ import type { AdvanceMonkDto } from "./dto/advance-monk.dto";
 import type { CreateCharacterDto } from "./dto/create-character.dto";
 import type { CreatePrivateNoteDto } from "./dto/create-private-note.dto";
 import type { RefreshCharacterDto } from "./dto/refresh-character.dto";
-import type { UpdateCharacterDto } from "./dto/update-character.dto";
+import type { CharacterTattooDto, UpdateCharacterDto } from "./dto/update-character.dto";
 import type { UpdatePrivateNoteDto } from "./dto/update-private-note.dto";
+
+export interface CharacterTattoo {
+  slot: number;
+  title: string;
+  description?: string;
+}
+
+function extractStoredTattoos(raw: unknown): CharacterTattoo[] {
+  if (!Array.isArray(raw)) return [];
+  const bySlot = new Map<number, CharacterTattoo>();
+  for (const item of raw) {
+    if (typeof item !== "object" || item === null) continue;
+    const entry = item as { slot?: unknown; title?: unknown; description?: unknown };
+    const slot = typeof entry.slot === "number" ? entry.slot : Number.NaN;
+    const title = typeof entry.title === "string" ? entry.title.trim() : "";
+    if (!Number.isInteger(slot) || slot < 1 || !title) continue;
+    const description =
+      typeof entry.description === "string" && entry.description.trim().length > 0
+        ? entry.description.trim()
+        : undefined;
+    bySlot.set(slot, {
+      slot,
+      title,
+      ...(description ? { description } : {}),
+    });
+  }
+  return [...bySlot.values()].sort((a, b) => a.slot - b.slot);
+}
+
+function normalizeAndValidateTattoos(
+  incoming: CharacterTattooDto[],
+  effectiveMonkAllowed: number,
+  existingTattoos: CharacterTattoo[],
+): CharacterTattoo[] {
+  const existingSlots = new Set(existingTattoos.map((t) => t.slot));
+  const seenSlots = new Set<number>();
+  const normalized: CharacterTattoo[] = [];
+
+  for (const entry of incoming) {
+    if (!Number.isInteger(entry.slot) || entry.slot < 1) {
+      throw new BadRequestException("Virheellinen tatuointipaikka");
+    }
+    if (seenSlots.has(entry.slot)) {
+      throw new BadRequestException("Sama tatuointipaikka ei voi esiintyä kahdesti");
+    }
+    seenSlots.add(entry.slot);
+
+    const trimmedTitle = entry.title.trim();
+    if (!trimmedTitle) {
+      throw new BadRequestException("Tatuoinnin otsikko ei voi olla tyhjä");
+    }
+
+    if (entry.slot > effectiveMonkAllowed && !existingSlots.has(entry.slot)) {
+      throw new BadRequestException("Tatuointipaikka ylittää hahmon munkki-potentiaalin");
+    }
+
+    const trimmedDescription = entry.description?.trim();
+    normalized.push({
+      slot: entry.slot,
+      title: trimmedTitle,
+      ...(trimmedDescription ? { description: trimmedDescription } : {}),
+    });
+  }
+
+  return normalized.sort((a, b) => a.slot - b.slot);
+}
 
 export const REBELLION_SKILL_SELECTION_NAME = "Kapinan riveissä taisteleva";
 export const REBELLION_SKILL_ACQUIRED_NAME = "Kapinan riveissä taistellut";
@@ -209,6 +275,7 @@ const characterWithOwnerColumns = {
   rebellionLevel: users.rebellionLevel,
   monkAdvancementsAllowed: characters.monkAdvancementsAllowed,
   monkAdvancementsUsed: characters.monkAdvancementsUsed,
+  tattoos: characters.tattoos,
   removedFromPlayAt: characters.removedFromPlayAt,
   createdAt: characters.createdAt,
   updatedAt: characters.updatedAt,
@@ -375,6 +442,10 @@ export class CharactersService implements OnModuleInit {
       CREATE INDEX IF NOT EXISTS character_private_notes_char_pinned_idx
         ON character_private_notes (character_id, is_pinned)
     `);
+    await this.db.execute(sql`
+      ALTER TABLE characters
+      ADD COLUMN IF NOT EXISTS tattoos JSONB NOT NULL DEFAULT '[]'::jsonb
+    `);
   }
 
   private hasFiveHarmit(harmit: unknown): boolean {
@@ -490,6 +561,7 @@ export class CharactersService implements OnModuleInit {
       removedSisuIds: [],
       skills: effectiveSkills,
       inventory: [],
+      tattoos: [],
       fysiikka: data.fysiikka ?? 0,
       nopeus: data.nopeus ?? 0,
       ymmarrys: data.ymmarrys ?? 0,
@@ -579,6 +651,20 @@ export class CharactersService implements OnModuleInit {
       }
     }
 
+    let nextTattoos: CharacterTattoo[] | undefined;
+    if (data.tattoos !== undefined) {
+      const effectiveMonkAllowed =
+        role === "gm" && data.monkAdvancementsAllowed !== undefined
+          ? data.monkAdvancementsAllowed
+          : (character.monkAdvancementsAllowed ?? 0);
+      const existingTattoos = extractStoredTattoos(character.tattoos);
+      nextTattoos = normalizeAndValidateTattoos(
+        data.tattoos,
+        effectiveMonkAllowed,
+        existingTattoos,
+      );
+    }
+
     const nextHarmit = data.harmit ?? character.harmit;
     const shouldMarkRemoved = this.hasFiveHarmit(nextHarmit);
     const updateData: Partial<typeof characters.$inferInsert> = {
@@ -599,6 +685,7 @@ export class CharactersService implements OnModuleInit {
       skills: nextSkills,
       inventory: data.inventory,
       nicknames: data.nicknames,
+      tattoos: nextTattoos,
       fysiikka: data.fysiikka,
       nopeus: data.nopeus,
       ymmarrys: data.ymmarrys,
@@ -1428,6 +1515,7 @@ export class CharactersService implements OnModuleInit {
       anchorId?: string | null;
       monkAdvancementsAllowed?: number;
       monkAdvancementsUsed?: number;
+      tattoos?: unknown;
       removedFromPlayAt?: Date | string | null;
       episodes?: CharacterEpisodeRow[];
       monkPowers?: MonkPowerWithAcquired[];
@@ -1586,6 +1674,33 @@ export class CharactersService implements OnModuleInit {
         const powers = char.monkPowers ?? [];
         const allowedMonk = char.monkAdvancementsAllowed ?? 0;
         const usedMonk = powers.length > 0 ? powers.length : (char.monkAdvancementsUsed ?? 0);
+
+        const normalizedTattoos = extractStoredTattoos(char.tattoos);
+        const maxTattooSlot = normalizedTattoos.reduce((max, t) => Math.max(max, t.slot), 0);
+        const tattooSlotCount = Math.max(allowedMonk, maxTattooSlot);
+        if (tattooSlotCount > 0) {
+          const tattooBySlot = new Map(normalizedTattoos.map((t) => [t.slot, t]));
+          lines.push("");
+          lines.push("#### Tatuoinnit");
+          lines.push("");
+          lines.push(`- **Tatuoinnit:** ${normalizedTattoos.length} / ${allowedMonk} kuvattu`);
+          for (let slot = 1; slot <= tattooSlotCount; slot += 1) {
+            const tattoo = tattooBySlot.get(slot);
+            if (tattoo) {
+              lines.push(`- **Tatuointi ${slot} — ${tattoo.title}**`);
+              if (tattoo.description) {
+                const descLines = tattoo.description.split(/\r?\n/);
+                lines.push(`  - ${descLines[0]}`);
+                for (const extraLine of descLines.slice(1)) {
+                  lines.push(extraLine.trim() ? `    ${extraLine}` : "");
+                }
+              }
+            } else {
+              lines.push(`- **Tatuointi ${slot}:** *Ei vielä kuvailtu.*`);
+            }
+          }
+        }
+
         if (powers.length > 0 || allowedMonk > 0 || char.archetype === "Munkki") {
           lines.push("");
           lines.push("#### Munkin voimat");

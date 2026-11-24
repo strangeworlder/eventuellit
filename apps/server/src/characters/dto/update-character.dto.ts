@@ -1,4 +1,32 @@
-import { ArrayMaxSize, IsArray, IsIn, IsInt, IsOptional, IsString, Min } from "class-validator";
+import { Type } from "class-transformer";
+import {
+  ArrayMaxSize,
+  IsArray,
+  IsIn,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+  ValidateNested,
+} from "class-validator";
+
+export class CharacterTattooDto {
+  @IsInt()
+  @Min(1)
+  @Max(50)
+  slot!: number;
+
+  @IsString()
+  @MaxLength(120)
+  title!: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(2000)
+  description?: string;
+}
 
 export class UpdateCharacterDto {
   @IsOptional()
@@ -121,6 +149,13 @@ export class UpdateCharacterDto {
   @IsInt()
   @Min(0)
   monkAdvancementsUsed?: number;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(50)
+  @ValidateNested({ each: true })
+  @Type(() => CharacterTattooDto)
+  tattoos?: CharacterTattooDto[];
 
   @IsOptional()
   @IsInt()

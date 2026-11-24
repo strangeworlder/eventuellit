@@ -2113,7 +2113,7 @@ Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 ---
 
 ## Ohjainlevy 2
-- **Järjestys:** #11 | **Tila:** Aktiivinen
+- **Järjestys:** #11 | **Tila:** Arkistoitu
 
 **Eventuellit: Yhdestoista jakso. Hämärä kauppa Seulan koralliriutalla avaa jäljen kohti Suuren sodan aikaista kätköä.**
 
@@ -2195,11 +2195,19 @@ Esimerkkejä motiiveista:
 #### Sessiot
 
 * #01 Sessio 1 (19.11.2026) — Pelattu
-* #02 Sessio 2 (23.11.2026) — Seuraava
+* #02 Sessio 2 (23.11.2026) — Pelattu
 
 #### Sijainti
 
 [Seula, Kynnyksen 1. asema](/world/kynnys/01-seula)
+
+### Jakson yhteenveto
+
+Holti, Sahye, Yune ja Yume saapuvat Seulan koralliriuttasatamaan anastamaan Suuren sodan ajalta peräisin olevan pyöreän nahkalaukun, jonka perässä liikkuvat myös KW-konsortion tohtori Sydänmies, Ekklesian Iridiumkardinaali sekä Tuhkan puolueen suuromistajan perijä. Nelikko kääntää paikalle ilmaantuneen Vaara 7: Lamentan päähenkilösyndrooman edukseen: Holti häviää huutokaupan tahallaan, Sahye nappaa laukun vitriinistä huomaamatta, ja valokeilan itselleen ottanut Iridiumkardinaali hajoaa verisenä räjähdyksenä Lamentan purkautuessa hänen sisältään. Laukkuun kaiverrettu perustajien sopimus johdattaa nelikon Petturi Takinkääntäjän ohjaamalla sukkulalla kiertämään Kynnyksen kolmen pääfaktion perustajien haudat Versolla, Laki-asemalla ja Katedraalilla kolmiosaisen lasipalloavaimen perässä.
+
+Verson villiintyneessä megaviidakossa Yume hakee sivupolulta uuden sinisen sääntöartefaktin, loput eksyttävät Ratasvartion kyläläisten avulla ja ratsastavat Lamentan kanssa puuseeproilla Tuhkan puolueen hautatemppeliin. Kolmen alafaktion ansojen jälkeen he avaavat Yunen esivanhemman sarkofagin ja pakenevat vierivää kivipalloa mukanaan ensimmäinen pallon lohko ja muumion niskasta repäisty aktiivinen *Sisäinen ääni* -implantti. Laki-asemalla KW-konsortion hammasratasmonumentin kokeet haavoittavat Sahyea ja sähköistävät Holtia sekä Yunea ennen kuin Yume ratkaisee Deterministien koneen ja neljännen tason kysymyksen, paljastaen ruumishuonehaudan purppuraunivormuisen muumion ja toisen pallon lohkon. Katedraalilla Holti ja Lamenta vetävät 13. kierron 7. Megapaavin huomion itseensä, Sahye ja Yune vievät läpi kolmen näytöksen julkisen teatterin kipeine tunnustuksineen ja katsomoon heitettyine kranaatteineen, ja Yume paikantaa tyhjästä aitiosta kolmannen lohkon sekä kartan.
+
+Sukkulalla Yune paljastaa Petturi Takinkääntäjän vuotaneen ryhmän liikkeet radiolla tohtori Sydänmiehelle. Seulan vanhassa varastohallissa Yume kokoaa lasipallon ja avaa kammion 173 juuri kun Sydänmies ja parikymmentä Ratasvartion sotilasta marssivat halliin. Yume kiskaisee jalustalta köydellä ja akrobatialla täysin ehjän *Astian* ohjainlevyn sekuntia ennen ansoitetun kammion sulkeutumista, ja nelikko pakenee alukselleen. Uuden ohjainlevyn asentaminen herättää *Aamunkoin* järjestelmät Kukoistuksen ajan täyteen tehoon, ja koko miehistön implantteihin piirtyy sininen teksti: *"Tervetuloa Astialle."*
 
 ### Sessio #01 — Sessio 1
 
@@ -2259,4 +2267,68 @@ Pelaajat eivät ole vielä kirjoittaneet kertauksia.
 
 ### Sessio #02 — Sessio 2
 
-**Seuraava** — maanantaina 23. marraskuuta 2026
+**Pelattu** — maanantaina 23. marraskuuta 2026
+
+#### Pelinjohtajan kertaus
+
+##### **Kylän harhautus, Yumen sivupolku ja puuseeprat**
+
+Kahden päivän vaellus Verson kosteassa itiöviidakossa käy nopeasti raskaaksi, ja rämpimiseen kyllästynyt Lamenta katoaa näkyvistä. Pienessä viidakkokylässä nelikon korviin kantautuu uutinen perään laskeutuneesta Ratasvartion etsintäjoukosta. Kyläläisten katkeruus paistaa läpi: Kokemuspuolue kaatoi vanhan hallinnon ja lupasi uuden alun, mutta jätti kansan oman onnensa nojaan. Holti ratsastaa häikäilemättä supertähteydellään lupaillen asioiden nyt järjestyvän, ja Sahyen tukemana he värväävät joukon kyläläisiä toimimaan harhautuksena ja johdattamaan Ratasvartion sotilaat väärille jäljille.
+
+Matkan varrella Yume katoaa yksin omille teilleen syvemmälle viidakkoon. Hän saapuu lammen rannalla seisovaan huvimajaan, jonka keskellä jalustalla leijuu muotoaan muuttava sininen moniulotteinen kappale. Painolaatta naksahtaa Yumen jalan alla hänen kurkottaessaan esineeseen, mutta hän kiilaa laatan terävällä kivellä paikoilleen, sujauttaa kappaleen reppuunsa ja välttää varsinaisen ansan.
+
+Samaan aikaan Holti, Sahye ja Yune katkaisevat liaanin väärästä paikasta ja herättävät puiden latvustoissa lepäävän, yli tusinan kokoisen puuseepralauman. Seeprankokoiset lihansyöjät laskeutuvat runkoja pitkin pää alaspäin U-kavioillaan kuolaa valuttaen. Holti jähmettyy paikoilleen, kunnes Sahye tasaa kaikkien pulssin äärimmilleen ja kuuntelee ympäristöä, minkä turvin Holti löytää kalliosta pienen luolan piilopaikaksi. Kolmikko kääntää kamerat päälle ja kutsuu Lamentan apuun: pyhimys ilmestyy paikalle, kävelee suoraan puuseeprojen eteen silittämään ja halaamaan petoja (*"#horsegirllife"*) ja alkaa luennoida hevostenhoidosta. Pian koko kolmikko ja Lamenta ratsastavat puuseeproilla suoraan Tuhkan puolueen mausoleumin pihalle Yumen odottaessa paikalla kateellisena. Pihalla puuseeprat havahtuvat tilanteeseen, ja yhden pedon happohengitys korventaa Yumen kulmakarvat.
+
+Yumen repun kankaan läpi pilkistävä sininen kappale herättää heti muiden huomion. Sahye tunnistaa esineen samanlaiseksi sääntöartefaktiksi kuin Evoluutiolta ryöstetyn Kuoron ytimen, jonka tiedeartikkelit kuvaavat lähettävän valaanpulssia muistuttavaa signaalia yli avaruuden.
+
+##### **Ensimmäisen Puoluejohtajan hauta Versolla**
+
+Kellertävästä kivestä muurattu mausoleumi alkaa julkisella muistohuoneella, johon on kaiverrettu Tuhkan puolueen ensimmäisen prefektin perusteesit sekä kolmen alafaktion takkasymbolit. Pyöreä nahkalaukku saa nelikon *Sisäinen ääni* -implantit värisemään, ja kiviseinä aukeaa paljastaen koskemattoman käytävän, jonka seinillä syttyvät fyysiset soihdut.
+
+Käytävä päättyy kuilun ylittävälle, noin viisikymmentämetriselle riippusillalle, jonka alla vaanivat automaattitykit. Sahye tulkkaa kivipaaden vanhan murteen kehotuksen: *"Olkaa heimolaisia."* Nelikko julistaa itsensä Kokemusheimoksi, tunnustaa toisensa omiksi ja kytkeytyy paadessa roikkuvilla ruosteisilla kahleilla yhteen ketjujonoksi. Sahye sitoo viimeisenä loput kahleet ketjuksi itse kivipaateen. Kun Yune astuu sillalle ensimmäisenä ja Holti toisena, syvyyden tykit aktivoituvat. Holti vaihtaa paikkaa Yunen kanssa siirtyen jonon keulaan, Sahye irrottaa lopulta paateen sidotun ketjun, ja tykit skannaavat nelikkoa tasaisesti ampumatta heidän päästessään vastarannalle.
+
+Toisessa huoneessa seinästä törröttää oikeita luita ja kalloja kuin kiipeilyseinässä, ja yhden irrotetun kallon takaa vilkkuu mikropiirejä. Sahye ja Yune tunnistavat rakenteen suureksi biologiseksi koneeksi, jonka kallorivistöt nousevat kohti kuuden metrin korkeudessa olevaa yläkalloa. Yume kiipeää ylös, vetää kaapelin päässä olevan yläkallon irti ja kuulee sen kysyvän kolmesti: *"Miksi haluatte mennä menneisyyteen?"* Yume vastaa ylhäältä *"Haluamme selviytyä"*, ja huoneen päätyseinä aukeaa.
+
+Kolmannen huoneen täyttää paksu vaaleanpunainen itiösumu, jolta Holtin aiempi vastalääke suojaa ryhmää. Seinissä on kaksitoista tarkasti ihmisen muotoista syvennystä, ja katosta laskeutuu koko huoneen levyinen rivi pyöriviä sirkkeliteriä. Koska syvennysten massa työntää ulos kaiken ihmiskehon ääriviivoista poikkeavan, nelikko joutuu jättämään reppunsa ja varusteensa lattialle ja painautumaan tiukasti muotteihin. Pyörivät terät silppuavat reput ja varusteet kappaleiksi vieden mukanaan vain hiuskiehkuroita ja vaatteiden reunoja, mutta Yumen sininen kappale jää ehjänä keskelle lattiaa.
+
+Hautakammiossa syttyy Yunen sukulaiselta näyttävän, vanhemman prefektin hologrammi. Se luovuttaa kolmanneksensa vihjeestä (**"Kammio 173"**), kehuu Erottajien merkitystä ja varoittaa haudan olevan tappavasti ansoitettu. Sahye kuulee kivisarkofagin sisältä *Sisäisen äänen* huminan. Ennen kuin Yume ehtii purkaa havaitsemansa ansan, Holti ja Yune nostavat sarkofagin kannen yhdessä auki: sisältä paljastuu muumioitunut ruumis, sen päällä lepäävä kirkas lasipallon ensimmäinen kolmannes ja niskassa yhä toimiva implantti. Katto alkaa sortua ja valtava kivipallo lähtee vyörymään kammion läpi. Sahye repäisee muumion niskasta mukaan palan kudosta ja aktiivisen *Sisäinen ääni* -implantin, kun taas Yume heittäytyy dramaattisesti Lamentan suojaksi putoavien tukikivien alle ja loukkaantuu. Lamenta kiskoo Yumen sankarillisesti ylös, ja koko nelikko pakenee vierivän kivipallon edeltä takaisin Petturi Takinkääntäjän sukkulalle.
+
+##### **Laki-aseman kellopelimonumentti ja purppurainen muumio**
+
+Sukkula palaa Seulan ja spiraalimaisen Louhoksen ohi Laki-asemalle, jonka tasaisessa kahdenkymmenenkahden asteen kesälämmössä jokaisesta poikkeamasta veloitetaan mikrosakko suoraan tililtä; Yume saa heti seitsemän krediitin sakon. Keskellä asemaa seisoo KW-konsortion perustajan hammasratasmonumentti, jonka kyljessä olevasta huoltoaukosta pääsee sisään kolmen alafaktion paneelien eteen.
+
+Logiikan Inkvisition paneeli avaa huoneen, jonka seinille projisoidaan kaksi animaatiota: yhdessä virkamies ampuu esihenkilönsä estääkseen reaktorin räjähdyksen, toisessa hän pakenee esihenkilöään reaktorin räjähtäessä. Lattiassa kulkee viiva tekstillä *"Älä ylitä"*, ja vastakkaisilla puolilla on kaksi nappia. Sahye uppoutuu sääntöanalyysiin ja tulkitsee kokeen koskevan lattiaviivaa: välttääkseen viivan ylittämisen hän painaa lähempää nappia. Seinästä ilmestyvä piippu ampuu Sahyea lähietäisyydeltä, ja huone palaa alkutilaan. Elämänsä ensimmäisen ampumahaavan saanut Sahye pitää haavastaan huolimatta jäätävän loppupuheenvuoron siitä, miksi viivasääntö ei enää päde. Holti pyyhkii viivan pois, ja Sahye kävelee sen yli painamaan oikeaa nappia. Museoääni vahvistaa suuremman hyvän ohittavan yksittäisen säännön, ja Holti antaa Sahyelle kipulääkettä ja adrenaliinia hyposuihkeella.
+
+Ratasvartion paneeli näyttää sotilaan, jota käsketään hyökkäämään ylivoimaista vihollista vastaan: toisessa kuvassa hän tottelee, toisessa ampuu komentajansa. Sokkiin vajonnut Sahye lysähtää seinää vasten, ja Yune kyykistyy hänen viereensä muistuttamaan mielen voimasta lihan yli. Huoneen perällä on kaksi sähköistettyä pronssikättä, jotka on kumarruttava painamaan lattiaan asti. Holti testaa käsiä hyposuihkeen muovikorkilla, virittää kiipeilyköyden ja karabiinihaat maadoitukseksi ja ryhtyy painamaan tottelevan sotilaan kättä alas sähköiskusta huolimatta. Kun vastus kasvaa liian kovaksi, Yune rientää auttamaan, ja yhdessä he saavat käden painettua lattiaan.
+
+Deterministien huoneessa odottaa monimutkainen analoginen kytkinlaite, jonka kymmenet säätimet ja vivut alkavat liikkua itsekseen käynnistyksen jälkeen. Yume oivaltaa, ettei laitteeseen saa koskea lainkaan: Deterministien mukaan ihminen on yhtälön virhe. Kone löytää tasapainon itsestään, ja keskeltä huonetta nousee neljäs jalusta näppäimistöineen ja ajastimineen kysyen KW-konsortion koneiston ydintarkoitusta. Yume kirjoittaa vastaukseksi *"Pyrkimys loogiseen täydellisyyteen"*. Museoääni huokaisee kylmästi todeten, ettei mitään absoluuttista ole, ja lattiaan aukeaa iiriksenmuotoinen aukko alas kierreportaikkoon.
+
+Ruumishuoneelta näyttävässä kellarissa ääni kertoo toisen kolmanneksen vihjeestä: **"Seula"**. Vedettävässä ruumiskaapissa lepää muumioitunut hahmo unista tutussa purppuraisessa sotilasunivormussa sirkkeliterä-kunniamerkkeineen. Yume ottaa kuvan muumiosta sekä sen vieressä seisovasta Yunesta, ja ryhmä ottaa talteen lasipallon toisen kolmanneksen sekä muumion niskassa yhä toimivan *Sisäinen ääni* -implantin. Matkalla Katedraalille kybertekniikkakirurgina toimiva Holti paikkaa Sahyen ampumahaavaa sukkulan laverilla; pulssioksimetri ei rekisteröi Sahyen äärimmäisen matalaa sykettä lainkaan.
+
+##### **Katedraalin teatteri, Megapaavi ja pilotin petos**
+
+Marmoripatsaista koottu, nuijapään muotoinen Katedraali tulvii someviestejä heti saapumishetkellä, ja kivinen Seuraaja lukittuu välittömästi ensikertalaisiin Yuneen ja Sahyeen. Paikalle ilmaantuva Lamenta julistaa käänteen: koko aarteenetsintä oli pelkkää harhautusta, sillä todellinen tarina on surmata nykyinen Megapaavi ja nostaa yksi nelikosta tämän paikalle. Holti astuu pääjuoneen Lamentan avustajaksi ja "Megapaavin entiseksi rakastajaksi" pitämään huomion itsessään, kun taas Sahye, Yune ja Yume siirtyvät sivujuonena Ensimmäisen Megapaavin haudalle rakennettuun teatteriin.
+
+Teatterin ensimmäisessä näytöksessä (Verhonkutojat) kolmikko improvisoi sankaritarinoita hologrammikuoron ja miekkailevien robottivastanäyttelijöiden keskellä. Ensimmäisen näytöksen päättyessä Yume kiipeää rakenteita pitkin ylös kohti katsomoita ja parvia, kun taas Sahye ja Yune jäävät näyttämölle.
+
+Toisessa näytöksessä (Haaskalinnut) ruttonaamariset tutkijat vyöryttävät valheellisia syytöksiä suorassa lähetyksessä yleisön edessä vaatien aitoa tunnustusta. Sahye panee lakimiesuransa ja maineensa pantiksi myöntämällä tehneensä Laki-asemalla loogisen virheen, mikä saa katsomossa istuvan Logiikan inkvisiittorin reagoimaan. Yune tunnustaa pettäneensä isänsä odotukset ja joutuu lopulta paljastamaan kameroille isänsä olleen Tuhkan puolueen entinen johtaja, Kultakruunu.
+
+Kolmannessa näytöksessä (Pyhän Tragedian lapset) robotit tuovat lavalle kranaatin ja vaativat vetämään sokan sekä syleilemään räjähdettä. Yune vetää sokan ja heittää kranaatin suoraan yleisökatsomoon, missä massiivinen räjähdys tappaa kymmeniä katsojia. Räjähdyksen liikuttaessa teatterin rakenteita ylhäällä etenevä Yume valitsee reitin katsomon sijaan syrjäiseen aitioon. Tyhjältä penkiltä alaspäin katsoessa teatterin rakenteet osoittavat suoraan yhteen lattialuukkuun näyttämöllä. Luukun alta löytyy kankaaseen kääritty lasipallon kolmas lohko ja Seulan sisäänkäyntinumerolla merkitty kartta, mutta ei ruumista.
+
+Samassa Lamenta rysähtää teatterin seinän läpi 13. kierron 7. Megapaavin iskiessä massiivisella vasaralla. Holti kääntää koko yleisön ja Megapaavin huomion takaisin Lamentaan avaten nelikolle pakoreitin. Juostessaan ulos teatterista Holti huutaa vielä katkerasti Megapaaville: *"Tämä ei jää tähän! Meidät on luotu yhteen!"*
+
+Sukkulalla nelikko yllättää Petturi Takinkääntäjän puhumasta radioon. Vaikka pilotti kiistää kaiken, Yune katsoo radion viimeksi soitetun numeron ja soittaa takaisin: linjan päässä vastaa tohtori Sydänmies. Pilotti on vuotanut ryhmän liikkeet hänelle ja asentanut jäljittimen heidän varusteisiinsa.
+
+##### **Seulan kammio 173 ja paluu Astialle**
+
+Seulalla nelikko väistää Ratasvartion partiot ja etenee kartan osoittamasta sisäänkäynnistä valtavaan vanhaan varastohalliin, joka on täynnä identtisiä koppeja. Kammion 173 ovesta löytyy pallon muotoinen syvennys. Yume liittää kolme lasilohkoa yhteen ja painaa pallon lukkoon: pallo alkaa sirottaa valoa seinille piirtäen kolmen faktion symbolit (rattaan, liekin ja naamion), jotka sulautuvat yhdeksi Tyrannin kruunuksi. Ovi aukeaa paljastaen jalustalla lepäävän priimakuntoisen ohjainlevyn.
+
+Koko kammio kuhisee sensoreita, liikkuvia seinäpaneeleja ja lämpöaseita. Samalla hetkellä varastohallin ovet avautuvat, ja tohtori Sydänmies marssii sisään parinkymmenen Ratasvartion sotilaan saattamana. Ennen kuin kammion varsinaiset kokeet käynnistyvät, Yume kiskaisee ohjainlevyn jalustalta köydellä, syöksyy nappaamaan putoavan piirin lennosta ja tekee akrobaattisen voltin ulos juuri kun kammion ovet pamahtavat kiinni hänen takanaan. Suljetun oven takaa kaikuu vaimea kehotus syöttää *"lopullinen tullikoodi"*. Lasipallo jää kiinni aktivoituneeseen lukkoon, ja nelikko pakenee sotilaiden edeltä sukkulalle kohti *Aamunkoita*.
+
+Ohjainlevyn pinnassa lukee aluksen alkuperäinen nimi: **ASTIA**. Kun vanha, heikko korvikelevy vaihdetaan uuteen, *Aamunkoin* sähköt sammuvat hetkeksi ja syttyvät sitten Kukoistuksen ajan täyteen tehoon: komentosillan näytöt kirkastuvat monivärisiksi ja järjestelmä aloittaa laajan diagnostiikan. Samalla koko miehistön *Sisäinen ääni* -implanttiin ilmestyy aiemmista vaaraviesteistä tutulla kirjasimella rauhallinen sininen teksti: *"Tervetuloa Astialle."*
+
+Aluksella Yume päästää Sahyen ja Yunen kahden hytin väliseinän purkamalla laajennettuun hyttiinsä katsomaan kokoelmaansa, jossa lepää nyt kolme sinistä sääntöartefaktia neljännen ollessa yhä Jamirilla. Vastapalvelukseksi Sahye luovuttaa Yumelle Evoluutiolta keräämänsä tutkimusaineiston esineiden yliavaruuspulsseista, ja ryhmä alkaa valmistautua tutkimaan sekä artefakteja että kahden muumioituneen perustajan yhä aktiivisia *Sisäinen ääni* -implantteja.
+
+#### Pelaajien kertaukset
+
+Pelaajat eivät ole vielä kirjoittaneet kertauksia.

@@ -34,10 +34,15 @@ import { CardContent, CardHeader, CardTitle } from "@repo/ui/components/Card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { apiBaseUrl } from "./api/base-url";
-import { isReservedRebellionSkillName, REBELLION_SKILL_ACQUIRED_NAME } from "./api/characters";
+import {
+  type CharacterTattoo,
+  isReservedRebellionSkillName,
+  REBELLION_SKILL_ACQUIRED_NAME,
+} from "./api/characters";
 import type { MonkPower } from "./api/monk-powers";
 import { useCharacterPrivateNotes, useMigratePublicNotes } from "./api/private-notes";
 import { CharacterPrivateNotesTab } from "./CharacterPrivateNotesTab";
+import { CharacterTattoosCard } from "./CharacterTattoosCard";
 import { suggestNames } from "./name-generator";
 
 interface Character {
@@ -79,6 +84,7 @@ interface Character {
   monkAdvancementsAllowed?: number;
   monkAdvancementsUsed?: number;
   monkPowers?: MonkPower[];
+  tattoos?: CharacterTattoo[];
 }
 
 interface CharacterSnapshot {
@@ -127,7 +133,15 @@ export function CharacterSheet({
         credentials: "include",
         body: JSON.stringify(updates),
       });
-      if (!res.ok) throw new Error("Update failed");
+      if (!res.ok) {
+        const body = (await res.json().catch(() => null)) as { message?: string | string[] } | null;
+        const message = Array.isArray(body?.message)
+          ? body.message.join(", ")
+          : typeof body?.message === "string"
+            ? body.message
+            : "Tallennus epäonnistui.";
+        throw new Error(message);
+      }
       return res.json();
     },
     onMutate: async (newUpdates) => {
@@ -143,10 +157,14 @@ export function CharacterSheet({
       );
       return { previous };
     },
-    onError: (_err, _newUpdates, context) => {
+    onError: (err, _newUpdates, context) => {
       if (context?.previous) {
         queryClient.setQueryData(["character", characterId], context.previous);
       }
+      requestToast({
+        message: err instanceof Error ? err.message : "Tallennus epäonnistui.",
+        variant: "error",
+      });
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["character", characterId] });
@@ -448,6 +466,14 @@ export function CharacterSheet({
             )}
           </CardContent>
         </Card>
+
+        {/* Tatuoinnit Section */}
+        <CharacterTattoosCard
+          monkAdvancementsAllowed={character.monkAdvancementsAllowed ?? 0}
+          tattoos={character.tattoos ?? []}
+          canEdit={canEdit}
+          onUpdate={(tattoos) => updateCharacter({ tattoos })}
+        />
 
         {/* Voimat Section */}
         {((character.monkPowers && character.monkPowers.length > 0) ||

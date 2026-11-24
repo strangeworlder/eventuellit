@@ -47,6 +47,12 @@ export interface CharacterEpisodeLink {
   advancedAt?: string | null;
 }
 
+export interface CharacterTattoo {
+  slot: number;
+  title: string;
+  description?: string;
+}
+
 export interface CharacterListItem {
   id: number;
   userId: number;
@@ -64,6 +70,7 @@ export interface CharacterListItem {
   monkAdvancementsAllowed?: number;
   monkAdvancementsUsed?: number;
   monkPowers?: MonkPower[];
+  tattoos?: CharacterTattoo[];
   [key: string]: unknown;
 }
 

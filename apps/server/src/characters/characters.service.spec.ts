@@ -1120,4 +1120,206 @@ describe("CharactersService", () => {
       );
     });
   });
+
+  describe("tattoos", () => {
+    it("normalizes, sorts, and persists tattoos within monkAdvancementsAllowed", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 11,
+        userId: 5,
+        monkAdvancementsAllowed: 2,
+        tattoos: [],
+        harmit: [],
+        skills: [],
+      });
+      mockDb.returning.mockResolvedValueOnce([
+        {
+          id: 11,
+          tattoos: [
+            { slot: 1, title: "Sininen kala" },
+            { slot: 2, title: "Laiskiainen", description: "Oikeassa käsivarressa (Aseesta)" },
+          ],
+        },
+      ]);
+
+      await service.update(
+        11,
+        {
+          tattoos: [
+            {
+              slot: 2,
+              title: "  Laiskiainen  ",
+              description: "  Oikeassa käsivarressa (Aseesta)  ",
+            },
+            { slot: 1, title: "  Sininen kala  ", description: "   " },
+          ],
+        },
+        5,
+        "player",
+      );
+
+      expect(mockDb.set).toHaveBeenCalledWith(
+        expect.objectContaining({
+          tattoos: [
+            { slot: 1, title: "Sininen kala" },
+            { slot: 2, title: "Laiskiainen", description: "Oikeassa käsivarressa (Aseesta)" },
+          ],
+        }),
+      );
+    });
+
+    it("rejects empty title, duplicate slots, and new slots above monkAdvancementsAllowed", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 11,
+        userId: 5,
+        monkAdvancementsAllowed: 2,
+        tattoos: [],
+        harmit: [],
+        skills: [],
+      });
+      await expect(
+        service.update(11, { tattoos: [{ slot: 1, title: "   " }] }, 5, "player"),
+      ).rejects.toThrow(BadRequestException);
+
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 11,
+        userId: 5,
+        monkAdvancementsAllowed: 2,
+        tattoos: [],
+        harmit: [],
+        skills: [],
+      });
+      await expect(
+        service.update(
+          11,
+          {
+            tattoos: [
+              { slot: 1, title: "Kala" },
+              { slot: 1, title: "Laiskiainen" },
+            ],
+          },
+          5,
+          "player",
+        ),
+      ).rejects.toThrow(BadRequestException);
+
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 11,
+        userId: 5,
+        monkAdvancementsAllowed: 1,
+        tattoos: [],
+        harmit: [],
+        skills: [],
+      });
+      await expect(
+        service.update(11, { tattoos: [{ slot: 2, title: "Laiskiainen" }] }, 5, "player"),
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it("preserves editing or clearing an existing tattoo above lowered potential while blocking new ones", async () => {
+      mockDb.query.characters.findFirst.mockResolvedValueOnce({
+        id: 11,
+        userId: 5,
+        monkAdvancementsAllowed: 1,
+        tattoos: [
+          { slot: 1, title: "Kala" },
+          { slot: 2, title: "Vanha merkki" },
+        ],
+        harmit: [],
+        skills: [],
+      });
+      mockDb.returning.mockResolvedValueOnce([
+        {
+          id: 11,
+          tattoos: [
+            { slot: 1, title: "Kala" },
+            { slot: 2, title: "Päivitetty merkki" },
+          ],
+        },
+      ]);
+
+      await service.update(
+        11,
+        {
+          tattoos: [
+            { slot: 1, title: "Kala" },
+            { slot: 2, title: "Päivitetty merkki" },
+          ],
+        },
+        5,
+        "player",
+      );
+
+      expect(mockDb.set).toHaveBeenCalledWith(
+        expect.objectContaining({
+          tattoos: [
+            { slot: 1, title: "Kala" },
+            { slot: 2, title: "Päivitetty merkki" },
+          ],
+        }),
+      );
+    });
+
+    it("exports Tatuoinnit section with described and undescribed slots in markdown export", async () => {
+      const charWithPotential = {
+        id: 21,
+        userId: 12,
+        name: "Holti",
+        archetype: "Ekspertti",
+        sex: "male",
+        motivation: null,
+        notes: null,
+        nicknames: [],
+        keho: 8,
+        currentKeho: 8,
+        mieli: 8,
+        currentMieli: 8,
+        tera: 8,
+        currentTera: 8,
+        sisuDice: [],
+        removedSisuIds: [],
+        harmit: [],
+        skills: [],
+        inventory: [],
+        fysiikka: 0,
+        nopeus: 0,
+        ymmarrys: 0,
+        persoona: 0,
+        nakemys: 0,
+        napparyys: 0,
+        anchorId: null,
+        rebellionLevel: 0,
+        monkAdvancementsAllowed: 2,
+        monkAdvancementsUsed: 0,
+        tattoos: [
+          {
+            slot: 1,
+            title: "Kirkkaansininen kalatatuointi",
+            description: "Oikeassa käsivarressa (Painajaisesta).",
+          },
+        ],
+        removedFromPlayAt: null,
+        ownerName: "Aino",
+      };
+
+      mockDb.leftJoin.mockResolvedValueOnce([charWithPotential]);
+      mockDb.orderBy.mockResolvedValueOnce([]).mockResolvedValueOnce([]).mockResolvedValueOnce([]);
+      mockDb.execute = vi
+        .fn()
+        .mockResolvedValueOnce({ rows: [] })
+        .mockResolvedValueOnce({ rows: [] })
+        .mockResolvedValueOnce({ rows: [] })
+        .mockResolvedValueOnce({ rows: [] });
+
+      const result = await service.exportMarkdown();
+
+      expect(result.markdown).toContain("#### Tatuoinnit");
+      expect(result.markdown).toContain("- **Tatuoinnit:** 1 / 2 kuvattu");
+      expect(result.markdown).toContain("- **Tatuointi 1 — Kirkkaansininen kalatatuointi**");
+      expect(result.markdown).toContain("  - Oikeassa käsivarressa (Painajaisesta).");
+      expect(result.markdown).toContain("- **Tatuointi 2:** *Ei vielä kuvailtu.*");
+      expect(result.markdown.indexOf("#### Tatuoinnit")).toBeLessThan(
+        result.markdown.indexOf("#### Munkin voimat"),
+      );
+    });
+  });
 });
