@@ -13,7 +13,7 @@ const meta = {
       control: "select",
       options: [4, 6, 8, 10, 12, 20, "swirl"],
     },
-    value: { control: "number" },
+    value: { control: "text" },
     size: {
       control: "select",
       options: ["sm", "md", "lg"],
@@ -68,6 +68,15 @@ export const CustomValue: Story = {
   args: {
     faces: 20,
     value: 14,
+    size: "lg",
+    active: true,
+  },
+};
+
+export const KirjainArvo: Story = {
+  args: {
+    faces: 12,
+    value: "K",
     size: "lg",
     active: true,
   },

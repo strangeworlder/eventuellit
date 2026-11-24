@@ -1,7 +1,10 @@
 import { NotFoundException } from "@nestjs/common";
 import { Test, type TestingModule } from "@nestjs/testing";
+import { plainToInstance } from "class-transformer";
+import { validate } from "class-validator";
 import { vi } from "vitest";
 import { DATABASE_CONNECTION } from "../db/db.module";
+import { UpdateEpisodeDto } from "./dto/update-episode.dto";
 import { EpisodesService } from "./episodes.service";
 
 type MockDb = {
@@ -191,7 +194,7 @@ describe("EpisodesService", () => {
             sessionDates: null,
             mechanicalAdditions: "### Aseet\n\nVahinko **1n8**.",
             summary: "Kolmikko pakeni Aamunkoilla.",
-            tyrannyRoll: 2,
+            tyrannyRolls: ["2"],
           },
         ])
         .mockResolvedValueOnce([
@@ -243,6 +246,70 @@ describe("EpisodesService", () => {
       expect(result.markdown).toContain("Vankikuljetus pysäytettiin huoltoaukiolla.");
       expect(result.markdown).toContain("##### Pekka");
       expect(result.markdown).toContain("**Kehu kaveria:**\nTaija");
+    });
+
+    it("should format multiple and letter tyranny rolls in markdown export", async () => {
+      mockDb.orderBy
+        .mockResolvedValueOnce([
+          {
+            id: 2,
+            slug: "kaksoisheittajakso",
+            title: "Kaksoisheitto",
+            order: 2,
+            status: "active",
+            description: null,
+            content: null,
+            location: null,
+            locationLink: null,
+            players: null,
+            sessionDates: null,
+            mechanicalAdditions: null,
+            summary: null,
+            tyrannyRolls: ["4", "K", "11"],
+          },
+        ])
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([]);
+
+      const result = await service.exportMarkdown();
+
+      expect(result.markdown).toContain("**Heitot 4, K, 11**");
+    });
+  });
+
+  describe("tyrannyRolls validation and normalization", () => {
+    it("should normalize tyrannyRolls to uppercase on update", async () => {
+      const episode = { id: 1, title: "Test", slug: "test", tyrannyRolls: [] };
+      mockDb.where.mockResolvedValueOnce([episode]);
+      mockDb.returning.mockResolvedValueOnce([{ ...episode, tyrannyRolls: ["4", "Ä", "12"] }]);
+
+      await service.update(1, { tyrannyRolls: [" 4 ", "ä", "12"] });
+
+      expect(mockDb.set).toHaveBeenCalledWith(
+        expect.objectContaining({ tyrannyRolls: ["4", "Ä", "12"] }),
+      );
+    });
+
+    it("should accept valid numbers 1-12, Finnish letters, and empty arrays in UpdateEpisodeDto", async () => {
+      const dto = plainToInstance(UpdateEpisodeDto, {
+        tyrannyRolls: [1, "12", "k", "ä", "ö", "å", "4"],
+      });
+      const errors = await validate(dto);
+      expect(errors).toHaveLength(0);
+      expect(dto.tyrannyRolls).toEqual(["1", "12", "K", "Ä", "Ö", "Å", "4"]);
+
+      const emptyDto = plainToInstance(UpdateEpisodeDto, { tyrannyRolls: [] });
+      expect(await validate(emptyDto)).toHaveLength(0);
+    });
+
+    it("should reject out-of-range numbers, multi-letter strings, and symbols in UpdateEpisodeDto", async () => {
+      for (const invalid of [["0"], ["13"], ["AB"], ["?"], ["1", "14"], ["01"]]) {
+        const dto = plainToInstance(UpdateEpisodeDto, { tyrannyRolls: invalid });
+        const errors = await validate(dto);
+        expect(errors.length).toBeGreaterThan(0);
+      }
     });
   });
 });

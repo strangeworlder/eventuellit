@@ -49,7 +49,7 @@ export const episodes = pgTable("episodes", {
   mediaId: integer("media_id").references(() => media.id),
   mechanicalAdditions: text("mechanical_additions"), // Markdown content
   summary: text("summary"),
-  tyrannyRoll: integer("tyranny_roll"), // d12 result (1–12), episode-level
+  tyrannyRolls: jsonb("tyranny_rolls").$type<string[]>().default([]).notNull(), // d12 results (1–12 or A–Ö), episode-level
   gmId: integer("gm_id")
     .references(() => users.id)
     .notNull(),

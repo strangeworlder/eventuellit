@@ -1,4 +1,6 @@
-import { IsInt, IsOptional, IsString, Max, Min } from "class-validator";
+import { Transform } from "class-transformer";
+import { IsArray, IsInt, IsOptional, IsString, Matches, Min } from "class-validator";
+import { normalizeTyrannyRollInput, TYRANNY_ROLL_REGEX } from "./tyranny-roll.validation";
 
 export class UpdateEpisodeDto {
   @IsOptional()
@@ -63,10 +65,14 @@ export class UpdateEpisodeDto {
   summary?: string;
 
   @IsOptional()
-  @IsInt()
-  @Min(1)
-  @Max(12)
-  tyrannyRoll?: number;
+  @Transform(({ value }) => normalizeTyrannyRollInput(value))
+  @IsArray()
+  @IsString({ each: true })
+  @Matches(TYRANNY_ROLL_REGEX, {
+    each: true,
+    message: "Each tyranny roll must be an integer 1–12 or a single letter (A–Z, Å, Ä, Ö)",
+  })
+  tyrannyRolls?: string[];
 
   @IsOptional()
   @IsInt()

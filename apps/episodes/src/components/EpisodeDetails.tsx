@@ -110,7 +110,7 @@ export function EpisodeDetails({
           </div>
           <TyrannyRollBadge
             episodeId={fullEpisode.id}
-            tyrannyRoll={fullEpisode.tyrannyRoll}
+            tyrannyRolls={fullEpisode.tyrannyRolls}
             sessions={sessions}
           />
         </Hero>

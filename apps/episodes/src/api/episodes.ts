@@ -22,7 +22,7 @@ export interface Episode {
   mediaId: number | null;
   mechanicalAdditions: string | null;
   summary: string | null;
-  tyrannyRoll: number | null;
+  tyrannyRolls: string[];
   gmId: number;
   createdAt: string;
   updatedAt: string;

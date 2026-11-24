@@ -13,6 +13,7 @@ import {
 } from "../db/schema";
 import type { CreateEpisodeDto } from "./dto/create-episode.dto";
 import type { CreateEpisodeSkillDto } from "./dto/create-episode-skill.dto";
+import { normalizeTyrannyRolls } from "./dto/tyranny-roll.validation";
 import type { UpdateEpisodeDto } from "./dto/update-episode.dto";
 import type { UpdateEpisodeSkillDto } from "./dto/update-episode-skill.dto";
 
@@ -101,7 +102,7 @@ export class EpisodesService {
       sessionDates: data.sessionDates,
       mechanicalAdditions: data.mechanicalAdditions,
       summary: data.summary,
-      tyrannyRoll: data.tyrannyRoll,
+      tyrannyRolls: normalizeTyrannyRolls(data.tyrannyRolls) ?? [],
       mediaId: data.mediaId,
       gmId,
     };
@@ -114,6 +115,9 @@ export class EpisodesService {
 
     const updateData: Partial<typeof episodes.$inferInsert> = {
       ...data,
+      ...(data.tyrannyRolls !== undefined
+        ? { tyrannyRolls: normalizeTyrannyRolls(data.tyrannyRolls) }
+        : {}),
       updatedAt: new Date(),
     };
     const result = await this.db
@@ -253,9 +257,13 @@ export class EpisodesService {
         epLines.push(`**${cleanText(episode.description)}**`);
       }
 
-      if (episode.tyrannyRoll != null) {
+      const rolls = Array.isArray(episode.tyrannyRolls) ? episode.tyrannyRolls : [];
+      if (rolls.length === 1) {
         epLines.push("");
-        epLines.push(`**Heitto ${episode.tyrannyRoll}**`);
+        epLines.push(`**Heitto ${rolls[0]}**`);
+      } else if (rolls.length > 1) {
+        epLines.push("");
+        epLines.push(`**Heitot ${rolls.join(", ")}**`);
       }
 
       const cleanedContent = episode.content?.trim() ? cleanText(episode.content) : "";

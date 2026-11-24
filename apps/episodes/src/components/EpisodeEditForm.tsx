@@ -209,7 +209,7 @@ export function EpisodeEditForm({
                 imageAlt,
                 mediaId,
                 summary,
-                tyrannyRoll,
+                tyrannyRolls,
                 players,
                 sessionDates,
               } = formData;
@@ -228,7 +228,7 @@ export function EpisodeEditForm({
                 imageAlt,
                 mediaId,
                 summary,
-                tyrannyRoll,
+                tyrannyRolls,
                 players,
                 sessionDates,
               });

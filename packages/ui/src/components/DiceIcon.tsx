@@ -9,7 +9,8 @@ import { cn } from "./utils";
  */
 export interface DiceIconProps extends React.HTMLAttributes<HTMLDivElement> {
   faces: 4 | 6 | 8 | 10 | 12 | 20 | "swirl";
-  value?: number;
+  /** Optional numeric or single-character value displayed over the die face */
+  value?: number | string;
   size?: "sm" | "md" | "lg";
   active?: boolean;
   /** When true, hides the number overlay, showing only the dice shape */
@@ -263,7 +264,7 @@ export const DiceIcon = React.forwardRef<HTMLDivElement, DiceIconProps>(
                 : "text-[var(--theme-secondary-foreground)] drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]",
             )}
           >
-            {value ?? faces}
+            {value !== undefined && value !== "" ? value : faces}
           </span>
         )}
       </div>
