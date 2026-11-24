@@ -65,6 +65,15 @@ describe("EpisodesService", () => {
     expect(service).toBeDefined();
   });
 
+  it("should ensure tyranny_rolls column and backfill legacy tyranny_roll on module init", async () => {
+    const execute = vi.fn().mockResolvedValue(undefined);
+    (mockDb as MockDb & { execute?: typeof execute }).execute = execute;
+
+    await service.onModuleInit();
+
+    expect(execute).toHaveBeenCalledTimes(2);
+  });
+
   it("should list all episodes", async () => {
     mockDb.orderBy.mockResolvedValueOnce([]);
     const result = await service.findAll();

@@ -1,5 +1,5 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { asc, eq } from "drizzle-orm";
+import { Inject, Injectable, NotFoundException, type OnModuleInit } from "@nestjs/common";
+import { asc, eq, sql } from "drizzle-orm";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DATABASE_CONNECTION } from "../db/db.module";
 import type * as schema from "../db/schema";
@@ -63,8 +63,37 @@ function formatDateFi(date: Date | string | null | undefined, long = false): str
 }
 
 @Injectable()
-export class EpisodesService {
+export class EpisodesService implements OnModuleInit {
   constructor(@Inject(DATABASE_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
+
+  async onModuleInit() {
+    if (typeof this.db.execute !== "function") return;
+    await this.db.execute(sql`
+      ALTER TABLE episodes
+      ADD COLUMN IF NOT EXISTS tyranny_rolls JSONB NOT NULL DEFAULT '[]'::jsonb
+    `);
+    await this.db.execute(sql`
+      DO $$
+      BEGIN
+        IF EXISTS (
+          SELECT 1
+          FROM information_schema.columns
+          WHERE table_schema = 'public'
+            AND table_name = 'episodes'
+            AND column_name = 'tyranny_roll'
+        ) THEN
+          UPDATE episodes
+          SET
+            tyranny_rolls = CASE
+              WHEN tyranny_rolls = '[]'::jsonb THEN jsonb_build_array(tyranny_roll::text)
+              ELSE tyranny_rolls
+            END,
+            tyranny_roll = NULL
+          WHERE tyranny_roll IS NOT NULL;
+        END IF;
+      END $$;
+    `);
+  }
 
   async findAll(status?: string) {
     if (status) {
