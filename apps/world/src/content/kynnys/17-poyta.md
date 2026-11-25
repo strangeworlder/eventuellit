@@ -6,6 +6,7 @@ category: kynnys
 tension: "Matala"
 ruling_faction: erottajat
 disrupting_factions: ratasvartio
+image: https://pub-af583d95f0c543179e569e08a407bc5e.r2.dev/images/poyta-1344.jpg
 ---
 
 ### Yleiskuvaus
