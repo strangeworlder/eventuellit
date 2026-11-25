@@ -324,9 +324,14 @@ export function DowntimeSheetContent({ overview, basePath, onClose }: DowntimeSh
   ) => (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="font-heading text-xs font-semibold uppercase tracking-wider text-text-muted">
-          {title}
-        </span>
+        <div className="min-w-0 space-y-0.5">
+          <span className="block font-heading text-xs font-semibold uppercase tracking-wider text-text-muted">
+            {title}
+          </span>
+          <span className="block text-xs text-text-muted">
+            Heitetään n20: jokainen 13+ täyttää 1 osan, onnistuneet tuplat +1 lisäosan.
+          </span>
+        </div>
         {!readOnly && (
           <ConsoleButton
             variant="outline"
@@ -367,7 +372,6 @@ export function DowntimeSheetContent({ overview, basePath, onClose }: DowntimeSh
                   <ProgressClock
                     segmentsTotal={clock.segmentsTotal}
                     segmentsFilled={clock.segmentsFilled}
-                    pendingTicks={assigned}
                     category={clock.category}
                     size="sm"
                   />

@@ -287,6 +287,58 @@ describe("ShipService", () => {
     expect(resolved.resolution.prepResult?.rolls).toHaveLength(3);
     expect(mockDb.insert).toHaveBeenCalledTimes(2); // snapshot + shipDowntimeTurns
   });
+
+  it("picks the latest completed episode as pendingSourceEpisode and does not fall back to older completed episodes", async () => {
+    const char = {
+      id: 43,
+      userId: PLAYER_USER.id,
+      name: "Vara",
+      archetype: "Sotilas",
+      removedFromPlayAt: null,
+      harmit: [],
+    };
+
+    mockDb.query.characters.findFirst.mockResolvedValueOnce(char);
+    mockDb.orderBy
+      .mockResolvedValueOnce([
+        { episodeId: 1, title: "Jakso 1", slug: "j1", status: "completed", order: 1 },
+        { episodeId: 11, title: "Jakso 11", slug: "j11", status: "completed", order: 11 },
+        { episodeId: 12, title: "Jakso 12", slug: "j12", status: "planned", order: 12 },
+      ])
+      .mockResolvedValueOnce([]) // no resolved turns yet
+      .mockResolvedValueOnce([]);
+
+    const ctx = await service.getCharacterDowntime(43, PLAYER_USER);
+    expect(ctx.pendingSourceEpisode?.episodeId).toBe(11);
+    expect(ctx.lockedEpisode?.episodeId).toBe(12);
+    expect(ctx.canRoll).toBe(true);
+
+    // Once episode 11 is resolved, episode 1 must not reopen as a pending source episode
+    mockDb.query.characters.findFirst.mockResolvedValueOnce(char);
+    mockDb.orderBy
+      .mockResolvedValueOnce([
+        { episodeId: 1, title: "Jakso 1", slug: "j1", status: "completed", order: 1 },
+        { episodeId: 11, title: "Jakso 11", slug: "j11", status: "completed", order: 11 },
+        { episodeId: 12, title: "Jakso 12", slug: "j12", status: "planned", order: 12 },
+      ])
+      .mockResolvedValueOnce([
+        {
+          id: 55,
+          characterId: 43,
+          sourceCompletedEpisodeId: 11,
+          lockedEpisodeId: 12,
+          status: "resolved",
+          resolvedAt: new Date("2026-11-25T10:00:00Z"),
+          resolutionJson: null,
+        },
+      ])
+      .mockResolvedValueOnce([]);
+
+    const afterResolve = await service.getCharacterDowntime(43, PLAYER_USER);
+    expect(afterResolve.pendingSourceEpisode).toBeNull();
+    expect(afterResolve.canDraft).toBe(false);
+    expect(afterResolve.canRoll).toBe(false);
+  });
 });
 
 describe("DEFAULT_SHIP_ROOMS 4-deck canonical ship architecture", () => {

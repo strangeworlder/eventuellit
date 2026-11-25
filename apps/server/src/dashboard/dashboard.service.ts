@@ -256,6 +256,7 @@ export class DashboardService {
         .select({
           characterId: characterEpisodes.characterId,
           episodeId: characterEpisodes.episodeId,
+          order: episodes.order,
         })
         .from(characterEpisodes)
         .innerJoin(episodes, eq(characterEpisodes.episodeId, episodes.id))
@@ -283,9 +284,20 @@ export class DashboardService {
         const resolvedSet = new Set(
           resolvedDowntimeRows.map((r) => `${r.characterId}:${r.sourceEpisodeId}`),
         );
+        const latestByChar = new Map<number, { episodeId: number; order: number }>();
         for (const link of completedCharLinks) {
-          if (!resolvedSet.has(`${link.characterId}:${link.episodeId}`)) {
-            charsWithPendingDowntime.add(link.characterId);
+          const current = latestByChar.get(link.characterId);
+          if (
+            !current ||
+            link.order > current.order ||
+            (link.order === current.order && link.episodeId > current.episodeId)
+          ) {
+            latestByChar.set(link.characterId, { episodeId: link.episodeId, order: link.order });
+          }
+        }
+        for (const [characterId, latest] of latestByChar.entries()) {
+          if (!resolvedSet.has(`${characterId}:${latest.episodeId}`)) {
+            charsWithPendingDowntime.add(characterId);
           }
         }
       }

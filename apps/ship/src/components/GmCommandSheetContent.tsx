@@ -66,16 +66,52 @@ type CommandTab = "config" | "clocks" | "rooms";
 
 const SEGMENT_CHOICES: ProgressClockSegments[] = [4, 6, 8, 10, 12];
 
-function ClockAdminItem({ clock }: { clock: ShipClock }) {
+function ClockAdminItem({
+  clock,
+  rooms,
+  crewCharacters,
+}: {
+  clock: ShipClock;
+  rooms: ShipRoom[];
+  crewCharacters: ShipOverviewResponse["crewCharacters"];
+}) {
   const updateClockMutation = useUpdateShipClock();
   const deleteClockMutation = useDeleteShipClock();
 
+  const [expanded, setExpanded] = useState(false);
+  const [titleDraft, setTitleDraft] = useState(clock.title);
+  const [descDraft, setDescDraft] = useState(clock.description ?? "");
+  const [categoryDraft, setCategoryDraft] = useState<"tutkimus" | "projekti">(clock.category);
+  const [scopeDraft, setScopeDraft] = useState<"ship" | "character">(clock.scope);
+  const [characterIdDraft, setCharacterIdDraft] = useState<string>(
+    clock.characterId ? String(clock.characterId) : "",
+  );
+  const [roomKeyDraft, setRoomKeyDraft] = useState<string>(clock.roomKey ?? "");
+  const [segmentsTotalDraft, setSegmentsTotalDraft] = useState<string>(
+    clock.segmentsTotal !== null ? String(clock.segmentsTotal) : "",
+  );
   const [notesDraft, setNotesDraft] = useState(clock.completionNotes ?? "");
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   useEffect(() => {
+    setTitleDraft(clock.title);
+    setDescDraft(clock.description ?? "");
+    setCategoryDraft(clock.category);
+    setScopeDraft(clock.scope);
+    setCharacterIdDraft(clock.characterId ? String(clock.characterId) : "");
+    setRoomKeyDraft(clock.roomKey ?? "");
+    setSegmentsTotalDraft(clock.segmentsTotal !== null ? String(clock.segmentsTotal) : "");
     setNotesDraft(clock.completionNotes ?? "");
-  }, [clock.completionNotes]);
+  }, [
+    clock.category,
+    clock.characterId,
+    clock.completionNotes,
+    clock.description,
+    clock.roomKey,
+    clock.scope,
+    clock.segmentsTotal,
+    clock.title,
+  ]);
 
   return (
     <div className="border border-[var(--theme-border-soft)] rounded-[4px] p-2.5 bg-[color-mix(in_srgb,var(--theme-bg)_92%,var(--theme-surface-tint))] space-y-2">
@@ -89,6 +125,9 @@ function ClockAdminItem({ clock }: { clock: ShipClock }) {
           />
           <div className="min-w-0 space-y-0.5">
             <div className="text-xs font-bold text-[var(--theme-text)] truncate">{clock.title}</div>
+            {clock.description && (
+              <div className="text-xs text-text-muted line-clamp-2">{clock.description}</div>
+            )}
             <div className="flex flex-wrap items-center gap-1">
               <Badge variant={clock.category === "tutkimus" ? "highlight" : "outline"}>
                 {clock.category === "tutkimus" ? "Tutkimus" : "Projekti"}
@@ -105,14 +144,23 @@ function ClockAdminItem({ clock }: { clock: ShipClock }) {
           </div>
         </div>
 
-        <ConsoleButton
-          variant="danger"
-          size="compact"
-          disabled={deleteClockMutation.isPending}
-          onClick={() => setConfirmDeleteOpen(true)}
-        >
-          Poista
-        </ConsoleButton>
+        <div className="flex items-center gap-1 shrink-0">
+          <ConsoleButton
+            variant="ghost"
+            size="compact"
+            onClick={() => setExpanded((prev) => !prev)}
+          >
+            {expanded ? "Piilota" : "Muokkaa"}
+          </ConsoleButton>
+          <ConsoleButton
+            variant="danger"
+            size="compact"
+            disabled={deleteClockMutation.isPending}
+            onClick={() => setConfirmDeleteOpen(true)}
+          >
+            Poista
+          </ConsoleButton>
+        </div>
       </div>
 
       {/* Calibration or segment steppers */}
@@ -186,30 +234,141 @@ function ClockAdminItem({ clock }: { clock: ShipClock }) {
         </div>
       )}
 
-      <div className="flex flex-wrap items-end gap-1.5 pt-1 border-t border-[var(--theme-border-soft)]">
-        <div className="flex-1 min-w-[160px]">
+      {expanded && (
+        <div className="space-y-2 pt-2 border-t border-[var(--theme-border-soft)]">
           <Input
-            label="Valmistumisen huomio / palkinto (PJ)"
+            label="Kellon nimi"
+            aria-label={`${clock.title} nimi`}
             size="compact"
+            value={titleDraft}
+            onChange={(e) => setTitleDraft(e.target.value)}
+          />
+          <TextArea
+            label="Kuvaus"
+            aria-label={`${clock.title} kuvaus`}
+            size="compact"
+            rows={2}
+            value={descDraft}
+            onChange={(e) => setDescDraft(e.target.value)}
+            placeholder="Mitä kellon täyttyminen saa aikaan?"
+          />
+          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-2">
+            <Select
+              label="Kategoria"
+              aria-label={`${clock.title} kategoria`}
+              size="compact"
+              value={categoryDraft}
+              onChange={(e) => setCategoryDraft(e.target.value as "tutkimus" | "projekti")}
+              options={[
+                { value: "tutkimus", label: "Tutkimus" },
+                { value: "projekti", label: "Projekti" },
+              ]}
+            />
+            <Select
+              label="Laajuus"
+              aria-label={`${clock.title} laajuus`}
+              size="compact"
+              value={scopeDraft}
+              onChange={(e) => {
+                const next = e.target.value as "ship" | "character";
+                setScopeDraft(next);
+                if (next === "ship") setCharacterIdDraft("");
+              }}
+              options={[
+                { value: "ship", label: "Koko miehistön yhteinen" },
+                { value: "character", label: "Hahmon oma" },
+              ]}
+            />
+          </div>
+          {scopeDraft === "character" && (
+            <Select
+              label="Hahmo"
+              aria-label={`${clock.title} hahmo`}
+              size="compact"
+              value={characterIdDraft}
+              onChange={(e) => setCharacterIdDraft(e.target.value)}
+              options={[
+                { value: "", label: "Valitse hahmo..." },
+                ...crewCharacters.map((c) => ({
+                  value: String(c.id),
+                  label: c.name,
+                })),
+              ]}
+            />
+          )}
+          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-2">
+            <Select
+              label="Liitetty osasto"
+              aria-label={`${clock.title} osasto`}
+              size="compact"
+              value={roomKeyDraft}
+              onChange={(e) => setRoomKeyDraft(e.target.value)}
+              options={[
+                { value: "", label: "Ei rajattu osastoon" },
+                ...rooms
+                  .filter((r) => r.kind !== "cabin")
+                  .map((r) => ({
+                    value: r.key,
+                    label: `K0${r.deckNumber}: ${r.name}`,
+                  })),
+              ]}
+            />
+            <Select
+              label="Osioiden määrä"
+              aria-label={`${clock.title} koko`}
+              size="compact"
+              value={segmentsTotalDraft}
+              onChange={(e) => setSegmentsTotalDraft(e.target.value)}
+              options={[
+                ...(clock.segmentsTotal === null
+                  ? [{ value: "", label: "Odottaa mitoitusta" }]
+                  : []),
+                ...SEGMENT_CHOICES.map((seg) => ({
+                  value: String(seg),
+                  label: `${seg} osaa`,
+                })),
+              ]}
+            />
+          </div>
+          <TextArea
+            label="Valmistumisen huomio / palkinto (PJ)"
+            aria-label={`${clock.title} palkinto`}
+            size="compact"
+            rows={2}
             value={notesDraft}
             onChange={(e) => setNotesDraft(e.target.value)}
             placeholder="Mitä kellon täyttyminen tuo peliin?"
           />
+          <div className="flex justify-end">
+            <ConsoleButton
+              variant="primary"
+              size="compact"
+              loading={updateClockMutation.isPending}
+              disabled={!titleDraft.trim()}
+              onClick={() =>
+                updateClockMutation.mutate({
+                  id: clock.id,
+                  title: titleDraft.trim(),
+                  description: descDraft.trim(),
+                  category: categoryDraft,
+                  scope: scopeDraft,
+                  characterId:
+                    scopeDraft === "character" && characterIdDraft
+                      ? Number(characterIdDraft)
+                      : null,
+                  roomKey: roomKeyDraft || null,
+                  ...(segmentsTotalDraft
+                    ? { segmentsTotal: Number(segmentsTotalDraft) as ProgressClockSegments }
+                    : {}),
+                  completionNotes: notesDraft.trim() || null,
+                })
+              }
+            >
+              Tallenna kello
+            </ConsoleButton>
+          </div>
         </div>
-        <ConsoleButton
-          variant="outline"
-          size="compact"
-          loading={updateClockMutation.isPending}
-          onClick={() =>
-            updateClockMutation.mutate({
-              id: clock.id,
-              completionNotes: notesDraft.trim() || null,
-            })
-          }
-        >
-          Tallenna
-        </ConsoleButton>
-      </div>
+      )}
 
       <ConfirmDialog
         open={confirmDeleteOpen}
@@ -668,7 +827,12 @@ export function GmCommandSheetContent({
           ) : (
             <div className="space-y-2">
               {sortedClocks.map((clock) => (
-                <ClockAdminItem key={clock.id} clock={clock} />
+                <ClockAdminItem
+                  key={clock.id}
+                  clock={clock}
+                  rooms={overview.rooms}
+                  crewCharacters={overview.crewCharacters}
+                />
               ))}
             </div>
           )}

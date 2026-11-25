@@ -1469,8 +1469,11 @@ export class ShipService implements OnModuleInit {
     );
 
     const completedEpisodes = linkedRows.filter((ep) => ep.status === "completed");
+    const latestCompletedEpisode = completedEpisodes[completedEpisodes.length - 1] ?? null;
     const pendingSourceEpisode =
-      completedEpisodes.find((ep) => !resolvedEpisodeIds.has(ep.episodeId)) ?? null;
+      latestCompletedEpisode && !resolvedEpisodeIds.has(latestCompletedEpisode.episodeId)
+        ? latestCompletedEpisode
+        : null;
 
     const existingDraftTurn = pendingSourceEpisode
       ? (turns.find(
